@@ -132,17 +132,70 @@ impl VpcAccessService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vpcaccess_v1::client::VpcAccessService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_vpcaccess_v1::model::Connector;
+    /// use google_cloud_vpcaccess_v1::Result;
+    /// async fn sample(
+    ///    client: &VpcAccessService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_connector()
+    ///         .set_parent(parent).set_connector_id("connector_id_value")
+    ///         .set_connector(
+    ///             Connector::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_connector(&self) -> super::builder::vpc_access_service::CreateConnector {
         super::builder::vpc_access_service::CreateConnector::new(self.inner.clone())
     }
 
     /// Gets a Serverless VPC Access connector. Returns NOT_FOUND if the resource
     /// does not exist.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vpcaccess_v1::client::VpcAccessService;
+    /// use google_cloud_vpcaccess_v1::Result;
+    /// async fn sample(
+    ///    client: &VpcAccessService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_connector()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_connector(&self) -> super::builder::vpc_access_service::GetConnector {
         super::builder::vpc_access_service::GetConnector::new(self.inner.clone())
     }
 
     /// Lists Serverless VPC Access connectors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vpcaccess_v1::client::VpcAccessService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_vpcaccess_v1::Result;
+    /// async fn sample(
+    ///    client: &VpcAccessService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_connectors()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_connectors(&self) -> super::builder::vpc_access_service::ListConnectors {
         super::builder::vpc_access_service::ListConnectors::new(self.inner.clone())
     }
@@ -159,11 +212,44 @@ impl VpcAccessService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vpcaccess_v1::client::VpcAccessService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_vpcaccess_v1::Result;
+    /// async fn sample(
+    ///    client: &VpcAccessService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_connector()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_connector(&self) -> super::builder::vpc_access_service::DeleteConnector {
         super::builder::vpc_access_service::DeleteConnector::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vpcaccess_v1::client::VpcAccessService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_vpcaccess_v1::Result;
+    /// async fn sample(
+    ///    client: &VpcAccessService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::vpc_access_service::ListLocations {
         super::builder::vpc_access_service::ListLocations::new(self.inner.clone())
     }
@@ -171,6 +257,24 @@ impl VpcAccessService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vpcaccess_v1::client::VpcAccessService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_vpcaccess_v1::Result;
+    /// async fn sample(
+    ///    client: &VpcAccessService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::vpc_access_service::ListOperations {
         super::builder::vpc_access_service::ListOperations::new(self.inner.clone())
     }
@@ -178,6 +282,21 @@ impl VpcAccessService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vpcaccess_v1::client::VpcAccessService;
+    /// use google_cloud_vpcaccess_v1::Result;
+    /// async fn sample(
+    ///    client: &VpcAccessService
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::vpc_access_service::GetOperation {
         super::builder::vpc_access_service::GetOperation::new(self.inner.clone())
     }

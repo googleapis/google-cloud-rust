@@ -127,6 +127,21 @@ impl Lineage {
     /// Updates the process and run if they already exist.
     /// Mapped from Open Lineage specification:
     /// <https://github.com/OpenLineage/OpenLineage/blob/main/spec/OpenLineage.json>.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::client::Lineage;
+    /// use google_cloud_datacatalog_lineage_v1::Result;
+    /// async fn sample(
+    ///    client: &Lineage
+    /// ) -> Result<()> {
+    ///     let response = client.process_open_lineage_run_event()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn process_open_lineage_run_event(
         &self,
     ) -> super::builder::lineage::ProcessOpenLineageRunEvent {
@@ -134,22 +149,95 @@ impl Lineage {
     }
 
     /// Creates a new process.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::client::Lineage;
+    /// use google_cloud_datacatalog_lineage_v1::model::Process;
+    /// use google_cloud_datacatalog_lineage_v1::Result;
+    /// async fn sample(
+    ///    client: &Lineage, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_process()
+    ///         .set_parent(parent)
+    ///         .set_process(
+    ///             Process::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_process(&self) -> super::builder::lineage::CreateProcess {
         super::builder::lineage::CreateProcess::new(self.inner.clone())
     }
 
     /// Updates a process.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::client::Lineage;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_datacatalog_lineage_v1::model::Process;
+    /// use google_cloud_datacatalog_lineage_v1::Result;
+    /// async fn sample(
+    ///    client: &Lineage, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_process()
+    ///         .set_process(
+    ///             Process::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_process(&self) -> super::builder::lineage::UpdateProcess {
         super::builder::lineage::UpdateProcess::new(self.inner.clone())
     }
 
     /// Gets the details of the specified process.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::client::Lineage;
+    /// use google_cloud_datacatalog_lineage_v1::Result;
+    /// async fn sample(
+    ///    client: &Lineage, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_process()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_process(&self) -> super::builder::lineage::GetProcess {
         super::builder::lineage::GetProcess::new(self.inner.clone())
     }
 
     /// List processes in the given project and location. List order is descending
     /// by insertion time.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::client::Lineage;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_datacatalog_lineage_v1::Result;
+    /// async fn sample(
+    ///    client: &Lineage, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_processes()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_processes(&self) -> super::builder::lineage::ListProcesses {
         super::builder::lineage::ListProcesses::new(self.inner.clone())
     }
@@ -165,27 +253,115 @@ impl Lineage {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::client::Lineage;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_datacatalog_lineage_v1::Result;
+    /// async fn sample(
+    ///    client: &Lineage, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_process()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_process(&self) -> super::builder::lineage::DeleteProcess {
         super::builder::lineage::DeleteProcess::new(self.inner.clone())
     }
 
     /// Creates a new run.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::client::Lineage;
+    /// use google_cloud_datacatalog_lineage_v1::model::Run;
+    /// use google_cloud_datacatalog_lineage_v1::Result;
+    /// async fn sample(
+    ///    client: &Lineage, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_run()
+    ///         .set_parent(parent)
+    ///         .set_run(
+    ///             Run::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_run(&self) -> super::builder::lineage::CreateRun {
         super::builder::lineage::CreateRun::new(self.inner.clone())
     }
 
     /// Updates a run.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::client::Lineage;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_datacatalog_lineage_v1::model::Run;
+    /// use google_cloud_datacatalog_lineage_v1::Result;
+    /// async fn sample(
+    ///    client: &Lineage, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_run()
+    ///         .set_run(
+    ///             Run::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_run(&self) -> super::builder::lineage::UpdateRun {
         super::builder::lineage::UpdateRun::new(self.inner.clone())
     }
 
     /// Gets the details of the specified run.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::client::Lineage;
+    /// use google_cloud_datacatalog_lineage_v1::Result;
+    /// async fn sample(
+    ///    client: &Lineage, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_run()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_run(&self) -> super::builder::lineage::GetRun {
         super::builder::lineage::GetRun::new(self.inner.clone())
     }
 
     /// Lists runs in the given project and location. List order is descending by
     /// `start_time`.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::client::Lineage;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_datacatalog_lineage_v1::Result;
+    /// async fn sample(
+    ///    client: &Lineage, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_runs()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_runs(&self) -> super::builder::lineage::ListRuns {
         super::builder::lineage::ListRuns::new(self.inner.clone())
     }
@@ -201,27 +377,108 @@ impl Lineage {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::client::Lineage;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_datacatalog_lineage_v1::Result;
+    /// async fn sample(
+    ///    client: &Lineage, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_run()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_run(&self) -> super::builder::lineage::DeleteRun {
         super::builder::lineage::DeleteRun::new(self.inner.clone())
     }
 
     /// Creates a new lineage event.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::client::Lineage;
+    /// use google_cloud_datacatalog_lineage_v1::model::LineageEvent;
+    /// use google_cloud_datacatalog_lineage_v1::Result;
+    /// async fn sample(
+    ///    client: &Lineage, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_lineage_event()
+    ///         .set_parent(parent)
+    ///         .set_lineage_event(
+    ///             LineageEvent::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_lineage_event(&self) -> super::builder::lineage::CreateLineageEvent {
         super::builder::lineage::CreateLineageEvent::new(self.inner.clone())
     }
 
     /// Gets details of a specified lineage event.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::client::Lineage;
+    /// use google_cloud_datacatalog_lineage_v1::Result;
+    /// async fn sample(
+    ///    client: &Lineage, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_lineage_event()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_lineage_event(&self) -> super::builder::lineage::GetLineageEvent {
         super::builder::lineage::GetLineageEvent::new(self.inner.clone())
     }
 
     /// Lists lineage events in the given project and location. The list order is
     /// not defined.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::client::Lineage;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_datacatalog_lineage_v1::Result;
+    /// async fn sample(
+    ///    client: &Lineage, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_lineage_events()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_lineage_events(&self) -> super::builder::lineage::ListLineageEvents {
         super::builder::lineage::ListLineageEvents::new(self.inner.clone())
     }
 
     /// Deletes the lineage event with the specified name.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::client::Lineage;
+    /// use google_cloud_datacatalog_lineage_v1::Result;
+    /// async fn sample(
+    ///    client: &Lineage, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_lineage_event()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_lineage_event(&self) -> super::builder::lineage::DeleteLineageEvent {
         super::builder::lineage::DeleteLineageEvent::new(self.inner.clone())
     }
@@ -235,6 +492,24 @@ impl Lineage {
     /// You can retrieve links in every project where you have the
     /// `datalineage.events.get` permission. The project provided in the URL
     /// is used for Billing and Quota.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::client::Lineage;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_datacatalog_lineage_v1::Result;
+    /// async fn sample(
+    ///    client: &Lineage
+    /// ) -> Result<()> {
+    ///     let mut list = client.search_links()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn search_links(&self) -> super::builder::lineage::SearchLinks {
         super::builder::lineage::SearchLinks::new(self.inner.clone())
     }
@@ -255,6 +530,24 @@ impl Lineage {
     /// URL is used for Billing and Quota.
     ///
     /// [google.cloud.datacatalog.lineage.v1.Lineage.SearchLinks]: crate::client::Lineage::search_links
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::client::Lineage;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_datacatalog_lineage_v1::Result;
+    /// async fn sample(
+    ///    client: &Lineage
+    /// ) -> Result<()> {
+    ///     let mut list = client.batch_search_link_processes()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn batch_search_link_processes(&self) -> super::builder::lineage::BatchSearchLinkProcesses {
         super::builder::lineage::BatchSearchLinkProcesses::new(self.inner.clone())
     }
@@ -262,6 +555,24 @@ impl Lineage {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::client::Lineage;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_datacatalog_lineage_v1::Result;
+    /// async fn sample(
+    ///    client: &Lineage
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::lineage::ListOperations {
         super::builder::lineage::ListOperations::new(self.inner.clone())
     }
@@ -269,6 +580,21 @@ impl Lineage {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::client::Lineage;
+    /// use google_cloud_datacatalog_lineage_v1::Result;
+    /// async fn sample(
+    ///    client: &Lineage
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::lineage::GetOperation {
         super::builder::lineage::GetOperation::new(self.inner.clone())
     }
@@ -276,6 +602,20 @@ impl Lineage {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::client::Lineage;
+    /// use google_cloud_datacatalog_lineage_v1::Result;
+    /// async fn sample(
+    ///    client: &Lineage
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::lineage::DeleteOperation {
         super::builder::lineage::DeleteOperation::new(self.inner.clone())
     }
@@ -283,6 +623,20 @@ impl Lineage {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::client::Lineage;
+    /// use google_cloud_datacatalog_lineage_v1::Result;
+    /// async fn sample(
+    ///    client: &Lineage
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::lineage::CancelOperation {
         super::builder::lineage::CancelOperation::new(self.inner.clone())
     }

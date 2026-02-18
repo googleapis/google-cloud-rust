@@ -132,11 +132,46 @@ impl PolicyBindings {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_v3::client::PolicyBindings;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_iam_v3::model::PolicyBinding;
+    /// use google_cloud_iam_v3::Result;
+    /// async fn sample(
+    ///    client: &PolicyBindings, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_policy_binding()
+    ///         .set_parent(parent)
+    ///         .set_policy_binding(
+    ///             PolicyBinding::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_policy_binding(&self) -> super::builder::policy_bindings::CreatePolicyBinding {
         super::builder::policy_bindings::CreatePolicyBinding::new(self.inner.clone())
     }
 
     /// Gets a policy binding.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_v3::client::PolicyBindings;
+    /// use google_cloud_iam_v3::Result;
+    /// async fn sample(
+    ///    client: &PolicyBindings, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_policy_binding()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_policy_binding(&self) -> super::builder::policy_bindings::GetPolicyBinding {
         super::builder::policy_bindings::GetPolicyBinding::new(self.inner.clone())
     }
@@ -156,6 +191,28 @@ impl PolicyBindings {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_v3::client::PolicyBindings;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_iam_v3::model::PolicyBinding;
+    /// use google_cloud_iam_v3::Result;
+    /// async fn sample(
+    ///    client: &PolicyBindings, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_policy_binding()
+    ///         .set_policy_binding(
+    ///             PolicyBinding::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_policy_binding(&self) -> super::builder::policy_bindings::UpdatePolicyBinding {
         super::builder::policy_bindings::UpdatePolicyBinding::new(self.inner.clone())
     }
@@ -173,17 +230,68 @@ impl PolicyBindings {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_v3::client::PolicyBindings;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_iam_v3::Result;
+    /// async fn sample(
+    ///    client: &PolicyBindings, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_policy_binding()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_policy_binding(&self) -> super::builder::policy_bindings::DeletePolicyBinding {
         super::builder::policy_bindings::DeletePolicyBinding::new(self.inner.clone())
     }
 
     /// Lists policy bindings.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_v3::client::PolicyBindings;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_iam_v3::Result;
+    /// async fn sample(
+    ///    client: &PolicyBindings, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_policy_bindings()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_policy_bindings(&self) -> super::builder::policy_bindings::ListPolicyBindings {
         super::builder::policy_bindings::ListPolicyBindings::new(self.inner.clone())
     }
 
     /// Search policy bindings by target. Returns all policy binding objects bound
     /// directly to target.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_v3::client::PolicyBindings;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_iam_v3::Result;
+    /// async fn sample(
+    ///    client: &PolicyBindings
+    /// ) -> Result<()> {
+    ///     let mut list = client.search_target_policy_bindings()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn search_target_policy_bindings(
         &self,
     ) -> super::builder::policy_bindings::SearchTargetPolicyBindings {
@@ -193,6 +301,21 @@ impl PolicyBindings {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_v3::client::PolicyBindings;
+    /// use google_cloud_iam_v3::Result;
+    /// async fn sample(
+    ///    client: &PolicyBindings
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::policy_bindings::GetOperation {
         super::builder::policy_bindings::GetOperation::new(self.inner.clone())
     }
@@ -317,6 +440,26 @@ impl PrincipalAccessBoundaryPolicies {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_v3::client::PrincipalAccessBoundaryPolicies;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_iam_v3::model::PrincipalAccessBoundaryPolicy;
+    /// use google_cloud_iam_v3::Result;
+    /// async fn sample(
+    ///    client: &PrincipalAccessBoundaryPolicies, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_principal_access_boundary_policy()
+    ///         .set_parent(parent)
+    ///         .set_principal_access_boundary_policy(
+    ///             PrincipalAccessBoundaryPolicy::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_principal_access_boundary_policy(
         &self,
     ) -> super::builder::principal_access_boundary_policies::CreatePrincipalAccessBoundaryPolicy
@@ -327,6 +470,21 @@ impl PrincipalAccessBoundaryPolicies {
     }
 
     /// Gets a principal access boundary policy.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_v3::client::PrincipalAccessBoundaryPolicies;
+    /// use google_cloud_iam_v3::Result;
+    /// async fn sample(
+    ///    client: &PrincipalAccessBoundaryPolicies, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_principal_access_boundary_policy()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_principal_access_boundary_policy(
         &self,
     ) -> super::builder::principal_access_boundary_policies::GetPrincipalAccessBoundaryPolicy {
@@ -346,6 +504,28 @@ impl PrincipalAccessBoundaryPolicies {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_v3::client::PrincipalAccessBoundaryPolicies;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_iam_v3::model::PrincipalAccessBoundaryPolicy;
+    /// use google_cloud_iam_v3::Result;
+    /// async fn sample(
+    ///    client: &PrincipalAccessBoundaryPolicies, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_principal_access_boundary_policy()
+    ///         .set_principal_access_boundary_policy(
+    ///             PrincipalAccessBoundaryPolicy::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_principal_access_boundary_policy(
         &self,
     ) -> super::builder::principal_access_boundary_policies::UpdatePrincipalAccessBoundaryPolicy
@@ -366,6 +546,21 @@ impl PrincipalAccessBoundaryPolicies {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_v3::client::PrincipalAccessBoundaryPolicies;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_iam_v3::Result;
+    /// async fn sample(
+    ///    client: &PrincipalAccessBoundaryPolicies, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_principal_access_boundary_policy()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_principal_access_boundary_policy(
         &self,
     ) -> super::builder::principal_access_boundary_policies::DeletePrincipalAccessBoundaryPolicy
@@ -376,6 +571,24 @@ impl PrincipalAccessBoundaryPolicies {
     }
 
     /// Lists principal access boundary policies.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_v3::client::PrincipalAccessBoundaryPolicies;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_iam_v3::Result;
+    /// async fn sample(
+    ///    client: &PrincipalAccessBoundaryPolicies, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_principal_access_boundary_policies()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_principal_access_boundary_policies(
         &self,
     ) -> super::builder::principal_access_boundary_policies::ListPrincipalAccessBoundaryPolicies
@@ -387,6 +600,24 @@ impl PrincipalAccessBoundaryPolicies {
 
     /// Returns all policy bindings that bind a specific policy if a user has
     /// searchPolicyBindings permission on that policy.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_v3::client::PrincipalAccessBoundaryPolicies;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_iam_v3::Result;
+    /// async fn sample(
+    ///    client: &PrincipalAccessBoundaryPolicies
+    /// ) -> Result<()> {
+    ///     let mut list = client.search_principal_access_boundary_policy_bindings()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn search_principal_access_boundary_policy_bindings(&self) -> super::builder::principal_access_boundary_policies::SearchPrincipalAccessBoundaryPolicyBindings
     {
         super::builder::principal_access_boundary_policies::SearchPrincipalAccessBoundaryPolicyBindings::new(self.inner.clone())
@@ -395,6 +626,21 @@ impl PrincipalAccessBoundaryPolicies {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_v3::client::PrincipalAccessBoundaryPolicies;
+    /// use google_cloud_iam_v3::Result;
+    /// async fn sample(
+    ///    client: &PrincipalAccessBoundaryPolicies
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(
         &self,
     ) -> super::builder::principal_access_boundary_policies::GetOperation {

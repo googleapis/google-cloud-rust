@@ -120,18 +120,67 @@ impl ConfidentialComputing {
     }
 
     /// Creates a new Challenge in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_confidentialcomputing_v1::client::ConfidentialComputing;
+    /// use google_cloud_confidentialcomputing_v1::model::Challenge;
+    /// use google_cloud_confidentialcomputing_v1::Result;
+    /// async fn sample(
+    ///    client: &ConfidentialComputing, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_challenge()
+    ///         .set_parent(parent)
+    ///         .set_challenge(
+    ///             Challenge::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_challenge(&self) -> super::builder::confidential_computing::CreateChallenge {
         super::builder::confidential_computing::CreateChallenge::new(self.inner.clone())
     }
 
     /// Verifies the provided attestation info, returning a signed attestation
     /// token.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_confidentialcomputing_v1::client::ConfidentialComputing;
+    /// use google_cloud_confidentialcomputing_v1::Result;
+    /// async fn sample(
+    ///    client: &ConfidentialComputing
+    /// ) -> Result<()> {
+    ///     let response = client.verify_attestation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn verify_attestation(&self) -> super::builder::confidential_computing::VerifyAttestation {
         super::builder::confidential_computing::VerifyAttestation::new(self.inner.clone())
     }
 
     /// Verifies whether the provided attestation info is valid, returning a signed
     /// attestation token if so.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_confidentialcomputing_v1::client::ConfidentialComputing;
+    /// use google_cloud_confidentialcomputing_v1::Result;
+    /// async fn sample(
+    ///    client: &ConfidentialComputing
+    /// ) -> Result<()> {
+    ///     let response = client.verify_confidential_space()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn verify_confidential_space(
         &self,
     ) -> super::builder::confidential_computing::VerifyConfidentialSpace {
@@ -140,6 +189,21 @@ impl ConfidentialComputing {
 
     /// Verifies the provided Confidential GKE attestation info, returning a signed
     /// OIDC token.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_confidentialcomputing_v1::client::ConfidentialComputing;
+    /// use google_cloud_confidentialcomputing_v1::Result;
+    /// async fn sample(
+    ///    client: &ConfidentialComputing
+    /// ) -> Result<()> {
+    ///     let response = client.verify_confidential_gke()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn verify_confidential_gke(
         &self,
     ) -> super::builder::confidential_computing::VerifyConfidentialGke {
@@ -154,11 +218,44 @@ impl ConfidentialComputing {
     ///   `GET /v1/projects/{project_id}/locations`. This may include public
     ///   locations as well as private or other locations specifically visible
     ///   to the project.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_confidentialcomputing_v1::client::ConfidentialComputing;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_confidentialcomputing_v1::Result;
+    /// async fn sample(
+    ///    client: &ConfidentialComputing
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::confidential_computing::ListLocations {
         super::builder::confidential_computing::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_confidentialcomputing_v1::client::ConfidentialComputing;
+    /// use google_cloud_confidentialcomputing_v1::Result;
+    /// async fn sample(
+    ///    client: &ConfidentialComputing
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::confidential_computing::GetLocation {
         super::builder::confidential_computing::GetLocation::new(self.inner.clone())
     }

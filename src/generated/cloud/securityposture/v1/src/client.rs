@@ -125,11 +125,47 @@ impl SecurityPosture {
     /// "PREVIEW,GOOGLE_INTERNAL"; Postures Lists Postures in a given organization
     /// and location. In case a posture has multiple revisions, the latest revision
     /// as per UpdateTime will be returned.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::client::SecurityPosture;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_securityposture_v1::Result;
+    /// async fn sample(
+    ///    client: &SecurityPosture, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_postures()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_postures(&self) -> super::builder::security_posture::ListPostures {
         super::builder::security_posture::ListPostures::new(self.inner.clone())
     }
 
     /// Lists revisions of a Posture in a given organization and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::client::SecurityPosture;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_securityposture_v1::Result;
+    /// async fn sample(
+    ///    client: &SecurityPosture
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_posture_revisions()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_posture_revisions(&self) -> super::builder::security_posture::ListPostureRevisions {
         super::builder::security_posture::ListPostureRevisions::new(self.inner.clone())
     }
@@ -140,6 +176,21 @@ impl SecurityPosture {
     /// NOT_FOUND error is returned if the revision_id or the Posture name does not
     /// exist. In case revision_id is not provided then the latest Posture revision
     /// by UpdateTime is returned.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::client::SecurityPosture;
+    /// use google_cloud_securityposture_v1::Result;
+    /// async fn sample(
+    ///    client: &SecurityPosture, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_posture()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_posture(&self) -> super::builder::security_posture::GetPosture {
         super::builder::security_posture::GetPosture::new(self.inner.clone())
     }
@@ -158,6 +209,26 @@ impl SecurityPosture {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::client::SecurityPosture;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_securityposture_v1::model::Posture;
+    /// use google_cloud_securityposture_v1::Result;
+    /// async fn sample(
+    ///    client: &SecurityPosture, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_posture()
+    ///         .set_parent(parent).set_posture_id("posture_id_value")
+    ///         .set_posture(
+    ///             Posture::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_posture(&self) -> super::builder::security_posture::CreatePosture {
         super::builder::security_posture::CreatePosture::new(self.inner.clone())
     }
@@ -184,6 +255,28 @@ impl SecurityPosture {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::client::SecurityPosture;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_securityposture_v1::model::Posture;
+    /// use google_cloud_securityposture_v1::Result;
+    /// async fn sample(
+    ///    client: &SecurityPosture, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_posture()
+    ///         .set_posture(
+    ///             Posture::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_posture(&self) -> super::builder::security_posture::UpdatePosture {
         super::builder::security_posture::UpdatePosture::new(self.inner.clone())
     }
@@ -201,6 +294,21 @@ impl SecurityPosture {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::client::SecurityPosture;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_securityposture_v1::Result;
+    /// async fn sample(
+    ///    client: &SecurityPosture, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_posture()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_posture(&self) -> super::builder::security_posture::DeletePosture {
         super::builder::security_posture::DeletePosture::new(self.inner.clone())
     }
@@ -218,12 +326,46 @@ impl SecurityPosture {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::client::SecurityPosture;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_securityposture_v1::Result;
+    /// async fn sample(
+    ///    client: &SecurityPosture
+    /// ) -> Result<()> {
+    ///     let response = client.extract_posture()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn extract_posture(&self) -> super::builder::security_posture::ExtractPosture {
         super::builder::security_posture::ExtractPosture::new(self.inner.clone())
     }
 
     /// PostureDeployments
     /// Lists PostureDeployments in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::client::SecurityPosture;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_securityposture_v1::Result;
+    /// async fn sample(
+    ///    client: &SecurityPosture, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_posture_deployments()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_posture_deployments(
         &self,
     ) -> super::builder::security_posture::ListPostureDeployments {
@@ -231,6 +373,21 @@ impl SecurityPosture {
     }
 
     /// Gets details of a single PostureDeployment.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::client::SecurityPosture;
+    /// use google_cloud_securityposture_v1::Result;
+    /// async fn sample(
+    ///    client: &SecurityPosture, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_posture_deployment()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_posture_deployment(&self) -> super::builder::security_posture::GetPostureDeployment {
         super::builder::security_posture::GetPostureDeployment::new(self.inner.clone())
     }
@@ -246,6 +403,26 @@ impl SecurityPosture {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::client::SecurityPosture;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_securityposture_v1::model::PostureDeployment;
+    /// use google_cloud_securityposture_v1::Result;
+    /// async fn sample(
+    ///    client: &SecurityPosture, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_posture_deployment()
+    ///         .set_parent(parent)
+    ///         .set_posture_deployment(
+    ///             PostureDeployment::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_posture_deployment(
         &self,
     ) -> super::builder::security_posture::CreatePostureDeployment {
@@ -263,6 +440,28 @@ impl SecurityPosture {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::client::SecurityPosture;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_securityposture_v1::model::PostureDeployment;
+    /// use google_cloud_securityposture_v1::Result;
+    /// async fn sample(
+    ///    client: &SecurityPosture, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_posture_deployment()
+    ///         .set_posture_deployment(
+    ///             PostureDeployment::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_posture_deployment(
         &self,
     ) -> super::builder::security_posture::UpdatePostureDeployment {
@@ -280,6 +479,21 @@ impl SecurityPosture {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::client::SecurityPosture;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_securityposture_v1::Result;
+    /// async fn sample(
+    ///    client: &SecurityPosture, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_posture_deployment()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_posture_deployment(
         &self,
     ) -> super::builder::security_posture::DeletePostureDeployment {
@@ -288,6 +502,24 @@ impl SecurityPosture {
 
     /// PostureTemplates
     /// Lists all the PostureTemplates available to the user.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::client::SecurityPosture;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_securityposture_v1::Result;
+    /// async fn sample(
+    ///    client: &SecurityPosture, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_posture_templates()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_posture_templates(&self) -> super::builder::security_posture::ListPostureTemplates {
         super::builder::security_posture::ListPostureTemplates::new(self.inner.clone())
     }
@@ -298,16 +530,64 @@ impl SecurityPosture {
     /// NOT_FOUND error is returned if the revision_id or the PostureTemplate name
     /// does not exist. In case revision_id is not provided then the
     /// PostureTemplate with latest revision_id is returned.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::client::SecurityPosture;
+    /// use google_cloud_securityposture_v1::Result;
+    /// async fn sample(
+    ///    client: &SecurityPosture, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_posture_template()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_posture_template(&self) -> super::builder::security_posture::GetPostureTemplate {
         super::builder::security_posture::GetPostureTemplate::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::client::SecurityPosture;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_securityposture_v1::Result;
+    /// async fn sample(
+    ///    client: &SecurityPosture
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::security_posture::ListLocations {
         super::builder::security_posture::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::client::SecurityPosture;
+    /// use google_cloud_securityposture_v1::Result;
+    /// async fn sample(
+    ///    client: &SecurityPosture
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::security_posture::GetLocation {
         super::builder::security_posture::GetLocation::new(self.inner.clone())
     }
@@ -315,6 +595,24 @@ impl SecurityPosture {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::client::SecurityPosture;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_securityposture_v1::Result;
+    /// async fn sample(
+    ///    client: &SecurityPosture
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::security_posture::ListOperations {
         super::builder::security_posture::ListOperations::new(self.inner.clone())
     }
@@ -322,6 +620,21 @@ impl SecurityPosture {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::client::SecurityPosture;
+    /// use google_cloud_securityposture_v1::Result;
+    /// async fn sample(
+    ///    client: &SecurityPosture
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::security_posture::GetOperation {
         super::builder::security_posture::GetOperation::new(self.inner.clone())
     }
@@ -329,6 +642,20 @@ impl SecurityPosture {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::client::SecurityPosture;
+    /// use google_cloud_securityposture_v1::Result;
+    /// async fn sample(
+    ///    client: &SecurityPosture
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::security_posture::DeleteOperation {
         super::builder::security_posture::DeleteOperation::new(self.inner.clone())
     }
@@ -336,6 +663,20 @@ impl SecurityPosture {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::client::SecurityPosture;
+    /// use google_cloud_securityposture_v1::Result;
+    /// async fn sample(
+    ///    client: &SecurityPosture
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::security_posture::CancelOperation {
         super::builder::security_posture::CancelOperation::new(self.inner.clone())
     }

@@ -147,6 +147,21 @@ impl Publisher {
     }
 
     /// Publish events to a ChannelConnection in a partner's project.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_publishing_v1::client::Publisher;
+    /// use google_cloud_eventarc_publishing_v1::Result;
+    /// async fn sample(
+    ///    client: &Publisher
+    /// ) -> Result<()> {
+    ///     let response = client.publish_channel_connection_events()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn publish_channel_connection_events(
         &self,
     ) -> super::builder::publisher::PublishChannelConnectionEvents {
@@ -154,11 +169,41 @@ impl Publisher {
     }
 
     /// Publish events to a subscriber's channel.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_publishing_v1::client::Publisher;
+    /// use google_cloud_eventarc_publishing_v1::Result;
+    /// async fn sample(
+    ///    client: &Publisher
+    /// ) -> Result<()> {
+    ///     let response = client.publish_events()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn publish_events(&self) -> super::builder::publisher::PublishEvents {
         super::builder::publisher::PublishEvents::new(self.inner.clone())
     }
 
     /// Publish events to a message bus.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_publishing_v1::client::Publisher;
+    /// use google_cloud_eventarc_publishing_v1::Result;
+    /// async fn sample(
+    ///    client: &Publisher
+    /// ) -> Result<()> {
+    ///     let response = client.publish()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn publish(&self) -> super::builder::publisher::Publish {
         super::builder::publisher::Publish::new(self.inner.clone())
     }

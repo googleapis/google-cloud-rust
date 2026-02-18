@@ -119,6 +119,21 @@ impl Audit {
     }
 
     /// Generates an audit scope report for a framework.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::client::Audit;
+    /// use google_cloud_cloudsecuritycompliance_v1::Result;
+    /// async fn sample(
+    ///    client: &Audit
+    /// ) -> Result<()> {
+    ///     let response = client.generate_framework_audit_scope_report()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn generate_framework_audit_scope_report(
         &self,
     ) -> super::builder::audit::GenerateFrameworkAuditScopeReport {
@@ -136,26 +151,112 @@ impl Audit {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::client::Audit;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::FrameworkAudit;
+    /// use google_cloud_cloudsecuritycompliance_v1::Result;
+    /// async fn sample(
+    ///    client: &Audit, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_framework_audit()
+    ///         .set_parent(parent)
+    ///         .set_framework_audit(
+    ///             FrameworkAudit::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_framework_audit(&self) -> super::builder::audit::CreateFrameworkAudit {
         super::builder::audit::CreateFrameworkAudit::new(self.inner.clone())
     }
 
     /// Lists the framework audits for a given organization, folder, or project.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::client::Audit;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_cloudsecuritycompliance_v1::Result;
+    /// async fn sample(
+    ///    client: &Audit, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_framework_audits()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_framework_audits(&self) -> super::builder::audit::ListFrameworkAudits {
         super::builder::audit::ListFrameworkAudits::new(self.inner.clone())
     }
 
     /// Gets the details for a framework audit.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::client::Audit;
+    /// use google_cloud_cloudsecuritycompliance_v1::Result;
+    /// async fn sample(
+    ///    client: &Audit, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_framework_audit()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_framework_audit(&self) -> super::builder::audit::GetFrameworkAudit {
         super::builder::audit::GetFrameworkAudit::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::client::Audit;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_cloudsecuritycompliance_v1::Result;
+    /// async fn sample(
+    ///    client: &Audit
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::audit::ListLocations {
         super::builder::audit::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::client::Audit;
+    /// use google_cloud_cloudsecuritycompliance_v1::Result;
+    /// async fn sample(
+    ///    client: &Audit
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::audit::GetLocation {
         super::builder::audit::GetLocation::new(self.inner.clone())
     }
@@ -163,6 +264,24 @@ impl Audit {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::client::Audit;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_cloudsecuritycompliance_v1::Result;
+    /// async fn sample(
+    ///    client: &Audit
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::audit::ListOperations {
         super::builder::audit::ListOperations::new(self.inner.clone())
     }
@@ -170,6 +289,21 @@ impl Audit {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::client::Audit;
+    /// use google_cloud_cloudsecuritycompliance_v1::Result;
+    /// async fn sample(
+    ///    client: &Audit
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::audit::GetOperation {
         super::builder::audit::GetOperation::new(self.inner.clone())
     }
@@ -177,6 +311,20 @@ impl Audit {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::client::Audit;
+    /// use google_cloud_cloudsecuritycompliance_v1::Result;
+    /// async fn sample(
+    ///    client: &Audit
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::audit::DeleteOperation {
         super::builder::audit::DeleteOperation::new(self.inner.clone())
     }
@@ -184,6 +332,20 @@ impl Audit {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::client::Audit;
+    /// use google_cloud_cloudsecuritycompliance_v1::Result;
+    /// async fn sample(
+    ///    client: &Audit
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::audit::CancelOperation {
         super::builder::audit::CancelOperation::new(self.inner.clone())
     }
@@ -297,6 +459,27 @@ impl CmEnrollmentService {
     /// an audit.
     /// Use this method to enroll a resource in Compliance Manager or to
     /// create or update feature-specific configurations.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::client::CmEnrollmentService;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::CmEnrollment;
+    /// use google_cloud_cloudsecuritycompliance_v1::Result;
+    /// async fn sample(
+    ///    client: &CmEnrollmentService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_cm_enrollment()
+    ///         .set_cm_enrollment(
+    ///             CmEnrollment::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_cm_enrollment(
         &self,
     ) -> super::builder::cm_enrollment_service::UpdateCmEnrollment {
@@ -307,6 +490,21 @@ impl CmEnrollmentService {
     /// An effective enrollment is either a direct enrollment of a
     /// resource (if it exists), or an enrollment of the closest parent of a
     /// resource that's enrolled in Compliance Manager.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::client::CmEnrollmentService;
+    /// use google_cloud_cloudsecuritycompliance_v1::Result;
+    /// async fn sample(
+    ///    client: &CmEnrollmentService
+    /// ) -> Result<()> {
+    ///     let response = client.calculate_effective_cm_enrollment()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn calculate_effective_cm_enrollment(
         &self,
     ) -> super::builder::cm_enrollment_service::CalculateEffectiveCmEnrollment {
@@ -316,11 +514,44 @@ impl CmEnrollmentService {
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::client::CmEnrollmentService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_cloudsecuritycompliance_v1::Result;
+    /// async fn sample(
+    ///    client: &CmEnrollmentService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::cm_enrollment_service::ListLocations {
         super::builder::cm_enrollment_service::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::client::CmEnrollmentService;
+    /// use google_cloud_cloudsecuritycompliance_v1::Result;
+    /// async fn sample(
+    ///    client: &CmEnrollmentService
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::cm_enrollment_service::GetLocation {
         super::builder::cm_enrollment_service::GetLocation::new(self.inner.clone())
     }
@@ -328,6 +559,24 @@ impl CmEnrollmentService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::client::CmEnrollmentService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_cloudsecuritycompliance_v1::Result;
+    /// async fn sample(
+    ///    client: &CmEnrollmentService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::cm_enrollment_service::ListOperations {
         super::builder::cm_enrollment_service::ListOperations::new(self.inner.clone())
     }
@@ -335,6 +584,21 @@ impl CmEnrollmentService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::client::CmEnrollmentService;
+    /// use google_cloud_cloudsecuritycompliance_v1::Result;
+    /// async fn sample(
+    ///    client: &CmEnrollmentService
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::cm_enrollment_service::GetOperation {
         super::builder::cm_enrollment_service::GetOperation::new(self.inner.clone())
     }
@@ -342,6 +606,20 @@ impl CmEnrollmentService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::client::CmEnrollmentService;
+    /// use google_cloud_cloudsecuritycompliance_v1::Result;
+    /// async fn sample(
+    ///    client: &CmEnrollmentService
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::cm_enrollment_service::DeleteOperation {
         super::builder::cm_enrollment_service::DeleteOperation::new(self.inner.clone())
     }
@@ -349,6 +627,20 @@ impl CmEnrollmentService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::client::CmEnrollmentService;
+    /// use google_cloud_cloudsecuritycompliance_v1::Result;
+    /// async fn sample(
+    ///    client: &CmEnrollmentService
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::cm_enrollment_service::CancelOperation {
         super::builder::cm_enrollment_service::CancelOperation::new(self.inner.clone())
     }
@@ -461,6 +753,24 @@ impl Config {
     /// the parent resource. The latest major version of each framework is
     /// returned.
     /// This method supports pagination.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::client::Config;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_cloudsecuritycompliance_v1::Result;
+    /// async fn sample(
+    ///    client: &Config, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_frameworks()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_frameworks(&self) -> super::builder::config::ListFrameworks {
         super::builder::config::ListFrameworks::new(self.inner.clone())
     }
@@ -470,6 +780,21 @@ impl Config {
     ///
     /// To retrieve a specific major version, include `major_revision_id` in
     /// the request.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::client::Config;
+    /// use google_cloud_cloudsecuritycompliance_v1::Result;
+    /// async fn sample(
+    ///    client: &Config, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_framework()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_framework(&self) -> super::builder::config::GetFramework {
         super::builder::config::GetFramework::new(self.inner.clone())
     }
@@ -477,6 +802,25 @@ impl Config {
     /// Creates a custom framework in a given parent resource.
     /// You can't create built-in frameworks because those are managed by
     /// Google.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::client::Config;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::Framework;
+    /// use google_cloud_cloudsecuritycompliance_v1::Result;
+    /// async fn sample(
+    ///    client: &Config, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_framework()
+    ///         .set_parent(parent).set_framework_id("framework_id_value")
+    ///         .set_framework(
+    ///             Framework::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_framework(&self) -> super::builder::config::CreateFramework {
         super::builder::config::CreateFramework::new(self.inner.clone())
     }
@@ -493,6 +837,27 @@ impl Config {
     ///
     /// You can only update frameworks with the `CUSTOM` type.
     /// A successful update creates a new version of the framework.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::client::Config;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::Framework;
+    /// use google_cloud_cloudsecuritycompliance_v1::Result;
+    /// async fn sample(
+    ///    client: &Config, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_framework()
+    ///         .set_framework(
+    ///             Framework::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_framework(&self) -> super::builder::config::UpdateFramework {
         super::builder::config::UpdateFramework::new(self.inner.clone())
     }
@@ -504,6 +869,20 @@ impl Config {
     ///   with type `CUSTOM`.
     /// - You can't delete frameworks that are deployed to a resource.
     /// - You can't restore a deleted framework. This action is permanent.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::client::Config;
+    /// use google_cloud_cloudsecuritycompliance_v1::Result;
+    /// async fn sample(
+    ///    client: &Config, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_framework()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_framework(&self) -> super::builder::config::DeleteFramework {
         super::builder::config::DeleteFramework::new(self.inner.clone())
     }
@@ -512,6 +891,24 @@ impl Config {
     /// in a given parent resource. The latest major version of each cloud control
     /// is returned.
     /// This method supports pagination.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::client::Config;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_cloudsecuritycompliance_v1::Result;
+    /// async fn sample(
+    ///    client: &Config, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_cloud_controls()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_cloud_controls(&self) -> super::builder::config::ListCloudControls {
         super::builder::config::ListCloudControls::new(self.inner.clone())
     }
@@ -523,6 +920,21 @@ impl Config {
     /// By default, the latest major version of the cloud control is returned.
     /// To retrieve a specific major version, include `major_revision_id` in
     /// the request.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::client::Config;
+    /// use google_cloud_cloudsecuritycompliance_v1::Result;
+    /// async fn sample(
+    ///    client: &Config, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_cloud_control()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_cloud_control(&self) -> super::builder::config::GetCloudControl {
         super::builder::config::GetCloudControl::new(self.inner.clone())
     }
@@ -531,6 +943,25 @@ impl Config {
     /// resource.
     /// You can't create built-in cloud controls because those are managed by
     /// Google.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::client::Config;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::CloudControl;
+    /// use google_cloud_cloudsecuritycompliance_v1::Result;
+    /// async fn sample(
+    ///    client: &Config, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_cloud_control()
+    ///         .set_parent(parent)
+    ///         .set_cloud_control(
+    ///             CloudControl::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_cloud_control(&self) -> super::builder::config::CreateCloudControl {
         super::builder::config::CreateCloudControl::new(self.inner.clone())
     }
@@ -547,6 +978,27 @@ impl Config {
     ///
     /// You can only update cloud controls with the `CUSTOM` type.
     /// A successful update creates a new version of the cloud control.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::client::Config;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::CloudControl;
+    /// use google_cloud_cloudsecuritycompliance_v1::Result;
+    /// async fn sample(
+    ///    client: &Config, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_cloud_control()
+    ///         .set_cloud_control(
+    ///             CloudControl::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_cloud_control(&self) -> super::builder::config::UpdateCloudControl {
         super::builder::config::UpdateCloudControl::new(self.inner.clone())
     }
@@ -559,16 +1011,63 @@ impl Config {
     /// - You can't delete cloud controls if any of the versions are referenced
     ///   by a framework.
     /// - You can't restore a deleted cloud control. This action is permanent.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::client::Config;
+    /// use google_cloud_cloudsecuritycompliance_v1::Result;
+    /// async fn sample(
+    ///    client: &Config, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_cloud_control()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_cloud_control(&self) -> super::builder::config::DeleteCloudControl {
         super::builder::config::DeleteCloudControl::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::client::Config;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_cloudsecuritycompliance_v1::Result;
+    /// async fn sample(
+    ///    client: &Config
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::config::ListLocations {
         super::builder::config::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::client::Config;
+    /// use google_cloud_cloudsecuritycompliance_v1::Result;
+    /// async fn sample(
+    ///    client: &Config
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::config::GetLocation {
         super::builder::config::GetLocation::new(self.inner.clone())
     }
@@ -576,6 +1075,24 @@ impl Config {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::client::Config;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_cloudsecuritycompliance_v1::Result;
+    /// async fn sample(
+    ///    client: &Config
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::config::ListOperations {
         super::builder::config::ListOperations::new(self.inner.clone())
     }
@@ -583,6 +1100,21 @@ impl Config {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::client::Config;
+    /// use google_cloud_cloudsecuritycompliance_v1::Result;
+    /// async fn sample(
+    ///    client: &Config
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::config::GetOperation {
         super::builder::config::GetOperation::new(self.inner.clone())
     }
@@ -590,6 +1122,20 @@ impl Config {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::client::Config;
+    /// use google_cloud_cloudsecuritycompliance_v1::Result;
+    /// async fn sample(
+    ///    client: &Config
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::config::DeleteOperation {
         super::builder::config::DeleteOperation::new(self.inner.clone())
     }
@@ -597,6 +1143,20 @@ impl Config {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::client::Config;
+    /// use google_cloud_cloudsecuritycompliance_v1::Result;
+    /// async fn sample(
+    ///    client: &Config
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::config::CancelOperation {
         super::builder::config::CancelOperation::new(self.inner.clone())
     }
@@ -719,6 +1279,26 @@ impl Deployment {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::client::Deployment;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_cloudsecuritycompliance_v1::model::FrameworkDeployment;
+    /// use google_cloud_cloudsecuritycompliance_v1::Result;
+    /// async fn sample(
+    ///    client: &Deployment, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_framework_deployment()
+    ///         .set_parent(parent)
+    ///         .set_framework_deployment(
+    ///             FrameworkDeployment::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_framework_deployment(
         &self,
     ) -> super::builder::deployment::CreateFrameworkDeployment {
@@ -736,6 +1316,21 @@ impl Deployment {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::client::Deployment;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_cloudsecuritycompliance_v1::Result;
+    /// async fn sample(
+    ///    client: &Deployment, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_framework_deployment()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_framework_deployment(
         &self,
     ) -> super::builder::deployment::DeleteFrameworkDeployment {
@@ -743,11 +1338,44 @@ impl Deployment {
     }
 
     /// Gets details about a framework deployment.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::client::Deployment;
+    /// use google_cloud_cloudsecuritycompliance_v1::Result;
+    /// async fn sample(
+    ///    client: &Deployment, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_framework_deployment()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_framework_deployment(&self) -> super::builder::deployment::GetFrameworkDeployment {
         super::builder::deployment::GetFrameworkDeployment::new(self.inner.clone())
     }
 
     /// Lists the framework deployments in a given parent resource.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::client::Deployment;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_cloudsecuritycompliance_v1::Result;
+    /// async fn sample(
+    ///    client: &Deployment, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_framework_deployments()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_framework_deployments(
         &self,
     ) -> super::builder::deployment::ListFrameworkDeployments {
@@ -755,6 +1383,21 @@ impl Deployment {
     }
 
     /// Gets details about a cloud control deployment.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::client::Deployment;
+    /// use google_cloud_cloudsecuritycompliance_v1::Result;
+    /// async fn sample(
+    ///    client: &Deployment, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_cloud_control_deployment()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_cloud_control_deployment(
         &self,
     ) -> super::builder::deployment::GetCloudControlDeployment {
@@ -762,6 +1405,24 @@ impl Deployment {
     }
 
     /// Lists the cloud conrol deployments in a given parent resource.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::client::Deployment;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_cloudsecuritycompliance_v1::Result;
+    /// async fn sample(
+    ///    client: &Deployment, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_cloud_control_deployments()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_cloud_control_deployments(
         &self,
     ) -> super::builder::deployment::ListCloudControlDeployments {
@@ -769,11 +1430,44 @@ impl Deployment {
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::client::Deployment;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_cloudsecuritycompliance_v1::Result;
+    /// async fn sample(
+    ///    client: &Deployment
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::deployment::ListLocations {
         super::builder::deployment::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::client::Deployment;
+    /// use google_cloud_cloudsecuritycompliance_v1::Result;
+    /// async fn sample(
+    ///    client: &Deployment
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::deployment::GetLocation {
         super::builder::deployment::GetLocation::new(self.inner.clone())
     }
@@ -781,6 +1475,24 @@ impl Deployment {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::client::Deployment;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_cloudsecuritycompliance_v1::Result;
+    /// async fn sample(
+    ///    client: &Deployment
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::deployment::ListOperations {
         super::builder::deployment::ListOperations::new(self.inner.clone())
     }
@@ -788,6 +1500,21 @@ impl Deployment {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::client::Deployment;
+    /// use google_cloud_cloudsecuritycompliance_v1::Result;
+    /// async fn sample(
+    ///    client: &Deployment
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::deployment::GetOperation {
         super::builder::deployment::GetOperation::new(self.inner.clone())
     }
@@ -795,6 +1522,20 @@ impl Deployment {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::client::Deployment;
+    /// use google_cloud_cloudsecuritycompliance_v1::Result;
+    /// async fn sample(
+    ///    client: &Deployment
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::deployment::DeleteOperation {
         super::builder::deployment::DeleteOperation::new(self.inner.clone())
     }
@@ -802,6 +1543,20 @@ impl Deployment {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::client::Deployment;
+    /// use google_cloud_cloudsecuritycompliance_v1::Result;
+    /// async fn sample(
+    ///    client: &Deployment
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::deployment::CancelOperation {
         super::builder::deployment::CancelOperation::new(self.inner.clone())
     }
@@ -910,6 +1665,24 @@ impl Monitoring {
     }
 
     /// Lists the framework compliance summary for a given scope.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::client::Monitoring;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_cloudsecuritycompliance_v1::Result;
+    /// async fn sample(
+    ///    client: &Monitoring, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_framework_compliance_summaries()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_framework_compliance_summaries(
         &self,
     ) -> super::builder::monitoring::ListFrameworkComplianceSummaries {
@@ -917,11 +1690,44 @@ impl Monitoring {
     }
 
     /// Lists the finding summary by category for a given scope.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::client::Monitoring;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_cloudsecuritycompliance_v1::Result;
+    /// async fn sample(
+    ///    client: &Monitoring, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_finding_summaries()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_finding_summaries(&self) -> super::builder::monitoring::ListFindingSummaries {
         super::builder::monitoring::ListFindingSummaries::new(self.inner.clone())
     }
 
     /// Fetches the framework compliance report for a given scope.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::client::Monitoring;
+    /// use google_cloud_cloudsecuritycompliance_v1::Result;
+    /// async fn sample(
+    ///    client: &Monitoring
+    /// ) -> Result<()> {
+    ///     let response = client.fetch_framework_compliance_report()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn fetch_framework_compliance_report(
         &self,
     ) -> super::builder::monitoring::FetchFrameworkComplianceReport {
@@ -929,6 +1735,24 @@ impl Monitoring {
     }
 
     /// Lists the control compliance summary for a given scope.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::client::Monitoring;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_cloudsecuritycompliance_v1::Result;
+    /// async fn sample(
+    ///    client: &Monitoring, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_control_compliance_summaries()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_control_compliance_summaries(
         &self,
     ) -> super::builder::monitoring::ListControlComplianceSummaries {
@@ -936,6 +1760,21 @@ impl Monitoring {
     }
 
     /// Gets the aggregated compliance report over time for a given scope.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::client::Monitoring;
+    /// use google_cloud_cloudsecuritycompliance_v1::Result;
+    /// async fn sample(
+    ///    client: &Monitoring
+    /// ) -> Result<()> {
+    ///     let response = client.aggregate_framework_compliance_report()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn aggregate_framework_compliance_report(
         &self,
     ) -> super::builder::monitoring::AggregateFrameworkComplianceReport {
@@ -943,11 +1782,44 @@ impl Monitoring {
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::client::Monitoring;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_cloudsecuritycompliance_v1::Result;
+    /// async fn sample(
+    ///    client: &Monitoring
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::monitoring::ListLocations {
         super::builder::monitoring::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::client::Monitoring;
+    /// use google_cloud_cloudsecuritycompliance_v1::Result;
+    /// async fn sample(
+    ///    client: &Monitoring
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::monitoring::GetLocation {
         super::builder::monitoring::GetLocation::new(self.inner.clone())
     }
@@ -955,6 +1827,24 @@ impl Monitoring {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::client::Monitoring;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_cloudsecuritycompliance_v1::Result;
+    /// async fn sample(
+    ///    client: &Monitoring
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::monitoring::ListOperations {
         super::builder::monitoring::ListOperations::new(self.inner.clone())
     }
@@ -962,6 +1852,21 @@ impl Monitoring {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::client::Monitoring;
+    /// use google_cloud_cloudsecuritycompliance_v1::Result;
+    /// async fn sample(
+    ///    client: &Monitoring
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::monitoring::GetOperation {
         super::builder::monitoring::GetOperation::new(self.inner.clone())
     }
@@ -969,6 +1874,20 @@ impl Monitoring {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::client::Monitoring;
+    /// use google_cloud_cloudsecuritycompliance_v1::Result;
+    /// async fn sample(
+    ///    client: &Monitoring
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::monitoring::DeleteOperation {
         super::builder::monitoring::DeleteOperation::new(self.inner.clone())
     }
@@ -976,6 +1895,20 @@ impl Monitoring {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudsecuritycompliance_v1::client::Monitoring;
+    /// use google_cloud_cloudsecuritycompliance_v1::Result;
+    /// async fn sample(
+    ///    client: &Monitoring
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::monitoring::CancelOperation {
         super::builder::monitoring::CancelOperation::new(self.inner.clone())
     }

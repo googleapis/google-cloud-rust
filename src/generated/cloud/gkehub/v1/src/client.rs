@@ -138,27 +138,111 @@ impl GkeHub {
     }
 
     /// Lists Memberships in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::client::GkeHub;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_gkehub_v1::Result;
+    /// async fn sample(
+    ///    client: &GkeHub, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_memberships()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_memberships(&self) -> super::builder::gke_hub::ListMemberships {
         super::builder::gke_hub::ListMemberships::new(self.inner.clone())
     }
 
     /// Lists Memberships bound to a Scope. The response includes relevant
     /// Memberships from all regions.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::client::GkeHub;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_gkehub_v1::Result;
+    /// async fn sample(
+    ///    client: &GkeHub
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_bound_memberships()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_bound_memberships(&self) -> super::builder::gke_hub::ListBoundMemberships {
         super::builder::gke_hub::ListBoundMemberships::new(self.inner.clone())
     }
 
     /// Lists Features in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::client::GkeHub;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_gkehub_v1::Result;
+    /// async fn sample(
+    ///    client: &GkeHub, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_features()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_features(&self) -> super::builder::gke_hub::ListFeatures {
         super::builder::gke_hub::ListFeatures::new(self.inner.clone())
     }
 
     /// Gets the details of a Membership.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::client::GkeHub;
+    /// use google_cloud_gkehub_v1::Result;
+    /// async fn sample(
+    ///    client: &GkeHub, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_membership()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_membership(&self) -> super::builder::gke_hub::GetMembership {
         super::builder::gke_hub::GetMembership::new(self.inner.clone())
     }
 
     /// Gets details of a single Feature.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::client::GkeHub;
+    /// use google_cloud_gkehub_v1::Result;
+    /// async fn sample(
+    ///    client: &GkeHub, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_feature()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_feature(&self) -> super::builder::gke_hub::GetFeature {
         super::builder::gke_hub::GetFeature::new(self.inner.clone())
     }
@@ -178,6 +262,26 @@ impl GkeHub {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::client::GkeHub;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_gkehub_v1::model::Membership;
+    /// use google_cloud_gkehub_v1::Result;
+    /// async fn sample(
+    ///    client: &GkeHub, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_membership()
+    ///         .set_parent(parent).set_membership_id("membership_id_value")
+    ///         .set_resource(
+    ///             Membership::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_membership(&self) -> super::builder::gke_hub::CreateMembership {
         super::builder::gke_hub::CreateMembership::new(self.inner.clone())
     }
@@ -193,6 +297,26 @@ impl GkeHub {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::client::GkeHub;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_gkehub_v1::model::Feature;
+    /// use google_cloud_gkehub_v1::Result;
+    /// async fn sample(
+    ///    client: &GkeHub, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_feature()
+    ///         .set_parent(parent).set_feature_id("feature_id_value")
+    ///         .set_resource(
+    ///             Feature::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_feature(&self) -> super::builder::gke_hub::CreateFeature {
         super::builder::gke_hub::CreateFeature::new(self.inner.clone())
     }
@@ -212,6 +336,21 @@ impl GkeHub {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::client::GkeHub;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_gkehub_v1::Result;
+    /// async fn sample(
+    ///    client: &GkeHub, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_membership()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_membership(&self) -> super::builder::gke_hub::DeleteMembership {
         super::builder::gke_hub::DeleteMembership::new(self.inner.clone())
     }
@@ -227,6 +366,21 @@ impl GkeHub {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::client::GkeHub;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_gkehub_v1::Result;
+    /// async fn sample(
+    ///    client: &GkeHub, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_feature()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_feature(&self) -> super::builder::gke_hub::DeleteFeature {
         super::builder::gke_hub::DeleteFeature::new(self.inner.clone())
     }
@@ -242,6 +396,28 @@ impl GkeHub {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::client::GkeHub;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_gkehub_v1::model::Membership;
+    /// use google_cloud_gkehub_v1::Result;
+    /// async fn sample(
+    ///    client: &GkeHub, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_membership()
+    ///         .set_resource(
+    ///             Membership::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_membership(&self) -> super::builder::gke_hub::UpdateMembership {
         super::builder::gke_hub::UpdateMembership::new(self.inner.clone())
     }
@@ -257,6 +433,28 @@ impl GkeHub {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::client::GkeHub;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_gkehub_v1::model::Feature;
+    /// use google_cloud_gkehub_v1::Result;
+    /// async fn sample(
+    ///    client: &GkeHub, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_feature()
+    ///         .set_resource(
+    ///             Feature::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_feature(&self) -> super::builder::gke_hub::UpdateFeature {
         super::builder::gke_hub::UpdateFeature::new(self.inner.clone())
     }
@@ -265,6 +463,21 @@ impl GkeHub {
     ///
     /// **This method is used internally by Google-provided libraries.**
     /// Most clients should not need to call this method directly.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::client::GkeHub;
+    /// use google_cloud_gkehub_v1::Result;
+    /// async fn sample(
+    ///    client: &GkeHub
+    /// ) -> Result<()> {
+    ///     let response = client.generate_connect_manifest()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn generate_connect_manifest(&self) -> super::builder::gke_hub::GenerateConnectManifest {
         super::builder::gke_hub::GenerateConnectManifest::new(self.inner.clone())
     }
@@ -280,11 +493,46 @@ impl GkeHub {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::client::GkeHub;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_gkehub_v1::model::Fleet;
+    /// use google_cloud_gkehub_v1::Result;
+    /// async fn sample(
+    ///    client: &GkeHub, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_fleet()
+    ///         .set_parent(parent)
+    ///         .set_fleet(
+    ///             Fleet::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_fleet(&self) -> super::builder::gke_hub::CreateFleet {
         super::builder::gke_hub::CreateFleet::new(self.inner.clone())
     }
 
     /// Returns the details of a fleet.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::client::GkeHub;
+    /// use google_cloud_gkehub_v1::Result;
+    /// async fn sample(
+    ///    client: &GkeHub, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_fleet()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_fleet(&self) -> super::builder::gke_hub::GetFleet {
         super::builder::gke_hub::GetFleet::new(self.inner.clone())
     }
@@ -300,6 +548,28 @@ impl GkeHub {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::client::GkeHub;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_gkehub_v1::model::Fleet;
+    /// use google_cloud_gkehub_v1::Result;
+    /// async fn sample(
+    ///    client: &GkeHub, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_fleet()
+    ///         .set_fleet(
+    ///             Fleet::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_fleet(&self) -> super::builder::gke_hub::UpdateFleet {
         super::builder::gke_hub::UpdateFleet::new(self.inner.clone())
     }
@@ -315,17 +585,65 @@ impl GkeHub {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::client::GkeHub;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_gkehub_v1::Result;
+    /// async fn sample(
+    ///    client: &GkeHub, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_fleet()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_fleet(&self) -> super::builder::gke_hub::DeleteFleet {
         super::builder::gke_hub::DeleteFleet::new(self.inner.clone())
     }
 
     /// Returns all fleets within an organization or a project that the caller has
     /// access to.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::client::GkeHub;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_gkehub_v1::Result;
+    /// async fn sample(
+    ///    client: &GkeHub, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_fleets()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_fleets(&self) -> super::builder::gke_hub::ListFleets {
         super::builder::gke_hub::ListFleets::new(self.inner.clone())
     }
 
     /// Returns the details of a fleet namespace.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::client::GkeHub;
+    /// use google_cloud_gkehub_v1::Result;
+    /// async fn sample(
+    ///    client: &GkeHub, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_scope_namespace()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_scope_namespace(&self) -> super::builder::gke_hub::GetScopeNamespace {
         super::builder::gke_hub::GetScopeNamespace::new(self.inner.clone())
     }
@@ -341,6 +659,26 @@ impl GkeHub {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::client::GkeHub;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_gkehub_v1::model::Namespace;
+    /// use google_cloud_gkehub_v1::Result;
+    /// async fn sample(
+    ///    client: &GkeHub, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_scope_namespace()
+    ///         .set_parent(parent)
+    ///         .set_scope_namespace(
+    ///             Namespace::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_scope_namespace(&self) -> super::builder::gke_hub::CreateScopeNamespace {
         super::builder::gke_hub::CreateScopeNamespace::new(self.inner.clone())
     }
@@ -356,6 +694,28 @@ impl GkeHub {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::client::GkeHub;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_gkehub_v1::model::Namespace;
+    /// use google_cloud_gkehub_v1::Result;
+    /// async fn sample(
+    ///    client: &GkeHub, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_scope_namespace()
+    ///         .set_scope_namespace(
+    ///             Namespace::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_scope_namespace(&self) -> super::builder::gke_hub::UpdateScopeNamespace {
         super::builder::gke_hub::UpdateScopeNamespace::new(self.inner.clone())
     }
@@ -371,16 +731,64 @@ impl GkeHub {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::client::GkeHub;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_gkehub_v1::Result;
+    /// async fn sample(
+    ///    client: &GkeHub, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_scope_namespace()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_scope_namespace(&self) -> super::builder::gke_hub::DeleteScopeNamespace {
         super::builder::gke_hub::DeleteScopeNamespace::new(self.inner.clone())
     }
 
     /// Lists fleet namespaces.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::client::GkeHub;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_gkehub_v1::Result;
+    /// async fn sample(
+    ///    client: &GkeHub, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_scope_namespaces()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_scope_namespaces(&self) -> super::builder::gke_hub::ListScopeNamespaces {
         super::builder::gke_hub::ListScopeNamespaces::new(self.inner.clone())
     }
 
     /// Returns the details of a Scope RBACRoleBinding.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::client::GkeHub;
+    /// use google_cloud_gkehub_v1::Result;
+    /// async fn sample(
+    ///    client: &GkeHub, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_scope_rbac_role_binding()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_scope_rbac_role_binding(&self) -> super::builder::gke_hub::GetScopeRBACRoleBinding {
         super::builder::gke_hub::GetScopeRBACRoleBinding::new(self.inner.clone())
     }
@@ -396,6 +804,26 @@ impl GkeHub {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::client::GkeHub;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_gkehub_v1::model::RBACRoleBinding;
+    /// use google_cloud_gkehub_v1::Result;
+    /// async fn sample(
+    ///    client: &GkeHub, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_scope_rbac_role_binding()
+    ///         .set_parent(parent)
+    ///         .set_rbacrolebinding(
+    ///             RBACRoleBinding::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_scope_rbac_role_binding(
         &self,
     ) -> super::builder::gke_hub::CreateScopeRBACRoleBinding {
@@ -413,6 +841,28 @@ impl GkeHub {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::client::GkeHub;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_gkehub_v1::model::RBACRoleBinding;
+    /// use google_cloud_gkehub_v1::Result;
+    /// async fn sample(
+    ///    client: &GkeHub, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_scope_rbac_role_binding()
+    ///         .set_rbacrolebinding(
+    ///             RBACRoleBinding::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_scope_rbac_role_binding(
         &self,
     ) -> super::builder::gke_hub::UpdateScopeRBACRoleBinding {
@@ -430,6 +880,21 @@ impl GkeHub {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::client::GkeHub;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_gkehub_v1::Result;
+    /// async fn sample(
+    ///    client: &GkeHub, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_scope_rbac_role_binding()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_scope_rbac_role_binding(
         &self,
     ) -> super::builder::gke_hub::DeleteScopeRBACRoleBinding {
@@ -437,6 +902,24 @@ impl GkeHub {
     }
 
     /// Lists all Scope RBACRoleBindings.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::client::GkeHub;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_gkehub_v1::Result;
+    /// async fn sample(
+    ///    client: &GkeHub, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_scope_rbac_role_bindings()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_scope_rbac_role_bindings(
         &self,
     ) -> super::builder::gke_hub::ListScopeRBACRoleBindings {
@@ -444,6 +927,21 @@ impl GkeHub {
     }
 
     /// Returns the details of a Scope.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::client::GkeHub;
+    /// use google_cloud_gkehub_v1::Result;
+    /// async fn sample(
+    ///    client: &GkeHub, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_scope()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_scope(&self) -> super::builder::gke_hub::GetScope {
         super::builder::gke_hub::GetScope::new(self.inner.clone())
     }
@@ -459,6 +957,26 @@ impl GkeHub {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::client::GkeHub;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_gkehub_v1::model::Scope;
+    /// use google_cloud_gkehub_v1::Result;
+    /// async fn sample(
+    ///    client: &GkeHub, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_scope()
+    ///         .set_parent(parent).set_scope_id("scope_id_value")
+    ///         .set_scope(
+    ///             Scope::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_scope(&self) -> super::builder::gke_hub::CreateScope {
         super::builder::gke_hub::CreateScope::new(self.inner.clone())
     }
@@ -474,6 +992,28 @@ impl GkeHub {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::client::GkeHub;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_gkehub_v1::model::Scope;
+    /// use google_cloud_gkehub_v1::Result;
+    /// async fn sample(
+    ///    client: &GkeHub, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_scope()
+    ///         .set_scope(
+    ///             Scope::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_scope(&self) -> super::builder::gke_hub::UpdateScope {
         super::builder::gke_hub::UpdateScope::new(self.inner.clone())
     }
@@ -489,21 +1029,87 @@ impl GkeHub {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::client::GkeHub;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_gkehub_v1::Result;
+    /// async fn sample(
+    ///    client: &GkeHub, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_scope()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_scope(&self) -> super::builder::gke_hub::DeleteScope {
         super::builder::gke_hub::DeleteScope::new(self.inner.clone())
     }
 
     /// Lists Scopes.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::client::GkeHub;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_gkehub_v1::Result;
+    /// async fn sample(
+    ///    client: &GkeHub, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_scopes()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_scopes(&self) -> super::builder::gke_hub::ListScopes {
         super::builder::gke_hub::ListScopes::new(self.inner.clone())
     }
 
     /// Lists permitted Scopes.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::client::GkeHub;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_gkehub_v1::Result;
+    /// async fn sample(
+    ///    client: &GkeHub, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_permitted_scopes()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_permitted_scopes(&self) -> super::builder::gke_hub::ListPermittedScopes {
         super::builder::gke_hub::ListPermittedScopes::new(self.inner.clone())
     }
 
     /// Returns the details of a MembershipBinding.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::client::GkeHub;
+    /// use google_cloud_gkehub_v1::Result;
+    /// async fn sample(
+    ///    client: &GkeHub, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_membership_binding()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_membership_binding(&self) -> super::builder::gke_hub::GetMembershipBinding {
         super::builder::gke_hub::GetMembershipBinding::new(self.inner.clone())
     }
@@ -519,6 +1125,26 @@ impl GkeHub {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::client::GkeHub;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_gkehub_v1::model::MembershipBinding;
+    /// use google_cloud_gkehub_v1::Result;
+    /// async fn sample(
+    ///    client: &GkeHub, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_membership_binding()
+    ///         .set_parent(parent)
+    ///         .set_membership_binding(
+    ///             MembershipBinding::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_membership_binding(&self) -> super::builder::gke_hub::CreateMembershipBinding {
         super::builder::gke_hub::CreateMembershipBinding::new(self.inner.clone())
     }
@@ -534,6 +1160,28 @@ impl GkeHub {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::client::GkeHub;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_gkehub_v1::model::MembershipBinding;
+    /// use google_cloud_gkehub_v1::Result;
+    /// async fn sample(
+    ///    client: &GkeHub, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_membership_binding()
+    ///         .set_membership_binding(
+    ///             MembershipBinding::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_membership_binding(&self) -> super::builder::gke_hub::UpdateMembershipBinding {
         super::builder::gke_hub::UpdateMembershipBinding::new(self.inner.clone())
     }
@@ -549,16 +1197,64 @@ impl GkeHub {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::client::GkeHub;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_gkehub_v1::Result;
+    /// async fn sample(
+    ///    client: &GkeHub, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_membership_binding()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_membership_binding(&self) -> super::builder::gke_hub::DeleteMembershipBinding {
         super::builder::gke_hub::DeleteMembershipBinding::new(self.inner.clone())
     }
 
     /// Lists MembershipBindings.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::client::GkeHub;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_gkehub_v1::Result;
+    /// async fn sample(
+    ///    client: &GkeHub, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_membership_bindings()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_membership_bindings(&self) -> super::builder::gke_hub::ListMembershipBindings {
         super::builder::gke_hub::ListMembershipBindings::new(self.inner.clone())
     }
 
     /// Returns the details of a Membership RBACRoleBinding.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::client::GkeHub;
+    /// use google_cloud_gkehub_v1::Result;
+    /// async fn sample(
+    ///    client: &GkeHub, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_membership_rbac_role_binding()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_membership_rbac_role_binding(
         &self,
     ) -> super::builder::gke_hub::GetMembershipRBACRoleBinding {
@@ -576,6 +1272,26 @@ impl GkeHub {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::client::GkeHub;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_gkehub_v1::model::RBACRoleBinding;
+    /// use google_cloud_gkehub_v1::Result;
+    /// async fn sample(
+    ///    client: &GkeHub, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_membership_rbac_role_binding()
+    ///         .set_parent(parent)
+    ///         .set_rbacrolebinding(
+    ///             RBACRoleBinding::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_membership_rbac_role_binding(
         &self,
     ) -> super::builder::gke_hub::CreateMembershipRBACRoleBinding {
@@ -593,6 +1309,28 @@ impl GkeHub {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::client::GkeHub;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_gkehub_v1::model::RBACRoleBinding;
+    /// use google_cloud_gkehub_v1::Result;
+    /// async fn sample(
+    ///    client: &GkeHub, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_membership_rbac_role_binding()
+    ///         .set_rbacrolebinding(
+    ///             RBACRoleBinding::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_membership_rbac_role_binding(
         &self,
     ) -> super::builder::gke_hub::UpdateMembershipRBACRoleBinding {
@@ -610,6 +1348,21 @@ impl GkeHub {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::client::GkeHub;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_gkehub_v1::Result;
+    /// async fn sample(
+    ///    client: &GkeHub, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_membership_rbac_role_binding()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_membership_rbac_role_binding(
         &self,
     ) -> super::builder::gke_hub::DeleteMembershipRBACRoleBinding {
@@ -617,6 +1370,24 @@ impl GkeHub {
     }
 
     /// Lists all Membership RBACRoleBindings.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::client::GkeHub;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_gkehub_v1::Result;
+    /// async fn sample(
+    ///    client: &GkeHub, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_membership_rbac_role_bindings()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_membership_rbac_role_bindings(
         &self,
     ) -> super::builder::gke_hub::ListMembershipRBACRoleBindings {
@@ -625,6 +1396,21 @@ impl GkeHub {
 
     /// Generates a YAML of the  RBAC policies for the specified
     /// RoleBinding and its associated impersonation resources.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::client::GkeHub;
+    /// use google_cloud_gkehub_v1::Result;
+    /// async fn sample(
+    ///    client: &GkeHub
+    /// ) -> Result<()> {
+    ///     let response = client.generate_membership_rbac_role_binding_yaml()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn generate_membership_rbac_role_binding_yaml(
         &self,
     ) -> super::builder::gke_hub::GenerateMembershipRBACRoleBindingYAML {
@@ -634,6 +1420,24 @@ impl GkeHub {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::client::GkeHub;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_gkehub_v1::Result;
+    /// async fn sample(
+    ///    client: &GkeHub
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::gke_hub::ListOperations {
         super::builder::gke_hub::ListOperations::new(self.inner.clone())
     }
@@ -641,6 +1445,21 @@ impl GkeHub {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::client::GkeHub;
+    /// use google_cloud_gkehub_v1::Result;
+    /// async fn sample(
+    ///    client: &GkeHub
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::gke_hub::GetOperation {
         super::builder::gke_hub::GetOperation::new(self.inner.clone())
     }
@@ -648,6 +1467,20 @@ impl GkeHub {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::client::GkeHub;
+    /// use google_cloud_gkehub_v1::Result;
+    /// async fn sample(
+    ///    client: &GkeHub
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::gke_hub::DeleteOperation {
         super::builder::gke_hub::DeleteOperation::new(self.inner.clone())
     }
@@ -655,6 +1488,20 @@ impl GkeHub {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::client::GkeHub;
+    /// use google_cloud_gkehub_v1::Result;
+    /// async fn sample(
+    ///    client: &GkeHub
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::gke_hub::CancelOperation {
         super::builder::gke_hub::CancelOperation::new(self.inner.clone())
     }

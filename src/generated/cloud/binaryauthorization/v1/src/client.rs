@@ -139,6 +139,21 @@ impl BinauthzManagementServiceV1 {
     ///
     /// [google.cloud.binaryauthorization.v1.Attestor]: crate::model::Attestor
     /// [google.cloud.binaryauthorization.v1.Policy]: crate::model::Policy
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_binaryauthorization_v1::client::BinauthzManagementServiceV1;
+    /// use google_cloud_binaryauthorization_v1::Result;
+    /// async fn sample(
+    ///    client: &BinauthzManagementServiceV1, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_policy()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_policy(&self) -> super::builder::binauthz_management_service_v_1::GetPolicy {
         super::builder::binauthz_management_service_v_1::GetPolicy::new(self.inner.clone())
     }
@@ -150,6 +165,24 @@ impl BinauthzManagementServiceV1 {
     /// if the request is malformed.
     ///
     /// [google.cloud.binaryauthorization.v1.Policy]: crate::model::Policy
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_binaryauthorization_v1::client::BinauthzManagementServiceV1;
+    /// use google_cloud_binaryauthorization_v1::model::Policy;
+    /// use google_cloud_binaryauthorization_v1::Result;
+    /// async fn sample(
+    ///    client: &BinauthzManagementServiceV1, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_policy()
+    ///         .set_policy(
+    ///             Policy::new().set_name(name)/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_policy(&self) -> super::builder::binauthz_management_service_v_1::UpdatePolicy {
         super::builder::binauthz_management_service_v_1::UpdatePolicy::new(self.inner.clone())
     }
@@ -160,6 +193,25 @@ impl BinauthzManagementServiceV1 {
     /// [attestor][google.cloud.binaryauthorization.v1.Attestor] already exists.
     ///
     /// [google.cloud.binaryauthorization.v1.Attestor]: crate::model::Attestor
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_binaryauthorization_v1::client::BinauthzManagementServiceV1;
+    /// use google_cloud_binaryauthorization_v1::model::Attestor;
+    /// use google_cloud_binaryauthorization_v1::Result;
+    /// async fn sample(
+    ///    client: &BinauthzManagementServiceV1, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_attestor()
+    ///         .set_parent(parent).set_attestor_id("attestor_id_value")
+    ///         .set_attestor(
+    ///             Attestor::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_attestor(
         &self,
     ) -> super::builder::binauthz_management_service_v_1::CreateAttestor {
@@ -170,6 +222,21 @@ impl BinauthzManagementServiceV1 {
     /// Returns NOT_FOUND if the [attestor][google.cloud.binaryauthorization.v1.Attestor] does not exist.
     ///
     /// [google.cloud.binaryauthorization.v1.Attestor]: crate::model::Attestor
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_binaryauthorization_v1::client::BinauthzManagementServiceV1;
+    /// use google_cloud_binaryauthorization_v1::Result;
+    /// async fn sample(
+    ///    client: &BinauthzManagementServiceV1, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_attestor()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_attestor(&self) -> super::builder::binauthz_management_service_v_1::GetAttestor {
         super::builder::binauthz_management_service_v_1::GetAttestor::new(self.inner.clone())
     }
@@ -178,6 +245,24 @@ impl BinauthzManagementServiceV1 {
     /// Returns NOT_FOUND if the [attestor][google.cloud.binaryauthorization.v1.Attestor] does not exist.
     ///
     /// [google.cloud.binaryauthorization.v1.Attestor]: crate::model::Attestor
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_binaryauthorization_v1::client::BinauthzManagementServiceV1;
+    /// use google_cloud_binaryauthorization_v1::model::Attestor;
+    /// use google_cloud_binaryauthorization_v1::Result;
+    /// async fn sample(
+    ///    client: &BinauthzManagementServiceV1, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_attestor()
+    ///         .set_attestor(
+    ///             Attestor::new().set_name(name)/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_attestor(
         &self,
     ) -> super::builder::binauthz_management_service_v_1::UpdateAttestor {
@@ -188,6 +273,24 @@ impl BinauthzManagementServiceV1 {
     /// Returns INVALID_ARGUMENT if the project does not exist.
     ///
     /// [google.cloud.binaryauthorization.v1.Attestor]: crate::model::Attestor
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_binaryauthorization_v1::client::BinauthzManagementServiceV1;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_binaryauthorization_v1::Result;
+    /// async fn sample(
+    ///    client: &BinauthzManagementServiceV1, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_attestors()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_attestors(&self) -> super::builder::binauthz_management_service_v_1::ListAttestors {
         super::builder::binauthz_management_service_v_1::ListAttestors::new(self.inner.clone())
     }
@@ -196,6 +299,20 @@ impl BinauthzManagementServiceV1 {
     /// [attestor][google.cloud.binaryauthorization.v1.Attestor] does not exist.
     ///
     /// [google.cloud.binaryauthorization.v1.Attestor]: crate::model::Attestor
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_binaryauthorization_v1::client::BinauthzManagementServiceV1;
+    /// use google_cloud_binaryauthorization_v1::Result;
+    /// async fn sample(
+    ///    client: &BinauthzManagementServiceV1, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_attestor()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_attestor(
         &self,
     ) -> super::builder::binauthz_management_service_v_1::DeleteAttestor {
@@ -306,6 +423,21 @@ impl SystemPolicyV1 {
     }
 
     /// Gets the current system policy in the specified location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_binaryauthorization_v1::client::SystemPolicyV1;
+    /// use google_cloud_binaryauthorization_v1::Result;
+    /// async fn sample(
+    ///    client: &SystemPolicyV1, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_system_policy()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_system_policy(&self) -> super::builder::system_policy_v_1::GetSystemPolicy {
         super::builder::system_policy_v_1::GetSystemPolicy::new(self.inner.clone())
     }
@@ -416,6 +548,21 @@ impl ValidationHelperV1 {
 
     /// Returns whether the given Attestation for the given image URI
     /// was signed by the given Attestor
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_binaryauthorization_v1::client::ValidationHelperV1;
+    /// use google_cloud_binaryauthorization_v1::Result;
+    /// async fn sample(
+    ///    client: &ValidationHelperV1
+    /// ) -> Result<()> {
+    ///     let response = client.validate_attestation_occurrence()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn validate_attestation_occurrence(
         &self,
     ) -> super::builder::validation_helper_v_1::ValidateAttestationOccurrence {

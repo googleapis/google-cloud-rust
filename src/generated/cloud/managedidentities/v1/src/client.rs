@@ -163,6 +163,26 @@ impl ManagedIdentitiesService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedidentities_v1::client::ManagedIdentitiesService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_managedidentities_v1::model::Domain;
+    /// use google_cloud_managedidentities_v1::Result;
+    /// async fn sample(
+    ///    client: &ManagedIdentitiesService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_microsoft_ad_domain()
+    ///         .set_parent(parent)
+    ///         .set_domain(
+    ///             Domain::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_microsoft_ad_domain(
         &self,
     ) -> super::builder::managed_identities_service::CreateMicrosoftAdDomain {
@@ -170,6 +190,21 @@ impl ManagedIdentitiesService {
     }
 
     /// Resets a domain's administrator password.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedidentities_v1::client::ManagedIdentitiesService;
+    /// use google_cloud_managedidentities_v1::Result;
+    /// async fn sample(
+    ///    client: &ManagedIdentitiesService
+    /// ) -> Result<()> {
+    ///     let response = client.reset_admin_password()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn reset_admin_password(
         &self,
     ) -> super::builder::managed_identities_service::ResetAdminPassword {
@@ -177,11 +212,44 @@ impl ManagedIdentitiesService {
     }
 
     /// Lists domains in a project.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedidentities_v1::client::ManagedIdentitiesService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_managedidentities_v1::Result;
+    /// async fn sample(
+    ///    client: &ManagedIdentitiesService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_domains()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_domains(&self) -> super::builder::managed_identities_service::ListDomains {
         super::builder::managed_identities_service::ListDomains::new(self.inner.clone())
     }
 
     /// Gets information about a domain.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedidentities_v1::client::ManagedIdentitiesService;
+    /// use google_cloud_managedidentities_v1::Result;
+    /// async fn sample(
+    ///    client: &ManagedIdentitiesService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_domain()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_domain(&self) -> super::builder::managed_identities_service::GetDomain {
         super::builder::managed_identities_service::GetDomain::new(self.inner.clone())
     }
@@ -197,6 +265,28 @@ impl ManagedIdentitiesService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedidentities_v1::client::ManagedIdentitiesService;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_managedidentities_v1::model::Domain;
+    /// use google_cloud_managedidentities_v1::Result;
+    /// async fn sample(
+    ///    client: &ManagedIdentitiesService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_domain()
+    ///         .set_domain(
+    ///             Domain::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_domain(&self) -> super::builder::managed_identities_service::UpdateDomain {
         super::builder::managed_identities_service::UpdateDomain::new(self.inner.clone())
     }
@@ -212,6 +302,21 @@ impl ManagedIdentitiesService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedidentities_v1::client::ManagedIdentitiesService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_managedidentities_v1::Result;
+    /// async fn sample(
+    ///    client: &ManagedIdentitiesService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_domain()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_domain(&self) -> super::builder::managed_identities_service::DeleteDomain {
         super::builder::managed_identities_service::DeleteDomain::new(self.inner.clone())
     }
@@ -227,6 +332,22 @@ impl ManagedIdentitiesService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedidentities_v1::client::ManagedIdentitiesService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_managedidentities_v1::Result;
+    /// async fn sample(
+    ///    client: &ManagedIdentitiesService
+    /// ) -> Result<()> {
+    ///     let response = client.attach_trust()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn attach_trust(&self) -> super::builder::managed_identities_service::AttachTrust {
         super::builder::managed_identities_service::AttachTrust::new(self.inner.clone())
     }
@@ -242,6 +363,22 @@ impl ManagedIdentitiesService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedidentities_v1::client::ManagedIdentitiesService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_managedidentities_v1::Result;
+    /// async fn sample(
+    ///    client: &ManagedIdentitiesService
+    /// ) -> Result<()> {
+    ///     let response = client.reconfigure_trust()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn reconfigure_trust(
         &self,
     ) -> super::builder::managed_identities_service::ReconfigureTrust {
@@ -259,6 +396,22 @@ impl ManagedIdentitiesService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedidentities_v1::client::ManagedIdentitiesService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_managedidentities_v1::Result;
+    /// async fn sample(
+    ///    client: &ManagedIdentitiesService
+    /// ) -> Result<()> {
+    ///     let response = client.detach_trust()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn detach_trust(&self) -> super::builder::managed_identities_service::DetachTrust {
         super::builder::managed_identities_service::DetachTrust::new(self.inner.clone())
     }
@@ -275,6 +428,22 @@ impl ManagedIdentitiesService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedidentities_v1::client::ManagedIdentitiesService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_managedidentities_v1::Result;
+    /// async fn sample(
+    ///    client: &ManagedIdentitiesService
+    /// ) -> Result<()> {
+    ///     let response = client.validate_trust()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn validate_trust(&self) -> super::builder::managed_identities_service::ValidateTrust {
         super::builder::managed_identities_service::ValidateTrust::new(self.inner.clone())
     }
@@ -282,6 +451,24 @@ impl ManagedIdentitiesService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedidentities_v1::client::ManagedIdentitiesService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_managedidentities_v1::Result;
+    /// async fn sample(
+    ///    client: &ManagedIdentitiesService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::managed_identities_service::ListOperations {
         super::builder::managed_identities_service::ListOperations::new(self.inner.clone())
     }
@@ -289,6 +476,21 @@ impl ManagedIdentitiesService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedidentities_v1::client::ManagedIdentitiesService;
+    /// use google_cloud_managedidentities_v1::Result;
+    /// async fn sample(
+    ///    client: &ManagedIdentitiesService
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::managed_identities_service::GetOperation {
         super::builder::managed_identities_service::GetOperation::new(self.inner.clone())
     }
@@ -296,6 +498,20 @@ impl ManagedIdentitiesService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedidentities_v1::client::ManagedIdentitiesService;
+    /// use google_cloud_managedidentities_v1::Result;
+    /// async fn sample(
+    ///    client: &ManagedIdentitiesService
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::managed_identities_service::DeleteOperation {
         super::builder::managed_identities_service::DeleteOperation::new(self.inner.clone())
     }
@@ -303,6 +519,20 @@ impl ManagedIdentitiesService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedidentities_v1::client::ManagedIdentitiesService;
+    /// use google_cloud_managedidentities_v1::Result;
+    /// async fn sample(
+    ///    client: &ManagedIdentitiesService
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::managed_identities_service::CancelOperation {
         super::builder::managed_identities_service::CancelOperation::new(self.inner.clone())
     }

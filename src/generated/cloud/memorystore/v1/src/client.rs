@@ -119,11 +119,44 @@ impl Memorystore {
     }
 
     /// Lists Instances in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_memorystore_v1::client::Memorystore;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_memorystore_v1::Result;
+    /// async fn sample(
+    ///    client: &Memorystore, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_instances()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_instances(&self) -> super::builder::memorystore::ListInstances {
         super::builder::memorystore::ListInstances::new(self.inner.clone())
     }
 
     /// Gets details of a single Instance.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_memorystore_v1::client::Memorystore;
+    /// use google_cloud_memorystore_v1::Result;
+    /// async fn sample(
+    ///    client: &Memorystore, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_instance()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_instance(&self) -> super::builder::memorystore::GetInstance {
         super::builder::memorystore::GetInstance::new(self.inner.clone())
     }
@@ -139,6 +172,26 @@ impl Memorystore {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_memorystore_v1::client::Memorystore;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_memorystore_v1::model::Instance;
+    /// use google_cloud_memorystore_v1::Result;
+    /// async fn sample(
+    ///    client: &Memorystore, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_instance()
+    ///         .set_parent(parent).set_instance_id("instance_id_value")
+    ///         .set_instance(
+    ///             Instance::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_instance(&self) -> super::builder::memorystore::CreateInstance {
         super::builder::memorystore::CreateInstance::new(self.inner.clone())
     }
@@ -154,6 +207,28 @@ impl Memorystore {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_memorystore_v1::client::Memorystore;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_memorystore_v1::model::Instance;
+    /// use google_cloud_memorystore_v1::Result;
+    /// async fn sample(
+    ///    client: &Memorystore, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_instance()
+    ///         .set_instance(
+    ///             Instance::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_instance(&self) -> super::builder::memorystore::UpdateInstance {
         super::builder::memorystore::UpdateInstance::new(self.inner.clone())
     }
@@ -169,11 +244,41 @@ impl Memorystore {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_memorystore_v1::client::Memorystore;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_memorystore_v1::Result;
+    /// async fn sample(
+    ///    client: &Memorystore, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_instance()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_instance(&self) -> super::builder::memorystore::DeleteInstance {
         super::builder::memorystore::DeleteInstance::new(self.inner.clone())
     }
 
     /// Gets details about the certificate authority for an Instance.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_memorystore_v1::client::Memorystore;
+    /// use google_cloud_memorystore_v1::Result;
+    /// async fn sample(
+    ///    client: &Memorystore
+    /// ) -> Result<()> {
+    ///     let response = client.get_certificate_authority()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_certificate_authority(
         &self,
     ) -> super::builder::memorystore::GetCertificateAuthority {
@@ -191,6 +296,22 @@ impl Memorystore {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_memorystore_v1::client::Memorystore;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_memorystore_v1::Result;
+    /// async fn sample(
+    ///    client: &Memorystore
+    /// ) -> Result<()> {
+    ///     let response = client.reschedule_maintenance()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn reschedule_maintenance(&self) -> super::builder::memorystore::RescheduleMaintenance {
         super::builder::memorystore::RescheduleMaintenance::new(self.inner.clone())
     }
@@ -200,21 +321,87 @@ impl Memorystore {
     ///
     /// If `location_id` is specified as `-` (wildcard), then all regions
     /// available to the project are queried, and the results are aggregated.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_memorystore_v1::client::Memorystore;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_memorystore_v1::Result;
+    /// async fn sample(
+    ///    client: &Memorystore, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_backup_collections()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_backup_collections(&self) -> super::builder::memorystore::ListBackupCollections {
         super::builder::memorystore::ListBackupCollections::new(self.inner.clone())
     }
 
     /// Get a backup collection.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_memorystore_v1::client::Memorystore;
+    /// use google_cloud_memorystore_v1::Result;
+    /// async fn sample(
+    ///    client: &Memorystore, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_backup_collection()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_backup_collection(&self) -> super::builder::memorystore::GetBackupCollection {
         super::builder::memorystore::GetBackupCollection::new(self.inner.clone())
     }
 
     /// Lists all backups owned by a backup collection.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_memorystore_v1::client::Memorystore;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_memorystore_v1::Result;
+    /// async fn sample(
+    ///    client: &Memorystore, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_backups()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_backups(&self) -> super::builder::memorystore::ListBackups {
         super::builder::memorystore::ListBackups::new(self.inner.clone())
     }
 
     /// Gets the details of a specific backup.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_memorystore_v1::client::Memorystore;
+    /// use google_cloud_memorystore_v1::Result;
+    /// async fn sample(
+    ///    client: &Memorystore, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_backup()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_backup(&self) -> super::builder::memorystore::GetBackup {
         super::builder::memorystore::GetBackup::new(self.inner.clone())
     }
@@ -230,6 +417,21 @@ impl Memorystore {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_memorystore_v1::client::Memorystore;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_memorystore_v1::Result;
+    /// async fn sample(
+    ///    client: &Memorystore, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_backup()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_backup(&self) -> super::builder::memorystore::DeleteBackup {
         super::builder::memorystore::DeleteBackup::new(self.inner.clone())
     }
@@ -245,6 +447,22 @@ impl Memorystore {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_memorystore_v1::client::Memorystore;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_memorystore_v1::Result;
+    /// async fn sample(
+    ///    client: &Memorystore
+    /// ) -> Result<()> {
+    ///     let response = client.export_backup()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn export_backup(&self) -> super::builder::memorystore::ExportBackup {
         super::builder::memorystore::ExportBackup::new(self.inner.clone())
     }
@@ -271,16 +489,65 @@ impl Memorystore {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_memorystore_v1::client::Memorystore;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_memorystore_v1::Result;
+    /// async fn sample(
+    ///    client: &Memorystore
+    /// ) -> Result<()> {
+    ///     let response = client.backup_instance()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn backup_instance(&self) -> super::builder::memorystore::BackupInstance {
         super::builder::memorystore::BackupInstance::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_memorystore_v1::client::Memorystore;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_memorystore_v1::Result;
+    /// async fn sample(
+    ///    client: &Memorystore
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::memorystore::ListLocations {
         super::builder::memorystore::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_memorystore_v1::client::Memorystore;
+    /// use google_cloud_memorystore_v1::Result;
+    /// async fn sample(
+    ///    client: &Memorystore
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::memorystore::GetLocation {
         super::builder::memorystore::GetLocation::new(self.inner.clone())
     }
@@ -288,6 +555,24 @@ impl Memorystore {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_memorystore_v1::client::Memorystore;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_memorystore_v1::Result;
+    /// async fn sample(
+    ///    client: &Memorystore
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::memorystore::ListOperations {
         super::builder::memorystore::ListOperations::new(self.inner.clone())
     }
@@ -295,6 +580,21 @@ impl Memorystore {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_memorystore_v1::client::Memorystore;
+    /// use google_cloud_memorystore_v1::Result;
+    /// async fn sample(
+    ///    client: &Memorystore
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::memorystore::GetOperation {
         super::builder::memorystore::GetOperation::new(self.inner.clone())
     }
@@ -302,6 +602,20 @@ impl Memorystore {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_memorystore_v1::client::Memorystore;
+    /// use google_cloud_memorystore_v1::Result;
+    /// async fn sample(
+    ///    client: &Memorystore
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::memorystore::DeleteOperation {
         super::builder::memorystore::DeleteOperation::new(self.inner.clone())
     }
@@ -309,6 +623,20 @@ impl Memorystore {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_memorystore_v1::client::Memorystore;
+    /// use google_cloud_memorystore_v1::Result;
+    /// async fn sample(
+    ///    client: &Memorystore
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::memorystore::CancelOperation {
         super::builder::memorystore::CancelOperation::new(self.inner.clone())
     }

@@ -120,11 +120,44 @@ impl Aml {
     }
 
     /// Lists instances.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_financialservices_v1::client::Aml;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_financialservices_v1::Result;
+    /// async fn sample(
+    ///    client: &Aml, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_instances()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_instances(&self) -> super::builder::aml::ListInstances {
         super::builder::aml::ListInstances::new(self.inner.clone())
     }
 
     /// Gets an instance.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_financialservices_v1::client::Aml;
+    /// use google_cloud_financialservices_v1::Result;
+    /// async fn sample(
+    ///    client: &Aml, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_instance()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_instance(&self) -> super::builder::aml::GetInstance {
         super::builder::aml::GetInstance::new(self.inner.clone())
     }
@@ -140,6 +173,26 @@ impl Aml {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_financialservices_v1::client::Aml;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_financialservices_v1::model::Instance;
+    /// use google_cloud_financialservices_v1::Result;
+    /// async fn sample(
+    ///    client: &Aml, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_instance()
+    ///         .set_parent(parent).set_instance_id("instance_id_value")
+    ///         .set_instance(
+    ///             Instance::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_instance(&self) -> super::builder::aml::CreateInstance {
         super::builder::aml::CreateInstance::new(self.inner.clone())
     }
@@ -155,6 +208,28 @@ impl Aml {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_financialservices_v1::client::Aml;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_financialservices_v1::model::Instance;
+    /// use google_cloud_financialservices_v1::Result;
+    /// async fn sample(
+    ///    client: &Aml, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_instance()
+    ///         .set_instance(
+    ///             Instance::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_instance(&self) -> super::builder::aml::UpdateInstance {
         super::builder::aml::UpdateInstance::new(self.inner.clone())
     }
@@ -170,6 +245,21 @@ impl Aml {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_financialservices_v1::client::Aml;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_financialservices_v1::Result;
+    /// async fn sample(
+    ///    client: &Aml, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_instance()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_instance(&self) -> super::builder::aml::DeleteInstance {
         super::builder::aml::DeleteInstance::new(self.inner.clone())
     }
@@ -188,6 +278,22 @@ impl Aml {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_financialservices_v1::client::Aml;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_financialservices_v1::Result;
+    /// async fn sample(
+    ///    client: &Aml
+    /// ) -> Result<()> {
+    ///     let response = client.import_registered_parties()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn import_registered_parties(&self) -> super::builder::aml::ImportRegisteredParties {
         super::builder::aml::ImportRegisteredParties::new(self.inner.clone())
     }
@@ -206,16 +312,65 @@ impl Aml {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_financialservices_v1::client::Aml;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_financialservices_v1::Result;
+    /// async fn sample(
+    ///    client: &Aml
+    /// ) -> Result<()> {
+    ///     let response = client.export_registered_parties()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn export_registered_parties(&self) -> super::builder::aml::ExportRegisteredParties {
         super::builder::aml::ExportRegisteredParties::new(self.inner.clone())
     }
 
     /// Lists datasets.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_financialservices_v1::client::Aml;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_financialservices_v1::Result;
+    /// async fn sample(
+    ///    client: &Aml, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_datasets()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_datasets(&self) -> super::builder::aml::ListDatasets {
         super::builder::aml::ListDatasets::new(self.inner.clone())
     }
 
     /// Gets a dataset.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_financialservices_v1::client::Aml;
+    /// use google_cloud_financialservices_v1::Result;
+    /// async fn sample(
+    ///    client: &Aml, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_dataset()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_dataset(&self) -> super::builder::aml::GetDataset {
         super::builder::aml::GetDataset::new(self.inner.clone())
     }
@@ -231,6 +386,26 @@ impl Aml {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_financialservices_v1::client::Aml;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_financialservices_v1::model::Dataset;
+    /// use google_cloud_financialservices_v1::Result;
+    /// async fn sample(
+    ///    client: &Aml, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_dataset()
+    ///         .set_parent(parent).set_dataset_id("dataset_id_value")
+    ///         .set_dataset(
+    ///             Dataset::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_dataset(&self) -> super::builder::aml::CreateDataset {
         super::builder::aml::CreateDataset::new(self.inner.clone())
     }
@@ -246,6 +421,28 @@ impl Aml {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_financialservices_v1::client::Aml;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_financialservices_v1::model::Dataset;
+    /// use google_cloud_financialservices_v1::Result;
+    /// async fn sample(
+    ///    client: &Aml, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_dataset()
+    ///         .set_dataset(
+    ///             Dataset::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_dataset(&self) -> super::builder::aml::UpdateDataset {
         super::builder::aml::UpdateDataset::new(self.inner.clone())
     }
@@ -261,16 +458,64 @@ impl Aml {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_financialservices_v1::client::Aml;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_financialservices_v1::Result;
+    /// async fn sample(
+    ///    client: &Aml, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_dataset()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_dataset(&self) -> super::builder::aml::DeleteDataset {
         super::builder::aml::DeleteDataset::new(self.inner.clone())
     }
 
     /// Lists models.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_financialservices_v1::client::Aml;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_financialservices_v1::Result;
+    /// async fn sample(
+    ///    client: &Aml, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_models()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_models(&self) -> super::builder::aml::ListModels {
         super::builder::aml::ListModels::new(self.inner.clone())
     }
 
     /// Gets a model.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_financialservices_v1::client::Aml;
+    /// use google_cloud_financialservices_v1::Result;
+    /// async fn sample(
+    ///    client: &Aml, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_model()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_model(&self) -> super::builder::aml::GetModel {
         super::builder::aml::GetModel::new(self.inner.clone())
     }
@@ -286,6 +531,26 @@ impl Aml {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_financialservices_v1::client::Aml;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_financialservices_v1::model::Model;
+    /// use google_cloud_financialservices_v1::Result;
+    /// async fn sample(
+    ///    client: &Aml, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_model()
+    ///         .set_parent(parent).set_model_id("model_id_value")
+    ///         .set_model(
+    ///             Model::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_model(&self) -> super::builder::aml::CreateModel {
         super::builder::aml::CreateModel::new(self.inner.clone())
     }
@@ -301,6 +566,28 @@ impl Aml {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_financialservices_v1::client::Aml;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_financialservices_v1::model::Model;
+    /// use google_cloud_financialservices_v1::Result;
+    /// async fn sample(
+    ///    client: &Aml, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_model()
+    ///         .set_model(
+    ///             Model::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_model(&self) -> super::builder::aml::UpdateModel {
         super::builder::aml::UpdateModel::new(self.inner.clone())
     }
@@ -319,6 +606,22 @@ impl Aml {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_financialservices_v1::client::Aml;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_financialservices_v1::Result;
+    /// async fn sample(
+    ///    client: &Aml
+    /// ) -> Result<()> {
+    ///     let response = client.export_model_metadata()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn export_model_metadata(&self) -> super::builder::aml::ExportModelMetadata {
         super::builder::aml::ExportModelMetadata::new(self.inner.clone())
     }
@@ -334,16 +637,64 @@ impl Aml {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_financialservices_v1::client::Aml;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_financialservices_v1::Result;
+    /// async fn sample(
+    ///    client: &Aml, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_model()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_model(&self) -> super::builder::aml::DeleteModel {
         super::builder::aml::DeleteModel::new(self.inner.clone())
     }
 
     /// Lists engine configs.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_financialservices_v1::client::Aml;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_financialservices_v1::Result;
+    /// async fn sample(
+    ///    client: &Aml, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_engine_configs()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_engine_configs(&self) -> super::builder::aml::ListEngineConfigs {
         super::builder::aml::ListEngineConfigs::new(self.inner.clone())
     }
 
     /// Gets an engine config.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_financialservices_v1::client::Aml;
+    /// use google_cloud_financialservices_v1::Result;
+    /// async fn sample(
+    ///    client: &Aml, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_engine_config()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_engine_config(&self) -> super::builder::aml::GetEngineConfig {
         super::builder::aml::GetEngineConfig::new(self.inner.clone())
     }
@@ -359,6 +710,26 @@ impl Aml {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_financialservices_v1::client::Aml;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_financialservices_v1::model::EngineConfig;
+    /// use google_cloud_financialservices_v1::Result;
+    /// async fn sample(
+    ///    client: &Aml, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_engine_config()
+    ///         .set_parent(parent)
+    ///         .set_engine_config(
+    ///             EngineConfig::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_engine_config(&self) -> super::builder::aml::CreateEngineConfig {
         super::builder::aml::CreateEngineConfig::new(self.inner.clone())
     }
@@ -374,6 +745,28 @@ impl Aml {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_financialservices_v1::client::Aml;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_financialservices_v1::model::EngineConfig;
+    /// use google_cloud_financialservices_v1::Result;
+    /// async fn sample(
+    ///    client: &Aml, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_engine_config()
+    ///         .set_engine_config(
+    ///             EngineConfig::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_engine_config(&self) -> super::builder::aml::UpdateEngineConfig {
         super::builder::aml::UpdateEngineConfig::new(self.inner.clone())
     }
@@ -392,6 +785,22 @@ impl Aml {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_financialservices_v1::client::Aml;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_financialservices_v1::Result;
+    /// async fn sample(
+    ///    client: &Aml
+    /// ) -> Result<()> {
+    ///     let response = client.export_engine_config_metadata()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn export_engine_config_metadata(&self) -> super::builder::aml::ExportEngineConfigMetadata {
         super::builder::aml::ExportEngineConfigMetadata::new(self.inner.clone())
     }
@@ -407,26 +816,107 @@ impl Aml {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_financialservices_v1::client::Aml;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_financialservices_v1::Result;
+    /// async fn sample(
+    ///    client: &Aml, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_engine_config()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_engine_config(&self) -> super::builder::aml::DeleteEngineConfig {
         super::builder::aml::DeleteEngineConfig::new(self.inner.clone())
     }
 
     /// Gets a single EngineVersion.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_financialservices_v1::client::Aml;
+    /// use google_cloud_financialservices_v1::Result;
+    /// async fn sample(
+    ///    client: &Aml, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_engine_version()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_engine_version(&self) -> super::builder::aml::GetEngineVersion {
         super::builder::aml::GetEngineVersion::new(self.inner.clone())
     }
 
     /// Lists EngineVersions for given location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_financialservices_v1::client::Aml;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_financialservices_v1::Result;
+    /// async fn sample(
+    ///    client: &Aml, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_engine_versions()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_engine_versions(&self) -> super::builder::aml::ListEngineVersions {
         super::builder::aml::ListEngineVersions::new(self.inner.clone())
     }
 
     /// List PredictionResults.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_financialservices_v1::client::Aml;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_financialservices_v1::Result;
+    /// async fn sample(
+    ///    client: &Aml, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_prediction_results()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_prediction_results(&self) -> super::builder::aml::ListPredictionResults {
         super::builder::aml::ListPredictionResults::new(self.inner.clone())
     }
 
     /// Gets a PredictionResult.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_financialservices_v1::client::Aml;
+    /// use google_cloud_financialservices_v1::Result;
+    /// async fn sample(
+    ///    client: &Aml, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_prediction_result()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_prediction_result(&self) -> super::builder::aml::GetPredictionResult {
         super::builder::aml::GetPredictionResult::new(self.inner.clone())
     }
@@ -442,6 +932,26 @@ impl Aml {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_financialservices_v1::client::Aml;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_financialservices_v1::model::PredictionResult;
+    /// use google_cloud_financialservices_v1::Result;
+    /// async fn sample(
+    ///    client: &Aml, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_prediction_result()
+    ///         .set_parent(parent)
+    ///         .set_prediction_result(
+    ///             PredictionResult::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_prediction_result(&self) -> super::builder::aml::CreatePredictionResult {
         super::builder::aml::CreatePredictionResult::new(self.inner.clone())
     }
@@ -457,6 +967,28 @@ impl Aml {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_financialservices_v1::client::Aml;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_financialservices_v1::model::PredictionResult;
+    /// use google_cloud_financialservices_v1::Result;
+    /// async fn sample(
+    ///    client: &Aml, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_prediction_result()
+    ///         .set_prediction_result(
+    ///             PredictionResult::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_prediction_result(&self) -> super::builder::aml::UpdatePredictionResult {
         super::builder::aml::UpdatePredictionResult::new(self.inner.clone())
     }
@@ -475,6 +1007,22 @@ impl Aml {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_financialservices_v1::client::Aml;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_financialservices_v1::Result;
+    /// async fn sample(
+    ///    client: &Aml
+    /// ) -> Result<()> {
+    ///     let response = client.export_prediction_result_metadata()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn export_prediction_result_metadata(
         &self,
     ) -> super::builder::aml::ExportPredictionResultMetadata {
@@ -492,16 +1040,64 @@ impl Aml {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_financialservices_v1::client::Aml;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_financialservices_v1::Result;
+    /// async fn sample(
+    ///    client: &Aml, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_prediction_result()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_prediction_result(&self) -> super::builder::aml::DeletePredictionResult {
         super::builder::aml::DeletePredictionResult::new(self.inner.clone())
     }
 
     /// List BacktestResults.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_financialservices_v1::client::Aml;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_financialservices_v1::Result;
+    /// async fn sample(
+    ///    client: &Aml, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_backtest_results()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_backtest_results(&self) -> super::builder::aml::ListBacktestResults {
         super::builder::aml::ListBacktestResults::new(self.inner.clone())
     }
 
     /// Gets a BacktestResult.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_financialservices_v1::client::Aml;
+    /// use google_cloud_financialservices_v1::Result;
+    /// async fn sample(
+    ///    client: &Aml, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_backtest_result()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_backtest_result(&self) -> super::builder::aml::GetBacktestResult {
         super::builder::aml::GetBacktestResult::new(self.inner.clone())
     }
@@ -517,6 +1113,26 @@ impl Aml {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_financialservices_v1::client::Aml;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_financialservices_v1::model::BacktestResult;
+    /// use google_cloud_financialservices_v1::Result;
+    /// async fn sample(
+    ///    client: &Aml, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_backtest_result()
+    ///         .set_parent(parent)
+    ///         .set_backtest_result(
+    ///             BacktestResult::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_backtest_result(&self) -> super::builder::aml::CreateBacktestResult {
         super::builder::aml::CreateBacktestResult::new(self.inner.clone())
     }
@@ -532,6 +1148,28 @@ impl Aml {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_financialservices_v1::client::Aml;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_financialservices_v1::model::BacktestResult;
+    /// use google_cloud_financialservices_v1::Result;
+    /// async fn sample(
+    ///    client: &Aml, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_backtest_result()
+    ///         .set_backtest_result(
+    ///             BacktestResult::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_backtest_result(&self) -> super::builder::aml::UpdateBacktestResult {
         super::builder::aml::UpdateBacktestResult::new(self.inner.clone())
     }
@@ -550,6 +1188,22 @@ impl Aml {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_financialservices_v1::client::Aml;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_financialservices_v1::Result;
+    /// async fn sample(
+    ///    client: &Aml
+    /// ) -> Result<()> {
+    ///     let response = client.export_backtest_result_metadata()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn export_backtest_result_metadata(
         &self,
     ) -> super::builder::aml::ExportBacktestResultMetadata {
@@ -567,16 +1221,64 @@ impl Aml {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_financialservices_v1::client::Aml;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_financialservices_v1::Result;
+    /// async fn sample(
+    ///    client: &Aml, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_backtest_result()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_backtest_result(&self) -> super::builder::aml::DeleteBacktestResult {
         super::builder::aml::DeleteBacktestResult::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_financialservices_v1::client::Aml;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_financialservices_v1::Result;
+    /// async fn sample(
+    ///    client: &Aml
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::aml::ListLocations {
         super::builder::aml::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_financialservices_v1::client::Aml;
+    /// use google_cloud_financialservices_v1::Result;
+    /// async fn sample(
+    ///    client: &Aml
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::aml::GetLocation {
         super::builder::aml::GetLocation::new(self.inner.clone())
     }
@@ -584,6 +1286,24 @@ impl Aml {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_financialservices_v1::client::Aml;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_financialservices_v1::Result;
+    /// async fn sample(
+    ///    client: &Aml
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::aml::ListOperations {
         super::builder::aml::ListOperations::new(self.inner.clone())
     }
@@ -591,6 +1311,21 @@ impl Aml {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_financialservices_v1::client::Aml;
+    /// use google_cloud_financialservices_v1::Result;
+    /// async fn sample(
+    ///    client: &Aml
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::aml::GetOperation {
         super::builder::aml::GetOperation::new(self.inner.clone())
     }
@@ -598,6 +1333,20 @@ impl Aml {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_financialservices_v1::client::Aml;
+    /// use google_cloud_financialservices_v1::Result;
+    /// async fn sample(
+    ///    client: &Aml
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::aml::DeleteOperation {
         super::builder::aml::DeleteOperation::new(self.inner.clone())
     }
@@ -605,6 +1354,20 @@ impl Aml {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_financialservices_v1::client::Aml;
+    /// use google_cloud_financialservices_v1::Result;
+    /// async fn sample(
+    ///    client: &Aml
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::aml::CancelOperation {
         super::builder::aml::CancelOperation::new(self.inner.clone())
     }

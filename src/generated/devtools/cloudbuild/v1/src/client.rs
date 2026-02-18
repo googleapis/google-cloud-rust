@@ -140,6 +140,26 @@ impl CloudBuild {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_build_v1::client::CloudBuild;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_build_v1::model::Build;
+    /// use google_cloud_build_v1::Result;
+    /// async fn sample(
+    ///    client: &CloudBuild, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_build()
+    ///         .set_parent(parent)
+    ///         .set_build(
+    ///             Build::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_build(&self) -> super::builder::cloud_build::CreateBuild {
         super::builder::cloud_build::CreateBuild::new(self.inner.clone())
     }
@@ -148,6 +168,21 @@ impl CloudBuild {
     ///
     /// The `Build` that is returned includes its status (such as `SUCCESS`,
     /// `FAILURE`, or `WORKING`), and timing information.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_build_v1::client::CloudBuild;
+    /// use google_cloud_build_v1::Result;
+    /// async fn sample(
+    ///    client: &CloudBuild, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_build()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_build(&self) -> super::builder::cloud_build::GetBuild {
         super::builder::cloud_build::GetBuild::new(self.inner.clone())
     }
@@ -156,11 +191,44 @@ impl CloudBuild {
     ///
     /// Previously requested builds may still be in-progress, or may have finished
     /// successfully or unsuccessfully.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_build_v1::client::CloudBuild;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_build_v1::Result;
+    /// async fn sample(
+    ///    client: &CloudBuild, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_builds()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_builds(&self) -> super::builder::cloud_build::ListBuilds {
         super::builder::cloud_build::ListBuilds::new(self.inner.clone())
     }
 
     /// Cancels a build in progress.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_build_v1::client::CloudBuild;
+    /// use google_cloud_build_v1::Result;
+    /// async fn sample(
+    ///    client: &CloudBuild
+    /// ) -> Result<()> {
+    ///     let response = client.cancel_build()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_build(&self) -> super::builder::cloud_build::CancelBuild {
         super::builder::cloud_build::CancelBuild::new(self.inner.clone())
     }
@@ -202,6 +270,22 @@ impl CloudBuild {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_build_v1::client::CloudBuild;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_build_v1::Result;
+    /// async fn sample(
+    ///    client: &CloudBuild
+    /// ) -> Result<()> {
+    ///     let response = client.retry_build()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn retry_build(&self) -> super::builder::cloud_build::RetryBuild {
         super::builder::cloud_build::RetryBuild::new(self.inner.clone())
     }
@@ -222,31 +306,124 @@ impl CloudBuild {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_build_v1::client::CloudBuild;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_build_v1::Result;
+    /// async fn sample(
+    ///    client: &CloudBuild
+    /// ) -> Result<()> {
+    ///     let response = client.approve_build()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn approve_build(&self) -> super::builder::cloud_build::ApproveBuild {
         super::builder::cloud_build::ApproveBuild::new(self.inner.clone())
     }
 
     /// Creates a new `BuildTrigger`.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_build_v1::client::CloudBuild;
+    /// use google_cloud_build_v1::Result;
+    /// async fn sample(
+    ///    client: &CloudBuild
+    /// ) -> Result<()> {
+    ///     let response = client.create_build_trigger()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_build_trigger(&self) -> super::builder::cloud_build::CreateBuildTrigger {
         super::builder::cloud_build::CreateBuildTrigger::new(self.inner.clone())
     }
 
     /// Returns information about a `BuildTrigger`.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_build_v1::client::CloudBuild;
+    /// use google_cloud_build_v1::Result;
+    /// async fn sample(
+    ///    client: &CloudBuild
+    /// ) -> Result<()> {
+    ///     let response = client.get_build_trigger()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_build_trigger(&self) -> super::builder::cloud_build::GetBuildTrigger {
         super::builder::cloud_build::GetBuildTrigger::new(self.inner.clone())
     }
 
     /// Lists existing `BuildTrigger`s.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_build_v1::client::CloudBuild;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_build_v1::Result;
+    /// async fn sample(
+    ///    client: &CloudBuild, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_build_triggers()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_build_triggers(&self) -> super::builder::cloud_build::ListBuildTriggers {
         super::builder::cloud_build::ListBuildTriggers::new(self.inner.clone())
     }
 
     /// Deletes a `BuildTrigger` by its project ID and trigger ID.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_build_v1::client::CloudBuild;
+    /// use google_cloud_build_v1::Result;
+    /// async fn sample(
+    ///    client: &CloudBuild
+    /// ) -> Result<()> {
+    ///     client.delete_build_trigger()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_build_trigger(&self) -> super::builder::cloud_build::DeleteBuildTrigger {
         super::builder::cloud_build::DeleteBuildTrigger::new(self.inner.clone())
     }
 
     /// Updates a `BuildTrigger` by its project ID and trigger ID.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_build_v1::client::CloudBuild;
+    /// use google_cloud_build_v1::Result;
+    /// async fn sample(
+    ///    client: &CloudBuild
+    /// ) -> Result<()> {
+    ///     let response = client.update_build_trigger()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_build_trigger(&self) -> super::builder::cloud_build::UpdateBuildTrigger {
         super::builder::cloud_build::UpdateBuildTrigger::new(self.inner.clone())
     }
@@ -268,12 +445,43 @@ impl CloudBuild {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_build_v1::client::CloudBuild;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_build_v1::Result;
+    /// async fn sample(
+    ///    client: &CloudBuild
+    /// ) -> Result<()> {
+    ///     let response = client.run_build_trigger()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn run_build_trigger(&self) -> super::builder::cloud_build::RunBuildTrigger {
         super::builder::cloud_build::RunBuildTrigger::new(self.inner.clone())
     }
 
     /// ReceiveTriggerWebhook [Experimental] is called when the API receives a
     /// webhook request targeted at a specific trigger.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_build_v1::client::CloudBuild;
+    /// use google_cloud_build_v1::Result;
+    /// async fn sample(
+    ///    client: &CloudBuild
+    /// ) -> Result<()> {
+    ///     let response = client.receive_trigger_webhook()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn receive_trigger_webhook(&self) -> super::builder::cloud_build::ReceiveTriggerWebhook {
         super::builder::cloud_build::ReceiveTriggerWebhook::new(self.inner.clone())
     }
@@ -289,11 +497,46 @@ impl CloudBuild {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_build_v1::client::CloudBuild;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_build_v1::model::WorkerPool;
+    /// use google_cloud_build_v1::Result;
+    /// async fn sample(
+    ///    client: &CloudBuild, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_worker_pool()
+    ///         .set_parent(parent)
+    ///         .set_worker_pool(
+    ///             WorkerPool::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_worker_pool(&self) -> super::builder::cloud_build::CreateWorkerPool {
         super::builder::cloud_build::CreateWorkerPool::new(self.inner.clone())
     }
 
     /// Returns details of a `WorkerPool`.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_build_v1::client::CloudBuild;
+    /// use google_cloud_build_v1::Result;
+    /// async fn sample(
+    ///    client: &CloudBuild, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_worker_pool()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_worker_pool(&self) -> super::builder::cloud_build::GetWorkerPool {
         super::builder::cloud_build::GetWorkerPool::new(self.inner.clone())
     }
@@ -309,6 +552,21 @@ impl CloudBuild {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_build_v1::client::CloudBuild;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_build_v1::Result;
+    /// async fn sample(
+    ///    client: &CloudBuild, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_worker_pool()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_worker_pool(&self) -> super::builder::cloud_build::DeleteWorkerPool {
         super::builder::cloud_build::DeleteWorkerPool::new(self.inner.clone())
     }
@@ -324,16 +582,71 @@ impl CloudBuild {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_build_v1::client::CloudBuild;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_build_v1::model::WorkerPool;
+    /// use google_cloud_build_v1::Result;
+    /// async fn sample(
+    ///    client: &CloudBuild, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_worker_pool()
+    ///         .set_worker_pool(
+    ///             WorkerPool::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_worker_pool(&self) -> super::builder::cloud_build::UpdateWorkerPool {
         super::builder::cloud_build::UpdateWorkerPool::new(self.inner.clone())
     }
 
     /// Lists `WorkerPool`s.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_build_v1::client::CloudBuild;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_build_v1::Result;
+    /// async fn sample(
+    ///    client: &CloudBuild, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_worker_pools()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_worker_pools(&self) -> super::builder::cloud_build::ListWorkerPools {
         super::builder::cloud_build::ListWorkerPools::new(self.inner.clone())
     }
 
     /// Returns the `DefaultServiceAccount` used by the project.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_build_v1::client::CloudBuild;
+    /// use google_cloud_build_v1::Result;
+    /// async fn sample(
+    ///    client: &CloudBuild, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_default_service_account()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_default_service_account(
         &self,
     ) -> super::builder::cloud_build::GetDefaultServiceAccount {
@@ -343,6 +656,21 @@ impl CloudBuild {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_build_v1::client::CloudBuild;
+    /// use google_cloud_build_v1::Result;
+    /// async fn sample(
+    ///    client: &CloudBuild
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::cloud_build::GetOperation {
         super::builder::cloud_build::GetOperation::new(self.inner.clone())
     }
@@ -350,6 +678,20 @@ impl CloudBuild {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_build_v1::client::CloudBuild;
+    /// use google_cloud_build_v1::Result;
+    /// async fn sample(
+    ///    client: &CloudBuild
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::cloud_build::CancelOperation {
         super::builder::cloud_build::CancelOperation::new(self.inner.clone())
     }

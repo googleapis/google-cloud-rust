@@ -122,12 +122,45 @@ impl EdgeNetwork {
     }
 
     /// InitializeZone will initialize resources for a zone in a project.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::client::EdgeNetwork;
+    /// use google_cloud_edgenetwork_v1::Result;
+    /// async fn sample(
+    ///    client: &EdgeNetwork
+    /// ) -> Result<()> {
+    ///     let response = client.initialize_zone()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn initialize_zone(&self) -> super::builder::edge_network::InitializeZone {
         super::builder::edge_network::InitializeZone::new(self.inner.clone())
     }
 
     /// Deprecated: not implemented.
     /// Lists Zones in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::client::EdgeNetwork;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_edgenetwork_v1::Result;
+    /// async fn sample(
+    ///    client: &EdgeNetwork, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_zones()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     #[deprecated]
     pub fn list_zones(&self) -> super::builder::edge_network::ListZones {
         super::builder::edge_network::ListZones::new(self.inner.clone())
@@ -135,22 +168,85 @@ impl EdgeNetwork {
 
     /// Deprecated: not implemented.
     /// Gets details of a single Zone.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::client::EdgeNetwork;
+    /// use google_cloud_edgenetwork_v1::Result;
+    /// async fn sample(
+    ///    client: &EdgeNetwork, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_zone()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     #[deprecated]
     pub fn get_zone(&self) -> super::builder::edge_network::GetZone {
         super::builder::edge_network::GetZone::new(self.inner.clone())
     }
 
     /// Lists Networks in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::client::EdgeNetwork;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_edgenetwork_v1::Result;
+    /// async fn sample(
+    ///    client: &EdgeNetwork, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_networks()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_networks(&self) -> super::builder::edge_network::ListNetworks {
         super::builder::edge_network::ListNetworks::new(self.inner.clone())
     }
 
     /// Gets details of a single Network.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::client::EdgeNetwork;
+    /// use google_cloud_edgenetwork_v1::Result;
+    /// async fn sample(
+    ///    client: &EdgeNetwork, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_network()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_network(&self) -> super::builder::edge_network::GetNetwork {
         super::builder::edge_network::GetNetwork::new(self.inner.clone())
     }
 
     /// Get the diagnostics of a single network resource.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::client::EdgeNetwork;
+    /// use google_cloud_edgenetwork_v1::Result;
+    /// async fn sample(
+    ///    client: &EdgeNetwork
+    /// ) -> Result<()> {
+    ///     let response = client.diagnose_network()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn diagnose_network(&self) -> super::builder::edge_network::DiagnoseNetwork {
         super::builder::edge_network::DiagnoseNetwork::new(self.inner.clone())
     }
@@ -166,6 +262,26 @@ impl EdgeNetwork {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::client::EdgeNetwork;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_edgenetwork_v1::model::Network;
+    /// use google_cloud_edgenetwork_v1::Result;
+    /// async fn sample(
+    ///    client: &EdgeNetwork, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_network()
+    ///         .set_parent(parent).set_network_id("network_id_value")
+    ///         .set_network(
+    ///             Network::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_network(&self) -> super::builder::edge_network::CreateNetwork {
         super::builder::edge_network::CreateNetwork::new(self.inner.clone())
     }
@@ -181,16 +297,64 @@ impl EdgeNetwork {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::client::EdgeNetwork;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_edgenetwork_v1::Result;
+    /// async fn sample(
+    ///    client: &EdgeNetwork, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_network()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_network(&self) -> super::builder::edge_network::DeleteNetwork {
         super::builder::edge_network::DeleteNetwork::new(self.inner.clone())
     }
 
     /// Lists Subnets in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::client::EdgeNetwork;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_edgenetwork_v1::Result;
+    /// async fn sample(
+    ///    client: &EdgeNetwork, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_subnets()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_subnets(&self) -> super::builder::edge_network::ListSubnets {
         super::builder::edge_network::ListSubnets::new(self.inner.clone())
     }
 
     /// Gets details of a single Subnet.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::client::EdgeNetwork;
+    /// use google_cloud_edgenetwork_v1::Result;
+    /// async fn sample(
+    ///    client: &EdgeNetwork, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_subnet()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_subnet(&self) -> super::builder::edge_network::GetSubnet {
         super::builder::edge_network::GetSubnet::new(self.inner.clone())
     }
@@ -206,6 +370,26 @@ impl EdgeNetwork {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::client::EdgeNetwork;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_edgenetwork_v1::model::Subnet;
+    /// use google_cloud_edgenetwork_v1::Result;
+    /// async fn sample(
+    ///    client: &EdgeNetwork, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_subnet()
+    ///         .set_parent(parent).set_subnet_id("subnet_id_value")
+    ///         .set_subnet(
+    ///             Subnet::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_subnet(&self) -> super::builder::edge_network::CreateSubnet {
         super::builder::edge_network::CreateSubnet::new(self.inner.clone())
     }
@@ -221,6 +405,28 @@ impl EdgeNetwork {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::client::EdgeNetwork;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_edgenetwork_v1::model::Subnet;
+    /// use google_cloud_edgenetwork_v1::Result;
+    /// async fn sample(
+    ///    client: &EdgeNetwork, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_subnet()
+    ///         .set_subnet(
+    ///             Subnet::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_subnet(&self) -> super::builder::edge_network::UpdateSubnet {
         super::builder::edge_network::UpdateSubnet::new(self.inner.clone())
     }
@@ -236,26 +442,107 @@ impl EdgeNetwork {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::client::EdgeNetwork;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_edgenetwork_v1::Result;
+    /// async fn sample(
+    ///    client: &EdgeNetwork, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_subnet()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_subnet(&self) -> super::builder::edge_network::DeleteSubnet {
         super::builder::edge_network::DeleteSubnet::new(self.inner.clone())
     }
 
     /// Lists Interconnects in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::client::EdgeNetwork;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_edgenetwork_v1::Result;
+    /// async fn sample(
+    ///    client: &EdgeNetwork, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_interconnects()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_interconnects(&self) -> super::builder::edge_network::ListInterconnects {
         super::builder::edge_network::ListInterconnects::new(self.inner.clone())
     }
 
     /// Gets details of a single Interconnect.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::client::EdgeNetwork;
+    /// use google_cloud_edgenetwork_v1::Result;
+    /// async fn sample(
+    ///    client: &EdgeNetwork, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_interconnect()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_interconnect(&self) -> super::builder::edge_network::GetInterconnect {
         super::builder::edge_network::GetInterconnect::new(self.inner.clone())
     }
 
     /// Get the diagnostics of a single interconnect resource.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::client::EdgeNetwork;
+    /// use google_cloud_edgenetwork_v1::Result;
+    /// async fn sample(
+    ///    client: &EdgeNetwork
+    /// ) -> Result<()> {
+    ///     let response = client.diagnose_interconnect()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn diagnose_interconnect(&self) -> super::builder::edge_network::DiagnoseInterconnect {
         super::builder::edge_network::DiagnoseInterconnect::new(self.inner.clone())
     }
 
     /// Lists InterconnectAttachments in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::client::EdgeNetwork;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_edgenetwork_v1::Result;
+    /// async fn sample(
+    ///    client: &EdgeNetwork, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_interconnect_attachments()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_interconnect_attachments(
         &self,
     ) -> super::builder::edge_network::ListInterconnectAttachments {
@@ -263,6 +550,21 @@ impl EdgeNetwork {
     }
 
     /// Gets details of a single InterconnectAttachment.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::client::EdgeNetwork;
+    /// use google_cloud_edgenetwork_v1::Result;
+    /// async fn sample(
+    ///    client: &EdgeNetwork, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_interconnect_attachment()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_interconnect_attachment(
         &self,
     ) -> super::builder::edge_network::GetInterconnectAttachment {
@@ -280,6 +582,26 @@ impl EdgeNetwork {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::client::EdgeNetwork;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_edgenetwork_v1::model::InterconnectAttachment;
+    /// use google_cloud_edgenetwork_v1::Result;
+    /// async fn sample(
+    ///    client: &EdgeNetwork, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_interconnect_attachment()
+    ///         .set_parent(parent)
+    ///         .set_interconnect_attachment(
+    ///             InterconnectAttachment::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_interconnect_attachment(
         &self,
     ) -> super::builder::edge_network::CreateInterconnectAttachment {
@@ -297,6 +619,21 @@ impl EdgeNetwork {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::client::EdgeNetwork;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_edgenetwork_v1::Result;
+    /// async fn sample(
+    ///    client: &EdgeNetwork, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_interconnect_attachment()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_interconnect_attachment(
         &self,
     ) -> super::builder::edge_network::DeleteInterconnectAttachment {
@@ -304,16 +641,64 @@ impl EdgeNetwork {
     }
 
     /// Lists Routers in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::client::EdgeNetwork;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_edgenetwork_v1::Result;
+    /// async fn sample(
+    ///    client: &EdgeNetwork, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_routers()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_routers(&self) -> super::builder::edge_network::ListRouters {
         super::builder::edge_network::ListRouters::new(self.inner.clone())
     }
 
     /// Gets details of a single Router.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::client::EdgeNetwork;
+    /// use google_cloud_edgenetwork_v1::Result;
+    /// async fn sample(
+    ///    client: &EdgeNetwork, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_router()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_router(&self) -> super::builder::edge_network::GetRouter {
         super::builder::edge_network::GetRouter::new(self.inner.clone())
     }
 
     /// Get the diagnostics of a single router resource.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::client::EdgeNetwork;
+    /// use google_cloud_edgenetwork_v1::Result;
+    /// async fn sample(
+    ///    client: &EdgeNetwork
+    /// ) -> Result<()> {
+    ///     let response = client.diagnose_router()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn diagnose_router(&self) -> super::builder::edge_network::DiagnoseRouter {
         super::builder::edge_network::DiagnoseRouter::new(self.inner.clone())
     }
@@ -329,6 +714,26 @@ impl EdgeNetwork {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::client::EdgeNetwork;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_edgenetwork_v1::model::Router;
+    /// use google_cloud_edgenetwork_v1::Result;
+    /// async fn sample(
+    ///    client: &EdgeNetwork, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_router()
+    ///         .set_parent(parent).set_router_id("router_id_value")
+    ///         .set_router(
+    ///             Router::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_router(&self) -> super::builder::edge_network::CreateRouter {
         super::builder::edge_network::CreateRouter::new(self.inner.clone())
     }
@@ -344,6 +749,28 @@ impl EdgeNetwork {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::client::EdgeNetwork;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_edgenetwork_v1::model::Router;
+    /// use google_cloud_edgenetwork_v1::Result;
+    /// async fn sample(
+    ///    client: &EdgeNetwork, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_router()
+    ///         .set_router(
+    ///             Router::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_router(&self) -> super::builder::edge_network::UpdateRouter {
         super::builder::edge_network::UpdateRouter::new(self.inner.clone())
     }
@@ -359,16 +786,64 @@ impl EdgeNetwork {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::client::EdgeNetwork;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_edgenetwork_v1::Result;
+    /// async fn sample(
+    ///    client: &EdgeNetwork, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_router()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_router(&self) -> super::builder::edge_network::DeleteRouter {
         super::builder::edge_network::DeleteRouter::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::client::EdgeNetwork;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_edgenetwork_v1::Result;
+    /// async fn sample(
+    ///    client: &EdgeNetwork
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::edge_network::ListLocations {
         super::builder::edge_network::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::client::EdgeNetwork;
+    /// use google_cloud_edgenetwork_v1::Result;
+    /// async fn sample(
+    ///    client: &EdgeNetwork
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::edge_network::GetLocation {
         super::builder::edge_network::GetLocation::new(self.inner.clone())
     }
@@ -376,6 +851,24 @@ impl EdgeNetwork {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::client::EdgeNetwork;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_edgenetwork_v1::Result;
+    /// async fn sample(
+    ///    client: &EdgeNetwork
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::edge_network::ListOperations {
         super::builder::edge_network::ListOperations::new(self.inner.clone())
     }
@@ -383,6 +876,21 @@ impl EdgeNetwork {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::client::EdgeNetwork;
+    /// use google_cloud_edgenetwork_v1::Result;
+    /// async fn sample(
+    ///    client: &EdgeNetwork
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::edge_network::GetOperation {
         super::builder::edge_network::GetOperation::new(self.inner.clone())
     }
@@ -390,6 +898,20 @@ impl EdgeNetwork {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::client::EdgeNetwork;
+    /// use google_cloud_edgenetwork_v1::Result;
+    /// async fn sample(
+    ///    client: &EdgeNetwork
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::edge_network::DeleteOperation {
         super::builder::edge_network::DeleteOperation::new(self.inner.clone())
     }
@@ -397,6 +919,20 @@ impl EdgeNetwork {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgenetwork_v1::client::EdgeNetwork;
+    /// use google_cloud_edgenetwork_v1::Result;
+    /// async fn sample(
+    ///    client: &EdgeNetwork
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::edge_network::CancelOperation {
         super::builder::edge_network::CancelOperation::new(self.inner.clone())
     }

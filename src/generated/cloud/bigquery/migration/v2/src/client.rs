@@ -120,6 +120,25 @@ impl MigrationService {
     }
 
     /// Creates a migration workflow.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_migration_v2::client::MigrationService;
+    /// use google_cloud_bigquery_migration_v2::model::MigrationWorkflow;
+    /// use google_cloud_bigquery_migration_v2::Result;
+    /// async fn sample(
+    ///    client: &MigrationService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_migration_workflow()
+    ///         .set_parent(parent)
+    ///         .set_migration_workflow(
+    ///             MigrationWorkflow::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_migration_workflow(
         &self,
     ) -> super::builder::migration_service::CreateMigrationWorkflow {
@@ -127,6 +146,21 @@ impl MigrationService {
     }
 
     /// Gets a previously created migration workflow.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_migration_v2::client::MigrationService;
+    /// use google_cloud_bigquery_migration_v2::Result;
+    /// async fn sample(
+    ///    client: &MigrationService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_migration_workflow()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_migration_workflow(
         &self,
     ) -> super::builder::migration_service::GetMigrationWorkflow {
@@ -134,6 +168,24 @@ impl MigrationService {
     }
 
     /// Lists previously created migration workflow.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_migration_v2::client::MigrationService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_bigquery_migration_v2::Result;
+    /// async fn sample(
+    ///    client: &MigrationService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_migration_workflows()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_migration_workflows(
         &self,
     ) -> super::builder::migration_service::ListMigrationWorkflows {
@@ -141,6 +193,20 @@ impl MigrationService {
     }
 
     /// Deletes a migration workflow by name.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_migration_v2::client::MigrationService;
+    /// use google_cloud_bigquery_migration_v2::Result;
+    /// async fn sample(
+    ///    client: &MigrationService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_migration_workflow()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_migration_workflow(
         &self,
     ) -> super::builder::migration_service::DeleteMigrationWorkflow {
@@ -151,6 +217,20 @@ impl MigrationService {
     /// from DRAFT to RUNNING. This is a no-op if the state is already RUNNING.
     /// An error will be signaled if the state is anything other than DRAFT or
     /// RUNNING.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_migration_v2::client::MigrationService;
+    /// use google_cloud_bigquery_migration_v2::Result;
+    /// async fn sample(
+    ///    client: &MigrationService
+    /// ) -> Result<()> {
+    ///     client.start_migration_workflow()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn start_migration_workflow(
         &self,
     ) -> super::builder::migration_service::StartMigrationWorkflow {
@@ -158,11 +238,44 @@ impl MigrationService {
     }
 
     /// Gets a previously created migration subtask.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_migration_v2::client::MigrationService;
+    /// use google_cloud_bigquery_migration_v2::Result;
+    /// async fn sample(
+    ///    client: &MigrationService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_migration_subtask()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_migration_subtask(&self) -> super::builder::migration_service::GetMigrationSubtask {
         super::builder::migration_service::GetMigrationSubtask::new(self.inner.clone())
     }
 
     /// Lists previously created migration subtasks.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_migration_v2::client::MigrationService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_bigquery_migration_v2::Result;
+    /// async fn sample(
+    ///    client: &MigrationService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_migration_subtasks()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_migration_subtasks(
         &self,
     ) -> super::builder::migration_service::ListMigrationSubtasks {

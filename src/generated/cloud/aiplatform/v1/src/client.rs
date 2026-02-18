@@ -124,6 +124,21 @@ impl DataFoundryService {
     }
 
     /// Generates synthetic data based on the provided configuration.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::DataFoundryService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &DataFoundryService
+    /// ) -> Result<()> {
+    ///     let response = client.generate_synthetic_data()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn generate_synthetic_data(
         &self,
     ) -> super::builder::data_foundry_service::GenerateSyntheticData {
@@ -131,11 +146,44 @@ impl DataFoundryService {
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::DataFoundryService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &DataFoundryService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::data_foundry_service::ListLocations {
         super::builder::data_foundry_service::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::DataFoundryService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &DataFoundryService
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::data_foundry_service::GetLocation {
         super::builder::data_foundry_service::GetLocation::new(self.inner.clone())
     }
@@ -145,12 +193,42 @@ impl DataFoundryService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::DataFoundryService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &DataFoundryService
+    /// ) -> Result<()> {
+    ///     let response = client.set_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::data_foundry_service::SetIamPolicy {
         super::builder::data_foundry_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::DataFoundryService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &DataFoundryService
+    /// ) -> Result<()> {
+    ///     let response = client.get_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::data_foundry_service::GetIamPolicy {
         super::builder::data_foundry_service::GetIamPolicy::new(self.inner.clone())
     }
@@ -162,6 +240,21 @@ impl DataFoundryService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::DataFoundryService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &DataFoundryService
+    /// ) -> Result<()> {
+    ///     let response = client.test_iam_permissions()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::data_foundry_service::TestIamPermissions {
         super::builder::data_foundry_service::TestIamPermissions::new(self.inner.clone())
     }
@@ -169,6 +262,24 @@ impl DataFoundryService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::DataFoundryService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &DataFoundryService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::data_foundry_service::ListOperations {
         super::builder::data_foundry_service::ListOperations::new(self.inner.clone())
     }
@@ -176,6 +287,21 @@ impl DataFoundryService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::DataFoundryService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &DataFoundryService
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::data_foundry_service::GetOperation {
         super::builder::data_foundry_service::GetOperation::new(self.inner.clone())
     }
@@ -183,6 +309,20 @@ impl DataFoundryService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::DataFoundryService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &DataFoundryService
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::data_foundry_service::DeleteOperation {
         super::builder::data_foundry_service::DeleteOperation::new(self.inner.clone())
     }
@@ -190,6 +330,20 @@ impl DataFoundryService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::DataFoundryService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &DataFoundryService
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::data_foundry_service::CancelOperation {
         super::builder::data_foundry_service::CancelOperation::new(self.inner.clone())
     }
@@ -197,6 +351,21 @@ impl DataFoundryService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::DataFoundryService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &DataFoundryService
+    /// ) -> Result<()> {
+    ///     let response = client.wait_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn wait_operation(&self) -> super::builder::data_foundry_service::WaitOperation {
         super::builder::data_foundry_service::WaitOperation::new(self.inner.clone())
     }
@@ -318,21 +487,95 @@ impl DatasetService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::DatasetService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::model::Dataset;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &DatasetService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_dataset()
+    ///         .set_parent(parent)
+    ///         .set_dataset(
+    ///             Dataset::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_dataset(&self) -> super::builder::dataset_service::CreateDataset {
         super::builder::dataset_service::CreateDataset::new(self.inner.clone())
     }
 
     /// Gets a Dataset.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::DatasetService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &DatasetService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_dataset()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_dataset(&self) -> super::builder::dataset_service::GetDataset {
         super::builder::dataset_service::GetDataset::new(self.inner.clone())
     }
 
     /// Updates a Dataset.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::DatasetService;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_aiplatform_v1::model::Dataset;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &DatasetService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_dataset()
+    ///         .set_dataset(
+    ///             Dataset::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_dataset(&self) -> super::builder::dataset_service::UpdateDataset {
         super::builder::dataset_service::UpdateDataset::new(self.inner.clone())
     }
 
     /// Lists Datasets in a Location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::DatasetService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &DatasetService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_datasets()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_datasets(&self) -> super::builder::dataset_service::ListDatasets {
         super::builder::dataset_service::ListDatasets::new(self.inner.clone())
     }
@@ -348,6 +591,21 @@ impl DatasetService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::DatasetService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &DatasetService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_dataset()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_dataset(&self) -> super::builder::dataset_service::DeleteDataset {
         super::builder::dataset_service::DeleteDataset::new(self.inner.clone())
     }
@@ -363,6 +621,22 @@ impl DatasetService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::DatasetService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &DatasetService
+    /// ) -> Result<()> {
+    ///     let response = client.import_data()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn import_data(&self) -> super::builder::dataset_service::ImportData {
         super::builder::dataset_service::ImportData::new(self.inner.clone())
     }
@@ -378,6 +652,22 @@ impl DatasetService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::DatasetService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &DatasetService
+    /// ) -> Result<()> {
+    ///     let response = client.export_data()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn export_data(&self) -> super::builder::dataset_service::ExportData {
         super::builder::dataset_service::ExportData::new(self.inner.clone())
     }
@@ -393,11 +683,52 @@ impl DatasetService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::DatasetService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::model::DatasetVersion;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &DatasetService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_dataset_version()
+    ///         .set_parent(parent)
+    ///         .set_dataset_version(
+    ///             DatasetVersion::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_dataset_version(&self) -> super::builder::dataset_service::CreateDatasetVersion {
         super::builder::dataset_service::CreateDatasetVersion::new(self.inner.clone())
     }
 
     /// Updates a DatasetVersion.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::DatasetService;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_aiplatform_v1::model::DatasetVersion;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &DatasetService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_dataset_version()
+    ///         .set_dataset_version(
+    ///             DatasetVersion::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_dataset_version(&self) -> super::builder::dataset_service::UpdateDatasetVersion {
         super::builder::dataset_service::UpdateDatasetVersion::new(self.inner.clone())
     }
@@ -413,16 +744,64 @@ impl DatasetService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::DatasetService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &DatasetService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_dataset_version()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_dataset_version(&self) -> super::builder::dataset_service::DeleteDatasetVersion {
         super::builder::dataset_service::DeleteDatasetVersion::new(self.inner.clone())
     }
 
     /// Gets a Dataset version.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::DatasetService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &DatasetService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_dataset_version()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_dataset_version(&self) -> super::builder::dataset_service::GetDatasetVersion {
         super::builder::dataset_service::GetDatasetVersion::new(self.inner.clone())
     }
 
     /// Lists DatasetVersions in a Dataset.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::DatasetService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &DatasetService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_dataset_versions()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_dataset_versions(&self) -> super::builder::dataset_service::ListDatasetVersions {
         super::builder::dataset_service::ListDatasetVersions::new(self.inner.clone())
     }
@@ -438,6 +817,22 @@ impl DatasetService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::DatasetService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &DatasetService
+    /// ) -> Result<()> {
+    ///     let response = client.restore_dataset_version()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn restore_dataset_version(
         &self,
     ) -> super::builder::dataset_service::RestoreDatasetVersion {
@@ -445,16 +840,70 @@ impl DatasetService {
     }
 
     /// Lists DataItems in a Dataset.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::DatasetService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &DatasetService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_data_items()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_data_items(&self) -> super::builder::dataset_service::ListDataItems {
         super::builder::dataset_service::ListDataItems::new(self.inner.clone())
     }
 
     /// Searches DataItems in a Dataset.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::DatasetService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &DatasetService
+    /// ) -> Result<()> {
+    ///     let mut list = client.search_data_items()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn search_data_items(&self) -> super::builder::dataset_service::SearchDataItems {
         super::builder::dataset_service::SearchDataItems::new(self.inner.clone())
     }
 
     /// Lists SavedQueries in a Dataset.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::DatasetService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &DatasetService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_saved_queries()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_saved_queries(&self) -> super::builder::dataset_service::ListSavedQueries {
         super::builder::dataset_service::ListSavedQueries::new(self.inner.clone())
     }
@@ -470,26 +919,107 @@ impl DatasetService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::DatasetService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &DatasetService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_saved_query()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_saved_query(&self) -> super::builder::dataset_service::DeleteSavedQuery {
         super::builder::dataset_service::DeleteSavedQuery::new(self.inner.clone())
     }
 
     /// Gets an AnnotationSpec.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::DatasetService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &DatasetService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_annotation_spec()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_annotation_spec(&self) -> super::builder::dataset_service::GetAnnotationSpec {
         super::builder::dataset_service::GetAnnotationSpec::new(self.inner.clone())
     }
 
     /// Lists Annotations belongs to a dataitem.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::DatasetService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &DatasetService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_annotations()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_annotations(&self) -> super::builder::dataset_service::ListAnnotations {
         super::builder::dataset_service::ListAnnotations::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::DatasetService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &DatasetService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::dataset_service::ListLocations {
         super::builder::dataset_service::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::DatasetService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &DatasetService
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::dataset_service::GetLocation {
         super::builder::dataset_service::GetLocation::new(self.inner.clone())
     }
@@ -499,12 +1029,42 @@ impl DatasetService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::DatasetService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &DatasetService
+    /// ) -> Result<()> {
+    ///     let response = client.set_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::dataset_service::SetIamPolicy {
         super::builder::dataset_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::DatasetService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &DatasetService
+    /// ) -> Result<()> {
+    ///     let response = client.get_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::dataset_service::GetIamPolicy {
         super::builder::dataset_service::GetIamPolicy::new(self.inner.clone())
     }
@@ -516,6 +1076,21 @@ impl DatasetService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::DatasetService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &DatasetService
+    /// ) -> Result<()> {
+    ///     let response = client.test_iam_permissions()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::dataset_service::TestIamPermissions {
         super::builder::dataset_service::TestIamPermissions::new(self.inner.clone())
     }
@@ -523,6 +1098,24 @@ impl DatasetService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::DatasetService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &DatasetService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::dataset_service::ListOperations {
         super::builder::dataset_service::ListOperations::new(self.inner.clone())
     }
@@ -530,6 +1123,21 @@ impl DatasetService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::DatasetService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &DatasetService
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::dataset_service::GetOperation {
         super::builder::dataset_service::GetOperation::new(self.inner.clone())
     }
@@ -537,6 +1145,20 @@ impl DatasetService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::DatasetService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &DatasetService
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::dataset_service::DeleteOperation {
         super::builder::dataset_service::DeleteOperation::new(self.inner.clone())
     }
@@ -544,6 +1166,20 @@ impl DatasetService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::DatasetService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &DatasetService
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::dataset_service::CancelOperation {
         super::builder::dataset_service::CancelOperation::new(self.inner.clone())
     }
@@ -551,6 +1187,21 @@ impl DatasetService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::DatasetService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &DatasetService
+    /// ) -> Result<()> {
+    ///     let response = client.wait_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn wait_operation(&self) -> super::builder::dataset_service::WaitOperation {
         super::builder::dataset_service::WaitOperation::new(self.inner.clone())
     }
@@ -674,6 +1325,22 @@ impl DeploymentResourcePoolService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::DeploymentResourcePoolService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &DeploymentResourcePoolService
+    /// ) -> Result<()> {
+    ///     let response = client.create_deployment_resource_pool()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_deployment_resource_pool(
         &self,
     ) -> super::builder::deployment_resource_pool_service::CreateDeploymentResourcePool {
@@ -683,6 +1350,21 @@ impl DeploymentResourcePoolService {
     }
 
     /// Get a DeploymentResourcePool.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::DeploymentResourcePoolService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &DeploymentResourcePoolService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_deployment_resource_pool()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_deployment_resource_pool(
         &self,
     ) -> super::builder::deployment_resource_pool_service::GetDeploymentResourcePool {
@@ -692,6 +1374,24 @@ impl DeploymentResourcePoolService {
     }
 
     /// List DeploymentResourcePools in a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::DeploymentResourcePoolService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &DeploymentResourcePoolService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_deployment_resource_pools()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_deployment_resource_pools(
         &self,
     ) -> super::builder::deployment_resource_pool_service::ListDeploymentResourcePools {
@@ -711,6 +1411,28 @@ impl DeploymentResourcePoolService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::DeploymentResourcePoolService;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_aiplatform_v1::model::DeploymentResourcePool;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &DeploymentResourcePoolService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_deployment_resource_pool()
+    ///         .set_deployment_resource_pool(
+    ///             DeploymentResourcePool::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_deployment_resource_pool(
         &self,
     ) -> super::builder::deployment_resource_pool_service::UpdateDeploymentResourcePool {
@@ -730,6 +1452,21 @@ impl DeploymentResourcePoolService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::DeploymentResourcePoolService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &DeploymentResourcePoolService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_deployment_resource_pool()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_deployment_resource_pool(
         &self,
     ) -> super::builder::deployment_resource_pool_service::DeleteDeploymentResourcePool {
@@ -739,6 +1476,24 @@ impl DeploymentResourcePoolService {
     }
 
     /// List DeployedModels that have been deployed on this DeploymentResourcePool.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::DeploymentResourcePoolService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &DeploymentResourcePoolService
+    /// ) -> Result<()> {
+    ///     let mut list = client.query_deployed_models()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn query_deployed_models(
         &self,
     ) -> super::builder::deployment_resource_pool_service::QueryDeployedModels {
@@ -748,6 +1503,24 @@ impl DeploymentResourcePoolService {
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::DeploymentResourcePoolService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &DeploymentResourcePoolService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(
         &self,
     ) -> super::builder::deployment_resource_pool_service::ListLocations {
@@ -755,6 +1528,21 @@ impl DeploymentResourcePoolService {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::DeploymentResourcePoolService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &DeploymentResourcePoolService
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::deployment_resource_pool_service::GetLocation {
         super::builder::deployment_resource_pool_service::GetLocation::new(self.inner.clone())
     }
@@ -764,12 +1552,42 @@ impl DeploymentResourcePoolService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::DeploymentResourcePoolService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &DeploymentResourcePoolService
+    /// ) -> Result<()> {
+    ///     let response = client.set_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::deployment_resource_pool_service::SetIamPolicy {
         super::builder::deployment_resource_pool_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::DeploymentResourcePoolService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &DeploymentResourcePoolService
+    /// ) -> Result<()> {
+    ///     let response = client.get_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::deployment_resource_pool_service::GetIamPolicy {
         super::builder::deployment_resource_pool_service::GetIamPolicy::new(self.inner.clone())
     }
@@ -781,6 +1599,21 @@ impl DeploymentResourcePoolService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::DeploymentResourcePoolService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &DeploymentResourcePoolService
+    /// ) -> Result<()> {
+    ///     let response = client.test_iam_permissions()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(
         &self,
     ) -> super::builder::deployment_resource_pool_service::TestIamPermissions {
@@ -792,6 +1625,24 @@ impl DeploymentResourcePoolService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::DeploymentResourcePoolService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &DeploymentResourcePoolService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(
         &self,
     ) -> super::builder::deployment_resource_pool_service::ListOperations {
@@ -801,6 +1652,21 @@ impl DeploymentResourcePoolService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::DeploymentResourcePoolService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &DeploymentResourcePoolService
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::deployment_resource_pool_service::GetOperation {
         super::builder::deployment_resource_pool_service::GetOperation::new(self.inner.clone())
     }
@@ -808,6 +1674,20 @@ impl DeploymentResourcePoolService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::DeploymentResourcePoolService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &DeploymentResourcePoolService
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(
         &self,
     ) -> super::builder::deployment_resource_pool_service::DeleteOperation {
@@ -817,6 +1697,20 @@ impl DeploymentResourcePoolService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::DeploymentResourcePoolService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &DeploymentResourcePoolService
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(
         &self,
     ) -> super::builder::deployment_resource_pool_service::CancelOperation {
@@ -826,6 +1720,21 @@ impl DeploymentResourcePoolService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::DeploymentResourcePoolService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &DeploymentResourcePoolService
+    /// ) -> Result<()> {
+    ///     let response = client.wait_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn wait_operation(
         &self,
     ) -> super::builder::deployment_resource_pool_service::WaitOperation {
@@ -949,21 +1858,95 @@ impl EndpointService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::EndpointService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::model::Endpoint;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &EndpointService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_endpoint()
+    ///         .set_parent(parent).set_endpoint_id("endpoint_id_value")
+    ///         .set_endpoint(
+    ///             Endpoint::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_endpoint(&self) -> super::builder::endpoint_service::CreateEndpoint {
         super::builder::endpoint_service::CreateEndpoint::new(self.inner.clone())
     }
 
     /// Gets an Endpoint.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::EndpointService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &EndpointService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_endpoint()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_endpoint(&self) -> super::builder::endpoint_service::GetEndpoint {
         super::builder::endpoint_service::GetEndpoint::new(self.inner.clone())
     }
 
     /// Lists Endpoints in a Location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::EndpointService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &EndpointService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_endpoints()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_endpoints(&self) -> super::builder::endpoint_service::ListEndpoints {
         super::builder::endpoint_service::ListEndpoints::new(self.inner.clone())
     }
 
     /// Updates an Endpoint.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::EndpointService;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_aiplatform_v1::model::Endpoint;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &EndpointService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_endpoint()
+    ///         .set_endpoint(
+    ///             Endpoint::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_endpoint(&self) -> super::builder::endpoint_service::UpdateEndpoint {
         super::builder::endpoint_service::UpdateEndpoint::new(self.inner.clone())
     }
@@ -979,6 +1962,22 @@ impl EndpointService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::EndpointService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &EndpointService
+    /// ) -> Result<()> {
+    ///     let response = client.update_endpoint_long_running()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_endpoint_long_running(
         &self,
     ) -> super::builder::endpoint_service::UpdateEndpointLongRunning {
@@ -996,6 +1995,21 @@ impl EndpointService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::EndpointService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &EndpointService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_endpoint()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_endpoint(&self) -> super::builder::endpoint_service::DeleteEndpoint {
         super::builder::endpoint_service::DeleteEndpoint::new(self.inner.clone())
     }
@@ -1011,6 +2025,22 @@ impl EndpointService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::EndpointService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &EndpointService
+    /// ) -> Result<()> {
+    ///     let response = client.deploy_model()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn deploy_model(&self) -> super::builder::endpoint_service::DeployModel {
         super::builder::endpoint_service::DeployModel::new(self.inner.clone())
     }
@@ -1027,6 +2057,22 @@ impl EndpointService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::EndpointService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &EndpointService
+    /// ) -> Result<()> {
+    ///     let response = client.undeploy_model()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn undeploy_model(&self) -> super::builder::endpoint_service::UndeployModel {
         super::builder::endpoint_service::UndeployModel::new(self.inner.clone())
     }
@@ -1045,16 +2091,65 @@ impl EndpointService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::EndpointService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &EndpointService
+    /// ) -> Result<()> {
+    ///     let response = client.mutate_deployed_model()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn mutate_deployed_model(&self) -> super::builder::endpoint_service::MutateDeployedModel {
         super::builder::endpoint_service::MutateDeployedModel::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::EndpointService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &EndpointService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::endpoint_service::ListLocations {
         super::builder::endpoint_service::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::EndpointService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &EndpointService
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::endpoint_service::GetLocation {
         super::builder::endpoint_service::GetLocation::new(self.inner.clone())
     }
@@ -1064,12 +2159,42 @@ impl EndpointService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::EndpointService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &EndpointService
+    /// ) -> Result<()> {
+    ///     let response = client.set_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::endpoint_service::SetIamPolicy {
         super::builder::endpoint_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::EndpointService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &EndpointService
+    /// ) -> Result<()> {
+    ///     let response = client.get_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::endpoint_service::GetIamPolicy {
         super::builder::endpoint_service::GetIamPolicy::new(self.inner.clone())
     }
@@ -1081,6 +2206,21 @@ impl EndpointService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::EndpointService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &EndpointService
+    /// ) -> Result<()> {
+    ///     let response = client.test_iam_permissions()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::endpoint_service::TestIamPermissions {
         super::builder::endpoint_service::TestIamPermissions::new(self.inner.clone())
     }
@@ -1088,6 +2228,24 @@ impl EndpointService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::EndpointService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &EndpointService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::endpoint_service::ListOperations {
         super::builder::endpoint_service::ListOperations::new(self.inner.clone())
     }
@@ -1095,6 +2253,21 @@ impl EndpointService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::EndpointService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &EndpointService
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::endpoint_service::GetOperation {
         super::builder::endpoint_service::GetOperation::new(self.inner.clone())
     }
@@ -1102,6 +2275,20 @@ impl EndpointService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::EndpointService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &EndpointService
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::endpoint_service::DeleteOperation {
         super::builder::endpoint_service::DeleteOperation::new(self.inner.clone())
     }
@@ -1109,6 +2296,20 @@ impl EndpointService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::EndpointService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &EndpointService
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::endpoint_service::CancelOperation {
         super::builder::endpoint_service::CancelOperation::new(self.inner.clone())
     }
@@ -1116,6 +2317,21 @@ impl EndpointService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::EndpointService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &EndpointService
+    /// ) -> Result<()> {
+    ///     let response = client.wait_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn wait_operation(&self) -> super::builder::endpoint_service::WaitOperation {
         super::builder::endpoint_service::WaitOperation::new(self.inner.clone())
     }
@@ -1228,16 +2444,64 @@ impl EvaluationService {
     }
 
     /// Evaluates instances based on a given metric.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::EvaluationService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &EvaluationService
+    /// ) -> Result<()> {
+    ///     let response = client.evaluate_instances()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn evaluate_instances(&self) -> super::builder::evaluation_service::EvaluateInstances {
         super::builder::evaluation_service::EvaluateInstances::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::EvaluationService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &EvaluationService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::evaluation_service::ListLocations {
         super::builder::evaluation_service::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::EvaluationService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &EvaluationService
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::evaluation_service::GetLocation {
         super::builder::evaluation_service::GetLocation::new(self.inner.clone())
     }
@@ -1247,12 +2511,42 @@ impl EvaluationService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::EvaluationService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &EvaluationService
+    /// ) -> Result<()> {
+    ///     let response = client.set_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::evaluation_service::SetIamPolicy {
         super::builder::evaluation_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::EvaluationService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &EvaluationService
+    /// ) -> Result<()> {
+    ///     let response = client.get_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::evaluation_service::GetIamPolicy {
         super::builder::evaluation_service::GetIamPolicy::new(self.inner.clone())
     }
@@ -1264,6 +2558,21 @@ impl EvaluationService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::EvaluationService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &EvaluationService
+    /// ) -> Result<()> {
+    ///     let response = client.test_iam_permissions()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::evaluation_service::TestIamPermissions {
         super::builder::evaluation_service::TestIamPermissions::new(self.inner.clone())
     }
@@ -1271,6 +2580,24 @@ impl EvaluationService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::EvaluationService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &EvaluationService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::evaluation_service::ListOperations {
         super::builder::evaluation_service::ListOperations::new(self.inner.clone())
     }
@@ -1278,6 +2605,21 @@ impl EvaluationService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::EvaluationService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &EvaluationService
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::evaluation_service::GetOperation {
         super::builder::evaluation_service::GetOperation::new(self.inner.clone())
     }
@@ -1285,6 +2627,20 @@ impl EvaluationService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::EvaluationService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &EvaluationService
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::evaluation_service::DeleteOperation {
         super::builder::evaluation_service::DeleteOperation::new(self.inner.clone())
     }
@@ -1292,6 +2648,20 @@ impl EvaluationService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::EvaluationService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &EvaluationService
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::evaluation_service::CancelOperation {
         super::builder::evaluation_service::CancelOperation::new(self.inner.clone())
     }
@@ -1299,6 +2669,21 @@ impl EvaluationService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::EvaluationService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &EvaluationService
+    /// ) -> Result<()> {
+    ///     let response = client.wait_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn wait_operation(&self) -> super::builder::evaluation_service::WaitOperation {
         super::builder::evaluation_service::WaitOperation::new(self.inner.clone())
     }
@@ -1425,6 +2810,26 @@ impl FeatureOnlineStoreAdminService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeatureOnlineStoreAdminService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::model::FeatureOnlineStore;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeatureOnlineStoreAdminService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_feature_online_store()
+    ///         .set_parent(parent)
+    ///         .set_feature_online_store(
+    ///             FeatureOnlineStore::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_feature_online_store(
         &self,
     ) -> super::builder::feature_online_store_admin_service::CreateFeatureOnlineStore {
@@ -1434,6 +2839,21 @@ impl FeatureOnlineStoreAdminService {
     }
 
     /// Gets details of a single FeatureOnlineStore.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeatureOnlineStoreAdminService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeatureOnlineStoreAdminService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_feature_online_store()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_feature_online_store(
         &self,
     ) -> super::builder::feature_online_store_admin_service::GetFeatureOnlineStore {
@@ -1443,6 +2863,24 @@ impl FeatureOnlineStoreAdminService {
     }
 
     /// Lists FeatureOnlineStores in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeatureOnlineStoreAdminService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeatureOnlineStoreAdminService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_feature_online_stores()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_feature_online_stores(
         &self,
     ) -> super::builder::feature_online_store_admin_service::ListFeatureOnlineStores {
@@ -1462,6 +2900,28 @@ impl FeatureOnlineStoreAdminService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeatureOnlineStoreAdminService;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_aiplatform_v1::model::FeatureOnlineStore;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeatureOnlineStoreAdminService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_feature_online_store()
+    ///         .set_feature_online_store(
+    ///             FeatureOnlineStore::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_feature_online_store(
         &self,
     ) -> super::builder::feature_online_store_admin_service::UpdateFeatureOnlineStore {
@@ -1482,6 +2942,21 @@ impl FeatureOnlineStoreAdminService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeatureOnlineStoreAdminService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeatureOnlineStoreAdminService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_feature_online_store()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_feature_online_store(
         &self,
     ) -> super::builder::feature_online_store_admin_service::DeleteFeatureOnlineStore {
@@ -1501,6 +2976,26 @@ impl FeatureOnlineStoreAdminService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeatureOnlineStoreAdminService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::model::FeatureView;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeatureOnlineStoreAdminService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_feature_view()
+    ///         .set_parent(parent)
+    ///         .set_feature_view(
+    ///             FeatureView::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_feature_view(
         &self,
     ) -> super::builder::feature_online_store_admin_service::CreateFeatureView {
@@ -1510,6 +3005,21 @@ impl FeatureOnlineStoreAdminService {
     }
 
     /// Gets details of a single FeatureView.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeatureOnlineStoreAdminService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeatureOnlineStoreAdminService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_feature_view()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_feature_view(
         &self,
     ) -> super::builder::feature_online_store_admin_service::GetFeatureView {
@@ -1517,6 +3027,24 @@ impl FeatureOnlineStoreAdminService {
     }
 
     /// Lists FeatureViews in a given FeatureOnlineStore.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeatureOnlineStoreAdminService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeatureOnlineStoreAdminService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_feature_views()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_feature_views(
         &self,
     ) -> super::builder::feature_online_store_admin_service::ListFeatureViews {
@@ -1536,6 +3064,28 @@ impl FeatureOnlineStoreAdminService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeatureOnlineStoreAdminService;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_aiplatform_v1::model::FeatureView;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeatureOnlineStoreAdminService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_feature_view()
+    ///         .set_feature_view(
+    ///             FeatureView::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_feature_view(
         &self,
     ) -> super::builder::feature_online_store_admin_service::UpdateFeatureView {
@@ -1555,6 +3105,21 @@ impl FeatureOnlineStoreAdminService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeatureOnlineStoreAdminService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeatureOnlineStoreAdminService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_feature_view()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_feature_view(
         &self,
     ) -> super::builder::feature_online_store_admin_service::DeleteFeatureView {
@@ -1564,6 +3129,21 @@ impl FeatureOnlineStoreAdminService {
     }
 
     /// Triggers on-demand sync for the FeatureView.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeatureOnlineStoreAdminService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeatureOnlineStoreAdminService
+    /// ) -> Result<()> {
+    ///     let response = client.sync_feature_view()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn sync_feature_view(
         &self,
     ) -> super::builder::feature_online_store_admin_service::SyncFeatureView {
@@ -1571,6 +3151,21 @@ impl FeatureOnlineStoreAdminService {
     }
 
     /// Gets details of a single FeatureViewSync.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeatureOnlineStoreAdminService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeatureOnlineStoreAdminService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_feature_view_sync()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_feature_view_sync(
         &self,
     ) -> super::builder::feature_online_store_admin_service::GetFeatureViewSync {
@@ -1580,6 +3175,24 @@ impl FeatureOnlineStoreAdminService {
     }
 
     /// Lists FeatureViewSyncs in a given FeatureView.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeatureOnlineStoreAdminService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeatureOnlineStoreAdminService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_feature_view_syncs()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_feature_view_syncs(
         &self,
     ) -> super::builder::feature_online_store_admin_service::ListFeatureViewSyncs {
@@ -1589,6 +3202,24 @@ impl FeatureOnlineStoreAdminService {
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeatureOnlineStoreAdminService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeatureOnlineStoreAdminService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(
         &self,
     ) -> super::builder::feature_online_store_admin_service::ListLocations {
@@ -1596,6 +3227,21 @@ impl FeatureOnlineStoreAdminService {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeatureOnlineStoreAdminService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeatureOnlineStoreAdminService
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::feature_online_store_admin_service::GetLocation {
         super::builder::feature_online_store_admin_service::GetLocation::new(self.inner.clone())
     }
@@ -1605,6 +3251,21 @@ impl FeatureOnlineStoreAdminService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeatureOnlineStoreAdminService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeatureOnlineStoreAdminService
+    /// ) -> Result<()> {
+    ///     let response = client.set_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(
         &self,
     ) -> super::builder::feature_online_store_admin_service::SetIamPolicy {
@@ -1613,6 +3274,21 @@ impl FeatureOnlineStoreAdminService {
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeatureOnlineStoreAdminService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeatureOnlineStoreAdminService
+    /// ) -> Result<()> {
+    ///     let response = client.get_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(
         &self,
     ) -> super::builder::feature_online_store_admin_service::GetIamPolicy {
@@ -1626,6 +3302,21 @@ impl FeatureOnlineStoreAdminService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeatureOnlineStoreAdminService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeatureOnlineStoreAdminService
+    /// ) -> Result<()> {
+    ///     let response = client.test_iam_permissions()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(
         &self,
     ) -> super::builder::feature_online_store_admin_service::TestIamPermissions {
@@ -1637,6 +3328,24 @@ impl FeatureOnlineStoreAdminService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeatureOnlineStoreAdminService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeatureOnlineStoreAdminService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(
         &self,
     ) -> super::builder::feature_online_store_admin_service::ListOperations {
@@ -1646,6 +3355,21 @@ impl FeatureOnlineStoreAdminService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeatureOnlineStoreAdminService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeatureOnlineStoreAdminService
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(
         &self,
     ) -> super::builder::feature_online_store_admin_service::GetOperation {
@@ -1655,6 +3379,20 @@ impl FeatureOnlineStoreAdminService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeatureOnlineStoreAdminService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeatureOnlineStoreAdminService
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(
         &self,
     ) -> super::builder::feature_online_store_admin_service::DeleteOperation {
@@ -1664,6 +3402,20 @@ impl FeatureOnlineStoreAdminService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeatureOnlineStoreAdminService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeatureOnlineStoreAdminService
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(
         &self,
     ) -> super::builder::feature_online_store_admin_service::CancelOperation {
@@ -1673,6 +3425,21 @@ impl FeatureOnlineStoreAdminService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeatureOnlineStoreAdminService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeatureOnlineStoreAdminService
+    /// ) -> Result<()> {
+    ///     let response = client.wait_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn wait_operation(
         &self,
     ) -> super::builder::feature_online_store_admin_service::WaitOperation {
@@ -1788,6 +3555,21 @@ impl FeatureOnlineStoreService {
     }
 
     /// Fetch feature values under a FeatureView.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeatureOnlineStoreService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeatureOnlineStoreService
+    /// ) -> Result<()> {
+    ///     let response = client.fetch_feature_values()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn fetch_feature_values(
         &self,
     ) -> super::builder::feature_online_store_service::FetchFeatureValues {
@@ -1797,6 +3579,21 @@ impl FeatureOnlineStoreService {
     /// Search the nearest entities under a FeatureView.
     /// Search only works for indexable feature view; if a feature view isn't
     /// indexable, returns Invalid argument response.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeatureOnlineStoreService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeatureOnlineStoreService
+    /// ) -> Result<()> {
+    ///     let response = client.search_nearest_entities()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn search_nearest_entities(
         &self,
     ) -> super::builder::feature_online_store_service::SearchNearestEntities {
@@ -1805,6 +3602,21 @@ impl FeatureOnlineStoreService {
 
     /// RPC to generate an access token for the given feature view. FeatureViews
     /// under the same FeatureOnlineStore share the same access token.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeatureOnlineStoreService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeatureOnlineStoreService
+    /// ) -> Result<()> {
+    ///     let response = client.generate_fetch_access_token()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn generate_fetch_access_token(
         &self,
     ) -> super::builder::feature_online_store_service::GenerateFetchAccessToken {
@@ -1814,11 +3626,44 @@ impl FeatureOnlineStoreService {
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeatureOnlineStoreService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeatureOnlineStoreService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::feature_online_store_service::ListLocations {
         super::builder::feature_online_store_service::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeatureOnlineStoreService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeatureOnlineStoreService
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::feature_online_store_service::GetLocation {
         super::builder::feature_online_store_service::GetLocation::new(self.inner.clone())
     }
@@ -1828,12 +3673,42 @@ impl FeatureOnlineStoreService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeatureOnlineStoreService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeatureOnlineStoreService
+    /// ) -> Result<()> {
+    ///     let response = client.set_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::feature_online_store_service::SetIamPolicy {
         super::builder::feature_online_store_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeatureOnlineStoreService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeatureOnlineStoreService
+    /// ) -> Result<()> {
+    ///     let response = client.get_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::feature_online_store_service::GetIamPolicy {
         super::builder::feature_online_store_service::GetIamPolicy::new(self.inner.clone())
     }
@@ -1845,6 +3720,21 @@ impl FeatureOnlineStoreService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeatureOnlineStoreService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeatureOnlineStoreService
+    /// ) -> Result<()> {
+    ///     let response = client.test_iam_permissions()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(
         &self,
     ) -> super::builder::feature_online_store_service::TestIamPermissions {
@@ -1854,6 +3744,24 @@ impl FeatureOnlineStoreService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeatureOnlineStoreService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeatureOnlineStoreService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::feature_online_store_service::ListOperations {
         super::builder::feature_online_store_service::ListOperations::new(self.inner.clone())
     }
@@ -1861,6 +3769,21 @@ impl FeatureOnlineStoreService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeatureOnlineStoreService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeatureOnlineStoreService
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::feature_online_store_service::GetOperation {
         super::builder::feature_online_store_service::GetOperation::new(self.inner.clone())
     }
@@ -1868,6 +3791,20 @@ impl FeatureOnlineStoreService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeatureOnlineStoreService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeatureOnlineStoreService
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(
         &self,
     ) -> super::builder::feature_online_store_service::DeleteOperation {
@@ -1877,6 +3814,20 @@ impl FeatureOnlineStoreService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeatureOnlineStoreService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeatureOnlineStoreService
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(
         &self,
     ) -> super::builder::feature_online_store_service::CancelOperation {
@@ -1886,6 +3837,21 @@ impl FeatureOnlineStoreService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeatureOnlineStoreService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeatureOnlineStoreService
+    /// ) -> Result<()> {
+    ///     let response = client.wait_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn wait_operation(&self) -> super::builder::feature_online_store_service::WaitOperation {
         super::builder::feature_online_store_service::WaitOperation::new(self.inner.clone())
     }
@@ -2009,6 +3975,26 @@ impl FeatureRegistryService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeatureRegistryService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::model::FeatureGroup;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeatureRegistryService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_feature_group()
+    ///         .set_parent(parent)
+    ///         .set_feature_group(
+    ///             FeatureGroup::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_feature_group(
         &self,
     ) -> super::builder::feature_registry_service::CreateFeatureGroup {
@@ -2016,11 +4002,44 @@ impl FeatureRegistryService {
     }
 
     /// Gets details of a single FeatureGroup.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeatureRegistryService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeatureRegistryService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_feature_group()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_feature_group(&self) -> super::builder::feature_registry_service::GetFeatureGroup {
         super::builder::feature_registry_service::GetFeatureGroup::new(self.inner.clone())
     }
 
     /// Lists FeatureGroups in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeatureRegistryService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeatureRegistryService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_feature_groups()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_feature_groups(
         &self,
     ) -> super::builder::feature_registry_service::ListFeatureGroups {
@@ -2038,6 +4057,28 @@ impl FeatureRegistryService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeatureRegistryService;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_aiplatform_v1::model::FeatureGroup;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeatureRegistryService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_feature_group()
+    ///         .set_feature_group(
+    ///             FeatureGroup::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_feature_group(
         &self,
     ) -> super::builder::feature_registry_service::UpdateFeatureGroup {
@@ -2055,6 +4096,21 @@ impl FeatureRegistryService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeatureRegistryService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeatureRegistryService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_feature_group()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_feature_group(
         &self,
     ) -> super::builder::feature_registry_service::DeleteFeatureGroup {
@@ -2072,6 +4128,26 @@ impl FeatureRegistryService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeatureRegistryService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::model::Feature;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeatureRegistryService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_feature()
+    ///         .set_parent(parent).set_feature_id("feature_id_value")
+    ///         .set_feature(
+    ///             Feature::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_feature(&self) -> super::builder::feature_registry_service::CreateFeature {
         super::builder::feature_registry_service::CreateFeature::new(self.inner.clone())
     }
@@ -2087,6 +4163,22 @@ impl FeatureRegistryService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeatureRegistryService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeatureRegistryService
+    /// ) -> Result<()> {
+    ///     let response = client.batch_create_features()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn batch_create_features(
         &self,
     ) -> super::builder::feature_registry_service::BatchCreateFeatures {
@@ -2094,11 +4186,44 @@ impl FeatureRegistryService {
     }
 
     /// Gets details of a single Feature.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeatureRegistryService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeatureRegistryService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_feature()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_feature(&self) -> super::builder::feature_registry_service::GetFeature {
         super::builder::feature_registry_service::GetFeature::new(self.inner.clone())
     }
 
     /// Lists Features in a given FeatureGroup.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeatureRegistryService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeatureRegistryService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_features()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_features(&self) -> super::builder::feature_registry_service::ListFeatures {
         super::builder::feature_registry_service::ListFeatures::new(self.inner.clone())
     }
@@ -2114,6 +4239,28 @@ impl FeatureRegistryService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeatureRegistryService;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_aiplatform_v1::model::Feature;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeatureRegistryService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_feature()
+    ///         .set_feature(
+    ///             Feature::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_feature(&self) -> super::builder::feature_registry_service::UpdateFeature {
         super::builder::feature_registry_service::UpdateFeature::new(self.inner.clone())
     }
@@ -2129,16 +4276,64 @@ impl FeatureRegistryService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeatureRegistryService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeatureRegistryService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_feature()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_feature(&self) -> super::builder::feature_registry_service::DeleteFeature {
         super::builder::feature_registry_service::DeleteFeature::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeatureRegistryService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeatureRegistryService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::feature_registry_service::ListLocations {
         super::builder::feature_registry_service::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeatureRegistryService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeatureRegistryService
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::feature_registry_service::GetLocation {
         super::builder::feature_registry_service::GetLocation::new(self.inner.clone())
     }
@@ -2148,12 +4343,42 @@ impl FeatureRegistryService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeatureRegistryService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeatureRegistryService
+    /// ) -> Result<()> {
+    ///     let response = client.set_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::feature_registry_service::SetIamPolicy {
         super::builder::feature_registry_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeatureRegistryService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeatureRegistryService
+    /// ) -> Result<()> {
+    ///     let response = client.get_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::feature_registry_service::GetIamPolicy {
         super::builder::feature_registry_service::GetIamPolicy::new(self.inner.clone())
     }
@@ -2165,6 +4390,21 @@ impl FeatureRegistryService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeatureRegistryService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeatureRegistryService
+    /// ) -> Result<()> {
+    ///     let response = client.test_iam_permissions()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(
         &self,
     ) -> super::builder::feature_registry_service::TestIamPermissions {
@@ -2174,6 +4414,24 @@ impl FeatureRegistryService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeatureRegistryService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeatureRegistryService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::feature_registry_service::ListOperations {
         super::builder::feature_registry_service::ListOperations::new(self.inner.clone())
     }
@@ -2181,6 +4439,21 @@ impl FeatureRegistryService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeatureRegistryService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeatureRegistryService
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::feature_registry_service::GetOperation {
         super::builder::feature_registry_service::GetOperation::new(self.inner.clone())
     }
@@ -2188,6 +4461,20 @@ impl FeatureRegistryService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeatureRegistryService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeatureRegistryService
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::feature_registry_service::DeleteOperation {
         super::builder::feature_registry_service::DeleteOperation::new(self.inner.clone())
     }
@@ -2195,6 +4482,20 @@ impl FeatureRegistryService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeatureRegistryService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeatureRegistryService
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::feature_registry_service::CancelOperation {
         super::builder::feature_registry_service::CancelOperation::new(self.inner.clone())
     }
@@ -2202,6 +4503,21 @@ impl FeatureRegistryService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeatureRegistryService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeatureRegistryService
+    /// ) -> Result<()> {
+    ///     let response = client.wait_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn wait_operation(&self) -> super::builder::feature_registry_service::WaitOperation {
         super::builder::feature_registry_service::WaitOperation::new(self.inner.clone())
     }
@@ -2319,6 +4635,21 @@ impl FeaturestoreOnlineServingService {
     /// Reads Feature values of a specific entity of an EntityType. For reading
     /// feature values of multiple entities of an EntityType, please use
     /// StreamingReadFeatureValues.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeaturestoreOnlineServingService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeaturestoreOnlineServingService
+    /// ) -> Result<()> {
+    ///     let response = client.read_feature_values()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn read_feature_values(
         &self,
     ) -> super::builder::featurestore_online_serving_service::ReadFeatureValues {
@@ -2332,6 +4663,21 @@ impl FeaturestoreOnlineServingService {
     /// The Feature values are merged into existing entities if any. The Feature
     /// values to be written must have timestamp within the online storage
     /// retention.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeaturestoreOnlineServingService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeaturestoreOnlineServingService
+    /// ) -> Result<()> {
+    ///     let response = client.write_feature_values()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn write_feature_values(
         &self,
     ) -> super::builder::featurestore_online_serving_service::WriteFeatureValues {
@@ -2341,6 +4687,24 @@ impl FeaturestoreOnlineServingService {
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeaturestoreOnlineServingService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeaturestoreOnlineServingService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(
         &self,
     ) -> super::builder::featurestore_online_serving_service::ListLocations {
@@ -2348,6 +4712,21 @@ impl FeaturestoreOnlineServingService {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeaturestoreOnlineServingService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeaturestoreOnlineServingService
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::featurestore_online_serving_service::GetLocation {
         super::builder::featurestore_online_serving_service::GetLocation::new(self.inner.clone())
     }
@@ -2357,6 +4736,21 @@ impl FeaturestoreOnlineServingService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeaturestoreOnlineServingService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeaturestoreOnlineServingService
+    /// ) -> Result<()> {
+    ///     let response = client.set_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(
         &self,
     ) -> super::builder::featurestore_online_serving_service::SetIamPolicy {
@@ -2365,6 +4759,21 @@ impl FeaturestoreOnlineServingService {
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeaturestoreOnlineServingService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeaturestoreOnlineServingService
+    /// ) -> Result<()> {
+    ///     let response = client.get_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(
         &self,
     ) -> super::builder::featurestore_online_serving_service::GetIamPolicy {
@@ -2378,6 +4787,21 @@ impl FeaturestoreOnlineServingService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeaturestoreOnlineServingService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeaturestoreOnlineServingService
+    /// ) -> Result<()> {
+    ///     let response = client.test_iam_permissions()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(
         &self,
     ) -> super::builder::featurestore_online_serving_service::TestIamPermissions {
@@ -2389,6 +4813,24 @@ impl FeaturestoreOnlineServingService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeaturestoreOnlineServingService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeaturestoreOnlineServingService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(
         &self,
     ) -> super::builder::featurestore_online_serving_service::ListOperations {
@@ -2398,6 +4840,21 @@ impl FeaturestoreOnlineServingService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeaturestoreOnlineServingService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeaturestoreOnlineServingService
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(
         &self,
     ) -> super::builder::featurestore_online_serving_service::GetOperation {
@@ -2407,6 +4864,20 @@ impl FeaturestoreOnlineServingService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeaturestoreOnlineServingService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeaturestoreOnlineServingService
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(
         &self,
     ) -> super::builder::featurestore_online_serving_service::DeleteOperation {
@@ -2418,6 +4889,20 @@ impl FeaturestoreOnlineServingService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeaturestoreOnlineServingService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeaturestoreOnlineServingService
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(
         &self,
     ) -> super::builder::featurestore_online_serving_service::CancelOperation {
@@ -2429,6 +4914,21 @@ impl FeaturestoreOnlineServingService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeaturestoreOnlineServingService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeaturestoreOnlineServingService
+    /// ) -> Result<()> {
+    ///     let response = client.wait_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn wait_operation(
         &self,
     ) -> super::builder::featurestore_online_serving_service::WaitOperation {
@@ -2553,16 +5053,69 @@ impl FeaturestoreService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeaturestoreService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::model::Featurestore;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeaturestoreService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_featurestore()
+    ///         .set_parent(parent).set_featurestore_id("featurestore_id_value")
+    ///         .set_featurestore(
+    ///             Featurestore::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_featurestore(&self) -> super::builder::featurestore_service::CreateFeaturestore {
         super::builder::featurestore_service::CreateFeaturestore::new(self.inner.clone())
     }
 
     /// Gets details of a single Featurestore.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeaturestoreService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeaturestoreService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_featurestore()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_featurestore(&self) -> super::builder::featurestore_service::GetFeaturestore {
         super::builder::featurestore_service::GetFeaturestore::new(self.inner.clone())
     }
 
     /// Lists Featurestores in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeaturestoreService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeaturestoreService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_featurestores()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_featurestores(&self) -> super::builder::featurestore_service::ListFeaturestores {
         super::builder::featurestore_service::ListFeaturestores::new(self.inner.clone())
     }
@@ -2578,6 +5131,28 @@ impl FeaturestoreService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeaturestoreService;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_aiplatform_v1::model::Featurestore;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeaturestoreService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_featurestore()
+    ///         .set_featurestore(
+    ///             Featurestore::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_featurestore(&self) -> super::builder::featurestore_service::UpdateFeaturestore {
         super::builder::featurestore_service::UpdateFeaturestore::new(self.inner.clone())
     }
@@ -2594,6 +5169,21 @@ impl FeaturestoreService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeaturestoreService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeaturestoreService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_featurestore()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_featurestore(&self) -> super::builder::featurestore_service::DeleteFeaturestore {
         super::builder::featurestore_service::DeleteFeaturestore::new(self.inner.clone())
     }
@@ -2609,21 +5199,95 @@ impl FeaturestoreService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeaturestoreService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::model::EntityType;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeaturestoreService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_entity_type()
+    ///         .set_parent(parent)
+    ///         .set_entity_type(
+    ///             EntityType::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_entity_type(&self) -> super::builder::featurestore_service::CreateEntityType {
         super::builder::featurestore_service::CreateEntityType::new(self.inner.clone())
     }
 
     /// Gets details of a single EntityType.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeaturestoreService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeaturestoreService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_entity_type()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_entity_type(&self) -> super::builder::featurestore_service::GetEntityType {
         super::builder::featurestore_service::GetEntityType::new(self.inner.clone())
     }
 
     /// Lists EntityTypes in a given Featurestore.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeaturestoreService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeaturestoreService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_entity_types()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_entity_types(&self) -> super::builder::featurestore_service::ListEntityTypes {
         super::builder::featurestore_service::ListEntityTypes::new(self.inner.clone())
     }
 
     /// Updates the parameters of a single EntityType.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeaturestoreService;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_aiplatform_v1::model::EntityType;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeaturestoreService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_entity_type()
+    ///         .set_entity_type(
+    ///             EntityType::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_entity_type(&self) -> super::builder::featurestore_service::UpdateEntityType {
         super::builder::featurestore_service::UpdateEntityType::new(self.inner.clone())
     }
@@ -2640,6 +5304,21 @@ impl FeaturestoreService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeaturestoreService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeaturestoreService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_entity_type()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_entity_type(&self) -> super::builder::featurestore_service::DeleteEntityType {
         super::builder::featurestore_service::DeleteEntityType::new(self.inner.clone())
     }
@@ -2655,6 +5334,26 @@ impl FeaturestoreService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeaturestoreService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::model::Feature;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeaturestoreService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_feature()
+    ///         .set_parent(parent).set_feature_id("feature_id_value")
+    ///         .set_feature(
+    ///             Feature::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_feature(&self) -> super::builder::featurestore_service::CreateFeature {
         super::builder::featurestore_service::CreateFeature::new(self.inner.clone())
     }
@@ -2670,6 +5369,22 @@ impl FeaturestoreService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeaturestoreService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeaturestoreService
+    /// ) -> Result<()> {
+    ///     let response = client.batch_create_features()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn batch_create_features(
         &self,
     ) -> super::builder::featurestore_service::BatchCreateFeatures {
@@ -2677,16 +5392,70 @@ impl FeaturestoreService {
     }
 
     /// Gets details of a single Feature.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeaturestoreService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeaturestoreService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_feature()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_feature(&self) -> super::builder::featurestore_service::GetFeature {
         super::builder::featurestore_service::GetFeature::new(self.inner.clone())
     }
 
     /// Lists Features in a given EntityType.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeaturestoreService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeaturestoreService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_features()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_features(&self) -> super::builder::featurestore_service::ListFeatures {
         super::builder::featurestore_service::ListFeatures::new(self.inner.clone())
     }
 
     /// Updates the parameters of a single Feature.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeaturestoreService;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_aiplatform_v1::model::Feature;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeaturestoreService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_feature()
+    ///         .set_feature(
+    ///             Feature::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_feature(&self) -> super::builder::featurestore_service::UpdateFeature {
         super::builder::featurestore_service::UpdateFeature::new(self.inner.clone())
     }
@@ -2702,6 +5471,21 @@ impl FeaturestoreService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeaturestoreService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeaturestoreService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_feature()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_feature(&self) -> super::builder::featurestore_service::DeleteFeature {
         super::builder::featurestore_service::DeleteFeature::new(self.inner.clone())
     }
@@ -2736,6 +5520,22 @@ impl FeaturestoreService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeaturestoreService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeaturestoreService
+    /// ) -> Result<()> {
+    ///     let response = client.import_feature_values()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn import_feature_values(
         &self,
     ) -> super::builder::featurestore_service::ImportFeatureValues {
@@ -2758,6 +5558,22 @@ impl FeaturestoreService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeaturestoreService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeaturestoreService
+    /// ) -> Result<()> {
+    ///     let response = client.batch_read_feature_values()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn batch_read_feature_values(
         &self,
     ) -> super::builder::featurestore_service::BatchReadFeatureValues {
@@ -2775,6 +5591,22 @@ impl FeaturestoreService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeaturestoreService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeaturestoreService
+    /// ) -> Result<()> {
+    ///     let response = client.export_feature_values()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn export_feature_values(
         &self,
     ) -> super::builder::featurestore_service::ExportFeatureValues {
@@ -2801,6 +5633,22 @@ impl FeaturestoreService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeaturestoreService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeaturestoreService
+    /// ) -> Result<()> {
+    ///     let response = client.delete_feature_values()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_feature_values(
         &self,
     ) -> super::builder::featurestore_service::DeleteFeatureValues {
@@ -2808,16 +5656,67 @@ impl FeaturestoreService {
     }
 
     /// Searches Features matching a query in a given project.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeaturestoreService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeaturestoreService
+    /// ) -> Result<()> {
+    ///     let mut list = client.search_features()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn search_features(&self) -> super::builder::featurestore_service::SearchFeatures {
         super::builder::featurestore_service::SearchFeatures::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeaturestoreService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeaturestoreService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::featurestore_service::ListLocations {
         super::builder::featurestore_service::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeaturestoreService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeaturestoreService
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::featurestore_service::GetLocation {
         super::builder::featurestore_service::GetLocation::new(self.inner.clone())
     }
@@ -2827,12 +5726,42 @@ impl FeaturestoreService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeaturestoreService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeaturestoreService
+    /// ) -> Result<()> {
+    ///     let response = client.set_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::featurestore_service::SetIamPolicy {
         super::builder::featurestore_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeaturestoreService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeaturestoreService
+    /// ) -> Result<()> {
+    ///     let response = client.get_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::featurestore_service::GetIamPolicy {
         super::builder::featurestore_service::GetIamPolicy::new(self.inner.clone())
     }
@@ -2844,6 +5773,21 @@ impl FeaturestoreService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeaturestoreService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeaturestoreService
+    /// ) -> Result<()> {
+    ///     let response = client.test_iam_permissions()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::featurestore_service::TestIamPermissions {
         super::builder::featurestore_service::TestIamPermissions::new(self.inner.clone())
     }
@@ -2851,6 +5795,24 @@ impl FeaturestoreService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeaturestoreService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeaturestoreService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::featurestore_service::ListOperations {
         super::builder::featurestore_service::ListOperations::new(self.inner.clone())
     }
@@ -2858,6 +5820,21 @@ impl FeaturestoreService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeaturestoreService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeaturestoreService
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::featurestore_service::GetOperation {
         super::builder::featurestore_service::GetOperation::new(self.inner.clone())
     }
@@ -2865,6 +5842,20 @@ impl FeaturestoreService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeaturestoreService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeaturestoreService
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::featurestore_service::DeleteOperation {
         super::builder::featurestore_service::DeleteOperation::new(self.inner.clone())
     }
@@ -2872,6 +5863,20 @@ impl FeaturestoreService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeaturestoreService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeaturestoreService
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::featurestore_service::CancelOperation {
         super::builder::featurestore_service::CancelOperation::new(self.inner.clone())
     }
@@ -2879,6 +5884,21 @@ impl FeaturestoreService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeaturestoreService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &FeaturestoreService
+    /// ) -> Result<()> {
+    ///     let response = client.wait_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn wait_operation(&self) -> super::builder::featurestore_service::WaitOperation {
         super::builder::featurestore_service::WaitOperation::new(self.inner.clone())
     }
@@ -2992,6 +6012,25 @@ impl GenAiCacheService {
 
     /// Creates cached content, this call will initialize the cached content in the
     /// data storage, and users need to pay for the cache data storage.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::GenAiCacheService;
+    /// use google_cloud_aiplatform_v1::model::CachedContent;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &GenAiCacheService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_cached_content()
+    ///         .set_parent(parent)
+    ///         .set_cached_content(
+    ///             CachedContent::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_cached_content(
         &self,
     ) -> super::builder::gen_ai_cache_service::CreateCachedContent {
@@ -2999,11 +6038,47 @@ impl GenAiCacheService {
     }
 
     /// Gets cached content configurations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::GenAiCacheService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &GenAiCacheService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_cached_content()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_cached_content(&self) -> super::builder::gen_ai_cache_service::GetCachedContent {
         super::builder::gen_ai_cache_service::GetCachedContent::new(self.inner.clone())
     }
 
     /// Updates cached content configurations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::GenAiCacheService;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_aiplatform_v1::model::CachedContent;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &GenAiCacheService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_cached_content()
+    ///         .set_cached_content(
+    ///             CachedContent::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_cached_content(
         &self,
     ) -> super::builder::gen_ai_cache_service::UpdateCachedContent {
@@ -3011,6 +6086,20 @@ impl GenAiCacheService {
     }
 
     /// Deletes cached content
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::GenAiCacheService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &GenAiCacheService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_cached_content()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_cached_content(
         &self,
     ) -> super::builder::gen_ai_cache_service::DeleteCachedContent {
@@ -3018,16 +6107,67 @@ impl GenAiCacheService {
     }
 
     /// Lists cached contents in a project
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::GenAiCacheService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &GenAiCacheService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_cached_contents()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_cached_contents(&self) -> super::builder::gen_ai_cache_service::ListCachedContents {
         super::builder::gen_ai_cache_service::ListCachedContents::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::GenAiCacheService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &GenAiCacheService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::gen_ai_cache_service::ListLocations {
         super::builder::gen_ai_cache_service::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::GenAiCacheService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &GenAiCacheService
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::gen_ai_cache_service::GetLocation {
         super::builder::gen_ai_cache_service::GetLocation::new(self.inner.clone())
     }
@@ -3037,12 +6177,42 @@ impl GenAiCacheService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::GenAiCacheService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &GenAiCacheService
+    /// ) -> Result<()> {
+    ///     let response = client.set_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::gen_ai_cache_service::SetIamPolicy {
         super::builder::gen_ai_cache_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::GenAiCacheService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &GenAiCacheService
+    /// ) -> Result<()> {
+    ///     let response = client.get_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::gen_ai_cache_service::GetIamPolicy {
         super::builder::gen_ai_cache_service::GetIamPolicy::new(self.inner.clone())
     }
@@ -3054,6 +6224,21 @@ impl GenAiCacheService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::GenAiCacheService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &GenAiCacheService
+    /// ) -> Result<()> {
+    ///     let response = client.test_iam_permissions()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::gen_ai_cache_service::TestIamPermissions {
         super::builder::gen_ai_cache_service::TestIamPermissions::new(self.inner.clone())
     }
@@ -3061,6 +6246,24 @@ impl GenAiCacheService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::GenAiCacheService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &GenAiCacheService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::gen_ai_cache_service::ListOperations {
         super::builder::gen_ai_cache_service::ListOperations::new(self.inner.clone())
     }
@@ -3068,6 +6271,21 @@ impl GenAiCacheService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::GenAiCacheService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &GenAiCacheService
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::gen_ai_cache_service::GetOperation {
         super::builder::gen_ai_cache_service::GetOperation::new(self.inner.clone())
     }
@@ -3075,6 +6293,20 @@ impl GenAiCacheService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::GenAiCacheService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &GenAiCacheService
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::gen_ai_cache_service::DeleteOperation {
         super::builder::gen_ai_cache_service::DeleteOperation::new(self.inner.clone())
     }
@@ -3082,6 +6314,20 @@ impl GenAiCacheService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::GenAiCacheService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &GenAiCacheService
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::gen_ai_cache_service::CancelOperation {
         super::builder::gen_ai_cache_service::CancelOperation::new(self.inner.clone())
     }
@@ -3089,6 +6335,21 @@ impl GenAiCacheService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::GenAiCacheService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &GenAiCacheService
+    /// ) -> Result<()> {
+    ///     let response = client.wait_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn wait_operation(&self) -> super::builder::gen_ai_cache_service::WaitOperation {
         super::builder::gen_ai_cache_service::WaitOperation::new(self.inner.clone())
     }
@@ -3202,16 +6463,68 @@ impl GenAiTuningService {
 
     /// Creates a TuningJob. A created TuningJob right away will be attempted to
     /// be run.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::GenAiTuningService;
+    /// use google_cloud_aiplatform_v1::model::TuningJob;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &GenAiTuningService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_tuning_job()
+    ///         .set_parent(parent)
+    ///         .set_tuning_job(
+    ///             TuningJob::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_tuning_job(&self) -> super::builder::gen_ai_tuning_service::CreateTuningJob {
         super::builder::gen_ai_tuning_service::CreateTuningJob::new(self.inner.clone())
     }
 
     /// Gets a TuningJob.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::GenAiTuningService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &GenAiTuningService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_tuning_job()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_tuning_job(&self) -> super::builder::gen_ai_tuning_service::GetTuningJob {
         super::builder::gen_ai_tuning_service::GetTuningJob::new(self.inner.clone())
     }
 
     /// Lists TuningJobs in a Location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::GenAiTuningService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &GenAiTuningService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_tuning_jobs()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_tuning_jobs(&self) -> super::builder::gen_ai_tuning_service::ListTuningJobs {
         super::builder::gen_ai_tuning_service::ListTuningJobs::new(self.inner.clone())
     }
@@ -3233,6 +6546,20 @@ impl GenAiTuningService {
     /// [google.cloud.aiplatform.v1.TuningJob.error]: crate::model::TuningJob::error
     /// [google.cloud.aiplatform.v1.TuningJob.state]: crate::model::TuningJob::state
     /// [google.rpc.Status.code]: google_cloud_rpc::model::Status::code
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::GenAiTuningService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &GenAiTuningService
+    /// ) -> Result<()> {
+    ///     client.cancel_tuning_job()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_tuning_job(&self) -> super::builder::gen_ai_tuning_service::CancelTuningJob {
         super::builder::gen_ai_tuning_service::CancelTuningJob::new(self.inner.clone())
     }
@@ -3248,16 +6575,65 @@ impl GenAiTuningService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::GenAiTuningService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &GenAiTuningService
+    /// ) -> Result<()> {
+    ///     let response = client.rebase_tuned_model()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn rebase_tuned_model(&self) -> super::builder::gen_ai_tuning_service::RebaseTunedModel {
         super::builder::gen_ai_tuning_service::RebaseTunedModel::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::GenAiTuningService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &GenAiTuningService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::gen_ai_tuning_service::ListLocations {
         super::builder::gen_ai_tuning_service::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::GenAiTuningService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &GenAiTuningService
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::gen_ai_tuning_service::GetLocation {
         super::builder::gen_ai_tuning_service::GetLocation::new(self.inner.clone())
     }
@@ -3267,12 +6643,42 @@ impl GenAiTuningService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::GenAiTuningService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &GenAiTuningService
+    /// ) -> Result<()> {
+    ///     let response = client.set_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::gen_ai_tuning_service::SetIamPolicy {
         super::builder::gen_ai_tuning_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::GenAiTuningService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &GenAiTuningService
+    /// ) -> Result<()> {
+    ///     let response = client.get_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::gen_ai_tuning_service::GetIamPolicy {
         super::builder::gen_ai_tuning_service::GetIamPolicy::new(self.inner.clone())
     }
@@ -3284,6 +6690,21 @@ impl GenAiTuningService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::GenAiTuningService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &GenAiTuningService
+    /// ) -> Result<()> {
+    ///     let response = client.test_iam_permissions()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(
         &self,
     ) -> super::builder::gen_ai_tuning_service::TestIamPermissions {
@@ -3293,6 +6714,24 @@ impl GenAiTuningService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::GenAiTuningService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &GenAiTuningService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::gen_ai_tuning_service::ListOperations {
         super::builder::gen_ai_tuning_service::ListOperations::new(self.inner.clone())
     }
@@ -3300,6 +6739,21 @@ impl GenAiTuningService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::GenAiTuningService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &GenAiTuningService
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::gen_ai_tuning_service::GetOperation {
         super::builder::gen_ai_tuning_service::GetOperation::new(self.inner.clone())
     }
@@ -3307,6 +6761,20 @@ impl GenAiTuningService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::GenAiTuningService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &GenAiTuningService
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::gen_ai_tuning_service::DeleteOperation {
         super::builder::gen_ai_tuning_service::DeleteOperation::new(self.inner.clone())
     }
@@ -3314,6 +6782,20 @@ impl GenAiTuningService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::GenAiTuningService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &GenAiTuningService
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::gen_ai_tuning_service::CancelOperation {
         super::builder::gen_ai_tuning_service::CancelOperation::new(self.inner.clone())
     }
@@ -3321,6 +6803,21 @@ impl GenAiTuningService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::GenAiTuningService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &GenAiTuningService
+    /// ) -> Result<()> {
+    ///     let response = client.wait_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn wait_operation(&self) -> super::builder::gen_ai_tuning_service::WaitOperation {
         super::builder::gen_ai_tuning_service::WaitOperation::new(self.inner.clone())
     }
@@ -3443,6 +6940,26 @@ impl IndexEndpointService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::IndexEndpointService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::model::IndexEndpoint;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &IndexEndpointService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_index_endpoint()
+    ///         .set_parent(parent)
+    ///         .set_index_endpoint(
+    ///             IndexEndpoint::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_index_endpoint(
         &self,
     ) -> super::builder::index_endpoint_service::CreateIndexEndpoint {
@@ -3450,11 +6967,44 @@ impl IndexEndpointService {
     }
 
     /// Gets an IndexEndpoint.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::IndexEndpointService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &IndexEndpointService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_index_endpoint()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_index_endpoint(&self) -> super::builder::index_endpoint_service::GetIndexEndpoint {
         super::builder::index_endpoint_service::GetIndexEndpoint::new(self.inner.clone())
     }
 
     /// Lists IndexEndpoints in a Location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::IndexEndpointService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &IndexEndpointService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_index_endpoints()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_index_endpoints(
         &self,
     ) -> super::builder::index_endpoint_service::ListIndexEndpoints {
@@ -3462,6 +7012,27 @@ impl IndexEndpointService {
     }
 
     /// Updates an IndexEndpoint.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::IndexEndpointService;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_aiplatform_v1::model::IndexEndpoint;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &IndexEndpointService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_index_endpoint()
+    ///         .set_index_endpoint(
+    ///             IndexEndpoint::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_index_endpoint(
         &self,
     ) -> super::builder::index_endpoint_service::UpdateIndexEndpoint {
@@ -3479,6 +7050,21 @@ impl IndexEndpointService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::IndexEndpointService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &IndexEndpointService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_index_endpoint()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_index_endpoint(
         &self,
     ) -> super::builder::index_endpoint_service::DeleteIndexEndpoint {
@@ -3498,6 +7084,22 @@ impl IndexEndpointService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::IndexEndpointService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &IndexEndpointService
+    /// ) -> Result<()> {
+    ///     let response = client.deploy_index()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn deploy_index(&self) -> super::builder::index_endpoint_service::DeployIndex {
         super::builder::index_endpoint_service::DeployIndex::new(self.inner.clone())
     }
@@ -3514,6 +7116,22 @@ impl IndexEndpointService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::IndexEndpointService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &IndexEndpointService
+    /// ) -> Result<()> {
+    ///     let response = client.undeploy_index()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn undeploy_index(&self) -> super::builder::index_endpoint_service::UndeployIndex {
         super::builder::index_endpoint_service::UndeployIndex::new(self.inner.clone())
     }
@@ -3529,6 +7147,22 @@ impl IndexEndpointService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::IndexEndpointService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &IndexEndpointService
+    /// ) -> Result<()> {
+    ///     let response = client.mutate_deployed_index()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn mutate_deployed_index(
         &self,
     ) -> super::builder::index_endpoint_service::MutateDeployedIndex {
@@ -3536,11 +7170,44 @@ impl IndexEndpointService {
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::IndexEndpointService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &IndexEndpointService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::index_endpoint_service::ListLocations {
         super::builder::index_endpoint_service::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::IndexEndpointService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &IndexEndpointService
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::index_endpoint_service::GetLocation {
         super::builder::index_endpoint_service::GetLocation::new(self.inner.clone())
     }
@@ -3550,12 +7217,42 @@ impl IndexEndpointService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::IndexEndpointService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &IndexEndpointService
+    /// ) -> Result<()> {
+    ///     let response = client.set_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::index_endpoint_service::SetIamPolicy {
         super::builder::index_endpoint_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::IndexEndpointService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &IndexEndpointService
+    /// ) -> Result<()> {
+    ///     let response = client.get_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::index_endpoint_service::GetIamPolicy {
         super::builder::index_endpoint_service::GetIamPolicy::new(self.inner.clone())
     }
@@ -3567,6 +7264,21 @@ impl IndexEndpointService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::IndexEndpointService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &IndexEndpointService
+    /// ) -> Result<()> {
+    ///     let response = client.test_iam_permissions()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(
         &self,
     ) -> super::builder::index_endpoint_service::TestIamPermissions {
@@ -3576,6 +7288,24 @@ impl IndexEndpointService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::IndexEndpointService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &IndexEndpointService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::index_endpoint_service::ListOperations {
         super::builder::index_endpoint_service::ListOperations::new(self.inner.clone())
     }
@@ -3583,6 +7313,21 @@ impl IndexEndpointService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::IndexEndpointService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &IndexEndpointService
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::index_endpoint_service::GetOperation {
         super::builder::index_endpoint_service::GetOperation::new(self.inner.clone())
     }
@@ -3590,6 +7335,20 @@ impl IndexEndpointService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::IndexEndpointService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &IndexEndpointService
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::index_endpoint_service::DeleteOperation {
         super::builder::index_endpoint_service::DeleteOperation::new(self.inner.clone())
     }
@@ -3597,6 +7356,20 @@ impl IndexEndpointService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::IndexEndpointService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &IndexEndpointService
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::index_endpoint_service::CancelOperation {
         super::builder::index_endpoint_service::CancelOperation::new(self.inner.clone())
     }
@@ -3604,6 +7377,21 @@ impl IndexEndpointService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::IndexEndpointService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &IndexEndpointService
+    /// ) -> Result<()> {
+    ///     let response = client.wait_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn wait_operation(&self) -> super::builder::index_endpoint_service::WaitOperation {
         super::builder::index_endpoint_service::WaitOperation::new(self.inner.clone())
     }
@@ -3725,16 +7513,69 @@ impl IndexService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::IndexService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::model::Index;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &IndexService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_index()
+    ///         .set_parent(parent)
+    ///         .set_index(
+    ///             Index::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_index(&self) -> super::builder::index_service::CreateIndex {
         super::builder::index_service::CreateIndex::new(self.inner.clone())
     }
 
     /// Gets an Index.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::IndexService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &IndexService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_index()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_index(&self) -> super::builder::index_service::GetIndex {
         super::builder::index_service::GetIndex::new(self.inner.clone())
     }
 
     /// Lists Indexes in a Location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::IndexService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &IndexService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_indexes()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_indexes(&self) -> super::builder::index_service::ListIndexes {
         super::builder::index_service::ListIndexes::new(self.inner.clone())
     }
@@ -3750,6 +7591,28 @@ impl IndexService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::IndexService;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_aiplatform_v1::model::Index;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &IndexService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_index()
+    ///         .set_index(
+    ///             Index::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_index(&self) -> super::builder::index_service::UpdateIndex {
         super::builder::index_service::UpdateIndex::new(self.inner.clone())
     }
@@ -3770,26 +7633,104 @@ impl IndexService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::IndexService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &IndexService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_index()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_index(&self) -> super::builder::index_service::DeleteIndex {
         super::builder::index_service::DeleteIndex::new(self.inner.clone())
     }
 
     /// Add/update Datapoints into an Index.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::IndexService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &IndexService
+    /// ) -> Result<()> {
+    ///     let response = client.upsert_datapoints()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn upsert_datapoints(&self) -> super::builder::index_service::UpsertDatapoints {
         super::builder::index_service::UpsertDatapoints::new(self.inner.clone())
     }
 
     /// Remove Datapoints from an Index.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::IndexService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &IndexService
+    /// ) -> Result<()> {
+    ///     let response = client.remove_datapoints()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn remove_datapoints(&self) -> super::builder::index_service::RemoveDatapoints {
         super::builder::index_service::RemoveDatapoints::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::IndexService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &IndexService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::index_service::ListLocations {
         super::builder::index_service::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::IndexService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &IndexService
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::index_service::GetLocation {
         super::builder::index_service::GetLocation::new(self.inner.clone())
     }
@@ -3799,12 +7740,42 @@ impl IndexService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::IndexService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &IndexService
+    /// ) -> Result<()> {
+    ///     let response = client.set_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::index_service::SetIamPolicy {
         super::builder::index_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::IndexService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &IndexService
+    /// ) -> Result<()> {
+    ///     let response = client.get_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::index_service::GetIamPolicy {
         super::builder::index_service::GetIamPolicy::new(self.inner.clone())
     }
@@ -3816,6 +7787,21 @@ impl IndexService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::IndexService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &IndexService
+    /// ) -> Result<()> {
+    ///     let response = client.test_iam_permissions()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::index_service::TestIamPermissions {
         super::builder::index_service::TestIamPermissions::new(self.inner.clone())
     }
@@ -3823,6 +7809,24 @@ impl IndexService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::IndexService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &IndexService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::index_service::ListOperations {
         super::builder::index_service::ListOperations::new(self.inner.clone())
     }
@@ -3830,6 +7834,21 @@ impl IndexService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::IndexService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &IndexService
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::index_service::GetOperation {
         super::builder::index_service::GetOperation::new(self.inner.clone())
     }
@@ -3837,6 +7856,20 @@ impl IndexService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::IndexService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &IndexService
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::index_service::DeleteOperation {
         super::builder::index_service::DeleteOperation::new(self.inner.clone())
     }
@@ -3844,6 +7877,20 @@ impl IndexService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::IndexService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &IndexService
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::index_service::CancelOperation {
         super::builder::index_service::CancelOperation::new(self.inner.clone())
     }
@@ -3851,6 +7898,21 @@ impl IndexService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::IndexService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &IndexService
+    /// ) -> Result<()> {
+    ///     let response = client.wait_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn wait_operation(&self) -> super::builder::index_service::WaitOperation {
         super::builder::index_service::WaitOperation::new(self.inner.clone())
     }
@@ -3963,16 +8025,68 @@ impl JobService {
 
     /// Creates a CustomJob. A created CustomJob right away
     /// will be attempted to be run.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::JobService;
+    /// use google_cloud_aiplatform_v1::model::CustomJob;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &JobService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_custom_job()
+    ///         .set_parent(parent)
+    ///         .set_custom_job(
+    ///             CustomJob::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_custom_job(&self) -> super::builder::job_service::CreateCustomJob {
         super::builder::job_service::CreateCustomJob::new(self.inner.clone())
     }
 
     /// Gets a CustomJob.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::JobService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &JobService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_custom_job()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_custom_job(&self) -> super::builder::job_service::GetCustomJob {
         super::builder::job_service::GetCustomJob::new(self.inner.clone())
     }
 
     /// Lists CustomJobs in a Location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::JobService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &JobService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_custom_jobs()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_custom_jobs(&self) -> super::builder::job_service::ListCustomJobs {
         super::builder::job_service::ListCustomJobs::new(self.inner.clone())
     }
@@ -3988,6 +8102,21 @@ impl JobService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::JobService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &JobService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_custom_job()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_custom_job(&self) -> super::builder::job_service::DeleteCustomJob {
         super::builder::job_service::DeleteCustomJob::new(self.inner.clone())
     }
@@ -4010,21 +8139,87 @@ impl JobService {
     /// [google.cloud.aiplatform.v1.CustomJob.state]: crate::model::CustomJob::state
     /// [google.cloud.aiplatform.v1.JobService.GetCustomJob]: crate::client::JobService::get_custom_job
     /// [google.rpc.Status.code]: google_cloud_rpc::model::Status::code
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::JobService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &JobService
+    /// ) -> Result<()> {
+    ///     client.cancel_custom_job()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_custom_job(&self) -> super::builder::job_service::CancelCustomJob {
         super::builder::job_service::CancelCustomJob::new(self.inner.clone())
     }
 
     /// Creates a DataLabelingJob.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::JobService;
+    /// use google_cloud_aiplatform_v1::model::DataLabelingJob;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &JobService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_data_labeling_job()
+    ///         .set_parent(parent)
+    ///         .set_data_labeling_job(
+    ///             DataLabelingJob::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_data_labeling_job(&self) -> super::builder::job_service::CreateDataLabelingJob {
         super::builder::job_service::CreateDataLabelingJob::new(self.inner.clone())
     }
 
     /// Gets a DataLabelingJob.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::JobService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &JobService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_data_labeling_job()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_data_labeling_job(&self) -> super::builder::job_service::GetDataLabelingJob {
         super::builder::job_service::GetDataLabelingJob::new(self.inner.clone())
     }
 
     /// Lists DataLabelingJobs in a Location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::JobService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &JobService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_data_labeling_jobs()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_data_labeling_jobs(&self) -> super::builder::job_service::ListDataLabelingJobs {
         super::builder::job_service::ListDataLabelingJobs::new(self.inner.clone())
     }
@@ -4040,16 +8235,64 @@ impl JobService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::JobService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &JobService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_data_labeling_job()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_data_labeling_job(&self) -> super::builder::job_service::DeleteDataLabelingJob {
         super::builder::job_service::DeleteDataLabelingJob::new(self.inner.clone())
     }
 
     /// Cancels a DataLabelingJob. Success of cancellation is not guaranteed.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::JobService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &JobService
+    /// ) -> Result<()> {
+    ///     client.cancel_data_labeling_job()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_data_labeling_job(&self) -> super::builder::job_service::CancelDataLabelingJob {
         super::builder::job_service::CancelDataLabelingJob::new(self.inner.clone())
     }
 
     /// Creates a HyperparameterTuningJob
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::JobService;
+    /// use google_cloud_aiplatform_v1::model::HyperparameterTuningJob;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &JobService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_hyperparameter_tuning_job()
+    ///         .set_parent(parent)
+    ///         .set_hyperparameter_tuning_job(
+    ///             HyperparameterTuningJob::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_hyperparameter_tuning_job(
         &self,
     ) -> super::builder::job_service::CreateHyperparameterTuningJob {
@@ -4057,6 +8300,21 @@ impl JobService {
     }
 
     /// Gets a HyperparameterTuningJob
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::JobService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &JobService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_hyperparameter_tuning_job()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_hyperparameter_tuning_job(
         &self,
     ) -> super::builder::job_service::GetHyperparameterTuningJob {
@@ -4064,6 +8322,24 @@ impl JobService {
     }
 
     /// Lists HyperparameterTuningJobs in a Location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::JobService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &JobService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_hyperparameter_tuning_jobs()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_hyperparameter_tuning_jobs(
         &self,
     ) -> super::builder::job_service::ListHyperparameterTuningJobs {
@@ -4081,6 +8357,21 @@ impl JobService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::JobService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &JobService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_hyperparameter_tuning_job()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_hyperparameter_tuning_job(
         &self,
     ) -> super::builder::job_service::DeleteHyperparameterTuningJob {
@@ -4106,6 +8397,20 @@ impl JobService {
     /// [google.cloud.aiplatform.v1.HyperparameterTuningJob.state]: crate::model::HyperparameterTuningJob::state
     /// [google.cloud.aiplatform.v1.JobService.GetHyperparameterTuningJob]: crate::client::JobService::get_hyperparameter_tuning_job
     /// [google.rpc.Status.code]: google_cloud_rpc::model::Status::code
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::JobService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &JobService
+    /// ) -> Result<()> {
+    ///     client.cancel_hyperparameter_tuning_job()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_hyperparameter_tuning_job(
         &self,
     ) -> super::builder::job_service::CancelHyperparameterTuningJob {
@@ -4113,16 +8418,68 @@ impl JobService {
     }
 
     /// Creates a NasJob
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::JobService;
+    /// use google_cloud_aiplatform_v1::model::NasJob;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &JobService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_nas_job()
+    ///         .set_parent(parent)
+    ///         .set_nas_job(
+    ///             NasJob::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_nas_job(&self) -> super::builder::job_service::CreateNasJob {
         super::builder::job_service::CreateNasJob::new(self.inner.clone())
     }
 
     /// Gets a NasJob
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::JobService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &JobService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_nas_job()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_nas_job(&self) -> super::builder::job_service::GetNasJob {
         super::builder::job_service::GetNasJob::new(self.inner.clone())
     }
 
     /// Lists NasJobs in a Location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::JobService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &JobService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_nas_jobs()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_nas_jobs(&self) -> super::builder::job_service::ListNasJobs {
         super::builder::job_service::ListNasJobs::new(self.inner.clone())
     }
@@ -4138,6 +8495,21 @@ impl JobService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::JobService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &JobService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_nas_job()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_nas_job(&self) -> super::builder::job_service::DeleteNasJob {
         super::builder::job_service::DeleteNasJob::new(self.inner.clone())
     }
@@ -4160,22 +8532,88 @@ impl JobService {
     /// [google.cloud.aiplatform.v1.NasJob.error]: crate::model::NasJob::error
     /// [google.cloud.aiplatform.v1.NasJob.state]: crate::model::NasJob::state
     /// [google.rpc.Status.code]: google_cloud_rpc::model::Status::code
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::JobService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &JobService
+    /// ) -> Result<()> {
+    ///     client.cancel_nas_job()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_nas_job(&self) -> super::builder::job_service::CancelNasJob {
         super::builder::job_service::CancelNasJob::new(self.inner.clone())
     }
 
     /// Gets a NasTrialDetail.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::JobService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &JobService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_nas_trial_detail()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_nas_trial_detail(&self) -> super::builder::job_service::GetNasTrialDetail {
         super::builder::job_service::GetNasTrialDetail::new(self.inner.clone())
     }
 
     /// List top NasTrialDetails of a NasJob.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::JobService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &JobService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_nas_trial_details()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_nas_trial_details(&self) -> super::builder::job_service::ListNasTrialDetails {
         super::builder::job_service::ListNasTrialDetails::new(self.inner.clone())
     }
 
     /// Creates a BatchPredictionJob. A BatchPredictionJob once created will
     /// right away be attempted to start.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::JobService;
+    /// use google_cloud_aiplatform_v1::model::BatchPredictionJob;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &JobService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_batch_prediction_job()
+    ///         .set_parent(parent)
+    ///         .set_batch_prediction_job(
+    ///             BatchPredictionJob::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_batch_prediction_job(
         &self,
     ) -> super::builder::job_service::CreateBatchPredictionJob {
@@ -4183,11 +8621,44 @@ impl JobService {
     }
 
     /// Gets a BatchPredictionJob
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::JobService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &JobService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_batch_prediction_job()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_batch_prediction_job(&self) -> super::builder::job_service::GetBatchPredictionJob {
         super::builder::job_service::GetBatchPredictionJob::new(self.inner.clone())
     }
 
     /// Lists BatchPredictionJobs in a Location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::JobService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &JobService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_batch_prediction_jobs()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_batch_prediction_jobs(
         &self,
     ) -> super::builder::job_service::ListBatchPredictionJobs {
@@ -4206,6 +8677,21 @@ impl JobService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::JobService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &JobService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_batch_prediction_job()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_batch_prediction_job(
         &self,
     ) -> super::builder::job_service::DeleteBatchPredictionJob {
@@ -4227,6 +8713,20 @@ impl JobService {
     ///
     /// [google.cloud.aiplatform.v1.BatchPredictionJob.state]: crate::model::BatchPredictionJob::state
     /// [google.cloud.aiplatform.v1.JobService.GetBatchPredictionJob]: crate::client::JobService::get_batch_prediction_job
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::JobService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &JobService
+    /// ) -> Result<()> {
+    ///     client.cancel_batch_prediction_job()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_batch_prediction_job(
         &self,
     ) -> super::builder::job_service::CancelBatchPredictionJob {
@@ -4235,6 +8735,25 @@ impl JobService {
 
     /// Creates a ModelDeploymentMonitoringJob. It will run periodically on a
     /// configured interval.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::JobService;
+    /// use google_cloud_aiplatform_v1::model::ModelDeploymentMonitoringJob;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &JobService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_model_deployment_monitoring_job()
+    ///         .set_parent(parent)
+    ///         .set_model_deployment_monitoring_job(
+    ///             ModelDeploymentMonitoringJob::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_model_deployment_monitoring_job(
         &self,
     ) -> super::builder::job_service::CreateModelDeploymentMonitoringJob {
@@ -4242,6 +8761,24 @@ impl JobService {
     }
 
     /// Searches Model Monitoring Statistics generated within a given time window.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::JobService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &JobService
+    /// ) -> Result<()> {
+    ///     let mut list = client.search_model_deployment_monitoring_stats_anomalies()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn search_model_deployment_monitoring_stats_anomalies(
         &self,
     ) -> super::builder::job_service::SearchModelDeploymentMonitoringStatsAnomalies {
@@ -4251,6 +8788,21 @@ impl JobService {
     }
 
     /// Gets a ModelDeploymentMonitoringJob.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::JobService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &JobService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_model_deployment_monitoring_job()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_model_deployment_monitoring_job(
         &self,
     ) -> super::builder::job_service::GetModelDeploymentMonitoringJob {
@@ -4258,6 +8810,24 @@ impl JobService {
     }
 
     /// Lists ModelDeploymentMonitoringJobs in a Location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::JobService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &JobService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_model_deployment_monitoring_jobs()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_model_deployment_monitoring_jobs(
         &self,
     ) -> super::builder::job_service::ListModelDeploymentMonitoringJobs {
@@ -4275,6 +8845,28 @@ impl JobService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::JobService;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_aiplatform_v1::model::ModelDeploymentMonitoringJob;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &JobService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_model_deployment_monitoring_job()
+    ///         .set_model_deployment_monitoring_job(
+    ///             ModelDeploymentMonitoringJob::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_model_deployment_monitoring_job(
         &self,
     ) -> super::builder::job_service::UpdateModelDeploymentMonitoringJob {
@@ -4292,6 +8884,21 @@ impl JobService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::JobService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &JobService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_model_deployment_monitoring_job()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_model_deployment_monitoring_job(
         &self,
     ) -> super::builder::job_service::DeleteModelDeploymentMonitoringJob {
@@ -4304,6 +8911,20 @@ impl JobService {
     /// to 'PAUSED'.
     ///
     /// [google.cloud.aiplatform.v1.ModelDeploymentMonitoringJob.state]: crate::model::ModelDeploymentMonitoringJob::state
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::JobService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &JobService
+    /// ) -> Result<()> {
+    ///     client.pause_model_deployment_monitoring_job()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn pause_model_deployment_monitoring_job(
         &self,
     ) -> super::builder::job_service::PauseModelDeploymentMonitoringJob {
@@ -4313,6 +8934,20 @@ impl JobService {
     /// Resumes a paused ModelDeploymentMonitoringJob. It will start to run from
     /// next scheduled time. A deleted ModelDeploymentMonitoringJob can't be
     /// resumed.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::JobService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &JobService
+    /// ) -> Result<()> {
+    ///     client.resume_model_deployment_monitoring_job()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn resume_model_deployment_monitoring_job(
         &self,
     ) -> super::builder::job_service::ResumeModelDeploymentMonitoringJob {
@@ -4320,11 +8955,44 @@ impl JobService {
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::JobService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &JobService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::job_service::ListLocations {
         super::builder::job_service::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::JobService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &JobService
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::job_service::GetLocation {
         super::builder::job_service::GetLocation::new(self.inner.clone())
     }
@@ -4334,12 +9002,42 @@ impl JobService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::JobService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &JobService
+    /// ) -> Result<()> {
+    ///     let response = client.set_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::job_service::SetIamPolicy {
         super::builder::job_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::JobService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &JobService
+    /// ) -> Result<()> {
+    ///     let response = client.get_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::job_service::GetIamPolicy {
         super::builder::job_service::GetIamPolicy::new(self.inner.clone())
     }
@@ -4351,6 +9049,21 @@ impl JobService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::JobService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &JobService
+    /// ) -> Result<()> {
+    ///     let response = client.test_iam_permissions()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::job_service::TestIamPermissions {
         super::builder::job_service::TestIamPermissions::new(self.inner.clone())
     }
@@ -4358,6 +9071,24 @@ impl JobService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::JobService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &JobService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::job_service::ListOperations {
         super::builder::job_service::ListOperations::new(self.inner.clone())
     }
@@ -4365,6 +9096,21 @@ impl JobService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::JobService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &JobService
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::job_service::GetOperation {
         super::builder::job_service::GetOperation::new(self.inner.clone())
     }
@@ -4372,6 +9118,20 @@ impl JobService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::JobService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &JobService
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::job_service::DeleteOperation {
         super::builder::job_service::DeleteOperation::new(self.inner.clone())
     }
@@ -4379,6 +9139,20 @@ impl JobService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::JobService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &JobService
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::job_service::CancelOperation {
         super::builder::job_service::CancelOperation::new(self.inner.clone())
     }
@@ -4386,6 +9160,21 @@ impl JobService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::JobService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &JobService
+    /// ) -> Result<()> {
+    ///     let response = client.wait_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn wait_operation(&self) -> super::builder::job_service::WaitOperation {
         super::builder::job_service::WaitOperation::new(self.inner.clone())
     }
@@ -4498,21 +9287,84 @@ impl LlmUtilityService {
     }
 
     /// Perform a token counting.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::LlmUtilityService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &LlmUtilityService
+    /// ) -> Result<()> {
+    ///     let response = client.count_tokens()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn count_tokens(&self) -> super::builder::llm_utility_service::CountTokens {
         super::builder::llm_utility_service::CountTokens::new(self.inner.clone())
     }
 
     /// Return a list of tokens based on the input text.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::LlmUtilityService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &LlmUtilityService
+    /// ) -> Result<()> {
+    ///     let response = client.compute_tokens()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn compute_tokens(&self) -> super::builder::llm_utility_service::ComputeTokens {
         super::builder::llm_utility_service::ComputeTokens::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::LlmUtilityService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &LlmUtilityService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::llm_utility_service::ListLocations {
         super::builder::llm_utility_service::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::LlmUtilityService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &LlmUtilityService
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::llm_utility_service::GetLocation {
         super::builder::llm_utility_service::GetLocation::new(self.inner.clone())
     }
@@ -4522,12 +9374,42 @@ impl LlmUtilityService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::LlmUtilityService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &LlmUtilityService
+    /// ) -> Result<()> {
+    ///     let response = client.set_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::llm_utility_service::SetIamPolicy {
         super::builder::llm_utility_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::LlmUtilityService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &LlmUtilityService
+    /// ) -> Result<()> {
+    ///     let response = client.get_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::llm_utility_service::GetIamPolicy {
         super::builder::llm_utility_service::GetIamPolicy::new(self.inner.clone())
     }
@@ -4539,6 +9421,21 @@ impl LlmUtilityService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::LlmUtilityService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &LlmUtilityService
+    /// ) -> Result<()> {
+    ///     let response = client.test_iam_permissions()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::llm_utility_service::TestIamPermissions {
         super::builder::llm_utility_service::TestIamPermissions::new(self.inner.clone())
     }
@@ -4546,6 +9443,24 @@ impl LlmUtilityService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::LlmUtilityService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &LlmUtilityService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::llm_utility_service::ListOperations {
         super::builder::llm_utility_service::ListOperations::new(self.inner.clone())
     }
@@ -4553,6 +9468,21 @@ impl LlmUtilityService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::LlmUtilityService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &LlmUtilityService
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::llm_utility_service::GetOperation {
         super::builder::llm_utility_service::GetOperation::new(self.inner.clone())
     }
@@ -4560,6 +9490,20 @@ impl LlmUtilityService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::LlmUtilityService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &LlmUtilityService
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::llm_utility_service::DeleteOperation {
         super::builder::llm_utility_service::DeleteOperation::new(self.inner.clone())
     }
@@ -4567,6 +9511,20 @@ impl LlmUtilityService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::LlmUtilityService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &LlmUtilityService
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::llm_utility_service::CancelOperation {
         super::builder::llm_utility_service::CancelOperation::new(self.inner.clone())
     }
@@ -4574,6 +9532,21 @@ impl LlmUtilityService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::LlmUtilityService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &LlmUtilityService
+    /// ) -> Result<()> {
+    ///     let response = client.wait_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn wait_operation(&self) -> super::builder::llm_utility_service::WaitOperation {
         super::builder::llm_utility_service::WaitOperation::new(self.inner.clone())
     }
@@ -4686,22 +9659,85 @@ impl MatchService {
     }
 
     /// Finds the nearest neighbors of each vector within the request.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MatchService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &MatchService
+    /// ) -> Result<()> {
+    ///     let response = client.find_neighbors()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn find_neighbors(&self) -> super::builder::match_service::FindNeighbors {
         super::builder::match_service::FindNeighbors::new(self.inner.clone())
     }
 
     /// Reads the datapoints/vectors of the given IDs.
     /// A maximum of 1000 datapoints can be retrieved in a batch.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MatchService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &MatchService
+    /// ) -> Result<()> {
+    ///     let response = client.read_index_datapoints()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn read_index_datapoints(&self) -> super::builder::match_service::ReadIndexDatapoints {
         super::builder::match_service::ReadIndexDatapoints::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MatchService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &MatchService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::match_service::ListLocations {
         super::builder::match_service::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MatchService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &MatchService
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::match_service::GetLocation {
         super::builder::match_service::GetLocation::new(self.inner.clone())
     }
@@ -4711,12 +9747,42 @@ impl MatchService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MatchService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &MatchService
+    /// ) -> Result<()> {
+    ///     let response = client.set_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::match_service::SetIamPolicy {
         super::builder::match_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MatchService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &MatchService
+    /// ) -> Result<()> {
+    ///     let response = client.get_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::match_service::GetIamPolicy {
         super::builder::match_service::GetIamPolicy::new(self.inner.clone())
     }
@@ -4728,6 +9794,21 @@ impl MatchService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MatchService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &MatchService
+    /// ) -> Result<()> {
+    ///     let response = client.test_iam_permissions()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::match_service::TestIamPermissions {
         super::builder::match_service::TestIamPermissions::new(self.inner.clone())
     }
@@ -4735,6 +9816,24 @@ impl MatchService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MatchService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &MatchService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::match_service::ListOperations {
         super::builder::match_service::ListOperations::new(self.inner.clone())
     }
@@ -4742,6 +9841,21 @@ impl MatchService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MatchService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &MatchService
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::match_service::GetOperation {
         super::builder::match_service::GetOperation::new(self.inner.clone())
     }
@@ -4749,6 +9863,20 @@ impl MatchService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MatchService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &MatchService
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::match_service::DeleteOperation {
         super::builder::match_service::DeleteOperation::new(self.inner.clone())
     }
@@ -4756,6 +9884,20 @@ impl MatchService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MatchService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &MatchService
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::match_service::CancelOperation {
         super::builder::match_service::CancelOperation::new(self.inner.clone())
     }
@@ -4763,6 +9905,21 @@ impl MatchService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MatchService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &MatchService
+    /// ) -> Result<()> {
+    ///     let response = client.wait_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn wait_operation(&self) -> super::builder::match_service::WaitOperation {
         super::builder::match_service::WaitOperation::new(self.inner.clone())
     }
@@ -4884,16 +10041,69 @@ impl MetadataService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MetadataService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::model::MetadataStore;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &MetadataService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_metadata_store()
+    ///         .set_parent(parent)
+    ///         .set_metadata_store(
+    ///             MetadataStore::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_metadata_store(&self) -> super::builder::metadata_service::CreateMetadataStore {
         super::builder::metadata_service::CreateMetadataStore::new(self.inner.clone())
     }
 
     /// Retrieves a specific MetadataStore.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MetadataService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &MetadataService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_metadata_store()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_metadata_store(&self) -> super::builder::metadata_service::GetMetadataStore {
         super::builder::metadata_service::GetMetadataStore::new(self.inner.clone())
     }
 
     /// Lists MetadataStores for a Location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MetadataService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &MetadataService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_metadata_stores()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_metadata_stores(&self) -> super::builder::metadata_service::ListMetadataStores {
         super::builder::metadata_service::ListMetadataStores::new(self.inner.clone())
     }
@@ -4910,26 +10120,114 @@ impl MetadataService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MetadataService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &MetadataService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_metadata_store()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_metadata_store(&self) -> super::builder::metadata_service::DeleteMetadataStore {
         super::builder::metadata_service::DeleteMetadataStore::new(self.inner.clone())
     }
 
     /// Creates an Artifact associated with a MetadataStore.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MetadataService;
+    /// use google_cloud_aiplatform_v1::model::Artifact;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &MetadataService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_artifact()
+    ///         .set_parent(parent).set_artifact_id("artifact_id_value")
+    ///         .set_artifact(
+    ///             Artifact::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_artifact(&self) -> super::builder::metadata_service::CreateArtifact {
         super::builder::metadata_service::CreateArtifact::new(self.inner.clone())
     }
 
     /// Retrieves a specific Artifact.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MetadataService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &MetadataService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_artifact()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_artifact(&self) -> super::builder::metadata_service::GetArtifact {
         super::builder::metadata_service::GetArtifact::new(self.inner.clone())
     }
 
     /// Lists Artifacts in the MetadataStore.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MetadataService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &MetadataService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_artifacts()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_artifacts(&self) -> super::builder::metadata_service::ListArtifacts {
         super::builder::metadata_service::ListArtifacts::new(self.inner.clone())
     }
 
     /// Updates a stored Artifact.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MetadataService;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_aiplatform_v1::model::Artifact;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &MetadataService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_artifact()
+    ///         .set_artifact(
+    ///             Artifact::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_artifact(&self) -> super::builder::metadata_service::UpdateArtifact {
         super::builder::metadata_service::UpdateArtifact::new(self.inner.clone())
     }
@@ -4945,6 +10243,21 @@ impl MetadataService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MetadataService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &MetadataService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_artifact()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_artifact(&self) -> super::builder::metadata_service::DeleteArtifact {
         super::builder::metadata_service::DeleteArtifact::new(self.inner.clone())
     }
@@ -4960,26 +10273,115 @@ impl MetadataService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MetadataService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &MetadataService
+    /// ) -> Result<()> {
+    ///     let response = client.purge_artifacts()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn purge_artifacts(&self) -> super::builder::metadata_service::PurgeArtifacts {
         super::builder::metadata_service::PurgeArtifacts::new(self.inner.clone())
     }
 
     /// Creates a Context associated with a MetadataStore.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MetadataService;
+    /// use google_cloud_aiplatform_v1::model::Context;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &MetadataService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_context()
+    ///         .set_parent(parent).set_context_id("context_id_value")
+    ///         .set_context(
+    ///             Context::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_context(&self) -> super::builder::metadata_service::CreateContext {
         super::builder::metadata_service::CreateContext::new(self.inner.clone())
     }
 
     /// Retrieves a specific Context.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MetadataService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &MetadataService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_context()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_context(&self) -> super::builder::metadata_service::GetContext {
         super::builder::metadata_service::GetContext::new(self.inner.clone())
     }
 
     /// Lists Contexts on the MetadataStore.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MetadataService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &MetadataService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_contexts()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_contexts(&self) -> super::builder::metadata_service::ListContexts {
         super::builder::metadata_service::ListContexts::new(self.inner.clone())
     }
 
     /// Updates a stored Context.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MetadataService;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_aiplatform_v1::model::Context;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &MetadataService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_context()
+    ///         .set_context(
+    ///             Context::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_context(&self) -> super::builder::metadata_service::UpdateContext {
         super::builder::metadata_service::UpdateContext::new(self.inner.clone())
     }
@@ -4995,6 +10397,21 @@ impl MetadataService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MetadataService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &MetadataService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_context()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_context(&self) -> super::builder::metadata_service::DeleteContext {
         super::builder::metadata_service::DeleteContext::new(self.inner.clone())
     }
@@ -5010,6 +10427,22 @@ impl MetadataService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MetadataService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &MetadataService
+    /// ) -> Result<()> {
+    ///     let response = client.purge_contexts()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn purge_contexts(&self) -> super::builder::metadata_service::PurgeContexts {
         super::builder::metadata_service::PurgeContexts::new(self.inner.clone())
     }
@@ -5017,6 +10450,21 @@ impl MetadataService {
     /// Adds a set of Artifacts and Executions to a Context. If any of the
     /// Artifacts or Executions have already been added to a Context, they are
     /// simply skipped.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MetadataService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &MetadataService
+    /// ) -> Result<()> {
+    ///     let response = client.add_context_artifacts_and_executions()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn add_context_artifacts_and_executions(
         &self,
     ) -> super::builder::metadata_service::AddContextArtifactsAndExecutions {
@@ -5028,6 +10476,21 @@ impl MetadataService {
     /// simply skipped. If this call would create a cycle or cause any Context to
     /// have more than 10 parents, the request will fail with an INVALID_ARGUMENT
     /// error.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MetadataService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &MetadataService
+    /// ) -> Result<()> {
+    ///     let response = client.add_context_children()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn add_context_children(&self) -> super::builder::metadata_service::AddContextChildren {
         super::builder::metadata_service::AddContextChildren::new(self.inner.clone())
     }
@@ -5035,6 +10498,21 @@ impl MetadataService {
     /// Remove a set of children contexts from a parent Context. If any of the
     /// child Contexts were NOT added to the parent Context, they are
     /// simply skipped.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MetadataService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &MetadataService
+    /// ) -> Result<()> {
+    ///     let response = client.remove_context_children()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn remove_context_children(
         &self,
     ) -> super::builder::metadata_service::RemoveContextChildren {
@@ -5043,6 +10521,21 @@ impl MetadataService {
 
     /// Retrieves Artifacts and Executions within the specified Context, connected
     /// by Event edges and returned as a LineageSubgraph.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MetadataService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &MetadataService
+    /// ) -> Result<()> {
+    ///     let response = client.query_context_lineage_subgraph()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn query_context_lineage_subgraph(
         &self,
     ) -> super::builder::metadata_service::QueryContextLineageSubgraph {
@@ -5050,21 +10543,94 @@ impl MetadataService {
     }
 
     /// Creates an Execution associated with a MetadataStore.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MetadataService;
+    /// use google_cloud_aiplatform_v1::model::Execution;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &MetadataService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_execution()
+    ///         .set_parent(parent).set_execution_id("execution_id_value")
+    ///         .set_execution(
+    ///             Execution::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_execution(&self) -> super::builder::metadata_service::CreateExecution {
         super::builder::metadata_service::CreateExecution::new(self.inner.clone())
     }
 
     /// Retrieves a specific Execution.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MetadataService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &MetadataService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_execution()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_execution(&self) -> super::builder::metadata_service::GetExecution {
         super::builder::metadata_service::GetExecution::new(self.inner.clone())
     }
 
     /// Lists Executions in the MetadataStore.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MetadataService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &MetadataService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_executions()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_executions(&self) -> super::builder::metadata_service::ListExecutions {
         super::builder::metadata_service::ListExecutions::new(self.inner.clone())
     }
 
     /// Updates a stored Execution.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MetadataService;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_aiplatform_v1::model::Execution;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &MetadataService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_execution()
+    ///         .set_execution(
+    ///             Execution::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_execution(&self) -> super::builder::metadata_service::UpdateExecution {
         super::builder::metadata_service::UpdateExecution::new(self.inner.clone())
     }
@@ -5080,6 +10646,21 @@ impl MetadataService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MetadataService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &MetadataService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_execution()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_execution(&self) -> super::builder::metadata_service::DeleteExecution {
         super::builder::metadata_service::DeleteExecution::new(self.inner.clone())
     }
@@ -5095,6 +10676,22 @@ impl MetadataService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MetadataService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &MetadataService
+    /// ) -> Result<()> {
+    ///     let response = client.purge_executions()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn purge_executions(&self) -> super::builder::metadata_service::PurgeExecutions {
         super::builder::metadata_service::PurgeExecutions::new(self.inner.clone())
     }
@@ -5103,6 +10700,21 @@ impl MetadataService {
     /// Artifact was used as an input or output for an Execution. If an Event
     /// already exists between the Execution and the Artifact, the Event is
     /// skipped.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MetadataService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &MetadataService
+    /// ) -> Result<()> {
+    ///     let response = client.add_execution_events()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn add_execution_events(&self) -> super::builder::metadata_service::AddExecutionEvents {
         super::builder::metadata_service::AddExecutionEvents::new(self.inner.clone())
     }
@@ -5110,6 +10722,21 @@ impl MetadataService {
     /// Obtains the set of input and output Artifacts for this Execution, in the
     /// form of LineageSubgraph that also contains the Execution and connecting
     /// Events.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MetadataService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &MetadataService
+    /// ) -> Result<()> {
+    ///     let response = client.query_execution_inputs_and_outputs()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn query_execution_inputs_and_outputs(
         &self,
     ) -> super::builder::metadata_service::QueryExecutionInputsAndOutputs {
@@ -5117,22 +10744,89 @@ impl MetadataService {
     }
 
     /// Creates a MetadataSchema.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MetadataService;
+    /// use google_cloud_aiplatform_v1::model::MetadataSchema;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &MetadataService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_metadata_schema()
+    ///         .set_parent(parent)
+    ///         .set_metadata_schema(
+    ///             MetadataSchema::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_metadata_schema(&self) -> super::builder::metadata_service::CreateMetadataSchema {
         super::builder::metadata_service::CreateMetadataSchema::new(self.inner.clone())
     }
 
     /// Retrieves a specific MetadataSchema.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MetadataService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &MetadataService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_metadata_schema()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_metadata_schema(&self) -> super::builder::metadata_service::GetMetadataSchema {
         super::builder::metadata_service::GetMetadataSchema::new(self.inner.clone())
     }
 
     /// Lists MetadataSchemas.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MetadataService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &MetadataService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_metadata_schemas()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_metadata_schemas(&self) -> super::builder::metadata_service::ListMetadataSchemas {
         super::builder::metadata_service::ListMetadataSchemas::new(self.inner.clone())
     }
 
     /// Retrieves lineage of an Artifact represented through Artifacts and
     /// Executions connected by Event edges and returned as a LineageSubgraph.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MetadataService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &MetadataService
+    /// ) -> Result<()> {
+    ///     let response = client.query_artifact_lineage_subgraph()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn query_artifact_lineage_subgraph(
         &self,
     ) -> super::builder::metadata_service::QueryArtifactLineageSubgraph {
@@ -5140,11 +10834,44 @@ impl MetadataService {
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MetadataService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &MetadataService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::metadata_service::ListLocations {
         super::builder::metadata_service::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MetadataService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &MetadataService
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::metadata_service::GetLocation {
         super::builder::metadata_service::GetLocation::new(self.inner.clone())
     }
@@ -5154,12 +10881,42 @@ impl MetadataService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MetadataService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &MetadataService
+    /// ) -> Result<()> {
+    ///     let response = client.set_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::metadata_service::SetIamPolicy {
         super::builder::metadata_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MetadataService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &MetadataService
+    /// ) -> Result<()> {
+    ///     let response = client.get_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::metadata_service::GetIamPolicy {
         super::builder::metadata_service::GetIamPolicy::new(self.inner.clone())
     }
@@ -5171,6 +10928,21 @@ impl MetadataService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MetadataService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &MetadataService
+    /// ) -> Result<()> {
+    ///     let response = client.test_iam_permissions()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::metadata_service::TestIamPermissions {
         super::builder::metadata_service::TestIamPermissions::new(self.inner.clone())
     }
@@ -5178,6 +10950,24 @@ impl MetadataService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MetadataService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &MetadataService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::metadata_service::ListOperations {
         super::builder::metadata_service::ListOperations::new(self.inner.clone())
     }
@@ -5185,6 +10975,21 @@ impl MetadataService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MetadataService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &MetadataService
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::metadata_service::GetOperation {
         super::builder::metadata_service::GetOperation::new(self.inner.clone())
     }
@@ -5192,6 +10997,20 @@ impl MetadataService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MetadataService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &MetadataService
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::metadata_service::DeleteOperation {
         super::builder::metadata_service::DeleteOperation::new(self.inner.clone())
     }
@@ -5199,6 +11018,20 @@ impl MetadataService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MetadataService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &MetadataService
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::metadata_service::CancelOperation {
         super::builder::metadata_service::CancelOperation::new(self.inner.clone())
     }
@@ -5206,6 +11039,21 @@ impl MetadataService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MetadataService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &MetadataService
+    /// ) -> Result<()> {
+    ///     let response = client.wait_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn wait_operation(&self) -> super::builder::metadata_service::WaitOperation {
         super::builder::metadata_service::WaitOperation::new(self.inner.clone())
     }
@@ -5321,6 +11169,24 @@ impl MigrationService {
     /// Searches all of the resources in automl.googleapis.com,
     /// datalabeling.googleapis.com and ml.googleapis.com that can be migrated to
     /// Vertex AI's given location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MigrationService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &MigrationService
+    /// ) -> Result<()> {
+    ///     let mut list = client.search_migratable_resources()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn search_migratable_resources(
         &self,
     ) -> super::builder::migration_service::SearchMigratableResources {
@@ -5339,6 +11205,22 @@ impl MigrationService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MigrationService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &MigrationService
+    /// ) -> Result<()> {
+    ///     let response = client.batch_migrate_resources()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn batch_migrate_resources(
         &self,
     ) -> super::builder::migration_service::BatchMigrateResources {
@@ -5346,11 +11228,44 @@ impl MigrationService {
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MigrationService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &MigrationService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::migration_service::ListLocations {
         super::builder::migration_service::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MigrationService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &MigrationService
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::migration_service::GetLocation {
         super::builder::migration_service::GetLocation::new(self.inner.clone())
     }
@@ -5360,12 +11275,42 @@ impl MigrationService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MigrationService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &MigrationService
+    /// ) -> Result<()> {
+    ///     let response = client.set_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::migration_service::SetIamPolicy {
         super::builder::migration_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MigrationService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &MigrationService
+    /// ) -> Result<()> {
+    ///     let response = client.get_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::migration_service::GetIamPolicy {
         super::builder::migration_service::GetIamPolicy::new(self.inner.clone())
     }
@@ -5377,6 +11322,21 @@ impl MigrationService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MigrationService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &MigrationService
+    /// ) -> Result<()> {
+    ///     let response = client.test_iam_permissions()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::migration_service::TestIamPermissions {
         super::builder::migration_service::TestIamPermissions::new(self.inner.clone())
     }
@@ -5384,6 +11344,24 @@ impl MigrationService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MigrationService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &MigrationService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::migration_service::ListOperations {
         super::builder::migration_service::ListOperations::new(self.inner.clone())
     }
@@ -5391,6 +11369,21 @@ impl MigrationService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MigrationService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &MigrationService
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::migration_service::GetOperation {
         super::builder::migration_service::GetOperation::new(self.inner.clone())
     }
@@ -5398,6 +11391,20 @@ impl MigrationService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MigrationService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &MigrationService
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::migration_service::DeleteOperation {
         super::builder::migration_service::DeleteOperation::new(self.inner.clone())
     }
@@ -5405,6 +11412,20 @@ impl MigrationService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MigrationService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &MigrationService
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::migration_service::CancelOperation {
         super::builder::migration_service::CancelOperation::new(self.inner.clone())
     }
@@ -5412,6 +11433,21 @@ impl MigrationService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MigrationService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &MigrationService
+    /// ) -> Result<()> {
+    ///     let response = client.wait_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn wait_operation(&self) -> super::builder::migration_service::WaitOperation {
         super::builder::migration_service::WaitOperation::new(self.inner.clone())
     }
@@ -5524,6 +11560,21 @@ impl ModelGardenService {
     }
 
     /// Gets a Model Garden publisher model.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ModelGardenService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &ModelGardenService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_publisher_model()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_publisher_model(&self) -> super::builder::model_garden_service::GetPublisherModel {
         super::builder::model_garden_service::GetPublisherModel::new(self.inner.clone())
     }
@@ -5539,16 +11590,65 @@ impl ModelGardenService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ModelGardenService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &ModelGardenService
+    /// ) -> Result<()> {
+    ///     let response = client.deploy()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn deploy(&self) -> super::builder::model_garden_service::Deploy {
         super::builder::model_garden_service::Deploy::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ModelGardenService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &ModelGardenService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::model_garden_service::ListLocations {
         super::builder::model_garden_service::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ModelGardenService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &ModelGardenService
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::model_garden_service::GetLocation {
         super::builder::model_garden_service::GetLocation::new(self.inner.clone())
     }
@@ -5558,12 +11658,42 @@ impl ModelGardenService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ModelGardenService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &ModelGardenService
+    /// ) -> Result<()> {
+    ///     let response = client.set_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::model_garden_service::SetIamPolicy {
         super::builder::model_garden_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ModelGardenService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &ModelGardenService
+    /// ) -> Result<()> {
+    ///     let response = client.get_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::model_garden_service::GetIamPolicy {
         super::builder::model_garden_service::GetIamPolicy::new(self.inner.clone())
     }
@@ -5575,6 +11705,21 @@ impl ModelGardenService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ModelGardenService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &ModelGardenService
+    /// ) -> Result<()> {
+    ///     let response = client.test_iam_permissions()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::model_garden_service::TestIamPermissions {
         super::builder::model_garden_service::TestIamPermissions::new(self.inner.clone())
     }
@@ -5582,6 +11727,24 @@ impl ModelGardenService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ModelGardenService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &ModelGardenService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::model_garden_service::ListOperations {
         super::builder::model_garden_service::ListOperations::new(self.inner.clone())
     }
@@ -5589,6 +11752,21 @@ impl ModelGardenService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ModelGardenService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &ModelGardenService
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::model_garden_service::GetOperation {
         super::builder::model_garden_service::GetOperation::new(self.inner.clone())
     }
@@ -5596,6 +11774,20 @@ impl ModelGardenService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ModelGardenService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &ModelGardenService
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::model_garden_service::DeleteOperation {
         super::builder::model_garden_service::DeleteOperation::new(self.inner.clone())
     }
@@ -5603,6 +11795,20 @@ impl ModelGardenService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ModelGardenService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &ModelGardenService
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::model_garden_service::CancelOperation {
         super::builder::model_garden_service::CancelOperation::new(self.inner.clone())
     }
@@ -5610,6 +11816,21 @@ impl ModelGardenService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ModelGardenService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &ModelGardenService
+    /// ) -> Result<()> {
+    ///     let response = client.wait_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn wait_operation(&self) -> super::builder::model_garden_service::WaitOperation {
         super::builder::model_garden_service::WaitOperation::new(self.inner.clone())
     }
@@ -5731,26 +11952,111 @@ impl ModelService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ModelService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &ModelService
+    /// ) -> Result<()> {
+    ///     let response = client.upload_model()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn upload_model(&self) -> super::builder::model_service::UploadModel {
         super::builder::model_service::UploadModel::new(self.inner.clone())
     }
 
     /// Gets a Model.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ModelService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &ModelService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_model()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_model(&self) -> super::builder::model_service::GetModel {
         super::builder::model_service::GetModel::new(self.inner.clone())
     }
 
     /// Lists Models in a Location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ModelService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &ModelService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_models()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_models(&self) -> super::builder::model_service::ListModels {
         super::builder::model_service::ListModels::new(self.inner.clone())
     }
 
     /// Lists versions of the specified model.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ModelService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &ModelService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_model_versions()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_model_versions(&self) -> super::builder::model_service::ListModelVersions {
         super::builder::model_service::ListModelVersions::new(self.inner.clone())
     }
 
     /// Lists checkpoints of the specified model version.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ModelService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &ModelService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_model_version_checkpoints()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_model_version_checkpoints(
         &self,
     ) -> super::builder::model_service::ListModelVersionCheckpoints {
@@ -5758,6 +12064,27 @@ impl ModelService {
     }
 
     /// Updates a Model.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ModelService;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_aiplatform_v1::model::Model;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &ModelService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_model()
+    ///         .set_model(
+    ///             Model::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_model(&self) -> super::builder::model_service::UpdateModel {
         super::builder::model_service::UpdateModel::new(self.inner.clone())
     }
@@ -5773,6 +12100,22 @@ impl ModelService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ModelService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &ModelService
+    /// ) -> Result<()> {
+    ///     let response = client.update_explanation_dataset()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_explanation_dataset(
         &self,
     ) -> super::builder::model_service::UpdateExplanationDataset {
@@ -5801,6 +12144,21 @@ impl ModelService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ModelService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &ModelService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_model()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_model(&self) -> super::builder::model_service::DeleteModel {
         super::builder::model_service::DeleteModel::new(self.inner.clone())
     }
@@ -5825,11 +12183,41 @@ impl ModelService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ModelService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &ModelService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_model_version()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_model_version(&self) -> super::builder::model_service::DeleteModelVersion {
         super::builder::model_service::DeleteModelVersion::new(self.inner.clone())
     }
 
     /// Merges a set of aliases for a Model version.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ModelService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &ModelService
+    /// ) -> Result<()> {
+    ///     let response = client.merge_version_aliases()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn merge_version_aliases(&self) -> super::builder::model_service::MergeVersionAliases {
         super::builder::model_service::MergeVersionAliases::new(self.inner.clone())
     }
@@ -5850,6 +12238,22 @@ impl ModelService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ModelService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &ModelService
+    /// ) -> Result<()> {
+    ///     let response = client.export_model()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn export_model(&self) -> super::builder::model_service::ExportModel {
         super::builder::model_service::ExportModel::new(self.inner.clone())
     }
@@ -5872,16 +12276,62 @@ impl ModelService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ModelService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &ModelService
+    /// ) -> Result<()> {
+    ///     let response = client.copy_model()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn copy_model(&self) -> super::builder::model_service::CopyModel {
         super::builder::model_service::CopyModel::new(self.inner.clone())
     }
 
     /// Imports an externally generated ModelEvaluation.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ModelService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &ModelService
+    /// ) -> Result<()> {
+    ///     let response = client.import_model_evaluation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn import_model_evaluation(&self) -> super::builder::model_service::ImportModelEvaluation {
         super::builder::model_service::ImportModelEvaluation::new(self.inner.clone())
     }
 
     /// Imports a list of externally generated ModelEvaluationSlice.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ModelService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &ModelService
+    /// ) -> Result<()> {
+    ///     let response = client.batch_import_model_evaluation_slices()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn batch_import_model_evaluation_slices(
         &self,
     ) -> super::builder::model_service::BatchImportModelEvaluationSlices {
@@ -5889,6 +12339,21 @@ impl ModelService {
     }
 
     /// Imports a list of externally generated EvaluatedAnnotations.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ModelService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &ModelService
+    /// ) -> Result<()> {
+    ///     let response = client.batch_import_evaluated_annotations()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn batch_import_evaluated_annotations(
         &self,
     ) -> super::builder::model_service::BatchImportEvaluatedAnnotations {
@@ -5896,16 +12361,64 @@ impl ModelService {
     }
 
     /// Gets a ModelEvaluation.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ModelService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &ModelService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_model_evaluation()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_model_evaluation(&self) -> super::builder::model_service::GetModelEvaluation {
         super::builder::model_service::GetModelEvaluation::new(self.inner.clone())
     }
 
     /// Lists ModelEvaluations in a Model.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ModelService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &ModelService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_model_evaluations()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_model_evaluations(&self) -> super::builder::model_service::ListModelEvaluations {
         super::builder::model_service::ListModelEvaluations::new(self.inner.clone())
     }
 
     /// Gets a ModelEvaluationSlice.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ModelService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &ModelService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_model_evaluation_slice()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_model_evaluation_slice(
         &self,
     ) -> super::builder::model_service::GetModelEvaluationSlice {
@@ -5913,6 +12426,24 @@ impl ModelService {
     }
 
     /// Lists ModelEvaluationSlices in a ModelEvaluation.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ModelService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &ModelService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_model_evaluation_slices()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_model_evaluation_slices(
         &self,
     ) -> super::builder::model_service::ListModelEvaluationSlices {
@@ -5920,11 +12451,44 @@ impl ModelService {
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ModelService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &ModelService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::model_service::ListLocations {
         super::builder::model_service::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ModelService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &ModelService
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::model_service::GetLocation {
         super::builder::model_service::GetLocation::new(self.inner.clone())
     }
@@ -5934,12 +12498,42 @@ impl ModelService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ModelService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &ModelService
+    /// ) -> Result<()> {
+    ///     let response = client.set_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::model_service::SetIamPolicy {
         super::builder::model_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ModelService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &ModelService
+    /// ) -> Result<()> {
+    ///     let response = client.get_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::model_service::GetIamPolicy {
         super::builder::model_service::GetIamPolicy::new(self.inner.clone())
     }
@@ -5951,6 +12545,21 @@ impl ModelService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ModelService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &ModelService
+    /// ) -> Result<()> {
+    ///     let response = client.test_iam_permissions()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::model_service::TestIamPermissions {
         super::builder::model_service::TestIamPermissions::new(self.inner.clone())
     }
@@ -5958,6 +12567,24 @@ impl ModelService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ModelService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &ModelService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::model_service::ListOperations {
         super::builder::model_service::ListOperations::new(self.inner.clone())
     }
@@ -5965,6 +12592,21 @@ impl ModelService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ModelService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &ModelService
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::model_service::GetOperation {
         super::builder::model_service::GetOperation::new(self.inner.clone())
     }
@@ -5972,6 +12614,20 @@ impl ModelService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ModelService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &ModelService
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::model_service::DeleteOperation {
         super::builder::model_service::DeleteOperation::new(self.inner.clone())
     }
@@ -5979,6 +12635,20 @@ impl ModelService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ModelService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &ModelService
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::model_service::CancelOperation {
         super::builder::model_service::CancelOperation::new(self.inner.clone())
     }
@@ -5986,6 +12656,21 @@ impl ModelService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ModelService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &ModelService
+    /// ) -> Result<()> {
+    ///     let response = client.wait_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn wait_operation(&self) -> super::builder::model_service::WaitOperation {
         super::builder::model_service::WaitOperation::new(self.inner.clone())
     }
@@ -6107,6 +12792,26 @@ impl NotebookService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::NotebookService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::model::NotebookRuntimeTemplate;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &NotebookService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_notebook_runtime_template()
+    ///         .set_parent(parent)
+    ///         .set_notebook_runtime_template(
+    ///             NotebookRuntimeTemplate::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_notebook_runtime_template(
         &self,
     ) -> super::builder::notebook_service::CreateNotebookRuntimeTemplate {
@@ -6114,6 +12819,21 @@ impl NotebookService {
     }
 
     /// Gets a NotebookRuntimeTemplate.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::NotebookService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &NotebookService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_notebook_runtime_template()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_notebook_runtime_template(
         &self,
     ) -> super::builder::notebook_service::GetNotebookRuntimeTemplate {
@@ -6121,6 +12841,24 @@ impl NotebookService {
     }
 
     /// Lists NotebookRuntimeTemplates in a Location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::NotebookService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &NotebookService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_notebook_runtime_templates()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_notebook_runtime_templates(
         &self,
     ) -> super::builder::notebook_service::ListNotebookRuntimeTemplates {
@@ -6138,6 +12876,21 @@ impl NotebookService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::NotebookService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &NotebookService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_notebook_runtime_template()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_notebook_runtime_template(
         &self,
     ) -> super::builder::notebook_service::DeleteNotebookRuntimeTemplate {
@@ -6145,6 +12898,27 @@ impl NotebookService {
     }
 
     /// Updates a NotebookRuntimeTemplate.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::NotebookService;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_aiplatform_v1::model::NotebookRuntimeTemplate;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &NotebookService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_notebook_runtime_template()
+    ///         .set_notebook_runtime_template(
+    ///             NotebookRuntimeTemplate::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_notebook_runtime_template(
         &self,
     ) -> super::builder::notebook_service::UpdateNotebookRuntimeTemplate {
@@ -6163,6 +12937,22 @@ impl NotebookService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::NotebookService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &NotebookService
+    /// ) -> Result<()> {
+    ///     let response = client.assign_notebook_runtime()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn assign_notebook_runtime(
         &self,
     ) -> super::builder::notebook_service::AssignNotebookRuntime {
@@ -6170,11 +12960,44 @@ impl NotebookService {
     }
 
     /// Gets a NotebookRuntime.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::NotebookService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &NotebookService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_notebook_runtime()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_notebook_runtime(&self) -> super::builder::notebook_service::GetNotebookRuntime {
         super::builder::notebook_service::GetNotebookRuntime::new(self.inner.clone())
     }
 
     /// Lists NotebookRuntimes in a Location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::NotebookService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &NotebookService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_notebook_runtimes()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_notebook_runtimes(&self) -> super::builder::notebook_service::ListNotebookRuntimes {
         super::builder::notebook_service::ListNotebookRuntimes::new(self.inner.clone())
     }
@@ -6190,6 +13013,21 @@ impl NotebookService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::NotebookService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &NotebookService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_notebook_runtime()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_notebook_runtime(
         &self,
     ) -> super::builder::notebook_service::DeleteNotebookRuntime {
@@ -6207,6 +13045,22 @@ impl NotebookService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::NotebookService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &NotebookService
+    /// ) -> Result<()> {
+    ///     let response = client.upgrade_notebook_runtime()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn upgrade_notebook_runtime(
         &self,
     ) -> super::builder::notebook_service::UpgradeNotebookRuntime {
@@ -6224,6 +13078,22 @@ impl NotebookService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::NotebookService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &NotebookService
+    /// ) -> Result<()> {
+    ///     let response = client.start_notebook_runtime()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn start_notebook_runtime(&self) -> super::builder::notebook_service::StartNotebookRuntime {
         super::builder::notebook_service::StartNotebookRuntime::new(self.inner.clone())
     }
@@ -6239,6 +13109,22 @@ impl NotebookService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::NotebookService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &NotebookService
+    /// ) -> Result<()> {
+    ///     let response = client.stop_notebook_runtime()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn stop_notebook_runtime(&self) -> super::builder::notebook_service::StopNotebookRuntime {
         super::builder::notebook_service::StopNotebookRuntime::new(self.inner.clone())
     }
@@ -6254,6 +13140,26 @@ impl NotebookService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::NotebookService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::model::NotebookExecutionJob;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &NotebookService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_notebook_execution_job()
+    ///         .set_parent(parent)
+    ///         .set_notebook_execution_job(
+    ///             NotebookExecutionJob::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_notebook_execution_job(
         &self,
     ) -> super::builder::notebook_service::CreateNotebookExecutionJob {
@@ -6261,6 +13167,21 @@ impl NotebookService {
     }
 
     /// Gets a NotebookExecutionJob.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::NotebookService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &NotebookService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_notebook_execution_job()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_notebook_execution_job(
         &self,
     ) -> super::builder::notebook_service::GetNotebookExecutionJob {
@@ -6268,6 +13189,24 @@ impl NotebookService {
     }
 
     /// Lists NotebookExecutionJobs in a Location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::NotebookService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &NotebookService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_notebook_execution_jobs()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_notebook_execution_jobs(
         &self,
     ) -> super::builder::notebook_service::ListNotebookExecutionJobs {
@@ -6285,6 +13224,21 @@ impl NotebookService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::NotebookService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &NotebookService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_notebook_execution_job()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_notebook_execution_job(
         &self,
     ) -> super::builder::notebook_service::DeleteNotebookExecutionJob {
@@ -6292,11 +13246,44 @@ impl NotebookService {
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::NotebookService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &NotebookService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::notebook_service::ListLocations {
         super::builder::notebook_service::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::NotebookService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &NotebookService
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::notebook_service::GetLocation {
         super::builder::notebook_service::GetLocation::new(self.inner.clone())
     }
@@ -6306,12 +13293,42 @@ impl NotebookService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::NotebookService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &NotebookService
+    /// ) -> Result<()> {
+    ///     let response = client.set_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::notebook_service::SetIamPolicy {
         super::builder::notebook_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::NotebookService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &NotebookService
+    /// ) -> Result<()> {
+    ///     let response = client.get_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::notebook_service::GetIamPolicy {
         super::builder::notebook_service::GetIamPolicy::new(self.inner.clone())
     }
@@ -6323,6 +13340,21 @@ impl NotebookService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::NotebookService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &NotebookService
+    /// ) -> Result<()> {
+    ///     let response = client.test_iam_permissions()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::notebook_service::TestIamPermissions {
         super::builder::notebook_service::TestIamPermissions::new(self.inner.clone())
     }
@@ -6330,6 +13362,24 @@ impl NotebookService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::NotebookService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &NotebookService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::notebook_service::ListOperations {
         super::builder::notebook_service::ListOperations::new(self.inner.clone())
     }
@@ -6337,6 +13387,21 @@ impl NotebookService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::NotebookService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &NotebookService
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::notebook_service::GetOperation {
         super::builder::notebook_service::GetOperation::new(self.inner.clone())
     }
@@ -6344,6 +13409,20 @@ impl NotebookService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::NotebookService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &NotebookService
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::notebook_service::DeleteOperation {
         super::builder::notebook_service::DeleteOperation::new(self.inner.clone())
     }
@@ -6351,6 +13430,20 @@ impl NotebookService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::NotebookService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &NotebookService
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::notebook_service::CancelOperation {
         super::builder::notebook_service::CancelOperation::new(self.inner.clone())
     }
@@ -6358,6 +13451,21 @@ impl NotebookService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::NotebookService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &NotebookService
+    /// ) -> Result<()> {
+    ///     let response = client.wait_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn wait_operation(&self) -> super::builder::notebook_service::WaitOperation {
         super::builder::notebook_service::WaitOperation::new(self.inner.clone())
     }
@@ -6481,6 +13589,26 @@ impl PersistentResourceService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PersistentResourceService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::model::PersistentResource;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &PersistentResourceService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_persistent_resource()
+    ///         .set_parent(parent)
+    ///         .set_persistent_resource(
+    ///             PersistentResource::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_persistent_resource(
         &self,
     ) -> super::builder::persistent_resource_service::CreatePersistentResource {
@@ -6490,6 +13618,21 @@ impl PersistentResourceService {
     }
 
     /// Gets a PersistentResource.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PersistentResourceService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &PersistentResourceService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_persistent_resource()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_persistent_resource(
         &self,
     ) -> super::builder::persistent_resource_service::GetPersistentResource {
@@ -6497,6 +13640,24 @@ impl PersistentResourceService {
     }
 
     /// Lists PersistentResources in a Location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PersistentResourceService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &PersistentResourceService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_persistent_resources()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_persistent_resources(
         &self,
     ) -> super::builder::persistent_resource_service::ListPersistentResources {
@@ -6516,6 +13677,21 @@ impl PersistentResourceService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PersistentResourceService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &PersistentResourceService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_persistent_resource()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_persistent_resource(
         &self,
     ) -> super::builder::persistent_resource_service::DeletePersistentResource {
@@ -6535,6 +13711,28 @@ impl PersistentResourceService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PersistentResourceService;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_aiplatform_v1::model::PersistentResource;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &PersistentResourceService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_persistent_resource()
+    ///         .set_persistent_resource(
+    ///             PersistentResource::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_persistent_resource(
         &self,
     ) -> super::builder::persistent_resource_service::UpdatePersistentResource {
@@ -6554,6 +13752,22 @@ impl PersistentResourceService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PersistentResourceService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &PersistentResourceService
+    /// ) -> Result<()> {
+    ///     let response = client.reboot_persistent_resource()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn reboot_persistent_resource(
         &self,
     ) -> super::builder::persistent_resource_service::RebootPersistentResource {
@@ -6563,11 +13777,44 @@ impl PersistentResourceService {
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PersistentResourceService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &PersistentResourceService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::persistent_resource_service::ListLocations {
         super::builder::persistent_resource_service::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PersistentResourceService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &PersistentResourceService
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::persistent_resource_service::GetLocation {
         super::builder::persistent_resource_service::GetLocation::new(self.inner.clone())
     }
@@ -6577,12 +13824,42 @@ impl PersistentResourceService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PersistentResourceService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &PersistentResourceService
+    /// ) -> Result<()> {
+    ///     let response = client.set_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::persistent_resource_service::SetIamPolicy {
         super::builder::persistent_resource_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PersistentResourceService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &PersistentResourceService
+    /// ) -> Result<()> {
+    ///     let response = client.get_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::persistent_resource_service::GetIamPolicy {
         super::builder::persistent_resource_service::GetIamPolicy::new(self.inner.clone())
     }
@@ -6594,6 +13871,21 @@ impl PersistentResourceService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PersistentResourceService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &PersistentResourceService
+    /// ) -> Result<()> {
+    ///     let response = client.test_iam_permissions()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(
         &self,
     ) -> super::builder::persistent_resource_service::TestIamPermissions {
@@ -6603,6 +13895,24 @@ impl PersistentResourceService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PersistentResourceService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &PersistentResourceService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::persistent_resource_service::ListOperations {
         super::builder::persistent_resource_service::ListOperations::new(self.inner.clone())
     }
@@ -6610,6 +13920,21 @@ impl PersistentResourceService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PersistentResourceService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &PersistentResourceService
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::persistent_resource_service::GetOperation {
         super::builder::persistent_resource_service::GetOperation::new(self.inner.clone())
     }
@@ -6617,6 +13942,20 @@ impl PersistentResourceService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PersistentResourceService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &PersistentResourceService
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::persistent_resource_service::DeleteOperation {
         super::builder::persistent_resource_service::DeleteOperation::new(self.inner.clone())
     }
@@ -6624,6 +13963,20 @@ impl PersistentResourceService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PersistentResourceService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &PersistentResourceService
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::persistent_resource_service::CancelOperation {
         super::builder::persistent_resource_service::CancelOperation::new(self.inner.clone())
     }
@@ -6631,6 +13984,21 @@ impl PersistentResourceService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PersistentResourceService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &PersistentResourceService
+    /// ) -> Result<()> {
+    ///     let response = client.wait_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn wait_operation(&self) -> super::builder::persistent_resource_service::WaitOperation {
         super::builder::persistent_resource_service::WaitOperation::new(self.inner.clone())
     }
@@ -6745,6 +14113,25 @@ impl PipelineService {
 
     /// Creates a TrainingPipeline. A created TrainingPipeline right away will be
     /// attempted to be run.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PipelineService;
+    /// use google_cloud_aiplatform_v1::model::TrainingPipeline;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &PipelineService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_training_pipeline()
+    ///         .set_parent(parent)
+    ///         .set_training_pipeline(
+    ///             TrainingPipeline::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_training_pipeline(
         &self,
     ) -> super::builder::pipeline_service::CreateTrainingPipeline {
@@ -6752,11 +14139,44 @@ impl PipelineService {
     }
 
     /// Gets a TrainingPipeline.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PipelineService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &PipelineService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_training_pipeline()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_training_pipeline(&self) -> super::builder::pipeline_service::GetTrainingPipeline {
         super::builder::pipeline_service::GetTrainingPipeline::new(self.inner.clone())
     }
 
     /// Lists TrainingPipelines in a Location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PipelineService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &PipelineService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_training_pipelines()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_training_pipelines(
         &self,
     ) -> super::builder::pipeline_service::ListTrainingPipelines {
@@ -6774,6 +14194,21 @@ impl PipelineService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PipelineService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &PipelineService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_training_pipeline()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_training_pipeline(
         &self,
     ) -> super::builder::pipeline_service::DeleteTrainingPipeline {
@@ -6799,6 +14234,20 @@ impl PipelineService {
     /// [google.cloud.aiplatform.v1.TrainingPipeline.error]: crate::model::TrainingPipeline::error
     /// [google.cloud.aiplatform.v1.TrainingPipeline.state]: crate::model::TrainingPipeline::state
     /// [google.rpc.Status.code]: google_cloud_rpc::model::Status::code
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PipelineService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &PipelineService
+    /// ) -> Result<()> {
+    ///     client.cancel_training_pipeline()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_training_pipeline(
         &self,
     ) -> super::builder::pipeline_service::CancelTrainingPipeline {
@@ -6806,16 +14255,68 @@ impl PipelineService {
     }
 
     /// Creates a PipelineJob. A PipelineJob will run immediately when created.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PipelineService;
+    /// use google_cloud_aiplatform_v1::model::PipelineJob;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &PipelineService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_pipeline_job()
+    ///         .set_parent(parent)
+    ///         .set_pipeline_job(
+    ///             PipelineJob::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_pipeline_job(&self) -> super::builder::pipeline_service::CreatePipelineJob {
         super::builder::pipeline_service::CreatePipelineJob::new(self.inner.clone())
     }
 
     /// Gets a PipelineJob.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PipelineService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &PipelineService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_pipeline_job()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_pipeline_job(&self) -> super::builder::pipeline_service::GetPipelineJob {
         super::builder::pipeline_service::GetPipelineJob::new(self.inner.clone())
     }
 
     /// Lists PipelineJobs in a Location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PipelineService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &PipelineService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_pipeline_jobs()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_pipeline_jobs(&self) -> super::builder::pipeline_service::ListPipelineJobs {
         super::builder::pipeline_service::ListPipelineJobs::new(self.inner.clone())
     }
@@ -6831,6 +14332,21 @@ impl PipelineService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PipelineService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &PipelineService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_pipeline_job()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_pipeline_job(&self) -> super::builder::pipeline_service::DeletePipelineJob {
         super::builder::pipeline_service::DeletePipelineJob::new(self.inner.clone())
     }
@@ -6848,6 +14364,22 @@ impl PipelineService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PipelineService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &PipelineService
+    /// ) -> Result<()> {
+    ///     let response = client.batch_delete_pipeline_jobs()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn batch_delete_pipeline_jobs(
         &self,
     ) -> super::builder::pipeline_service::BatchDeletePipelineJobs {
@@ -6872,6 +14404,20 @@ impl PipelineService {
     /// [google.cloud.aiplatform.v1.PipelineJob.state]: crate::model::PipelineJob::state
     /// [google.cloud.aiplatform.v1.PipelineService.GetPipelineJob]: crate::client::PipelineService::get_pipeline_job
     /// [google.rpc.Status.code]: google_cloud_rpc::model::Status::code
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PipelineService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &PipelineService
+    /// ) -> Result<()> {
+    ///     client.cancel_pipeline_job()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_pipeline_job(&self) -> super::builder::pipeline_service::CancelPipelineJob {
         super::builder::pipeline_service::CancelPipelineJob::new(self.inner.clone())
     }
@@ -6893,6 +14439,22 @@ impl PipelineService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PipelineService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &PipelineService
+    /// ) -> Result<()> {
+    ///     let response = client.batch_cancel_pipeline_jobs()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn batch_cancel_pipeline_jobs(
         &self,
     ) -> super::builder::pipeline_service::BatchCancelPipelineJobs {
@@ -6900,11 +14462,44 @@ impl PipelineService {
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PipelineService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &PipelineService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::pipeline_service::ListLocations {
         super::builder::pipeline_service::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PipelineService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &PipelineService
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::pipeline_service::GetLocation {
         super::builder::pipeline_service::GetLocation::new(self.inner.clone())
     }
@@ -6914,12 +14509,42 @@ impl PipelineService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PipelineService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &PipelineService
+    /// ) -> Result<()> {
+    ///     let response = client.set_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::pipeline_service::SetIamPolicy {
         super::builder::pipeline_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PipelineService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &PipelineService
+    /// ) -> Result<()> {
+    ///     let response = client.get_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::pipeline_service::GetIamPolicy {
         super::builder::pipeline_service::GetIamPolicy::new(self.inner.clone())
     }
@@ -6931,6 +14556,21 @@ impl PipelineService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PipelineService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &PipelineService
+    /// ) -> Result<()> {
+    ///     let response = client.test_iam_permissions()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::pipeline_service::TestIamPermissions {
         super::builder::pipeline_service::TestIamPermissions::new(self.inner.clone())
     }
@@ -6938,6 +14578,24 @@ impl PipelineService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PipelineService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &PipelineService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::pipeline_service::ListOperations {
         super::builder::pipeline_service::ListOperations::new(self.inner.clone())
     }
@@ -6945,6 +14603,21 @@ impl PipelineService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PipelineService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &PipelineService
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::pipeline_service::GetOperation {
         super::builder::pipeline_service::GetOperation::new(self.inner.clone())
     }
@@ -6952,6 +14625,20 @@ impl PipelineService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PipelineService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &PipelineService
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::pipeline_service::DeleteOperation {
         super::builder::pipeline_service::DeleteOperation::new(self.inner.clone())
     }
@@ -6959,6 +14646,20 @@ impl PipelineService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PipelineService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &PipelineService
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::pipeline_service::CancelOperation {
         super::builder::pipeline_service::CancelOperation::new(self.inner.clone())
     }
@@ -6966,6 +14667,21 @@ impl PipelineService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PipelineService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &PipelineService
+    /// ) -> Result<()> {
+    ///     let response = client.wait_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn wait_operation(&self) -> super::builder::pipeline_service::WaitOperation {
         super::builder::pipeline_service::WaitOperation::new(self.inner.clone())
     }
@@ -7078,6 +14794,21 @@ impl PredictionService {
     }
 
     /// Perform an online prediction.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PredictionService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &PredictionService
+    /// ) -> Result<()> {
+    ///     let response = client.predict()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn predict(&self) -> super::builder::prediction_service::Predict {
         super::builder::prediction_service::Predict::new(self.inner.clone())
     }
@@ -7097,18 +14828,63 @@ impl PredictionService {
     ///
     /// [google.cloud.aiplatform.v1.DeployedModel]: crate::model::DeployedModel
     /// [google.cloud.aiplatform.v1.Endpoint]: crate::model::Endpoint
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PredictionService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &PredictionService
+    /// ) -> Result<()> {
+    ///     let response = client.raw_predict()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn raw_predict(&self) -> super::builder::prediction_service::RawPredict {
         super::builder::prediction_service::RawPredict::new(self.inner.clone())
     }
 
     /// Perform an unary online prediction request to a gRPC model server for
     /// Vertex first-party products and frameworks.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PredictionService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &PredictionService
+    /// ) -> Result<()> {
+    ///     let response = client.direct_predict()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn direct_predict(&self) -> super::builder::prediction_service::DirectPredict {
         super::builder::prediction_service::DirectPredict::new(self.inner.clone())
     }
 
     /// Perform an unary online prediction request to a gRPC model server for
     /// custom containers.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PredictionService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &PredictionService
+    /// ) -> Result<()> {
+    ///     let response = client.direct_raw_predict()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn direct_raw_predict(&self) -> super::builder::prediction_service::DirectRawPredict {
         super::builder::prediction_service::DirectRawPredict::new(self.inner.clone())
     }
@@ -7127,26 +14903,104 @@ impl PredictionService {
     ///
     /// [google.cloud.aiplatform.v1.DeployedModel.explanation_spec]: crate::model::DeployedModel::explanation_spec
     /// [google.cloud.aiplatform.v1.ExplainRequest.deployed_model_id]: crate::model::ExplainRequest::deployed_model_id
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PredictionService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &PredictionService
+    /// ) -> Result<()> {
+    ///     let response = client.explain()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn explain(&self) -> super::builder::prediction_service::Explain {
         super::builder::prediction_service::Explain::new(self.inner.clone())
     }
 
     /// Generate content with multimodal inputs.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PredictionService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &PredictionService
+    /// ) -> Result<()> {
+    ///     let response = client.generate_content()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn generate_content(&self) -> super::builder::prediction_service::GenerateContent {
         super::builder::prediction_service::GenerateContent::new(self.inner.clone())
     }
 
     /// Embed content with multimodal inputs.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PredictionService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &PredictionService
+    /// ) -> Result<()> {
+    ///     let response = client.embed_content()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn embed_content(&self) -> super::builder::prediction_service::EmbedContent {
         super::builder::prediction_service::EmbedContent::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PredictionService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &PredictionService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::prediction_service::ListLocations {
         super::builder::prediction_service::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PredictionService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &PredictionService
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::prediction_service::GetLocation {
         super::builder::prediction_service::GetLocation::new(self.inner.clone())
     }
@@ -7156,12 +15010,42 @@ impl PredictionService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PredictionService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &PredictionService
+    /// ) -> Result<()> {
+    ///     let response = client.set_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::prediction_service::SetIamPolicy {
         super::builder::prediction_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PredictionService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &PredictionService
+    /// ) -> Result<()> {
+    ///     let response = client.get_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::prediction_service::GetIamPolicy {
         super::builder::prediction_service::GetIamPolicy::new(self.inner.clone())
     }
@@ -7173,6 +15057,21 @@ impl PredictionService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PredictionService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &PredictionService
+    /// ) -> Result<()> {
+    ///     let response = client.test_iam_permissions()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::prediction_service::TestIamPermissions {
         super::builder::prediction_service::TestIamPermissions::new(self.inner.clone())
     }
@@ -7180,6 +15079,24 @@ impl PredictionService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PredictionService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &PredictionService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::prediction_service::ListOperations {
         super::builder::prediction_service::ListOperations::new(self.inner.clone())
     }
@@ -7187,6 +15104,21 @@ impl PredictionService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PredictionService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &PredictionService
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::prediction_service::GetOperation {
         super::builder::prediction_service::GetOperation::new(self.inner.clone())
     }
@@ -7194,6 +15126,20 @@ impl PredictionService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PredictionService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &PredictionService
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::prediction_service::DeleteOperation {
         super::builder::prediction_service::DeleteOperation::new(self.inner.clone())
     }
@@ -7201,6 +15147,20 @@ impl PredictionService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PredictionService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &PredictionService
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::prediction_service::CancelOperation {
         super::builder::prediction_service::CancelOperation::new(self.inner.clone())
     }
@@ -7208,6 +15168,21 @@ impl PredictionService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PredictionService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &PredictionService
+    /// ) -> Result<()> {
+    ///     let response = client.wait_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn wait_operation(&self) -> super::builder::prediction_service::WaitOperation {
         super::builder::prediction_service::WaitOperation::new(self.inner.clone())
     }
@@ -7323,6 +15298,21 @@ impl ReasoningEngineExecutionService {
     }
 
     /// Queries using a reasoning engine.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ReasoningEngineExecutionService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &ReasoningEngineExecutionService
+    /// ) -> Result<()> {
+    ///     let response = client.query_reasoning_engine()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn query_reasoning_engine(
         &self,
     ) -> super::builder::reasoning_engine_execution_service::QueryReasoningEngine {
@@ -7332,6 +15322,24 @@ impl ReasoningEngineExecutionService {
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ReasoningEngineExecutionService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &ReasoningEngineExecutionService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(
         &self,
     ) -> super::builder::reasoning_engine_execution_service::ListLocations {
@@ -7339,6 +15347,21 @@ impl ReasoningEngineExecutionService {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ReasoningEngineExecutionService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &ReasoningEngineExecutionService
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::reasoning_engine_execution_service::GetLocation {
         super::builder::reasoning_engine_execution_service::GetLocation::new(self.inner.clone())
     }
@@ -7348,6 +15371,21 @@ impl ReasoningEngineExecutionService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ReasoningEngineExecutionService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &ReasoningEngineExecutionService
+    /// ) -> Result<()> {
+    ///     let response = client.set_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(
         &self,
     ) -> super::builder::reasoning_engine_execution_service::SetIamPolicy {
@@ -7356,6 +15394,21 @@ impl ReasoningEngineExecutionService {
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ReasoningEngineExecutionService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &ReasoningEngineExecutionService
+    /// ) -> Result<()> {
+    ///     let response = client.get_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(
         &self,
     ) -> super::builder::reasoning_engine_execution_service::GetIamPolicy {
@@ -7369,6 +15422,21 @@ impl ReasoningEngineExecutionService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ReasoningEngineExecutionService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &ReasoningEngineExecutionService
+    /// ) -> Result<()> {
+    ///     let response = client.test_iam_permissions()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(
         &self,
     ) -> super::builder::reasoning_engine_execution_service::TestIamPermissions {
@@ -7380,6 +15448,24 @@ impl ReasoningEngineExecutionService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ReasoningEngineExecutionService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &ReasoningEngineExecutionService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(
         &self,
     ) -> super::builder::reasoning_engine_execution_service::ListOperations {
@@ -7389,6 +15475,21 @@ impl ReasoningEngineExecutionService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ReasoningEngineExecutionService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &ReasoningEngineExecutionService
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(
         &self,
     ) -> super::builder::reasoning_engine_execution_service::GetOperation {
@@ -7398,6 +15499,20 @@ impl ReasoningEngineExecutionService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ReasoningEngineExecutionService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &ReasoningEngineExecutionService
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(
         &self,
     ) -> super::builder::reasoning_engine_execution_service::DeleteOperation {
@@ -7407,6 +15522,20 @@ impl ReasoningEngineExecutionService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ReasoningEngineExecutionService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &ReasoningEngineExecutionService
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(
         &self,
     ) -> super::builder::reasoning_engine_execution_service::CancelOperation {
@@ -7416,6 +15545,21 @@ impl ReasoningEngineExecutionService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ReasoningEngineExecutionService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &ReasoningEngineExecutionService
+    /// ) -> Result<()> {
+    ///     let response = client.wait_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn wait_operation(
         &self,
     ) -> super::builder::reasoning_engine_execution_service::WaitOperation {
@@ -7540,6 +15684,26 @@ impl ReasoningEngineService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ReasoningEngineService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::model::ReasoningEngine;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &ReasoningEngineService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_reasoning_engine()
+    ///         .set_parent(parent)
+    ///         .set_reasoning_engine(
+    ///             ReasoningEngine::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_reasoning_engine(
         &self,
     ) -> super::builder::reasoning_engine_service::CreateReasoningEngine {
@@ -7547,6 +15711,21 @@ impl ReasoningEngineService {
     }
 
     /// Gets a reasoning engine.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ReasoningEngineService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &ReasoningEngineService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_reasoning_engine()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_reasoning_engine(
         &self,
     ) -> super::builder::reasoning_engine_service::GetReasoningEngine {
@@ -7554,6 +15733,24 @@ impl ReasoningEngineService {
     }
 
     /// Lists reasoning engines in a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ReasoningEngineService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &ReasoningEngineService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_reasoning_engines()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_reasoning_engines(
         &self,
     ) -> super::builder::reasoning_engine_service::ListReasoningEngines {
@@ -7571,6 +15768,28 @@ impl ReasoningEngineService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ReasoningEngineService;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_aiplatform_v1::model::ReasoningEngine;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &ReasoningEngineService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_reasoning_engine()
+    ///         .set_reasoning_engine(
+    ///             ReasoningEngine::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_reasoning_engine(
         &self,
     ) -> super::builder::reasoning_engine_service::UpdateReasoningEngine {
@@ -7588,6 +15807,21 @@ impl ReasoningEngineService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ReasoningEngineService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &ReasoningEngineService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_reasoning_engine()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_reasoning_engine(
         &self,
     ) -> super::builder::reasoning_engine_service::DeleteReasoningEngine {
@@ -7595,11 +15829,44 @@ impl ReasoningEngineService {
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ReasoningEngineService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &ReasoningEngineService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::reasoning_engine_service::ListLocations {
         super::builder::reasoning_engine_service::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ReasoningEngineService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &ReasoningEngineService
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::reasoning_engine_service::GetLocation {
         super::builder::reasoning_engine_service::GetLocation::new(self.inner.clone())
     }
@@ -7609,12 +15876,42 @@ impl ReasoningEngineService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ReasoningEngineService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &ReasoningEngineService
+    /// ) -> Result<()> {
+    ///     let response = client.set_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::reasoning_engine_service::SetIamPolicy {
         super::builder::reasoning_engine_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ReasoningEngineService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &ReasoningEngineService
+    /// ) -> Result<()> {
+    ///     let response = client.get_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::reasoning_engine_service::GetIamPolicy {
         super::builder::reasoning_engine_service::GetIamPolicy::new(self.inner.clone())
     }
@@ -7626,6 +15923,21 @@ impl ReasoningEngineService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ReasoningEngineService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &ReasoningEngineService
+    /// ) -> Result<()> {
+    ///     let response = client.test_iam_permissions()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(
         &self,
     ) -> super::builder::reasoning_engine_service::TestIamPermissions {
@@ -7635,6 +15947,24 @@ impl ReasoningEngineService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ReasoningEngineService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &ReasoningEngineService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::reasoning_engine_service::ListOperations {
         super::builder::reasoning_engine_service::ListOperations::new(self.inner.clone())
     }
@@ -7642,6 +15972,21 @@ impl ReasoningEngineService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ReasoningEngineService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &ReasoningEngineService
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::reasoning_engine_service::GetOperation {
         super::builder::reasoning_engine_service::GetOperation::new(self.inner.clone())
     }
@@ -7649,6 +15994,20 @@ impl ReasoningEngineService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ReasoningEngineService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &ReasoningEngineService
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::reasoning_engine_service::DeleteOperation {
         super::builder::reasoning_engine_service::DeleteOperation::new(self.inner.clone())
     }
@@ -7656,6 +16015,20 @@ impl ReasoningEngineService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ReasoningEngineService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &ReasoningEngineService
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::reasoning_engine_service::CancelOperation {
         super::builder::reasoning_engine_service::CancelOperation::new(self.inner.clone())
     }
@@ -7663,6 +16036,21 @@ impl ReasoningEngineService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ReasoningEngineService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &ReasoningEngineService
+    /// ) -> Result<()> {
+    ///     let response = client.wait_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn wait_operation(&self) -> super::builder::reasoning_engine_service::WaitOperation {
         super::builder::reasoning_engine_service::WaitOperation::new(self.inner.clone())
     }
@@ -7775,6 +16163,25 @@ impl ScheduleService {
     }
 
     /// Creates a Schedule.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ScheduleService;
+    /// use google_cloud_aiplatform_v1::model::Schedule;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &ScheduleService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_schedule()
+    ///         .set_parent(parent)
+    ///         .set_schedule(
+    ///             Schedule::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_schedule(&self) -> super::builder::schedule_service::CreateSchedule {
         super::builder::schedule_service::CreateSchedule::new(self.inner.clone())
     }
@@ -7790,16 +16197,64 @@ impl ScheduleService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ScheduleService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &ScheduleService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_schedule()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_schedule(&self) -> super::builder::schedule_service::DeleteSchedule {
         super::builder::schedule_service::DeleteSchedule::new(self.inner.clone())
     }
 
     /// Gets a Schedule.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ScheduleService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &ScheduleService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_schedule()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_schedule(&self) -> super::builder::schedule_service::GetSchedule {
         super::builder::schedule_service::GetSchedule::new(self.inner.clone())
     }
 
     /// Lists Schedules in a Location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ScheduleService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &ScheduleService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_schedules()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_schedules(&self) -> super::builder::schedule_service::ListSchedules {
         super::builder::schedule_service::ListSchedules::new(self.inner.clone())
     }
@@ -7810,6 +16265,20 @@ impl ScheduleService {
     /// will NOT be paused or canceled.
     ///
     /// [google.cloud.aiplatform.v1.Schedule.state]: crate::model::Schedule::state
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ScheduleService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &ScheduleService
+    /// ) -> Result<()> {
+    ///     client.pause_schedule()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn pause_schedule(&self) -> super::builder::schedule_service::PauseSchedule {
         super::builder::schedule_service::PauseSchedule::new(self.inner.clone())
     }
@@ -7826,6 +16295,20 @@ impl ScheduleService {
     ///
     /// [google.cloud.aiplatform.v1.Schedule.catch_up]: crate::model::Schedule::catch_up
     /// [google.cloud.aiplatform.v1.Schedule.state]: crate::model::Schedule::state
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ScheduleService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &ScheduleService
+    /// ) -> Result<()> {
+    ///     client.resume_schedule()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn resume_schedule(&self) -> super::builder::schedule_service::ResumeSchedule {
         super::builder::schedule_service::ResumeSchedule::new(self.inner.clone())
     }
@@ -7837,16 +16320,70 @@ impl ScheduleService {
     /// time_specification in the updated Schedule. All unstarted runs before the
     /// update time will be skipped while already created runs will NOT be paused
     /// or canceled.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ScheduleService;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_aiplatform_v1::model::Schedule;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &ScheduleService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_schedule()
+    ///         .set_schedule(
+    ///             Schedule::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_schedule(&self) -> super::builder::schedule_service::UpdateSchedule {
         super::builder::schedule_service::UpdateSchedule::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ScheduleService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &ScheduleService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::schedule_service::ListLocations {
         super::builder::schedule_service::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ScheduleService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &ScheduleService
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::schedule_service::GetLocation {
         super::builder::schedule_service::GetLocation::new(self.inner.clone())
     }
@@ -7856,12 +16393,42 @@ impl ScheduleService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ScheduleService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &ScheduleService
+    /// ) -> Result<()> {
+    ///     let response = client.set_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::schedule_service::SetIamPolicy {
         super::builder::schedule_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ScheduleService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &ScheduleService
+    /// ) -> Result<()> {
+    ///     let response = client.get_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::schedule_service::GetIamPolicy {
         super::builder::schedule_service::GetIamPolicy::new(self.inner.clone())
     }
@@ -7873,6 +16440,21 @@ impl ScheduleService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ScheduleService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &ScheduleService
+    /// ) -> Result<()> {
+    ///     let response = client.test_iam_permissions()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::schedule_service::TestIamPermissions {
         super::builder::schedule_service::TestIamPermissions::new(self.inner.clone())
     }
@@ -7880,6 +16462,24 @@ impl ScheduleService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ScheduleService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &ScheduleService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::schedule_service::ListOperations {
         super::builder::schedule_service::ListOperations::new(self.inner.clone())
     }
@@ -7887,6 +16487,21 @@ impl ScheduleService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ScheduleService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &ScheduleService
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::schedule_service::GetOperation {
         super::builder::schedule_service::GetOperation::new(self.inner.clone())
     }
@@ -7894,6 +16509,20 @@ impl ScheduleService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ScheduleService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &ScheduleService
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::schedule_service::DeleteOperation {
         super::builder::schedule_service::DeleteOperation::new(self.inner.clone())
     }
@@ -7901,6 +16530,20 @@ impl ScheduleService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ScheduleService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &ScheduleService
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::schedule_service::CancelOperation {
         super::builder::schedule_service::CancelOperation::new(self.inner.clone())
     }
@@ -7908,6 +16551,21 @@ impl ScheduleService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ScheduleService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &ScheduleService
+    /// ) -> Result<()> {
+    ///     let response = client.wait_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn wait_operation(&self) -> super::builder::schedule_service::WaitOperation {
         super::builder::schedule_service::WaitOperation::new(self.inner.clone())
     }
@@ -8035,6 +16693,26 @@ impl SpecialistPoolService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::SpecialistPoolService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::model::SpecialistPool;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &SpecialistPoolService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_specialist_pool()
+    ///         .set_parent(parent)
+    ///         .set_specialist_pool(
+    ///             SpecialistPool::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_specialist_pool(
         &self,
     ) -> super::builder::specialist_pool_service::CreateSpecialistPool {
@@ -8042,6 +16720,21 @@ impl SpecialistPoolService {
     }
 
     /// Gets a SpecialistPool.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::SpecialistPoolService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &SpecialistPoolService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_specialist_pool()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_specialist_pool(
         &self,
     ) -> super::builder::specialist_pool_service::GetSpecialistPool {
@@ -8049,6 +16742,24 @@ impl SpecialistPoolService {
     }
 
     /// Lists SpecialistPools in a Location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::SpecialistPoolService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &SpecialistPoolService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_specialist_pools()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_specialist_pools(
         &self,
     ) -> super::builder::specialist_pool_service::ListSpecialistPools {
@@ -8066,6 +16777,21 @@ impl SpecialistPoolService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::SpecialistPoolService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &SpecialistPoolService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_specialist_pool()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_specialist_pool(
         &self,
     ) -> super::builder::specialist_pool_service::DeleteSpecialistPool {
@@ -8083,6 +16809,28 @@ impl SpecialistPoolService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::SpecialistPoolService;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_aiplatform_v1::model::SpecialistPool;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &SpecialistPoolService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_specialist_pool()
+    ///         .set_specialist_pool(
+    ///             SpecialistPool::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_specialist_pool(
         &self,
     ) -> super::builder::specialist_pool_service::UpdateSpecialistPool {
@@ -8090,11 +16838,44 @@ impl SpecialistPoolService {
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::SpecialistPoolService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &SpecialistPoolService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::specialist_pool_service::ListLocations {
         super::builder::specialist_pool_service::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::SpecialistPoolService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &SpecialistPoolService
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::specialist_pool_service::GetLocation {
         super::builder::specialist_pool_service::GetLocation::new(self.inner.clone())
     }
@@ -8104,12 +16885,42 @@ impl SpecialistPoolService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::SpecialistPoolService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &SpecialistPoolService
+    /// ) -> Result<()> {
+    ///     let response = client.set_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::specialist_pool_service::SetIamPolicy {
         super::builder::specialist_pool_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::SpecialistPoolService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &SpecialistPoolService
+    /// ) -> Result<()> {
+    ///     let response = client.get_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::specialist_pool_service::GetIamPolicy {
         super::builder::specialist_pool_service::GetIamPolicy::new(self.inner.clone())
     }
@@ -8121,6 +16932,21 @@ impl SpecialistPoolService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::SpecialistPoolService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &SpecialistPoolService
+    /// ) -> Result<()> {
+    ///     let response = client.test_iam_permissions()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(
         &self,
     ) -> super::builder::specialist_pool_service::TestIamPermissions {
@@ -8130,6 +16956,24 @@ impl SpecialistPoolService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::SpecialistPoolService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &SpecialistPoolService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::specialist_pool_service::ListOperations {
         super::builder::specialist_pool_service::ListOperations::new(self.inner.clone())
     }
@@ -8137,6 +16981,21 @@ impl SpecialistPoolService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::SpecialistPoolService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &SpecialistPoolService
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::specialist_pool_service::GetOperation {
         super::builder::specialist_pool_service::GetOperation::new(self.inner.clone())
     }
@@ -8144,6 +17003,20 @@ impl SpecialistPoolService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::SpecialistPoolService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &SpecialistPoolService
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::specialist_pool_service::DeleteOperation {
         super::builder::specialist_pool_service::DeleteOperation::new(self.inner.clone())
     }
@@ -8151,6 +17024,20 @@ impl SpecialistPoolService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::SpecialistPoolService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &SpecialistPoolService
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::specialist_pool_service::CancelOperation {
         super::builder::specialist_pool_service::CancelOperation::new(self.inner.clone())
     }
@@ -8158,6 +17045,21 @@ impl SpecialistPoolService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::SpecialistPoolService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &SpecialistPoolService
+    /// ) -> Result<()> {
+    ///     let response = client.wait_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn wait_operation(&self) -> super::builder::specialist_pool_service::WaitOperation {
         super::builder::specialist_pool_service::WaitOperation::new(self.inner.clone())
     }
@@ -8280,11 +17182,46 @@ impl TensorboardService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::TensorboardService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::model::Tensorboard;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &TensorboardService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_tensorboard()
+    ///         .set_parent(parent)
+    ///         .set_tensorboard(
+    ///             Tensorboard::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_tensorboard(&self) -> super::builder::tensorboard_service::CreateTensorboard {
         super::builder::tensorboard_service::CreateTensorboard::new(self.inner.clone())
     }
 
     /// Gets a Tensorboard.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::TensorboardService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &TensorboardService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_tensorboard()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_tensorboard(&self) -> super::builder::tensorboard_service::GetTensorboard {
         super::builder::tensorboard_service::GetTensorboard::new(self.inner.clone())
     }
@@ -8300,11 +17237,51 @@ impl TensorboardService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::TensorboardService;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_aiplatform_v1::model::Tensorboard;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &TensorboardService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_tensorboard()
+    ///         .set_tensorboard(
+    ///             Tensorboard::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_tensorboard(&self) -> super::builder::tensorboard_service::UpdateTensorboard {
         super::builder::tensorboard_service::UpdateTensorboard::new(self.inner.clone())
     }
 
     /// Lists Tensorboards in a Location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::TensorboardService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &TensorboardService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_tensorboards()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_tensorboards(&self) -> super::builder::tensorboard_service::ListTensorboards {
         super::builder::tensorboard_service::ListTensorboards::new(self.inner.clone())
     }
@@ -8320,11 +17297,41 @@ impl TensorboardService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::TensorboardService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &TensorboardService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_tensorboard()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_tensorboard(&self) -> super::builder::tensorboard_service::DeleteTensorboard {
         super::builder::tensorboard_service::DeleteTensorboard::new(self.inner.clone())
     }
 
     /// Returns a list of monthly active users for a given TensorBoard instance.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::TensorboardService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &TensorboardService
+    /// ) -> Result<()> {
+    ///     let response = client.read_tensorboard_usage()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn read_tensorboard_usage(
         &self,
     ) -> super::builder::tensorboard_service::ReadTensorboardUsage {
@@ -8332,6 +17339,21 @@ impl TensorboardService {
     }
 
     /// Returns the storage size for a given TensorBoard instance.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::TensorboardService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &TensorboardService
+    /// ) -> Result<()> {
+    ///     let response = client.read_tensorboard_size()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn read_tensorboard_size(
         &self,
     ) -> super::builder::tensorboard_service::ReadTensorboardSize {
@@ -8339,6 +17361,25 @@ impl TensorboardService {
     }
 
     /// Creates a TensorboardExperiment.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::TensorboardService;
+    /// use google_cloud_aiplatform_v1::model::TensorboardExperiment;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &TensorboardService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_tensorboard_experiment()
+    ///         .set_parent(parent)
+    ///         .set_tensorboard_experiment(
+    ///             TensorboardExperiment::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_tensorboard_experiment(
         &self,
     ) -> super::builder::tensorboard_service::CreateTensorboardExperiment {
@@ -8346,6 +17387,21 @@ impl TensorboardService {
     }
 
     /// Gets a TensorboardExperiment.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::TensorboardService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &TensorboardService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_tensorboard_experiment()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_tensorboard_experiment(
         &self,
     ) -> super::builder::tensorboard_service::GetTensorboardExperiment {
@@ -8353,6 +17409,27 @@ impl TensorboardService {
     }
 
     /// Updates a TensorboardExperiment.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::TensorboardService;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_aiplatform_v1::model::TensorboardExperiment;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &TensorboardService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_tensorboard_experiment()
+    ///         .set_tensorboard_experiment(
+    ///             TensorboardExperiment::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_tensorboard_experiment(
         &self,
     ) -> super::builder::tensorboard_service::UpdateTensorboardExperiment {
@@ -8360,6 +17437,24 @@ impl TensorboardService {
     }
 
     /// Lists TensorboardExperiments in a Location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::TensorboardService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &TensorboardService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_tensorboard_experiments()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_tensorboard_experiments(
         &self,
     ) -> super::builder::tensorboard_service::ListTensorboardExperiments {
@@ -8377,6 +17472,21 @@ impl TensorboardService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::TensorboardService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &TensorboardService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_tensorboard_experiment()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_tensorboard_experiment(
         &self,
     ) -> super::builder::tensorboard_service::DeleteTensorboardExperiment {
@@ -8384,6 +17494,25 @@ impl TensorboardService {
     }
 
     /// Creates a TensorboardRun.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::TensorboardService;
+    /// use google_cloud_aiplatform_v1::model::TensorboardRun;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &TensorboardService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_tensorboard_run()
+    ///         .set_parent(parent)
+    ///         .set_tensorboard_run(
+    ///             TensorboardRun::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_tensorboard_run(
         &self,
     ) -> super::builder::tensorboard_service::CreateTensorboardRun {
@@ -8391,6 +17520,21 @@ impl TensorboardService {
     }
 
     /// Batch create TensorboardRuns.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::TensorboardService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &TensorboardService
+    /// ) -> Result<()> {
+    ///     let response = client.batch_create_tensorboard_runs()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn batch_create_tensorboard_runs(
         &self,
     ) -> super::builder::tensorboard_service::BatchCreateTensorboardRuns {
@@ -8398,11 +17542,47 @@ impl TensorboardService {
     }
 
     /// Gets a TensorboardRun.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::TensorboardService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &TensorboardService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_tensorboard_run()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_tensorboard_run(&self) -> super::builder::tensorboard_service::GetTensorboardRun {
         super::builder::tensorboard_service::GetTensorboardRun::new(self.inner.clone())
     }
 
     /// Updates a TensorboardRun.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::TensorboardService;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_aiplatform_v1::model::TensorboardRun;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &TensorboardService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_tensorboard_run()
+    ///         .set_tensorboard_run(
+    ///             TensorboardRun::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_tensorboard_run(
         &self,
     ) -> super::builder::tensorboard_service::UpdateTensorboardRun {
@@ -8410,6 +17590,24 @@ impl TensorboardService {
     }
 
     /// Lists TensorboardRuns in a Location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::TensorboardService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &TensorboardService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_tensorboard_runs()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_tensorboard_runs(
         &self,
     ) -> super::builder::tensorboard_service::ListTensorboardRuns {
@@ -8427,6 +17625,21 @@ impl TensorboardService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::TensorboardService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &TensorboardService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_tensorboard_run()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_tensorboard_run(
         &self,
     ) -> super::builder::tensorboard_service::DeleteTensorboardRun {
@@ -8434,6 +17647,21 @@ impl TensorboardService {
     }
 
     /// Batch create TensorboardTimeSeries that belong to a TensorboardExperiment.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::TensorboardService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &TensorboardService
+    /// ) -> Result<()> {
+    ///     let response = client.batch_create_tensorboard_time_series()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn batch_create_tensorboard_time_series(
         &self,
     ) -> super::builder::tensorboard_service::BatchCreateTensorboardTimeSeries {
@@ -8443,6 +17671,25 @@ impl TensorboardService {
     }
 
     /// Creates a TensorboardTimeSeries.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::TensorboardService;
+    /// use google_cloud_aiplatform_v1::model::TensorboardTimeSeries;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &TensorboardService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_tensorboard_time_series()
+    ///         .set_parent(parent)
+    ///         .set_tensorboard_time_series(
+    ///             TensorboardTimeSeries::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_tensorboard_time_series(
         &self,
     ) -> super::builder::tensorboard_service::CreateTensorboardTimeSeries {
@@ -8450,6 +17697,21 @@ impl TensorboardService {
     }
 
     /// Gets a TensorboardTimeSeries.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::TensorboardService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &TensorboardService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_tensorboard_time_series()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_tensorboard_time_series(
         &self,
     ) -> super::builder::tensorboard_service::GetTensorboardTimeSeries {
@@ -8457,6 +17719,27 @@ impl TensorboardService {
     }
 
     /// Updates a TensorboardTimeSeries.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::TensorboardService;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_aiplatform_v1::model::TensorboardTimeSeries;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &TensorboardService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_tensorboard_time_series()
+    ///         .set_tensorboard_time_series(
+    ///             TensorboardTimeSeries::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_tensorboard_time_series(
         &self,
     ) -> super::builder::tensorboard_service::UpdateTensorboardTimeSeries {
@@ -8464,6 +17747,24 @@ impl TensorboardService {
     }
 
     /// Lists TensorboardTimeSeries in a Location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::TensorboardService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &TensorboardService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_tensorboard_time_series()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_tensorboard_time_series(
         &self,
     ) -> super::builder::tensorboard_service::ListTensorboardTimeSeries {
@@ -8481,6 +17782,21 @@ impl TensorboardService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::TensorboardService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &TensorboardService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_tensorboard_time_series()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_tensorboard_time_series(
         &self,
     ) -> super::builder::tensorboard_service::DeleteTensorboardTimeSeries {
@@ -8492,6 +17808,21 @@ impl TensorboardService {
     /// data points stored is less than the limit, all data is returned.
     /// Otherwise, the number limit of data points is randomly selected from
     /// this time series and returned.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::TensorboardService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &TensorboardService
+    /// ) -> Result<()> {
+    ///     let response = client.batch_read_tensorboard_time_series_data()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn batch_read_tensorboard_time_series_data(
         &self,
     ) -> super::builder::tensorboard_service::BatchReadTensorboardTimeSeriesData {
@@ -8505,6 +17836,21 @@ impl TensorboardService {
     /// data points is randomly selected from this time series and returned.
     /// This value can be changed by changing max_data_points, which can't be
     /// greater than 10k.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::TensorboardService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &TensorboardService
+    /// ) -> Result<()> {
+    ///     let response = client.read_tensorboard_time_series_data()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn read_tensorboard_time_series_data(
         &self,
     ) -> super::builder::tensorboard_service::ReadTensorboardTimeSeriesData {
@@ -8513,6 +17859,21 @@ impl TensorboardService {
 
     /// Write time series data points of multiple TensorboardTimeSeries in multiple
     /// TensorboardRun's. If any data fail to be ingested, an error is returned.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::TensorboardService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &TensorboardService
+    /// ) -> Result<()> {
+    ///     let response = client.write_tensorboard_experiment_data()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn write_tensorboard_experiment_data(
         &self,
     ) -> super::builder::tensorboard_service::WriteTensorboardExperimentData {
@@ -8521,6 +17882,21 @@ impl TensorboardService {
 
     /// Write time series data points into multiple TensorboardTimeSeries under
     /// a TensorboardRun. If any data fail to be ingested, an error is returned.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::TensorboardService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &TensorboardService
+    /// ) -> Result<()> {
+    ///     let response = client.write_tensorboard_run_data()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn write_tensorboard_run_data(
         &self,
     ) -> super::builder::tensorboard_service::WriteTensorboardRunData {
@@ -8529,6 +17905,24 @@ impl TensorboardService {
 
     /// Exports a TensorboardTimeSeries' data. Data is returned in paginated
     /// responses.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::TensorboardService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &TensorboardService
+    /// ) -> Result<()> {
+    ///     let mut list = client.export_tensorboard_time_series_data()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn export_tensorboard_time_series_data(
         &self,
     ) -> super::builder::tensorboard_service::ExportTensorboardTimeSeriesData {
@@ -8538,11 +17932,44 @@ impl TensorboardService {
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::TensorboardService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &TensorboardService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::tensorboard_service::ListLocations {
         super::builder::tensorboard_service::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::TensorboardService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &TensorboardService
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::tensorboard_service::GetLocation {
         super::builder::tensorboard_service::GetLocation::new(self.inner.clone())
     }
@@ -8552,12 +17979,42 @@ impl TensorboardService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::TensorboardService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &TensorboardService
+    /// ) -> Result<()> {
+    ///     let response = client.set_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::tensorboard_service::SetIamPolicy {
         super::builder::tensorboard_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::TensorboardService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &TensorboardService
+    /// ) -> Result<()> {
+    ///     let response = client.get_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::tensorboard_service::GetIamPolicy {
         super::builder::tensorboard_service::GetIamPolicy::new(self.inner.clone())
     }
@@ -8569,6 +18026,21 @@ impl TensorboardService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::TensorboardService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &TensorboardService
+    /// ) -> Result<()> {
+    ///     let response = client.test_iam_permissions()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::tensorboard_service::TestIamPermissions {
         super::builder::tensorboard_service::TestIamPermissions::new(self.inner.clone())
     }
@@ -8576,6 +18048,24 @@ impl TensorboardService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::TensorboardService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &TensorboardService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::tensorboard_service::ListOperations {
         super::builder::tensorboard_service::ListOperations::new(self.inner.clone())
     }
@@ -8583,6 +18073,21 @@ impl TensorboardService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::TensorboardService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &TensorboardService
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::tensorboard_service::GetOperation {
         super::builder::tensorboard_service::GetOperation::new(self.inner.clone())
     }
@@ -8590,6 +18095,20 @@ impl TensorboardService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::TensorboardService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &TensorboardService
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::tensorboard_service::DeleteOperation {
         super::builder::tensorboard_service::DeleteOperation::new(self.inner.clone())
     }
@@ -8597,6 +18116,20 @@ impl TensorboardService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::TensorboardService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &TensorboardService
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::tensorboard_service::CancelOperation {
         super::builder::tensorboard_service::CancelOperation::new(self.inner.clone())
     }
@@ -8604,6 +18137,21 @@ impl TensorboardService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::TensorboardService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &TensorboardService
+    /// ) -> Result<()> {
+    ///     let response = client.wait_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn wait_operation(&self) -> super::builder::tensorboard_service::WaitOperation {
         super::builder::tensorboard_service::WaitOperation::new(self.inner.clone())
     }
@@ -8726,6 +18274,26 @@ impl VertexRagDataService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VertexRagDataService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::model::RagCorpus;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &VertexRagDataService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_rag_corpus()
+    ///         .set_parent(parent)
+    ///         .set_rag_corpus(
+    ///             RagCorpus::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_rag_corpus(&self) -> super::builder::vertex_rag_data_service::CreateRagCorpus {
         super::builder::vertex_rag_data_service::CreateRagCorpus::new(self.inner.clone())
     }
@@ -8741,16 +18309,68 @@ impl VertexRagDataService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VertexRagDataService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::model::RagCorpus;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &VertexRagDataService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_rag_corpus()
+    ///         .set_rag_corpus(
+    ///             RagCorpus::new().set_name(name)/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_rag_corpus(&self) -> super::builder::vertex_rag_data_service::UpdateRagCorpus {
         super::builder::vertex_rag_data_service::UpdateRagCorpus::new(self.inner.clone())
     }
 
     /// Gets a RagCorpus.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VertexRagDataService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &VertexRagDataService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_rag_corpus()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_rag_corpus(&self) -> super::builder::vertex_rag_data_service::GetRagCorpus {
         super::builder::vertex_rag_data_service::GetRagCorpus::new(self.inner.clone())
     }
 
     /// Lists RagCorpora in a Location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VertexRagDataService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &VertexRagDataService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_rag_corpora()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_rag_corpora(&self) -> super::builder::vertex_rag_data_service::ListRagCorpora {
         super::builder::vertex_rag_data_service::ListRagCorpora::new(self.inner.clone())
     }
@@ -8766,11 +18386,41 @@ impl VertexRagDataService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VertexRagDataService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &VertexRagDataService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_rag_corpus()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_rag_corpus(&self) -> super::builder::vertex_rag_data_service::DeleteRagCorpus {
         super::builder::vertex_rag_data_service::DeleteRagCorpus::new(self.inner.clone())
     }
 
     /// Upload a file into a RagCorpus.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VertexRagDataService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &VertexRagDataService
+    /// ) -> Result<()> {
+    ///     let response = client.upload_rag_file()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn upload_rag_file(&self) -> super::builder::vertex_rag_data_service::UploadRagFile {
         super::builder::vertex_rag_data_service::UploadRagFile::new(self.inner.clone())
     }
@@ -8786,16 +18436,65 @@ impl VertexRagDataService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VertexRagDataService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &VertexRagDataService
+    /// ) -> Result<()> {
+    ///     let response = client.import_rag_files()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn import_rag_files(&self) -> super::builder::vertex_rag_data_service::ImportRagFiles {
         super::builder::vertex_rag_data_service::ImportRagFiles::new(self.inner.clone())
     }
 
     /// Gets a RagFile.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VertexRagDataService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &VertexRagDataService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_rag_file()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_rag_file(&self) -> super::builder::vertex_rag_data_service::GetRagFile {
         super::builder::vertex_rag_data_service::GetRagFile::new(self.inner.clone())
     }
 
     /// Lists RagFiles in a RagCorpus.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VertexRagDataService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &VertexRagDataService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_rag_files()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_rag_files(&self) -> super::builder::vertex_rag_data_service::ListRagFiles {
         super::builder::vertex_rag_data_service::ListRagFiles::new(self.inner.clone())
     }
@@ -8811,6 +18510,21 @@ impl VertexRagDataService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VertexRagDataService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &VertexRagDataService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_rag_file()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_rag_file(&self) -> super::builder::vertex_rag_data_service::DeleteRagFile {
         super::builder::vertex_rag_data_service::DeleteRagFile::new(self.inner.clone())
     }
@@ -8826,6 +18540,25 @@ impl VertexRagDataService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VertexRagDataService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::model::RagEngineConfig;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &VertexRagDataService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_rag_engine_config()
+    ///         .set_rag_engine_config(
+    ///             RagEngineConfig::new().set_name(name)/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_rag_engine_config(
         &self,
     ) -> super::builder::vertex_rag_data_service::UpdateRagEngineConfig {
@@ -8833,6 +18566,21 @@ impl VertexRagDataService {
     }
 
     /// Gets a RagEngineConfig.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VertexRagDataService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &VertexRagDataService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_rag_engine_config()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_rag_engine_config(
         &self,
     ) -> super::builder::vertex_rag_data_service::GetRagEngineConfig {
@@ -8840,11 +18588,44 @@ impl VertexRagDataService {
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VertexRagDataService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &VertexRagDataService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::vertex_rag_data_service::ListLocations {
         super::builder::vertex_rag_data_service::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VertexRagDataService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &VertexRagDataService
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::vertex_rag_data_service::GetLocation {
         super::builder::vertex_rag_data_service::GetLocation::new(self.inner.clone())
     }
@@ -8854,12 +18635,42 @@ impl VertexRagDataService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VertexRagDataService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &VertexRagDataService
+    /// ) -> Result<()> {
+    ///     let response = client.set_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::vertex_rag_data_service::SetIamPolicy {
         super::builder::vertex_rag_data_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VertexRagDataService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &VertexRagDataService
+    /// ) -> Result<()> {
+    ///     let response = client.get_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::vertex_rag_data_service::GetIamPolicy {
         super::builder::vertex_rag_data_service::GetIamPolicy::new(self.inner.clone())
     }
@@ -8871,6 +18682,21 @@ impl VertexRagDataService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VertexRagDataService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &VertexRagDataService
+    /// ) -> Result<()> {
+    ///     let response = client.test_iam_permissions()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(
         &self,
     ) -> super::builder::vertex_rag_data_service::TestIamPermissions {
@@ -8880,6 +18706,24 @@ impl VertexRagDataService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VertexRagDataService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &VertexRagDataService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::vertex_rag_data_service::ListOperations {
         super::builder::vertex_rag_data_service::ListOperations::new(self.inner.clone())
     }
@@ -8887,6 +18731,21 @@ impl VertexRagDataService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VertexRagDataService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &VertexRagDataService
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::vertex_rag_data_service::GetOperation {
         super::builder::vertex_rag_data_service::GetOperation::new(self.inner.clone())
     }
@@ -8894,6 +18753,20 @@ impl VertexRagDataService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VertexRagDataService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &VertexRagDataService
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::vertex_rag_data_service::DeleteOperation {
         super::builder::vertex_rag_data_service::DeleteOperation::new(self.inner.clone())
     }
@@ -8901,6 +18774,20 @@ impl VertexRagDataService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VertexRagDataService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &VertexRagDataService
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::vertex_rag_data_service::CancelOperation {
         super::builder::vertex_rag_data_service::CancelOperation::new(self.inner.clone())
     }
@@ -8908,6 +18795,21 @@ impl VertexRagDataService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VertexRagDataService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &VertexRagDataService
+    /// ) -> Result<()> {
+    ///     let response = client.wait_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn wait_operation(&self) -> super::builder::vertex_rag_data_service::WaitOperation {
         super::builder::vertex_rag_data_service::WaitOperation::new(self.inner.clone())
     }
@@ -9020,12 +18922,42 @@ impl VertexRagService {
     }
 
     /// Retrieves relevant contexts for a query.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VertexRagService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &VertexRagService
+    /// ) -> Result<()> {
+    ///     let response = client.retrieve_contexts()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn retrieve_contexts(&self) -> super::builder::vertex_rag_service::RetrieveContexts {
         super::builder::vertex_rag_service::RetrieveContexts::new(self.inner.clone())
     }
 
     /// Given an input prompt, it returns augmented prompt from vertex rag store
     /// to guide LLM towards generating grounded responses.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VertexRagService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &VertexRagService
+    /// ) -> Result<()> {
+    ///     let response = client.augment_prompt()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn augment_prompt(&self) -> super::builder::vertex_rag_service::AugmentPrompt {
         super::builder::vertex_rag_service::AugmentPrompt::new(self.inner.clone())
     }
@@ -9033,16 +18965,64 @@ impl VertexRagService {
     /// Given an input text, it returns a score that evaluates the factuality of
     /// the text. It also extracts and returns claims from the text and provides
     /// supporting facts.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VertexRagService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &VertexRagService
+    /// ) -> Result<()> {
+    ///     let response = client.corroborate_content()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn corroborate_content(&self) -> super::builder::vertex_rag_service::CorroborateContent {
         super::builder::vertex_rag_service::CorroborateContent::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VertexRagService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &VertexRagService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::vertex_rag_service::ListLocations {
         super::builder::vertex_rag_service::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VertexRagService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &VertexRagService
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::vertex_rag_service::GetLocation {
         super::builder::vertex_rag_service::GetLocation::new(self.inner.clone())
     }
@@ -9052,12 +19032,42 @@ impl VertexRagService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VertexRagService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &VertexRagService
+    /// ) -> Result<()> {
+    ///     let response = client.set_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::vertex_rag_service::SetIamPolicy {
         super::builder::vertex_rag_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VertexRagService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &VertexRagService
+    /// ) -> Result<()> {
+    ///     let response = client.get_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::vertex_rag_service::GetIamPolicy {
         super::builder::vertex_rag_service::GetIamPolicy::new(self.inner.clone())
     }
@@ -9069,6 +19079,21 @@ impl VertexRagService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VertexRagService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &VertexRagService
+    /// ) -> Result<()> {
+    ///     let response = client.test_iam_permissions()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::vertex_rag_service::TestIamPermissions {
         super::builder::vertex_rag_service::TestIamPermissions::new(self.inner.clone())
     }
@@ -9076,6 +19101,24 @@ impl VertexRagService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VertexRagService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &VertexRagService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::vertex_rag_service::ListOperations {
         super::builder::vertex_rag_service::ListOperations::new(self.inner.clone())
     }
@@ -9083,6 +19126,21 @@ impl VertexRagService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VertexRagService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &VertexRagService
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::vertex_rag_service::GetOperation {
         super::builder::vertex_rag_service::GetOperation::new(self.inner.clone())
     }
@@ -9090,6 +19148,20 @@ impl VertexRagService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VertexRagService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &VertexRagService
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::vertex_rag_service::DeleteOperation {
         super::builder::vertex_rag_service::DeleteOperation::new(self.inner.clone())
     }
@@ -9097,6 +19169,20 @@ impl VertexRagService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VertexRagService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &VertexRagService
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::vertex_rag_service::CancelOperation {
         super::builder::vertex_rag_service::CancelOperation::new(self.inner.clone())
     }
@@ -9104,6 +19190,21 @@ impl VertexRagService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VertexRagService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &VertexRagService
+    /// ) -> Result<()> {
+    ///     let response = client.wait_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn wait_operation(&self) -> super::builder::vertex_rag_service::WaitOperation {
         super::builder::vertex_rag_service::WaitOperation::new(self.inner.clone())
     }
@@ -9220,27 +19321,108 @@ impl VizierService {
 
     /// Creates a Study. A resource name will be generated after creation of the
     /// Study.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VizierService;
+    /// use google_cloud_aiplatform_v1::model::Study;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &VizierService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_study()
+    ///         .set_parent(parent)
+    ///         .set_study(
+    ///             Study::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_study(&self) -> super::builder::vizier_service::CreateStudy {
         super::builder::vizier_service::CreateStudy::new(self.inner.clone())
     }
 
     /// Gets a Study by name.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VizierService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &VizierService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_study()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_study(&self) -> super::builder::vizier_service::GetStudy {
         super::builder::vizier_service::GetStudy::new(self.inner.clone())
     }
 
     /// Lists all the studies in a region for an associated project.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VizierService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &VizierService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_studies()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_studies(&self) -> super::builder::vizier_service::ListStudies {
         super::builder::vizier_service::ListStudies::new(self.inner.clone())
     }
 
     /// Deletes a Study.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VizierService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &VizierService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_study()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_study(&self) -> super::builder::vizier_service::DeleteStudy {
         super::builder::vizier_service::DeleteStudy::new(self.inner.clone())
     }
 
     /// Looks a study up using the user-defined display_name field instead of the
     /// fully qualified resource name.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VizierService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &VizierService
+    /// ) -> Result<()> {
+    ///     let response = client.lookup_study()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn lookup_study(&self) -> super::builder::vizier_service::LookupStudy {
         super::builder::vizier_service::LookupStudy::new(self.inner.clone())
     }
@@ -9263,37 +19445,149 @@ impl VizierService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VizierService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &VizierService
+    /// ) -> Result<()> {
+    ///     let response = client.suggest_trials()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn suggest_trials(&self) -> super::builder::vizier_service::SuggestTrials {
         super::builder::vizier_service::SuggestTrials::new(self.inner.clone())
     }
 
     /// Adds a user provided Trial to a Study.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VizierService;
+    /// use google_cloud_aiplatform_v1::model::Trial;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &VizierService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_trial()
+    ///         .set_parent(parent)
+    ///         .set_trial(
+    ///             Trial::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_trial(&self) -> super::builder::vizier_service::CreateTrial {
         super::builder::vizier_service::CreateTrial::new(self.inner.clone())
     }
 
     /// Gets a Trial.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VizierService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &VizierService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_trial()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_trial(&self) -> super::builder::vizier_service::GetTrial {
         super::builder::vizier_service::GetTrial::new(self.inner.clone())
     }
 
     /// Lists the Trials associated with a Study.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VizierService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &VizierService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_trials()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_trials(&self) -> super::builder::vizier_service::ListTrials {
         super::builder::vizier_service::ListTrials::new(self.inner.clone())
     }
 
     /// Adds a measurement of the objective metrics to a Trial. This measurement
     /// is assumed to have been taken before the Trial is complete.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VizierService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &VizierService
+    /// ) -> Result<()> {
+    ///     let response = client.add_trial_measurement()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn add_trial_measurement(&self) -> super::builder::vizier_service::AddTrialMeasurement {
         super::builder::vizier_service::AddTrialMeasurement::new(self.inner.clone())
     }
 
     /// Marks a Trial as complete.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VizierService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &VizierService
+    /// ) -> Result<()> {
+    ///     let response = client.complete_trial()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn complete_trial(&self) -> super::builder::vizier_service::CompleteTrial {
         super::builder::vizier_service::CompleteTrial::new(self.inner.clone())
     }
 
     /// Deletes a Trial.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VizierService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &VizierService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_trial()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_trial(&self) -> super::builder::vizier_service::DeleteTrial {
         super::builder::vizier_service::DeleteTrial::new(self.inner.clone())
     }
@@ -9314,6 +19608,22 @@ impl VizierService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VizierService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &VizierService
+    /// ) -> Result<()> {
+    ///     let response = client.check_trial_early_stopping_state()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn check_trial_early_stopping_state(
         &self,
     ) -> super::builder::vizier_service::CheckTrialEarlyStoppingState {
@@ -9321,6 +19631,21 @@ impl VizierService {
     }
 
     /// Stops a Trial.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VizierService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &VizierService
+    /// ) -> Result<()> {
+    ///     let response = client.stop_trial()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn stop_trial(&self) -> super::builder::vizier_service::StopTrial {
         super::builder::vizier_service::StopTrial::new(self.inner.clone())
     }
@@ -9329,16 +19654,64 @@ impl VizierService {
     /// optimal Trials for single-objective Study. The definition of
     /// pareto-optimal can be checked in wiki page.
     /// <https://en.wikipedia.org/wiki/Pareto_efficiency>
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VizierService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &VizierService
+    /// ) -> Result<()> {
+    ///     let response = client.list_optimal_trials()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_optimal_trials(&self) -> super::builder::vizier_service::ListOptimalTrials {
         super::builder::vizier_service::ListOptimalTrials::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VizierService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &VizierService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::vizier_service::ListLocations {
         super::builder::vizier_service::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VizierService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &VizierService
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::vizier_service::GetLocation {
         super::builder::vizier_service::GetLocation::new(self.inner.clone())
     }
@@ -9348,12 +19721,42 @@ impl VizierService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VizierService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &VizierService
+    /// ) -> Result<()> {
+    ///     let response = client.set_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::vizier_service::SetIamPolicy {
         super::builder::vizier_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VizierService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &VizierService
+    /// ) -> Result<()> {
+    ///     let response = client.get_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::vizier_service::GetIamPolicy {
         super::builder::vizier_service::GetIamPolicy::new(self.inner.clone())
     }
@@ -9365,6 +19768,21 @@ impl VizierService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VizierService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &VizierService
+    /// ) -> Result<()> {
+    ///     let response = client.test_iam_permissions()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::vizier_service::TestIamPermissions {
         super::builder::vizier_service::TestIamPermissions::new(self.inner.clone())
     }
@@ -9372,6 +19790,24 @@ impl VizierService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VizierService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &VizierService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::vizier_service::ListOperations {
         super::builder::vizier_service::ListOperations::new(self.inner.clone())
     }
@@ -9379,6 +19815,21 @@ impl VizierService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VizierService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &VizierService
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::vizier_service::GetOperation {
         super::builder::vizier_service::GetOperation::new(self.inner.clone())
     }
@@ -9386,6 +19837,20 @@ impl VizierService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VizierService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &VizierService
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::vizier_service::DeleteOperation {
         super::builder::vizier_service::DeleteOperation::new(self.inner.clone())
     }
@@ -9393,6 +19858,20 @@ impl VizierService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VizierService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &VizierService
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::vizier_service::CancelOperation {
         super::builder::vizier_service::CancelOperation::new(self.inner.clone())
     }
@@ -9400,6 +19879,21 @@ impl VizierService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VizierService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &VizierService
+    /// ) -> Result<()> {
+    ///     let response = client.wait_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn wait_operation(&self) -> super::builder::vizier_service::WaitOperation {
         super::builder::vizier_service::WaitOperation::new(self.inner.clone())
     }

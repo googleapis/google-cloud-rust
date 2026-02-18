@@ -144,6 +144,21 @@ impl ServiceController {
     /// on the specified service. For more information, see
     /// [Service Control API Access
     /// Control](https://cloud.google.com/service-infrastructure/docs/service-control/access-control).
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api_servicecontrol_v2::client::ServiceController;
+    /// use google_cloud_api_servicecontrol_v2::Result;
+    /// async fn sample(
+    ///    client: &ServiceController
+    /// ) -> Result<()> {
+    ///     let response = client.check()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn check(&self) -> super::builder::service_controller::Check {
         super::builder::service_controller::Check::new(self.inner.clone())
     }
@@ -163,6 +178,21 @@ impl ServiceController {
     /// on the specified service. For more information, see
     /// [Service Control API Access
     /// Control](https://cloud.google.com/service-infrastructure/docs/service-control/access-control).
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api_servicecontrol_v2::client::ServiceController;
+    /// use google_cloud_api_servicecontrol_v2::Result;
+    /// async fn sample(
+    ///    client: &ServiceController
+    /// ) -> Result<()> {
+    ///     let response = client.report()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn report(&self) -> super::builder::service_controller::Report {
         super::builder::service_controller::Report::new(self.inner.clone())
     }

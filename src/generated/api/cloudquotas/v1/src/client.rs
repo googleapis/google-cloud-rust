@@ -125,32 +125,138 @@ impl CloudQuotas {
     }
 
     /// Lists QuotaInfos of all quotas for a given project, folder or organization.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api_cloudquotas_v1::client::CloudQuotas;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_api_cloudquotas_v1::Result;
+    /// async fn sample(
+    ///    client: &CloudQuotas, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_quota_infos()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_quota_infos(&self) -> super::builder::cloud_quotas::ListQuotaInfos {
         super::builder::cloud_quotas::ListQuotaInfos::new(self.inner.clone())
     }
 
     /// Retrieve the QuotaInfo of a quota for a project, folder or organization.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api_cloudquotas_v1::client::CloudQuotas;
+    /// use google_cloud_api_cloudquotas_v1::Result;
+    /// async fn sample(
+    ///    client: &CloudQuotas, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_quota_info()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_quota_info(&self) -> super::builder::cloud_quotas::GetQuotaInfo {
         super::builder::cloud_quotas::GetQuotaInfo::new(self.inner.clone())
     }
 
     /// Lists QuotaPreferences in a given project, folder or organization.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api_cloudquotas_v1::client::CloudQuotas;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_api_cloudquotas_v1::Result;
+    /// async fn sample(
+    ///    client: &CloudQuotas, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_quota_preferences()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_quota_preferences(&self) -> super::builder::cloud_quotas::ListQuotaPreferences {
         super::builder::cloud_quotas::ListQuotaPreferences::new(self.inner.clone())
     }
 
     /// Gets details of a single QuotaPreference.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api_cloudquotas_v1::client::CloudQuotas;
+    /// use google_cloud_api_cloudquotas_v1::Result;
+    /// async fn sample(
+    ///    client: &CloudQuotas, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_quota_preference()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_quota_preference(&self) -> super::builder::cloud_quotas::GetQuotaPreference {
         super::builder::cloud_quotas::GetQuotaPreference::new(self.inner.clone())
     }
 
     /// Creates a new QuotaPreference that declares the desired value for a quota.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api_cloudquotas_v1::client::CloudQuotas;
+    /// use google_cloud_api_cloudquotas_v1::model::QuotaPreference;
+    /// use google_cloud_api_cloudquotas_v1::Result;
+    /// async fn sample(
+    ///    client: &CloudQuotas, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_quota_preference()
+    ///         .set_parent(parent)
+    ///         .set_quota_preference(
+    ///             QuotaPreference::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_quota_preference(&self) -> super::builder::cloud_quotas::CreateQuotaPreference {
         super::builder::cloud_quotas::CreateQuotaPreference::new(self.inner.clone())
     }
 
     /// Updates the parameters of a single QuotaPreference. It can updates the
     /// config in any states, not just the ones pending approval.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api_cloudquotas_v1::client::CloudQuotas;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_api_cloudquotas_v1::model::QuotaPreference;
+    /// use google_cloud_api_cloudquotas_v1::Result;
+    /// async fn sample(
+    ///    client: &CloudQuotas, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_quota_preference()
+    ///         .set_quota_preference(
+    ///             QuotaPreference::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_quota_preference(&self) -> super::builder::cloud_quotas::UpdateQuotaPreference {
         super::builder::cloud_quotas::UpdateQuotaPreference::new(self.inner.clone())
     }

@@ -138,16 +138,66 @@ impl BigtableInstanceAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::client::BigtableInstanceAdmin;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_bigtable_admin_v2::model::Instance;
+    /// use google_cloud_bigtable_admin_v2::Result;
+    /// async fn sample(
+    ///    client: &BigtableInstanceAdmin, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_instance()
+    ///         .set_parent(parent).set_instance_id("instance_id_value")
+    ///         .set_instance(
+    ///             Instance::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_instance(&self) -> super::builder::bigtable_instance_admin::CreateInstance {
         super::builder::bigtable_instance_admin::CreateInstance::new(self.inner.clone())
     }
 
     /// Gets information about an instance.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::client::BigtableInstanceAdmin;
+    /// use google_cloud_bigtable_admin_v2::Result;
+    /// async fn sample(
+    ///    client: &BigtableInstanceAdmin, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_instance()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_instance(&self) -> super::builder::bigtable_instance_admin::GetInstance {
         super::builder::bigtable_instance_admin::GetInstance::new(self.inner.clone())
     }
 
     /// Lists information about instances in a project.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::client::BigtableInstanceAdmin;
+    /// use google_cloud_bigtable_admin_v2::Result;
+    /// async fn sample(
+    ///    client: &BigtableInstanceAdmin
+    /// ) -> Result<()> {
+    ///     let response = client.list_instances()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_instances(&self) -> super::builder::bigtable_instance_admin::ListInstances {
         super::builder::bigtable_instance_admin::ListInstances::new(self.inner.clone())
     }
@@ -155,6 +205,21 @@ impl BigtableInstanceAdmin {
     /// Updates an instance within a project. This method updates only the display
     /// name and type for an Instance. To update other Instance properties, such as
     /// labels, use PartialUpdateInstance.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::client::BigtableInstanceAdmin;
+    /// use google_cloud_bigtable_admin_v2::Result;
+    /// async fn sample(
+    ///    client: &BigtableInstanceAdmin
+    /// ) -> Result<()> {
+    ///     let response = client.update_instance()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_instance(&self) -> super::builder::bigtable_instance_admin::UpdateInstance {
         super::builder::bigtable_instance_admin::UpdateInstance::new(self.inner.clone())
     }
@@ -171,6 +236,22 @@ impl BigtableInstanceAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::client::BigtableInstanceAdmin;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_bigtable_admin_v2::Result;
+    /// async fn sample(
+    ///    client: &BigtableInstanceAdmin
+    /// ) -> Result<()> {
+    ///     let response = client.partial_update_instance()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn partial_update_instance(
         &self,
     ) -> super::builder::bigtable_instance_admin::PartialUpdateInstance {
@@ -178,6 +259,20 @@ impl BigtableInstanceAdmin {
     }
 
     /// Delete an instance from a project.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::client::BigtableInstanceAdmin;
+    /// use google_cloud_bigtable_admin_v2::Result;
+    /// async fn sample(
+    ///    client: &BigtableInstanceAdmin, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_instance()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_instance(&self) -> super::builder::bigtable_instance_admin::DeleteInstance {
         super::builder::bigtable_instance_admin::DeleteInstance::new(self.inner.clone())
     }
@@ -199,16 +294,66 @@ impl BigtableInstanceAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::client::BigtableInstanceAdmin;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_bigtable_admin_v2::model::Cluster;
+    /// use google_cloud_bigtable_admin_v2::Result;
+    /// async fn sample(
+    ///    client: &BigtableInstanceAdmin, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_cluster()
+    ///         .set_parent(parent).set_cluster_id("cluster_id_value")
+    ///         .set_cluster(
+    ///             Cluster::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_cluster(&self) -> super::builder::bigtable_instance_admin::CreateCluster {
         super::builder::bigtable_instance_admin::CreateCluster::new(self.inner.clone())
     }
 
     /// Gets information about a cluster.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::client::BigtableInstanceAdmin;
+    /// use google_cloud_bigtable_admin_v2::Result;
+    /// async fn sample(
+    ///    client: &BigtableInstanceAdmin, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_cluster()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_cluster(&self) -> super::builder::bigtable_instance_admin::GetCluster {
         super::builder::bigtable_instance_admin::GetCluster::new(self.inner.clone())
     }
 
     /// Lists information about clusters in an instance.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::client::BigtableInstanceAdmin;
+    /// use google_cloud_bigtable_admin_v2::Result;
+    /// async fn sample(
+    ///    client: &BigtableInstanceAdmin
+    /// ) -> Result<()> {
+    ///     let response = client.list_clusters()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_clusters(&self) -> super::builder::bigtable_instance_admin::ListClusters {
         super::builder::bigtable_instance_admin::ListClusters::new(self.inner.clone())
     }
@@ -228,6 +373,22 @@ impl BigtableInstanceAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::client::BigtableInstanceAdmin;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_bigtable_admin_v2::Result;
+    /// async fn sample(
+    ///    client: &BigtableInstanceAdmin
+    /// ) -> Result<()> {
+    ///     let response = client.update_cluster()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_cluster(&self) -> super::builder::bigtable_instance_admin::UpdateCluster {
         super::builder::bigtable_instance_admin::UpdateCluster::new(self.inner.clone())
     }
@@ -254,6 +415,22 @@ impl BigtableInstanceAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::client::BigtableInstanceAdmin;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_bigtable_admin_v2::Result;
+    /// async fn sample(
+    ///    client: &BigtableInstanceAdmin
+    /// ) -> Result<()> {
+    ///     let response = client.partial_update_cluster()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn partial_update_cluster(
         &self,
     ) -> super::builder::bigtable_instance_admin::PartialUpdateCluster {
@@ -261,21 +438,87 @@ impl BigtableInstanceAdmin {
     }
 
     /// Deletes a cluster from an instance.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::client::BigtableInstanceAdmin;
+    /// use google_cloud_bigtable_admin_v2::Result;
+    /// async fn sample(
+    ///    client: &BigtableInstanceAdmin, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_cluster()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_cluster(&self) -> super::builder::bigtable_instance_admin::DeleteCluster {
         super::builder::bigtable_instance_admin::DeleteCluster::new(self.inner.clone())
     }
 
     /// Creates an app profile within an instance.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::client::BigtableInstanceAdmin;
+    /// use google_cloud_bigtable_admin_v2::model::AppProfile;
+    /// use google_cloud_bigtable_admin_v2::Result;
+    /// async fn sample(
+    ///    client: &BigtableInstanceAdmin, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_app_profile()
+    ///         .set_parent(parent)
+    ///         .set_app_profile(
+    ///             AppProfile::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_app_profile(&self) -> super::builder::bigtable_instance_admin::CreateAppProfile {
         super::builder::bigtable_instance_admin::CreateAppProfile::new(self.inner.clone())
     }
 
     /// Gets information about an app profile.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::client::BigtableInstanceAdmin;
+    /// use google_cloud_bigtable_admin_v2::Result;
+    /// async fn sample(
+    ///    client: &BigtableInstanceAdmin, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_app_profile()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_app_profile(&self) -> super::builder::bigtable_instance_admin::GetAppProfile {
         super::builder::bigtable_instance_admin::GetAppProfile::new(self.inner.clone())
     }
 
     /// Lists information about app profiles in an instance.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::client::BigtableInstanceAdmin;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_bigtable_admin_v2::Result;
+    /// async fn sample(
+    ///    client: &BigtableInstanceAdmin, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_app_profiles()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_app_profiles(&self) -> super::builder::bigtable_instance_admin::ListAppProfiles {
         super::builder::bigtable_instance_admin::ListAppProfiles::new(self.inner.clone())
     }
@@ -291,28 +534,109 @@ impl BigtableInstanceAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::client::BigtableInstanceAdmin;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_bigtable_admin_v2::model::AppProfile;
+    /// use google_cloud_bigtable_admin_v2::Result;
+    /// async fn sample(
+    ///    client: &BigtableInstanceAdmin, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_app_profile()
+    ///         .set_app_profile(
+    ///             AppProfile::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_app_profile(&self) -> super::builder::bigtable_instance_admin::UpdateAppProfile {
         super::builder::bigtable_instance_admin::UpdateAppProfile::new(self.inner.clone())
     }
 
     /// Deletes an app profile from an instance.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::client::BigtableInstanceAdmin;
+    /// use google_cloud_bigtable_admin_v2::Result;
+    /// async fn sample(
+    ///    client: &BigtableInstanceAdmin, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_app_profile()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_app_profile(&self) -> super::builder::bigtable_instance_admin::DeleteAppProfile {
         super::builder::bigtable_instance_admin::DeleteAppProfile::new(self.inner.clone())
     }
 
     /// Gets the access control policy for an instance resource. Returns an empty
     /// policy if an instance exists but does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::client::BigtableInstanceAdmin;
+    /// use google_cloud_bigtable_admin_v2::Result;
+    /// async fn sample(
+    ///    client: &BigtableInstanceAdmin
+    /// ) -> Result<()> {
+    ///     let response = client.get_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::bigtable_instance_admin::GetIamPolicy {
         super::builder::bigtable_instance_admin::GetIamPolicy::new(self.inner.clone())
     }
 
     /// Sets the access control policy on an instance resource. Replaces any
     /// existing policy.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::client::BigtableInstanceAdmin;
+    /// use google_cloud_bigtable_admin_v2::Result;
+    /// async fn sample(
+    ///    client: &BigtableInstanceAdmin
+    /// ) -> Result<()> {
+    ///     let response = client.set_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::bigtable_instance_admin::SetIamPolicy {
         super::builder::bigtable_instance_admin::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Returns permissions that the caller has on the specified instance resource.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::client::BigtableInstanceAdmin;
+    /// use google_cloud_bigtable_admin_v2::Result;
+    /// async fn sample(
+    ///    client: &BigtableInstanceAdmin
+    /// ) -> Result<()> {
+    ///     let response = client.test_iam_permissions()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(
         &self,
     ) -> super::builder::bigtable_instance_admin::TestIamPermissions {
@@ -321,6 +645,24 @@ impl BigtableInstanceAdmin {
 
     /// Lists hot tablets in a cluster, within the time range provided. Hot
     /// tablets are ordered based on CPU usage.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::client::BigtableInstanceAdmin;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_bigtable_admin_v2::Result;
+    /// async fn sample(
+    ///    client: &BigtableInstanceAdmin, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_hot_tablets()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_hot_tablets(&self) -> super::builder::bigtable_instance_admin::ListHotTablets {
         super::builder::bigtable_instance_admin::ListHotTablets::new(self.inner.clone())
     }
@@ -336,6 +678,26 @@ impl BigtableInstanceAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::client::BigtableInstanceAdmin;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_bigtable_admin_v2::model::LogicalView;
+    /// use google_cloud_bigtable_admin_v2::Result;
+    /// async fn sample(
+    ///    client: &BigtableInstanceAdmin, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_logical_view()
+    ///         .set_parent(parent)
+    ///         .set_logical_view(
+    ///             LogicalView::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_logical_view(
         &self,
     ) -> super::builder::bigtable_instance_admin::CreateLogicalView {
@@ -343,11 +705,44 @@ impl BigtableInstanceAdmin {
     }
 
     /// Gets information about a logical view.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::client::BigtableInstanceAdmin;
+    /// use google_cloud_bigtable_admin_v2::Result;
+    /// async fn sample(
+    ///    client: &BigtableInstanceAdmin, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_logical_view()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_logical_view(&self) -> super::builder::bigtable_instance_admin::GetLogicalView {
         super::builder::bigtable_instance_admin::GetLogicalView::new(self.inner.clone())
     }
 
     /// Lists information about logical views in an instance.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::client::BigtableInstanceAdmin;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_bigtable_admin_v2::Result;
+    /// async fn sample(
+    ///    client: &BigtableInstanceAdmin, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_logical_views()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_logical_views(&self) -> super::builder::bigtable_instance_admin::ListLogicalViews {
         super::builder::bigtable_instance_admin::ListLogicalViews::new(self.inner.clone())
     }
@@ -363,6 +758,28 @@ impl BigtableInstanceAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::client::BigtableInstanceAdmin;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_bigtable_admin_v2::model::LogicalView;
+    /// use google_cloud_bigtable_admin_v2::Result;
+    /// async fn sample(
+    ///    client: &BigtableInstanceAdmin, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_logical_view()
+    ///         .set_logical_view(
+    ///             LogicalView::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_logical_view(
         &self,
     ) -> super::builder::bigtable_instance_admin::UpdateLogicalView {
@@ -370,6 +787,20 @@ impl BigtableInstanceAdmin {
     }
 
     /// Deletes a logical view from an instance.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::client::BigtableInstanceAdmin;
+    /// use google_cloud_bigtable_admin_v2::Result;
+    /// async fn sample(
+    ///    client: &BigtableInstanceAdmin, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_logical_view()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_logical_view(
         &self,
     ) -> super::builder::bigtable_instance_admin::DeleteLogicalView {
@@ -387,6 +818,26 @@ impl BigtableInstanceAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::client::BigtableInstanceAdmin;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_bigtable_admin_v2::model::MaterializedView;
+    /// use google_cloud_bigtable_admin_v2::Result;
+    /// async fn sample(
+    ///    client: &BigtableInstanceAdmin, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_materialized_view()
+    ///         .set_parent(parent)
+    ///         .set_materialized_view(
+    ///             MaterializedView::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_materialized_view(
         &self,
     ) -> super::builder::bigtable_instance_admin::CreateMaterializedView {
@@ -394,6 +845,21 @@ impl BigtableInstanceAdmin {
     }
 
     /// Gets information about a materialized view.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::client::BigtableInstanceAdmin;
+    /// use google_cloud_bigtable_admin_v2::Result;
+    /// async fn sample(
+    ///    client: &BigtableInstanceAdmin, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_materialized_view()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_materialized_view(
         &self,
     ) -> super::builder::bigtable_instance_admin::GetMaterializedView {
@@ -401,6 +867,24 @@ impl BigtableInstanceAdmin {
     }
 
     /// Lists information about materialized views in an instance.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::client::BigtableInstanceAdmin;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_bigtable_admin_v2::Result;
+    /// async fn sample(
+    ///    client: &BigtableInstanceAdmin, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_materialized_views()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_materialized_views(
         &self,
     ) -> super::builder::bigtable_instance_admin::ListMaterializedViews {
@@ -418,6 +902,28 @@ impl BigtableInstanceAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::client::BigtableInstanceAdmin;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_bigtable_admin_v2::model::MaterializedView;
+    /// use google_cloud_bigtable_admin_v2::Result;
+    /// async fn sample(
+    ///    client: &BigtableInstanceAdmin, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_materialized_view()
+    ///         .set_materialized_view(
+    ///             MaterializedView::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_materialized_view(
         &self,
     ) -> super::builder::bigtable_instance_admin::UpdateMaterializedView {
@@ -425,6 +931,20 @@ impl BigtableInstanceAdmin {
     }
 
     /// Deletes a materialized view from an instance.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::client::BigtableInstanceAdmin;
+    /// use google_cloud_bigtable_admin_v2::Result;
+    /// async fn sample(
+    ///    client: &BigtableInstanceAdmin, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_materialized_view()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_materialized_view(
         &self,
     ) -> super::builder::bigtable_instance_admin::DeleteMaterializedView {
@@ -434,6 +954,24 @@ impl BigtableInstanceAdmin {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::client::BigtableInstanceAdmin;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_bigtable_admin_v2::Result;
+    /// async fn sample(
+    ///    client: &BigtableInstanceAdmin
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::bigtable_instance_admin::ListOperations {
         super::builder::bigtable_instance_admin::ListOperations::new(self.inner.clone())
     }
@@ -441,6 +979,21 @@ impl BigtableInstanceAdmin {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::client::BigtableInstanceAdmin;
+    /// use google_cloud_bigtable_admin_v2::Result;
+    /// async fn sample(
+    ///    client: &BigtableInstanceAdmin
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::bigtable_instance_admin::GetOperation {
         super::builder::bigtable_instance_admin::GetOperation::new(self.inner.clone())
     }
@@ -448,6 +1001,20 @@ impl BigtableInstanceAdmin {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::client::BigtableInstanceAdmin;
+    /// use google_cloud_bigtable_admin_v2::Result;
+    /// async fn sample(
+    ///    client: &BigtableInstanceAdmin
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::bigtable_instance_admin::DeleteOperation {
         super::builder::bigtable_instance_admin::DeleteOperation::new(self.inner.clone())
     }
@@ -455,6 +1022,20 @@ impl BigtableInstanceAdmin {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::client::BigtableInstanceAdmin;
+    /// use google_cloud_bigtable_admin_v2::Result;
+    /// async fn sample(
+    ///    client: &BigtableInstanceAdmin
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::bigtable_instance_admin::CancelOperation {
         super::builder::bigtable_instance_admin::CancelOperation::new(self.inner.clone())
     }
@@ -569,6 +1150,25 @@ impl BigtableTableAdmin {
     /// Creates a new table in the specified instance.
     /// The table can be created with a full set of initial column families,
     /// specified in the request.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::client::BigtableTableAdmin;
+    /// use google_cloud_bigtable_admin_v2::model::Table;
+    /// use google_cloud_bigtable_admin_v2::Result;
+    /// async fn sample(
+    ///    client: &BigtableTableAdmin, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_table()
+    ///         .set_parent(parent).set_table_id("table_id_value")
+    ///         .set_table(
+    ///             Table::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_table(&self) -> super::builder::bigtable_table_admin::CreateTable {
         super::builder::bigtable_table_admin::CreateTable::new(self.inner.clone())
     }
@@ -591,6 +1191,22 @@ impl BigtableTableAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::client::BigtableTableAdmin;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_bigtable_admin_v2::Result;
+    /// async fn sample(
+    ///    client: &BigtableTableAdmin
+    /// ) -> Result<()> {
+    ///     let response = client.create_table_from_snapshot()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_table_from_snapshot(
         &self,
     ) -> super::builder::bigtable_table_admin::CreateTableFromSnapshot {
@@ -598,11 +1214,44 @@ impl BigtableTableAdmin {
     }
 
     /// Lists all tables served from a specified instance.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::client::BigtableTableAdmin;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_bigtable_admin_v2::Result;
+    /// async fn sample(
+    ///    client: &BigtableTableAdmin, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_tables()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_tables(&self) -> super::builder::bigtable_table_admin::ListTables {
         super::builder::bigtable_table_admin::ListTables::new(self.inner.clone())
     }
 
     /// Gets metadata information about the specified table.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::client::BigtableTableAdmin;
+    /// use google_cloud_bigtable_admin_v2::Result;
+    /// async fn sample(
+    ///    client: &BigtableTableAdmin, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_table()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_table(&self) -> super::builder::bigtable_table_admin::GetTable {
         super::builder::bigtable_table_admin::GetTable::new(self.inner.clone())
     }
@@ -618,11 +1267,47 @@ impl BigtableTableAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::client::BigtableTableAdmin;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_bigtable_admin_v2::model::Table;
+    /// use google_cloud_bigtable_admin_v2::Result;
+    /// async fn sample(
+    ///    client: &BigtableTableAdmin, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_table()
+    ///         .set_table(
+    ///             Table::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_table(&self) -> super::builder::bigtable_table_admin::UpdateTable {
         super::builder::bigtable_table_admin::UpdateTable::new(self.inner.clone())
     }
 
     /// Permanently deletes a specified table and all of its data.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::client::BigtableTableAdmin;
+    /// use google_cloud_bigtable_admin_v2::Result;
+    /// async fn sample(
+    ///    client: &BigtableTableAdmin, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_table()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_table(&self) -> super::builder::bigtable_table_admin::DeleteTable {
         super::builder::bigtable_table_admin::DeleteTable::new(self.inner.clone())
     }
@@ -638,6 +1323,22 @@ impl BigtableTableAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::client::BigtableTableAdmin;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_bigtable_admin_v2::Result;
+    /// async fn sample(
+    ///    client: &BigtableTableAdmin, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.undelete_table()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn undelete_table(&self) -> super::builder::bigtable_table_admin::UndeleteTable {
         super::builder::bigtable_table_admin::UndeleteTable::new(self.inner.clone())
     }
@@ -653,6 +1354,26 @@ impl BigtableTableAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::client::BigtableTableAdmin;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_bigtable_admin_v2::model::AuthorizedView;
+    /// use google_cloud_bigtable_admin_v2::Result;
+    /// async fn sample(
+    ///    client: &BigtableTableAdmin, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_authorized_view()
+    ///         .set_parent(parent)
+    ///         .set_authorized_view(
+    ///             AuthorizedView::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_authorized_view(
         &self,
     ) -> super::builder::bigtable_table_admin::CreateAuthorizedView {
@@ -660,6 +1381,24 @@ impl BigtableTableAdmin {
     }
 
     /// Lists all AuthorizedViews from a specific table.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::client::BigtableTableAdmin;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_bigtable_admin_v2::Result;
+    /// async fn sample(
+    ///    client: &BigtableTableAdmin, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_authorized_views()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_authorized_views(
         &self,
     ) -> super::builder::bigtable_table_admin::ListAuthorizedViews {
@@ -667,6 +1406,21 @@ impl BigtableTableAdmin {
     }
 
     /// Gets information from a specified AuthorizedView.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::client::BigtableTableAdmin;
+    /// use google_cloud_bigtable_admin_v2::Result;
+    /// async fn sample(
+    ///    client: &BigtableTableAdmin, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_authorized_view()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_authorized_view(&self) -> super::builder::bigtable_table_admin::GetAuthorizedView {
         super::builder::bigtable_table_admin::GetAuthorizedView::new(self.inner.clone())
     }
@@ -682,6 +1436,28 @@ impl BigtableTableAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::client::BigtableTableAdmin;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_bigtable_admin_v2::model::AuthorizedView;
+    /// use google_cloud_bigtable_admin_v2::Result;
+    /// async fn sample(
+    ///    client: &BigtableTableAdmin, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_authorized_view()
+    ///         .set_authorized_view(
+    ///             AuthorizedView::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_authorized_view(
         &self,
     ) -> super::builder::bigtable_table_admin::UpdateAuthorizedView {
@@ -689,6 +1465,20 @@ impl BigtableTableAdmin {
     }
 
     /// Permanently deletes a specified AuthorizedView.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::client::BigtableTableAdmin;
+    /// use google_cloud_bigtable_admin_v2::Result;
+    /// async fn sample(
+    ///    client: &BigtableTableAdmin, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_authorized_view()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_authorized_view(
         &self,
     ) -> super::builder::bigtable_table_admin::DeleteAuthorizedView {
@@ -699,6 +1489,21 @@ impl BigtableTableAdmin {
     /// Either all or none of the modifications will occur before this method
     /// returns, but data requests received prior to that point may see a table
     /// where only some modifications have taken effect.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::client::BigtableTableAdmin;
+    /// use google_cloud_bigtable_admin_v2::Result;
+    /// async fn sample(
+    ///    client: &BigtableTableAdmin
+    /// ) -> Result<()> {
+    ///     let response = client.modify_column_families()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn modify_column_families(
         &self,
     ) -> super::builder::bigtable_table_admin::ModifyColumnFamilies {
@@ -708,6 +1513,20 @@ impl BigtableTableAdmin {
     /// Permanently drop/delete a row range from a specified table. The request can
     /// specify whether to delete all rows in a table, or only those that match a
     /// particular prefix.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::client::BigtableTableAdmin;
+    /// use google_cloud_bigtable_admin_v2::Result;
+    /// async fn sample(
+    ///    client: &BigtableTableAdmin
+    /// ) -> Result<()> {
+    ///     client.drop_row_range()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn drop_row_range(&self) -> super::builder::bigtable_table_admin::DropRowRange {
         super::builder::bigtable_table_admin::DropRowRange::new(self.inner.clone())
     }
@@ -716,6 +1535,21 @@ impl BigtableTableAdmin {
     /// CheckConsistency to check whether mutations to the table that finished
     /// before this call started have been replicated. The tokens will be available
     /// for 90 days.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::client::BigtableTableAdmin;
+    /// use google_cloud_bigtable_admin_v2::Result;
+    /// async fn sample(
+    ///    client: &BigtableTableAdmin
+    /// ) -> Result<()> {
+    ///     let response = client.generate_consistency_token()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn generate_consistency_token(
         &self,
     ) -> super::builder::bigtable_table_admin::GenerateConsistencyToken {
@@ -725,6 +1559,21 @@ impl BigtableTableAdmin {
     /// Checks replication consistency based on a consistency token, that is, if
     /// replication has caught up based on the conditions specified in the token
     /// and the check request.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::client::BigtableTableAdmin;
+    /// use google_cloud_bigtable_admin_v2::Result;
+    /// async fn sample(
+    ///    client: &BigtableTableAdmin
+    /// ) -> Result<()> {
+    ///     let response = client.check_consistency()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn check_consistency(&self) -> super::builder::bigtable_table_admin::CheckConsistency {
         super::builder::bigtable_table_admin::CheckConsistency::new(self.inner.clone())
     }
@@ -747,6 +1596,22 @@ impl BigtableTableAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::client::BigtableTableAdmin;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_bigtable_admin_v2::Result;
+    /// async fn sample(
+    ///    client: &BigtableTableAdmin
+    /// ) -> Result<()> {
+    ///     let response = client.snapshot_table()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn snapshot_table(&self) -> super::builder::bigtable_table_admin::SnapshotTable {
         super::builder::bigtable_table_admin::SnapshotTable::new(self.inner.clone())
     }
@@ -758,6 +1623,21 @@ impl BigtableTableAdmin {
     /// feature might be changed in backward-incompatible ways and is not
     /// recommended for production use. It is not subject to any SLA or deprecation
     /// policy.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::client::BigtableTableAdmin;
+    /// use google_cloud_bigtable_admin_v2::Result;
+    /// async fn sample(
+    ///    client: &BigtableTableAdmin, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_snapshot()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_snapshot(&self) -> super::builder::bigtable_table_admin::GetSnapshot {
         super::builder::bigtable_table_admin::GetSnapshot::new(self.inner.clone())
     }
@@ -769,6 +1649,24 @@ impl BigtableTableAdmin {
     /// feature might be changed in backward-incompatible ways and is not
     /// recommended for production use. It is not subject to any SLA or deprecation
     /// policy.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::client::BigtableTableAdmin;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_bigtable_admin_v2::Result;
+    /// async fn sample(
+    ///    client: &BigtableTableAdmin, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_snapshots()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_snapshots(&self) -> super::builder::bigtable_table_admin::ListSnapshots {
         super::builder::bigtable_table_admin::ListSnapshots::new(self.inner.clone())
     }
@@ -780,6 +1678,20 @@ impl BigtableTableAdmin {
     /// feature might be changed in backward-incompatible ways and is not
     /// recommended for production use. It is not subject to any SLA or deprecation
     /// policy.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::client::BigtableTableAdmin;
+    /// use google_cloud_bigtable_admin_v2::Result;
+    /// async fn sample(
+    ///    client: &BigtableTableAdmin, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_snapshot()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_snapshot(&self) -> super::builder::bigtable_table_admin::DeleteSnapshot {
         super::builder::bigtable_table_admin::DeleteSnapshot::new(self.inner.clone())
     }
@@ -808,27 +1720,115 @@ impl BigtableTableAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::client::BigtableTableAdmin;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_bigtable_admin_v2::model::Backup;
+    /// use google_cloud_bigtable_admin_v2::Result;
+    /// async fn sample(
+    ///    client: &BigtableTableAdmin, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_backup()
+    ///         .set_parent(parent).set_backup_id("backup_id_value")
+    ///         .set_backup(
+    ///             Backup::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_backup(&self) -> super::builder::bigtable_table_admin::CreateBackup {
         super::builder::bigtable_table_admin::CreateBackup::new(self.inner.clone())
     }
 
     /// Gets metadata on a pending or completed Cloud Bigtable Backup.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::client::BigtableTableAdmin;
+    /// use google_cloud_bigtable_admin_v2::Result;
+    /// async fn sample(
+    ///    client: &BigtableTableAdmin, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_backup()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_backup(&self) -> super::builder::bigtable_table_admin::GetBackup {
         super::builder::bigtable_table_admin::GetBackup::new(self.inner.clone())
     }
 
     /// Updates a pending or completed Cloud Bigtable Backup.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::client::BigtableTableAdmin;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_bigtable_admin_v2::model::Backup;
+    /// use google_cloud_bigtable_admin_v2::Result;
+    /// async fn sample(
+    ///    client: &BigtableTableAdmin, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_backup()
+    ///         .set_backup(
+    ///             Backup::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_backup(&self) -> super::builder::bigtable_table_admin::UpdateBackup {
         super::builder::bigtable_table_admin::UpdateBackup::new(self.inner.clone())
     }
 
     /// Deletes a pending or completed Cloud Bigtable backup.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::client::BigtableTableAdmin;
+    /// use google_cloud_bigtable_admin_v2::Result;
+    /// async fn sample(
+    ///    client: &BigtableTableAdmin, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_backup()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_backup(&self) -> super::builder::bigtable_table_admin::DeleteBackup {
         super::builder::bigtable_table_admin::DeleteBackup::new(self.inner.clone())
     }
 
     /// Lists Cloud Bigtable backups. Returns both completed and pending
     /// backups.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::client::BigtableTableAdmin;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_bigtable_admin_v2::Result;
+    /// async fn sample(
+    ///    client: &BigtableTableAdmin, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_backups()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_backups(&self) -> super::builder::bigtable_table_admin::ListBackups {
         super::builder::bigtable_table_admin::ListBackups::new(self.inner.clone())
     }
@@ -856,6 +1856,22 @@ impl BigtableTableAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::client::BigtableTableAdmin;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_bigtable_admin_v2::Result;
+    /// async fn sample(
+    ///    client: &BigtableTableAdmin
+    /// ) -> Result<()> {
+    ///     let response = client.restore_table()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn restore_table(&self) -> super::builder::bigtable_table_admin::RestoreTable {
         super::builder::bigtable_table_admin::RestoreTable::new(self.inner.clone())
     }
@@ -872,6 +1888,22 @@ impl BigtableTableAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::client::BigtableTableAdmin;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_bigtable_admin_v2::Result;
+    /// async fn sample(
+    ///    client: &BigtableTableAdmin
+    /// ) -> Result<()> {
+    ///     let response = client.copy_backup()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn copy_backup(&self) -> super::builder::bigtable_table_admin::CopyBackup {
         super::builder::bigtable_table_admin::CopyBackup::new(self.inner.clone())
     }
@@ -879,18 +1911,63 @@ impl BigtableTableAdmin {
     /// Gets the access control policy for a Bigtable resource.
     /// Returns an empty policy if the resource exists but does not have a policy
     /// set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::client::BigtableTableAdmin;
+    /// use google_cloud_bigtable_admin_v2::Result;
+    /// async fn sample(
+    ///    client: &BigtableTableAdmin
+    /// ) -> Result<()> {
+    ///     let response = client.get_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::bigtable_table_admin::GetIamPolicy {
         super::builder::bigtable_table_admin::GetIamPolicy::new(self.inner.clone())
     }
 
     /// Sets the access control policy on a Bigtable resource.
     /// Replaces any existing policy.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::client::BigtableTableAdmin;
+    /// use google_cloud_bigtable_admin_v2::Result;
+    /// async fn sample(
+    ///    client: &BigtableTableAdmin
+    /// ) -> Result<()> {
+    ///     let response = client.set_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::bigtable_table_admin::SetIamPolicy {
         super::builder::bigtable_table_admin::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Returns permissions that the caller has on the specified Bigtable
     /// resource.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::client::BigtableTableAdmin;
+    /// use google_cloud_bigtable_admin_v2::Result;
+    /// async fn sample(
+    ///    client: &BigtableTableAdmin
+    /// ) -> Result<()> {
+    ///     let response = client.test_iam_permissions()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::bigtable_table_admin::TestIamPermissions {
         super::builder::bigtable_table_admin::TestIamPermissions::new(self.inner.clone())
     }
@@ -906,6 +1983,26 @@ impl BigtableTableAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::client::BigtableTableAdmin;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_bigtable_admin_v2::model::SchemaBundle;
+    /// use google_cloud_bigtable_admin_v2::Result;
+    /// async fn sample(
+    ///    client: &BigtableTableAdmin, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_schema_bundle()
+    ///         .set_parent(parent)
+    ///         .set_schema_bundle(
+    ///             SchemaBundle::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_schema_bundle(&self) -> super::builder::bigtable_table_admin::CreateSchemaBundle {
         super::builder::bigtable_table_admin::CreateSchemaBundle::new(self.inner.clone())
     }
@@ -921,21 +2018,90 @@ impl BigtableTableAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::client::BigtableTableAdmin;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_bigtable_admin_v2::model::SchemaBundle;
+    /// use google_cloud_bigtable_admin_v2::Result;
+    /// async fn sample(
+    ///    client: &BigtableTableAdmin, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_schema_bundle()
+    ///         .set_schema_bundle(
+    ///             SchemaBundle::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_schema_bundle(&self) -> super::builder::bigtable_table_admin::UpdateSchemaBundle {
         super::builder::bigtable_table_admin::UpdateSchemaBundle::new(self.inner.clone())
     }
 
     /// Gets metadata information about the specified schema bundle.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::client::BigtableTableAdmin;
+    /// use google_cloud_bigtable_admin_v2::Result;
+    /// async fn sample(
+    ///    client: &BigtableTableAdmin, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_schema_bundle()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_schema_bundle(&self) -> super::builder::bigtable_table_admin::GetSchemaBundle {
         super::builder::bigtable_table_admin::GetSchemaBundle::new(self.inner.clone())
     }
 
     /// Lists all schema bundles associated with the specified table.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::client::BigtableTableAdmin;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_bigtable_admin_v2::Result;
+    /// async fn sample(
+    ///    client: &BigtableTableAdmin, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_schema_bundles()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_schema_bundles(&self) -> super::builder::bigtable_table_admin::ListSchemaBundles {
         super::builder::bigtable_table_admin::ListSchemaBundles::new(self.inner.clone())
     }
 
     /// Deletes a schema bundle in the specified table.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::client::BigtableTableAdmin;
+    /// use google_cloud_bigtable_admin_v2::Result;
+    /// async fn sample(
+    ///    client: &BigtableTableAdmin, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_schema_bundle()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_schema_bundle(&self) -> super::builder::bigtable_table_admin::DeleteSchemaBundle {
         super::builder::bigtable_table_admin::DeleteSchemaBundle::new(self.inner.clone())
     }
@@ -943,6 +2109,24 @@ impl BigtableTableAdmin {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::client::BigtableTableAdmin;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_bigtable_admin_v2::Result;
+    /// async fn sample(
+    ///    client: &BigtableTableAdmin
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::bigtable_table_admin::ListOperations {
         super::builder::bigtable_table_admin::ListOperations::new(self.inner.clone())
     }
@@ -950,6 +2134,21 @@ impl BigtableTableAdmin {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::client::BigtableTableAdmin;
+    /// use google_cloud_bigtable_admin_v2::Result;
+    /// async fn sample(
+    ///    client: &BigtableTableAdmin
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::bigtable_table_admin::GetOperation {
         super::builder::bigtable_table_admin::GetOperation::new(self.inner.clone())
     }
@@ -957,6 +2156,20 @@ impl BigtableTableAdmin {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::client::BigtableTableAdmin;
+    /// use google_cloud_bigtable_admin_v2::Result;
+    /// async fn sample(
+    ///    client: &BigtableTableAdmin
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::bigtable_table_admin::DeleteOperation {
         super::builder::bigtable_table_admin::DeleteOperation::new(self.inner.clone())
     }
@@ -964,6 +2177,20 @@ impl BigtableTableAdmin {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::client::BigtableTableAdmin;
+    /// use google_cloud_bigtable_admin_v2::Result;
+    /// async fn sample(
+    ///    client: &BigtableTableAdmin
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::bigtable_table_admin::CancelOperation {
         super::builder::bigtable_table_admin::CancelOperation::new(self.inner.clone())
     }

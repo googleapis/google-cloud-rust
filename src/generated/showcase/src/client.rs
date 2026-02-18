@@ -122,6 +122,21 @@ impl Compliance {
 
     /// This method echoes the ComplianceData request. This method exercises
     /// sending the entire request object in the REST body.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::Compliance;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &Compliance
+    /// ) -> Result<()> {
+    ///     let response = client.repeat_data_body()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn repeat_data_body(&self) -> super::builder::compliance::RepeatDataBody {
         super::builder::compliance::RepeatDataBody::new(self.inner.clone())
     }
@@ -129,12 +144,42 @@ impl Compliance {
     /// This method echoes the ComplianceData request. This method exercises
     /// sending the a message-type field in the REST body. Per AIP-127, only
     /// top-level, non-repeated fields can be sent this way.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::Compliance;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &Compliance
+    /// ) -> Result<()> {
+    ///     let response = client.repeat_data_body_info()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn repeat_data_body_info(&self) -> super::builder::compliance::RepeatDataBodyInfo {
         super::builder::compliance::RepeatDataBodyInfo::new(self.inner.clone())
     }
 
     /// This method echoes the ComplianceData request. This method exercises
     /// sending all request fields as query parameters.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::Compliance;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &Compliance
+    /// ) -> Result<()> {
+    ///     let response = client.repeat_data_query()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn repeat_data_query(&self) -> super::builder::compliance::RepeatDataQuery {
         super::builder::compliance::RepeatDataQuery::new(self.inner.clone())
     }
@@ -142,16 +187,61 @@ impl Compliance {
     /// This method echoes the ComplianceData request. This method exercises
     /// sending some parameters as "simple" path variables (i.e., of the form
     /// "/bar/{foo}" rather than "/{foo=bar/*}"), and the rest as query parameters.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::Compliance;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &Compliance
+    /// ) -> Result<()> {
+    ///     let response = client.repeat_data_simple_path()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn repeat_data_simple_path(&self) -> super::builder::compliance::RepeatDataSimplePath {
         super::builder::compliance::RepeatDataSimplePath::new(self.inner.clone())
     }
 
     /// Same as RepeatDataSimplePath, but with a path resource.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::Compliance;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &Compliance
+    /// ) -> Result<()> {
+    ///     let response = client.repeat_data_path_resource()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn repeat_data_path_resource(&self) -> super::builder::compliance::RepeatDataPathResource {
         super::builder::compliance::RepeatDataPathResource::new(self.inner.clone())
     }
 
     /// Same as RepeatDataSimplePath, but with a trailing resource.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::Compliance;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &Compliance
+    /// ) -> Result<()> {
+    ///     let response = client.repeat_data_path_trailing_resource()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn repeat_data_path_trailing_resource(
         &self,
     ) -> super::builder::compliance::RepeatDataPathTrailingResource {
@@ -159,11 +249,41 @@ impl Compliance {
     }
 
     /// This method echoes the ComplianceData request, using the HTTP PUT method.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::Compliance;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &Compliance
+    /// ) -> Result<()> {
+    ///     let response = client.repeat_data_body_put()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn repeat_data_body_put(&self) -> super::builder::compliance::RepeatDataBodyPut {
         super::builder::compliance::RepeatDataBodyPut::new(self.inner.clone())
     }
 
     /// This method echoes the ComplianceData request, using the HTTP PATCH method.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::Compliance;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &Compliance
+    /// ) -> Result<()> {
+    ///     let response = client.repeat_data_body_patch()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn repeat_data_body_patch(&self) -> super::builder::compliance::RepeatDataBodyPatch {
         super::builder::compliance::RepeatDataBodyPatch::new(self.inner.clone())
     }
@@ -174,6 +294,21 @@ impl Compliance {
     ///
     /// The values of enums sent by the server when a known or unknown value is requested will be the same within a single Showcase server run (this is needed for
     /// VerifyEnum() to work) but are not guaranteed to be the same across separate Showcase server runs.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::Compliance;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &Compliance
+    /// ) -> Result<()> {
+    ///     let response = client.get_enum()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_enum(&self) -> super::builder::compliance::GetEnum {
         super::builder::compliance::GetEnum::new(self.inner.clone())
     }
@@ -184,6 +319,21 @@ impl Compliance {
     ///
     /// This works because the values of enums sent by the server when a known or unknown value is requested will be the same within a single Showcase server run,
     /// although they are not guaranteed to be the same across separate Showcase server runs.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::Compliance;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &Compliance
+    /// ) -> Result<()> {
+    ///     let response = client.verify_enum()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn verify_enum(&self) -> super::builder::compliance::VerifyEnum {
         super::builder::compliance::VerifyEnum::new(self.inner.clone())
     }
@@ -191,6 +341,24 @@ impl Compliance {
     /// Provides the [Locations][google.cloud.location.Locations] service functionality in this service.
     ///
     /// [google.cloud.location.Locations]: google-cloud-location::client::Locations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::Compliance;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &Compliance
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::compliance::ListLocations {
         super::builder::compliance::ListLocations::new(self.inner.clone())
     }
@@ -198,6 +366,21 @@ impl Compliance {
     /// Provides the [Locations][google.cloud.location.Locations] service functionality in this service.
     ///
     /// [google.cloud.location.Locations]: google-cloud-location::client::Locations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::Compliance;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &Compliance
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::compliance::GetLocation {
         super::builder::compliance::GetLocation::new(self.inner.clone())
     }
@@ -205,6 +388,21 @@ impl Compliance {
     /// Provides the [IAMPolicy][google.iam.v1.IAMPolicy] service functionality in this service.
     ///
     /// [google.iam.v1.IAMPolicy]: google-cloud-iam-v1::client::IAMPolicy
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::Compliance;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &Compliance
+    /// ) -> Result<()> {
+    ///     let response = client.set_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::compliance::SetIamPolicy {
         super::builder::compliance::SetIamPolicy::new(self.inner.clone())
     }
@@ -212,6 +410,21 @@ impl Compliance {
     /// Provides the [IAMPolicy][google.iam.v1.IAMPolicy] service functionality in this service.
     ///
     /// [google.iam.v1.IAMPolicy]: google-cloud-iam-v1::client::IAMPolicy
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::Compliance;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &Compliance
+    /// ) -> Result<()> {
+    ///     let response = client.get_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::compliance::GetIamPolicy {
         super::builder::compliance::GetIamPolicy::new(self.inner.clone())
     }
@@ -219,6 +432,21 @@ impl Compliance {
     /// Provides the [IAMPolicy][google.iam.v1.IAMPolicy] service functionality in this service.
     ///
     /// [google.iam.v1.IAMPolicy]: google-cloud-iam-v1::client::IAMPolicy
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::Compliance;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &Compliance
+    /// ) -> Result<()> {
+    ///     let response = client.test_iam_permissions()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::compliance::TestIamPermissions {
         super::builder::compliance::TestIamPermissions::new(self.inner.clone())
     }
@@ -226,6 +454,24 @@ impl Compliance {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::Compliance;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &Compliance
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::compliance::ListOperations {
         super::builder::compliance::ListOperations::new(self.inner.clone())
     }
@@ -233,6 +479,21 @@ impl Compliance {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::Compliance;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &Compliance
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::compliance::GetOperation {
         super::builder::compliance::GetOperation::new(self.inner.clone())
     }
@@ -240,6 +501,20 @@ impl Compliance {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::Compliance;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &Compliance
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::compliance::DeleteOperation {
         super::builder::compliance::DeleteOperation::new(self.inner.clone())
     }
@@ -247,6 +522,20 @@ impl Compliance {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::Compliance;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &Compliance
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::compliance::CancelOperation {
         super::builder::compliance::CancelOperation::new(self.inner.clone())
     }
@@ -363,6 +652,21 @@ impl Echo {
     }
 
     /// This method simply echoes the request. This method showcases unary RPCs.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::Echo;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &Echo
+    /// ) -> Result<()> {
+    ///     let response = client.echo()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn echo(&self) -> super::builder::echo::Echo {
         super::builder::echo::Echo::new(self.inner.clone())
     }
@@ -373,6 +677,21 @@ impl Echo {
     /// "google.protobuf.Any" for field paths ending in "error.details", and, at
     /// run-time, the actual types for these fields must be one of the types in
     /// google/rpc/error_details.proto.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::Echo;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &Echo
+    /// ) -> Result<()> {
+    ///     let response = client.echo_error_details()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn echo_error_details(&self) -> super::builder::echo::EchoErrorDetails {
         super::builder::echo::EchoErrorDetails::new(self.inner.clone())
     }
@@ -384,12 +703,45 @@ impl Echo {
     /// plus a custom, Showcase-defined PoetryError. The intent of this RPC is to
     /// verify that GAPICs can process these various error details and surface them
     /// to the user in an idiomatic form.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::Echo;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &Echo
+    /// ) -> Result<()> {
+    ///     let response = client.fail_echo_with_details()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn fail_echo_with_details(&self) -> super::builder::echo::FailEchoWithDetails {
         super::builder::echo::FailEchoWithDetails::new(self.inner.clone())
     }
 
     /// This is similar to the Expand method but instead of returning a stream of
     /// expanded words, this method returns a paged list of expanded words.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::Echo;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &Echo
+    /// ) -> Result<()> {
+    ///     let mut list = client.paged_expand()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn paged_expand(&self) -> super::builder::echo::PagedExpand {
         super::builder::echo::PagedExpand::new(self.inner.clone())
     }
@@ -397,6 +749,24 @@ impl Echo {
     /// This is similar to the PagedExpand except that it uses
     /// max_results instead of page_size, as some legacy APIs still
     /// do. New APIs should NOT use this pattern.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::Echo;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &Echo
+    /// ) -> Result<()> {
+    ///     let mut list = client.paged_expand_legacy()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn paged_expand_legacy(&self) -> super::builder::echo::PagedExpandLegacy {
         super::builder::echo::PagedExpandLegacy::new(self.inner.clone())
     }
@@ -406,6 +776,24 @@ impl Echo {
     /// as determined by page_token and page_size, which both refer to the word indices in the
     /// input. This paging result consisting of a map of lists is a pattern used by some legacy
     /// APIs. New APIs should NOT use this pattern.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::Echo;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &Echo
+    /// ) -> Result<()> {
+    ///     let mut list = client.paged_expand_legacy_mapped()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn paged_expand_legacy_mapped(&self) -> super::builder::echo::PagedExpandLegacyMapped {
         super::builder::echo::PagedExpandLegacyMapped::new(self.inner.clone())
     }
@@ -422,6 +810,22 @@ impl Echo {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::Echo;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &Echo
+    /// ) -> Result<()> {
+    ///     let response = client.wait()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn wait(&self) -> super::builder::echo::Wait {
         super::builder::echo::Wait::new(self.inner.clone())
     }
@@ -429,6 +833,21 @@ impl Echo {
     /// This method will block (wait) for the requested amount of time
     /// and then return the response or error.
     /// This method showcases how a client handles delays or retries.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::Echo;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &Echo
+    /// ) -> Result<()> {
+    ///     let response = client.block()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn block(&self) -> super::builder::echo::Block {
         super::builder::echo::Block::new(self.inner.clone())
     }
@@ -436,6 +855,24 @@ impl Echo {
     /// Provides the [Locations][google.cloud.location.Locations] service functionality in this service.
     ///
     /// [google.cloud.location.Locations]: google-cloud-location::client::Locations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::Echo;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &Echo
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::echo::ListLocations {
         super::builder::echo::ListLocations::new(self.inner.clone())
     }
@@ -443,6 +880,21 @@ impl Echo {
     /// Provides the [Locations][google.cloud.location.Locations] service functionality in this service.
     ///
     /// [google.cloud.location.Locations]: google-cloud-location::client::Locations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::Echo;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &Echo
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::echo::GetLocation {
         super::builder::echo::GetLocation::new(self.inner.clone())
     }
@@ -450,6 +902,21 @@ impl Echo {
     /// Provides the [IAMPolicy][google.iam.v1.IAMPolicy] service functionality in this service.
     ///
     /// [google.iam.v1.IAMPolicy]: google-cloud-iam-v1::client::IAMPolicy
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::Echo;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &Echo
+    /// ) -> Result<()> {
+    ///     let response = client.set_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::echo::SetIamPolicy {
         super::builder::echo::SetIamPolicy::new(self.inner.clone())
     }
@@ -457,6 +924,21 @@ impl Echo {
     /// Provides the [IAMPolicy][google.iam.v1.IAMPolicy] service functionality in this service.
     ///
     /// [google.iam.v1.IAMPolicy]: google-cloud-iam-v1::client::IAMPolicy
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::Echo;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &Echo
+    /// ) -> Result<()> {
+    ///     let response = client.get_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::echo::GetIamPolicy {
         super::builder::echo::GetIamPolicy::new(self.inner.clone())
     }
@@ -464,6 +946,21 @@ impl Echo {
     /// Provides the [IAMPolicy][google.iam.v1.IAMPolicy] service functionality in this service.
     ///
     /// [google.iam.v1.IAMPolicy]: google-cloud-iam-v1::client::IAMPolicy
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::Echo;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &Echo
+    /// ) -> Result<()> {
+    ///     let response = client.test_iam_permissions()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::echo::TestIamPermissions {
         super::builder::echo::TestIamPermissions::new(self.inner.clone())
     }
@@ -471,6 +968,24 @@ impl Echo {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::Echo;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &Echo
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::echo::ListOperations {
         super::builder::echo::ListOperations::new(self.inner.clone())
     }
@@ -478,6 +993,21 @@ impl Echo {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::Echo;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &Echo
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::echo::GetOperation {
         super::builder::echo::GetOperation::new(self.inner.clone())
     }
@@ -485,6 +1015,20 @@ impl Echo {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::Echo;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &Echo
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::echo::DeleteOperation {
         super::builder::echo::DeleteOperation::new(self.inner.clone())
     }
@@ -492,6 +1036,20 @@ impl Echo {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::Echo;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &Echo
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::echo::CancelOperation {
         super::builder::echo::CancelOperation::new(self.inner.clone())
     }
@@ -600,26 +1158,109 @@ impl Identity {
     }
 
     /// Creates a user.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::Identity;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &Identity
+    /// ) -> Result<()> {
+    ///     let response = client.create_user()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_user(&self) -> super::builder::identity::CreateUser {
         super::builder::identity::CreateUser::new(self.inner.clone())
     }
 
     /// Retrieves the User with the given uri.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::Identity;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &Identity, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_user()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_user(&self) -> super::builder::identity::GetUser {
         super::builder::identity::GetUser::new(self.inner.clone())
     }
 
     /// Updates a user.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::Identity;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_showcase_v1beta1::model::User;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &Identity, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_user()
+    ///         .set_user(
+    ///             User::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_user(&self) -> super::builder::identity::UpdateUser {
         super::builder::identity::UpdateUser::new(self.inner.clone())
     }
 
     /// Deletes a user, their profile, and all of their authored messages.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::Identity;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &Identity, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_user()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_user(&self) -> super::builder::identity::DeleteUser {
         super::builder::identity::DeleteUser::new(self.inner.clone())
     }
 
     /// Lists all users.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::Identity;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &Identity
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_users()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_users(&self) -> super::builder::identity::ListUsers {
         super::builder::identity::ListUsers::new(self.inner.clone())
     }
@@ -627,6 +1268,24 @@ impl Identity {
     /// Provides the [Locations][google.cloud.location.Locations] service functionality in this service.
     ///
     /// [google.cloud.location.Locations]: google-cloud-location::client::Locations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::Identity;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &Identity
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::identity::ListLocations {
         super::builder::identity::ListLocations::new(self.inner.clone())
     }
@@ -634,6 +1293,21 @@ impl Identity {
     /// Provides the [Locations][google.cloud.location.Locations] service functionality in this service.
     ///
     /// [google.cloud.location.Locations]: google-cloud-location::client::Locations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::Identity;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &Identity
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::identity::GetLocation {
         super::builder::identity::GetLocation::new(self.inner.clone())
     }
@@ -641,6 +1315,21 @@ impl Identity {
     /// Provides the [IAMPolicy][google.iam.v1.IAMPolicy] service functionality in this service.
     ///
     /// [google.iam.v1.IAMPolicy]: google-cloud-iam-v1::client::IAMPolicy
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::Identity;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &Identity
+    /// ) -> Result<()> {
+    ///     let response = client.set_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::identity::SetIamPolicy {
         super::builder::identity::SetIamPolicy::new(self.inner.clone())
     }
@@ -648,6 +1337,21 @@ impl Identity {
     /// Provides the [IAMPolicy][google.iam.v1.IAMPolicy] service functionality in this service.
     ///
     /// [google.iam.v1.IAMPolicy]: google-cloud-iam-v1::client::IAMPolicy
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::Identity;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &Identity
+    /// ) -> Result<()> {
+    ///     let response = client.get_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::identity::GetIamPolicy {
         super::builder::identity::GetIamPolicy::new(self.inner.clone())
     }
@@ -655,6 +1359,21 @@ impl Identity {
     /// Provides the [IAMPolicy][google.iam.v1.IAMPolicy] service functionality in this service.
     ///
     /// [google.iam.v1.IAMPolicy]: google-cloud-iam-v1::client::IAMPolicy
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::Identity;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &Identity
+    /// ) -> Result<()> {
+    ///     let response = client.test_iam_permissions()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::identity::TestIamPermissions {
         super::builder::identity::TestIamPermissions::new(self.inner.clone())
     }
@@ -662,6 +1381,24 @@ impl Identity {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::Identity;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &Identity
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::identity::ListOperations {
         super::builder::identity::ListOperations::new(self.inner.clone())
     }
@@ -669,6 +1406,21 @@ impl Identity {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::Identity;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &Identity
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::identity::GetOperation {
         super::builder::identity::GetOperation::new(self.inner.clone())
     }
@@ -676,6 +1428,20 @@ impl Identity {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::Identity;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &Identity
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::identity::DeleteOperation {
         super::builder::identity::DeleteOperation::new(self.inner.clone())
     }
@@ -683,6 +1449,20 @@ impl Identity {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::Identity;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &Identity
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::identity::CancelOperation {
         super::builder::identity::CancelOperation::new(self.inner.clone())
     }
@@ -794,26 +1574,109 @@ impl Messaging {
     }
 
     /// Creates a room.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::Messaging;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &Messaging
+    /// ) -> Result<()> {
+    ///     let response = client.create_room()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_room(&self) -> super::builder::messaging::CreateRoom {
         super::builder::messaging::CreateRoom::new(self.inner.clone())
     }
 
     /// Retrieves the Room with the given resource name.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::Messaging;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &Messaging, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_room()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_room(&self) -> super::builder::messaging::GetRoom {
         super::builder::messaging::GetRoom::new(self.inner.clone())
     }
 
     /// Updates a room.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::Messaging;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_showcase_v1beta1::model::Room;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &Messaging, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_room()
+    ///         .set_room(
+    ///             Room::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_room(&self) -> super::builder::messaging::UpdateRoom {
         super::builder::messaging::UpdateRoom::new(self.inner.clone())
     }
 
     /// Deletes a room and all of its blurbs.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::Messaging;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &Messaging, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_room()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_room(&self) -> super::builder::messaging::DeleteRoom {
         super::builder::messaging::DeleteRoom::new(self.inner.clone())
     }
 
     /// Lists all chat rooms.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::Messaging;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &Messaging
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_rooms()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_rooms(&self) -> super::builder::messaging::ListRooms {
         super::builder::messaging::ListRooms::new(self.inner.clone())
     }
@@ -821,27 +1684,114 @@ impl Messaging {
     /// Creates a blurb. If the parent is a room, the blurb is understood to be a
     /// message in that room. If the parent is a profile, the blurb is understood
     /// to be a post on the profile.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::Messaging;
+    /// use google_cloud_showcase_v1beta1::model::Blurb;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &Messaging, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_blurb()
+    ///         .set_parent(parent)
+    ///         .set_blurb(
+    ///             Blurb::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_blurb(&self) -> super::builder::messaging::CreateBlurb {
         super::builder::messaging::CreateBlurb::new(self.inner.clone())
     }
 
     /// Retrieves the Blurb with the given resource name.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::Messaging;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &Messaging, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_blurb()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_blurb(&self) -> super::builder::messaging::GetBlurb {
         super::builder::messaging::GetBlurb::new(self.inner.clone())
     }
 
     /// Updates a blurb.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::Messaging;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_showcase_v1beta1::model::Blurb;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &Messaging, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_blurb()
+    ///         .set_blurb(
+    ///             Blurb::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_blurb(&self) -> super::builder::messaging::UpdateBlurb {
         super::builder::messaging::UpdateBlurb::new(self.inner.clone())
     }
 
     /// Deletes a blurb.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::Messaging;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &Messaging, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_blurb()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_blurb(&self) -> super::builder::messaging::DeleteBlurb {
         super::builder::messaging::DeleteBlurb::new(self.inner.clone())
     }
 
     /// Lists blurbs for a specific chat room or user profile depending on the
     /// parent resource name.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::Messaging;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &Messaging, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_blurbs()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_blurbs(&self) -> super::builder::messaging::ListBlurbs {
         super::builder::messaging::ListBlurbs::new(self.inner.clone())
     }
@@ -859,6 +1809,22 @@ impl Messaging {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::Messaging;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &Messaging
+    /// ) -> Result<()> {
+    ///     let response = client.search_blurbs()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn search_blurbs(&self) -> super::builder::messaging::SearchBlurbs {
         super::builder::messaging::SearchBlurbs::new(self.inner.clone())
     }
@@ -866,6 +1832,24 @@ impl Messaging {
     /// Provides the [Locations][google.cloud.location.Locations] service functionality in this service.
     ///
     /// [google.cloud.location.Locations]: google-cloud-location::client::Locations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::Messaging;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &Messaging
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::messaging::ListLocations {
         super::builder::messaging::ListLocations::new(self.inner.clone())
     }
@@ -873,6 +1857,21 @@ impl Messaging {
     /// Provides the [Locations][google.cloud.location.Locations] service functionality in this service.
     ///
     /// [google.cloud.location.Locations]: google-cloud-location::client::Locations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::Messaging;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &Messaging
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::messaging::GetLocation {
         super::builder::messaging::GetLocation::new(self.inner.clone())
     }
@@ -880,6 +1879,21 @@ impl Messaging {
     /// Provides the [IAMPolicy][google.iam.v1.IAMPolicy] service functionality in this service.
     ///
     /// [google.iam.v1.IAMPolicy]: google-cloud-iam-v1::client::IAMPolicy
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::Messaging;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &Messaging
+    /// ) -> Result<()> {
+    ///     let response = client.set_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::messaging::SetIamPolicy {
         super::builder::messaging::SetIamPolicy::new(self.inner.clone())
     }
@@ -887,6 +1901,21 @@ impl Messaging {
     /// Provides the [IAMPolicy][google.iam.v1.IAMPolicy] service functionality in this service.
     ///
     /// [google.iam.v1.IAMPolicy]: google-cloud-iam-v1::client::IAMPolicy
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::Messaging;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &Messaging
+    /// ) -> Result<()> {
+    ///     let response = client.get_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::messaging::GetIamPolicy {
         super::builder::messaging::GetIamPolicy::new(self.inner.clone())
     }
@@ -894,6 +1923,21 @@ impl Messaging {
     /// Provides the [IAMPolicy][google.iam.v1.IAMPolicy] service functionality in this service.
     ///
     /// [google.iam.v1.IAMPolicy]: google-cloud-iam-v1::client::IAMPolicy
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::Messaging;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &Messaging
+    /// ) -> Result<()> {
+    ///     let response = client.test_iam_permissions()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::messaging::TestIamPermissions {
         super::builder::messaging::TestIamPermissions::new(self.inner.clone())
     }
@@ -901,6 +1945,24 @@ impl Messaging {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::Messaging;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &Messaging
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::messaging::ListOperations {
         super::builder::messaging::ListOperations::new(self.inner.clone())
     }
@@ -908,6 +1970,21 @@ impl Messaging {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::Messaging;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &Messaging
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::messaging::GetOperation {
         super::builder::messaging::GetOperation::new(self.inner.clone())
     }
@@ -915,6 +1992,20 @@ impl Messaging {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::Messaging;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &Messaging
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::messaging::DeleteOperation {
         super::builder::messaging::DeleteOperation::new(self.inner.clone())
     }
@@ -922,6 +2013,20 @@ impl Messaging {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::Messaging;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &Messaging
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::messaging::CancelOperation {
         super::builder::messaging::CancelOperation::new(self.inner.clone())
     }
@@ -1031,11 +2136,41 @@ impl SequenceService {
     }
 
     /// Create a sequence of responses to be returned as unary calls
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::SequenceService;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &SequenceService
+    /// ) -> Result<()> {
+    ///     let response = client.create_sequence()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_sequence(&self) -> super::builder::sequence_service::CreateSequence {
         super::builder::sequence_service::CreateSequence::new(self.inner.clone())
     }
 
     /// Creates a sequence of responses to be returned in a server streaming call
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::SequenceService;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &SequenceService
+    /// ) -> Result<()> {
+    ///     let response = client.create_streaming_sequence()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_streaming_sequence(
         &self,
     ) -> super::builder::sequence_service::CreateStreamingSequence {
@@ -1044,12 +2179,42 @@ impl SequenceService {
 
     /// Retrieves a sequence report which can be used to retrieve information about a
     /// sequence of unary calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::SequenceService;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &SequenceService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_sequence_report()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_sequence_report(&self) -> super::builder::sequence_service::GetSequenceReport {
         super::builder::sequence_service::GetSequenceReport::new(self.inner.clone())
     }
 
     /// Retrieves a sequence report which can be used to retrieve information
     /// about a sequences of responses in a server streaming call.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::SequenceService;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &SequenceService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_streaming_sequence_report()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_streaming_sequence_report(
         &self,
     ) -> super::builder::sequence_service::GetStreamingSequenceReport {
@@ -1057,6 +2222,20 @@ impl SequenceService {
     }
 
     /// Attempts a sequence of unary responses.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::SequenceService;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &SequenceService
+    /// ) -> Result<()> {
+    ///     client.attempt_sequence()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn attempt_sequence(&self) -> super::builder::sequence_service::AttemptSequence {
         super::builder::sequence_service::AttemptSequence::new(self.inner.clone())
     }
@@ -1064,6 +2243,24 @@ impl SequenceService {
     /// Provides the [Locations][google.cloud.location.Locations] service functionality in this service.
     ///
     /// [google.cloud.location.Locations]: google-cloud-location::client::Locations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::SequenceService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &SequenceService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::sequence_service::ListLocations {
         super::builder::sequence_service::ListLocations::new(self.inner.clone())
     }
@@ -1071,6 +2268,21 @@ impl SequenceService {
     /// Provides the [Locations][google.cloud.location.Locations] service functionality in this service.
     ///
     /// [google.cloud.location.Locations]: google-cloud-location::client::Locations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::SequenceService;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &SequenceService
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::sequence_service::GetLocation {
         super::builder::sequence_service::GetLocation::new(self.inner.clone())
     }
@@ -1078,6 +2290,21 @@ impl SequenceService {
     /// Provides the [IAMPolicy][google.iam.v1.IAMPolicy] service functionality in this service.
     ///
     /// [google.iam.v1.IAMPolicy]: google-cloud-iam-v1::client::IAMPolicy
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::SequenceService;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &SequenceService
+    /// ) -> Result<()> {
+    ///     let response = client.set_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::sequence_service::SetIamPolicy {
         super::builder::sequence_service::SetIamPolicy::new(self.inner.clone())
     }
@@ -1085,6 +2312,21 @@ impl SequenceService {
     /// Provides the [IAMPolicy][google.iam.v1.IAMPolicy] service functionality in this service.
     ///
     /// [google.iam.v1.IAMPolicy]: google-cloud-iam-v1::client::IAMPolicy
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::SequenceService;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &SequenceService
+    /// ) -> Result<()> {
+    ///     let response = client.get_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::sequence_service::GetIamPolicy {
         super::builder::sequence_service::GetIamPolicy::new(self.inner.clone())
     }
@@ -1092,6 +2334,21 @@ impl SequenceService {
     /// Provides the [IAMPolicy][google.iam.v1.IAMPolicy] service functionality in this service.
     ///
     /// [google.iam.v1.IAMPolicy]: google-cloud-iam-v1::client::IAMPolicy
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::SequenceService;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &SequenceService
+    /// ) -> Result<()> {
+    ///     let response = client.test_iam_permissions()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::sequence_service::TestIamPermissions {
         super::builder::sequence_service::TestIamPermissions::new(self.inner.clone())
     }
@@ -1099,6 +2356,24 @@ impl SequenceService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::SequenceService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &SequenceService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::sequence_service::ListOperations {
         super::builder::sequence_service::ListOperations::new(self.inner.clone())
     }
@@ -1106,6 +2381,21 @@ impl SequenceService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::SequenceService;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &SequenceService
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::sequence_service::GetOperation {
         super::builder::sequence_service::GetOperation::new(self.inner.clone())
     }
@@ -1113,6 +2403,20 @@ impl SequenceService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::SequenceService;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &SequenceService
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::sequence_service::DeleteOperation {
         super::builder::sequence_service::DeleteOperation::new(self.inner.clone())
     }
@@ -1120,6 +2424,20 @@ impl SequenceService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::SequenceService;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &SequenceService
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::sequence_service::CancelOperation {
         super::builder::sequence_service::CancelOperation::new(self.inner.clone())
     }
@@ -1239,21 +2557,83 @@ impl Testing {
     /// 1. (abra->kadabra->alakazam)
     ///
     /// 1. [Nonsense][]: `pokemon/*/psychic/*`
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::Testing;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &Testing
+    /// ) -> Result<()> {
+    ///     let response = client.create_session()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_session(&self) -> super::builder::testing::CreateSession {
         super::builder::testing::CreateSession::new(self.inner.clone())
     }
 
     /// Gets a testing session.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::Testing;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &Testing, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_session()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_session(&self) -> super::builder::testing::GetSession {
         super::builder::testing::GetSession::new(self.inner.clone())
     }
 
     /// Lists the current test sessions.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::Testing;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &Testing
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_sessions()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_sessions(&self) -> super::builder::testing::ListSessions {
         super::builder::testing::ListSessions::new(self.inner.clone())
     }
 
     /// Delete a test session.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::Testing;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &Testing, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_session()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_session(&self) -> super::builder::testing::DeleteSession {
         super::builder::testing::DeleteSession::new(self.inner.clone())
     }
@@ -1261,11 +2641,44 @@ impl Testing {
     /// Report on the status of a session.
     /// This generates a report detailing which tests have been completed,
     /// and an overall rollup.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::Testing;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &Testing
+    /// ) -> Result<()> {
+    ///     let response = client.report_session()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn report_session(&self) -> super::builder::testing::ReportSession {
         super::builder::testing::ReportSession::new(self.inner.clone())
     }
 
     /// List the tests of a sessesion.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::Testing;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &Testing, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_tests()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_tests(&self) -> super::builder::testing::ListTests {
         super::builder::testing::ListTests::new(self.inner.clone())
     }
@@ -1276,6 +2689,20 @@ impl Testing {
     /// attempting to do the test will error.
     ///
     /// This method will error if attempting to delete a required test.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::Testing;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &Testing, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_test()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_test(&self) -> super::builder::testing::DeleteTest {
         super::builder::testing::DeleteTest::new(self.inner.clone())
     }
@@ -1284,6 +2711,21 @@ impl Testing {
     ///
     /// In cases where a test involves registering a final answer at the
     /// end of the test, this method provides the means to do so.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::Testing;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &Testing
+    /// ) -> Result<()> {
+    ///     let response = client.verify_test()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn verify_test(&self) -> super::builder::testing::VerifyTest {
         super::builder::testing::VerifyTest::new(self.inner.clone())
     }
@@ -1291,6 +2733,24 @@ impl Testing {
     /// Provides the [Locations][google.cloud.location.Locations] service functionality in this service.
     ///
     /// [google.cloud.location.Locations]: google-cloud-location::client::Locations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::Testing;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &Testing
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::testing::ListLocations {
         super::builder::testing::ListLocations::new(self.inner.clone())
     }
@@ -1298,6 +2758,21 @@ impl Testing {
     /// Provides the [Locations][google.cloud.location.Locations] service functionality in this service.
     ///
     /// [google.cloud.location.Locations]: google-cloud-location::client::Locations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::Testing;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &Testing
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::testing::GetLocation {
         super::builder::testing::GetLocation::new(self.inner.clone())
     }
@@ -1305,6 +2780,21 @@ impl Testing {
     /// Provides the [IAMPolicy][google.iam.v1.IAMPolicy] service functionality in this service.
     ///
     /// [google.iam.v1.IAMPolicy]: google-cloud-iam-v1::client::IAMPolicy
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::Testing;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &Testing
+    /// ) -> Result<()> {
+    ///     let response = client.set_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::testing::SetIamPolicy {
         super::builder::testing::SetIamPolicy::new(self.inner.clone())
     }
@@ -1312,6 +2802,21 @@ impl Testing {
     /// Provides the [IAMPolicy][google.iam.v1.IAMPolicy] service functionality in this service.
     ///
     /// [google.iam.v1.IAMPolicy]: google-cloud-iam-v1::client::IAMPolicy
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::Testing;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &Testing
+    /// ) -> Result<()> {
+    ///     let response = client.get_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::testing::GetIamPolicy {
         super::builder::testing::GetIamPolicy::new(self.inner.clone())
     }
@@ -1319,6 +2824,21 @@ impl Testing {
     /// Provides the [IAMPolicy][google.iam.v1.IAMPolicy] service functionality in this service.
     ///
     /// [google.iam.v1.IAMPolicy]: google-cloud-iam-v1::client::IAMPolicy
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::Testing;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &Testing
+    /// ) -> Result<()> {
+    ///     let response = client.test_iam_permissions()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::testing::TestIamPermissions {
         super::builder::testing::TestIamPermissions::new(self.inner.clone())
     }
@@ -1326,6 +2846,24 @@ impl Testing {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::Testing;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &Testing
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::testing::ListOperations {
         super::builder::testing::ListOperations::new(self.inner.clone())
     }
@@ -1333,6 +2871,21 @@ impl Testing {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::Testing;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &Testing
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::testing::GetOperation {
         super::builder::testing::GetOperation::new(self.inner.clone())
     }
@@ -1340,6 +2893,20 @@ impl Testing {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::Testing;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &Testing
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::testing::DeleteOperation {
         super::builder::testing::DeleteOperation::new(self.inner.clone())
     }
@@ -1347,6 +2914,20 @@ impl Testing {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_showcase_v1beta1::client::Testing;
+    /// use google_cloud_showcase_v1beta1::Result;
+    /// async fn sample(
+    ///    client: &Testing
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::testing::CancelOperation {
         super::builder::testing::CancelOperation::new(self.inner.clone())
     }

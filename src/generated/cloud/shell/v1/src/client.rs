@@ -126,6 +126,21 @@ impl CloudShellService {
     }
 
     /// Gets an environment. Returns NOT_FOUND if the environment does not exist.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_shell_v1::client::CloudShellService;
+    /// use google_cloud_shell_v1::Result;
+    /// async fn sample(
+    ///    client: &CloudShellService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_environment()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_environment(&self) -> super::builder::cloud_shell_service::GetEnvironment {
         super::builder::cloud_shell_service::GetEnvironment::new(self.inner.clone())
     }
@@ -146,6 +161,22 @@ impl CloudShellService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_shell_v1::client::CloudShellService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_shell_v1::Result;
+    /// async fn sample(
+    ///    client: &CloudShellService
+    /// ) -> Result<()> {
+    ///     let response = client.start_environment()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn start_environment(&self) -> super::builder::cloud_shell_service::StartEnvironment {
         super::builder::cloud_shell_service::StartEnvironment::new(self.inner.clone())
     }
@@ -164,6 +195,22 @@ impl CloudShellService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_shell_v1::client::CloudShellService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_shell_v1::Result;
+    /// async fn sample(
+    ///    client: &CloudShellService
+    /// ) -> Result<()> {
+    ///     let response = client.authorize_environment()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn authorize_environment(
         &self,
     ) -> super::builder::cloud_shell_service::AuthorizeEnvironment {
@@ -183,6 +230,22 @@ impl CloudShellService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_shell_v1::client::CloudShellService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_shell_v1::Result;
+    /// async fn sample(
+    ///    client: &CloudShellService
+    /// ) -> Result<()> {
+    ///     let response = client.add_public_key()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn add_public_key(&self) -> super::builder::cloud_shell_service::AddPublicKey {
         super::builder::cloud_shell_service::AddPublicKey::new(self.inner.clone())
     }
@@ -201,6 +264,22 @@ impl CloudShellService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_shell_v1::client::CloudShellService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_shell_v1::Result;
+    /// async fn sample(
+    ///    client: &CloudShellService
+    /// ) -> Result<()> {
+    ///     let response = client.remove_public_key()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn remove_public_key(&self) -> super::builder::cloud_shell_service::RemovePublicKey {
         super::builder::cloud_shell_service::RemovePublicKey::new(self.inner.clone())
     }
@@ -208,6 +287,21 @@ impl CloudShellService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_shell_v1::client::CloudShellService;
+    /// use google_cloud_shell_v1::Result;
+    /// async fn sample(
+    ///    client: &CloudShellService
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::cloud_shell_service::GetOperation {
         super::builder::cloud_shell_service::GetOperation::new(self.inner.clone())
     }
