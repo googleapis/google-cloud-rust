@@ -37,576 +37,480 @@ impl<T> super::stub::Compliance for Compliance<T>
 where
     T: super::stub::Compliance + std::fmt::Debug + Send + Sync,
 {
-    #[cfg(google_cloud_unstable_tracing)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn repeat_data_body(
         &self,
         req: crate::model::RepeatRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::RepeatResponse>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::Compliance",
-            "repeat_data_body",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .repeat_data_body(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn repeat_data_body(
-        &self,
-        req: crate::model::RepeatRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<crate::model::RepeatResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::Compliance",
+                "repeat_data_body",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .repeat_data_body(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.repeat_data_body(req, options).await
     }
-    #[cfg(google_cloud_unstable_tracing)]
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn repeat_data_body_info(
         &self,
         req: crate::model::RepeatRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::RepeatResponse>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::Compliance",
-            "repeat_data_body_info",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .repeat_data_body_info(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn repeat_data_body_info(
-        &self,
-        req: crate::model::RepeatRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<crate::model::RepeatResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::Compliance",
+                "repeat_data_body_info",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .repeat_data_body_info(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.repeat_data_body_info(req, options).await
     }
-    #[cfg(google_cloud_unstable_tracing)]
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn repeat_data_query(
         &self,
         req: crate::model::RepeatRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::RepeatResponse>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::Compliance",
-            "repeat_data_query",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .repeat_data_query(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn repeat_data_query(
-        &self,
-        req: crate::model::RepeatRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<crate::model::RepeatResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::Compliance",
+                "repeat_data_query",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .repeat_data_query(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.repeat_data_query(req, options).await
     }
-    #[cfg(google_cloud_unstable_tracing)]
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn repeat_data_simple_path(
         &self,
         req: crate::model::RepeatRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::RepeatResponse>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::Compliance",
-            "repeat_data_simple_path",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .repeat_data_simple_path(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn repeat_data_simple_path(
-        &self,
-        req: crate::model::RepeatRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<crate::model::RepeatResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::Compliance",
+                "repeat_data_simple_path",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .repeat_data_simple_path(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.repeat_data_simple_path(req, options).await
     }
-    #[cfg(google_cloud_unstable_tracing)]
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn repeat_data_path_resource(
         &self,
         req: crate::model::RepeatRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::RepeatResponse>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::Compliance",
-            "repeat_data_path_resource",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .repeat_data_path_resource(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn repeat_data_path_resource(
-        &self,
-        req: crate::model::RepeatRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<crate::model::RepeatResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::Compliance",
+                "repeat_data_path_resource",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .repeat_data_path_resource(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.repeat_data_path_resource(req, options).await
     }
-    #[cfg(google_cloud_unstable_tracing)]
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn repeat_data_path_trailing_resource(
         &self,
         req: crate::model::RepeatRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::RepeatResponse>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::Compliance",
-            "repeat_data_path_trailing_resource",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .repeat_data_path_trailing_resource(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn repeat_data_path_trailing_resource(
-        &self,
-        req: crate::model::RepeatRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<crate::model::RepeatResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::Compliance",
+                "repeat_data_path_trailing_resource",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .repeat_data_path_trailing_resource(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner
             .repeat_data_path_trailing_resource(req, options)
             .await
     }
-    #[cfg(google_cloud_unstable_tracing)]
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn repeat_data_body_put(
         &self,
         req: crate::model::RepeatRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::RepeatResponse>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::Compliance",
-            "repeat_data_body_put",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .repeat_data_body_put(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn repeat_data_body_put(
-        &self,
-        req: crate::model::RepeatRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<crate::model::RepeatResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::Compliance",
+                "repeat_data_body_put",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .repeat_data_body_put(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.repeat_data_body_put(req, options).await
     }
-    #[cfg(google_cloud_unstable_tracing)]
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn repeat_data_body_patch(
         &self,
         req: crate::model::RepeatRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::RepeatResponse>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::Compliance",
-            "repeat_data_body_patch",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .repeat_data_body_patch(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn repeat_data_body_patch(
-        &self,
-        req: crate::model::RepeatRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<crate::model::RepeatResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::Compliance",
+                "repeat_data_body_patch",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .repeat_data_body_patch(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.repeat_data_body_patch(req, options).await
     }
-    #[cfg(google_cloud_unstable_tracing)]
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn get_enum(
         &self,
         req: crate::model::EnumRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::EnumResponse>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::Compliance",
-            "get_enum",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .get_enum(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn get_enum(
-        &self,
-        req: crate::model::EnumRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<crate::model::EnumResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::Compliance",
+                "get_enum",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .get_enum(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_enum(req, options).await
     }
-    #[cfg(google_cloud_unstable_tracing)]
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn verify_enum(
         &self,
         req: crate::model::EnumResponse,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::EnumResponse>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::Compliance",
-            "verify_enum",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .verify_enum(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn verify_enum(
-        &self,
-        req: crate::model::EnumResponse,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<crate::model::EnumResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::Compliance",
+                "verify_enum",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .verify_enum(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.verify_enum(req, options).await
     }
-    #[cfg(google_cloud_unstable_tracing)]
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::Compliance",
-            "list_locations",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .list_locations(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn list_locations(
-        &self,
-        req: google_cloud_location::model::ListLocationsRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::Compliance",
+                "list_locations",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .list_locations(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_locations(req, options).await
     }
-    #[cfg(google_cloud_unstable_tracing)]
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_location::model::Location>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::Compliance",
-            "get_location",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .get_location(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn get_location(
-        &self,
-        req: google_cloud_location::model::GetLocationRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<google_cloud_location::model::Location>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::Compliance",
+                "get_location",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .get_location(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_location(req, options).await
     }
-    #[cfg(google_cloud_unstable_tracing)]
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn set_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::Compliance",
-            "set_iam_policy",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .set_iam_policy(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn set_iam_policy(
-        &self,
-        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::Compliance",
+                "set_iam_policy",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .set_iam_policy(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.set_iam_policy(req, options).await
     }
-    #[cfg(google_cloud_unstable_tracing)]
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn get_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::Compliance",
-            "get_iam_policy",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .get_iam_policy(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn get_iam_policy(
-        &self,
-        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::Compliance",
+                "get_iam_policy",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .get_iam_policy(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_iam_policy(req, options).await
     }
-    #[cfg(google_cloud_unstable_tracing)]
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn test_iam_permissions(
         &self,
         req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::Compliance",
-            "test_iam_permissions",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .test_iam_permissions(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn test_iam_permissions(
-        &self,
-        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::Compliance",
+                "test_iam_permissions",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .test_iam_permissions(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.test_iam_permissions(req, options).await
     }
-    #[cfg(google_cloud_unstable_tracing)]
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::Compliance",
-            "list_operations",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .list_operations(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn list_operations(
-        &self,
-        req: google_cloud_longrunning::model::ListOperationsRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::Compliance",
+                "list_operations",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .list_operations(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_operations(req, options).await
     }
-    #[cfg(google_cloud_unstable_tracing)]
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::Compliance",
-            "get_operation",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .get_operation(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn get_operation(
-        &self,
-        req: google_cloud_longrunning::model::GetOperationRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::Compliance",
+                "get_operation",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .get_operation(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_operation(req, options).await
     }
-    #[cfg(google_cloud_unstable_tracing)]
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn delete_operation(
         &self,
         req: google_cloud_longrunning::model::DeleteOperationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::Compliance",
-            "delete_operation",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .delete_operation(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn delete_operation(
-        &self,
-        req: google_cloud_longrunning::model::DeleteOperationRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<()>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::Compliance",
+                "delete_operation",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .delete_operation(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.delete_operation(req, options).await
     }
-    #[cfg(google_cloud_unstable_tracing)]
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn cancel_operation(
         &self,
         req: google_cloud_longrunning::model::CancelOperationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::Compliance",
-            "cancel_operation",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .cancel_operation(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn cancel_operation(
-        &self,
-        req: google_cloud_longrunning::model::CancelOperationRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<()>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::Compliance",
+                "cancel_operation",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .cancel_operation(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.cancel_operation(req, options).await
     }
 }
@@ -633,505 +537,428 @@ impl<T> super::stub::Echo for Echo<T>
 where
     T: super::stub::Echo + std::fmt::Debug + Send + Sync,
 {
-    #[cfg(google_cloud_unstable_tracing)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn echo(
         &self,
         req: crate::model::EchoRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::EchoResponse>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span =
-            gaxi::client_request_span!("client::Echo", "echo", &info::INSTRUMENTATION_CLIENT_INFO);
-
-        self.inner
-            .echo(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn echo(
-        &self,
-        req: crate::model::EchoRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<crate::model::EchoResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::Echo",
+                "echo",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .echo(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.echo(req, options).await
     }
-    #[cfg(google_cloud_unstable_tracing)]
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn echo_error_details(
         &self,
         req: crate::model::EchoErrorDetailsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::EchoErrorDetailsResponse>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::Echo",
-            "echo_error_details",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .echo_error_details(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn echo_error_details(
-        &self,
-        req: crate::model::EchoErrorDetailsRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<crate::model::EchoErrorDetailsResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::Echo",
+                "echo_error_details",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .echo_error_details(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.echo_error_details(req, options).await
     }
-    #[cfg(google_cloud_unstable_tracing)]
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn fail_echo_with_details(
         &self,
         req: crate::model::FailEchoWithDetailsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::FailEchoWithDetailsResponse>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::Echo",
-            "fail_echo_with_details",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .fail_echo_with_details(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn fail_echo_with_details(
-        &self,
-        req: crate::model::FailEchoWithDetailsRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<crate::model::FailEchoWithDetailsResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::Echo",
+                "fail_echo_with_details",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .fail_echo_with_details(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.fail_echo_with_details(req, options).await
     }
-    #[cfg(google_cloud_unstable_tracing)]
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn paged_expand(
         &self,
         req: crate::model::PagedExpandRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::PagedExpandResponse>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::Echo",
-            "paged_expand",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .paged_expand(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn paged_expand(
-        &self,
-        req: crate::model::PagedExpandRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<crate::model::PagedExpandResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::Echo",
+                "paged_expand",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .paged_expand(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.paged_expand(req, options).await
     }
-    #[cfg(google_cloud_unstable_tracing)]
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn paged_expand_legacy(
         &self,
         req: crate::model::PagedExpandLegacyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::PagedExpandResponse>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::Echo",
-            "paged_expand_legacy",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .paged_expand_legacy(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn paged_expand_legacy(
-        &self,
-        req: crate::model::PagedExpandLegacyRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<crate::model::PagedExpandResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::Echo",
+                "paged_expand_legacy",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .paged_expand_legacy(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.paged_expand_legacy(req, options).await
     }
-    #[cfg(google_cloud_unstable_tracing)]
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn paged_expand_legacy_mapped(
         &self,
         req: crate::model::PagedExpandRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::PagedExpandLegacyMappedResponse>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::Echo",
-            "paged_expand_legacy_mapped",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .paged_expand_legacy_mapped(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn paged_expand_legacy_mapped(
-        &self,
-        req: crate::model::PagedExpandRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<crate::model::PagedExpandLegacyMappedResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::Echo",
+                "paged_expand_legacy_mapped",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .paged_expand_legacy_mapped(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.paged_expand_legacy_mapped(req, options).await
     }
-    #[cfg(google_cloud_unstable_tracing)]
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn wait(
         &self,
         req: crate::model::WaitRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span =
-            gaxi::client_request_span!("client::Echo", "wait", &info::INSTRUMENTATION_CLIENT_INFO);
-
-        self.inner
-            .wait(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn wait(
-        &self,
-        req: crate::model::WaitRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::Echo",
+                "wait",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .wait(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.wait(req, options).await
     }
-    #[cfg(google_cloud_unstable_tracing)]
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn block(
         &self,
         req: crate::model::BlockRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::BlockResponse>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span =
-            gaxi::client_request_span!("client::Echo", "block", &info::INSTRUMENTATION_CLIENT_INFO);
-
-        self.inner
-            .block(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn block(
-        &self,
-        req: crate::model::BlockRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<crate::model::BlockResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::Echo",
+                "block",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .block(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.block(req, options).await
     }
-    #[cfg(google_cloud_unstable_tracing)]
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::Echo",
-            "list_locations",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .list_locations(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn list_locations(
-        &self,
-        req: google_cloud_location::model::ListLocationsRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::Echo",
+                "list_locations",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .list_locations(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_locations(req, options).await
     }
-    #[cfg(google_cloud_unstable_tracing)]
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_location::model::Location>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::Echo",
-            "get_location",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .get_location(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn get_location(
-        &self,
-        req: google_cloud_location::model::GetLocationRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<google_cloud_location::model::Location>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::Echo",
+                "get_location",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .get_location(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_location(req, options).await
     }
-    #[cfg(google_cloud_unstable_tracing)]
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn set_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::Echo",
-            "set_iam_policy",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .set_iam_policy(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn set_iam_policy(
-        &self,
-        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::Echo",
+                "set_iam_policy",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .set_iam_policy(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.set_iam_policy(req, options).await
     }
-    #[cfg(google_cloud_unstable_tracing)]
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn get_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::Echo",
-            "get_iam_policy",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .get_iam_policy(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn get_iam_policy(
-        &self,
-        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::Echo",
+                "get_iam_policy",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .get_iam_policy(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_iam_policy(req, options).await
     }
-    #[cfg(google_cloud_unstable_tracing)]
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn test_iam_permissions(
         &self,
         req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::Echo",
-            "test_iam_permissions",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .test_iam_permissions(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn test_iam_permissions(
-        &self,
-        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::Echo",
+                "test_iam_permissions",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .test_iam_permissions(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.test_iam_permissions(req, options).await
     }
-    #[cfg(google_cloud_unstable_tracing)]
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::Echo",
-            "list_operations",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .list_operations(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn list_operations(
-        &self,
-        req: google_cloud_longrunning::model::ListOperationsRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::Echo",
+                "list_operations",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .list_operations(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_operations(req, options).await
     }
-    #[cfg(google_cloud_unstable_tracing)]
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::Echo",
-            "get_operation",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .get_operation(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn get_operation(
-        &self,
-        req: google_cloud_longrunning::model::GetOperationRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::Echo",
+                "get_operation",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .get_operation(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_operation(req, options).await
     }
-    #[cfg(google_cloud_unstable_tracing)]
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn delete_operation(
         &self,
         req: google_cloud_longrunning::model::DeleteOperationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::Echo",
-            "delete_operation",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .delete_operation(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn delete_operation(
-        &self,
-        req: google_cloud_longrunning::model::DeleteOperationRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<()>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::Echo",
+                "delete_operation",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .delete_operation(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.delete_operation(req, options).await
     }
-    #[cfg(google_cloud_unstable_tracing)]
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn cancel_operation(
         &self,
         req: google_cloud_longrunning::model::CancelOperationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::Echo",
-            "cancel_operation",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .cancel_operation(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn cancel_operation(
-        &self,
-        req: google_cloud_longrunning::model::CancelOperationRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<()>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::Echo",
+                "cancel_operation",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .cancel_operation(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.cancel_operation(req, options).await
     }
 
@@ -1172,424 +999,353 @@ impl<T> super::stub::Identity for Identity<T>
 where
     T: super::stub::Identity + std::fmt::Debug + Send + Sync,
 {
-    #[cfg(google_cloud_unstable_tracing)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn create_user(
         &self,
         req: crate::model::CreateUserRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::User>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::Identity",
-            "create_user",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .create_user(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn create_user(
-        &self,
-        req: crate::model::CreateUserRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<crate::model::User>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::Identity",
+                "create_user",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .create_user(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.create_user(req, options).await
     }
-    #[cfg(google_cloud_unstable_tracing)]
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn get_user(
         &self,
         req: crate::model::GetUserRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::User>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::Identity",
-            "get_user",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .get_user(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn get_user(
-        &self,
-        req: crate::model::GetUserRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<crate::model::User>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::Identity",
+                "get_user",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .get_user(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_user(req, options).await
     }
-    #[cfg(google_cloud_unstable_tracing)]
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn update_user(
         &self,
         req: crate::model::UpdateUserRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::User>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::Identity",
-            "update_user",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .update_user(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn update_user(
-        &self,
-        req: crate::model::UpdateUserRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<crate::model::User>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::Identity",
+                "update_user",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .update_user(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.update_user(req, options).await
     }
-    #[cfg(google_cloud_unstable_tracing)]
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn delete_user(
         &self,
         req: crate::model::DeleteUserRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::Identity",
-            "delete_user",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .delete_user(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn delete_user(
-        &self,
-        req: crate::model::DeleteUserRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<()>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::Identity",
+                "delete_user",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .delete_user(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.delete_user(req, options).await
     }
-    #[cfg(google_cloud_unstable_tracing)]
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn list_users(
         &self,
         req: crate::model::ListUsersRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListUsersResponse>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::Identity",
-            "list_users",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .list_users(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn list_users(
-        &self,
-        req: crate::model::ListUsersRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<crate::model::ListUsersResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::Identity",
+                "list_users",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .list_users(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_users(req, options).await
     }
-    #[cfg(google_cloud_unstable_tracing)]
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::Identity",
-            "list_locations",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .list_locations(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn list_locations(
-        &self,
-        req: google_cloud_location::model::ListLocationsRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::Identity",
+                "list_locations",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .list_locations(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_locations(req, options).await
     }
-    #[cfg(google_cloud_unstable_tracing)]
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_location::model::Location>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::Identity",
-            "get_location",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .get_location(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn get_location(
-        &self,
-        req: google_cloud_location::model::GetLocationRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<google_cloud_location::model::Location>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::Identity",
+                "get_location",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .get_location(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_location(req, options).await
     }
-    #[cfg(google_cloud_unstable_tracing)]
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn set_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::Identity",
-            "set_iam_policy",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .set_iam_policy(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn set_iam_policy(
-        &self,
-        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::Identity",
+                "set_iam_policy",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .set_iam_policy(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.set_iam_policy(req, options).await
     }
-    #[cfg(google_cloud_unstable_tracing)]
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn get_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::Identity",
-            "get_iam_policy",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .get_iam_policy(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn get_iam_policy(
-        &self,
-        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::Identity",
+                "get_iam_policy",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .get_iam_policy(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_iam_policy(req, options).await
     }
-    #[cfg(google_cloud_unstable_tracing)]
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn test_iam_permissions(
         &self,
         req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::Identity",
-            "test_iam_permissions",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .test_iam_permissions(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn test_iam_permissions(
-        &self,
-        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::Identity",
+                "test_iam_permissions",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .test_iam_permissions(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.test_iam_permissions(req, options).await
     }
-    #[cfg(google_cloud_unstable_tracing)]
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::Identity",
-            "list_operations",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .list_operations(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn list_operations(
-        &self,
-        req: google_cloud_longrunning::model::ListOperationsRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::Identity",
+                "list_operations",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .list_operations(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_operations(req, options).await
     }
-    #[cfg(google_cloud_unstable_tracing)]
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::Identity",
-            "get_operation",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .get_operation(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn get_operation(
-        &self,
-        req: google_cloud_longrunning::model::GetOperationRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::Identity",
+                "get_operation",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .get_operation(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_operation(req, options).await
     }
-    #[cfg(google_cloud_unstable_tracing)]
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn delete_operation(
         &self,
         req: google_cloud_longrunning::model::DeleteOperationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::Identity",
-            "delete_operation",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .delete_operation(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn delete_operation(
-        &self,
-        req: google_cloud_longrunning::model::DeleteOperationRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<()>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::Identity",
+                "delete_operation",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .delete_operation(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.delete_operation(req, options).await
     }
-    #[cfg(google_cloud_unstable_tracing)]
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn cancel_operation(
         &self,
         req: google_cloud_longrunning::model::CancelOperationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::Identity",
-            "cancel_operation",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .cancel_operation(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn cancel_operation(
-        &self,
-        req: google_cloud_longrunning::model::CancelOperationRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<()>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::Identity",
+                "cancel_operation",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .cancel_operation(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.cancel_operation(req, options).await
     }
 }
@@ -1616,604 +1372,503 @@ impl<T> super::stub::Messaging for Messaging<T>
 where
     T: super::stub::Messaging + std::fmt::Debug + Send + Sync,
 {
-    #[cfg(google_cloud_unstable_tracing)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn create_room(
         &self,
         req: crate::model::CreateRoomRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Room>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::Messaging",
-            "create_room",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .create_room(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn create_room(
-        &self,
-        req: crate::model::CreateRoomRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<crate::model::Room>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::Messaging",
+                "create_room",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .create_room(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.create_room(req, options).await
     }
-    #[cfg(google_cloud_unstable_tracing)]
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn get_room(
         &self,
         req: crate::model::GetRoomRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Room>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::Messaging",
-            "get_room",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .get_room(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn get_room(
-        &self,
-        req: crate::model::GetRoomRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<crate::model::Room>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::Messaging",
+                "get_room",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .get_room(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_room(req, options).await
     }
-    #[cfg(google_cloud_unstable_tracing)]
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn update_room(
         &self,
         req: crate::model::UpdateRoomRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Room>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::Messaging",
-            "update_room",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .update_room(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn update_room(
-        &self,
-        req: crate::model::UpdateRoomRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<crate::model::Room>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::Messaging",
+                "update_room",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .update_room(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.update_room(req, options).await
     }
-    #[cfg(google_cloud_unstable_tracing)]
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn delete_room(
         &self,
         req: crate::model::DeleteRoomRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::Messaging",
-            "delete_room",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .delete_room(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn delete_room(
-        &self,
-        req: crate::model::DeleteRoomRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<()>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::Messaging",
+                "delete_room",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .delete_room(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.delete_room(req, options).await
     }
-    #[cfg(google_cloud_unstable_tracing)]
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn list_rooms(
         &self,
         req: crate::model::ListRoomsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListRoomsResponse>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::Messaging",
-            "list_rooms",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .list_rooms(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn list_rooms(
-        &self,
-        req: crate::model::ListRoomsRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<crate::model::ListRoomsResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::Messaging",
+                "list_rooms",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .list_rooms(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_rooms(req, options).await
     }
-    #[cfg(google_cloud_unstable_tracing)]
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn create_blurb(
         &self,
         req: crate::model::CreateBlurbRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Blurb>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::Messaging",
-            "create_blurb",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .create_blurb(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn create_blurb(
-        &self,
-        req: crate::model::CreateBlurbRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<crate::model::Blurb>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::Messaging",
+                "create_blurb",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .create_blurb(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.create_blurb(req, options).await
     }
-    #[cfg(google_cloud_unstable_tracing)]
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn get_blurb(
         &self,
         req: crate::model::GetBlurbRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Blurb>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::Messaging",
-            "get_blurb",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .get_blurb(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn get_blurb(
-        &self,
-        req: crate::model::GetBlurbRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<crate::model::Blurb>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::Messaging",
+                "get_blurb",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .get_blurb(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_blurb(req, options).await
     }
-    #[cfg(google_cloud_unstable_tracing)]
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn update_blurb(
         &self,
         req: crate::model::UpdateBlurbRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Blurb>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::Messaging",
-            "update_blurb",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .update_blurb(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn update_blurb(
-        &self,
-        req: crate::model::UpdateBlurbRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<crate::model::Blurb>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::Messaging",
+                "update_blurb",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .update_blurb(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.update_blurb(req, options).await
     }
-    #[cfg(google_cloud_unstable_tracing)]
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn delete_blurb(
         &self,
         req: crate::model::DeleteBlurbRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::Messaging",
-            "delete_blurb",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .delete_blurb(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn delete_blurb(
-        &self,
-        req: crate::model::DeleteBlurbRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<()>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::Messaging",
+                "delete_blurb",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .delete_blurb(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.delete_blurb(req, options).await
     }
-    #[cfg(google_cloud_unstable_tracing)]
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn list_blurbs(
         &self,
         req: crate::model::ListBlurbsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListBlurbsResponse>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::Messaging",
-            "list_blurbs",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .list_blurbs(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn list_blurbs(
-        &self,
-        req: crate::model::ListBlurbsRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<crate::model::ListBlurbsResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::Messaging",
+                "list_blurbs",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .list_blurbs(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_blurbs(req, options).await
     }
-    #[cfg(google_cloud_unstable_tracing)]
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn search_blurbs(
         &self,
         req: crate::model::SearchBlurbsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::Messaging",
-            "search_blurbs",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .search_blurbs(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn search_blurbs(
-        &self,
-        req: crate::model::SearchBlurbsRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::Messaging",
+                "search_blurbs",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .search_blurbs(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.search_blurbs(req, options).await
     }
-    #[cfg(google_cloud_unstable_tracing)]
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::Messaging",
-            "list_locations",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .list_locations(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn list_locations(
-        &self,
-        req: google_cloud_location::model::ListLocationsRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::Messaging",
+                "list_locations",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .list_locations(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_locations(req, options).await
     }
-    #[cfg(google_cloud_unstable_tracing)]
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_location::model::Location>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::Messaging",
-            "get_location",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .get_location(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn get_location(
-        &self,
-        req: google_cloud_location::model::GetLocationRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<google_cloud_location::model::Location>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::Messaging",
+                "get_location",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .get_location(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_location(req, options).await
     }
-    #[cfg(google_cloud_unstable_tracing)]
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn set_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::Messaging",
-            "set_iam_policy",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .set_iam_policy(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn set_iam_policy(
-        &self,
-        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::Messaging",
+                "set_iam_policy",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .set_iam_policy(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.set_iam_policy(req, options).await
     }
-    #[cfg(google_cloud_unstable_tracing)]
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn get_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::Messaging",
-            "get_iam_policy",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .get_iam_policy(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn get_iam_policy(
-        &self,
-        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::Messaging",
+                "get_iam_policy",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .get_iam_policy(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_iam_policy(req, options).await
     }
-    #[cfg(google_cloud_unstable_tracing)]
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn test_iam_permissions(
         &self,
         req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::Messaging",
-            "test_iam_permissions",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .test_iam_permissions(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn test_iam_permissions(
-        &self,
-        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::Messaging",
+                "test_iam_permissions",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .test_iam_permissions(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.test_iam_permissions(req, options).await
     }
-    #[cfg(google_cloud_unstable_tracing)]
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::Messaging",
-            "list_operations",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .list_operations(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn list_operations(
-        &self,
-        req: google_cloud_longrunning::model::ListOperationsRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::Messaging",
+                "list_operations",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .list_operations(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_operations(req, options).await
     }
-    #[cfg(google_cloud_unstable_tracing)]
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::Messaging",
-            "get_operation",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .get_operation(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn get_operation(
-        &self,
-        req: google_cloud_longrunning::model::GetOperationRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::Messaging",
+                "get_operation",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .get_operation(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_operation(req, options).await
     }
-    #[cfg(google_cloud_unstable_tracing)]
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn delete_operation(
         &self,
         req: google_cloud_longrunning::model::DeleteOperationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::Messaging",
-            "delete_operation",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .delete_operation(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn delete_operation(
-        &self,
-        req: google_cloud_longrunning::model::DeleteOperationRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<()>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::Messaging",
+                "delete_operation",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .delete_operation(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.delete_operation(req, options).await
     }
-    #[cfg(google_cloud_unstable_tracing)]
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn cancel_operation(
         &self,
         req: google_cloud_longrunning::model::CancelOperationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::Messaging",
-            "cancel_operation",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .cancel_operation(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn cancel_operation(
-        &self,
-        req: google_cloud_longrunning::model::CancelOperationRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<()>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::Messaging",
+                "cancel_operation",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .cancel_operation(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.cancel_operation(req, options).await
     }
 
@@ -2254,424 +1909,353 @@ impl<T> super::stub::SequenceService for SequenceService<T>
 where
     T: super::stub::SequenceService + std::fmt::Debug + Send + Sync,
 {
-    #[cfg(google_cloud_unstable_tracing)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn create_sequence(
         &self,
         req: crate::model::CreateSequenceRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Sequence>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::SequenceService",
-            "create_sequence",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .create_sequence(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn create_sequence(
-        &self,
-        req: crate::model::CreateSequenceRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<crate::model::Sequence>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::SequenceService",
+                "create_sequence",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .create_sequence(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.create_sequence(req, options).await
     }
-    #[cfg(google_cloud_unstable_tracing)]
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn create_streaming_sequence(
         &self,
         req: crate::model::CreateStreamingSequenceRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::StreamingSequence>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::SequenceService",
-            "create_streaming_sequence",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .create_streaming_sequence(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn create_streaming_sequence(
-        &self,
-        req: crate::model::CreateStreamingSequenceRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<crate::model::StreamingSequence>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::SequenceService",
+                "create_streaming_sequence",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .create_streaming_sequence(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.create_streaming_sequence(req, options).await
     }
-    #[cfg(google_cloud_unstable_tracing)]
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn get_sequence_report(
         &self,
         req: crate::model::GetSequenceReportRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::SequenceReport>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::SequenceService",
-            "get_sequence_report",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .get_sequence_report(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn get_sequence_report(
-        &self,
-        req: crate::model::GetSequenceReportRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<crate::model::SequenceReport>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::SequenceService",
+                "get_sequence_report",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .get_sequence_report(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_sequence_report(req, options).await
     }
-    #[cfg(google_cloud_unstable_tracing)]
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn get_streaming_sequence_report(
         &self,
         req: crate::model::GetStreamingSequenceReportRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::StreamingSequenceReport>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::SequenceService",
-            "get_streaming_sequence_report",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .get_streaming_sequence_report(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn get_streaming_sequence_report(
-        &self,
-        req: crate::model::GetStreamingSequenceReportRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<crate::model::StreamingSequenceReport>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::SequenceService",
+                "get_streaming_sequence_report",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .get_streaming_sequence_report(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_streaming_sequence_report(req, options).await
     }
-    #[cfg(google_cloud_unstable_tracing)]
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn attempt_sequence(
         &self,
         req: crate::model::AttemptSequenceRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::SequenceService",
-            "attempt_sequence",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .attempt_sequence(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn attempt_sequence(
-        &self,
-        req: crate::model::AttemptSequenceRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<()>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::SequenceService",
+                "attempt_sequence",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .attempt_sequence(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.attempt_sequence(req, options).await
     }
-    #[cfg(google_cloud_unstable_tracing)]
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::SequenceService",
-            "list_locations",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .list_locations(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn list_locations(
-        &self,
-        req: google_cloud_location::model::ListLocationsRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::SequenceService",
+                "list_locations",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .list_locations(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_locations(req, options).await
     }
-    #[cfg(google_cloud_unstable_tracing)]
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_location::model::Location>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::SequenceService",
-            "get_location",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .get_location(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn get_location(
-        &self,
-        req: google_cloud_location::model::GetLocationRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<google_cloud_location::model::Location>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::SequenceService",
+                "get_location",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .get_location(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_location(req, options).await
     }
-    #[cfg(google_cloud_unstable_tracing)]
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn set_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::SequenceService",
-            "set_iam_policy",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .set_iam_policy(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn set_iam_policy(
-        &self,
-        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::SequenceService",
+                "set_iam_policy",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .set_iam_policy(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.set_iam_policy(req, options).await
     }
-    #[cfg(google_cloud_unstable_tracing)]
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn get_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::SequenceService",
-            "get_iam_policy",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .get_iam_policy(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn get_iam_policy(
-        &self,
-        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::SequenceService",
+                "get_iam_policy",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .get_iam_policy(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_iam_policy(req, options).await
     }
-    #[cfg(google_cloud_unstable_tracing)]
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn test_iam_permissions(
         &self,
         req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::SequenceService",
-            "test_iam_permissions",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .test_iam_permissions(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn test_iam_permissions(
-        &self,
-        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::SequenceService",
+                "test_iam_permissions",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .test_iam_permissions(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.test_iam_permissions(req, options).await
     }
-    #[cfg(google_cloud_unstable_tracing)]
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::SequenceService",
-            "list_operations",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .list_operations(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn list_operations(
-        &self,
-        req: google_cloud_longrunning::model::ListOperationsRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::SequenceService",
+                "list_operations",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .list_operations(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_operations(req, options).await
     }
-    #[cfg(google_cloud_unstable_tracing)]
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::SequenceService",
-            "get_operation",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .get_operation(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn get_operation(
-        &self,
-        req: google_cloud_longrunning::model::GetOperationRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::SequenceService",
+                "get_operation",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .get_operation(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_operation(req, options).await
     }
-    #[cfg(google_cloud_unstable_tracing)]
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn delete_operation(
         &self,
         req: google_cloud_longrunning::model::DeleteOperationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::SequenceService",
-            "delete_operation",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .delete_operation(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn delete_operation(
-        &self,
-        req: google_cloud_longrunning::model::DeleteOperationRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<()>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::SequenceService",
+                "delete_operation",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .delete_operation(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.delete_operation(req, options).await
     }
-    #[cfg(google_cloud_unstable_tracing)]
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn cancel_operation(
         &self,
         req: google_cloud_longrunning::model::CancelOperationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::SequenceService",
-            "cancel_operation",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .cancel_operation(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn cancel_operation(
-        &self,
-        req: google_cloud_longrunning::model::CancelOperationRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<()>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::SequenceService",
+                "cancel_operation",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .cancel_operation(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.cancel_operation(req, options).await
     }
 }
@@ -2698,514 +2282,428 @@ impl<T> super::stub::Testing for Testing<T>
 where
     T: super::stub::Testing + std::fmt::Debug + Send + Sync,
 {
-    #[cfg(google_cloud_unstable_tracing)]
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn create_session(
         &self,
         req: crate::model::CreateSessionRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Session>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::Testing",
-            "create_session",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .create_session(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn create_session(
-        &self,
-        req: crate::model::CreateSessionRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<crate::model::Session>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::Testing",
+                "create_session",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .create_session(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.create_session(req, options).await
     }
-    #[cfg(google_cloud_unstable_tracing)]
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn get_session(
         &self,
         req: crate::model::GetSessionRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Session>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::Testing",
-            "get_session",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .get_session(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn get_session(
-        &self,
-        req: crate::model::GetSessionRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<crate::model::Session>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::Testing",
+                "get_session",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .get_session(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_session(req, options).await
     }
-    #[cfg(google_cloud_unstable_tracing)]
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn list_sessions(
         &self,
         req: crate::model::ListSessionsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListSessionsResponse>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::Testing",
-            "list_sessions",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .list_sessions(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn list_sessions(
-        &self,
-        req: crate::model::ListSessionsRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<crate::model::ListSessionsResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::Testing",
+                "list_sessions",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .list_sessions(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_sessions(req, options).await
     }
-    #[cfg(google_cloud_unstable_tracing)]
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn delete_session(
         &self,
         req: crate::model::DeleteSessionRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::Testing",
-            "delete_session",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .delete_session(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn delete_session(
-        &self,
-        req: crate::model::DeleteSessionRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<()>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::Testing",
+                "delete_session",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .delete_session(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.delete_session(req, options).await
     }
-    #[cfg(google_cloud_unstable_tracing)]
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn report_session(
         &self,
         req: crate::model::ReportSessionRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ReportSessionResponse>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::Testing",
-            "report_session",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .report_session(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn report_session(
-        &self,
-        req: crate::model::ReportSessionRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<crate::model::ReportSessionResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::Testing",
+                "report_session",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .report_session(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.report_session(req, options).await
     }
-    #[cfg(google_cloud_unstable_tracing)]
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn list_tests(
         &self,
         req: crate::model::ListTestsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::ListTestsResponse>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::Testing",
-            "list_tests",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .list_tests(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn list_tests(
-        &self,
-        req: crate::model::ListTestsRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<crate::model::ListTestsResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::Testing",
+                "list_tests",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .list_tests(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_tests(req, options).await
     }
-    #[cfg(google_cloud_unstable_tracing)]
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn delete_test(
         &self,
         req: crate::model::DeleteTestRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::Testing",
-            "delete_test",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .delete_test(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn delete_test(
-        &self,
-        req: crate::model::DeleteTestRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<()>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::Testing",
+                "delete_test",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .delete_test(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.delete_test(req, options).await
     }
-    #[cfg(google_cloud_unstable_tracing)]
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn verify_test(
         &self,
         req: crate::model::VerifyTestRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::VerifyTestResponse>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::Testing",
-            "verify_test",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .verify_test(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn verify_test(
-        &self,
-        req: crate::model::VerifyTestRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<crate::model::VerifyTestResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::Testing",
+                "verify_test",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .verify_test(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.verify_test(req, options).await
     }
-    #[cfg(google_cloud_unstable_tracing)]
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::Testing",
-            "list_locations",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .list_locations(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn list_locations(
-        &self,
-        req: google_cloud_location::model::ListLocationsRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::Testing",
+                "list_locations",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .list_locations(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_locations(req, options).await
     }
-    #[cfg(google_cloud_unstable_tracing)]
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn get_location(
         &self,
         req: google_cloud_location::model::GetLocationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_location::model::Location>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::Testing",
-            "get_location",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .get_location(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn get_location(
-        &self,
-        req: google_cloud_location::model::GetLocationRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<google_cloud_location::model::Location>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::Testing",
+                "get_location",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .get_location(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_location(req, options).await
     }
-    #[cfg(google_cloud_unstable_tracing)]
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn set_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::SetIamPolicyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::Testing",
-            "set_iam_policy",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .set_iam_policy(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn set_iam_policy(
-        &self,
-        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::Testing",
+                "set_iam_policy",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .set_iam_policy(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.set_iam_policy(req, options).await
     }
-    #[cfg(google_cloud_unstable_tracing)]
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn get_iam_policy(
         &self,
         req: google_cloud_iam_v1::model::GetIamPolicyRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::Testing",
-            "get_iam_policy",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .get_iam_policy(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn get_iam_policy(
-        &self,
-        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::Testing",
+                "get_iam_policy",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .get_iam_policy(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_iam_policy(req, options).await
     }
-    #[cfg(google_cloud_unstable_tracing)]
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn test_iam_permissions(
         &self,
         req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::Testing",
-            "test_iam_permissions",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .test_iam_permissions(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn test_iam_permissions(
-        &self,
-        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::Testing",
+                "test_iam_permissions",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .test_iam_permissions(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.test_iam_permissions(req, options).await
     }
-    #[cfg(google_cloud_unstable_tracing)]
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn list_operations(
         &self,
         req: google_cloud_longrunning::model::ListOperationsRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::Testing",
-            "list_operations",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .list_operations(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn list_operations(
-        &self,
-        req: google_cloud_longrunning::model::ListOperationsRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::Testing",
+                "list_operations",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .list_operations(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.list_operations(req, options).await
     }
-    #[cfg(google_cloud_unstable_tracing)]
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn get_operation(
         &self,
         req: google_cloud_longrunning::model::GetOperationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::Testing",
-            "get_operation",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .get_operation(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn get_operation(
-        &self,
-        req: google_cloud_longrunning::model::GetOperationRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::Testing",
+                "get_operation",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .get_operation(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.get_operation(req, options).await
     }
-    #[cfg(google_cloud_unstable_tracing)]
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn delete_operation(
         &self,
         req: google_cloud_longrunning::model::DeleteOperationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::Testing",
-            "delete_operation",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .delete_operation(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn delete_operation(
-        &self,
-        req: google_cloud_longrunning::model::DeleteOperationRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<()>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::Testing",
+                "delete_operation",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .delete_operation(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.delete_operation(req, options).await
     }
-    #[cfg(google_cloud_unstable_tracing)]
+
+    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn cancel_operation(
         &self,
         req: google_cloud_longrunning::model::CancelOperationRequest,
         options: crate::RequestOptions,
     ) -> Result<crate::Response<()>> {
-        use gaxi::observability::ResultExt as _;
-        use tracing::Instrument;
-        let span = gaxi::client_request_span!(
-            "client::Testing",
-            "cancel_operation",
-            &info::INSTRUMENTATION_CLIENT_INFO
-        );
-
-        self.inner
-            .cancel_operation(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)
-    }
-
-    #[cfg(not(google_cloud_unstable_tracing))]
-    #[tracing::instrument(ret)]
-    async fn cancel_operation(
-        &self,
-        req: google_cloud_longrunning::model::CancelOperationRequest,
-        options: crate::RequestOptions,
-    ) -> Result<crate::Response<()>> {
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            use gaxi::observability::ResultExt as _;
+            use tracing::Instrument;
+            let span = gaxi::client_request_span!(
+                "client::Testing",
+                "cancel_operation",
+                &info::INSTRUMENTATION_CLIENT_INFO
+            );
+            self.inner
+                .cancel_operation(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.inner.cancel_operation(req, options).await
     }
 }
