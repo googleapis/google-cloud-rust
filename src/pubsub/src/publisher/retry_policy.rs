@@ -78,11 +78,8 @@ impl RetryPolicy for RetryableErrors {
         // - 429: Resource Exhausted
         // - 499: Cancelled Request
         // - 5xx: Internal Server Error, Bad Gateway, etc.
-        if let Some(code) = error.http_status_code() {
-            match code {
-                408 | 429 | 499 | 500..600 => return RetryResult::Continue(error),
-                _ => (),
-            }
+        if let Some(408 | 429 | 499 | 500..600) = error.http_status_code() {
+            return RetryResult::Continue(error);
         }
 
         if let Some(status) = error.status() {
