@@ -120,6 +120,7 @@ default:
       - redundant_explicit_links
       - broken_intra_doc_links
     generate_setter_samples: "true"
+    generate_rpc_samples: "true"
 libraries:
   - name: common
     copyright_year: "2025"
@@ -573,6 +574,7 @@ libraries:
         - bare_urls
         - broken_intra_doc_links
         - redundant_explicit_links
+      generate_rpc_samples: "false"
       per_service_features: true
       package_name_override: google-cloud-compute-v1
       default_features:
@@ -931,8 +933,6 @@ libraries:
     apis:
       - path: google/iam/admin/v1
     copyright_year: "2025"
-    rust:
-      generate_rpc_samples: "true"
   - name: google-cloud-iam-credentials-v1
     version: 1.5.0
     apis:
@@ -1016,6 +1016,8 @@ libraries:
     apis:
       - path: google/logging/v2
     copyright_year: "2025"
+    rust:
+      generate_rpc_samples: "false"
   - name: google-cloud-longrunning
     version: 1.6.0
     apis:
@@ -1159,6 +1161,7 @@ libraries:
         - name: google-cloud-oslogin-common
           package: google-cloud-oslogin-common
           source: google.cloud.oslogin.common
+      generate_rpc_samples: "false"
   - name: google-cloud-parallelstore-v1
     version: 1.6.0
     copyright_year: "2025"
@@ -1256,6 +1259,7 @@ libraries:
           template: http-client
         - extend_grpc_transport: true
           generate_setter_samples: "false"
+          generate_rpc_samples: "false"
           has_veneer: true
           included_ids:
             - .google.pubsub.v1.Publisher.Publish
@@ -1301,8 +1305,6 @@ libraries:
   - name: google-cloud-resourcemanager-v3
     version: 1.5.0
     copyright_year: "2025"
-    rust:
-      generate_rpc_samples: "true"
   - name: google-cloud-retail-v2
     version: 2.5.0
     copyright_year: "2025"
@@ -1335,8 +1337,6 @@ libraries:
   - name: google-cloud-secretmanager-v1
     version: 1.5.0
     copyright_year: "2024"
-    rust:
-      generate_rpc_samples: "true"
   - name: google-cloud-securesourcemanager-v1
     version: 1.6.0
     copyright_year: "2025"
@@ -1423,8 +1423,6 @@ libraries:
   - name: google-cloud-speech-v2
     version: 1.6.0
     copyright_year: "2025"
-    rust:
-      generate_rpc_samples: "true"
   - name: google-cloud-sql-v1
     version: 2.2.0
     copyright_year: "2025"
