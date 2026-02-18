@@ -836,7 +836,7 @@ libraries:
     output: src/gax
     veneer: true
   - name: google-cloud-gax-internal
-    version: 0.7.9
+    version: 0.7.10
     copyright_year: "2025"
     output: src/gax-internal
     veneer: true
