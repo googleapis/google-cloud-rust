@@ -13,6 +13,7 @@
 // limitations under the License.
 
 use google_cloud_gax::client_builder::Error as BuilderError;
+#[cfg(test)]
 use google_cloud_gax::error::Error;
 use http::Uri;
 use std::str::FromStr;
@@ -21,6 +22,7 @@ use std::str::FromStr;
 ///
 /// Notably, locational and regional endpoints are detected and used as the
 /// host. For VIPs and private networks, we need to use the default host.
+#[cfg(any(test, feature = "_internal-http-client"))]
 pub(crate) fn header(endpoint: Option<&str>, default_endpoint: &str) -> Result<String, HostError> {
     origin_and_header(endpoint, default_endpoint).map(|(_, header)| header)
 }
@@ -31,6 +33,7 @@ pub(crate) fn header(endpoint: Option<&str>, default_endpoint: &str) -> Result<S
 /// host. For VIPs and private networks, we need to use the default host.
 ///
 /// Tonic consumes the authority as a [http::Uri].
+#[cfg(any(test, feature = "_internal-grpc-client"))]
 pub(crate) fn origin(endpoint: Option<&str>, default_endpoint: &str) -> Result<Uri, HostError> {
     origin_and_header(endpoint, default_endpoint).map(|(origin, _)| origin)
 }
@@ -96,7 +99,7 @@ impl HostError {
         }
     }
 
-    #[allow(dead_code)]
+    #[cfg(test)]
     pub fn gax(self) -> Error {
         match self {
             Self::Uri(e) => Error::io(e),
