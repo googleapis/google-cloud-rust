@@ -127,6 +127,7 @@ pub struct Builder {
     scopes: Option<Vec<String>>,
     created_by_adc: bool,
     retry_builder: RetryTokenProviderBuilder,
+    iam_endpoint_override: Option<String>,
 }
 
 impl Builder {
@@ -243,6 +244,12 @@ impl Builder {
         self
     }
 
+    #[cfg(test)]
+    fn maybe_iam_endpoint_override(mut self, iam_endpoint_override: Option<String>) -> Self {
+        self.iam_endpoint_override = iam_endpoint_override;
+        self
+    }
+
     // This method is used to build mds credentials from ADC
     pub(crate) fn from_adc() -> Self {
         Self {
@@ -309,15 +316,8 @@ impl Builder {
     ///
     /// [IAM signBlob API]: https://cloud.google.com/iam/docs/reference/credentials/rest/v1/projects.serviceAccounts/signBlob
     pub fn build_signer(self) -> BuildResult<crate::signer::Signer> {
-        self.build_signer_with_iam_endpoint_override(None)
-    }
-
-    // only used for testing
-    fn build_signer_with_iam_endpoint_override(
-        self,
-        iam_endpoint: Option<String>,
-    ) -> BuildResult<crate::signer::Signer> {
         let client = MDSClient::new(self.endpoint.clone());
+        let iam_endpoint = self.iam_endpoint_override.clone();
         let credentials = self.build()?;
         let signing_provider = crate::signer::mds::MDSSigner::new(client, credentials);
         let signing_provider = iam_endpoint
@@ -1076,7 +1076,8 @@ mod tests {
 
         let signer = Builder::default()
             .with_endpoint(&endpoint)
-            .build_signer_with_iam_endpoint_override(Some(endpoint))?;
+            .maybe_iam_endpoint_override(Some(endpoint))
+            .build_signer()?;
 
         let client_email = signer.client_email().await?;
         assert_eq!(client_email, "test-client-email");
