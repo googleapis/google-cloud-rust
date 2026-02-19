@@ -323,7 +323,11 @@ pub(crate) mod tests {
 
         let cached_headers = creds.headers(Extensions::new()).await?;
         let access_boundary = get_access_boundary_from_headers(cached_headers);
-        assert_eq!(access_boundary.as_deref(), Some("0x123"), "{access_boundary:?}");
+        assert_eq!(
+            access_boundary.as_deref(),
+            Some("0x123"),
+            "{access_boundary:?}"
+        );
 
         Ok(())
     }
