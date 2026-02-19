@@ -4644,6 +4644,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-rpc",
  "google-cloud-storage",
+ "google-cloud-test-utils",
  "google-cloud-type",
  "google-cloud-wkt",
  "hex",

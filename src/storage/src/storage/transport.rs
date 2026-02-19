@@ -79,7 +79,7 @@ impl Storage {
         reader.response().await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(name = "read_object", level = tracing::Level::DEBUG, ret, err(Debug))]
     async fn read_object_tracing(
         &self,
         req: ReadObjectRequest,
@@ -116,7 +116,7 @@ impl Storage {
             .await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret, skip(payload))]
+    #[tracing::instrument(name = "write_object_buffered", level = tracing::Level::DEBUG, ret, err(Debug), skip(payload))]
     async fn write_object_buffered_tracing<P>(
         &self,
         payload: P,
@@ -154,7 +154,7 @@ impl Storage {
             .await
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret, skip(payload))]
+    #[tracing::instrument(name = "write_object_unbuffered", level = tracing::Level::DEBUG, ret, err(Debug), skip(payload))]
     async fn write_object_unbuffered_tracing<P>(
         &self,
         payload: P,
@@ -189,7 +189,7 @@ impl Storage {
         Ok((ObjectDescriptor::new(transport), readers))
     }
 
-    #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
+    #[tracing::instrument(name = "open_object", level = tracing::Level::DEBUG, ret, err(Debug))]
     async fn open_object_tracing(
         &self,
         request: OpenObjectRequest,
@@ -272,5 +272,198 @@ impl super::stub::Storage for Storage {
             return self.open_object_tracing(request, options).await;
         }
         self.open_object_plain(request, options).await
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use gaxi::observability::attributes::keys::*;
+    #[cfg(google_cloud_unstable_tracing)]
+    use gaxi::observability::attributes::{
+        GCP_CLIENT_LANGUAGE_RUST, OTEL_KIND_INTERNAL, RPC_SYSTEM_HTTP,
+    };
+    use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
+    use google_cloud_test_utils::test_layer::TestLayer;
+    #[cfg(google_cloud_unstable_tracing)]
+    use google_cloud_test_utils::test_layer::{AttributeValue, CapturedSpan};
+    use httptest::{Expectation, Server, matchers::*, responders::status_code};
+    use std::collections::BTreeMap;
+
+    #[tokio::test]
+    async fn read_object() -> anyhow::Result<()> {
+        let guard = TestLayer::initialize();
+
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path("GET", "/storage/v1/b/test-bucket/o/test-object"),
+                request::query(url_decoded(contains(("alt", "media")))),
+            ])
+            .respond_with(status_code(404)),
+        );
+
+        let client = crate::client::Storage::builder()
+            .with_endpoint(format!("http://{}", server.addr()))
+            .with_credentials(Anonymous::new().build())
+            .with_tracing()
+            .build()
+            .await?;
+        let response = client
+            .read_object("projects/_/buckets/test-bucket", "test-object")
+            .send()
+            .await;
+        assert!(
+            matches!(response, Err(ref e) if e.is_transport()),
+            "{response:?}"
+        );
+
+        let captured = TestLayer::capture(&guard);
+        check_debug_log(&captured, "read_object");
+
+        #[cfg(google_cloud_unstable_tracing)]
+        client_request_span(&captured, "read_object");
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn write_object_buffered() -> anyhow::Result<()> {
+        let guard = TestLayer::initialize();
+
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path("POST", "/upload/storage/v1/b/test-bucket/o"),
+                request::query(url_decoded(contains(("uploadType", "multipart")))),
+            ])
+            .respond_with(status_code(404)),
+        );
+
+        let client = crate::client::Storage::builder()
+            .with_endpoint(format!("http://{}", server.addr()))
+            .with_credentials(Anonymous::new().build())
+            .with_tracing()
+            .build()
+            .await?;
+        let response = client
+            .write_object("projects/_/buckets/test-bucket", "test-object", "payload")
+            .send_buffered()
+            .await;
+        assert!(
+            matches!(response, Err(ref e) if e.is_transport()),
+            "{response:?}"
+        );
+
+        let captured = TestLayer::capture(&guard);
+        check_debug_log(&captured, "write_object_buffered");
+
+        #[cfg(google_cloud_unstable_tracing)]
+        client_request_span(&captured, "write_object");
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn write_object_unbuffered() -> anyhow::Result<()> {
+        let guard = TestLayer::initialize();
+
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path("POST", "/upload/storage/v1/b/test-bucket/o"),
+                request::query(url_decoded(contains(("uploadType", "multipart")))),
+            ])
+            .respond_with(status_code(404)),
+        );
+
+        let client = crate::client::Storage::builder()
+            .with_endpoint(format!("http://{}", server.addr()))
+            .with_credentials(Anonymous::new().build())
+            .with_tracing()
+            .build()
+            .await?;
+        let response = client
+            .write_object("projects/_/buckets/test-bucket", "test-object", "payload")
+            .send_unbuffered()
+            .await;
+        assert!(
+            matches!(response, Err(ref e) if e.is_transport()),
+            "{response:?}"
+        );
+
+        let captured = TestLayer::capture(&guard);
+        check_debug_log(&captured, "write_object_unbuffered");
+
+        #[cfg(google_cloud_unstable_tracing)]
+        client_request_span(&captured, "write_object");
+
+        Ok(())
+    }
+
+    #[track_caller]
+    fn check_debug_log(captured: &Vec<CapturedSpan>, method: &'static str) {
+        let span = captured
+            .iter()
+            .find(|s| s.name == method)
+            .unwrap_or_else(|| panic!("missing `{method}` span in capture: {captured:#?}"));
+
+        let got = BTreeMap::from_iter(span.attributes.clone());
+        let want = ["self", "options", "req"];
+        let missing = want
+            .iter()
+            .filter(|k| !got.contains_key(**k))
+            .collect::<Vec<_>>();
+        assert!(
+            missing.is_empty(),
+            "missing = {missing:?}\ngot  = {got:?}\nwant = {want:?}"
+        );
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    #[track_caller]
+    fn client_request_span(captured: &Vec<CapturedSpan>, method: &'static str) {
+        const EXPECTED_ATTRIBUTES: [(&str, &str); 10] = [
+            (OTEL_KIND, OTEL_KIND_INTERNAL),
+            (RPC_SYSTEM, RPC_SYSTEM_HTTP),
+            (RPC_SERVICE, "storage"),
+            (OTEL_STATUS_CODE, "ERROR"),
+            (GCP_CLIENT_SERVICE, "storage"),
+            (GCP_CLIENT_REPO, "googleapis/google-cloud-rust"),
+            (GCP_CLIENT_ARTIFACT, "google-cloud-storage"),
+            (GCP_CLIENT_LANGUAGE, GCP_CLIENT_LANGUAGE_RUST),
+            (OTEL_STATUS_CODE, "ERROR"),
+            (ERROR_TYPE, "404"),
+        ];
+        let span = captured
+            .iter()
+            .find(|s| s.name == "client_request")
+            .unwrap_or_else(|| panic!("missing `client_request` span in capture: {captured:#?}"));
+        let got = BTreeMap::from_iter(span.attributes.clone());
+        // This is a subset of the fields, but good enough to catch most
+        // mistakes. Recall that we use a macro, which is already tested.
+        let want = BTreeMap::<String, AttributeValue>::from_iter(
+            EXPECTED_ATTRIBUTES
+                .iter()
+                .map(|(k, v)| (k.to_string(), AttributeValue::from(*v)))
+                .chain(
+                    [
+                        ("gax.client.span", true.into()),
+                        (
+                            OTEL_NAME,
+                            format!("google_cloud_storage::client::Storage::{method}").into(),
+                        ),
+                        (RPC_METHOD, method.into()),
+                    ]
+                    .map(|(k, v)| (k.to_string(), v)),
+                ),
+        );
+        let mismatch = want
+            .iter()
+            .filter(|(k, v)| !got.get(k.as_str()).is_some_and(|g| g == *v))
+            .collect::<Vec<_>>();
+        assert!(
+            mismatch.is_empty(),
+            "mismatch = {mismatch:?}\ngot      = {got:?}\nwant     = {want:?}"
+        );
     }
 }
