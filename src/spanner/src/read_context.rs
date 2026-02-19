@@ -1,155 +1,222 @@
 use crate::client::Spanner;
-use crate::model::{ExecuteSqlRequest, Session};
+use crate::model::Session;
+use std::sync::atomic::{AtomicI64, Ordering};
 use std::sync::Arc;
+use google_cloud_gax::error::rpc::Code;
 
 macro_rules! impl_read_options_builder {
     ($name:ident) => {
+        impl_read_options_builder!($name, inner);
+    };
+    ($name:ident, $($path:tt)*) => {
         impl $name {
-            pub fn with_return_read_timestamp(mut self, return_read_timestamp: bool) -> Self {
-                self.options.return_read_timestamp = return_read_timestamp;
+            pub fn return_read_timestamp(mut self, return_read_timestamp: bool) -> Self {
+                if let Some(crate::generated::gapic_dataplane::model::transaction_options::Mode::ReadOnly(ro)) = &mut self.$($path)*.options.mode {
+                    ro.return_read_timestamp = return_read_timestamp;
+                }
                 self
             }
 
-            pub fn with_read_timestamp(mut self, read_timestamp: chrono::DateTime<chrono::Utc>) -> Self {
+            pub fn read_timestamp(mut self, read_timestamp: chrono::DateTime<chrono::Utc>) -> Self {
                 let ts = wkt::Timestamp::new(
                     read_timestamp.timestamp(),
                     read_timestamp.timestamp_subsec_nanos() as i32,
                 ).expect("Timestamp out of supported range");
 
-                self.options.timestamp_bound = Some(
-                    crate::generated::gapic_dataplane::model::transaction_options::read_only::TimestampBound::ReadTimestamp(Box::new(ts)),
-                );
+                if let Some(crate::generated::gapic_dataplane::model::transaction_options::Mode::ReadOnly(ro)) = &mut self.$($path)*.options.mode {
+                    ro.timestamp_bound = Some(
+                        crate::generated::gapic_dataplane::model::transaction_options::read_only::TimestampBound::ReadTimestamp(Box::new(ts)),
+                    );
+                }
                 self
             }
 
-            pub fn with_exact_staleness(mut self, exact_staleness: std::time::Duration) -> Self {
+            pub fn exact_staleness(mut self, exact_staleness: std::time::Duration) -> Self {
                 let duration = wkt::Duration::try_from(exact_staleness)
                     .expect("Duration out of supported range");
 
-                self.options.timestamp_bound = Some(
-                    crate::generated::gapic_dataplane::model::transaction_options::read_only::TimestampBound::ExactStaleness(Box::new(duration)),
-                );
+                if let Some(crate::generated::gapic_dataplane::model::transaction_options::Mode::ReadOnly(ro)) = &mut self.$($path)*.options.mode {
+                    ro.timestamp_bound = Some(
+                        crate::generated::gapic_dataplane::model::transaction_options::read_only::TimestampBound::ExactStaleness(Box::new(duration)),
+                    );
+                }
                 self
             }
 
-            pub fn with_options(mut self, options: crate::generated::gapic_dataplane::model::transaction_options::ReadOnly) -> Self {
-                self.options = options;
+            pub fn options(mut self, options: crate::generated::gapic_dataplane::model::TransactionOptions) -> Self {
+                self.$($path)*.options = options;
                 self
             }
         }
     };
 }
 
-pub struct MultiUseReadOnlyTransactionBuilder {
+pub(crate) use impl_read_options_builder;
+
+pub(crate) struct MultiUseTransaction {
+    pub(crate) context: ReadContext,
+}
+
+impl MultiUseTransaction {
+    pub async fn execute_query(
+        &self,
+        statement: impl Into<crate::statement::Statement>,
+    ) -> Result<crate::result_set::ResultSet, crate::Error> {
+        let mut statement: crate::statement::Statement = statement.into();
+        if let Some(tag) = &self.context.transaction_tag {
+            let mut options = statement.request_options.unwrap_or_default();
+            options.transaction_tag = tag.clone();
+            statement.request_options = Some(options);
+        }
+        self.context.execute_query(statement).await
+    }
+
+    pub(crate) fn is_begun(&self) -> bool {
+        self.context.is_begun()
+    }
+}
+
+#[derive(Clone)]
+pub(crate) struct TransactionBuilder {
     pub(crate) client: Arc<Spanner>,
     pub(crate) session: Arc<Session>,
-    pub(crate) options: crate::generated::gapic_dataplane::model::transaction_options::ReadOnly,
+    pub(crate) transaction_tag: Option<String>,
+    pub(crate) options: crate::generated::gapic_dataplane::model::TransactionOptions,
+}
+
+impl TransactionBuilder {
+    pub(crate) fn new(client: Arc<Spanner>, session: Arc<Session>, options: crate::generated::gapic_dataplane::model::TransactionOptions) -> Self {
+        Self {
+            client,
+            session,
+            transaction_tag: None,
+            options,
+        }
+    }
+}
+
+#[derive(Clone)]
+pub struct MultiUseTransactionBuilder {
+    pub(crate) transaction_builder: TransactionBuilder,
     pub(crate) explicit_begin_transaction: bool,
 }
 
-impl_read_options_builder!(MultiUseReadOnlyTransactionBuilder);
+impl MultiUseTransactionBuilder {
+    pub(crate) fn new(client: Arc<Spanner>, session: Arc<Session>, options: crate::generated::gapic_dataplane::model::TransactionOptions) -> Self {
+        Self {
+            transaction_builder: TransactionBuilder::new(client, session, options),
+            explicit_begin_transaction: false,
+        }
+    }
 
-impl MultiUseReadOnlyTransactionBuilder {
     pub fn with_explicit_begin_transaction(mut self, explicit: bool) -> Self {
         self.explicit_begin_transaction = explicit;
         self
     }
 
-    pub async fn build(self) -> Result<MultiUseReadOnlyTransaction, crate::Error> {
-        use crate::model::transaction_options::Mode;
+    pub fn transaction_tag(mut self, tag: impl Into<String>) -> Self {
+        self.transaction_builder.transaction_tag = Some(tag.into());
+        self
+    }
 
+    pub(crate) async fn build(self) -> Result<MultiUseTransaction, crate::Error> {
         let tx_selector = if self.explicit_begin_transaction {
             let mut request = crate::model::BeginTransactionRequest::new();
-            request.session = self.session.name.clone();
+            request.session = self.transaction_builder.session.name.clone();
+            request.options = Some(self.transaction_builder.options.clone());
 
-            let mut tx_options = crate::model::TransactionOptions::new();
-            tx_options.mode = Some(Mode::ReadOnly(Box::new(self.options.clone())));
-            request.options = Some(tx_options);
-
-            let response = self.client.begin_transaction(request).await?;
-            TxSelector::Static(crate::model::transaction_selector::Selector::Id(
+                if let Some(tag) = &self.transaction_builder.transaction_tag {
+                    let mut options = request.request_options.unwrap_or_default();
+                    options.transaction_tag = tag.clone();
+                    request.request_options = Some(options);
+                }
+                
+                let response = self.transaction_builder.client.begin_transaction(request).await?;
+                TxSelector::Static(crate::model::transaction_selector::Selector::Id(
                 response.id,
             ))
         } else {
-            let mut tx_options = crate::model::TransactionOptions::new();
-            tx_options.mode = Some(Mode::ReadOnly(Box::new(self.options.clone())));
-            TxSelector::InlineBegin(Arc::new(std::sync::Mutex::new(
-                InlineBeginState::NotBegun(tx_options),
-            )))
+            TxSelector::InlineBegin(Arc::new(std::sync::Mutex::new(InlineBeginState::NotBegun(
+                self.transaction_builder.options.clone(),
+            ))))
         };
 
-        Ok(MultiUseReadOnlyTransaction {
-            context: ReadContext {
-                client: self.client,
-                session: self.session,
-                transaction_selector: tx_selector,
-            },
+        Ok(MultiUseTransaction {
+            context: ReadContext::new(
+                self.transaction_builder.client,
+                self.transaction_builder.session,
+                tx_selector,
+                self.transaction_builder.transaction_tag,
+            ),
         })
     }
 }
 
-pub struct MultiUseReadOnlyTransaction {
-    context: ReadContext,
-}
-
-impl MultiUseReadOnlyTransaction {
-    pub async fn execute_query(
-        &self,
-        statement: impl Into<crate::statement::Statement>,
-    ) -> Result<crate::result_set::ResultSet, crate::Error> {
-        self.context.execute_query(statement).await
-    }
-}
-
 pub struct SingleUseReadOnlyTransactionBuilder {
-    pub(crate) client: Arc<Spanner>,
-    pub(crate) session: Arc<Session>,
-    pub(crate) options: crate::generated::gapic_dataplane::model::transaction_options::ReadOnly,
+    pub(crate) inner: TransactionBuilder,
 }
 
 impl_read_options_builder!(SingleUseReadOnlyTransactionBuilder);
 
+
 impl SingleUseReadOnlyTransactionBuilder {
-    pub fn with_min_read_timestamp(
-        mut self,
-        min_read_timestamp: chrono::DateTime<chrono::Utc>,
-    ) -> Self {
+    pub(crate) fn new(client: Arc<Spanner>, session: Arc<Session>) -> Self {
+        Self {
+            inner: TransactionBuilder::new(
+                client,
+                session,
+                crate::generated::gapic_dataplane::model::TransactionOptions {
+                    mode: Some(crate::generated::gapic_dataplane::model::transaction_options::Mode::ReadOnly(Box::new(
+                        crate::generated::gapic_dataplane::model::transaction_options::ReadOnly {
+                            return_read_timestamp: true,
+                            ..Default::default()
+                        },
+                    ))),
+                    ..Default::default()
+                },
+            ),
+        }
+    }
+
+    pub fn min_read_timestamp(mut self, min_read_timestamp: chrono::DateTime<chrono::Utc>) -> Self {
         let ts = wkt::Timestamp::new(
             min_read_timestamp.timestamp(),
             min_read_timestamp.timestamp_subsec_nanos() as i32,
         )
         .expect("Timestamp out of supported range");
 
-        self.options.timestamp_bound = Some(
-            crate::generated::gapic_dataplane::model::transaction_options::read_only::TimestampBound::MinReadTimestamp(Box::new(ts)),
-        );
+        if let Some(crate::generated::gapic_dataplane::model::transaction_options::Mode::ReadOnly(ro)) = &mut self.inner.options.mode {
+            ro.timestamp_bound = Some(
+                crate::generated::gapic_dataplane::model::transaction_options::read_only::TimestampBound::MinReadTimestamp(Box::new(ts)),
+            );
+        }
         self
     }
 
-    pub fn with_max_staleness(mut self, max_staleness: std::time::Duration) -> Self {
+    pub fn max_staleness(mut self, max_staleness: std::time::Duration) -> Self {
         let duration =
             wkt::Duration::try_from(max_staleness).expect("Duration out of supported range");
 
-        self.options.timestamp_bound = Some(
-            crate::generated::gapic_dataplane::model::transaction_options::read_only::TimestampBound::MaxStaleness(Box::new(duration)),
-        );
+        if let Some(crate::generated::gapic_dataplane::model::transaction_options::Mode::ReadOnly(ro)) = &mut self.inner.options.mode {
+            ro.timestamp_bound = Some(
+                crate::generated::gapic_dataplane::model::transaction_options::read_only::TimestampBound::MaxStaleness(Box::new(duration)),
+            );
+        }
         self
     }
 
     pub fn build(self) -> SingleUseReadOnlyTransaction {
-        use crate::model::transaction_options::Mode;
-
-        let mut tx_options = crate::model::TransactionOptions::new();
-        tx_options.mode = Some(Mode::ReadOnly(Box::new(self.options)));
+        let tx_options = self.inner.options;
 
         SingleUseReadOnlyTransaction {
-            context: ReadContext {
-                client: self.client,
-                session: self.session,
-                transaction_selector: TxSelector::Static(
+            context: ReadContext::new(
+                self.inner.client,
+                self.inner.session,
+                TxSelector::Static(
                     crate::model::transaction_selector::Selector::SingleUse(Box::new(tx_options)),
                 ),
-            },
+                None,
+            ),
         }
     }
 }
@@ -189,21 +256,33 @@ pub(crate) struct ReadContext {
     pub(crate) client: Arc<Spanner>,
     pub(crate) session: Arc<Session>,
     pub(crate) transaction_selector: TxSelector,
+    pub(crate) transaction_tag: Option<String>,
+    pub(crate) seqno: AtomicI64,
 }
 
 impl ReadContext {
+    pub(crate) fn new(
+        client: Arc<Spanner>,
+        session: Arc<Session>,
+        transaction_selector: TxSelector,
+        transaction_tag: Option<String>,
+    ) -> Self {
+        Self {
+            client,
+            session,
+            transaction_selector,
+            transaction_tag,
+            seqno: AtomicI64::new(1),
+        }
+    }
+
     pub async fn execute_query(
         &self,
         statement: impl Into<crate::statement::Statement>,
     ) -> Result<crate::result_set::ResultSet, crate::Error> {
         let statement = statement.into();
-        let mut request = ExecuteSqlRequest::new();
-        request.session = self.session.name.clone();
-        request.sql = statement.sql;
-        if !statement.params.is_empty() {
-            request.params = Some(statement.params);
-            request.param_types = statement.param_types;
-        }
+        let mut request = statement.build_request(self.session.name.clone());
+        request.seqno = self.seqno.fetch_add(1, Ordering::SeqCst);
 
         let (tx_selector, callback) = self.resolve_transaction_selector().await?;
         request.transaction = Some(tx_selector);
@@ -315,6 +394,49 @@ impl ReadContext {
         }
 
         unreachable!()
+    }
+    pub(crate) async fn get_transaction_id(&self) -> Result<Vec<u8>, crate::Error> {
+        match &self.transaction_selector {
+            TxSelector::Static(selector) => match selector {
+                crate::model::transaction_selector::Selector::Id(id) => Ok(id.to_vec()),
+                _ => Err(crate::Error::service(
+                    google_cloud_gax::error::rpc::Status::default()
+                        .set_code(Code::Internal)
+                        .set_message("invalid transaction selector state: expected Id"),
+                )),
+            },
+            TxSelector::InlineBegin(state_mutex) => {
+                let state = state_mutex.lock().unwrap_or_else(|p| p.into_inner()).clone();
+                match state {
+                    InlineBeginState::Begun(id) => Ok(id),
+                    _ => Err(crate::Error::service(
+                        google_cloud_gax::error::rpc::Status::default()
+                            .set_code(Code::Internal)
+                            .set_message("transaction not yet started or failed"),
+                    )),
+                }
+            }
+        }
+    }
+    pub(crate) fn is_begun(&self) -> bool {
+        match &self.transaction_selector {
+            TxSelector::Static(selector) => matches!(selector, crate::model::transaction_selector::Selector::Id(_)),
+            TxSelector::InlineBegin(state_mutex) => {
+                let state = state_mutex.lock().unwrap_or_else(|p| p.into_inner());
+                matches!(*state, InlineBeginState::Begun(_))
+            }
+        }
+    }
+}
+
+impl Clone for InlineBeginState {
+    fn clone(&self) -> Self {
+        match self {
+            InlineBeginState::NotBegun(opts) => InlineBeginState::NotBegun(opts.clone()),
+            InlineBeginState::Starting(_) => InlineBeginState::Starting(Vec::new()), // We can't easily clone waiting senders
+            InlineBeginState::Begun(id) => InlineBeginState::Begun(id.clone()),
+            InlineBeginState::Failed(status) => InlineBeginState::Failed(status.clone()),
+        }
     }
 }
 
@@ -446,11 +568,152 @@ mod tests {
 
         let (db_client, _server) = setup_mock_db_client!(mock);
 
-        let statement = Statement::new("SELECT * FROM users WHERE id = @id").add_typed_param(
-            "id",
-            &42i64,
-            crate::types::int64(),
+        let statement = Statement::new("SELECT * FROM users WHERE id = @id")
+            .add_typed_param("id", &42i64, crate::types::int64())
+            .build();
+
+        let tx = db_client.single_use().build();
+        let _result = tx.execute_query(statement).await.unwrap();
+    }
+
+    #[tokio::test]
+    async fn test_single_use_execute_query_with_query_options() {
+        use crate::statement::Statement;
+
+        let mut mock = create_mock_with_session();
+
+        mock.expect_execute_streaming_sql().once().returning(|req| {
+            let req = req.into_inner();
+            assert_eq!(req.sql, "SELECT 1");
+
+            assert!(req.query_options.is_some());
+            let options = req.query_options.unwrap();
+            assert_eq!(options.optimizer_version, "3");
+            assert_eq!(options.optimizer_statistics_package, "pkg");
+
+            Ok(gaxi::grpc::tonic::Response::new(create_mock_stream()))
+        });
+
+        let (db_client, _server) = setup_mock_db_client!(mock);
+
+        let statement = Statement::new("SELECT 1")
+            .optimizer_version("3")
+            .optimizer_statistics_package("pkg")
+            .build();
+
+        let tx = db_client.single_use().build();
+        let _result = tx.execute_query(statement).await.unwrap();
+    }
+
+    #[tokio::test]
+    async fn test_single_use_execute_query_with_request_options() {
+        use crate::statement::Statement;
+
+        let mut mock = create_mock_with_session();
+
+        mock.expect_execute_streaming_sql().once().returning(|req| {
+            let req = req.into_inner();
+            assert_eq!(req.sql, "SELECT 1");
+
+            assert!(req.request_options.is_some());
+            let options = req.request_options.unwrap();
+            assert_eq!(options.request_tag, "my-tag");
+            assert_eq!(
+                options.priority,
+                spanner_grpc_mock::google::spanner::v1::request_options::Priority::High as i32
+            );
+            assert!(options.client_context.is_some());
+            let context = options.client_context.unwrap();
+            assert!(context.secure_context.contains_key("key"));
+
+            Ok(gaxi::grpc::tonic::Response::new(create_mock_stream()))
+        });
+
+        let (db_client, _server) = setup_mock_db_client!(mock);
+
+        let mut client_context =
+            crate::generated::gapic_dataplane::model::request_options::ClientContext::default();
+        client_context
+            .secure_context
+            .insert("key".to_string(), wkt::Value::default());
+
+        let statement = Statement::new("SELECT 1")
+            .request_tag("my-tag")
+            .priority(crate::generated::gapic_dataplane::model::request_options::Priority::High)
+            .client_context(client_context)
+            .build();
+
+        let tx = db_client.single_use().build();
+        let _result = tx.execute_query(statement).await.unwrap();
+    }
+
+    #[tokio::test]
+    async fn test_single_use_execute_query_with_query_mode() {
+        use crate::statement::Statement;
+
+        let mut mock = create_mock_with_session();
+
+        mock.expect_execute_streaming_sql().once().returning(|req| {
+            let req = req.into_inner();
+            assert_eq!(req.sql, "SELECT 1");
+
+            assert_eq!(
+                req.query_mode,
+                spanner_grpc_mock::google::spanner::v1::execute_sql_request::QueryMode::Profile
+                    as i32
+            );
+
+            Ok(gaxi::grpc::tonic::Response::new(create_mock_stream()))
+        });
+
+        let (db_client, _server) = setup_mock_db_client!(mock);
+
+        let statement = Statement::new("SELECT 1")
+            .query_mode(
+                crate::generated::gapic_dataplane::model::execute_sql_request::QueryMode::Profile,
+            )
+            .build();
+
+        let tx = db_client.single_use().build();
+        let _result = tx.execute_query(statement).await.unwrap();
+    }
+
+    #[tokio::test]
+    async fn test_single_use_execute_query_with_data_boost_and_directed_read() {
+        use crate::statement::Statement;
+
+        let mut mock = create_mock_with_session();
+
+        mock.expect_execute_streaming_sql().once().returning(|req| {
+            let req = req.into_inner();
+            assert_eq!(req.sql, "SELECT 1");
+
+            assert!(req.data_boost_enabled);
+            assert!(req.directed_read_options.is_some());
+            let options = req.directed_read_options.unwrap();
+            assert!(options.replicas.is_some());
+
+            Ok(gaxi::grpc::tonic::Response::new(create_mock_stream()))
+        });
+
+        let (db_client, _server) = setup_mock_db_client!(mock);
+
+        let directed_read_options =
+            crate::generated::gapic_dataplane::model::DirectedReadOptions::default();
+        let mut selection = crate::generated::gapic_dataplane::model::directed_read_options::ReplicaSelection::default();
+        selection.location = "us-east1".to_string();
+        let directed_read_options = directed_read_options.set_include_replicas(
+            crate::generated::gapic_dataplane::model::directed_read_options::IncludeReplicas {
+                replica_selections: vec![selection],
+                auto_failover_disabled: false,
+                _unknown_fields: serde_json::Map::new(),
+            },
         );
+
+        let statement = Statement::new("SELECT 1")
+            .data_boost_enabled(true)
+            .directed_read_options(directed_read_options)
+            .build();
 
         let tx = db_client.single_use().build();
         let _result = tx.execute_query(statement).await.unwrap();
@@ -493,7 +756,8 @@ mod tests {
         let (db_client, _server) = setup_mock_db_client!(mock);
 
         let statement = Statement::new("SELECT * FROM objects WHERE val = @val")
-            .add_param("val", &ImplicitParam);
+            .add_param("val", &ImplicitParam)
+            .build();
 
         let tx = db_client.single_use();
         let _result = tx.build().execute_query(statement).await.unwrap();
@@ -533,7 +797,7 @@ mod tests {
         let (db_client, _server) = setup_mock_db_client!(mock);
 
         let timestamp = chrono::DateTime::from_timestamp(1234, 5678).unwrap();
-        let tx = db_client.single_use().with_read_timestamp(timestamp);
+        let tx = db_client.single_use().read_timestamp(timestamp);
         let mut rs = tx
             .build()
             .execute_query("SELECT 1")
@@ -578,7 +842,7 @@ mod tests {
         let (db_client, _server) = setup_mock_db_client!(mock);
 
         let timestamp = chrono::DateTime::from_timestamp(1234, 5678).unwrap();
-        let tx = db_client.single_use().with_min_read_timestamp(timestamp);
+        let tx = db_client.single_use().min_read_timestamp(timestamp);
         let mut rs = tx
             .build()
             .execute_query("SELECT 1")
@@ -628,8 +892,8 @@ mod tests {
 
         let tx = db_client
             .single_use()
-            .with_read_timestamp(read_ts)
-            .with_min_read_timestamp(min_read_ts);
+            .read_timestamp(read_ts)
+            .min_read_timestamp(min_read_ts);
 
         let mut rs = tx
             .build()
@@ -675,7 +939,7 @@ mod tests {
         let (db_client, _server) = setup_mock_db_client!(mock);
 
         let staleness = std::time::Duration::new(15, 500_000_000);
-        let tx = db_client.single_use().with_exact_staleness(staleness);
+        let tx = db_client.single_use().exact_staleness(staleness);
         let mut rs = tx
             .build()
             .execute_query("SELECT 1")
@@ -720,7 +984,7 @@ mod tests {
         let (db_client, _server) = setup_mock_db_client!(mock);
 
         let staleness = std::time::Duration::new(15, 500_000_000);
-        let tx = db_client.single_use().with_max_staleness(staleness);
+        let tx = db_client.single_use().max_staleness(staleness);
         let mut rs = tx
             .build()
             .execute_query("SELECT 1")
@@ -732,137 +996,29 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn test_explicit_multi_use_execute_query() {
+    async fn test_execute_query_with_seqno() {
         let mut mock = create_mock_with_session();
 
-        // Mock BeginTransaction
-        mock.expect_begin_transaction().once().returning(|req| {
+        mock.expect_execute_streaming_sql().times(2).returning(|req| {
             let req = req.into_inner();
-            assert_eq!(
-                req.session,
-                "projects/test-project/instances/test-instance/databases/test-db/sessions/123"
-            );
-            assert!(req.options.is_some());
-            let options = req.options.unwrap();
-            match options.mode.unwrap() {
-                spanner_grpc_mock::google::spanner::v1::transaction_options::Mode::ReadOnly(_) => {}
-                _ => panic!("Expected ReadOnly mode"),
-            }
+            assert_eq!(req.sql, "SELECT 1");
 
-            Ok(gaxi::grpc::tonic::Response::new(
-                spanner_grpc_mock::google::spanner::v1::Transaction {
-                    id: vec![5, 6, 7, 8],
-                    read_timestamp: None,
-                    precommit_token: None,
-                },
-            ))
-        });
-
-        // Mock ExecuteStreamingSql
-        mock.expect_execute_streaming_sql().once().returning(|req| {
-            let req = req.into_inner();
-            assert!(req.transaction.is_some());
-            let selector = req.transaction.as_ref().unwrap().selector.as_ref().unwrap();
-            match selector {
-                spanner_grpc_mock::google::spanner::v1::transaction_selector::Selector::Id(id) => {
-                    assert_eq!(id, &vec![5, 6, 7, 8]);
-                }
-                _ => panic!("Expected Id selector"),
-            }
+            let seqno = req.seqno;
+            assert!(seqno == 1 || seqno == 2, "Unexpected seqno: {}", seqno);
 
             Ok(gaxi::grpc::tonic::Response::new(create_mock_stream()))
         });
 
         let (db_client, _server) = setup_mock_db_client!(mock);
 
-        let tx = db_client
-            .read_only_transaction()
-            .with_explicit_begin_transaction(true)
-            .build()
-            .await
-            .expect("Failed to start read-only transaction");
-
-        let mut rs = tx
-            .execute_query("SELECT 1")
-            .await
-            .expect("Failed to call execute_query");
-
-        let row1 = rs.next().await.expect("Failed to get next row");
-        assert!(row1.is_none());
+        let tx = db_client.single_use().build();
+        
+        // First query
+        let _ = tx.execute_query("SELECT 1").await.unwrap();
+        
+        // Second query
+        let _ = tx.execute_query("SELECT 1").await.unwrap();
     }
 
-    #[tokio::test]
-    async fn test_multi_use_execute_query() {
-        let mut mock = create_mock_with_session();
 
-        // Mock ExecuteStreamingSql (inline BeginTransaction happens here)
-        mock.expect_execute_streaming_sql().times(2).returning(|req| {
-            let req = req.into_inner();
-            assert!(req.transaction.is_some());
-            let selector = req.transaction.as_ref().unwrap().selector.as_ref().unwrap();
-
-            let is_first_request = if let spanner_grpc_mock::google::spanner::v1::transaction_selector::Selector::Begin(_) = selector {
-                true
-            } else if let spanner_grpc_mock::google::spanner::v1::transaction_selector::Selector::Id(id) = selector {
-                assert_eq!(id, &vec![1, 2, 3, 4]);
-                false
-            } else {
-                panic!("Expected Begin or Id selector");
-            };
-
-            let stream = tokio_stream::iter(vec![
-                Ok(spanner_grpc_mock::google::spanner::v1::PartialResultSet {
-                    metadata: Some(spanner_grpc_mock::google::spanner::v1::ResultSetMetadata {
-                        row_type: None,
-                        transaction: if is_first_request {
-                            Some(spanner_grpc_mock::google::spanner::v1::Transaction {
-                                id: vec![1, 2, 3, 4],
-                                read_timestamp: None,
-                                precommit_token: None,
-                            })
-                        } else {
-                            None
-                        },
-                        undeclared_parameters: None,
-                    }),
-                    values: vec![],
-                    chunked_value: false,
-                    resume_token: vec![],
-                    stats: None,
-                    precommit_token: None,
-                    cache_update: None,
-                    last: true,
-                })
-            ]);
-            Ok(gaxi::grpc::tonic::Response::new(
-                Box::pin(stream) as <MockSpanner as spanner_grpc_mock::google::spanner::v1::spanner_server::Spanner>::ExecuteStreamingSqlStream
-            ))
-        });
-
-        let (db_client, _server) = setup_mock_db_client!(mock);
-
-        let tx = db_client
-            .read_only_transaction()
-            .build()
-            .await
-            .expect("Failed to start read-only transaction");
-
-        // The first execution uses `Begin(...)` and loads the ID into the mutex
-        let mut rs1 = tx
-            .execute_query("SELECT 1")
-            .await
-            .expect("Failed to call execute_query");
-
-        let row1 = rs1.next().await.expect("Failed to get next row");
-        assert!(row1.is_none());
-
-        // The second execution uses `Id([1, 2, 3, 4])` from the resolved mutex state
-        let mut rs2 = tx
-            .execute_query("SELECT 2")
-            .await
-            .expect("Failed to call execute_query");
-
-        let row2 = rs2.next().await.expect("Failed to get next row");
-        assert!(row2.is_none());
-    }
 }

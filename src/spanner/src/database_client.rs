@@ -1,9 +1,9 @@
 use crate::client::Spanner;
 use crate::model::Session;
 
-use crate::read_context::{
-    MultiUseReadOnlyTransactionBuilder, SingleUseReadOnlyTransactionBuilder,
-};
+use crate::read_context::SingleUseReadOnlyTransactionBuilder;
+use crate::read_only_transaction::ReadOnlyTransactionBuilder;
+use crate::read_write_transaction::ReadWriteTransactionBuilder;
 use std::sync::Arc;
 
 pub struct DatabaseClient {
@@ -13,24 +13,15 @@ pub struct DatabaseClient {
 
 impl DatabaseClient {
     pub fn single_use(&self) -> SingleUseReadOnlyTransactionBuilder {
-        SingleUseReadOnlyTransactionBuilder {
-            client: self.client.clone(),
-            session: self.session.clone(),
-            options: crate::generated::gapic_dataplane::model::transaction_options::ReadOnly {
-                return_read_timestamp: true,
-                ..Default::default()
-            },
-        }
+        SingleUseReadOnlyTransactionBuilder::new(self.client.clone(), self.session.clone())
     }
 
-    pub fn read_only_transaction(&self) -> MultiUseReadOnlyTransactionBuilder {
-        MultiUseReadOnlyTransactionBuilder {
-            client: self.client.clone(),
-            session: self.session.clone(),
-            options:
-                crate::generated::gapic_dataplane::model::transaction_options::ReadOnly::default(),
-            explicit_begin_transaction: false,
-        }
+    pub fn read_only_transaction(&self) -> ReadOnlyTransactionBuilder {
+        ReadOnlyTransactionBuilder::new(self.client.clone(), self.session.clone())
+    }
+
+    pub fn read_write_transaction(&self) -> ReadWriteTransactionBuilder {
+        ReadWriteTransactionBuilder::new(self.client.clone(), self.session.clone())
     }
 }
 

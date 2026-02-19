@@ -42,6 +42,8 @@ pub mod model {
 pub mod client;
 pub mod database_client;
 pub mod read_context;
+pub mod read_only_transaction;
+pub mod read_write_transaction;
 pub mod result_set;
 pub mod statement;
 pub mod types;
