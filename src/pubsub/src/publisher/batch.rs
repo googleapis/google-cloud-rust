@@ -23,7 +23,7 @@ use std::sync::Arc;
 #[derive(Debug, Default)]
 pub(crate) struct Batch {
     messages: Vec<BundledMessage>,
-    initial_size: u32, // TODO(NOW): Change this to topic instead.
+    initial_size: u32,
     messages_byte_size: u32,
     batching_options: BatchingOptions,
 }
