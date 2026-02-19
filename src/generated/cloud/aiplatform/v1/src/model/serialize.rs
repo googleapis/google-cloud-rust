@@ -30025,6 +30025,15 @@ impl serde::ser::Serialize for super::generate_content_response::UsageMetadata {
         if !self.candidates_tokens_details.is_empty() {
             state.serialize_entry("candidatesTokensDetails", &self.candidates_tokens_details)?;
         }
+        if !self.tool_use_prompt_tokens_details.is_empty() {
+            state.serialize_entry(
+                "toolUsePromptTokensDetails",
+                &self.tool_use_prompt_tokens_details,
+            )?;
+        }
+        if !wkt::internal::is_default(&self.traffic_type) {
+            state.serialize_entry("trafficType", &self.traffic_type)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;

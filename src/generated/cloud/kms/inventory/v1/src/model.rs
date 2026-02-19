@@ -197,6 +197,10 @@ pub struct GetProtectedResourcesSummaryRequest {
     /// [google.cloud.kms.v1.CryptoKey]: google_cloud_kms_v1::model::CryptoKey
     pub name: std::string::String,
 
+    /// Optional. The scope to use if the kms organization service account is not
+    /// configured.
+    pub fallback_scope: crate::model::FallbackScope,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -216,6 +220,22 @@ impl GetProtectedResourcesSummaryRequest {
         self.name = v.into();
         self
     }
+
+    /// Sets the value of [fallback_scope][crate::model::GetProtectedResourcesSummaryRequest::fallback_scope].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_inventory_v1::model::GetProtectedResourcesSummaryRequest;
+    /// use google_cloud_kms_inventory_v1::model::FallbackScope;
+    /// let x0 = GetProtectedResourcesSummaryRequest::new().set_fallback_scope(FallbackScope::Project);
+    /// ```
+    pub fn set_fallback_scope<T: std::convert::Into<crate::model::FallbackScope>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.fallback_scope = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for GetProtectedResourcesSummaryRequest {
@@ -225,7 +245,7 @@ impl wkt::message::Message for GetProtectedResourcesSummaryRequest {
 }
 
 /// Aggregate information about the resources protected by a Cloud KMS key in the
-/// same Cloud organization as the key.
+/// same Cloud organization/project as the key.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ProtectedResourcesSummary {
@@ -250,6 +270,14 @@ pub struct ProtectedResourcesSummary {
 
     /// The number of resources protected by the key grouped by region.
     pub locations: std::collections::HashMap<std::string::String, i64>,
+
+    /// Warning messages for the state of response
+    /// [ProtectedResourcesSummary][google.cloud.kms.inventory.v1.ProtectedResourcesSummary]
+    /// For example, if the organization service account is not configured,
+    /// INSUFFICIENT_PERMISSIONS_PARTIAL_DATA warning will be returned.
+    ///
+    /// [google.cloud.kms.inventory.v1.ProtectedResourcesSummary]: crate::model::ProtectedResourcesSummary
+    pub warnings: std::vec::Vec<crate::model::Warning>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -357,6 +385,28 @@ impl ProtectedResourcesSummary {
         self.locations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
+
+    /// Sets the value of [warnings][crate::model::ProtectedResourcesSummary::warnings].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_inventory_v1::model::ProtectedResourcesSummary;
+    /// use google_cloud_kms_inventory_v1::model::Warning;
+    /// let x = ProtectedResourcesSummary::new()
+    ///     .set_warnings([
+    ///         Warning::default()/* use setters */,
+    ///         Warning::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_warnings<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Warning>,
+    {
+        use std::iter::Iterator;
+        self.warnings = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
 }
 
 impl wkt::message::Message for ProtectedResourcesSummary {
@@ -372,8 +422,14 @@ impl wkt::message::Message for ProtectedResourcesSummary {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchProtectedResourcesRequest {
-    /// Required. Resource name of the organization.
-    /// Example: organizations/123
+    /// Required. A scope can be an organization or a project. Resources protected
+    /// by the crypto key in provided scope will be returned.
+    ///
+    /// The following values are allowed:
+    ///
+    /// * organizations/{ORGANIZATION_NUMBER} (e.g., "organizations/12345678")
+    /// * projects/{PROJECT_ID} (e.g., "projects/foo-bar")
+    /// * projects/{PROJECT_NUMBER} (e.g., "projects/12345678")
     pub scope: std::string::String,
 
     /// Required. The resource name of the
@@ -792,5 +848,352 @@ impl ProtectedResource {
 impl wkt::message::Message for ProtectedResource {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.kms.inventory.v1.ProtectedResource"
+    }
+}
+
+/// A warning message that indicates potential problems with the response data.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct Warning {
+    /// The specific warning code for the displayed message.
+    pub warning_code: crate::model::warning::WarningCode,
+
+    /// The literal message providing context and details about the warnings.
+    pub display_message: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl Warning {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [warning_code][crate::model::Warning::warning_code].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_inventory_v1::model::Warning;
+    /// use google_cloud_kms_inventory_v1::model::warning::WarningCode;
+    /// let x0 = Warning::new().set_warning_code(WarningCode::InsufficientPermissionsPartialData);
+    /// let x1 = Warning::new().set_warning_code(WarningCode::ResourceLimitExceededPartialData);
+    /// let x2 = Warning::new().set_warning_code(WarningCode::OrgLessProjectPartialData);
+    /// ```
+    pub fn set_warning_code<T: std::convert::Into<crate::model::warning::WarningCode>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.warning_code = v.into();
+        self
+    }
+
+    /// Sets the value of [display_message][crate::model::Warning::display_message].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_inventory_v1::model::Warning;
+    /// let x = Warning::new().set_display_message("example");
+    /// ```
+    pub fn set_display_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.display_message = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for Warning {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.kms.inventory.v1.Warning"
+    }
+}
+
+/// Defines additional types related to [Warning].
+pub mod warning {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Different types of warnings that can be returned to the user.
+    /// The display_message contains detailed information regarding the
+    /// warning_code.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum WarningCode {
+        /// Default value. This value is unused.
+        Unspecified,
+        /// Indicates that the caller or service agent lacks necessary permissions
+        /// to view some of the requested data. The response may be partial.
+        /// Example:
+        ///
+        /// - KMS organization service agent {service_agent_name} lacks the
+        ///   `cloudasset.assets.searchAllResources` permission on the scope.
+        InsufficientPermissionsPartialData,
+        /// Indicates that a resource limit has been exceeded, resulting in partial
+        /// data. Example:
+        ///
+        /// - The project has more than 10,000 assets (resources,
+        ///   crypto keys, key handles, IAM policies, etc).
+        ResourceLimitExceededPartialData,
+        /// Indicates that the project exists outside of an organization resource.
+        /// Thus the analysis is only done for the project level data and results
+        /// might be partial.
+        OrgLessProjectPartialData,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [WarningCode::value] or
+        /// [WarningCode::name].
+        UnknownValue(warning_code::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod warning_code {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl WarningCode {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::InsufficientPermissionsPartialData => std::option::Option::Some(1),
+                Self::ResourceLimitExceededPartialData => std::option::Option::Some(2),
+                Self::OrgLessProjectPartialData => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("WARNING_CODE_UNSPECIFIED"),
+                Self::InsufficientPermissionsPartialData => {
+                    std::option::Option::Some("INSUFFICIENT_PERMISSIONS_PARTIAL_DATA")
+                }
+                Self::ResourceLimitExceededPartialData => {
+                    std::option::Option::Some("RESOURCE_LIMIT_EXCEEDED_PARTIAL_DATA")
+                }
+                Self::OrgLessProjectPartialData => {
+                    std::option::Option::Some("ORG_LESS_PROJECT_PARTIAL_DATA")
+                }
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for WarningCode {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for WarningCode {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for WarningCode {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::InsufficientPermissionsPartialData,
+                2 => Self::ResourceLimitExceededPartialData,
+                3 => Self::OrgLessProjectPartialData,
+                _ => Self::UnknownValue(warning_code::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for WarningCode {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "WARNING_CODE_UNSPECIFIED" => Self::Unspecified,
+                "INSUFFICIENT_PERMISSIONS_PARTIAL_DATA" => Self::InsufficientPermissionsPartialData,
+                "RESOURCE_LIMIT_EXCEEDED_PARTIAL_DATA" => Self::ResourceLimitExceededPartialData,
+                "ORG_LESS_PROJECT_PARTIAL_DATA" => Self::OrgLessProjectPartialData,
+                _ => Self::UnknownValue(warning_code::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for WarningCode {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::InsufficientPermissionsPartialData => serializer.serialize_i32(1),
+                Self::ResourceLimitExceededPartialData => serializer.serialize_i32(2),
+                Self::OrgLessProjectPartialData => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for WarningCode {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<WarningCode>::new(
+                ".google.cloud.kms.inventory.v1.Warning.WarningCode",
+            ))
+        }
+    }
+}
+
+/// Specifies the scope to use if the organization service agent is not
+/// configured.
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum FallbackScope {
+    /// Unspecified scope type.
+    Unspecified,
+    /// If set to `FALLBACK_SCOPE_PROJECT`, the API will fall back to using key's
+    /// project as request scope if the kms organization service account is not
+    /// configured.
+    Project,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [FallbackScope::value] or
+    /// [FallbackScope::name].
+    UnknownValue(fallback_scope::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod fallback_scope {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl FallbackScope {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Project => std::option::Option::Some(1),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("FALLBACK_SCOPE_UNSPECIFIED"),
+            Self::Project => std::option::Option::Some("FALLBACK_SCOPE_PROJECT"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
+    }
+}
+
+impl std::default::Default for FallbackScope {
+    fn default() -> Self {
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for FallbackScope {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for FallbackScope {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Project,
+            _ => Self::UnknownValue(fallback_scope::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for FallbackScope {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "FALLBACK_SCOPE_UNSPECIFIED" => Self::Unspecified,
+            "FALLBACK_SCOPE_PROJECT" => Self::Project,
+            _ => Self::UnknownValue(fallback_scope::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for FallbackScope {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Project => serializer.serialize_i32(1),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for FallbackScope {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<FallbackScope>::new(
+            ".google.cloud.kms.inventory.v1.FallbackScope",
+        ))
     }
 }

@@ -33,6 +33,7 @@ impl<'de> serde::de::Deserialize<'de> for super::AutoscalingPolicy {
             __worker_config,
             __secondary_worker_config,
             __labels,
+            __cluster_type,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -62,6 +63,8 @@ impl<'de> serde::de::Deserialize<'de> for super::AutoscalingPolicy {
                             "secondaryWorkerConfig" => Ok(__FieldTag::__secondary_worker_config),
                             "secondary_worker_config" => Ok(__FieldTag::__secondary_worker_config),
                             "labels" => Ok(__FieldTag::__labels),
+                            "clusterType" => Ok(__FieldTag::__cluster_type),
+                            "cluster_type" => Ok(__FieldTag::__cluster_type),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -159,6 +162,18 @@ impl<'de> serde::de::Deserialize<'de> for super::AutoscalingPolicy {
                                         std::string::String,
                                         std::string::String,
                                     >,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__cluster_type => {
+                            if !fields.insert(__FieldTag::__cluster_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for cluster_type",
+                                ));
+                            }
+                            result.cluster_type =
+                                map.next_value::<std::option::Option<
+                                    crate::model::autoscaling_policy::ClusterType,
                                 >>()?
                                 .unwrap_or_default();
                         }
@@ -2790,6 +2805,7 @@ impl<'de> serde::de::Deserialize<'de> for super::ClusterConfig {
         #[doc(hidden)]
         #[derive(PartialEq, Eq, Hash)]
         enum __FieldTag {
+            __cluster_type,
             __cluster_tier,
             __config_bucket,
             __temp_bucket,
@@ -2827,6 +2843,8 @@ impl<'de> serde::de::Deserialize<'de> for super::ClusterConfig {
                         use std::result::Result::Ok;
                         use std::string::ToString;
                         match value {
+                            "clusterType" => Ok(__FieldTag::__cluster_type),
+                            "cluster_type" => Ok(__FieldTag::__cluster_type),
                             "clusterTier" => Ok(__FieldTag::__cluster_tier),
                             "cluster_tier" => Ok(__FieldTag::__cluster_tier),
                             "configBucket" => Ok(__FieldTag::__config_bucket),
@@ -2886,6 +2904,14 @@ impl<'de> serde::de::Deserialize<'de> for super::ClusterConfig {
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
                     #[allow(clippy::match_single_binding)]
                     match tag {
+                        __FieldTag::__cluster_type => {
+                            if !fields.insert(__FieldTag::__cluster_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for cluster_type",
+                                ));
+                            }
+                            result.cluster_type = map.next_value::<std::option::Option<crate::model::cluster_config::ClusterType>>()?.unwrap_or_default();
+                        }
                         __FieldTag::__cluster_tier => {
                             if !fields.insert(__FieldTag::__cluster_tier) {
                                 return std::result::Result::Err(A::Error::duplicate_field(

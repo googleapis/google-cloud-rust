@@ -83,6 +83,24 @@ where
     }
 
     #[tracing::instrument(ret)]
+    async fn list_bucket_operations(
+        &self,
+        req: crate::model::ListBucketOperationsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListBucketOperationsResponse>> {
+        self.inner.list_bucket_operations(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get_bucket_operation(
+        &self,
+        req: crate::model::GetBucketOperationRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::BucketOperation>> {
+        self.inner.get_bucket_operation(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,

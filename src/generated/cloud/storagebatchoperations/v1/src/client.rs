@@ -239,6 +239,53 @@ impl StorageBatchOperations {
         super::builder::storage_batch_operations::CancelJob::new(self.inner.clone())
     }
 
+    /// Lists BucketOperations in a given project and job.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::client::StorageBatchOperations;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_storagebatchoperations_v1::Result;
+    /// async fn sample(
+    ///    client: &StorageBatchOperations, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_bucket_operations()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_bucket_operations(
+        &self,
+    ) -> super::builder::storage_batch_operations::ListBucketOperations {
+        super::builder::storage_batch_operations::ListBucketOperations::new(self.inner.clone())
+    }
+
+    /// Gets a BucketOperation.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::client::StorageBatchOperations;
+    /// use google_cloud_storagebatchoperations_v1::Result;
+    /// async fn sample(
+    ///    client: &StorageBatchOperations, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_bucket_operation()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_bucket_operation(
+        &self,
+    ) -> super::builder::storage_batch_operations::GetBucketOperation {
+        super::builder::storage_batch_operations::GetBucketOperation::new(self.inner.clone())
+    }
+
     /// Lists information about the supported locations for this service.
     ///
     /// # Example

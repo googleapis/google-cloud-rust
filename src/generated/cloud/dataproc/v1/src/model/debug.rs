@@ -25,6 +25,7 @@ impl std::fmt::Debug for super::AutoscalingPolicy {
         debug_struct.field("worker_config", &self.worker_config);
         debug_struct.field("secondary_worker_config", &self.secondary_worker_config);
         debug_struct.field("labels", &self.labels);
+        debug_struct.field("cluster_type", &self.cluster_type);
         debug_struct.field("algorithm", &self.algorithm);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -333,6 +334,7 @@ impl std::fmt::Debug for super::Cluster {
 impl std::fmt::Debug for super::ClusterConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ClusterConfig");
+        debug_struct.field("cluster_type", &self.cluster_type);
         debug_struct.field("cluster_tier", &self.cluster_tier);
         debug_struct.field("config_bucket", &self.config_bucket);
         debug_struct.field("temp_bucket", &self.temp_bucket);

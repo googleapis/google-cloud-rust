@@ -90,6 +90,28 @@ pub trait StorageBatchOperations: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::StorageBatchOperations::list_bucket_operations].
+    fn list_bucket_operations(
+        &self,
+        _req: crate::model::ListBucketOperationsRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::ListBucketOperationsResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::StorageBatchOperations::get_bucket_operation].
+    fn get_bucket_operation(
+        &self,
+        _req: crate::model::GetBucketOperationRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::BucketOperation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::StorageBatchOperations::list_locations].
     fn list_locations(
         &self,

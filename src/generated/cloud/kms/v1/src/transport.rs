@@ -1199,6 +1199,38 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
                 })();
                 Some(builder.map(|b| (b, Method::PATCH)))
             })
+            .or_else(|| {
+                let path = format!(
+                    "/v1/{}",
+                    try_match(
+                        Some(&req)
+                            .and_then(|m| m.autokey_config.as_ref())
+                            .map(|m| &m.name)
+                            .map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/autokeyConfig")
+                        ]
+                    )?,
+                );
+
+                let builder = self.inner.builder(Method::PATCH, path);
+                let builder = (|| {
+                    let builder = req
+                        .update_mask
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "updateMask")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, Method::PATCH)))
+            })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
@@ -1215,6 +1247,23 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
                         ],
                         "autokey_config.name",
                         "folders/*/autokeyConfig",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req)
+                            .and_then(|m| m.autokey_config.as_ref())
+                            .map(|m| &m.name)
+                            .map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/autokeyConfig"),
+                        ],
+                        "autokey_config.name",
+                        "projects/*/autokeyConfig",
                     );
                     paths.push(builder.build());
                 }
@@ -1260,6 +1309,23 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET)))
             })
+            .or_else(|| {
+                let path = format!(
+                    "/v1/{}",
+                    try_match(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/autokeyConfig")
+                        ]
+                    )?,
+                );
+
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET)))
+            })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
@@ -1273,6 +1339,20 @@ impl super::stub::AutokeyAdmin for AutokeyAdmin {
                         ],
                         "name",
                         "folders/*/autokeyConfig",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/autokeyConfig"),
+                        ],
+                        "name",
+                        "projects/*/autokeyConfig",
                     );
                     paths.push(builder.build());
                 }

@@ -13207,6 +13207,11 @@ impl std::fmt::Debug for super::generate_content_response::UsageMetadata {
         debug_struct.field("prompt_tokens_details", &self.prompt_tokens_details);
         debug_struct.field("cache_tokens_details", &self.cache_tokens_details);
         debug_struct.field("candidates_tokens_details", &self.candidates_tokens_details);
+        debug_struct.field(
+            "tool_use_prompt_tokens_details",
+            &self.tool_use_prompt_tokens_details,
+        );
+        debug_struct.field("traffic_type", &self.traffic_type);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
