@@ -262,12 +262,21 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test]
+    #[cfg_attr(
+        tokio_unstable,
+        tokio::test(
+            start_paused = true,
+            flavor = "current_thread",
+            unhandled_panic = "shutdown_runtime"
+        )
+    )]
+    #[cfg_attr(not(tokio_unstable), tokio::test(start_paused = true))]
     async fn send_overrides_ordering_retry_policy() {
         let mut mock = MockGapicPublisher::new();
         mock.expect_publish()
-            .withf(|r, o| r.topic == "topic" && r.messages.len() == 3 && o.retry_policy().is_some())
-            .return_once(|_, _| Ok(crate::Response::from(PublishResponse::new())));
+            .withf(|r, o| r.topic == "topic" && o.retry_policy().is_some())
+            .times(2)
+            .returning(|_, _| Ok(crate::Response::from(PublishResponse::new())));
         let client = GapicPublisher::from_stub(mock);
 
         let mut batch =
@@ -281,6 +290,7 @@ mod tests {
         let mut inflight = JoinSet::new();
         batch.flush(client.clone(), "topic".to_string(), &mut inflight);
         assert_eq!(batch.len(), 0);
+        inflight.join_all().await;
 
         let (message_b, _rx_b) = create_bundled_message_from_bytes(", ");
         batch.push(message_b);
@@ -293,14 +303,24 @@ mod tests {
         let mut inflight = JoinSet::new();
         batch.flush(client, "topic".to_string(), &mut inflight);
         assert_eq!(batch.len(), 0);
+        inflight.join_all().await;
     }
 
-    #[tokio::test]
+    #[cfg_attr(
+        tokio_unstable,
+        tokio::test(
+            start_paused = true,
+            flavor = "current_thread",
+            unhandled_panic = "shutdown_runtime"
+        )
+    )]
+    #[cfg_attr(not(tokio_unstable), tokio::test(start_paused = true))]
     async fn send_uses_default_retry() {
         let mut mock = MockGapicPublisher::new();
         mock.expect_publish()
-            .withf(|r, o| r.topic == "topic" && r.messages.len() == 3 && o.retry_policy().is_some())
-            .return_once(|_, _| Ok(crate::Response::from(PublishResponse::new())));
+            .withf(|r, o| r.topic == "topic" && o.retry_policy().is_none())
+            .times(2)
+            .returning(|_, _| Ok(crate::Response::from(PublishResponse::new())));
         let client = GapicPublisher::from_stub(mock);
 
         let mut batch = Batch::new("topic".len() as u32, BatchingOptions::default());
@@ -313,6 +333,7 @@ mod tests {
         let mut inflight = JoinSet::new();
         batch.flush(client.clone(), "topic".to_string(), &mut inflight);
         assert_eq!(batch.len(), 0);
+        inflight.join_all().await;
 
         let (message_b, _rx_b) = create_bundled_message_from_bytes(", ");
         batch.push(message_b);
@@ -325,6 +346,7 @@ mod tests {
         let mut inflight = JoinSet::new();
         batch.flush(client, "topic".to_string(), &mut inflight);
         assert_eq!(batch.len(), 0);
+        inflight.join_all().await;
     }
 
     fn create_bundled_message_from_bytes<T: Into<::bytes::Bytes>>(
