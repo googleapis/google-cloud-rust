@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use super::session::Session;
+use super::MessageStream;
 use super::transport::Transport;
 use std::sync::Arc;
 
@@ -47,26 +47,26 @@ impl StreamingPull {
         }
     }
 
-    /// Creates a new session to receive messages from the subscription.
+    /// Creates a new stream to receive messages from the subscription.
     ///
     /// Note that the underlying connection with the server is lazy-initialized.
-    /// It is not established until `Session::next()` is called.
+    /// It is not established until `MessageStream::next()` is called.
     ///
     /// # Example
     /// ```
     /// # use google_cloud_pubsub::client::Subscriber;
     /// # async fn sample(client: Subscriber) -> anyhow::Result<()> {
-    /// let mut session = client
+    /// let mut stream = client
     ///     .streaming_pull("projects/my-project/subscriptions/my-subscription")
     ///     .start();
-    /// while let Some((m, h)) = session.next().await.transpose()? {
+    /// while let Some((m, h)) = stream.next().await.transpose()? {
     ///     println!("Received message m={m:?}");
     ///     h.ack();
     /// }
     /// # Ok(()) }
     /// ```
-    pub fn start(self) -> Session {
-        Session::new(self)
+    pub fn start(self) -> MessageStream {
+        MessageStream::new(self)
     }
 
     /// Sets the ack deadline to use for the stream.
@@ -90,7 +90,7 @@ impl StreamingPull {
     /// # use google_cloud_pubsub::client::Subscriber;
     /// # async fn sample() -> anyhow::Result<()> {
     /// # let client = Subscriber::builder().build().await?;
-    /// let session = client.streaming_pull("projects/my-project/subscriptions/my-subscription")
+    /// let stream = client.streaming_pull("projects/my-project/subscriptions/my-subscription")
     ///     .set_ack_deadline_seconds(20)
     ///     .start();
     /// # Ok(()) }
@@ -117,7 +117,7 @@ impl StreamingPull {
     /// # use google_cloud_pubsub::client::Subscriber;
     /// # async fn sample() -> anyhow::Result<()> {
     /// # let client = Subscriber::builder().build().await?;
-    /// let session = client.streaming_pull("projects/my-project/subscriptions/my-subscription")
+    /// let stream = client.streaming_pull("projects/my-project/subscriptions/my-subscription")
     ///     .set_max_outstanding_messages(2000)
     ///     .start();
     /// # Ok(()) }
@@ -145,7 +145,7 @@ impl StreamingPull {
     /// # async fn sample() -> anyhow::Result<()> {
     /// # let client = Subscriber::builder().build().await?;
     /// const MIB: i64 = 1024 * 1024;
-    /// let session = client.streaming_pull("projects/my-project/subscriptions/my-subscription")
+    /// let stream = client.streaming_pull("projects/my-project/subscriptions/my-subscription")
     ///     .set_max_outstanding_bytes(200 * MIB)
     ///     .start();
     /// # Ok(()) }
