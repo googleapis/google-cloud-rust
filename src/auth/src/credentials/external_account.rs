@@ -114,7 +114,7 @@ use super::external_account_sources::url_sourced::UrlSourcedCredentials;
 use super::impersonated;
 use super::internal::sts_exchange::{ClientAuthentication, ExchangeTokenRequest, STSHandler};
 use super::{CacheableResource, Credentials};
-use crate::access_boundary::{AccessBoundary, external_account_lookup_url};
+use crate::access_boundary::{CredentialsWithAccessBoundary, external_account_lookup_url};
 use crate::build_errors::Error as BuilderError;
 use crate::constants::{DEFAULT_SCOPE, STS_TOKEN_URL};
 use crate::credentials::dynamic::AccessTokenCredentialsProvider;
@@ -360,20 +360,16 @@ impl ExternalAccountConfig {
     where
         T: dynamic::SubjectTokenProvider + 'static,
     {
-        let access_boundary_url = external_account_lookup_url(&config.audience);
         let token_provider = ExternalAccountTokenProvider {
             subject_token_provider,
             config,
         };
         let token_provider_with_retry = retry_builder.build(token_provider);
         let cache = TokenCache::new(token_provider_with_retry);
-        let access_boundary =
-            access_boundary_url.map(|url| Arc::new(AccessBoundary::new(cache.clone(), url)));
         AccessTokenCredentials {
             inner: Arc::new(ExternalAccountCredentials {
                 token_provider: cache,
                 quota_project_id,
-                access_boundary,
             }),
         }
     }
@@ -462,7 +458,6 @@ where
 {
     token_provider: T,
     quota_project_id: Option<String>,
-    access_boundary: Option<Arc<AccessBoundary>>,
 }
 
 /// A builder for external account [Credentials] instances.
@@ -638,6 +633,20 @@ impl Builder {
         self
     }
 
+    fn build_config(&self) -> BuildResult<ExternalAccountConfig> {
+        let mut file: ExternalAccountFile =
+            serde_json::from_value(self.external_account_config.clone())
+                .map_err(BuilderError::parsing)?;
+
+        if let Some(scopes) = self.scopes.clone() {
+            file.scopes = Some(scopes);
+        }
+
+        let config: ExternalAccountConfig = file.into();
+
+        Ok(config)
+    }
+
     /// Returns a [Credentials] instance with the configured settings.
     ///
     /// # Errors
@@ -652,7 +661,13 @@ impl Builder {
     ///
     /// [external_account_credentials]: https://google.aip.dev/auth/4117#configuration-file-generation-and-usage
     pub fn build(self) -> BuildResult<Credentials> {
-        Ok(self.build_access_token_credentials()?.into())
+        let config = self.build_config()?;
+        let access_boundary_url = external_account_lookup_url(&config.audience);
+        let creds = self.build_access_token_credentials()?;
+        match access_boundary_url {
+            Some(url) => Ok(CredentialsWithAccessBoundary::new(creds.into(), url).into()),
+            None => Ok(creds.into()),
+        }
     }
 
     /// Returns an [AccessTokenCredentials] instance with the configured settings.
@@ -669,15 +684,7 @@ impl Builder {
     ///
     /// [external_account_credentials]: https://google.aip.dev/auth/4117#configuration-file-generation-and-usage
     pub fn build_access_token_credentials(self) -> BuildResult<AccessTokenCredentials> {
-        let mut file: ExternalAccountFile =
-            serde_json::from_value(self.external_account_config).map_err(BuilderError::parsing)?;
-
-        if let Some(scopes) = self.scopes {
-            file.scopes = Some(scopes);
-        }
-
-        let config: ExternalAccountConfig = file.into();
-
+        let config = self.build_config()?;
         Ok(config.make_credentials(self.quota_project_id, self.retry_builder))
     }
 }
@@ -1285,14 +1292,9 @@ where
 {
     async fn headers(&self, extensions: Extensions) -> Result<CacheableResource<HeaderMap>> {
         let token = self.token_provider.token(extensions).await?;
-        let access_boundary = self
-            .access_boundary
-            .as_ref()
-            .and_then(|ab| ab.header_value());
 
         AuthHeadersBuilder::new(&token)
             .maybe_quota_project_id(self.quota_project_id.as_deref())
-            .maybe_access_boundary(access_boundary.as_deref())
             .build()
     }
 }
