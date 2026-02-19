@@ -281,7 +281,11 @@ mod tests {
         };
     }
 
-    #[tokio::test]
+    #[cfg_attr(
+        tokio_unstable,
+        tokio::test(flavor = "current_thread", unhandled_panic = "shutdown_runtime")
+    )]
+    #[cfg_attr(not(tokio_unstable), tokio::test)]
     async fn publisher_publish_successfully() -> anyhow::Result<()> {
         let mut mock = MockGapicPublisher::new();
         mock.expect_publish()
@@ -343,7 +347,15 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test(start_paused = true)]
+    #[cfg_attr(
+        tokio_unstable,
+        tokio::test(
+            start_paused = true,
+            flavor = "current_thread",
+            unhandled_panic = "shutdown_runtime"
+        )
+    )]
+    #[cfg_attr(not(tokio_unstable), tokio::test(start_paused = true))]
     async fn dropping_publisher_flushes_pending_messages() -> anyhow::Result<()> {
         // If we hold on to the handles returned from the publisher, it should
         // be safe to drop the publisher and .await on the handles.
@@ -383,7 +395,11 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test]
+    #[cfg_attr(
+        tokio_unstable,
+        tokio::test(flavor = "current_thread", unhandled_panic = "shutdown_runtime")
+    )]
+    #[cfg_attr(not(tokio_unstable), tokio::test)]
     async fn publisher_handles_publish_errors() -> anyhow::Result<()> {
         let mut mock = MockGapicPublisher::new();
         mock.expect_publish()
@@ -415,7 +431,15 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test(start_paused = true)]
+    #[cfg_attr(
+        tokio_unstable,
+        tokio::test(
+            start_paused = true,
+            flavor = "current_thread",
+            unhandled_panic = "shutdown_runtime"
+        )
+    )]
+    #[cfg_attr(not(tokio_unstable), tokio::test(start_paused = true))]
     async fn flush_sends_pending_messages_immediately() -> anyhow::Result<()> {
         let mut mock = MockGapicPublisher::new();
         mock.expect_publish()
@@ -516,7 +540,11 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test]
+    #[cfg_attr(
+        tokio_unstable,
+        tokio::test(flavor = "current_thread", unhandled_panic = "shutdown_runtime")
+    )]
+    #[cfg_attr(not(tokio_unstable), tokio::test)]
     async fn batch_sends_on_message_count_threshold_success() -> anyhow::Result<()> {
         // Make sure all messages in a batch receive the correct message ID.
         let mut mock = MockGapicPublisher::new();
@@ -550,7 +578,11 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test]
+    #[cfg_attr(
+        tokio_unstable,
+        tokio::test(flavor = "current_thread", unhandled_panic = "shutdown_runtime")
+    )]
+    #[cfg_attr(not(tokio_unstable), tokio::test)]
     async fn batch_sends_on_message_count_threshold_error() -> anyhow::Result<()> {
         // Make sure all messages in a batch receive an error.
         let mut mock = MockGapicPublisher::new();
@@ -583,7 +615,15 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test(start_paused = true)]
+    #[cfg_attr(
+        tokio_unstable,
+        tokio::test(
+            start_paused = true,
+            flavor = "current_thread",
+            unhandled_panic = "shutdown_runtime"
+        )
+    )]
+    #[cfg_attr(not(tokio_unstable), tokio::test(start_paused = true))]
     async fn batch_sends_on_byte_threshold() -> anyhow::Result<()> {
         // Make sure all messages in a batch receive the correct message ID.
         let mut mock = MockGapicPublisher::new();
@@ -616,7 +656,15 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test(start_paused = true)]
+    #[cfg_attr(
+        tokio_unstable,
+        tokio::test(
+            start_paused = true,
+            flavor = "current_thread",
+            unhandled_panic = "shutdown_runtime"
+        )
+    )]
+    #[cfg_attr(not(tokio_unstable), tokio::test(start_paused = true))]
     async fn batch_sends_on_delay_threshold() -> anyhow::Result<()> {
         let mut mock = MockGapicPublisher::new();
         mock.expect_publish()
@@ -713,7 +761,15 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test(start_paused = true)]
+    #[cfg_attr(
+        tokio_unstable,
+        tokio::test(
+            start_paused = true,
+            flavor = "current_thread",
+            unhandled_panic = "shutdown_runtime"
+        )
+    )]
+    #[cfg_attr(not(tokio_unstable), tokio::test(start_paused = true))]
     #[allow(clippy::get_first)]
     async fn batching_handles_empty_ordering_key() -> anyhow::Result<()> {
         // Publish messages with different ordering key and validate that they are in different batches.
@@ -758,7 +814,15 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test(start_paused = true)]
+    #[cfg_attr(
+        tokio_unstable,
+        tokio::test(
+            start_paused = true,
+            flavor = "current_thread",
+            unhandled_panic = "shutdown_runtime"
+        )
+    )]
+    #[cfg_attr(not(tokio_unstable), tokio::test(start_paused = true))]
     #[allow(clippy::get_first)]
     async fn ordering_key_limits_to_one_outstanding_batch() -> anyhow::Result<()> {
         // Verify that Publisher must only have 1 outstanding batch inflight at a time.
@@ -818,7 +882,15 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test(start_paused = true)]
+    #[cfg_attr(
+        tokio_unstable,
+        tokio::test(
+            start_paused = true,
+            flavor = "current_thread",
+            unhandled_panic = "shutdown_runtime"
+        )
+    )]
+    #[cfg_attr(not(tokio_unstable), tokio::test(start_paused = true))]
     #[allow(clippy::get_first)]
     async fn empty_ordering_key_allows_concurrent_batches() -> anyhow::Result<()> {
         // Verify that for empty ordering key, the Publisher will send multiple batches without
@@ -872,7 +944,15 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test(start_paused = true)]
+    #[cfg_attr(
+        tokio_unstable,
+        tokio::test(
+            start_paused = true,
+            flavor = "current_thread",
+            unhandled_panic = "shutdown_runtime"
+        )
+    )]
+    #[cfg_attr(not(tokio_unstable), tokio::test(start_paused = true))]
     async fn ordering_key_error_pauses_publisher() -> anyhow::Result<()> {
         // Verify that a Publish send error will pause the publisher for an ordering key.
         let mut seq = Sequence::new();
@@ -923,7 +1003,15 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test(start_paused = true)]
+    #[cfg_attr(
+        tokio_unstable,
+        tokio::test(
+            start_paused = true,
+            flavor = "current_thread",
+            unhandled_panic = "shutdown_runtime"
+        )
+    )]
+    #[cfg_attr(not(tokio_unstable), tokio::test(start_paused = true))]
     async fn batch_error_pauses_ordering_key() -> anyhow::Result<()> {
         // Verify that all messages in the same batch receives the Send error for that batch.
         let mut mock = MockGapicPublisher::new();
@@ -956,7 +1044,15 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test(start_paused = true)]
+    #[cfg_attr(
+        tokio_unstable,
+        tokio::test(
+            start_paused = true,
+            flavor = "current_thread",
+            unhandled_panic = "shutdown_runtime"
+        )
+    )]
+    #[cfg_attr(not(tokio_unstable), tokio::test(start_paused = true))]
     async fn flush_on_paused_ordering_key_returns_error() -> anyhow::Result<()> {
         // Verify that Flush on a paused ordering key returns an error.
         let mut seq = Sequence::new();
@@ -993,7 +1089,15 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test(start_paused = true)]
+    #[cfg_attr(
+        tokio_unstable,
+        tokio::test(
+            start_paused = true,
+            flavor = "current_thread",
+            unhandled_panic = "shutdown_runtime"
+        )
+    )]
+    #[cfg_attr(not(tokio_unstable), tokio::test(start_paused = true))]
     async fn resuming_non_paused_ordering_key_is_noop() -> anyhow::Result<()> {
         let mut mock = MockGapicPublisher::new();
         mock.expect_publish()
@@ -1024,7 +1128,15 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test(start_paused = true)]
+    #[cfg_attr(
+        tokio_unstable,
+        tokio::test(
+            start_paused = true,
+            flavor = "current_thread",
+            unhandled_panic = "shutdown_runtime"
+        )
+    )]
+    #[cfg_attr(not(tokio_unstable), tokio::test(start_paused = true))]
     async fn resuming_paused_ordering_key_allows_publishing() -> anyhow::Result<()> {
         let mut seq = Sequence::new();
         let mut mock = MockGapicPublisher::new();
@@ -1063,7 +1175,15 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test(start_paused = true)]
+    #[cfg_attr(
+        tokio_unstable,
+        tokio::test(
+            start_paused = true,
+            flavor = "current_thread",
+            unhandled_panic = "shutdown_runtime"
+        )
+    )]
+    #[cfg_attr(not(tokio_unstable), tokio::test(start_paused = true))]
     async fn resuming_ordering_key_twice_is_safe() -> anyhow::Result<()> {
         // Validate that resuming twice sequentially does not have bad side effects.
         let mut seq = Sequence::new();
@@ -1101,7 +1221,15 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test(start_paused = true)]
+    #[cfg_attr(
+        tokio_unstable,
+        tokio::test(
+            start_paused = true,
+            flavor = "current_thread",
+            unhandled_panic = "shutdown_runtime"
+        )
+    )]
+    #[cfg_attr(not(tokio_unstable), tokio::test(start_paused = true))]
     async fn resuming_one_ordering_key_does_not_resume_others() -> anyhow::Result<()> {
         // Validate that resume_publish only resumes the paused ordering key .
         let mut seq = Sequence::new();
