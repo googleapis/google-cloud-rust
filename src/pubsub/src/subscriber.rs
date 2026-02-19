@@ -16,8 +16,9 @@ pub mod handler;
 
 pub use message_stream::MessageStream;
 
+pub mod client;
+
 pub(super) mod builder;
-pub(super) mod client;
 pub(super) mod client_builder;
 mod keepalive;
 mod lease_loop;

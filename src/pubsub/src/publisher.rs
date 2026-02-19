@@ -29,4 +29,5 @@ pub use future::PublishFuture;
 /// Contains clients for publishing messages.
 pub mod client {
     pub use super::base_publisher::BasePublisher;
+    pub use super::implementation::Publisher;
 }
