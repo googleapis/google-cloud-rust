@@ -1172,7 +1172,7 @@ mod tests {
         mock.expect_publish()
             .times(1)
             .in_sequence(&mut seq)
-            .withf(|_, o| o.retry_policy().is_none ())
+            .withf(|_, o| o.retry_policy().is_none())
             .returning(|r, o| Box::pin(async { publish_ok(r, o) }));
 
         let (actor_tx, actor_rx) = tokio::sync::mpsc::unbounded_channel();
