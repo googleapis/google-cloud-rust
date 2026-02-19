@@ -16,7 +16,6 @@ use crate::observability::attributes::keys::*;
 use crate::observability::attributes::*;
 use crate::observability::errors::ErrorType;
 use google_cloud_gax::error::Error;
-use google_cloud_gax::response::Response;
 use opentelemetry_semantic_conventions::trace as otel_trace;
 use tracing::Span;
 
@@ -69,21 +68,6 @@ macro_rules! client_request_span {
             { HTTP_REQUEST_RESEND_COUNT } = ::tracing::field::Empty,
         )
     }};
-}
-
-/// Records the final status on the client request span.
-pub fn record_client_request_span<T>(result: &Result<Response<T>, Error>, span: &Span) {
-    match result {
-        Ok(_) => {
-            span.record(OTEL_STATUS_CODE, otel_status_codes::OK);
-        }
-        Err(err) => {
-            span.record(OTEL_STATUS_CODE, otel_status_codes::ERROR);
-            let error_type = ErrorType::from_gax_error(err);
-            span.record(otel_trace::ERROR_TYPE, error_type.as_str());
-            span.record(OTEL_STATUS_DESCRIPTION, err.to_string());
-        }
-    }
 }
 
 /// This trait simplifies the implementation of tracing.
@@ -169,48 +153,6 @@ mod tests {
         .collect();
 
         assert_eq!(got, want);
-    }
-
-    #[tokio::test]
-    async fn test_record_client_request_span_ok() {
-        let guard = TestLayer::initialize();
-        let span = client_request_span!("Service", "test_method", &INFO);
-        let _enter = span.enter();
-
-        let response = google_cloud_gax::response::Response::from(());
-        record_client_request_span(&Ok(response), &span);
-
-        let captured = TestLayer::capture(&guard);
-        let attributes = match &captured[..] {
-            [span] => &span.attributes,
-            _ => panic!("expected a single span to be captured: {captured:?}"),
-        };
-        assert_eq!(attributes.get(OTEL_STATUS_CODE), Some(&"OK".into()));
-    }
-
-    #[tokio::test]
-    async fn test_record_client_request_span_err() {
-        let guard = TestLayer::initialize();
-        let span = client_request_span!("Service", "test_method", &INFO);
-        let _enter = span.enter();
-
-        let error = google_cloud_gax::error::Error::timeout("test timeout");
-        record_client_request_span::<()>(&Err(error), &span);
-
-        let captured = TestLayer::capture(&guard);
-        let attributes = match &captured[..] {
-            [span] => &span.attributes,
-            _ => panic!("expected a single span to be captured: {captured:?}"),
-        };
-        assert_eq!(attributes.get(OTEL_STATUS_CODE), Some(&"ERROR".into()));
-        assert_eq!(
-            attributes.get(otel_trace::ERROR_TYPE),
-            Some(&"CLIENT_TIMEOUT".into())
-        );
-        assert_eq!(
-            attributes.get(OTEL_STATUS_DESCRIPTION),
-            Some(&"the request exceeded the request deadline test timeout".into())
-        );
     }
 
     #[test]

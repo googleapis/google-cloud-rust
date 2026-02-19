@@ -41,4 +41,4 @@ pub mod grpc_tracing;
 mod client_tracing;
 
 #[cfg(google_cloud_unstable_tracing)]
-pub use client_tracing::{ResultExt, record_client_request_span};
+pub use client_tracing::ResultExt;

@@ -21,8 +21,8 @@ mod tests {
     use google_cloud_gax::response::Response;
     use google_cloud_gax_internal::client_request_span;
     use google_cloud_gax_internal::http::{NoBody, ReqwestClient};
+    use google_cloud_gax_internal::observability::ResultExt;
     use google_cloud_gax_internal::observability::attributes::keys::*;
-    use google_cloud_gax_internal::observability::record_client_request_span;
     use google_cloud_gax_internal::options::{ClientConfig, InstrumentationClientInfo};
     use google_cloud_test_utils::test_layer::{AttributeValue, TestLayer};
     use http::{Method, StatusCode};
@@ -476,13 +476,12 @@ mod tests {
         let t3_span = client_request_span!("Service", "test_method", &TEST_INSTRUMENTATION_INFO);
 
         // 2. Execute the request within the T3 span
-        let result: Result<Response<TestResponse>> = client
+        let _result: Result<Response<TestResponse>> = client
             .execute(request, None::<NoBody>, options)
             .instrument(t3_span.clone())
-            .await;
-
-        // 3. Enrich the span based on the result
-        record_client_request_span(&result, &t3_span);
+            .await
+            // 3. Enrich the span based on the result
+            .record_in_span(&t3_span);
 
         let captured = TestLayer::capture(&guard);
 
