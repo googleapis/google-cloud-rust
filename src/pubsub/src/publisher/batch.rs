@@ -175,6 +175,7 @@ mod tests {
         let mut inflight = JoinSet::new();
         batch.flush(client, "topic".to_string(), &mut inflight);
         assert_eq!(batch.len(), 0);
+        inflight.join_all().await;
 
         Ok(())
     }
@@ -215,6 +216,7 @@ mod tests {
         let mut inflight = JoinSet::new();
         batch.flush(client, "topic".to_string(), &mut inflight);
         assert_eq!(batch.size(), "topic".len() as u32);
+        inflight.join_all().await;
 
         Ok(())
     }
