@@ -146,11 +146,44 @@ impl CertificateManager {
     }
 
     /// Lists Certificates in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::client::CertificateManager;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_certificatemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &CertificateManager, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_certificates()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_certificates(&self) -> super::builder::certificate_manager::ListCertificates {
         super::builder::certificate_manager::ListCertificates::new(self.inner.clone())
     }
 
     /// Gets details of a single Certificate.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::client::CertificateManager;
+    /// use google_cloud_certificatemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &CertificateManager, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_certificate()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_certificate(&self) -> super::builder::certificate_manager::GetCertificate {
         super::builder::certificate_manager::GetCertificate::new(self.inner.clone())
     }
@@ -166,6 +199,26 @@ impl CertificateManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::client::CertificateManager;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_certificatemanager_v1::model::Certificate;
+    /// use google_cloud_certificatemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &CertificateManager, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_certificate()
+    ///         .set_parent(parent).set_certificate_id("certificate_id_value")
+    ///         .set_certificate(
+    ///             Certificate::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_certificate(&self) -> super::builder::certificate_manager::CreateCertificate {
         super::builder::certificate_manager::CreateCertificate::new(self.inner.clone())
     }
@@ -181,6 +234,28 @@ impl CertificateManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::client::CertificateManager;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_certificatemanager_v1::model::Certificate;
+    /// use google_cloud_certificatemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &CertificateManager, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_certificate()
+    ///         .set_certificate(
+    ///             Certificate::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_certificate(&self) -> super::builder::certificate_manager::UpdateCertificate {
         super::builder::certificate_manager::UpdateCertificate::new(self.inner.clone())
     }
@@ -196,11 +271,44 @@ impl CertificateManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::client::CertificateManager;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_certificatemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &CertificateManager, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_certificate()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_certificate(&self) -> super::builder::certificate_manager::DeleteCertificate {
         super::builder::certificate_manager::DeleteCertificate::new(self.inner.clone())
     }
 
     /// Lists CertificateMaps in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::client::CertificateManager;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_certificatemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &CertificateManager, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_certificate_maps()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_certificate_maps(
         &self,
     ) -> super::builder::certificate_manager::ListCertificateMaps {
@@ -208,6 +316,21 @@ impl CertificateManager {
     }
 
     /// Gets details of a single CertificateMap.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::client::CertificateManager;
+    /// use google_cloud_certificatemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &CertificateManager, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_certificate_map()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_certificate_map(&self) -> super::builder::certificate_manager::GetCertificateMap {
         super::builder::certificate_manager::GetCertificateMap::new(self.inner.clone())
     }
@@ -223,6 +346,26 @@ impl CertificateManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::client::CertificateManager;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_certificatemanager_v1::model::CertificateMap;
+    /// use google_cloud_certificatemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &CertificateManager, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_certificate_map()
+    ///         .set_parent(parent)
+    ///         .set_certificate_map(
+    ///             CertificateMap::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_certificate_map(
         &self,
     ) -> super::builder::certificate_manager::CreateCertificateMap {
@@ -240,6 +383,28 @@ impl CertificateManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::client::CertificateManager;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_certificatemanager_v1::model::CertificateMap;
+    /// use google_cloud_certificatemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &CertificateManager, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_certificate_map()
+    ///         .set_certificate_map(
+    ///             CertificateMap::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_certificate_map(
         &self,
     ) -> super::builder::certificate_manager::UpdateCertificateMap {
@@ -259,6 +424,21 @@ impl CertificateManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::client::CertificateManager;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_certificatemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &CertificateManager, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_certificate_map()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_certificate_map(
         &self,
     ) -> super::builder::certificate_manager::DeleteCertificateMap {
@@ -266,6 +446,24 @@ impl CertificateManager {
     }
 
     /// Lists CertificateMapEntries in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::client::CertificateManager;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_certificatemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &CertificateManager, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_certificate_map_entries()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_certificate_map_entries(
         &self,
     ) -> super::builder::certificate_manager::ListCertificateMapEntries {
@@ -273,6 +471,21 @@ impl CertificateManager {
     }
 
     /// Gets details of a single CertificateMapEntry.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::client::CertificateManager;
+    /// use google_cloud_certificatemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &CertificateManager, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_certificate_map_entry()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_certificate_map_entry(
         &self,
     ) -> super::builder::certificate_manager::GetCertificateMapEntry {
@@ -290,6 +503,26 @@ impl CertificateManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::client::CertificateManager;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_certificatemanager_v1::model::CertificateMapEntry;
+    /// use google_cloud_certificatemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &CertificateManager, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_certificate_map_entry()
+    ///         .set_parent(parent)
+    ///         .set_certificate_map_entry(
+    ///             CertificateMapEntry::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_certificate_map_entry(
         &self,
     ) -> super::builder::certificate_manager::CreateCertificateMapEntry {
@@ -307,6 +540,28 @@ impl CertificateManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::client::CertificateManager;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_certificatemanager_v1::model::CertificateMapEntry;
+    /// use google_cloud_certificatemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &CertificateManager, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_certificate_map_entry()
+    ///         .set_certificate_map_entry(
+    ///             CertificateMapEntry::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_certificate_map_entry(
         &self,
     ) -> super::builder::certificate_manager::UpdateCertificateMapEntry {
@@ -324,6 +579,21 @@ impl CertificateManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::client::CertificateManager;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_certificatemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &CertificateManager, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_certificate_map_entry()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_certificate_map_entry(
         &self,
     ) -> super::builder::certificate_manager::DeleteCertificateMapEntry {
@@ -331,6 +601,24 @@ impl CertificateManager {
     }
 
     /// Lists DnsAuthorizations in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::client::CertificateManager;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_certificatemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &CertificateManager, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_dns_authorizations()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_dns_authorizations(
         &self,
     ) -> super::builder::certificate_manager::ListDnsAuthorizations {
@@ -338,6 +626,21 @@ impl CertificateManager {
     }
 
     /// Gets details of a single DnsAuthorization.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::client::CertificateManager;
+    /// use google_cloud_certificatemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &CertificateManager, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_dns_authorization()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_dns_authorization(
         &self,
     ) -> super::builder::certificate_manager::GetDnsAuthorization {
@@ -355,6 +658,26 @@ impl CertificateManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::client::CertificateManager;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_certificatemanager_v1::model::DnsAuthorization;
+    /// use google_cloud_certificatemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &CertificateManager, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_dns_authorization()
+    ///         .set_parent(parent)
+    ///         .set_dns_authorization(
+    ///             DnsAuthorization::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_dns_authorization(
         &self,
     ) -> super::builder::certificate_manager::CreateDnsAuthorization {
@@ -372,6 +695,28 @@ impl CertificateManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::client::CertificateManager;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_certificatemanager_v1::model::DnsAuthorization;
+    /// use google_cloud_certificatemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &CertificateManager, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_dns_authorization()
+    ///         .set_dns_authorization(
+    ///             DnsAuthorization::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_dns_authorization(
         &self,
     ) -> super::builder::certificate_manager::UpdateDnsAuthorization {
@@ -389,6 +734,21 @@ impl CertificateManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::client::CertificateManager;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_certificatemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &CertificateManager, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_dns_authorization()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_dns_authorization(
         &self,
     ) -> super::builder::certificate_manager::DeleteDnsAuthorization {
@@ -396,6 +756,24 @@ impl CertificateManager {
     }
 
     /// Lists CertificateIssuanceConfigs in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::client::CertificateManager;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_certificatemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &CertificateManager, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_certificate_issuance_configs()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_certificate_issuance_configs(
         &self,
     ) -> super::builder::certificate_manager::ListCertificateIssuanceConfigs {
@@ -403,6 +781,21 @@ impl CertificateManager {
     }
 
     /// Gets details of a single CertificateIssuanceConfig.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::client::CertificateManager;
+    /// use google_cloud_certificatemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &CertificateManager, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_certificate_issuance_config()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_certificate_issuance_config(
         &self,
     ) -> super::builder::certificate_manager::GetCertificateIssuanceConfig {
@@ -420,6 +813,26 @@ impl CertificateManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::client::CertificateManager;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_certificatemanager_v1::model::CertificateIssuanceConfig;
+    /// use google_cloud_certificatemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &CertificateManager, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_certificate_issuance_config()
+    ///         .set_parent(parent)
+    ///         .set_certificate_issuance_config(
+    ///             CertificateIssuanceConfig::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_certificate_issuance_config(
         &self,
     ) -> super::builder::certificate_manager::CreateCertificateIssuanceConfig {
@@ -439,6 +852,21 @@ impl CertificateManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::client::CertificateManager;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_certificatemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &CertificateManager, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_certificate_issuance_config()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_certificate_issuance_config(
         &self,
     ) -> super::builder::certificate_manager::DeleteCertificateIssuanceConfig {
@@ -448,11 +876,44 @@ impl CertificateManager {
     }
 
     /// Lists TrustConfigs in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::client::CertificateManager;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_certificatemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &CertificateManager, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_trust_configs()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_trust_configs(&self) -> super::builder::certificate_manager::ListTrustConfigs {
         super::builder::certificate_manager::ListTrustConfigs::new(self.inner.clone())
     }
 
     /// Gets details of a single TrustConfig.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::client::CertificateManager;
+    /// use google_cloud_certificatemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &CertificateManager, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_trust_config()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_trust_config(&self) -> super::builder::certificate_manager::GetTrustConfig {
         super::builder::certificate_manager::GetTrustConfig::new(self.inner.clone())
     }
@@ -468,6 +929,26 @@ impl CertificateManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::client::CertificateManager;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_certificatemanager_v1::model::TrustConfig;
+    /// use google_cloud_certificatemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &CertificateManager, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_trust_config()
+    ///         .set_parent(parent)
+    ///         .set_trust_config(
+    ///             TrustConfig::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_trust_config(&self) -> super::builder::certificate_manager::CreateTrustConfig {
         super::builder::certificate_manager::CreateTrustConfig::new(self.inner.clone())
     }
@@ -483,6 +964,28 @@ impl CertificateManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::client::CertificateManager;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_certificatemanager_v1::model::TrustConfig;
+    /// use google_cloud_certificatemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &CertificateManager, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_trust_config()
+    ///         .set_trust_config(
+    ///             TrustConfig::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_trust_config(&self) -> super::builder::certificate_manager::UpdateTrustConfig {
         super::builder::certificate_manager::UpdateTrustConfig::new(self.inner.clone())
     }
@@ -498,16 +1001,64 @@ impl CertificateManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::client::CertificateManager;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_certificatemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &CertificateManager, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_trust_config()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_trust_config(&self) -> super::builder::certificate_manager::DeleteTrustConfig {
         super::builder::certificate_manager::DeleteTrustConfig::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::client::CertificateManager;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_certificatemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &CertificateManager
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::certificate_manager::ListLocations {
         super::builder::certificate_manager::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::client::CertificateManager;
+    /// use google_cloud_certificatemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &CertificateManager
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::certificate_manager::GetLocation {
         super::builder::certificate_manager::GetLocation::new(self.inner.clone())
     }
@@ -515,6 +1066,24 @@ impl CertificateManager {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::client::CertificateManager;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_certificatemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &CertificateManager
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::certificate_manager::ListOperations {
         super::builder::certificate_manager::ListOperations::new(self.inner.clone())
     }
@@ -522,6 +1091,21 @@ impl CertificateManager {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::client::CertificateManager;
+    /// use google_cloud_certificatemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &CertificateManager
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::certificate_manager::GetOperation {
         super::builder::certificate_manager::GetOperation::new(self.inner.clone())
     }
@@ -529,6 +1113,20 @@ impl CertificateManager {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::client::CertificateManager;
+    /// use google_cloud_certificatemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &CertificateManager
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::certificate_manager::DeleteOperation {
         super::builder::certificate_manager::DeleteOperation::new(self.inner.clone())
     }
@@ -536,6 +1134,20 @@ impl CertificateManager {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_certificatemanager_v1::client::CertificateManager;
+    /// use google_cloud_certificatemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &CertificateManager
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::certificate_manager::CancelOperation {
         super::builder::certificate_manager::CancelOperation::new(self.inner.clone())
     }

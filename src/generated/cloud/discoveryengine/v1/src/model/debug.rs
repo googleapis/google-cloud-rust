@@ -2010,6 +2010,10 @@ impl std::fmt::Debug for super::DataStore {
             "advanced_site_search_config",
             &self.advanced_site_search_config,
         );
+        debug_struct.field(
+            "natural_language_query_understanding_config",
+            &self.natural_language_query_understanding_config,
+        );
         debug_struct.field("kms_key_name", &self.kms_key_name);
         debug_struct.field("cmek_config", &self.cmek_config);
         debug_struct.field("billing_estimation", &self.billing_estimation);
@@ -2058,6 +2062,18 @@ impl std::fmt::Debug for super::AdvancedSiteSearchConfig {
         let mut debug_struct = f.debug_struct("AdvancedSiteSearchConfig");
         debug_struct.field("disable_initial_index", &self.disable_initial_index);
         debug_struct.field("disable_automatic_refresh", &self.disable_automatic_refresh);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "data-store-service")]
+impl std::fmt::Debug for super::NaturalLanguageQueryUnderstandingConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("NaturalLanguageQueryUnderstandingConfig");
+        debug_struct.field("mode", &self.mode);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4385,6 +4401,7 @@ impl std::fmt::Debug for super::SearchRequest {
         debug_struct.field("serving_config", &self.serving_config);
         debug_struct.field("branch", &self.branch);
         debug_struct.field("query", &self.query);
+        debug_struct.field("page_categories", &self.page_categories);
         debug_struct.field("image_query", &self.image_query);
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
@@ -4403,19 +4420,24 @@ impl std::fmt::Debug for super::SearchRequest {
         debug_struct.field("spell_correction_spec", &self.spell_correction_spec);
         debug_struct.field("user_pseudo_id", &self.user_pseudo_id);
         debug_struct.field("content_search_spec", &self.content_search_spec);
-        debug_struct.field("safe_search", &self.safe_search);
-        debug_struct.field("user_labels", &self.user_labels);
-        debug_struct.field("search_as_you_type_spec", &self.search_as_you_type_spec);
-        debug_struct.field("display_spec", &self.display_spec);
-        debug_struct.field("session", &self.session);
-        debug_struct.field("session_spec", &self.session_spec);
-        debug_struct.field("relevance_threshold", &self.relevance_threshold);
-        debug_struct.field("relevance_score_spec", &self.relevance_score_spec);
         debug_struct.field("ranking_expression", &self.ranking_expression);
         debug_struct.field(
             "ranking_expression_backend",
             &self.ranking_expression_backend,
         );
+        debug_struct.field("safe_search", &self.safe_search);
+        debug_struct.field("user_labels", &self.user_labels);
+        debug_struct.field(
+            "natural_language_query_understanding_spec",
+            &self.natural_language_query_understanding_spec,
+        );
+        debug_struct.field("search_as_you_type_spec", &self.search_as_you_type_spec);
+        debug_struct.field("display_spec", &self.display_spec);
+        debug_struct.field("crowding_specs", &self.crowding_specs);
+        debug_struct.field("session", &self.session);
+        debug_struct.field("session_spec", &self.session_spec);
+        debug_struct.field("relevance_threshold", &self.relevance_threshold);
+        debug_struct.field("relevance_score_spec", &self.relevance_score_spec);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4777,6 +4799,32 @@ impl std::fmt::Debug for super::search_request::content_search_spec::ChunkSpec {
     feature = "search-service",
     feature = "serving-config-service",
 ))]
+impl std::fmt::Debug for super::search_request::NaturalLanguageQueryUnderstandingSpec {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("NaturalLanguageQueryUnderstandingSpec");
+        debug_struct.field(
+            "filter_extraction_condition",
+            &self.filter_extraction_condition,
+        );
+        debug_struct.field(
+            "geo_search_query_detection_field_names",
+            &self.geo_search_query_detection_field_names,
+        );
+        debug_struct.field("extracted_filter_behavior", &self.extracted_filter_behavior);
+        debug_struct.field("allowed_field_names", &self.allowed_field_names);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "assistant-service",
+    feature = "conversational-search-service",
+    feature = "search-service",
+    feature = "serving-config-service",
+))]
 impl std::fmt::Debug for super::search_request::SearchAsYouTypeSpec {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SearchAsYouTypeSpec");
@@ -4801,6 +4849,25 @@ impl std::fmt::Debug for super::search_request::DisplaySpec {
             "match_highlighting_condition",
             &self.match_highlighting_condition,
         );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "assistant-service",
+    feature = "conversational-search-service",
+    feature = "search-service",
+    feature = "serving-config-service",
+))]
+impl std::fmt::Debug for super::search_request::CrowdingSpec {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CrowdingSpec");
+        debug_struct.field("field", &self.field);
+        debug_struct.field("max_count", &self.max_count);
+        debug_struct.field("mode", &self.mode);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4859,8 +4926,13 @@ impl std::fmt::Debug for super::SearchResponse {
         debug_struct.field("corrected_query", &self.corrected_query);
         debug_struct.field("summary", &self.summary);
         debug_struct.field("query_expansion_info", &self.query_expansion_info);
+        debug_struct.field(
+            "natural_language_query_understanding_info",
+            &self.natural_language_query_understanding_info,
+        );
         debug_struct.field("session_info", &self.session_info);
         debug_struct.field("search_link_promotions", &self.search_link_promotions);
+        debug_struct.field("semantic_state", &self.semantic_state);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5058,6 +5130,119 @@ impl std::fmt::Debug for super::search_response::QueryExpansionInfo {
         let mut debug_struct = f.debug_struct("QueryExpansionInfo");
         debug_struct.field("expanded_query", &self.expanded_query);
         debug_struct.field("pinned_result_count", &self.pinned_result_count);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+impl std::fmt::Debug for super::search_response::NaturalLanguageQueryUnderstandingInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("NaturalLanguageQueryUnderstandingInfo");
+        debug_struct.field("extracted_filters", &self.extracted_filters);
+        debug_struct.field("rewritten_query", &self.rewritten_query);
+        debug_struct.field("classified_intents", &self.classified_intents);
+        debug_struct.field(
+            "structured_extracted_filter",
+            &self.structured_extracted_filter,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+impl std::fmt::Debug
+    for super::search_response::natural_language_query_understanding_info::StructuredExtractedFilter
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StructuredExtractedFilter");
+        debug_struct.field("expression", &self.expression);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+impl std::fmt::Debug for super::search_response::natural_language_query_understanding_info::structured_extracted_filter::StringConstraint {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StringConstraint");
+        debug_struct.field("field_name", &self.field_name);
+        debug_struct.field("values", &self.values);
+        debug_struct.field("query_segment", &self.query_segment);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+impl std::fmt::Debug for super::search_response::natural_language_query_understanding_info::structured_extracted_filter::NumberConstraint {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("NumberConstraint");
+        debug_struct.field("field_name", &self.field_name);
+        debug_struct.field("comparison", &self.comparison);
+        debug_struct.field("value", &self.value);
+        debug_struct.field("query_segment", &self.query_segment);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+impl std::fmt::Debug for super::search_response::natural_language_query_understanding_info::structured_extracted_filter::GeolocationConstraint {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GeolocationConstraint");
+        debug_struct.field("field_name", &self.field_name);
+        debug_struct.field("address", &self.address);
+        debug_struct.field("latitude", &self.latitude);
+        debug_struct.field("longitude", &self.longitude);
+        debug_struct.field("radius_in_meters", &self.radius_in_meters);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+impl std::fmt::Debug for super::search_response::natural_language_query_understanding_info::structured_extracted_filter::AndExpression {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AndExpression");
+        debug_struct.field("expressions", &self.expressions);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+impl std::fmt::Debug for super::search_response::natural_language_query_understanding_info::structured_extracted_filter::OrExpression {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OrExpression");
+        debug_struct.field("expressions", &self.expressions);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+impl std::fmt::Debug for super::search_response::natural_language_query_understanding_info::structured_extracted_filter::Expression {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Expression");
+        debug_struct.field("expr", &self.expr);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

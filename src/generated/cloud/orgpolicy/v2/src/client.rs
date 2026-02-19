@@ -138,11 +138,47 @@ impl OrgPolicy {
     }
 
     /// Lists constraints that could be applied on the specified resource.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orgpolicy_v2::client::OrgPolicy;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_orgpolicy_v2::Result;
+    /// async fn sample(
+    ///    client: &OrgPolicy, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_constraints()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_constraints(&self) -> super::builder::org_policy::ListConstraints {
         super::builder::org_policy::ListConstraints::new(self.inner.clone())
     }
 
     /// Retrieves all of the policies that exist on a particular resource.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orgpolicy_v2::client::OrgPolicy;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_orgpolicy_v2::Result;
+    /// async fn sample(
+    ///    client: &OrgPolicy, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_policies()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_policies(&self) -> super::builder::org_policy::ListPolicies {
         super::builder::org_policy::ListPolicies::new(self.inner.clone())
     }
@@ -152,6 +188,21 @@ impl OrgPolicy {
     /// If no policy is set on the resource, `NOT_FOUND` is returned. The
     /// `etag` value can be used with `UpdatePolicy()` to update a
     /// policy during read-modify-write.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orgpolicy_v2::client::OrgPolicy;
+    /// use google_cloud_orgpolicy_v2::Result;
+    /// async fn sample(
+    ///    client: &OrgPolicy, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_policy()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_policy(&self) -> super::builder::org_policy::GetPolicy {
         super::builder::org_policy::GetPolicy::new(self.inner.clone())
     }
@@ -162,6 +213,21 @@ impl OrgPolicy {
     /// an evaluated policy across multiple resources.
     /// Subtrees of Resource Manager resource hierarchy with 'under:' prefix will
     /// not be expanded.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orgpolicy_v2::client::OrgPolicy;
+    /// use google_cloud_orgpolicy_v2::Result;
+    /// async fn sample(
+    ///    client: &OrgPolicy, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_effective_policy()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_effective_policy(&self) -> super::builder::org_policy::GetEffectivePolicy {
         super::builder::org_policy::GetEffectivePolicy::new(self.inner.clone())
     }
@@ -172,6 +238,25 @@ impl OrgPolicy {
     /// constraint does not exist.
     /// Returns a `google.rpc.Status` with `google.rpc.Code.ALREADY_EXISTS` if the
     /// policy already exists on the given Google Cloud resource.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orgpolicy_v2::client::OrgPolicy;
+    /// use google_cloud_orgpolicy_v2::model::Policy;
+    /// use google_cloud_orgpolicy_v2::Result;
+    /// async fn sample(
+    ///    client: &OrgPolicy, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_policy()
+    ///         .set_parent(parent)
+    ///         .set_policy(
+    ///             Policy::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_policy(&self) -> super::builder::org_policy::CreatePolicy {
         super::builder::org_policy::CreatePolicy::new(self.inner.clone())
     }
@@ -185,6 +270,27 @@ impl OrgPolicy {
     ///
     /// Note: the supplied policy will perform a full overwrite of all
     /// fields.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orgpolicy_v2::client::OrgPolicy;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_orgpolicy_v2::model::Policy;
+    /// use google_cloud_orgpolicy_v2::Result;
+    /// async fn sample(
+    ///    client: &OrgPolicy, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_policy()
+    ///         .set_policy(
+    ///             Policy::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_policy(&self) -> super::builder::org_policy::UpdatePolicy {
         super::builder::org_policy::UpdatePolicy::new(self.inner.clone())
     }
@@ -193,6 +299,20 @@ impl OrgPolicy {
     ///
     /// Returns a `google.rpc.Status` with `google.rpc.Code.NOT_FOUND` if the
     /// constraint or organization policy does not exist.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orgpolicy_v2::client::OrgPolicy;
+    /// use google_cloud_orgpolicy_v2::Result;
+    /// async fn sample(
+    ///    client: &OrgPolicy, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_policy()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_policy(&self) -> super::builder::org_policy::DeletePolicy {
         super::builder::org_policy::DeletePolicy::new(self.inner.clone())
     }
@@ -203,6 +323,25 @@ impl OrgPolicy {
     /// organization does not exist.
     /// Returns a `google.rpc.Status` with `google.rpc.Code.ALREADY_EXISTS` if the
     /// constraint already exists on the given organization.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orgpolicy_v2::client::OrgPolicy;
+    /// use google_cloud_orgpolicy_v2::model::CustomConstraint;
+    /// use google_cloud_orgpolicy_v2::Result;
+    /// async fn sample(
+    ///    client: &OrgPolicy, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_custom_constraint()
+    ///         .set_parent(parent)
+    ///         .set_custom_constraint(
+    ///             CustomConstraint::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_custom_constraint(&self) -> super::builder::org_policy::CreateCustomConstraint {
         super::builder::org_policy::CreateCustomConstraint::new(self.inner.clone())
     }
@@ -214,6 +353,24 @@ impl OrgPolicy {
     ///
     /// Note: the supplied policy will perform a full overwrite of all
     /// fields.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orgpolicy_v2::client::OrgPolicy;
+    /// use google_cloud_orgpolicy_v2::model::CustomConstraint;
+    /// use google_cloud_orgpolicy_v2::Result;
+    /// async fn sample(
+    ///    client: &OrgPolicy, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_custom_constraint()
+    ///         .set_custom_constraint(
+    ///             CustomConstraint::new().set_name(name)/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_custom_constraint(&self) -> super::builder::org_policy::UpdateCustomConstraint {
         super::builder::org_policy::UpdateCustomConstraint::new(self.inner.clone())
     }
@@ -222,12 +379,45 @@ impl OrgPolicy {
     ///
     /// Returns a `google.rpc.Status` with `google.rpc.Code.NOT_FOUND` if the
     /// custom or managed constraint does not exist.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orgpolicy_v2::client::OrgPolicy;
+    /// use google_cloud_orgpolicy_v2::Result;
+    /// async fn sample(
+    ///    client: &OrgPolicy, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_custom_constraint()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_custom_constraint(&self) -> super::builder::org_policy::GetCustomConstraint {
         super::builder::org_policy::GetCustomConstraint::new(self.inner.clone())
     }
 
     /// Retrieves all of the custom constraints that exist on a particular
     /// organization resource.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orgpolicy_v2::client::OrgPolicy;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_orgpolicy_v2::Result;
+    /// async fn sample(
+    ///    client: &OrgPolicy, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_custom_constraints()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_custom_constraints(&self) -> super::builder::org_policy::ListCustomConstraints {
         super::builder::org_policy::ListCustomConstraints::new(self.inner.clone())
     }
@@ -236,6 +426,20 @@ impl OrgPolicy {
     ///
     /// Returns a `google.rpc.Status` with `google.rpc.Code.NOT_FOUND` if the
     /// constraint does not exist.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_orgpolicy_v2::client::OrgPolicy;
+    /// use google_cloud_orgpolicy_v2::Result;
+    /// async fn sample(
+    ///    client: &OrgPolicy, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_custom_constraint()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_custom_constraint(&self) -> super::builder::org_policy::DeleteCustomConstraint {
         super::builder::org_policy::DeleteCustomConstraint::new(self.inner.clone())
     }

@@ -125,41 +125,173 @@ impl TranscoderService {
     }
 
     /// Creates a job in the specified region.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::client::TranscoderService;
+    /// use google_cloud_video_transcoder_v1::model::Job;
+    /// use google_cloud_video_transcoder_v1::Result;
+    /// async fn sample(
+    ///    client: &TranscoderService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_job()
+    ///         .set_parent(parent)
+    ///         .set_job(
+    ///             Job::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_job(&self) -> super::builder::transcoder_service::CreateJob {
         super::builder::transcoder_service::CreateJob::new(self.inner.clone())
     }
 
     /// Lists jobs in the specified region.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::client::TranscoderService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_video_transcoder_v1::Result;
+    /// async fn sample(
+    ///    client: &TranscoderService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_jobs()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_jobs(&self) -> super::builder::transcoder_service::ListJobs {
         super::builder::transcoder_service::ListJobs::new(self.inner.clone())
     }
 
     /// Returns the job data.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::client::TranscoderService;
+    /// use google_cloud_video_transcoder_v1::Result;
+    /// async fn sample(
+    ///    client: &TranscoderService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_job()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_job(&self) -> super::builder::transcoder_service::GetJob {
         super::builder::transcoder_service::GetJob::new(self.inner.clone())
     }
 
     /// Deletes a job.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::client::TranscoderService;
+    /// use google_cloud_video_transcoder_v1::Result;
+    /// async fn sample(
+    ///    client: &TranscoderService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_job()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_job(&self) -> super::builder::transcoder_service::DeleteJob {
         super::builder::transcoder_service::DeleteJob::new(self.inner.clone())
     }
 
     /// Creates a job template in the specified region.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::client::TranscoderService;
+    /// use google_cloud_video_transcoder_v1::model::JobTemplate;
+    /// use google_cloud_video_transcoder_v1::Result;
+    /// async fn sample(
+    ///    client: &TranscoderService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_job_template()
+    ///         .set_parent(parent)
+    ///         .set_job_template(
+    ///             JobTemplate::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_job_template(&self) -> super::builder::transcoder_service::CreateJobTemplate {
         super::builder::transcoder_service::CreateJobTemplate::new(self.inner.clone())
     }
 
     /// Lists job templates in the specified region.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::client::TranscoderService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_video_transcoder_v1::Result;
+    /// async fn sample(
+    ///    client: &TranscoderService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_job_templates()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_job_templates(&self) -> super::builder::transcoder_service::ListJobTemplates {
         super::builder::transcoder_service::ListJobTemplates::new(self.inner.clone())
     }
 
     /// Returns the job template data.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::client::TranscoderService;
+    /// use google_cloud_video_transcoder_v1::Result;
+    /// async fn sample(
+    ///    client: &TranscoderService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_job_template()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_job_template(&self) -> super::builder::transcoder_service::GetJobTemplate {
         super::builder::transcoder_service::GetJobTemplate::new(self.inner.clone())
     }
 
     /// Deletes a job template.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_transcoder_v1::client::TranscoderService;
+    /// use google_cloud_video_transcoder_v1::Result;
+    /// async fn sample(
+    ///    client: &TranscoderService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_job_template()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_job_template(&self) -> super::builder::transcoder_service::DeleteJobTemplate {
         super::builder::transcoder_service::DeleteJobTemplate::new(self.inner.clone())
     }

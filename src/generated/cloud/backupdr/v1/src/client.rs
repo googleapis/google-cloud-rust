@@ -119,11 +119,44 @@ impl BackupDR {
     }
 
     /// Lists ManagementServers in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_backupdr_v1::Result;
+    /// async fn sample(
+    ///    client: &BackupDR, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_management_servers()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_management_servers(&self) -> super::builder::backup_dr::ListManagementServers {
         super::builder::backup_dr::ListManagementServers::new(self.inner.clone())
     }
 
     /// Gets details of a single ManagementServer.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// use google_cloud_backupdr_v1::Result;
+    /// async fn sample(
+    ///    client: &BackupDR, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_management_server()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_management_server(&self) -> super::builder::backup_dr::GetManagementServer {
         super::builder::backup_dr::GetManagementServer::new(self.inner.clone())
     }
@@ -139,6 +172,26 @@ impl BackupDR {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_backupdr_v1::model::ManagementServer;
+    /// use google_cloud_backupdr_v1::Result;
+    /// async fn sample(
+    ///    client: &BackupDR, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_management_server()
+    ///         .set_parent(parent)
+    ///         .set_management_server(
+    ///             ManagementServer::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_management_server(&self) -> super::builder::backup_dr::CreateManagementServer {
         super::builder::backup_dr::CreateManagementServer::new(self.inner.clone())
     }
@@ -154,6 +207,21 @@ impl BackupDR {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_backupdr_v1::Result;
+    /// async fn sample(
+    ///    client: &BackupDR, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_management_server()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_management_server(&self) -> super::builder::backup_dr::DeleteManagementServer {
         super::builder::backup_dr::DeleteManagementServer::new(self.inner.clone())
     }
@@ -169,11 +237,49 @@ impl BackupDR {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_backupdr_v1::model::BackupVault;
+    /// use google_cloud_backupdr_v1::Result;
+    /// async fn sample(
+    ///    client: &BackupDR, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_backup_vault()
+    ///         .set_parent(parent)
+    ///         .set_backup_vault(
+    ///             BackupVault::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_backup_vault(&self) -> super::builder::backup_dr::CreateBackupVault {
         super::builder::backup_dr::CreateBackupVault::new(self.inner.clone())
     }
 
     /// Lists BackupVaults in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_backupdr_v1::Result;
+    /// async fn sample(
+    ///    client: &BackupDR, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_backup_vaults()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_backup_vaults(&self) -> super::builder::backup_dr::ListBackupVaults {
         super::builder::backup_dr::ListBackupVaults::new(self.inner.clone())
     }
@@ -181,11 +287,44 @@ impl BackupDR {
     /// FetchUsableBackupVaults lists usable BackupVaults in a given project and
     /// location. Usable BackupVault are the ones that user has
     /// backupdr.backupVaults.get permission.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_backupdr_v1::Result;
+    /// async fn sample(
+    ///    client: &BackupDR
+    /// ) -> Result<()> {
+    ///     let mut list = client.fetch_usable_backup_vaults()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn fetch_usable_backup_vaults(&self) -> super::builder::backup_dr::FetchUsableBackupVaults {
         super::builder::backup_dr::FetchUsableBackupVaults::new(self.inner.clone())
     }
 
     /// Gets details of a BackupVault.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// use google_cloud_backupdr_v1::Result;
+    /// async fn sample(
+    ///    client: &BackupDR, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_backup_vault()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_backup_vault(&self) -> super::builder::backup_dr::GetBackupVault {
         super::builder::backup_dr::GetBackupVault::new(self.inner.clone())
     }
@@ -201,6 +340,28 @@ impl BackupDR {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_backupdr_v1::model::BackupVault;
+    /// use google_cloud_backupdr_v1::Result;
+    /// async fn sample(
+    ///    client: &BackupDR, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_backup_vault()
+    ///         .set_backup_vault(
+    ///             BackupVault::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_backup_vault(&self) -> super::builder::backup_dr::UpdateBackupVault {
         super::builder::backup_dr::UpdateBackupVault::new(self.inner.clone())
     }
@@ -216,16 +377,64 @@ impl BackupDR {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_backupdr_v1::Result;
+    /// async fn sample(
+    ///    client: &BackupDR, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_backup_vault()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_backup_vault(&self) -> super::builder::backup_dr::DeleteBackupVault {
         super::builder::backup_dr::DeleteBackupVault::new(self.inner.clone())
     }
 
     /// Lists DataSources in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_backupdr_v1::Result;
+    /// async fn sample(
+    ///    client: &BackupDR, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_data_sources()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_data_sources(&self) -> super::builder::backup_dr::ListDataSources {
         super::builder::backup_dr::ListDataSources::new(self.inner.clone())
     }
 
     /// Gets details of a DataSource.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// use google_cloud_backupdr_v1::Result;
+    /// async fn sample(
+    ///    client: &BackupDR, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_data_source()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_data_source(&self) -> super::builder::backup_dr::GetDataSource {
         super::builder::backup_dr::GetDataSource::new(self.inner.clone())
     }
@@ -241,16 +450,74 @@ impl BackupDR {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_backupdr_v1::model::DataSource;
+    /// use google_cloud_backupdr_v1::Result;
+    /// async fn sample(
+    ///    client: &BackupDR, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_data_source()
+    ///         .set_data_source(
+    ///             DataSource::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_data_source(&self) -> super::builder::backup_dr::UpdateDataSource {
         super::builder::backup_dr::UpdateDataSource::new(self.inner.clone())
     }
 
     /// Lists Backups in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_backupdr_v1::Result;
+    /// async fn sample(
+    ///    client: &BackupDR, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_backups()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_backups(&self) -> super::builder::backup_dr::ListBackups {
         super::builder::backup_dr::ListBackups::new(self.inner.clone())
     }
 
     /// Fetch Backups for a given resource type.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_backupdr_v1::Result;
+    /// async fn sample(
+    ///    client: &BackupDR
+    /// ) -> Result<()> {
+    ///     let mut list = client.fetch_backups_for_resource_type()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn fetch_backups_for_resource_type(
         &self,
     ) -> super::builder::backup_dr::FetchBackupsForResourceType {
@@ -258,6 +525,21 @@ impl BackupDR {
     }
 
     /// Gets details of a Backup.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// use google_cloud_backupdr_v1::Result;
+    /// async fn sample(
+    ///    client: &BackupDR, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_backup()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_backup(&self) -> super::builder::backup_dr::GetBackup {
         super::builder::backup_dr::GetBackup::new(self.inner.clone())
     }
@@ -273,6 +555,28 @@ impl BackupDR {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_backupdr_v1::model::Backup;
+    /// use google_cloud_backupdr_v1::Result;
+    /// async fn sample(
+    ///    client: &BackupDR, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_backup()
+    ///         .set_backup(
+    ///             Backup::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_backup(&self) -> super::builder::backup_dr::UpdateBackup {
         super::builder::backup_dr::UpdateBackup::new(self.inner.clone())
     }
@@ -288,6 +592,22 @@ impl BackupDR {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_backupdr_v1::Result;
+    /// async fn sample(
+    ///    client: &BackupDR, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.delete_backup()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_backup(&self) -> super::builder::backup_dr::DeleteBackup {
         super::builder::backup_dr::DeleteBackup::new(self.inner.clone())
     }
@@ -303,6 +623,22 @@ impl BackupDR {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_backupdr_v1::Result;
+    /// async fn sample(
+    ///    client: &BackupDR
+    /// ) -> Result<()> {
+    ///     let response = client.restore_backup()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn restore_backup(&self) -> super::builder::backup_dr::RestoreBackup {
         super::builder::backup_dr::RestoreBackup::new(self.inner.clone())
     }
@@ -318,6 +654,26 @@ impl BackupDR {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_backupdr_v1::model::BackupPlan;
+    /// use google_cloud_backupdr_v1::Result;
+    /// async fn sample(
+    ///    client: &BackupDR, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_backup_plan()
+    ///         .set_parent(parent)
+    ///         .set_backup_plan(
+    ///             BackupPlan::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_backup_plan(&self) -> super::builder::backup_dr::CreateBackupPlan {
         super::builder::backup_dr::CreateBackupPlan::new(self.inner.clone())
     }
@@ -333,16 +689,71 @@ impl BackupDR {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_backupdr_v1::model::BackupPlan;
+    /// use google_cloud_backupdr_v1::Result;
+    /// async fn sample(
+    ///    client: &BackupDR, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_backup_plan()
+    ///         .set_backup_plan(
+    ///             BackupPlan::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_backup_plan(&self) -> super::builder::backup_dr::UpdateBackupPlan {
         super::builder::backup_dr::UpdateBackupPlan::new(self.inner.clone())
     }
 
     /// Gets details of a single BackupPlan.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// use google_cloud_backupdr_v1::Result;
+    /// async fn sample(
+    ///    client: &BackupDR, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_backup_plan()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_backup_plan(&self) -> super::builder::backup_dr::GetBackupPlan {
         super::builder::backup_dr::GetBackupPlan::new(self.inner.clone())
     }
 
     /// Lists BackupPlans in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_backupdr_v1::Result;
+    /// async fn sample(
+    ///    client: &BackupDR, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_backup_plans()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_backup_plans(&self) -> super::builder::backup_dr::ListBackupPlans {
         super::builder::backup_dr::ListBackupPlans::new(self.inner.clone())
     }
@@ -358,16 +769,64 @@ impl BackupDR {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_backupdr_v1::Result;
+    /// async fn sample(
+    ///    client: &BackupDR, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_backup_plan()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_backup_plan(&self) -> super::builder::backup_dr::DeleteBackupPlan {
         super::builder::backup_dr::DeleteBackupPlan::new(self.inner.clone())
     }
 
     /// Gets details of a single BackupPlanRevision.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// use google_cloud_backupdr_v1::Result;
+    /// async fn sample(
+    ///    client: &BackupDR, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_backup_plan_revision()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_backup_plan_revision(&self) -> super::builder::backup_dr::GetBackupPlanRevision {
         super::builder::backup_dr::GetBackupPlanRevision::new(self.inner.clone())
     }
 
     /// Lists BackupPlanRevisions in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_backupdr_v1::Result;
+    /// async fn sample(
+    ///    client: &BackupDR, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_backup_plan_revisions()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_backup_plan_revisions(&self) -> super::builder::backup_dr::ListBackupPlanRevisions {
         super::builder::backup_dr::ListBackupPlanRevisions::new(self.inner.clone())
     }
@@ -383,6 +842,26 @@ impl BackupDR {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_backupdr_v1::model::BackupPlanAssociation;
+    /// use google_cloud_backupdr_v1::Result;
+    /// async fn sample(
+    ///    client: &BackupDR, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_backup_plan_association()
+    ///         .set_parent(parent)
+    ///         .set_backup_plan_association(
+    ///             BackupPlanAssociation::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_backup_plan_association(
         &self,
     ) -> super::builder::backup_dr::CreateBackupPlanAssociation {
@@ -400,6 +879,28 @@ impl BackupDR {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_backupdr_v1::model::BackupPlanAssociation;
+    /// use google_cloud_backupdr_v1::Result;
+    /// async fn sample(
+    ///    client: &BackupDR, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_backup_plan_association()
+    ///         .set_backup_plan_association(
+    ///             BackupPlanAssociation::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_backup_plan_association(
         &self,
     ) -> super::builder::backup_dr::UpdateBackupPlanAssociation {
@@ -407,6 +908,21 @@ impl BackupDR {
     }
 
     /// Gets details of a single BackupPlanAssociation.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// use google_cloud_backupdr_v1::Result;
+    /// async fn sample(
+    ///    client: &BackupDR, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_backup_plan_association()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_backup_plan_association(
         &self,
     ) -> super::builder::backup_dr::GetBackupPlanAssociation {
@@ -414,6 +930,24 @@ impl BackupDR {
     }
 
     /// Lists BackupPlanAssociations in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_backupdr_v1::Result;
+    /// async fn sample(
+    ///    client: &BackupDR, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_backup_plan_associations()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_backup_plan_associations(
         &self,
     ) -> super::builder::backup_dr::ListBackupPlanAssociations {
@@ -421,6 +955,24 @@ impl BackupDR {
     }
 
     /// List BackupPlanAssociations for a given resource type.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_backupdr_v1::Result;
+    /// async fn sample(
+    ///    client: &BackupDR
+    /// ) -> Result<()> {
+    ///     let mut list = client.fetch_backup_plan_associations_for_resource_type()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn fetch_backup_plan_associations_for_resource_type(
         &self,
     ) -> super::builder::backup_dr::FetchBackupPlanAssociationsForResourceType {
@@ -440,6 +992,21 @@ impl BackupDR {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_backupdr_v1::Result;
+    /// async fn sample(
+    ///    client: &BackupDR, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_backup_plan_association()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_backup_plan_association(
         &self,
     ) -> super::builder::backup_dr::DeleteBackupPlanAssociation {
@@ -457,16 +1024,65 @@ impl BackupDR {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_backupdr_v1::Result;
+    /// async fn sample(
+    ///    client: &BackupDR
+    /// ) -> Result<()> {
+    ///     let response = client.trigger_backup()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn trigger_backup(&self) -> super::builder::backup_dr::TriggerBackup {
         super::builder::backup_dr::TriggerBackup::new(self.inner.clone())
     }
 
     /// Gets details of a single DataSourceReference.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// use google_cloud_backupdr_v1::Result;
+    /// async fn sample(
+    ///    client: &BackupDR, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_data_source_reference()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_data_source_reference(&self) -> super::builder::backup_dr::GetDataSourceReference {
         super::builder::backup_dr::GetDataSourceReference::new(self.inner.clone())
     }
 
     /// Lists DataSourceReferences for a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_backupdr_v1::Result;
+    /// async fn sample(
+    ///    client: &BackupDR, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_data_source_references()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_data_source_references(
         &self,
     ) -> super::builder::backup_dr::ListDataSourceReferences {
@@ -474,6 +1090,24 @@ impl BackupDR {
     }
 
     /// Fetch DataSourceReferences for a given project, location and resource type.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_backupdr_v1::Result;
+    /// async fn sample(
+    ///    client: &BackupDR
+    /// ) -> Result<()> {
+    ///     let mut list = client.fetch_data_source_references_for_resource_type()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn fetch_data_source_references_for_resource_type(
         &self,
     ) -> super::builder::backup_dr::FetchDataSourceReferencesForResourceType {
@@ -491,16 +1125,65 @@ impl BackupDR {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_backupdr_v1::Result;
+    /// async fn sample(
+    ///    client: &BackupDR
+    /// ) -> Result<()> {
+    ///     let response = client.initialize_service()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn initialize_service(&self) -> super::builder::backup_dr::InitializeService {
         super::builder::backup_dr::InitializeService::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_backupdr_v1::Result;
+    /// async fn sample(
+    ///    client: &BackupDR
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::backup_dr::ListLocations {
         super::builder::backup_dr::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// use google_cloud_backupdr_v1::Result;
+    /// async fn sample(
+    ///    client: &BackupDR
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::backup_dr::GetLocation {
         super::builder::backup_dr::GetLocation::new(self.inner.clone())
     }
@@ -510,12 +1193,42 @@ impl BackupDR {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// use google_cloud_backupdr_v1::Result;
+    /// async fn sample(
+    ///    client: &BackupDR
+    /// ) -> Result<()> {
+    ///     let response = client.set_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::backup_dr::SetIamPolicy {
         super::builder::backup_dr::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// use google_cloud_backupdr_v1::Result;
+    /// async fn sample(
+    ///    client: &BackupDR
+    /// ) -> Result<()> {
+    ///     let response = client.get_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::backup_dr::GetIamPolicy {
         super::builder::backup_dr::GetIamPolicy::new(self.inner.clone())
     }
@@ -527,6 +1240,21 @@ impl BackupDR {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// use google_cloud_backupdr_v1::Result;
+    /// async fn sample(
+    ///    client: &BackupDR
+    /// ) -> Result<()> {
+    ///     let response = client.test_iam_permissions()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::backup_dr::TestIamPermissions {
         super::builder::backup_dr::TestIamPermissions::new(self.inner.clone())
     }
@@ -534,6 +1262,24 @@ impl BackupDR {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_backupdr_v1::Result;
+    /// async fn sample(
+    ///    client: &BackupDR
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::backup_dr::ListOperations {
         super::builder::backup_dr::ListOperations::new(self.inner.clone())
     }
@@ -541,6 +1287,21 @@ impl BackupDR {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// use google_cloud_backupdr_v1::Result;
+    /// async fn sample(
+    ///    client: &BackupDR
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::backup_dr::GetOperation {
         super::builder::backup_dr::GetOperation::new(self.inner.clone())
     }
@@ -548,6 +1309,20 @@ impl BackupDR {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// use google_cloud_backupdr_v1::Result;
+    /// async fn sample(
+    ///    client: &BackupDR
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::backup_dr::DeleteOperation {
         super::builder::backup_dr::DeleteOperation::new(self.inner.clone())
     }
@@ -555,6 +1330,20 @@ impl BackupDR {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// use google_cloud_backupdr_v1::Result;
+    /// async fn sample(
+    ///    client: &BackupDR
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::backup_dr::CancelOperation {
         super::builder::backup_dr::CancelOperation::new(self.inner.clone())
     }
@@ -665,6 +1454,24 @@ impl BackupDrProtectionSummary {
     }
 
     /// Lists ResourceBackupConfigs.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDrProtectionSummary;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_backupdr_v1::Result;
+    /// async fn sample(
+    ///    client: &BackupDrProtectionSummary, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_resource_backup_configs()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_resource_backup_configs(
         &self,
     ) -> super::builder::backup_dr_protection_summary::ListResourceBackupConfigs {
@@ -674,11 +1481,44 @@ impl BackupDrProtectionSummary {
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDrProtectionSummary;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_backupdr_v1::Result;
+    /// async fn sample(
+    ///    client: &BackupDrProtectionSummary
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::backup_dr_protection_summary::ListLocations {
         super::builder::backup_dr_protection_summary::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDrProtectionSummary;
+    /// use google_cloud_backupdr_v1::Result;
+    /// async fn sample(
+    ///    client: &BackupDrProtectionSummary
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::backup_dr_protection_summary::GetLocation {
         super::builder::backup_dr_protection_summary::GetLocation::new(self.inner.clone())
     }
@@ -688,12 +1528,42 @@ impl BackupDrProtectionSummary {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDrProtectionSummary;
+    /// use google_cloud_backupdr_v1::Result;
+    /// async fn sample(
+    ///    client: &BackupDrProtectionSummary
+    /// ) -> Result<()> {
+    ///     let response = client.set_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::backup_dr_protection_summary::SetIamPolicy {
         super::builder::backup_dr_protection_summary::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDrProtectionSummary;
+    /// use google_cloud_backupdr_v1::Result;
+    /// async fn sample(
+    ///    client: &BackupDrProtectionSummary
+    /// ) -> Result<()> {
+    ///     let response = client.get_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::backup_dr_protection_summary::GetIamPolicy {
         super::builder::backup_dr_protection_summary::GetIamPolicy::new(self.inner.clone())
     }
@@ -705,6 +1575,21 @@ impl BackupDrProtectionSummary {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDrProtectionSummary;
+    /// use google_cloud_backupdr_v1::Result;
+    /// async fn sample(
+    ///    client: &BackupDrProtectionSummary
+    /// ) -> Result<()> {
+    ///     let response = client.test_iam_permissions()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(
         &self,
     ) -> super::builder::backup_dr_protection_summary::TestIamPermissions {
@@ -714,6 +1599,24 @@ impl BackupDrProtectionSummary {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDrProtectionSummary;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_backupdr_v1::Result;
+    /// async fn sample(
+    ///    client: &BackupDrProtectionSummary
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::backup_dr_protection_summary::ListOperations {
         super::builder::backup_dr_protection_summary::ListOperations::new(self.inner.clone())
     }
@@ -721,6 +1624,21 @@ impl BackupDrProtectionSummary {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDrProtectionSummary;
+    /// use google_cloud_backupdr_v1::Result;
+    /// async fn sample(
+    ///    client: &BackupDrProtectionSummary
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::backup_dr_protection_summary::GetOperation {
         super::builder::backup_dr_protection_summary::GetOperation::new(self.inner.clone())
     }
@@ -728,6 +1646,20 @@ impl BackupDrProtectionSummary {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDrProtectionSummary;
+    /// use google_cloud_backupdr_v1::Result;
+    /// async fn sample(
+    ///    client: &BackupDrProtectionSummary
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(
         &self,
     ) -> super::builder::backup_dr_protection_summary::DeleteOperation {
@@ -737,6 +1669,20 @@ impl BackupDrProtectionSummary {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDrProtectionSummary;
+    /// use google_cloud_backupdr_v1::Result;
+    /// async fn sample(
+    ///    client: &BackupDrProtectionSummary
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(
         &self,
     ) -> super::builder::backup_dr_protection_summary::CancelOperation {

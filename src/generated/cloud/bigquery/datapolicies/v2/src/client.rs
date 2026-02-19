@@ -121,6 +121,21 @@ impl DataPolicyService {
 
     /// Creates a new data policy under a project with the given `data_policy_id`
     /// (used as the display name), and data policy type.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_datapolicies_v2::client::DataPolicyService;
+    /// use google_cloud_bigquery_datapolicies_v2::Result;
+    /// async fn sample(
+    ///    client: &DataPolicyService
+    /// ) -> Result<()> {
+    ///     let response = client.create_data_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_data_policy(&self) -> super::builder::data_policy_service::CreateDataPolicy {
         super::builder::data_policy_service::CreateDataPolicy::new(self.inner.clone())
     }
@@ -130,6 +145,21 @@ impl DataPolicyService {
     /// If the request contains a duplicate grantee, the grantee will be ignored.
     /// If the request contains a grantee that already exists, the grantee will be
     /// ignored.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_datapolicies_v2::client::DataPolicyService;
+    /// use google_cloud_bigquery_datapolicies_v2::Result;
+    /// async fn sample(
+    ///    client: &DataPolicyService
+    /// ) -> Result<()> {
+    ///     let response = client.add_grantees()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn add_grantees(&self) -> super::builder::data_policy_service::AddGrantees {
         super::builder::data_policy_service::AddGrantees::new(self.inner.clone())
     }
@@ -138,42 +168,170 @@ impl DataPolicyService {
     /// The grantees will be removed from the existing grantees.
     /// If the request contains a grantee that does not exist, the grantee will be
     /// ignored.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_datapolicies_v2::client::DataPolicyService;
+    /// use google_cloud_bigquery_datapolicies_v2::Result;
+    /// async fn sample(
+    ///    client: &DataPolicyService
+    /// ) -> Result<()> {
+    ///     let response = client.remove_grantees()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn remove_grantees(&self) -> super::builder::data_policy_service::RemoveGrantees {
         super::builder::data_policy_service::RemoveGrantees::new(self.inner.clone())
     }
 
     /// Updates the metadata for an existing data policy. The target data policy
     /// can be specified by the resource name.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_datapolicies_v2::client::DataPolicyService;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_bigquery_datapolicies_v2::model::DataPolicy;
+    /// use google_cloud_bigquery_datapolicies_v2::Result;
+    /// async fn sample(
+    ///    client: &DataPolicyService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_data_policy()
+    ///         .set_data_policy(
+    ///             DataPolicy::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_data_policy(&self) -> super::builder::data_policy_service::UpdateDataPolicy {
         super::builder::data_policy_service::UpdateDataPolicy::new(self.inner.clone())
     }
 
     /// Deletes the data policy specified by its resource name.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_datapolicies_v2::client::DataPolicyService;
+    /// use google_cloud_bigquery_datapolicies_v2::Result;
+    /// async fn sample(
+    ///    client: &DataPolicyService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_data_policy()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_data_policy(&self) -> super::builder::data_policy_service::DeleteDataPolicy {
         super::builder::data_policy_service::DeleteDataPolicy::new(self.inner.clone())
     }
 
     /// Gets the data policy specified by its resource name.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_datapolicies_v2::client::DataPolicyService;
+    /// use google_cloud_bigquery_datapolicies_v2::Result;
+    /// async fn sample(
+    ///    client: &DataPolicyService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_data_policy()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_data_policy(&self) -> super::builder::data_policy_service::GetDataPolicy {
         super::builder::data_policy_service::GetDataPolicy::new(self.inner.clone())
     }
 
     /// List all of the data policies in the specified parent project.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_datapolicies_v2::client::DataPolicyService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_bigquery_datapolicies_v2::Result;
+    /// async fn sample(
+    ///    client: &DataPolicyService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_data_policies()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_data_policies(&self) -> super::builder::data_policy_service::ListDataPolicies {
         super::builder::data_policy_service::ListDataPolicies::new(self.inner.clone())
     }
 
     /// Gets the IAM policy for the specified data policy.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_datapolicies_v2::client::DataPolicyService;
+    /// use google_cloud_bigquery_datapolicies_v2::Result;
+    /// async fn sample(
+    ///    client: &DataPolicyService
+    /// ) -> Result<()> {
+    ///     let response = client.get_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::data_policy_service::GetIamPolicy {
         super::builder::data_policy_service::GetIamPolicy::new(self.inner.clone())
     }
 
     /// Sets the IAM policy for the specified data policy.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_datapolicies_v2::client::DataPolicyService;
+    /// use google_cloud_bigquery_datapolicies_v2::Result;
+    /// async fn sample(
+    ///    client: &DataPolicyService
+    /// ) -> Result<()> {
+    ///     let response = client.set_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::data_policy_service::SetIamPolicy {
         super::builder::data_policy_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Returns the caller's permission on the specified data policy resource.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_datapolicies_v2::client::DataPolicyService;
+    /// use google_cloud_bigquery_datapolicies_v2::Result;
+    /// async fn sample(
+    ///    client: &DataPolicyService
+    /// ) -> Result<()> {
+    ///     let response = client.test_iam_permissions()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::data_policy_service::TestIamPermissions {
         super::builder::data_policy_service::TestIamPermissions::new(self.inner.clone())
     }

@@ -132,6 +132,26 @@ impl RapidMigrationAssessment {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rapidmigrationassessment_v1::client::RapidMigrationAssessment;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_rapidmigrationassessment_v1::model::Collector;
+    /// use google_cloud_rapidmigrationassessment_v1::Result;
+    /// async fn sample(
+    ///    client: &RapidMigrationAssessment, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_collector()
+    ///         .set_parent(parent).set_collector_id("collector_id_value")
+    ///         .set_collector(
+    ///             Collector::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_collector(&self) -> super::builder::rapid_migration_assessment::CreateCollector {
         super::builder::rapid_migration_assessment::CreateCollector::new(self.inner.clone())
     }
@@ -147,6 +167,26 @@ impl RapidMigrationAssessment {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rapidmigrationassessment_v1::client::RapidMigrationAssessment;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_rapidmigrationassessment_v1::model::Annotation;
+    /// use google_cloud_rapidmigrationassessment_v1::Result;
+    /// async fn sample(
+    ///    client: &RapidMigrationAssessment, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_annotation()
+    ///         .set_parent(parent)
+    ///         .set_annotation(
+    ///             Annotation::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_annotation(
         &self,
     ) -> super::builder::rapid_migration_assessment::CreateAnnotation {
@@ -154,16 +194,64 @@ impl RapidMigrationAssessment {
     }
 
     /// Gets details of a single Annotation.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rapidmigrationassessment_v1::client::RapidMigrationAssessment;
+    /// use google_cloud_rapidmigrationassessment_v1::Result;
+    /// async fn sample(
+    ///    client: &RapidMigrationAssessment, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_annotation()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_annotation(&self) -> super::builder::rapid_migration_assessment::GetAnnotation {
         super::builder::rapid_migration_assessment::GetAnnotation::new(self.inner.clone())
     }
 
     /// Lists Collectors in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rapidmigrationassessment_v1::client::RapidMigrationAssessment;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_rapidmigrationassessment_v1::Result;
+    /// async fn sample(
+    ///    client: &RapidMigrationAssessment, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_collectors()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_collectors(&self) -> super::builder::rapid_migration_assessment::ListCollectors {
         super::builder::rapid_migration_assessment::ListCollectors::new(self.inner.clone())
     }
 
     /// Gets details of a single Collector.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rapidmigrationassessment_v1::client::RapidMigrationAssessment;
+    /// use google_cloud_rapidmigrationassessment_v1::Result;
+    /// async fn sample(
+    ///    client: &RapidMigrationAssessment, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_collector()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_collector(&self) -> super::builder::rapid_migration_assessment::GetCollector {
         super::builder::rapid_migration_assessment::GetCollector::new(self.inner.clone())
     }
@@ -179,6 +267,28 @@ impl RapidMigrationAssessment {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rapidmigrationassessment_v1::client::RapidMigrationAssessment;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_rapidmigrationassessment_v1::model::Collector;
+    /// use google_cloud_rapidmigrationassessment_v1::Result;
+    /// async fn sample(
+    ///    client: &RapidMigrationAssessment, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_collector()
+    ///         .set_collector(
+    ///             Collector::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_collector(&self) -> super::builder::rapid_migration_assessment::UpdateCollector {
         super::builder::rapid_migration_assessment::UpdateCollector::new(self.inner.clone())
     }
@@ -195,6 +305,22 @@ impl RapidMigrationAssessment {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rapidmigrationassessment_v1::client::RapidMigrationAssessment;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_rapidmigrationassessment_v1::Result;
+    /// async fn sample(
+    ///    client: &RapidMigrationAssessment, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.delete_collector()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_collector(&self) -> super::builder::rapid_migration_assessment::DeleteCollector {
         super::builder::rapid_migration_assessment::DeleteCollector::new(self.inner.clone())
     }
@@ -210,6 +336,22 @@ impl RapidMigrationAssessment {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rapidmigrationassessment_v1::client::RapidMigrationAssessment;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_rapidmigrationassessment_v1::Result;
+    /// async fn sample(
+    ///    client: &RapidMigrationAssessment
+    /// ) -> Result<()> {
+    ///     let response = client.resume_collector()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn resume_collector(&self) -> super::builder::rapid_migration_assessment::ResumeCollector {
         super::builder::rapid_migration_assessment::ResumeCollector::new(self.inner.clone())
     }
@@ -225,6 +367,22 @@ impl RapidMigrationAssessment {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rapidmigrationassessment_v1::client::RapidMigrationAssessment;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_rapidmigrationassessment_v1::Result;
+    /// async fn sample(
+    ///    client: &RapidMigrationAssessment
+    /// ) -> Result<()> {
+    ///     let response = client.register_collector()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn register_collector(
         &self,
     ) -> super::builder::rapid_migration_assessment::RegisterCollector {
@@ -242,16 +400,65 @@ impl RapidMigrationAssessment {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rapidmigrationassessment_v1::client::RapidMigrationAssessment;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_rapidmigrationassessment_v1::Result;
+    /// async fn sample(
+    ///    client: &RapidMigrationAssessment
+    /// ) -> Result<()> {
+    ///     let response = client.pause_collector()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn pause_collector(&self) -> super::builder::rapid_migration_assessment::PauseCollector {
         super::builder::rapid_migration_assessment::PauseCollector::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rapidmigrationassessment_v1::client::RapidMigrationAssessment;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_rapidmigrationassessment_v1::Result;
+    /// async fn sample(
+    ///    client: &RapidMigrationAssessment
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::rapid_migration_assessment::ListLocations {
         super::builder::rapid_migration_assessment::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rapidmigrationassessment_v1::client::RapidMigrationAssessment;
+    /// use google_cloud_rapidmigrationassessment_v1::Result;
+    /// async fn sample(
+    ///    client: &RapidMigrationAssessment
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::rapid_migration_assessment::GetLocation {
         super::builder::rapid_migration_assessment::GetLocation::new(self.inner.clone())
     }
@@ -259,6 +466,24 @@ impl RapidMigrationAssessment {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rapidmigrationassessment_v1::client::RapidMigrationAssessment;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_rapidmigrationassessment_v1::Result;
+    /// async fn sample(
+    ///    client: &RapidMigrationAssessment
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::rapid_migration_assessment::ListOperations {
         super::builder::rapid_migration_assessment::ListOperations::new(self.inner.clone())
     }
@@ -266,6 +491,21 @@ impl RapidMigrationAssessment {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rapidmigrationassessment_v1::client::RapidMigrationAssessment;
+    /// use google_cloud_rapidmigrationassessment_v1::Result;
+    /// async fn sample(
+    ///    client: &RapidMigrationAssessment
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::rapid_migration_assessment::GetOperation {
         super::builder::rapid_migration_assessment::GetOperation::new(self.inner.clone())
     }
@@ -273,6 +513,20 @@ impl RapidMigrationAssessment {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rapidmigrationassessment_v1::client::RapidMigrationAssessment;
+    /// use google_cloud_rapidmigrationassessment_v1::Result;
+    /// async fn sample(
+    ///    client: &RapidMigrationAssessment
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::rapid_migration_assessment::DeleteOperation {
         super::builder::rapid_migration_assessment::DeleteOperation::new(self.inner.clone())
     }
@@ -280,6 +534,20 @@ impl RapidMigrationAssessment {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_rapidmigrationassessment_v1::client::RapidMigrationAssessment;
+    /// use google_cloud_rapidmigrationassessment_v1::Result;
+    /// async fn sample(
+    ///    client: &RapidMigrationAssessment
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::rapid_migration_assessment::CancelOperation {
         super::builder::rapid_migration_assessment::CancelOperation::new(self.inner.clone())
     }

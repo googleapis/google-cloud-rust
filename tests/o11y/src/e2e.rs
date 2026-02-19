@@ -12,98 +12,26 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use super::Anonymous;
+pub mod showcase;
+
 use super::otlp::CloudTelemetryTracerProviderBuilder;
 use google_cloud_auth::credentials::Builder as CredentialsBuilder;
 use google_cloud_gax::error::rpc::Code;
-use google_cloud_showcase_v1beta1::client::Echo;
-use google_cloud_test_utils::runtime_config::project_id;
 use google_cloud_trace_v1::client::TraceService;
-use httptest::{Expectation, Server, matchers::*, responders::status_code};
-use opentelemetry::trace::TraceContextExt;
-use tracing_opentelemetry::OpenTelemetrySpanExt;
+use google_cloud_trace_v1::model::Trace;
+use opentelemetry_sdk::trace::SdkTracerProvider;
+use tokio::sync::OnceCell;
 use tracing_subscriber::layer::SubscriberExt;
-use tracing_subscriber::util::SubscriberInitExt;
 
-pub async fn run() -> anyhow::Result<()> {
-    // 1. Setup Mock Server (Traffic Destination)
-    let echo_server = Server::run();
-    echo_server.expect(
-        Expectation::matching(all_of![
-            request::method("POST"),
-            request::path("/v1beta1/echo:echo"),
-        ])
-        .respond_with(status_code(200).body(r#"{"content": "test"}"#)),
-    );
+pub const SERVICE_NAME: &str = "e2e-telemetry-test";
+static PROVIDER: OnceCell<anyhow::Result<SdkTracerProvider>> = OnceCell::const_new();
 
-    // 2. Setup Telemetry (Real Google Cloud Destination)
-    // This requires GOOGLE_CLOUD_PROJECT to be set.
-    let project_id = project_id()?;
-    let service_name = "e2e-telemetry-test";
-
-    // Configure OTLP provider (sends to telemetry.googleapis.com). Use ADC, but
-    // configure a quota project for user credentials because the telemetry endpoint
-    // rejects user credentials without the quota user project. Note that some other
-    // services reject requests *with* a quota user project, so we cannot assume it is
-    // set.
-    let credentials = CredentialsBuilder::default().build()?;
-    let credentials = if format!("{credentials:?}").contains("UserCredentials") {
-        CredentialsBuilder::default()
-            .with_quota_project_id(&project_id)
-            .build()?
-    } else {
-        credentials
-    };
-    let provider = CloudTelemetryTracerProviderBuilder::new(&project_id, service_name)
-        .with_credentials(credentials)
-        .build()
-        .await?;
-
-    // Install subscriber
-    let _guard = tracing_subscriber::Registry::default()
-        .with(super::tracing::layer(provider.clone()))
-        .set_default();
-
-    // 3. Generate Trace
-    let span_name = "e2e-showcase-test";
-
-    // Start a root span
-    let root_span = tracing::info_span!("e2e_root", "otel.name" = span_name);
-    let trace_id = {
-        let _enter = root_span.enter();
-        let trace_id = root_span
-            .context()
-            .span()
-            .span_context()
-            .trace_id()
-            .to_string();
-
-        // Initialize showcase client pointing to local mock server
-        let client = Echo::builder()
-            .with_endpoint(format!("http://{}", echo_server.addr()))
-            .with_credentials(Anonymous::new().build())
-            .with_tracing()
-            .build()
-            .await?;
-
-        // Make the API call
-        // This will generate child spans within the library
-        let _ = client.echo().set_content("test").send().await?;
-
-        trace_id
-    };
-    // explicitly drop the span to end it
-    drop(root_span);
-
-    println!(
-        "View generated trace in Console: https://console.cloud.google.com/traces/explorer;traceId={}?project={}",
-        trace_id, project_id
-    );
-
-    // 4. Force flush to ensure spans are sent.
-    provider.force_flush()?;
-
-    // 5. Verify (Poll Cloud Trace API)
+/// Waits for a trace to appear in Cloud Trace.
+///
+/// Traces may take a few minutes to propagate from the collector endpoints to
+/// the service. This function retrieves the trace, polling if the trace is
+/// not found.
+pub async fn wait_for_trace(project_id: &str, trace_id: &str) -> anyhow::Result<Trace> {
     let client = TraceService::builder().build().await?;
 
     // Because we are limited by quota, start with a backoff.
@@ -117,8 +45,8 @@ pub async fn run() -> anyhow::Result<()> {
 
         match client
             .get_trace()
-            .set_project_id(&project_id)
-            .set_trace_id(&trace_id)
+            .set_project_id(project_id)
+            .set_trace_id(trace_id)
             .send()
             .await
         {
@@ -142,20 +70,50 @@ pub async fn run() -> anyhow::Result<()> {
     }
 
     let trace = trace.ok_or_else(|| anyhow::anyhow!("Timed out waiting for trace"))?;
+    Ok(trace)
+}
 
-    // 6. Assertions
-    // Check for root span
-    let root_found = trace.spans.iter().any(|s| s.name == span_name);
-    assert!(root_found, "Root span '{}' not found in trace", span_name);
+/// Sets up a OTLP tracing provider to use with Cloud Trace.
+///
+/// This function configures a global OpenTelemetry provider that sends traces
+/// to Cloud Trace via the OTLP endpoint (telemetry.googleapis.com). Only the
+/// first call creates a provider. All the tests will use the same provider.
+pub async fn set_up_otel_provider(project_id: &str) -> anyhow::Result<&SdkTracerProvider> {
+    PROVIDER
+        .get_or_init(|| self::new_provider(project_id))
+        .await
+        // `get_or_init()` returns a `&Result<T>` so we need some mapping.
+        .as_ref()
+        // Cannot clone anyhow::Error, so do this instead:
+        .map_err(|e| anyhow::anyhow!("badly initialized provider: {e:?}"))
+}
 
-    // Check for showcase client span
-    let client_span_name = "google-cloud-showcase-v1beta1::client::Echo::echo";
-    let client_found = trace.spans.iter().any(|s| s.name == client_span_name);
-    assert!(
-        client_found,
-        "Client library span '{}' not found in trace",
-        client_span_name
+/// Creates a new provider for the tests.
+///
+/// This uses ADC, and configure a quota project for user credentials because
+/// telemetry endpoint rejects user credentials without the quota user project.
+///
+/// Note that some other services reject requests *with* a quota user project.
+/// Therefore, we cannot require that the credentials have a quota user prorject
+/// set.
+async fn new_provider(project_id: &str) -> anyhow::Result<SdkTracerProvider> {
+    let credentials = CredentialsBuilder::default().build()?;
+    let credentials = if format!("{credentials:?}").contains("UserCredentials") {
+        CredentialsBuilder::default()
+            .with_quota_project_id(project_id)
+            .build()?
+    } else {
+        credentials
+    };
+    let provider = CloudTelemetryTracerProviderBuilder::new(project_id, SERVICE_NAME)
+        .with_credentials(credentials)
+        .build()
+        .await?;
+
+    // Install subscriber, ignore any other subscriber already installed.
+    let _ = tracing::subscriber::set_global_default(
+        tracing_subscriber::Registry::default().with(super::tracing::layer(provider.clone())),
     );
 
-    Ok(())
+    Ok(provider)
 }

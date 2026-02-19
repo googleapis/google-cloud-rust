@@ -751,6 +751,8 @@ mod tests {
             });
             Ok(TonicResponse::from(response_rx))
         });
+        mock.expect_modify_ack_deadline()
+            .returning(|_| Ok(TonicResponse::from(())));
 
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;

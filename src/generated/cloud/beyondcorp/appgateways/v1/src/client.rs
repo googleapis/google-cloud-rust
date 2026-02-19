@@ -133,11 +133,44 @@ impl AppGatewaysService {
     }
 
     /// Lists AppGateways in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appgateways_v1::client::AppGatewaysService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_beyondcorp_appgateways_v1::Result;
+    /// async fn sample(
+    ///    client: &AppGatewaysService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_app_gateways()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_app_gateways(&self) -> super::builder::app_gateways_service::ListAppGateways {
         super::builder::app_gateways_service::ListAppGateways::new(self.inner.clone())
     }
 
     /// Gets details of a single AppGateway.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appgateways_v1::client::AppGatewaysService;
+    /// use google_cloud_beyondcorp_appgateways_v1::Result;
+    /// async fn sample(
+    ///    client: &AppGatewaysService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_app_gateway()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_app_gateway(&self) -> super::builder::app_gateways_service::GetAppGateway {
         super::builder::app_gateways_service::GetAppGateway::new(self.inner.clone())
     }
@@ -153,6 +186,26 @@ impl AppGatewaysService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appgateways_v1::client::AppGatewaysService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_beyondcorp_appgateways_v1::model::AppGateway;
+    /// use google_cloud_beyondcorp_appgateways_v1::Result;
+    /// async fn sample(
+    ///    client: &AppGatewaysService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_app_gateway()
+    ///         .set_parent(parent)
+    ///         .set_app_gateway(
+    ///             AppGateway::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_app_gateway(&self) -> super::builder::app_gateways_service::CreateAppGateway {
         super::builder::app_gateways_service::CreateAppGateway::new(self.inner.clone())
     }
@@ -168,16 +221,64 @@ impl AppGatewaysService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appgateways_v1::client::AppGatewaysService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_beyondcorp_appgateways_v1::Result;
+    /// async fn sample(
+    ///    client: &AppGatewaysService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_app_gateway()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_app_gateway(&self) -> super::builder::app_gateways_service::DeleteAppGateway {
         super::builder::app_gateways_service::DeleteAppGateway::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appgateways_v1::client::AppGatewaysService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_beyondcorp_appgateways_v1::Result;
+    /// async fn sample(
+    ///    client: &AppGatewaysService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::app_gateways_service::ListLocations {
         super::builder::app_gateways_service::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appgateways_v1::client::AppGatewaysService;
+    /// use google_cloud_beyondcorp_appgateways_v1::Result;
+    /// async fn sample(
+    ///    client: &AppGatewaysService
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::app_gateways_service::GetLocation {
         super::builder::app_gateways_service::GetLocation::new(self.inner.clone())
     }
@@ -187,12 +288,42 @@ impl AppGatewaysService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appgateways_v1::client::AppGatewaysService;
+    /// use google_cloud_beyondcorp_appgateways_v1::Result;
+    /// async fn sample(
+    ///    client: &AppGatewaysService
+    /// ) -> Result<()> {
+    ///     let response = client.set_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::app_gateways_service::SetIamPolicy {
         super::builder::app_gateways_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appgateways_v1::client::AppGatewaysService;
+    /// use google_cloud_beyondcorp_appgateways_v1::Result;
+    /// async fn sample(
+    ///    client: &AppGatewaysService
+    /// ) -> Result<()> {
+    ///     let response = client.get_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::app_gateways_service::GetIamPolicy {
         super::builder::app_gateways_service::GetIamPolicy::new(self.inner.clone())
     }
@@ -204,6 +335,21 @@ impl AppGatewaysService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appgateways_v1::client::AppGatewaysService;
+    /// use google_cloud_beyondcorp_appgateways_v1::Result;
+    /// async fn sample(
+    ///    client: &AppGatewaysService
+    /// ) -> Result<()> {
+    ///     let response = client.test_iam_permissions()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::app_gateways_service::TestIamPermissions {
         super::builder::app_gateways_service::TestIamPermissions::new(self.inner.clone())
     }
@@ -211,6 +357,24 @@ impl AppGatewaysService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appgateways_v1::client::AppGatewaysService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_beyondcorp_appgateways_v1::Result;
+    /// async fn sample(
+    ///    client: &AppGatewaysService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::app_gateways_service::ListOperations {
         super::builder::app_gateways_service::ListOperations::new(self.inner.clone())
     }
@@ -218,6 +382,21 @@ impl AppGatewaysService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appgateways_v1::client::AppGatewaysService;
+    /// use google_cloud_beyondcorp_appgateways_v1::Result;
+    /// async fn sample(
+    ///    client: &AppGatewaysService
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::app_gateways_service::GetOperation {
         super::builder::app_gateways_service::GetOperation::new(self.inner.clone())
     }
@@ -225,6 +404,20 @@ impl AppGatewaysService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appgateways_v1::client::AppGatewaysService;
+    /// use google_cloud_beyondcorp_appgateways_v1::Result;
+    /// async fn sample(
+    ///    client: &AppGatewaysService
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::app_gateways_service::DeleteOperation {
         super::builder::app_gateways_service::DeleteOperation::new(self.inner.clone())
     }
@@ -232,6 +425,20 @@ impl AppGatewaysService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appgateways_v1::client::AppGatewaysService;
+    /// use google_cloud_beyondcorp_appgateways_v1::Result;
+    /// async fn sample(
+    ///    client: &AppGatewaysService
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::app_gateways_service::CancelOperation {
         super::builder::app_gateways_service::CancelOperation::new(self.inner.clone())
     }

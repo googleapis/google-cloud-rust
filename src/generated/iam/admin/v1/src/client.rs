@@ -158,8 +158,7 @@ impl Iam {
     /// async fn sample(
     ///    client: &Iam
     /// ) -> Result<()> {
-    ///     let mut list = client
-    ///         .list_service_accounts()
+    ///     let mut list = client.list_service_accounts()
     ///         /* set fields */
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
@@ -181,14 +180,11 @@ impl Iam {
     /// # use google_cloud_iam_admin_v1::client::Iam;
     /// use google_cloud_iam_admin_v1::Result;
     /// async fn sample(
-    ///    client: &Iam,
-    ///    resource_name: &str
+    ///    client: &Iam, resource_name: &str
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .get_service_account()
+    ///     let response = client.get_service_account()
     ///         .set_name(resource_name)
-    ///         .send()
-    ///         .await?;
+    ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -208,11 +204,9 @@ impl Iam {
     /// async fn sample(
     ///    client: &Iam
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .create_service_account()
+    ///     let response = client.create_service_account()
     ///         /* set fields */
-    ///         .send()
-    ///         .await?;
+    ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -238,11 +232,9 @@ impl Iam {
     /// async fn sample(
     ///    client: &Iam
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .update_service_account()
+    ///     let response = client.update_service_account()
     ///         /* set fields */
-    ///         .send()
-    ///         .await?;
+    ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -262,11 +254,9 @@ impl Iam {
     /// async fn sample(
     ///    client: &Iam
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .patch_service_account()
+    ///     let response = client.patch_service_account()
     ///         /* set fields */
-    ///         .send()
-    ///         .await?;
+    ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -299,14 +289,11 @@ impl Iam {
     /// # use google_cloud_iam_admin_v1::client::Iam;
     /// use google_cloud_iam_admin_v1::Result;
     /// async fn sample(
-    ///    client: &Iam,
-    ///    resource_name: &str
+    ///    client: &Iam, resource_name: &str
     /// ) -> Result<()> {
-    ///     client
-    ///         .delete_service_account()
+    ///     client.delete_service_account()
     ///         .set_name(resource_name)
-    ///         .send()
-    ///         .await?;
+    ///         .send().await?;
     ///     Ok(())
     /// }
     /// ```
@@ -332,11 +319,9 @@ impl Iam {
     /// async fn sample(
     ///    client: &Iam
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .undelete_service_account()
+    ///     let response = client.undelete_service_account()
     ///         /* set fields */
-    ///         .send()
-    ///         .await?;
+    ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -364,11 +349,9 @@ impl Iam {
     /// async fn sample(
     ///    client: &Iam
     /// ) -> Result<()> {
-    ///     client
-    ///         .enable_service_account()
+    ///     client.enable_service_account()
     ///         /* set fields */
-    ///         .send()
-    ///         .await?;
+    ///         .send().await?;
     ///     Ok(())
     /// }
     /// ```
@@ -404,11 +387,9 @@ impl Iam {
     /// async fn sample(
     ///    client: &Iam
     /// ) -> Result<()> {
-    ///     client
-    ///         .disable_service_account()
+    ///     client.disable_service_account()
     ///         /* set fields */
-    ///         .send()
-    ///         .await?;
+    ///         .send().await?;
     ///     Ok(())
     /// }
     /// ```
@@ -427,11 +408,9 @@ impl Iam {
     /// async fn sample(
     ///    client: &Iam
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .list_service_account_keys()
+    ///     let response = client.list_service_account_keys()
     ///         /* set fields */
-    ///         .send()
-    ///         .await?;
+    ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -449,14 +428,11 @@ impl Iam {
     /// # use google_cloud_iam_admin_v1::client::Iam;
     /// use google_cloud_iam_admin_v1::Result;
     /// async fn sample(
-    ///    client: &Iam,
-    ///    resource_name: &str
+    ///    client: &Iam, resource_name: &str
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .get_service_account_key()
+    ///     let response = client.get_service_account_key()
     ///         .set_name(resource_name)
-    ///         .send()
-    ///         .await?;
+    ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -476,11 +452,9 @@ impl Iam {
     /// async fn sample(
     ///    client: &Iam
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .create_service_account_key()
+    ///     let response = client.create_service_account_key()
     ///         /* set fields */
-    ///         .send()
-    ///         .await?;
+    ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -504,11 +478,9 @@ impl Iam {
     /// async fn sample(
     ///    client: &Iam
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .upload_service_account_key()
+    ///     let response = client.upload_service_account_key()
     ///         /* set fields */
-    ///         .send()
-    ///         .await?;
+    ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -528,14 +500,11 @@ impl Iam {
     /// # use google_cloud_iam_admin_v1::client::Iam;
     /// use google_cloud_iam_admin_v1::Result;
     /// async fn sample(
-    ///    client: &Iam,
-    ///    resource_name: &str
+    ///    client: &Iam, resource_name: &str
     /// ) -> Result<()> {
-    ///     client
-    ///         .delete_service_account_key()
+    ///     client.delete_service_account_key()
     ///         .set_name(resource_name)
-    ///         .send()
-    ///         .await?;
+    ///         .send().await?;
     ///     Ok(())
     /// }
     /// ```
@@ -556,11 +525,9 @@ impl Iam {
     /// async fn sample(
     ///    client: &Iam
     /// ) -> Result<()> {
-    ///     client
-    ///         .disable_service_account_key()
+    ///     client.disable_service_account_key()
     ///         /* set fields */
-    ///         .send()
-    ///         .await?;
+    ///         .send().await?;
     ///     Ok(())
     /// }
     /// ```
@@ -579,11 +546,9 @@ impl Iam {
     /// async fn sample(
     ///    client: &Iam
     /// ) -> Result<()> {
-    ///     client
-    ///         .enable_service_account_key()
+    ///     client.enable_service_account_key()
     ///         /* set fields */
-    ///         .send()
-    ///         .await?;
+    ///         .send().await?;
     ///     Ok(())
     /// }
     /// ```
@@ -609,11 +574,9 @@ impl Iam {
     /// async fn sample(
     ///    client: &Iam
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .sign_blob()
+    ///     let response = client.sign_blob()
     ///         /* set fields */
-    ///         .send()
-    ///         .await?;
+    ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -642,11 +605,9 @@ impl Iam {
     /// async fn sample(
     ///    client: &Iam
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .sign_jwt()
+    ///     let response = client.sign_jwt()
     ///         /* set fields */
-    ///         .send()
-    ///         .await?;
+    ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -676,11 +637,9 @@ impl Iam {
     /// async fn sample(
     ///    client: &Iam
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .get_iam_policy()
+    ///     let response = client.get_iam_policy()
     ///         /* set fields */
-    ///         .send()
-    ///         .await?;
+    ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -718,11 +677,9 @@ impl Iam {
     /// async fn sample(
     ///    client: &Iam
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .set_iam_policy()
+    ///     let response = client.set_iam_policy()
     ///         /* set fields */
-    ///         .send()
-    ///         .await?;
+    ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -743,11 +700,9 @@ impl Iam {
     /// async fn sample(
     ///    client: &Iam
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .test_iam_permissions()
+    ///     let response = client.test_iam_permissions()
     ///         /* set fields */
-    ///         .send()
-    ///         .await?;
+    ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -768,8 +723,7 @@ impl Iam {
     /// async fn sample(
     ///    client: &Iam
     /// ) -> Result<()> {
-    ///     let mut list = client
-    ///         .query_grantable_roles()
+    ///     let mut list = client.query_grantable_roles()
     ///         /* set fields */
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
@@ -795,8 +749,7 @@ impl Iam {
     /// async fn sample(
     ///    client: &Iam
     /// ) -> Result<()> {
-    ///     let mut list = client
-    ///         .list_roles()
+    ///     let mut list = client.list_roles()
     ///         /* set fields */
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
@@ -820,11 +773,9 @@ impl Iam {
     /// async fn sample(
     ///    client: &Iam
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .get_role()
+    ///     let response = client.get_role()
     ///         /* set fields */
-    ///         .send()
-    ///         .await?;
+    ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -844,11 +795,9 @@ impl Iam {
     /// async fn sample(
     ///    client: &Iam
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .create_role()
+    ///     let response = client.create_role()
     ///         /* set fields */
-    ///         .send()
-    ///         .await?;
+    ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -868,11 +817,9 @@ impl Iam {
     /// async fn sample(
     ///    client: &Iam
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .update_role()
+    ///     let response = client.update_role()
     ///         /* set fields */
-    ///         .send()
-    ///         .await?;
+    ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -908,14 +855,11 @@ impl Iam {
     /// # use google_cloud_iam_admin_v1::client::Iam;
     /// use google_cloud_iam_admin_v1::Result;
     /// async fn sample(
-    ///    client: &Iam,
-    ///    resource_name: &str
+    ///    client: &Iam, resource_name: &str
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .delete_role()
+    ///     let response = client.delete_role()
     ///         .set_name(resource_name)
-    ///         .send()
-    ///         .await?;
+    ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -933,14 +877,11 @@ impl Iam {
     /// # use google_cloud_iam_admin_v1::client::Iam;
     /// use google_cloud_iam_admin_v1::Result;
     /// async fn sample(
-    ///    client: &Iam,
-    ///    resource_name: &str
+    ///    client: &Iam, resource_name: &str
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .undelete_role()
+    ///     let response = client.undelete_role()
     ///         .set_name(resource_name)
-    ///         .send()
-    ///         .await?;
+    ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -961,8 +902,7 @@ impl Iam {
     /// async fn sample(
     ///    client: &Iam
     /// ) -> Result<()> {
-    ///     let mut list = client
-    ///         .query_testable_permissions()
+    ///     let mut list = client.query_testable_permissions()
     ///         /* set fields */
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
@@ -988,11 +928,9 @@ impl Iam {
     /// async fn sample(
     ///    client: &Iam
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .query_auditable_services()
+    ///     let response = client.query_auditable_services()
     ///         /* set fields */
-    ///         .send()
-    ///         .await?;
+    ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -1017,11 +955,9 @@ impl Iam {
     /// async fn sample(
     ///    client: &Iam
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .lint_policy()
+    ///     let response = client.lint_policy()
     ///         /* set fields */
-    ///         .send()
-    ///         .await?;
+    ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }

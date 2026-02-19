@@ -7200,6 +7200,12 @@ impl super::stub::FirewallPolicies for FirewallPolicies {
                     "/compute/v1/locations/global/firewallPolicies/listAssociations".to_string();
 
                 let builder = self.inner.builder(Method::GET, path);
+                let builder = req
+                    .include_inherited_policies
+                    .iter()
+                    .fold(builder, |builder, p| {
+                        builder.query(&[("includeInheritedPolicies", p)])
+                    });
                 let builder = req.target_resource.iter().fold(builder, |builder, p| {
                     builder.query(&[("targetResource", p)])
                 });

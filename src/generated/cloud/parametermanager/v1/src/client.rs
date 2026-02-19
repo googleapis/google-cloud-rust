@@ -120,31 +120,136 @@ impl ParameterManager {
     }
 
     /// Lists Parameters in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::client::ParameterManager;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_parametermanager_v1::Result;
+    /// async fn sample(
+    ///    client: &ParameterManager, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_parameters()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_parameters(&self) -> super::builder::parameter_manager::ListParameters {
         super::builder::parameter_manager::ListParameters::new(self.inner.clone())
     }
 
     /// Gets details of a single Parameter.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::client::ParameterManager;
+    /// use google_cloud_parametermanager_v1::Result;
+    /// async fn sample(
+    ///    client: &ParameterManager, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_parameter()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_parameter(&self) -> super::builder::parameter_manager::GetParameter {
         super::builder::parameter_manager::GetParameter::new(self.inner.clone())
     }
 
     /// Creates a new Parameter in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::client::ParameterManager;
+    /// use google_cloud_parametermanager_v1::model::Parameter;
+    /// use google_cloud_parametermanager_v1::Result;
+    /// async fn sample(
+    ///    client: &ParameterManager, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_parameter()
+    ///         .set_parent(parent).set_parameter_id("parameter_id_value")
+    ///         .set_parameter(
+    ///             Parameter::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_parameter(&self) -> super::builder::parameter_manager::CreateParameter {
         super::builder::parameter_manager::CreateParameter::new(self.inner.clone())
     }
 
     /// Updates a single Parameter.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::client::ParameterManager;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_parametermanager_v1::model::Parameter;
+    /// use google_cloud_parametermanager_v1::Result;
+    /// async fn sample(
+    ///    client: &ParameterManager, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_parameter()
+    ///         .set_parameter(
+    ///             Parameter::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_parameter(&self) -> super::builder::parameter_manager::UpdateParameter {
         super::builder::parameter_manager::UpdateParameter::new(self.inner.clone())
     }
 
     /// Deletes a single Parameter.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::client::ParameterManager;
+    /// use google_cloud_parametermanager_v1::Result;
+    /// async fn sample(
+    ///    client: &ParameterManager, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_parameter()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_parameter(&self) -> super::builder::parameter_manager::DeleteParameter {
         super::builder::parameter_manager::DeleteParameter::new(self.inner.clone())
     }
 
     /// Lists ParameterVersions in a given project, location, and parameter.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::client::ParameterManager;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_parametermanager_v1::Result;
+    /// async fn sample(
+    ///    client: &ParameterManager, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_parameter_versions()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_parameter_versions(
         &self,
     ) -> super::builder::parameter_manager::ListParameterVersions {
@@ -152,11 +257,41 @@ impl ParameterManager {
     }
 
     /// Gets details of a single ParameterVersion.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::client::ParameterManager;
+    /// use google_cloud_parametermanager_v1::Result;
+    /// async fn sample(
+    ///    client: &ParameterManager, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_parameter_version()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_parameter_version(&self) -> super::builder::parameter_manager::GetParameterVersion {
         super::builder::parameter_manager::GetParameterVersion::new(self.inner.clone())
     }
 
     /// Gets rendered version of a ParameterVersion.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::client::ParameterManager;
+    /// use google_cloud_parametermanager_v1::Result;
+    /// async fn sample(
+    ///    client: &ParameterManager
+    /// ) -> Result<()> {
+    ///     let response = client.render_parameter_version()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn render_parameter_version(
         &self,
     ) -> super::builder::parameter_manager::RenderParameterVersion {
@@ -164,6 +299,25 @@ impl ParameterManager {
     }
 
     /// Creates a new ParameterVersion in a given project, location, and parameter.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::client::ParameterManager;
+    /// use google_cloud_parametermanager_v1::model::ParameterVersion;
+    /// use google_cloud_parametermanager_v1::Result;
+    /// async fn sample(
+    ///    client: &ParameterManager, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_parameter_version()
+    ///         .set_parent(parent)
+    ///         .set_parameter_version(
+    ///             ParameterVersion::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_parameter_version(
         &self,
     ) -> super::builder::parameter_manager::CreateParameterVersion {
@@ -171,6 +325,27 @@ impl ParameterManager {
     }
 
     /// Updates a single ParameterVersion.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::client::ParameterManager;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_parametermanager_v1::model::ParameterVersion;
+    /// use google_cloud_parametermanager_v1::Result;
+    /// async fn sample(
+    ///    client: &ParameterManager, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_parameter_version()
+    ///         .set_parameter_version(
+    ///             ParameterVersion::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_parameter_version(
         &self,
     ) -> super::builder::parameter_manager::UpdateParameterVersion {
@@ -178,6 +353,20 @@ impl ParameterManager {
     }
 
     /// Deletes a single ParameterVersion.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::client::ParameterManager;
+    /// use google_cloud_parametermanager_v1::Result;
+    /// async fn sample(
+    ///    client: &ParameterManager, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_parameter_version()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_parameter_version(
         &self,
     ) -> super::builder::parameter_manager::DeleteParameterVersion {
@@ -185,11 +374,44 @@ impl ParameterManager {
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::client::ParameterManager;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_parametermanager_v1::Result;
+    /// async fn sample(
+    ///    client: &ParameterManager
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::parameter_manager::ListLocations {
         super::builder::parameter_manager::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::client::ParameterManager;
+    /// use google_cloud_parametermanager_v1::Result;
+    /// async fn sample(
+    ///    client: &ParameterManager
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::parameter_manager::GetLocation {
         super::builder::parameter_manager::GetLocation::new(self.inner.clone())
     }

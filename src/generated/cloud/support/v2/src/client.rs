@@ -120,6 +120,24 @@ impl CaseAttachmentService {
     }
 
     /// List all the attachments associated with a support case.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_support_v2::client::CaseAttachmentService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_support_v2::Result;
+    /// async fn sample(
+    ///    client: &CaseAttachmentService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_attachments()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_attachments(&self) -> super::builder::case_attachment_service::ListAttachments {
         super::builder::case_attachment_service::ListAttachments::new(self.inner.clone())
     }
@@ -228,6 +246,21 @@ impl CaseService {
     }
 
     /// Retrieve a case.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_support_v2::client::CaseService;
+    /// use google_cloud_support_v2::Result;
+    /// async fn sample(
+    ///    client: &CaseService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_case()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_case(&self) -> super::builder::case_service::GetCase {
         super::builder::case_service::GetCase::new(self.inner.clone())
     }
@@ -237,11 +270,47 @@ impl CaseService {
     /// For example, listing cases under an organization only returns the cases
     /// that are directly parented by that organization. To retrieve cases
     /// under an organization and its projects, use `cases.search`.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_support_v2::client::CaseService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_support_v2::Result;
+    /// async fn sample(
+    ///    client: &CaseService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_cases()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_cases(&self) -> super::builder::case_service::ListCases {
         super::builder::case_service::ListCases::new(self.inner.clone())
     }
 
     /// Search for cases using a query.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_support_v2::client::CaseService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_support_v2::Result;
+    /// async fn sample(
+    ///    client: &CaseService
+    /// ) -> Result<()> {
+    ///     let mut list = client.search_cases()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn search_cases(&self) -> super::builder::case_service::SearchCases {
         super::builder::case_service::SearchCases::new(self.inner.clone())
     }
@@ -251,11 +320,51 @@ impl CaseService {
     /// It must have the following fields set: `display_name`, `description`,
     /// `classification`, and `priority`. If you're just testing the API and don't
     /// want to route your case to an agent, set `testCase=true`.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_support_v2::client::CaseService;
+    /// use google_cloud_support_v2::model::Case;
+    /// use google_cloud_support_v2::Result;
+    /// async fn sample(
+    ///    client: &CaseService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_case()
+    ///         .set_parent(parent)
+    ///         .set_case(
+    ///             Case::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_case(&self) -> super::builder::case_service::CreateCase {
         super::builder::case_service::CreateCase::new(self.inner.clone())
     }
 
     /// Update a case. Only some fields can be updated.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_support_v2::client::CaseService;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_support_v2::model::Case;
+    /// use google_cloud_support_v2::Result;
+    /// async fn sample(
+    ///    client: &CaseService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_case()
+    ///         .set_case(
+    ///             Case::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_case(&self) -> super::builder::case_service::UpdateCase {
         super::builder::case_service::UpdateCase::new(self.inner.clone())
     }
@@ -267,11 +376,41 @@ impl CaseService {
     /// <https://cloud.google.com/support> and look for 'Technical support
     /// escalations' in the feature list to find out which ones let you
     /// do that.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_support_v2::client::CaseService;
+    /// use google_cloud_support_v2::Result;
+    /// async fn sample(
+    ///    client: &CaseService
+    /// ) -> Result<()> {
+    ///     let response = client.escalate_case()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn escalate_case(&self) -> super::builder::case_service::EscalateCase {
         super::builder::case_service::EscalateCase::new(self.inner.clone())
     }
 
     /// Close a case.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_support_v2::client::CaseService;
+    /// use google_cloud_support_v2::Result;
+    /// async fn sample(
+    ///    client: &CaseService
+    /// ) -> Result<()> {
+    ///     let response = client.close_case()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn close_case(&self) -> super::builder::case_service::CloseCase {
         super::builder::case_service::CloseCase::new(self.inner.clone())
     }
@@ -286,6 +425,24 @@ impl CaseService {
     /// months. When a classification is deactivated, this endpoint immediately
     /// stops returning it. After six months, `case.create` requests using the
     /// classification will fail.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_support_v2::client::CaseService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_support_v2::Result;
+    /// async fn sample(
+    ///    client: &CaseService
+    /// ) -> Result<()> {
+    ///     let mut list = client.search_case_classifications()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn search_case_classifications(
         &self,
     ) -> super::builder::case_service::SearchCaseClassifications {
@@ -396,6 +553,24 @@ impl CommentService {
     }
 
     /// List all the comments associated with a case.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_support_v2::client::CommentService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_support_v2::Result;
+    /// async fn sample(
+    ///    client: &CommentService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_comments()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_comments(&self) -> super::builder::comment_service::ListComments {
         super::builder::comment_service::ListComments::new(self.inner.clone())
     }
@@ -403,6 +578,25 @@ impl CommentService {
     /// Add a new comment to a case.
     ///
     /// The comment must have the following fields set: `body`.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_support_v2::client::CommentService;
+    /// use google_cloud_support_v2::model::Comment;
+    /// use google_cloud_support_v2::Result;
+    /// async fn sample(
+    ///    client: &CommentService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_comment()
+    ///         .set_parent(parent)
+    ///         .set_comment(
+    ///             Comment::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_comment(&self) -> super::builder::comment_service::CreateComment {
         super::builder::comment_service::CreateComment::new(self.inner.clone())
     }

@@ -531,9 +531,13 @@ pub mod topic_admin {
     /// ```
     /// # use google_cloud_pubsub::builder::topic_admin::ListTopicSubscriptions;
     /// # async fn sample() -> google_cloud_pubsub::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
-    /// let response = builder.send().await?;
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
     /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListTopicSubscriptions {
@@ -572,6 +576,34 @@ pub mod topic_admin {
                 .list_topic_subscriptions(self.0.request, self.0.options)
                 .await
                 .map(crate::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListTopicSubscriptionsResponse,
+            crate::Error,
+        > {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListTopicSubscriptionsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [topic][crate::model::ListTopicSubscriptionsRequest::topic].

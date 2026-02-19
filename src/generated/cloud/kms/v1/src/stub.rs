@@ -699,6 +699,17 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::KeyManagementService::list_retired_resources].
+    fn list_retired_resources(
+        &self,
+        _req: crate::model::ListRetiredResourcesRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::ListRetiredResourcesResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::KeyManagementService::get_key_ring].
     fn get_key_ring(
         &self,
@@ -750,6 +761,17 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::KeyManagementService::get_retired_resource].
+    fn get_retired_resource(
+        &self,
+        _req: crate::model::GetRetiredResourceRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::RetiredResource>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::KeyManagementService::create_key_ring].
     fn create_key_ring(
         &self,
@@ -777,6 +799,28 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<crate::Response<crate::model::CryptoKeyVersion>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::KeyManagementService::delete_crypto_key].
+    fn delete_crypto_key(
+        &self,
+        _req: crate::model::DeleteCryptoKeyRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::KeyManagementService::delete_crypto_key_version].
+    fn delete_crypto_key_version(
+        &self,
+        _req: crate::model::DeleteCryptoKeyVersionRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -1033,5 +1077,27 @@ pub trait KeyManagementService: std::fmt::Debug + Send + Sync {
         Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Returns the polling error policy.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
+    fn get_polling_error_policy(
+        &self,
+        _options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
+        std::sync::Arc::new(google_cloud_gax::polling_error_policy::Aip194Strict)
+    }
+
+    /// Returns the polling backoff policy.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
+    fn get_polling_backoff_policy(
+        &self,
+        _options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
+        std::sync::Arc::new(google_cloud_gax::exponential_backoff::ExponentialBackoff::default())
     }
 }

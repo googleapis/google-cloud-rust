@@ -146,31 +146,127 @@ impl GSuiteAddOns {
     }
 
     /// Gets the authorization information for deployments in a given project.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gsuiteaddons_v1::client::GSuiteAddOns;
+    /// use google_cloud_gsuiteaddons_v1::Result;
+    /// async fn sample(
+    ///    client: &GSuiteAddOns, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_authorization()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_authorization(&self) -> super::builder::g_suite_add_ons::GetAuthorization {
         super::builder::g_suite_add_ons::GetAuthorization::new(self.inner.clone())
     }
 
     /// Creates a deployment with the specified name and configuration.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gsuiteaddons_v1::client::GSuiteAddOns;
+    /// use google_cloud_gsuiteaddons_v1::model::Deployment;
+    /// use google_cloud_gsuiteaddons_v1::Result;
+    /// async fn sample(
+    ///    client: &GSuiteAddOns, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_deployment()
+    ///         .set_parent(parent).set_deployment_id("deployment_id_value")
+    ///         .set_deployment(
+    ///             Deployment::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_deployment(&self) -> super::builder::g_suite_add_ons::CreateDeployment {
         super::builder::g_suite_add_ons::CreateDeployment::new(self.inner.clone())
     }
 
     /// Creates or replaces a deployment with the specified name.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gsuiteaddons_v1::client::GSuiteAddOns;
+    /// use google_cloud_gsuiteaddons_v1::Result;
+    /// async fn sample(
+    ///    client: &GSuiteAddOns
+    /// ) -> Result<()> {
+    ///     let response = client.replace_deployment()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn replace_deployment(&self) -> super::builder::g_suite_add_ons::ReplaceDeployment {
         super::builder::g_suite_add_ons::ReplaceDeployment::new(self.inner.clone())
     }
 
     /// Gets the deployment with the specified name.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gsuiteaddons_v1::client::GSuiteAddOns;
+    /// use google_cloud_gsuiteaddons_v1::Result;
+    /// async fn sample(
+    ///    client: &GSuiteAddOns, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_deployment()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_deployment(&self) -> super::builder::g_suite_add_ons::GetDeployment {
         super::builder::g_suite_add_ons::GetDeployment::new(self.inner.clone())
     }
 
     /// Lists all deployments in a particular project.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gsuiteaddons_v1::client::GSuiteAddOns;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_gsuiteaddons_v1::Result;
+    /// async fn sample(
+    ///    client: &GSuiteAddOns, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_deployments()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_deployments(&self) -> super::builder::g_suite_add_ons::ListDeployments {
         super::builder::g_suite_add_ons::ListDeployments::new(self.inner.clone())
     }
 
     /// Deletes the deployment with the given name.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gsuiteaddons_v1::client::GSuiteAddOns;
+    /// use google_cloud_gsuiteaddons_v1::Result;
+    /// async fn sample(
+    ///    client: &GSuiteAddOns, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_deployment()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_deployment(&self) -> super::builder::g_suite_add_ons::DeleteDeployment {
         super::builder::g_suite_add_ons::DeleteDeployment::new(self.inner.clone())
     }
@@ -178,6 +274,20 @@ impl GSuiteAddOns {
     /// Installs a deployment in developer mode.
     /// See:
     /// <https://developers.google.com/gsuite/add-ons/how-tos/testing-gsuite-addons>.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gsuiteaddons_v1::client::GSuiteAddOns;
+    /// use google_cloud_gsuiteaddons_v1::Result;
+    /// async fn sample(
+    ///    client: &GSuiteAddOns
+    /// ) -> Result<()> {
+    ///     client.install_deployment()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn install_deployment(&self) -> super::builder::g_suite_add_ons::InstallDeployment {
         super::builder::g_suite_add_ons::InstallDeployment::new(self.inner.clone())
     }
@@ -185,11 +295,40 @@ impl GSuiteAddOns {
     /// Uninstalls a developer mode deployment.
     /// See:
     /// <https://developers.google.com/gsuite/add-ons/how-tos/testing-gsuite-addons>.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gsuiteaddons_v1::client::GSuiteAddOns;
+    /// use google_cloud_gsuiteaddons_v1::Result;
+    /// async fn sample(
+    ///    client: &GSuiteAddOns
+    /// ) -> Result<()> {
+    ///     client.uninstall_deployment()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn uninstall_deployment(&self) -> super::builder::g_suite_add_ons::UninstallDeployment {
         super::builder::g_suite_add_ons::UninstallDeployment::new(self.inner.clone())
     }
 
     /// Fetches the install status of a developer mode deployment.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gsuiteaddons_v1::client::GSuiteAddOns;
+    /// use google_cloud_gsuiteaddons_v1::Result;
+    /// async fn sample(
+    ///    client: &GSuiteAddOns, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_install_status()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_install_status(&self) -> super::builder::g_suite_add_ons::GetInstallStatus {
         super::builder::g_suite_add_ons::GetInstallStatus::new(self.inner.clone())
     }

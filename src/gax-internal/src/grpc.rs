@@ -366,11 +366,8 @@ impl Client {
     ) -> ClientBuilderResult<::tonic::transport::Endpoint> {
         use ::tonic::transport::{ClientTlsConfig, Endpoint};
 
-        let origin =
-            crate::host::from_endpoint(endpoint.as_deref(), default_endpoint, |origin, _host| {
-                origin
-            });
-        let origin = origin?;
+        let origin = crate::host::origin(endpoint.as_deref(), default_endpoint)
+            .map_err(|e| e.client_builder())?;
         let endpoint =
             Endpoint::from_shared(endpoint.unwrap_or_else(|| default_endpoint.to_string()))
                 .map_err(BuilderError::transport)?;
@@ -385,7 +382,7 @@ impl Client {
         } else {
             endpoint
         };
-        Ok(endpoint.origin(origin))
+        Ok(endpoint.origin(origin).concurrency_limit(100))
     }
 
     async fn make_credentials(

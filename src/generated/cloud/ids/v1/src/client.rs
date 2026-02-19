@@ -119,11 +119,44 @@ impl Ids {
     }
 
     /// Lists Endpoints in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_ids_v1::client::Ids;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_ids_v1::Result;
+    /// async fn sample(
+    ///    client: &Ids, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_endpoints()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_endpoints(&self) -> super::builder::ids::ListEndpoints {
         super::builder::ids::ListEndpoints::new(self.inner.clone())
     }
 
     /// Gets details of a single Endpoint.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_ids_v1::client::Ids;
+    /// use google_cloud_ids_v1::Result;
+    /// async fn sample(
+    ///    client: &Ids, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_endpoint()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_endpoint(&self) -> super::builder::ids::GetEndpoint {
         super::builder::ids::GetEndpoint::new(self.inner.clone())
     }
@@ -139,6 +172,26 @@ impl Ids {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_ids_v1::client::Ids;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_ids_v1::model::Endpoint;
+    /// use google_cloud_ids_v1::Result;
+    /// async fn sample(
+    ///    client: &Ids, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_endpoint()
+    ///         .set_parent(parent).set_endpoint_id("endpoint_id_value")
+    ///         .set_endpoint(
+    ///             Endpoint::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_endpoint(&self) -> super::builder::ids::CreateEndpoint {
         super::builder::ids::CreateEndpoint::new(self.inner.clone())
     }
@@ -154,6 +207,21 @@ impl Ids {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_ids_v1::client::Ids;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_ids_v1::Result;
+    /// async fn sample(
+    ///    client: &Ids, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_endpoint()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_endpoint(&self) -> super::builder::ids::DeleteEndpoint {
         super::builder::ids::DeleteEndpoint::new(self.inner.clone())
     }
@@ -161,6 +229,24 @@ impl Ids {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_ids_v1::client::Ids;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_ids_v1::Result;
+    /// async fn sample(
+    ///    client: &Ids
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::ids::ListOperations {
         super::builder::ids::ListOperations::new(self.inner.clone())
     }
@@ -168,6 +254,21 @@ impl Ids {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_ids_v1::client::Ids;
+    /// use google_cloud_ids_v1::Result;
+    /// async fn sample(
+    ///    client: &Ids
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::ids::GetOperation {
         super::builder::ids::GetOperation::new(self.inner.clone())
     }
@@ -175,6 +276,20 @@ impl Ids {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_ids_v1::client::Ids;
+    /// use google_cloud_ids_v1::Result;
+    /// async fn sample(
+    ///    client: &Ids
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::ids::DeleteOperation {
         super::builder::ids::DeleteOperation::new(self.inner.clone())
     }
@@ -182,6 +297,20 @@ impl Ids {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_ids_v1::client::Ids;
+    /// use google_cloud_ids_v1::Result;
+    /// async fn sample(
+    ///    client: &Ids
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::ids::CancelOperation {
         super::builder::ids::CancelOperation::new(self.inner.clone())
     }

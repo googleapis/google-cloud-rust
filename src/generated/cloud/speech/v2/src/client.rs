@@ -136,16 +136,17 @@ impl Speech {
     /// ```
     /// # use google_cloud_speech_v2::client::Speech;
     /// use google_cloud_lro::Poller;
+    /// use google_cloud_speech_v2::model::Recognizer;
     /// use google_cloud_speech_v2::Result;
     /// async fn sample(
-    ///    client: &Speech
+    ///    client: &Speech, parent: &str
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .create_recognizer()
-    ///         /* set fields */
-    ///         .poller()
-    ///         .until_done()
-    ///         .await?;
+    ///     let response = client.create_recognizer()
+    ///         .set_parent(parent).set_recognizer_id("recognizer_id_value")
+    ///         .set_recognizer(
+    ///             Recognizer::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -162,11 +163,9 @@ impl Speech {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_speech_v2::Result;
     /// async fn sample(
-    ///    client: &Speech,
-    ///    parent: &str
+    ///    client: &Speech, parent: &str
     /// ) -> Result<()> {
-    ///     let mut list = client
-    ///         .list_recognizers()
+    ///     let mut list = client.list_recognizers()
     ///         .set_parent(parent)
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
@@ -191,14 +190,11 @@ impl Speech {
     /// # use google_cloud_speech_v2::client::Speech;
     /// use google_cloud_speech_v2::Result;
     /// async fn sample(
-    ///    client: &Speech,
-    ///    resource_name: &str
+    ///    client: &Speech, resource_name: &str
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .get_recognizer()
+    ///     let response = client.get_recognizer()
     ///         .set_name(resource_name)
-    ///         .send()
-    ///         .await?;
+    ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -225,16 +221,19 @@ impl Speech {
     /// ```
     /// # use google_cloud_speech_v2::client::Speech;
     /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_speech_v2::model::Recognizer;
     /// use google_cloud_speech_v2::Result;
     /// async fn sample(
-    ///    client: &Speech
+    ///    client: &Speech, name: &str
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .update_recognizer()
-    ///         /* set fields */
-    ///         .poller()
-    ///         .until_done()
-    ///         .await?;
+    ///     let response = client.update_recognizer()
+    ///         .set_recognizer(
+    ///             Recognizer::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -263,15 +262,11 @@ impl Speech {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_speech_v2::Result;
     /// async fn sample(
-    ///    client: &Speech,
-    ///    resource_name: &str
+    ///    client: &Speech, resource_name: &str
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .delete_recognizer()
+    ///     let response = client.delete_recognizer()
     ///         .set_name(resource_name)
-    ///         .poller()
-    ///         .until_done()
-    ///         .await?;
+    ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -300,15 +295,11 @@ impl Speech {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_speech_v2::Result;
     /// async fn sample(
-    ///    client: &Speech,
-    ///    resource_name: &str
+    ///    client: &Speech, resource_name: &str
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .undelete_recognizer()
+    ///     let response = client.undelete_recognizer()
     ///         .set_name(resource_name)
-    ///         .poller()
-    ///         .until_done()
-    ///         .await?;
+    ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -327,11 +318,9 @@ impl Speech {
     /// async fn sample(
     ///    client: &Speech
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .recognize()
+    ///     let response = client.recognize()
     ///         /* set fields */
-    ///         .send()
-    ///         .await?;
+    ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -362,12 +351,9 @@ impl Speech {
     /// async fn sample(
     ///    client: &Speech
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .batch_recognize()
+    ///     let response = client.batch_recognize()
     ///         /* set fields */
-    ///         .poller()
-    ///         .until_done()
-    ///         .await?;
+    ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -385,14 +371,11 @@ impl Speech {
     /// # use google_cloud_speech_v2::client::Speech;
     /// use google_cloud_speech_v2::Result;
     /// async fn sample(
-    ///    client: &Speech,
-    ///    resource_name: &str
+    ///    client: &Speech, resource_name: &str
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .get_config()
+    ///     let response = client.get_config()
     ///         .set_name(resource_name)
-    ///         .send()
-    ///         .await?;
+    ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -408,15 +391,19 @@ impl Speech {
     /// # Example
     /// ```
     /// # use google_cloud_speech_v2::client::Speech;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_speech_v2::model::Config;
     /// use google_cloud_speech_v2::Result;
     /// async fn sample(
-    ///    client: &Speech
+    ///    client: &Speech, name: &str
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .update_config()
-    ///         /* set fields */
-    ///         .send()
-    ///         .await?;
+    ///     let response = client.update_config()
+    ///         .set_config(
+    ///             Config::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -443,16 +430,17 @@ impl Speech {
     /// ```
     /// # use google_cloud_speech_v2::client::Speech;
     /// use google_cloud_lro::Poller;
+    /// use google_cloud_speech_v2::model::CustomClass;
     /// use google_cloud_speech_v2::Result;
     /// async fn sample(
-    ///    client: &Speech
+    ///    client: &Speech, parent: &str
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .create_custom_class()
-    ///         /* set fields */
-    ///         .poller()
-    ///         .until_done()
-    ///         .await?;
+    ///     let response = client.create_custom_class()
+    ///         .set_parent(parent)
+    ///         .set_custom_class(
+    ///             CustomClass::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -469,11 +457,9 @@ impl Speech {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_speech_v2::Result;
     /// async fn sample(
-    ///    client: &Speech,
-    ///    parent: &str
+    ///    client: &Speech, parent: &str
     /// ) -> Result<()> {
-    ///     let mut list = client
-    ///         .list_custom_classes()
+    ///     let mut list = client.list_custom_classes()
     ///         .set_parent(parent)
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
@@ -496,14 +482,11 @@ impl Speech {
     /// # use google_cloud_speech_v2::client::Speech;
     /// use google_cloud_speech_v2::Result;
     /// async fn sample(
-    ///    client: &Speech,
-    ///    resource_name: &str
+    ///    client: &Speech, resource_name: &str
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .get_custom_class()
+    ///     let response = client.get_custom_class()
     ///         .set_name(resource_name)
-    ///         .send()
-    ///         .await?;
+    ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -530,16 +513,19 @@ impl Speech {
     /// ```
     /// # use google_cloud_speech_v2::client::Speech;
     /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_speech_v2::model::CustomClass;
     /// use google_cloud_speech_v2::Result;
     /// async fn sample(
-    ///    client: &Speech
+    ///    client: &Speech, name: &str
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .update_custom_class()
-    ///         /* set fields */
-    ///         .poller()
-    ///         .until_done()
-    ///         .await?;
+    ///     let response = client.update_custom_class()
+    ///         .set_custom_class(
+    ///             CustomClass::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -568,15 +554,11 @@ impl Speech {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_speech_v2::Result;
     /// async fn sample(
-    ///    client: &Speech,
-    ///    resource_name: &str
+    ///    client: &Speech, resource_name: &str
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .delete_custom_class()
+    ///     let response = client.delete_custom_class()
     ///         .set_name(resource_name)
-    ///         .poller()
-    ///         .until_done()
-    ///         .await?;
+    ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -605,15 +587,11 @@ impl Speech {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_speech_v2::Result;
     /// async fn sample(
-    ///    client: &Speech,
-    ///    resource_name: &str
+    ///    client: &Speech, resource_name: &str
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .undelete_custom_class()
+    ///     let response = client.undelete_custom_class()
     ///         .set_name(resource_name)
-    ///         .poller()
-    ///         .until_done()
-    ///         .await?;
+    ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -640,16 +618,17 @@ impl Speech {
     /// ```
     /// # use google_cloud_speech_v2::client::Speech;
     /// use google_cloud_lro::Poller;
+    /// use google_cloud_speech_v2::model::PhraseSet;
     /// use google_cloud_speech_v2::Result;
     /// async fn sample(
-    ///    client: &Speech
+    ///    client: &Speech, parent: &str
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .create_phrase_set()
-    ///         /* set fields */
-    ///         .poller()
-    ///         .until_done()
-    ///         .await?;
+    ///     let response = client.create_phrase_set()
+    ///         .set_parent(parent)
+    ///         .set_phrase_set(
+    ///             PhraseSet::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -666,11 +645,9 @@ impl Speech {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_speech_v2::Result;
     /// async fn sample(
-    ///    client: &Speech,
-    ///    parent: &str
+    ///    client: &Speech, parent: &str
     /// ) -> Result<()> {
-    ///     let mut list = client
-    ///         .list_phrase_sets()
+    ///     let mut list = client.list_phrase_sets()
     ///         .set_parent(parent)
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
@@ -693,14 +670,11 @@ impl Speech {
     /// # use google_cloud_speech_v2::client::Speech;
     /// use google_cloud_speech_v2::Result;
     /// async fn sample(
-    ///    client: &Speech,
-    ///    resource_name: &str
+    ///    client: &Speech, resource_name: &str
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .get_phrase_set()
+    ///     let response = client.get_phrase_set()
     ///         .set_name(resource_name)
-    ///         .send()
-    ///         .await?;
+    ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -727,16 +701,19 @@ impl Speech {
     /// ```
     /// # use google_cloud_speech_v2::client::Speech;
     /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_speech_v2::model::PhraseSet;
     /// use google_cloud_speech_v2::Result;
     /// async fn sample(
-    ///    client: &Speech
+    ///    client: &Speech, name: &str
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .update_phrase_set()
-    ///         /* set fields */
-    ///         .poller()
-    ///         .until_done()
-    ///         .await?;
+    ///     let response = client.update_phrase_set()
+    ///         .set_phrase_set(
+    ///             PhraseSet::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -765,15 +742,11 @@ impl Speech {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_speech_v2::Result;
     /// async fn sample(
-    ///    client: &Speech,
-    ///    resource_name: &str
+    ///    client: &Speech, resource_name: &str
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .delete_phrase_set()
+    ///     let response = client.delete_phrase_set()
     ///         .set_name(resource_name)
-    ///         .poller()
-    ///         .until_done()
-    ///         .await?;
+    ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -802,15 +775,11 @@ impl Speech {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_speech_v2::Result;
     /// async fn sample(
-    ///    client: &Speech,
-    ///    resource_name: &str
+    ///    client: &Speech, resource_name: &str
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .undelete_phrase_set()
+    ///     let response = client.undelete_phrase_set()
     ///         .set_name(resource_name)
-    ///         .poller()
-    ///         .until_done()
-    ///         .await?;
+    ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -829,8 +798,7 @@ impl Speech {
     /// async fn sample(
     ///    client: &Speech
     /// ) -> Result<()> {
-    ///     let mut list = client
-    ///         .list_locations()
+    ///     let mut list = client.list_locations()
     ///         /* set fields */
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
@@ -852,11 +820,9 @@ impl Speech {
     /// async fn sample(
     ///    client: &Speech
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .get_location()
+    ///     let response = client.get_location()
     ///         /* set fields */
-    ///         .send()
-    ///         .await?;
+    ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -877,8 +843,7 @@ impl Speech {
     /// async fn sample(
     ///    client: &Speech
     /// ) -> Result<()> {
-    ///     let mut list = client
-    ///         .list_operations()
+    ///     let mut list = client.list_operations()
     ///         /* set fields */
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
@@ -902,11 +867,9 @@ impl Speech {
     /// async fn sample(
     ///    client: &Speech
     /// ) -> Result<()> {
-    ///     let response = client
-    ///         .get_operation()
+    ///     let response = client.get_operation()
     ///         /* set fields */
-    ///         .send()
-    ///         .await?;
+    ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
     /// }
@@ -926,11 +889,9 @@ impl Speech {
     /// async fn sample(
     ///    client: &Speech
     /// ) -> Result<()> {
-    ///     client
-    ///         .delete_operation()
+    ///     client.delete_operation()
     ///         /* set fields */
-    ///         .send()
-    ///         .await?;
+    ///         .send().await?;
     ///     Ok(())
     /// }
     /// ```
@@ -949,11 +910,9 @@ impl Speech {
     /// async fn sample(
     ///    client: &Speech
     /// ) -> Result<()> {
-    ///     client
-    ///         .cancel_operation()
+    ///     client.cancel_operation()
     ///         /* set fields */
-    ///         .send()
-    ///         .await?;
+    ///         .send().await?;
     ///     Ok(())
     /// }
     /// ```

@@ -29,7 +29,7 @@
 //! * [SchemaService][client::SchemaService]
 //!
 //! For publishing messages:
-//! * [BasePublisher][client::BasePublisher] and [Publisher][client::Publisher]
+//! * [BasePublisher][publisher::client::BasePublisher] and [Publisher][client::Publisher]
 //!
 //! For receiving messages:
 //! * [Subscriber][client::Subscriber]
@@ -61,7 +61,8 @@
 #[allow(rustdoc::broken_intra_doc_links)]
 pub(crate) mod generated;
 
-pub(crate) mod publisher;
+/// Types related to publishing messages.
+pub mod publisher;
 /// Types related to receiving messages with a [Subscriber][client::Subscriber]
 /// client.
 pub mod subscriber;
@@ -143,14 +144,35 @@ pub mod model_ext {
 /// # Ok(())
 /// # }
 /// ```
+///
+/// # Example: Receiving Messages
+///
+/// ```
+/// # async fn sample() -> anyhow::Result<()> {
+/// use google_cloud_pubsub::client::Subscriber;
+///
+/// // Create a subscriber client.
+/// let client = Subscriber::builder().build().await?;
+///
+/// // Start a streaming pull session to receive messages from a subscription.
+/// let mut session = client
+///     .streaming_pull("projects/my-project/subscriptions/my-subscription")
+///     .start();
+///
+/// // Receive messages from the session and acknowledge.
+/// while let Some((m, h)) = session.next().await.transpose()? {
+///     println!("Received message m={m:?}");
+///     h.ack();
+/// }
+/// # Ok(()) }
+/// ```
 pub mod client {
     pub use crate::generated::gapic::client::*;
-    pub use crate::publisher::base_publisher::BasePublisher;
-    pub use crate::publisher::client::Publisher;
+    pub use crate::publisher::implementation::Publisher;
     pub use crate::subscriber::client::Subscriber;
 }
 
-pub(crate) mod error;
+pub mod error;
 
 /// Traits to mock the clients in this library.
 pub mod stub {

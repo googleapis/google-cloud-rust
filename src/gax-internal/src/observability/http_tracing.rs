@@ -201,7 +201,7 @@ pub(crate) fn record_intermediate_client_request(
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::observability::client_tracing::create_client_request_span;
+    use crate::client_request_span;
     use crate::options::InstrumentationClientInfo;
     use google_cloud_gax::error::{
         Error,
@@ -553,7 +553,7 @@ mod tests {
     #[tokio::test]
     async fn test_record_intermediate_client_request() {
         let guard = TestLayer::initialize();
-        let span = create_client_request_span("test_span", "test_method", &TEST_INFO);
+        let span = client_request_span!("Service", "test_method", &TEST_INFO);
         let _enter = span.enter();
 
         let url = "https://example.com/test".parse::<reqwest::Url>().unwrap();
@@ -613,7 +613,7 @@ mod tests {
     #[tokio::test]
     async fn test_record_intermediate_client_request_error() {
         let guard = TestLayer::initialize();
-        let span = create_client_request_span("test_span", "test_method", &TEST_INFO);
+        let span = client_request_span!("Service", "test_method", &TEST_INFO);
         let _enter = span.enter();
 
         let url = "https://example.com/test".parse::<reqwest::Url>().unwrap();

@@ -23,7 +23,7 @@ use google_cloud_gax::retry_throttler::RetryThrottlerArg;
 ///
 /// # Example
 /// ```
-/// # use google_cloud_pubsub::client::BasePublisher;
+/// # use google_cloud_pubsub::publisher::client::BasePublisher;
 /// # async fn sample() -> anyhow::Result<()> {
 /// let builder = BasePublisher::builder();
 /// let client = builder
@@ -39,16 +39,21 @@ pub struct ClientBuilder {
 
 impl ClientBuilder {
     pub(super) fn new() -> Self {
-        Self {
-            config: ClientConfig::default(),
-        }
+        let mut config = ClientConfig::default();
+        config.backoff_policy = Some(std::sync::Arc::new(
+            super::backoff_policy::default_backoff_policy(),
+        ));
+        config.retry_policy = Some(std::sync::Arc::new(
+            super::retry_policy::default_retry_policy(),
+        ));
+        Self { config }
     }
 
     /// Creates a new client.
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_pubsub::client::BasePublisher;
+    /// # use google_cloud_pubsub::publisher::client::BasePublisher;
     /// # async fn sample() -> anyhow::Result<()> {
     /// let client = BasePublisher::builder().build().await?;
     /// # Ok(()) }
@@ -61,7 +66,7 @@ impl ClientBuilder {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_pubsub::client::BasePublisher;
+    /// # use google_cloud_pubsub::publisher::client::BasePublisher;
     /// # async fn sample() -> anyhow::Result<()> {
     /// let client = BasePublisher::builder()
     ///     .with_endpoint("https://private.googleapis.com")
@@ -81,7 +86,7 @@ impl ClientBuilder {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_pubsub::client::BasePublisher;
+    /// # use google_cloud_pubsub::publisher::client::BasePublisher;
     /// # async fn sample() -> anyhow::Result<()> {
     /// let client = BasePublisher::builder()
     ///     .with_tracing()
@@ -105,7 +110,7 @@ impl ClientBuilder {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_pubsub::client::BasePublisher;
+    /// # use google_cloud_pubsub::publisher::client::BasePublisher;
     /// # async fn sample() -> anyhow::Result<()> {
     /// use google_cloud_auth::credentials::mds;
     /// let client = BasePublisher::builder()
@@ -132,7 +137,7 @@ impl ClientBuilder {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_pubsub::client::BasePublisher;
+    /// # use google_cloud_pubsub::publisher::client::BasePublisher;
     /// # async fn sample() -> anyhow::Result<()> {
     /// use google_cloud_gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
     /// let client = BasePublisher::builder()
@@ -153,7 +158,7 @@ impl ClientBuilder {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_pubsub::client::BasePublisher;
+    /// # use google_cloud_pubsub::publisher::client::BasePublisher;
     /// # async fn sample() -> anyhow::Result<()> {
     /// use google_cloud_gax::exponential_backoff::ExponentialBackoff;
     /// use std::time::Duration;
@@ -182,7 +187,7 @@ impl ClientBuilder {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_pubsub::client::BasePublisher;
+    /// # use google_cloud_pubsub::publisher::client::BasePublisher;
     /// # async fn sample() -> anyhow::Result<()> {
     /// use google_cloud_gax::retry_throttler::AdaptiveThrottler;
     /// let client = BasePublisher::builder()
@@ -200,7 +205,7 @@ impl ClientBuilder {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_pubsub::client::BasePublisher;
+    /// # use google_cloud_pubsub::publisher::client::BasePublisher;
     /// # async fn sample() -> anyhow::Result<()> {
     /// let client = BasePublisher::builder()
     ///     .with_grpc_subchannel_count(4)
@@ -238,8 +243,18 @@ mod tests {
             "{:?}",
             builder.config
         );
-        assert!(builder.config.retry_policy.is_none(), "{builder:?}");
-        assert!(builder.config.backoff_policy.is_none(), "{builder:?}");
+        assert!(builder.config.backoff_policy.is_some(), "{builder:?}");
+        let debug_str = format!("{:?}", &builder.config);
+        assert!(
+            debug_str.contains("initial_delay: 100ms"),
+            "actual: {debug_str}"
+        );
+        assert!(
+            debug_str.contains("maximum_delay: 60s"),
+            "actual: {debug_str}"
+        );
+        assert!(debug_str.contains("scaling: 4.0"), "actual: {debug_str}");
+        assert!(builder.config.retry_policy.is_some(), "{builder:?}");
         assert!(
             builder.config.grpc_subchannel_count.is_none(),
             "{builder:?}"

@@ -7716,6 +7716,31 @@ impl std::fmt::Debug for super::BigQueryDestination {
     }
 }
 
+#[cfg(feature = "job-service")]
+impl std::fmt::Debug for super::VertexMultimodalDatasetSource {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("VertexMultimodalDatasetSource");
+        debug_struct.field("dataset_name", &self.dataset_name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "job-service")]
+impl std::fmt::Debug for super::VertexMultimodalDatasetDestination {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("VertexMultimodalDatasetDestination");
+        debug_struct.field("bigquery_destination", &self.bigquery_destination);
+        debug_struct.field("display_name", &self.display_name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 #[cfg(feature = "featurestore-service")]
 impl std::fmt::Debug for super::CsvDestination {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -13745,6 +13770,10 @@ impl std::fmt::Debug for super::Schedule {
         debug_struct.field("last_pause_time", &self.last_pause_time);
         debug_struct.field("last_resume_time", &self.last_resume_time);
         debug_struct.field("max_concurrent_run_count", &self.max_concurrent_run_count);
+        debug_struct.field(
+            "max_concurrent_active_run_count",
+            &self.max_concurrent_active_run_count,
+        );
         debug_struct.field("allow_queueing", &self.allow_queueing);
         debug_struct.field("catch_up", &self.catch_up);
         debug_struct.field(

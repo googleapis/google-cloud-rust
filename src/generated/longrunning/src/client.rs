@@ -130,6 +130,24 @@ impl Operations {
 
     /// Lists operations that match the specified filter in the request. If the
     /// server doesn't support this method, it returns `UNIMPLEMENTED`.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_longrunning::client::Operations;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_longrunning::Result;
+    /// async fn sample(
+    ///    client: &Operations
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::operations::ListOperations {
         super::builder::operations::ListOperations::new(self.inner.clone())
     }
@@ -137,6 +155,21 @@ impl Operations {
     /// Gets the latest state of a long-running operation.  Clients can use this
     /// method to poll the operation result at intervals as recommended by the API
     /// service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_longrunning::client::Operations;
+    /// use google_cloud_longrunning::Result;
+    /// async fn sample(
+    ///    client: &Operations
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::operations::GetOperation {
         super::builder::operations::GetOperation::new(self.inner.clone())
     }
@@ -145,6 +178,20 @@ impl Operations {
     /// no longer interested in the operation result. It does not cancel the
     /// operation. If the server doesn't support this method, it returns
     /// `google.rpc.Code.UNIMPLEMENTED`.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_longrunning::client::Operations;
+    /// use google_cloud_longrunning::Result;
+    /// async fn sample(
+    ///    client: &Operations
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::operations::DeleteOperation {
         super::builder::operations::DeleteOperation::new(self.inner.clone())
     }
@@ -164,6 +211,20 @@ impl Operations {
     /// [google.longrunning.Operation.error]: crate::model::Operation::result
     /// [google.longrunning.Operations.GetOperation]: google-cloud-longrunning::client::Operations::get_operation
     /// [google.rpc.Status.code]: google_cloud_rpc::model::Status::code
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_longrunning::client::Operations;
+    /// use google_cloud_longrunning::Result;
+    /// async fn sample(
+    ///    client: &Operations
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::operations::CancelOperation {
         super::builder::operations::CancelOperation::new(self.inner.clone())
     }

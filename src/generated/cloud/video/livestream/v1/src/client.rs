@@ -135,16 +135,69 @@ impl LivestreamService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::client::LivestreamService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_video_livestream_v1::model::Channel;
+    /// use google_cloud_video_livestream_v1::Result;
+    /// async fn sample(
+    ///    client: &LivestreamService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_channel()
+    ///         .set_parent(parent).set_channel_id("channel_id_value")
+    ///         .set_channel(
+    ///             Channel::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_channel(&self) -> super::builder::livestream_service::CreateChannel {
         super::builder::livestream_service::CreateChannel::new(self.inner.clone())
     }
 
     /// Returns a list of all channels in the specified region.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::client::LivestreamService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_video_livestream_v1::Result;
+    /// async fn sample(
+    ///    client: &LivestreamService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_channels()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_channels(&self) -> super::builder::livestream_service::ListChannels {
         super::builder::livestream_service::ListChannels::new(self.inner.clone())
     }
 
     /// Returns the specified channel.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::client::LivestreamService;
+    /// use google_cloud_video_livestream_v1::Result;
+    /// async fn sample(
+    ///    client: &LivestreamService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_channel()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_channel(&self) -> super::builder::livestream_service::GetChannel {
         super::builder::livestream_service::GetChannel::new(self.inner.clone())
     }
@@ -160,6 +213,21 @@ impl LivestreamService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::client::LivestreamService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_video_livestream_v1::Result;
+    /// async fn sample(
+    ///    client: &LivestreamService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_channel()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_channel(&self) -> super::builder::livestream_service::DeleteChannel {
         super::builder::livestream_service::DeleteChannel::new(self.inner.clone())
     }
@@ -175,6 +243,28 @@ impl LivestreamService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::client::LivestreamService;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_video_livestream_v1::model::Channel;
+    /// use google_cloud_video_livestream_v1::Result;
+    /// async fn sample(
+    ///    client: &LivestreamService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_channel()
+    ///         .set_channel(
+    ///             Channel::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_channel(&self) -> super::builder::livestream_service::UpdateChannel {
         super::builder::livestream_service::UpdateChannel::new(self.inner.clone())
     }
@@ -191,6 +281,22 @@ impl LivestreamService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::client::LivestreamService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_video_livestream_v1::Result;
+    /// async fn sample(
+    ///    client: &LivestreamService
+    /// ) -> Result<()> {
+    ///     let response = client.start_channel()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn start_channel(&self) -> super::builder::livestream_service::StartChannel {
         super::builder::livestream_service::StartChannel::new(self.inner.clone())
     }
@@ -207,6 +313,22 @@ impl LivestreamService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::client::LivestreamService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_video_livestream_v1::Result;
+    /// async fn sample(
+    ///    client: &LivestreamService
+    /// ) -> Result<()> {
+    ///     let response = client.stop_channel()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn stop_channel(&self) -> super::builder::livestream_service::StopChannel {
         super::builder::livestream_service::StopChannel::new(self.inner.clone())
     }
@@ -223,6 +345,22 @@ impl LivestreamService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::client::LivestreamService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_video_livestream_v1::Result;
+    /// async fn sample(
+    ///    client: &LivestreamService
+    /// ) -> Result<()> {
+    ///     let response = client.start_distribution()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn start_distribution(&self) -> super::builder::livestream_service::StartDistribution {
         super::builder::livestream_service::StartDistribution::new(self.inner.clone())
     }
@@ -238,6 +376,22 @@ impl LivestreamService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::client::LivestreamService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_video_livestream_v1::Result;
+    /// async fn sample(
+    ///    client: &LivestreamService
+    /// ) -> Result<()> {
+    ///     let response = client.stop_distribution()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn stop_distribution(&self) -> super::builder::livestream_service::StopDistribution {
         super::builder::livestream_service::StopDistribution::new(self.inner.clone())
     }
@@ -253,16 +407,69 @@ impl LivestreamService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::client::LivestreamService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_video_livestream_v1::model::Input;
+    /// use google_cloud_video_livestream_v1::Result;
+    /// async fn sample(
+    ///    client: &LivestreamService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_input()
+    ///         .set_parent(parent).set_input_id("input_id_value")
+    ///         .set_input(
+    ///             Input::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_input(&self) -> super::builder::livestream_service::CreateInput {
         super::builder::livestream_service::CreateInput::new(self.inner.clone())
     }
 
     /// Returns a list of all inputs in the specified region.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::client::LivestreamService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_video_livestream_v1::Result;
+    /// async fn sample(
+    ///    client: &LivestreamService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_inputs()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_inputs(&self) -> super::builder::livestream_service::ListInputs {
         super::builder::livestream_service::ListInputs::new(self.inner.clone())
     }
 
     /// Returns the specified input.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::client::LivestreamService;
+    /// use google_cloud_video_livestream_v1::Result;
+    /// async fn sample(
+    ///    client: &LivestreamService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_input()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_input(&self) -> super::builder::livestream_service::GetInput {
         super::builder::livestream_service::GetInput::new(self.inner.clone())
     }
@@ -278,6 +485,21 @@ impl LivestreamService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::client::LivestreamService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_video_livestream_v1::Result;
+    /// async fn sample(
+    ///    client: &LivestreamService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_input()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_input(&self) -> super::builder::livestream_service::DeleteInput {
         super::builder::livestream_service::DeleteInput::new(self.inner.clone())
     }
@@ -293,41 +515,177 @@ impl LivestreamService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::client::LivestreamService;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_video_livestream_v1::model::Input;
+    /// use google_cloud_video_livestream_v1::Result;
+    /// async fn sample(
+    ///    client: &LivestreamService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_input()
+    ///         .set_input(
+    ///             Input::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_input(&self) -> super::builder::livestream_service::UpdateInput {
         super::builder::livestream_service::UpdateInput::new(self.inner.clone())
     }
 
     /// Preview the streaming content of the specified input.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::client::LivestreamService;
+    /// use google_cloud_video_livestream_v1::Result;
+    /// async fn sample(
+    ///    client: &LivestreamService
+    /// ) -> Result<()> {
+    ///     let response = client.preview_input()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn preview_input(&self) -> super::builder::livestream_service::PreviewInput {
         super::builder::livestream_service::PreviewInput::new(self.inner.clone())
     }
 
     /// Creates an event with the provided unique ID in the specified channel.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::client::LivestreamService;
+    /// use google_cloud_video_livestream_v1::model::Event;
+    /// use google_cloud_video_livestream_v1::Result;
+    /// async fn sample(
+    ///    client: &LivestreamService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_event()
+    ///         .set_parent(parent).set_event_id("event_id_value")
+    ///         .set_event(
+    ///             Event::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_event(&self) -> super::builder::livestream_service::CreateEvent {
         super::builder::livestream_service::CreateEvent::new(self.inner.clone())
     }
 
     /// Returns a list of all events in the specified channel.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::client::LivestreamService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_video_livestream_v1::Result;
+    /// async fn sample(
+    ///    client: &LivestreamService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_events()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_events(&self) -> super::builder::livestream_service::ListEvents {
         super::builder::livestream_service::ListEvents::new(self.inner.clone())
     }
 
     /// Returns the specified event.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::client::LivestreamService;
+    /// use google_cloud_video_livestream_v1::Result;
+    /// async fn sample(
+    ///    client: &LivestreamService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_event()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_event(&self) -> super::builder::livestream_service::GetEvent {
         super::builder::livestream_service::GetEvent::new(self.inner.clone())
     }
 
     /// Deletes the specified event.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::client::LivestreamService;
+    /// use google_cloud_video_livestream_v1::Result;
+    /// async fn sample(
+    ///    client: &LivestreamService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_event()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_event(&self) -> super::builder::livestream_service::DeleteEvent {
         super::builder::livestream_service::DeleteEvent::new(self.inner.clone())
     }
 
     /// Returns a list of all clips in the specified channel.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::client::LivestreamService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_video_livestream_v1::Result;
+    /// async fn sample(
+    ///    client: &LivestreamService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_clips()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_clips(&self) -> super::builder::livestream_service::ListClips {
         super::builder::livestream_service::ListClips::new(self.inner.clone())
     }
 
     /// Returns the specified clip.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::client::LivestreamService;
+    /// use google_cloud_video_livestream_v1::Result;
+    /// async fn sample(
+    ///    client: &LivestreamService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_clip()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_clip(&self) -> super::builder::livestream_service::GetClip {
         super::builder::livestream_service::GetClip::new(self.inner.clone())
     }
@@ -343,6 +701,26 @@ impl LivestreamService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::client::LivestreamService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_video_livestream_v1::model::Clip;
+    /// use google_cloud_video_livestream_v1::Result;
+    /// async fn sample(
+    ///    client: &LivestreamService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_clip()
+    ///         .set_parent(parent).set_clip_id("clip_id_value")
+    ///         .set_clip(
+    ///             Clip::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_clip(&self) -> super::builder::livestream_service::CreateClip {
         super::builder::livestream_service::CreateClip::new(self.inner.clone())
     }
@@ -359,6 +737,21 @@ impl LivestreamService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::client::LivestreamService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_video_livestream_v1::Result;
+    /// async fn sample(
+    ///    client: &LivestreamService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_clip()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_clip(&self) -> super::builder::livestream_service::DeleteClip {
         super::builder::livestream_service::DeleteClip::new(self.inner.clone())
     }
@@ -374,16 +767,69 @@ impl LivestreamService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::client::LivestreamService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_video_livestream_v1::model::DvrSession;
+    /// use google_cloud_video_livestream_v1::Result;
+    /// async fn sample(
+    ///    client: &LivestreamService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_dvr_session()
+    ///         .set_parent(parent)
+    ///         .set_dvr_session(
+    ///             DvrSession::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_dvr_session(&self) -> super::builder::livestream_service::CreateDvrSession {
         super::builder::livestream_service::CreateDvrSession::new(self.inner.clone())
     }
 
     /// Returns a list of all DVR sessions in the specified channel.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::client::LivestreamService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_video_livestream_v1::Result;
+    /// async fn sample(
+    ///    client: &LivestreamService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_dvr_sessions()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_dvr_sessions(&self) -> super::builder::livestream_service::ListDvrSessions {
         super::builder::livestream_service::ListDvrSessions::new(self.inner.clone())
     }
 
     /// Returns the specified DVR session.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::client::LivestreamService;
+    /// use google_cloud_video_livestream_v1::Result;
+    /// async fn sample(
+    ///    client: &LivestreamService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_dvr_session()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_dvr_session(&self) -> super::builder::livestream_service::GetDvrSession {
         super::builder::livestream_service::GetDvrSession::new(self.inner.clone())
     }
@@ -399,6 +845,21 @@ impl LivestreamService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::client::LivestreamService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_video_livestream_v1::Result;
+    /// async fn sample(
+    ///    client: &LivestreamService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_dvr_session()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_dvr_session(&self) -> super::builder::livestream_service::DeleteDvrSession {
         super::builder::livestream_service::DeleteDvrSession::new(self.inner.clone())
     }
@@ -414,6 +875,28 @@ impl LivestreamService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::client::LivestreamService;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_video_livestream_v1::model::DvrSession;
+    /// use google_cloud_video_livestream_v1::Result;
+    /// async fn sample(
+    ///    client: &LivestreamService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_dvr_session()
+    ///         .set_dvr_session(
+    ///             DvrSession::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_dvr_session(&self) -> super::builder::livestream_service::UpdateDvrSession {
         super::builder::livestream_service::UpdateDvrSession::new(self.inner.clone())
     }
@@ -430,6 +913,26 @@ impl LivestreamService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::client::LivestreamService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_video_livestream_v1::model::Asset;
+    /// use google_cloud_video_livestream_v1::Result;
+    /// async fn sample(
+    ///    client: &LivestreamService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_asset()
+    ///         .set_parent(parent).set_asset_id("asset_id_value")
+    ///         .set_asset(
+    ///             Asset::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_asset(&self) -> super::builder::livestream_service::CreateAsset {
         super::builder::livestream_service::CreateAsset::new(self.inner.clone())
     }
@@ -445,21 +948,84 @@ impl LivestreamService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::client::LivestreamService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_video_livestream_v1::Result;
+    /// async fn sample(
+    ///    client: &LivestreamService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_asset()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_asset(&self) -> super::builder::livestream_service::DeleteAsset {
         super::builder::livestream_service::DeleteAsset::new(self.inner.clone())
     }
 
     /// Returns the specified asset.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::client::LivestreamService;
+    /// use google_cloud_video_livestream_v1::Result;
+    /// async fn sample(
+    ///    client: &LivestreamService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_asset()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_asset(&self) -> super::builder::livestream_service::GetAsset {
         super::builder::livestream_service::GetAsset::new(self.inner.clone())
     }
 
     /// Returns a list of all assets in the specified region.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::client::LivestreamService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_video_livestream_v1::Result;
+    /// async fn sample(
+    ///    client: &LivestreamService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_assets()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_assets(&self) -> super::builder::livestream_service::ListAssets {
         super::builder::livestream_service::ListAssets::new(self.inner.clone())
     }
 
     /// Returns the specified pool.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::client::LivestreamService;
+    /// use google_cloud_video_livestream_v1::Result;
+    /// async fn sample(
+    ///    client: &LivestreamService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_pool()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_pool(&self) -> super::builder::livestream_service::GetPool {
         super::builder::livestream_service::GetPool::new(self.inner.clone())
     }
@@ -475,16 +1041,71 @@ impl LivestreamService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::client::LivestreamService;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_video_livestream_v1::model::Pool;
+    /// use google_cloud_video_livestream_v1::Result;
+    /// async fn sample(
+    ///    client: &LivestreamService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_pool()
+    ///         .set_pool(
+    ///             Pool::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_pool(&self) -> super::builder::livestream_service::UpdatePool {
         super::builder::livestream_service::UpdatePool::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::client::LivestreamService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_video_livestream_v1::Result;
+    /// async fn sample(
+    ///    client: &LivestreamService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::livestream_service::ListLocations {
         super::builder::livestream_service::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::client::LivestreamService;
+    /// use google_cloud_video_livestream_v1::Result;
+    /// async fn sample(
+    ///    client: &LivestreamService
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::livestream_service::GetLocation {
         super::builder::livestream_service::GetLocation::new(self.inner.clone())
     }
@@ -492,6 +1113,24 @@ impl LivestreamService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::client::LivestreamService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_video_livestream_v1::Result;
+    /// async fn sample(
+    ///    client: &LivestreamService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::livestream_service::ListOperations {
         super::builder::livestream_service::ListOperations::new(self.inner.clone())
     }
@@ -499,6 +1138,21 @@ impl LivestreamService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::client::LivestreamService;
+    /// use google_cloud_video_livestream_v1::Result;
+    /// async fn sample(
+    ///    client: &LivestreamService
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::livestream_service::GetOperation {
         super::builder::livestream_service::GetOperation::new(self.inner.clone())
     }
@@ -506,6 +1160,20 @@ impl LivestreamService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::client::LivestreamService;
+    /// use google_cloud_video_livestream_v1::Result;
+    /// async fn sample(
+    ///    client: &LivestreamService
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::livestream_service::DeleteOperation {
         super::builder::livestream_service::DeleteOperation::new(self.inner.clone())
     }
@@ -513,6 +1181,20 @@ impl LivestreamService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::client::LivestreamService;
+    /// use google_cloud_video_livestream_v1::Result;
+    /// async fn sample(
+    ///    client: &LivestreamService
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::livestream_service::CancelOperation {
         super::builder::livestream_service::CancelOperation::new(self.inner.clone())
     }

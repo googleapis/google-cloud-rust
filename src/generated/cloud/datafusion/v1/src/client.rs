@@ -122,16 +122,67 @@ impl DataFusion {
 
     /// Lists possible versions for Data Fusion instances in the specified project
     /// and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datafusion_v1::client::DataFusion;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_datafusion_v1::Result;
+    /// async fn sample(
+    ///    client: &DataFusion
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_available_versions()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_available_versions(&self) -> super::builder::data_fusion::ListAvailableVersions {
         super::builder::data_fusion::ListAvailableVersions::new(self.inner.clone())
     }
 
     /// Lists Data Fusion instances in the specified project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datafusion_v1::client::DataFusion;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_datafusion_v1::Result;
+    /// async fn sample(
+    ///    client: &DataFusion, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_instances()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_instances(&self) -> super::builder::data_fusion::ListInstances {
         super::builder::data_fusion::ListInstances::new(self.inner.clone())
     }
 
     /// Gets details of a single Data Fusion instance.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datafusion_v1::client::DataFusion;
+    /// use google_cloud_datafusion_v1::Result;
+    /// async fn sample(
+    ///    client: &DataFusion, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_instance()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_instance(&self) -> super::builder::data_fusion::GetInstance {
         super::builder::data_fusion::GetInstance::new(self.inner.clone())
     }
@@ -147,6 +198,26 @@ impl DataFusion {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datafusion_v1::client::DataFusion;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_datafusion_v1::model::Instance;
+    /// use google_cloud_datafusion_v1::Result;
+    /// async fn sample(
+    ///    client: &DataFusion, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_instance()
+    ///         .set_parent(parent).set_instance_id("instance_id_value")
+    ///         .set_instance(
+    ///             Instance::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_instance(&self) -> super::builder::data_fusion::CreateInstance {
         super::builder::data_fusion::CreateInstance::new(self.inner.clone())
     }
@@ -162,6 +233,21 @@ impl DataFusion {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datafusion_v1::client::DataFusion;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_datafusion_v1::Result;
+    /// async fn sample(
+    ///    client: &DataFusion, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_instance()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_instance(&self) -> super::builder::data_fusion::DeleteInstance {
         super::builder::data_fusion::DeleteInstance::new(self.inner.clone())
     }
@@ -177,6 +263,28 @@ impl DataFusion {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datafusion_v1::client::DataFusion;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_datafusion_v1::model::Instance;
+    /// use google_cloud_datafusion_v1::Result;
+    /// async fn sample(
+    ///    client: &DataFusion, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_instance()
+    ///         .set_instance(
+    ///             Instance::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_instance(&self) -> super::builder::data_fusion::UpdateInstance {
         super::builder::data_fusion::UpdateInstance::new(self.inner.clone())
     }
@@ -193,6 +301,22 @@ impl DataFusion {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datafusion_v1::client::DataFusion;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_datafusion_v1::Result;
+    /// async fn sample(
+    ///    client: &DataFusion
+    /// ) -> Result<()> {
+    ///     let response = client.restart_instance()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn restart_instance(&self) -> super::builder::data_fusion::RestartInstance {
         super::builder::data_fusion::RestartInstance::new(self.inner.clone())
     }
@@ -200,6 +324,24 @@ impl DataFusion {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datafusion_v1::client::DataFusion;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_datafusion_v1::Result;
+    /// async fn sample(
+    ///    client: &DataFusion
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::data_fusion::ListOperations {
         super::builder::data_fusion::ListOperations::new(self.inner.clone())
     }
@@ -207,6 +349,21 @@ impl DataFusion {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datafusion_v1::client::DataFusion;
+    /// use google_cloud_datafusion_v1::Result;
+    /// async fn sample(
+    ///    client: &DataFusion
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::data_fusion::GetOperation {
         super::builder::data_fusion::GetOperation::new(self.inner.clone())
     }
@@ -214,6 +371,20 @@ impl DataFusion {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datafusion_v1::client::DataFusion;
+    /// use google_cloud_datafusion_v1::Result;
+    /// async fn sample(
+    ///    client: &DataFusion
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::data_fusion::DeleteOperation {
         super::builder::data_fusion::DeleteOperation::new(self.inner.clone())
     }
@@ -221,6 +392,20 @@ impl DataFusion {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datafusion_v1::client::DataFusion;
+    /// use google_cloud_datafusion_v1::Result;
+    /// async fn sample(
+    ///    client: &DataFusion
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::data_fusion::CancelOperation {
         super::builder::data_fusion::CancelOperation::new(self.inner.clone())
     }

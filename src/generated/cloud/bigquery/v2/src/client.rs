@@ -119,11 +119,41 @@ impl DatasetService {
     }
 
     /// Returns the dataset specified by datasetID.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_v2::client::DatasetService;
+    /// use google_cloud_bigquery_v2::Result;
+    /// async fn sample(
+    ///    client: &DatasetService
+    /// ) -> Result<()> {
+    ///     let response = client.get_dataset()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_dataset(&self) -> super::builder::dataset_service::GetDataset {
         super::builder::dataset_service::GetDataset::new(self.inner.clone())
     }
 
     /// Creates a new empty dataset.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_v2::client::DatasetService;
+    /// use google_cloud_bigquery_v2::Result;
+    /// async fn sample(
+    ///    client: &DatasetService
+    /// ) -> Result<()> {
+    ///     let response = client.insert_dataset()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn insert_dataset(&self) -> super::builder::dataset_service::InsertDataset {
         super::builder::dataset_service::InsertDataset::new(self.inner.clone())
     }
@@ -132,6 +162,21 @@ impl DatasetService {
     /// entire dataset resource, whereas the patch method only replaces fields that
     /// are provided in the submitted dataset resource.
     /// This method supports RFC5789 patch semantics.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_v2::client::DatasetService;
+    /// use google_cloud_bigquery_v2::Result;
+    /// async fn sample(
+    ///    client: &DatasetService
+    /// ) -> Result<()> {
+    ///     let response = client.patch_dataset()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn patch_dataset(&self) -> super::builder::dataset_service::PatchDataset {
         super::builder::dataset_service::PatchDataset::new(self.inner.clone())
     }
@@ -139,6 +184,21 @@ impl DatasetService {
     /// Updates information in an existing dataset. The update method replaces the
     /// entire dataset resource, whereas the patch method only replaces fields that
     /// are provided in the submitted dataset resource.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_v2::client::DatasetService;
+    /// use google_cloud_bigquery_v2::Result;
+    /// async fn sample(
+    ///    client: &DatasetService
+    /// ) -> Result<()> {
+    ///     let response = client.update_dataset()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_dataset(&self) -> super::builder::dataset_service::UpdateDataset {
         super::builder::dataset_service::UpdateDataset::new(self.inner.clone())
     }
@@ -147,12 +207,44 @@ impl DatasetService {
     /// a dataset, you must delete all its tables, either manually or by specifying
     /// deleteContents. Immediately after deletion, you can create another dataset
     /// with the same name.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_v2::client::DatasetService;
+    /// use google_cloud_bigquery_v2::Result;
+    /// async fn sample(
+    ///    client: &DatasetService
+    /// ) -> Result<()> {
+    ///     client.delete_dataset()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_dataset(&self) -> super::builder::dataset_service::DeleteDataset {
         super::builder::dataset_service::DeleteDataset::new(self.inner.clone())
     }
 
     /// Lists all datasets in the specified project to which the user has been
     /// granted the READER dataset role.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_v2::client::DatasetService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_bigquery_v2::Result;
+    /// async fn sample(
+    ///    client: &DatasetService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_datasets()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_datasets(&self) -> super::builder::dataset_service::ListDatasets {
         super::builder::dataset_service::ListDatasets::new(self.inner.clone())
     }
@@ -160,6 +252,21 @@ impl DatasetService {
     /// Undeletes a dataset which is within time travel window based on datasetId.
     /// If a time is specified, the dataset version deleted at that time is
     /// undeleted, else the last live version is undeleted.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_v2::client::DatasetService;
+    /// use google_cloud_bigquery_v2::Result;
+    /// async fn sample(
+    ///    client: &DatasetService
+    /// ) -> Result<()> {
+    ///     let response = client.undelete_dataset()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn undelete_dataset(&self) -> super::builder::dataset_service::UndeleteDataset {
         super::builder::dataset_service::UndeleteDataset::new(self.inner.clone())
     }
@@ -269,6 +376,21 @@ impl JobService {
     /// Requests that a job be cancelled. This call will return immediately, and
     /// the client will need to poll for the job status to see if the cancel
     /// completed successfully. Cancelled jobs may still incur costs.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_v2::client::JobService;
+    /// use google_cloud_bigquery_v2::Result;
+    /// async fn sample(
+    ///    client: &JobService
+    /// ) -> Result<()> {
+    ///     let response = client.cancel_job()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_job(&self) -> super::builder::job_service::CancelJob {
         super::builder::job_service::CancelJob::new(self.inner.clone())
     }
@@ -276,6 +398,21 @@ impl JobService {
     /// Returns information about a specific job. Job information is available for
     /// a six month period after creation. Requires that you're the person who ran
     /// the job, or have the Is Owner project role.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_v2::client::JobService;
+    /// use google_cloud_bigquery_v2::Result;
+    /// async fn sample(
+    ///    client: &JobService
+    /// ) -> Result<()> {
+    ///     let response = client.get_job()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_job(&self) -> super::builder::job_service::GetJob {
         super::builder::job_service::GetJob::new(self.inner.clone())
     }
@@ -291,12 +428,41 @@ impl JobService {
     ///   configuration and a data stream together.  In this case, the Upload URI
     ///   accepts the job configuration and the data as two distinct multipart MIME
     ///   parts.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_v2::client::JobService;
+    /// use google_cloud_bigquery_v2::Result;
+    /// async fn sample(
+    ///    client: &JobService
+    /// ) -> Result<()> {
+    ///     let response = client.insert_job()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn insert_job(&self) -> super::builder::job_service::InsertJob {
         super::builder::job_service::InsertJob::new(self.inner.clone())
     }
 
     /// Requests the deletion of the metadata of a job. This call returns when the
     /// job's metadata is deleted.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_v2::client::JobService;
+    /// use google_cloud_bigquery_v2::Result;
+    /// async fn sample(
+    ///    client: &JobService
+    /// ) -> Result<()> {
+    ///     client.delete_job()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_job(&self) -> super::builder::job_service::DeleteJob {
         super::builder::job_service::DeleteJob::new(self.inner.clone())
     }
@@ -306,17 +472,65 @@ impl JobService {
     /// in reverse chronological order, by job creation time. Requires the Can View
     /// project role, or the Is Owner project role if you set the allUsers
     /// property.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_v2::client::JobService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_bigquery_v2::Result;
+    /// async fn sample(
+    ///    client: &JobService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_jobs()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_jobs(&self) -> super::builder::job_service::ListJobs {
         super::builder::job_service::ListJobs::new(self.inner.clone())
     }
 
     /// RPC to get the results of a query job.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_v2::client::JobService;
+    /// use google_cloud_bigquery_v2::Result;
+    /// async fn sample(
+    ///    client: &JobService
+    /// ) -> Result<()> {
+    ///     let response = client.get_query_results()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_query_results(&self) -> super::builder::job_service::GetQueryResults {
         super::builder::job_service::GetQueryResults::new(self.inner.clone())
     }
 
     /// Runs a BigQuery SQL query synchronously and returns query results if the
     /// query completes within a specified timeout.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_v2::client::JobService;
+    /// use google_cloud_bigquery_v2::Result;
+    /// async fn sample(
+    ///    client: &JobService
+    /// ) -> Result<()> {
+    ///     let response = client.query()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn query(&self) -> super::builder::job_service::Query {
         super::builder::job_service::Query::new(self.inner.clone())
     }
@@ -425,6 +639,21 @@ impl ModelService {
     }
 
     /// Gets the specified model resource by model ID.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_v2::client::ModelService;
+    /// use google_cloud_bigquery_v2::Result;
+    /// async fn sample(
+    ///    client: &ModelService
+    /// ) -> Result<()> {
+    ///     let response = client.get_model()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_model(&self) -> super::builder::model_service::GetModel {
         super::builder::model_service::GetModel::new(self.inner.clone())
     }
@@ -432,16 +661,63 @@ impl ModelService {
     /// Lists all models in the specified dataset. Requires the READER dataset
     /// role. After retrieving the list of models, you can get information about a
     /// particular model by calling the models.get method.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_v2::client::ModelService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_bigquery_v2::Result;
+    /// async fn sample(
+    ///    client: &ModelService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_models()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_models(&self) -> super::builder::model_service::ListModels {
         super::builder::model_service::ListModels::new(self.inner.clone())
     }
 
     /// Patch specific fields in the specified model.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_v2::client::ModelService;
+    /// use google_cloud_bigquery_v2::Result;
+    /// async fn sample(
+    ///    client: &ModelService
+    /// ) -> Result<()> {
+    ///     let response = client.patch_model()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn patch_model(&self) -> super::builder::model_service::PatchModel {
         super::builder::model_service::PatchModel::new(self.inner.clone())
     }
 
     /// Deletes the model specified by modelId from the dataset.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_v2::client::ModelService;
+    /// use google_cloud_bigquery_v2::Result;
+    /// async fn sample(
+    ///    client: &ModelService
+    /// ) -> Result<()> {
+    ///     client.delete_model()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_model(&self) -> super::builder::model_service::DeleteModel {
         super::builder::model_service::DeleteModel::new(self.inner.clone())
     }
@@ -551,6 +827,21 @@ impl ProjectService {
 
     /// RPC to get the service account for a project used for interactions with
     /// Google Cloud KMS
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_v2::client::ProjectService;
+    /// use google_cloud_bigquery_v2::Result;
+    /// async fn sample(
+    ///    client: &ProjectService
+    /// ) -> Result<()> {
+    ///     let response = client.get_service_account()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_service_account(&self) -> super::builder::project_service::GetServiceAccount {
         super::builder::project_service::GetServiceAccount::new(self.inner.clone())
     }
@@ -659,28 +950,105 @@ impl RoutineService {
     }
 
     /// Gets the specified routine resource by routine ID.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_v2::client::RoutineService;
+    /// use google_cloud_bigquery_v2::Result;
+    /// async fn sample(
+    ///    client: &RoutineService
+    /// ) -> Result<()> {
+    ///     let response = client.get_routine()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_routine(&self) -> super::builder::routine_service::GetRoutine {
         super::builder::routine_service::GetRoutine::new(self.inner.clone())
     }
 
     /// Creates a new routine in the dataset.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_v2::client::RoutineService;
+    /// use google_cloud_bigquery_v2::Result;
+    /// async fn sample(
+    ///    client: &RoutineService
+    /// ) -> Result<()> {
+    ///     let response = client.insert_routine()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn insert_routine(&self) -> super::builder::routine_service::InsertRoutine {
         super::builder::routine_service::InsertRoutine::new(self.inner.clone())
     }
 
     /// Updates information in an existing routine. The update method replaces the
     /// entire Routine resource.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_v2::client::RoutineService;
+    /// use google_cloud_bigquery_v2::Result;
+    /// async fn sample(
+    ///    client: &RoutineService
+    /// ) -> Result<()> {
+    ///     let response = client.update_routine()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_routine(&self) -> super::builder::routine_service::UpdateRoutine {
         super::builder::routine_service::UpdateRoutine::new(self.inner.clone())
     }
 
     /// Deletes the routine specified by routineId from the dataset.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_v2::client::RoutineService;
+    /// use google_cloud_bigquery_v2::Result;
+    /// async fn sample(
+    ///    client: &RoutineService
+    /// ) -> Result<()> {
+    ///     client.delete_routine()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_routine(&self) -> super::builder::routine_service::DeleteRoutine {
         super::builder::routine_service::DeleteRoutine::new(self.inner.clone())
     }
 
     /// Lists all routines in the specified dataset. Requires the READER dataset
     /// role.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_v2::client::RoutineService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_bigquery_v2::Result;
+    /// async fn sample(
+    ///    client: &RoutineService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_routines()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_routines(&self) -> super::builder::routine_service::ListRoutines {
         super::builder::routine_service::ListRoutines::new(self.inner.clone())
     }
@@ -790,6 +1158,24 @@ impl RowAccessPolicyService {
     }
 
     /// Lists all row access policies on the specified table.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_v2::client::RowAccessPolicyService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_bigquery_v2::Result;
+    /// async fn sample(
+    ///    client: &RowAccessPolicyService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_row_access_policies()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_row_access_policies(
         &self,
     ) -> super::builder::row_access_policy_service::ListRowAccessPolicies {
@@ -797,6 +1183,21 @@ impl RowAccessPolicyService {
     }
 
     /// Gets the specified row access policy by policy ID.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_v2::client::RowAccessPolicyService;
+    /// use google_cloud_bigquery_v2::Result;
+    /// async fn sample(
+    ///    client: &RowAccessPolicyService
+    /// ) -> Result<()> {
+    ///     let response = client.get_row_access_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_row_access_policy(
         &self,
     ) -> super::builder::row_access_policy_service::GetRowAccessPolicy {
@@ -804,6 +1205,21 @@ impl RowAccessPolicyService {
     }
 
     /// Creates a row access policy.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_v2::client::RowAccessPolicyService;
+    /// use google_cloud_bigquery_v2::Result;
+    /// async fn sample(
+    ///    client: &RowAccessPolicyService
+    /// ) -> Result<()> {
+    ///     let response = client.create_row_access_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_row_access_policy(
         &self,
     ) -> super::builder::row_access_policy_service::CreateRowAccessPolicy {
@@ -811,6 +1227,21 @@ impl RowAccessPolicyService {
     }
 
     /// Updates a row access policy.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_v2::client::RowAccessPolicyService;
+    /// use google_cloud_bigquery_v2::Result;
+    /// async fn sample(
+    ///    client: &RowAccessPolicyService
+    /// ) -> Result<()> {
+    ///     let response = client.update_row_access_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_row_access_policy(
         &self,
     ) -> super::builder::row_access_policy_service::UpdateRowAccessPolicy {
@@ -818,6 +1249,20 @@ impl RowAccessPolicyService {
     }
 
     /// Deletes a row access policy.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_v2::client::RowAccessPolicyService;
+    /// use google_cloud_bigquery_v2::Result;
+    /// async fn sample(
+    ///    client: &RowAccessPolicyService
+    /// ) -> Result<()> {
+    ///     client.delete_row_access_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_row_access_policy(
         &self,
     ) -> super::builder::row_access_policy_service::DeleteRowAccessPolicy {
@@ -825,6 +1270,20 @@ impl RowAccessPolicyService {
     }
 
     /// Deletes provided row access policies.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_v2::client::RowAccessPolicyService;
+    /// use google_cloud_bigquery_v2::Result;
+    /// async fn sample(
+    ///    client: &RowAccessPolicyService
+    /// ) -> Result<()> {
+    ///     client.batch_delete_row_access_policies()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn batch_delete_row_access_policies(
         &self,
     ) -> super::builder::row_access_policy_service::BatchDeleteRowAccessPolicies {
@@ -940,11 +1399,41 @@ impl TableService {
     /// Gets the specified table resource by table ID.
     /// This method does not return the data in the table, it only returns the
     /// table resource, which describes the structure of this table.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_v2::client::TableService;
+    /// use google_cloud_bigquery_v2::Result;
+    /// async fn sample(
+    ///    client: &TableService
+    /// ) -> Result<()> {
+    ///     let response = client.get_table()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_table(&self) -> super::builder::table_service::GetTable {
         super::builder::table_service::GetTable::new(self.inner.clone())
     }
 
     /// Creates a new, empty table in the dataset.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_v2::client::TableService;
+    /// use google_cloud_bigquery_v2::Result;
+    /// async fn sample(
+    ///    client: &TableService
+    /// ) -> Result<()> {
+    ///     let response = client.insert_table()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn insert_table(&self) -> super::builder::table_service::InsertTable {
         super::builder::table_service::InsertTable::new(self.inner.clone())
     }
@@ -953,6 +1442,21 @@ impl TableService {
     /// entire table resource, whereas the patch method only replaces fields that
     /// are provided in the submitted table resource.
     /// This method supports RFC5789 patch semantics.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_v2::client::TableService;
+    /// use google_cloud_bigquery_v2::Result;
+    /// async fn sample(
+    ///    client: &TableService
+    /// ) -> Result<()> {
+    ///     let response = client.patch_table()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn patch_table(&self) -> super::builder::table_service::PatchTable {
         super::builder::table_service::PatchTable::new(self.inner.clone())
     }
@@ -960,18 +1464,65 @@ impl TableService {
     /// Updates information in an existing table. The update method replaces the
     /// entire Table resource, whereas the patch method only replaces fields that
     /// are provided in the submitted Table resource.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_v2::client::TableService;
+    /// use google_cloud_bigquery_v2::Result;
+    /// async fn sample(
+    ///    client: &TableService
+    /// ) -> Result<()> {
+    ///     let response = client.update_table()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_table(&self) -> super::builder::table_service::UpdateTable {
         super::builder::table_service::UpdateTable::new(self.inner.clone())
     }
 
     /// Deletes the table specified by tableId from the dataset.
     /// If the table contains data, all the data will be deleted.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_v2::client::TableService;
+    /// use google_cloud_bigquery_v2::Result;
+    /// async fn sample(
+    ///    client: &TableService
+    /// ) -> Result<()> {
+    ///     client.delete_table()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_table(&self) -> super::builder::table_service::DeleteTable {
         super::builder::table_service::DeleteTable::new(self.inner.clone())
     }
 
     /// Lists all tables in the specified dataset. Requires the READER dataset
     /// role.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_v2::client::TableService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_bigquery_v2::Result;
+    /// async fn sample(
+    ///    client: &TableService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_tables()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_tables(&self) -> super::builder::table_service::ListTables {
         super::builder::table_service::ListTables::new(self.inner.clone())
     }

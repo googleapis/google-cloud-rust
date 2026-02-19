@@ -126,6 +126,21 @@ impl IdentityAwareProxyAdminService {
     /// resource. Replaces any existing policy.
     /// More information about managing access via IAP can be found at:
     /// <https://cloud.google.com/iap/docs/managing-access#managing_access_via_the_api>
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iap_v1::client::IdentityAwareProxyAdminService;
+    /// use google_cloud_iap_v1::Result;
+    /// async fn sample(
+    ///    client: &IdentityAwareProxyAdminService
+    /// ) -> Result<()> {
+    ///     let response = client.set_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(
         &self,
     ) -> super::builder::identity_aware_proxy_admin_service::SetIamPolicy {
@@ -136,6 +151,21 @@ impl IdentityAwareProxyAdminService {
     /// resource.
     /// More information about managing access via IAP can be found at:
     /// <https://cloud.google.com/iap/docs/managing-access#managing_access_via_the_api>
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iap_v1::client::IdentityAwareProxyAdminService;
+    /// use google_cloud_iap_v1::Result;
+    /// async fn sample(
+    ///    client: &IdentityAwareProxyAdminService
+    /// ) -> Result<()> {
+    ///     let response = client.get_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(
         &self,
     ) -> super::builder::identity_aware_proxy_admin_service::GetIamPolicy {
@@ -146,6 +176,21 @@ impl IdentityAwareProxyAdminService {
     /// resource.
     /// More information about managing access via IAP can be found at:
     /// <https://cloud.google.com/iap/docs/managing-access#managing_access_via_the_api>
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iap_v1::client::IdentityAwareProxyAdminService;
+    /// use google_cloud_iap_v1::Result;
+    /// async fn sample(
+    ///    client: &IdentityAwareProxyAdminService
+    /// ) -> Result<()> {
+    ///     let response = client.test_iam_permissions()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(
         &self,
     ) -> super::builder::identity_aware_proxy_admin_service::TestIamPermissions {
@@ -155,6 +200,21 @@ impl IdentityAwareProxyAdminService {
     }
 
     /// Gets the IAP settings on a particular IAP protected resource.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iap_v1::client::IdentityAwareProxyAdminService;
+    /// use google_cloud_iap_v1::Result;
+    /// async fn sample(
+    ///    client: &IdentityAwareProxyAdminService
+    /// ) -> Result<()> {
+    ///     let response = client.get_iap_settings()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iap_settings(
         &self,
     ) -> super::builder::identity_aware_proxy_admin_service::GetIapSettings {
@@ -163,6 +223,21 @@ impl IdentityAwareProxyAdminService {
 
     /// Updates the IAP settings on a particular IAP protected resource. It
     /// replaces all fields unless the `update_mask` is set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iap_v1::client::IdentityAwareProxyAdminService;
+    /// use google_cloud_iap_v1::Result;
+    /// async fn sample(
+    ///    client: &IdentityAwareProxyAdminService
+    /// ) -> Result<()> {
+    ///     let response = client.update_iap_settings()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_iap_settings(
         &self,
     ) -> super::builder::identity_aware_proxy_admin_service::UpdateIapSettings {
@@ -172,6 +247,21 @@ impl IdentityAwareProxyAdminService {
     }
 
     /// Validates that a given CEL expression conforms to IAP restrictions.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iap_v1::client::IdentityAwareProxyAdminService;
+    /// use google_cloud_iap_v1::Result;
+    /// async fn sample(
+    ///    client: &IdentityAwareProxyAdminService
+    /// ) -> Result<()> {
+    ///     let response = client.validate_iap_attribute_expression()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn validate_iap_attribute_expression(
         &self,
     ) -> super::builder::identity_aware_proxy_admin_service::ValidateIapAttributeExpression {
@@ -183,6 +273,24 @@ impl IdentityAwareProxyAdminService {
     /// Lists the existing TunnelDestGroups. To group across all locations, use a
     /// `-` as the location ID. For example:
     /// `/v1/projects/123/iap_tunnel/locations/-/destGroups`
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iap_v1::client::IdentityAwareProxyAdminService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_iap_v1::Result;
+    /// async fn sample(
+    ///    client: &IdentityAwareProxyAdminService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_tunnel_dest_groups()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_tunnel_dest_groups(
         &self,
     ) -> super::builder::identity_aware_proxy_admin_service::ListTunnelDestGroups {
@@ -192,6 +300,25 @@ impl IdentityAwareProxyAdminService {
     }
 
     /// Creates a new TunnelDestGroup.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iap_v1::client::IdentityAwareProxyAdminService;
+    /// use google_cloud_iap_v1::model::TunnelDestGroup;
+    /// use google_cloud_iap_v1::Result;
+    /// async fn sample(
+    ///    client: &IdentityAwareProxyAdminService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_tunnel_dest_group()
+    ///         .set_parent(parent)
+    ///         .set_tunnel_dest_group(
+    ///             TunnelDestGroup::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_tunnel_dest_group(
         &self,
     ) -> super::builder::identity_aware_proxy_admin_service::CreateTunnelDestGroup {
@@ -201,6 +328,21 @@ impl IdentityAwareProxyAdminService {
     }
 
     /// Retrieves an existing TunnelDestGroup.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iap_v1::client::IdentityAwareProxyAdminService;
+    /// use google_cloud_iap_v1::Result;
+    /// async fn sample(
+    ///    client: &IdentityAwareProxyAdminService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_tunnel_dest_group()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_tunnel_dest_group(
         &self,
     ) -> super::builder::identity_aware_proxy_admin_service::GetTunnelDestGroup {
@@ -210,6 +352,20 @@ impl IdentityAwareProxyAdminService {
     }
 
     /// Deletes a TunnelDestGroup.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iap_v1::client::IdentityAwareProxyAdminService;
+    /// use google_cloud_iap_v1::Result;
+    /// async fn sample(
+    ///    client: &IdentityAwareProxyAdminService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_tunnel_dest_group()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_tunnel_dest_group(
         &self,
     ) -> super::builder::identity_aware_proxy_admin_service::DeleteTunnelDestGroup {
@@ -219,6 +375,27 @@ impl IdentityAwareProxyAdminService {
     }
 
     /// Updates a TunnelDestGroup.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iap_v1::client::IdentityAwareProxyAdminService;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_iap_v1::model::TunnelDestGroup;
+    /// use google_cloud_iap_v1::Result;
+    /// async fn sample(
+    ///    client: &IdentityAwareProxyAdminService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_tunnel_dest_group()
+    ///         .set_tunnel_dest_group(
+    ///             TunnelDestGroup::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_tunnel_dest_group(
         &self,
     ) -> super::builder::identity_aware_proxy_admin_service::UpdateTunnelDestGroup {
@@ -337,6 +514,21 @@ impl IdentityAwareProxyOAuthService {
     }
 
     /// Lists the existing brands for the project.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iap_v1::client::IdentityAwareProxyOAuthService;
+    /// use google_cloud_iap_v1::Result;
+    /// async fn sample(
+    ///    client: &IdentityAwareProxyOAuthService
+    /// ) -> Result<()> {
+    ///     let response = client.list_brands()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_brands(&self) -> super::builder::identity_aware_proxy_o_auth_service::ListBrands {
         super::builder::identity_aware_proxy_o_auth_service::ListBrands::new(self.inner.clone())
     }
@@ -349,11 +541,41 @@ impl IdentityAwareProxyOAuthService {
     /// changed in the Google Cloud Console. Requires that a brand does not already
     /// exist for the project, and that the specified support email is owned by the
     /// caller.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iap_v1::client::IdentityAwareProxyOAuthService;
+    /// use google_cloud_iap_v1::Result;
+    /// async fn sample(
+    ///    client: &IdentityAwareProxyOAuthService
+    /// ) -> Result<()> {
+    ///     let response = client.create_brand()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_brand(&self) -> super::builder::identity_aware_proxy_o_auth_service::CreateBrand {
         super::builder::identity_aware_proxy_o_auth_service::CreateBrand::new(self.inner.clone())
     }
 
     /// Retrieves the OAuth brand of the project.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iap_v1::client::IdentityAwareProxyOAuthService;
+    /// use google_cloud_iap_v1::Result;
+    /// async fn sample(
+    ///    client: &IdentityAwareProxyOAuthService
+    /// ) -> Result<()> {
+    ///     let response = client.get_brand()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_brand(&self) -> super::builder::identity_aware_proxy_o_auth_service::GetBrand {
         super::builder::identity_aware_proxy_o_auth_service::GetBrand::new(self.inner.clone())
     }
@@ -361,6 +583,21 @@ impl IdentityAwareProxyOAuthService {
     /// Creates an Identity Aware Proxy (IAP) OAuth client. The client is owned
     /// by IAP. Requires that the brand for the project exists and that it is
     /// set for internal-only use.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iap_v1::client::IdentityAwareProxyOAuthService;
+    /// use google_cloud_iap_v1::Result;
+    /// async fn sample(
+    ///    client: &IdentityAwareProxyOAuthService
+    /// ) -> Result<()> {
+    ///     let response = client.create_identity_aware_proxy_client()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_identity_aware_proxy_client(
         &self,
     ) -> super::builder::identity_aware_proxy_o_auth_service::CreateIdentityAwareProxyClient {
@@ -370,6 +607,24 @@ impl IdentityAwareProxyOAuthService {
     }
 
     /// Lists the existing clients for the brand.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iap_v1::client::IdentityAwareProxyOAuthService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_iap_v1::Result;
+    /// async fn sample(
+    ///    client: &IdentityAwareProxyOAuthService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_identity_aware_proxy_clients()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_identity_aware_proxy_clients(
         &self,
     ) -> super::builder::identity_aware_proxy_o_auth_service::ListIdentityAwareProxyClients {
@@ -380,6 +635,21 @@ impl IdentityAwareProxyOAuthService {
 
     /// Retrieves an Identity Aware Proxy (IAP) OAuth client.
     /// Requires that the client is owned by IAP.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iap_v1::client::IdentityAwareProxyOAuthService;
+    /// use google_cloud_iap_v1::Result;
+    /// async fn sample(
+    ///    client: &IdentityAwareProxyOAuthService
+    /// ) -> Result<()> {
+    ///     let response = client.get_identity_aware_proxy_client()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_identity_aware_proxy_client(
         &self,
     ) -> super::builder::identity_aware_proxy_o_auth_service::GetIdentityAwareProxyClient {
@@ -390,6 +660,21 @@ impl IdentityAwareProxyOAuthService {
 
     /// Resets an Identity Aware Proxy (IAP) OAuth client secret. Useful if the
     /// secret was compromised. Requires that the client is owned by IAP.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iap_v1::client::IdentityAwareProxyOAuthService;
+    /// use google_cloud_iap_v1::Result;
+    /// async fn sample(
+    ///    client: &IdentityAwareProxyOAuthService
+    /// ) -> Result<()> {
+    ///     let response = client.reset_identity_aware_proxy_client_secret()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn reset_identity_aware_proxy_client_secret(
         &self,
     ) -> super::builder::identity_aware_proxy_o_auth_service::ResetIdentityAwareProxyClientSecret
@@ -400,6 +685,20 @@ impl IdentityAwareProxyOAuthService {
     /// Deletes an Identity Aware Proxy (IAP) OAuth client. Useful for removing
     /// obsolete clients, managing the number of clients in a given project, and
     /// cleaning up after tests. Requires that the client is owned by IAP.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iap_v1::client::IdentityAwareProxyOAuthService;
+    /// use google_cloud_iap_v1::Result;
+    /// async fn sample(
+    ///    client: &IdentityAwareProxyOAuthService
+    /// ) -> Result<()> {
+    ///     client.delete_identity_aware_proxy_client()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_identity_aware_proxy_client(
         &self,
     ) -> super::builder::identity_aware_proxy_o_auth_service::DeleteIdentityAwareProxyClient {

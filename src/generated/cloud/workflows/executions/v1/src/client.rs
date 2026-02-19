@@ -123,21 +123,88 @@ impl Executions {
     /// the given name. The method returns executions of all workflow
     /// revisions. Returned executions are ordered by their start time (newest
     /// first).
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_executions_v1::client::Executions;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_workflows_executions_v1::Result;
+    /// async fn sample(
+    ///    client: &Executions, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_executions()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_executions(&self) -> super::builder::executions::ListExecutions {
         super::builder::executions::ListExecutions::new(self.inner.clone())
     }
 
     /// Creates a new execution using the latest revision of the given workflow.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_executions_v1::client::Executions;
+    /// use google_cloud_workflows_executions_v1::model::Execution;
+    /// use google_cloud_workflows_executions_v1::Result;
+    /// async fn sample(
+    ///    client: &Executions, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_execution()
+    ///         .set_parent(parent)
+    ///         .set_execution(
+    ///             Execution::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_execution(&self) -> super::builder::executions::CreateExecution {
         super::builder::executions::CreateExecution::new(self.inner.clone())
     }
 
     /// Returns an execution of the given name.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_executions_v1::client::Executions;
+    /// use google_cloud_workflows_executions_v1::Result;
+    /// async fn sample(
+    ///    client: &Executions, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_execution()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_execution(&self) -> super::builder::executions::GetExecution {
         super::builder::executions::GetExecution::new(self.inner.clone())
     }
 
     /// Cancels an execution of the given name.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_executions_v1::client::Executions;
+    /// use google_cloud_workflows_executions_v1::Result;
+    /// async fn sample(
+    ///    client: &Executions
+    /// ) -> Result<()> {
+    ///     let response = client.cancel_execution()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_execution(&self) -> super::builder::executions::CancelExecution {
         super::builder::executions::CancelExecution::new(self.inner.clone())
     }

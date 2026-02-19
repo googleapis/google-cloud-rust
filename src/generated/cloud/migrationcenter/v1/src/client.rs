@@ -119,41 +119,168 @@ impl MigrationCenter {
     }
 
     /// Lists all the assets in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_migrationcenter_v1::Result;
+    /// async fn sample(
+    ///    client: &MigrationCenter, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_assets()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_assets(&self) -> super::builder::migration_center::ListAssets {
         super::builder::migration_center::ListAssets::new(self.inner.clone())
     }
 
     /// Gets the details of an asset.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
+    /// use google_cloud_migrationcenter_v1::Result;
+    /// async fn sample(
+    ///    client: &MigrationCenter, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_asset()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_asset(&self) -> super::builder::migration_center::GetAsset {
         super::builder::migration_center::GetAsset::new(self.inner.clone())
     }
 
     /// Updates the parameters of an asset.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_migrationcenter_v1::model::Asset;
+    /// use google_cloud_migrationcenter_v1::Result;
+    /// async fn sample(
+    ///    client: &MigrationCenter, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_asset()
+    ///         .set_asset(
+    ///             Asset::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_asset(&self) -> super::builder::migration_center::UpdateAsset {
         super::builder::migration_center::UpdateAsset::new(self.inner.clone())
     }
 
     /// Updates the parameters of a list of assets.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
+    /// use google_cloud_migrationcenter_v1::Result;
+    /// async fn sample(
+    ///    client: &MigrationCenter
+    /// ) -> Result<()> {
+    ///     let response = client.batch_update_assets()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn batch_update_assets(&self) -> super::builder::migration_center::BatchUpdateAssets {
         super::builder::migration_center::BatchUpdateAssets::new(self.inner.clone())
     }
 
     /// Deletes an asset.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
+    /// use google_cloud_migrationcenter_v1::Result;
+    /// async fn sample(
+    ///    client: &MigrationCenter, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_asset()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_asset(&self) -> super::builder::migration_center::DeleteAsset {
         super::builder::migration_center::DeleteAsset::new(self.inner.clone())
     }
 
     /// Deletes list of Assets.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
+    /// use google_cloud_migrationcenter_v1::Result;
+    /// async fn sample(
+    ///    client: &MigrationCenter
+    /// ) -> Result<()> {
+    ///     client.batch_delete_assets()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn batch_delete_assets(&self) -> super::builder::migration_center::BatchDeleteAssets {
         super::builder::migration_center::BatchDeleteAssets::new(self.inner.clone())
     }
 
     /// Reports a set of frames.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
+    /// use google_cloud_migrationcenter_v1::Result;
+    /// async fn sample(
+    ///    client: &MigrationCenter
+    /// ) -> Result<()> {
+    ///     let response = client.report_asset_frames()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn report_asset_frames(&self) -> super::builder::migration_center::ReportAssetFrames {
         super::builder::migration_center::ReportAssetFrames::new(self.inner.clone())
     }
 
     /// Aggregates the requested fields based on provided function.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
+    /// use google_cloud_migrationcenter_v1::Result;
+    /// async fn sample(
+    ///    client: &MigrationCenter
+    /// ) -> Result<()> {
+    ///     let response = client.aggregate_assets_values()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn aggregate_assets_values(
         &self,
     ) -> super::builder::migration_center::AggregateAssetsValues {
@@ -171,16 +298,69 @@ impl MigrationCenter {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_migrationcenter_v1::model::ImportJob;
+    /// use google_cloud_migrationcenter_v1::Result;
+    /// async fn sample(
+    ///    client: &MigrationCenter, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_import_job()
+    ///         .set_parent(parent)
+    ///         .set_import_job(
+    ///             ImportJob::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_import_job(&self) -> super::builder::migration_center::CreateImportJob {
         super::builder::migration_center::CreateImportJob::new(self.inner.clone())
     }
 
     /// Lists all import jobs.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_migrationcenter_v1::Result;
+    /// async fn sample(
+    ///    client: &MigrationCenter, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_import_jobs()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_import_jobs(&self) -> super::builder::migration_center::ListImportJobs {
         super::builder::migration_center::ListImportJobs::new(self.inner.clone())
     }
 
     /// Gets the details of an import job.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
+    /// use google_cloud_migrationcenter_v1::Result;
+    /// async fn sample(
+    ///    client: &MigrationCenter, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_import_job()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_import_job(&self) -> super::builder::migration_center::GetImportJob {
         super::builder::migration_center::GetImportJob::new(self.inner.clone())
     }
@@ -196,6 +376,21 @@ impl MigrationCenter {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_migrationcenter_v1::Result;
+    /// async fn sample(
+    ///    client: &MigrationCenter, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_import_job()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_import_job(&self) -> super::builder::migration_center::DeleteImportJob {
         super::builder::migration_center::DeleteImportJob::new(self.inner.clone())
     }
@@ -211,6 +406,28 @@ impl MigrationCenter {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_migrationcenter_v1::model::ImportJob;
+    /// use google_cloud_migrationcenter_v1::Result;
+    /// async fn sample(
+    ///    client: &MigrationCenter, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_import_job()
+    ///         .set_import_job(
+    ///             ImportJob::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_import_job(&self) -> super::builder::migration_center::UpdateImportJob {
         super::builder::migration_center::UpdateImportJob::new(self.inner.clone())
     }
@@ -226,6 +443,21 @@ impl MigrationCenter {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_migrationcenter_v1::Result;
+    /// async fn sample(
+    ///    client: &MigrationCenter
+    /// ) -> Result<()> {
+    ///     client.validate_import_job()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn validate_import_job(&self) -> super::builder::migration_center::ValidateImportJob {
         super::builder::migration_center::ValidateImportJob::new(self.inner.clone())
     }
@@ -241,16 +473,64 @@ impl MigrationCenter {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_migrationcenter_v1::Result;
+    /// async fn sample(
+    ///    client: &MigrationCenter
+    /// ) -> Result<()> {
+    ///     client.run_import_job()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn run_import_job(&self) -> super::builder::migration_center::RunImportJob {
         super::builder::migration_center::RunImportJob::new(self.inner.clone())
     }
 
     /// Gets an import data file.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
+    /// use google_cloud_migrationcenter_v1::Result;
+    /// async fn sample(
+    ///    client: &MigrationCenter, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_import_data_file()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_import_data_file(&self) -> super::builder::migration_center::GetImportDataFile {
         super::builder::migration_center::GetImportDataFile::new(self.inner.clone())
     }
 
     /// List import data files.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_migrationcenter_v1::Result;
+    /// async fn sample(
+    ///    client: &MigrationCenter, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_import_data_files()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_import_data_files(&self) -> super::builder::migration_center::ListImportDataFiles {
         super::builder::migration_center::ListImportDataFiles::new(self.inner.clone())
     }
@@ -266,6 +546,26 @@ impl MigrationCenter {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_migrationcenter_v1::model::ImportDataFile;
+    /// use google_cloud_migrationcenter_v1::Result;
+    /// async fn sample(
+    ///    client: &MigrationCenter, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_import_data_file()
+    ///         .set_parent(parent)
+    ///         .set_import_data_file(
+    ///             ImportDataFile::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_import_data_file(
         &self,
     ) -> super::builder::migration_center::CreateImportDataFile {
@@ -283,6 +583,21 @@ impl MigrationCenter {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_migrationcenter_v1::Result;
+    /// async fn sample(
+    ///    client: &MigrationCenter, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_import_data_file()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_import_data_file(
         &self,
     ) -> super::builder::migration_center::DeleteImportDataFile {
@@ -290,11 +605,44 @@ impl MigrationCenter {
     }
 
     /// Lists all groups in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_migrationcenter_v1::Result;
+    /// async fn sample(
+    ///    client: &MigrationCenter, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_groups()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_groups(&self) -> super::builder::migration_center::ListGroups {
         super::builder::migration_center::ListGroups::new(self.inner.clone())
     }
 
     /// Gets the details of a group.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
+    /// use google_cloud_migrationcenter_v1::Result;
+    /// async fn sample(
+    ///    client: &MigrationCenter, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_group()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_group(&self) -> super::builder::migration_center::GetGroup {
         super::builder::migration_center::GetGroup::new(self.inner.clone())
     }
@@ -310,6 +658,26 @@ impl MigrationCenter {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_migrationcenter_v1::model::Group;
+    /// use google_cloud_migrationcenter_v1::Result;
+    /// async fn sample(
+    ///    client: &MigrationCenter, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_group()
+    ///         .set_parent(parent).set_group_id("group_id_value")
+    ///         .set_group(
+    ///             Group::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_group(&self) -> super::builder::migration_center::CreateGroup {
         super::builder::migration_center::CreateGroup::new(self.inner.clone())
     }
@@ -325,6 +693,28 @@ impl MigrationCenter {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_migrationcenter_v1::model::Group;
+    /// use google_cloud_migrationcenter_v1::Result;
+    /// async fn sample(
+    ///    client: &MigrationCenter, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_group()
+    ///         .set_group(
+    ///             Group::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_group(&self) -> super::builder::migration_center::UpdateGroup {
         super::builder::migration_center::UpdateGroup::new(self.inner.clone())
     }
@@ -340,6 +730,21 @@ impl MigrationCenter {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_migrationcenter_v1::Result;
+    /// async fn sample(
+    ///    client: &MigrationCenter, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_group()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_group(&self) -> super::builder::migration_center::DeleteGroup {
         super::builder::migration_center::DeleteGroup::new(self.inner.clone())
     }
@@ -355,6 +760,22 @@ impl MigrationCenter {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_migrationcenter_v1::Result;
+    /// async fn sample(
+    ///    client: &MigrationCenter
+    /// ) -> Result<()> {
+    ///     let response = client.add_assets_to_group()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn add_assets_to_group(&self) -> super::builder::migration_center::AddAssetsToGroup {
         super::builder::migration_center::AddAssetsToGroup::new(self.inner.clone())
     }
@@ -370,6 +791,22 @@ impl MigrationCenter {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_migrationcenter_v1::Result;
+    /// async fn sample(
+    ///    client: &MigrationCenter
+    /// ) -> Result<()> {
+    ///     let response = client.remove_assets_from_group()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn remove_assets_from_group(
         &self,
     ) -> super::builder::migration_center::RemoveAssetsFromGroup {
@@ -377,21 +814,87 @@ impl MigrationCenter {
     }
 
     /// Lists all error frames in a given source and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_migrationcenter_v1::Result;
+    /// async fn sample(
+    ///    client: &MigrationCenter, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_error_frames()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_error_frames(&self) -> super::builder::migration_center::ListErrorFrames {
         super::builder::migration_center::ListErrorFrames::new(self.inner.clone())
     }
 
     /// Gets the details of an error frame.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
+    /// use google_cloud_migrationcenter_v1::Result;
+    /// async fn sample(
+    ///    client: &MigrationCenter, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_error_frame()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_error_frame(&self) -> super::builder::migration_center::GetErrorFrame {
         super::builder::migration_center::GetErrorFrame::new(self.inner.clone())
     }
 
     /// Lists all the sources in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_migrationcenter_v1::Result;
+    /// async fn sample(
+    ///    client: &MigrationCenter, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_sources()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_sources(&self) -> super::builder::migration_center::ListSources {
         super::builder::migration_center::ListSources::new(self.inner.clone())
     }
 
     /// Gets the details of a source.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
+    /// use google_cloud_migrationcenter_v1::Result;
+    /// async fn sample(
+    ///    client: &MigrationCenter, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_source()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_source(&self) -> super::builder::migration_center::GetSource {
         super::builder::migration_center::GetSource::new(self.inner.clone())
     }
@@ -407,6 +910,26 @@ impl MigrationCenter {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_migrationcenter_v1::model::Source;
+    /// use google_cloud_migrationcenter_v1::Result;
+    /// async fn sample(
+    ///    client: &MigrationCenter, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_source()
+    ///         .set_parent(parent).set_source_id("source_id_value")
+    ///         .set_source(
+    ///             Source::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_source(&self) -> super::builder::migration_center::CreateSource {
         super::builder::migration_center::CreateSource::new(self.inner.clone())
     }
@@ -422,6 +945,28 @@ impl MigrationCenter {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_migrationcenter_v1::model::Source;
+    /// use google_cloud_migrationcenter_v1::Result;
+    /// async fn sample(
+    ///    client: &MigrationCenter, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_source()
+    ///         .set_source(
+    ///             Source::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_source(&self) -> super::builder::migration_center::UpdateSource {
         super::builder::migration_center::UpdateSource::new(self.inner.clone())
     }
@@ -437,16 +982,64 @@ impl MigrationCenter {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_migrationcenter_v1::Result;
+    /// async fn sample(
+    ///    client: &MigrationCenter, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_source()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_source(&self) -> super::builder::migration_center::DeleteSource {
         super::builder::migration_center::DeleteSource::new(self.inner.clone())
     }
 
     /// Lists all the preference sets in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_migrationcenter_v1::Result;
+    /// async fn sample(
+    ///    client: &MigrationCenter, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_preference_sets()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_preference_sets(&self) -> super::builder::migration_center::ListPreferenceSets {
         super::builder::migration_center::ListPreferenceSets::new(self.inner.clone())
     }
 
     /// Gets the details of a preference set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
+    /// use google_cloud_migrationcenter_v1::Result;
+    /// async fn sample(
+    ///    client: &MigrationCenter, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_preference_set()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_preference_set(&self) -> super::builder::migration_center::GetPreferenceSet {
         super::builder::migration_center::GetPreferenceSet::new(self.inner.clone())
     }
@@ -462,6 +1055,26 @@ impl MigrationCenter {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_migrationcenter_v1::model::PreferenceSet;
+    /// use google_cloud_migrationcenter_v1::Result;
+    /// async fn sample(
+    ///    client: &MigrationCenter, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_preference_set()
+    ///         .set_parent(parent)
+    ///         .set_preference_set(
+    ///             PreferenceSet::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_preference_set(&self) -> super::builder::migration_center::CreatePreferenceSet {
         super::builder::migration_center::CreatePreferenceSet::new(self.inner.clone())
     }
@@ -477,6 +1090,28 @@ impl MigrationCenter {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_migrationcenter_v1::model::PreferenceSet;
+    /// use google_cloud_migrationcenter_v1::Result;
+    /// async fn sample(
+    ///    client: &MigrationCenter, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_preference_set()
+    ///         .set_preference_set(
+    ///             PreferenceSet::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_preference_set(&self) -> super::builder::migration_center::UpdatePreferenceSet {
         super::builder::migration_center::UpdatePreferenceSet::new(self.inner.clone())
     }
@@ -492,11 +1127,41 @@ impl MigrationCenter {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_migrationcenter_v1::Result;
+    /// async fn sample(
+    ///    client: &MigrationCenter, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_preference_set()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_preference_set(&self) -> super::builder::migration_center::DeletePreferenceSet {
         super::builder::migration_center::DeletePreferenceSet::new(self.inner.clone())
     }
 
     /// Gets the details of regional settings.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
+    /// use google_cloud_migrationcenter_v1::Result;
+    /// async fn sample(
+    ///    client: &MigrationCenter, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_settings()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_settings(&self) -> super::builder::migration_center::GetSettings {
         super::builder::migration_center::GetSettings::new(self.inner.clone())
     }
@@ -512,6 +1177,28 @@ impl MigrationCenter {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_migrationcenter_v1::model::Settings;
+    /// use google_cloud_migrationcenter_v1::Result;
+    /// async fn sample(
+    ///    client: &MigrationCenter, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_settings()
+    ///         .set_settings(
+    ///             Settings::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_settings(&self) -> super::builder::migration_center::UpdateSettings {
         super::builder::migration_center::UpdateSettings::new(self.inner.clone())
     }
@@ -527,16 +1214,69 @@ impl MigrationCenter {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_migrationcenter_v1::model::ReportConfig;
+    /// use google_cloud_migrationcenter_v1::Result;
+    /// async fn sample(
+    ///    client: &MigrationCenter, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_report_config()
+    ///         .set_parent(parent)
+    ///         .set_report_config(
+    ///             ReportConfig::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_report_config(&self) -> super::builder::migration_center::CreateReportConfig {
         super::builder::migration_center::CreateReportConfig::new(self.inner.clone())
     }
 
     /// Gets details of a single ReportConfig.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
+    /// use google_cloud_migrationcenter_v1::Result;
+    /// async fn sample(
+    ///    client: &MigrationCenter, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_report_config()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_report_config(&self) -> super::builder::migration_center::GetReportConfig {
         super::builder::migration_center::GetReportConfig::new(self.inner.clone())
     }
 
     /// Lists ReportConfigs in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_migrationcenter_v1::Result;
+    /// async fn sample(
+    ///    client: &MigrationCenter, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_report_configs()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_report_configs(&self) -> super::builder::migration_center::ListReportConfigs {
         super::builder::migration_center::ListReportConfigs::new(self.inner.clone())
     }
@@ -552,6 +1292,21 @@ impl MigrationCenter {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_migrationcenter_v1::Result;
+    /// async fn sample(
+    ///    client: &MigrationCenter, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_report_config()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_report_config(&self) -> super::builder::migration_center::DeleteReportConfig {
         super::builder::migration_center::DeleteReportConfig::new(self.inner.clone())
     }
@@ -567,16 +1322,69 @@ impl MigrationCenter {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_migrationcenter_v1::model::Report;
+    /// use google_cloud_migrationcenter_v1::Result;
+    /// async fn sample(
+    ///    client: &MigrationCenter, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_report()
+    ///         .set_parent(parent).set_report_id("report_id_value")
+    ///         .set_report(
+    ///             Report::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_report(&self) -> super::builder::migration_center::CreateReport {
         super::builder::migration_center::CreateReport::new(self.inner.clone())
     }
 
     /// Gets details of a single Report.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
+    /// use google_cloud_migrationcenter_v1::Result;
+    /// async fn sample(
+    ///    client: &MigrationCenter, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_report()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_report(&self) -> super::builder::migration_center::GetReport {
         super::builder::migration_center::GetReport::new(self.inner.clone())
     }
 
     /// Lists Reports in a given ReportConfig.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_migrationcenter_v1::Result;
+    /// async fn sample(
+    ///    client: &MigrationCenter, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_reports()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_reports(&self) -> super::builder::migration_center::ListReports {
         super::builder::migration_center::ListReports::new(self.inner.clone())
     }
@@ -592,16 +1400,64 @@ impl MigrationCenter {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_migrationcenter_v1::Result;
+    /// async fn sample(
+    ///    client: &MigrationCenter, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_report()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_report(&self) -> super::builder::migration_center::DeleteReport {
         super::builder::migration_center::DeleteReport::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_migrationcenter_v1::Result;
+    /// async fn sample(
+    ///    client: &MigrationCenter
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::migration_center::ListLocations {
         super::builder::migration_center::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
+    /// use google_cloud_migrationcenter_v1::Result;
+    /// async fn sample(
+    ///    client: &MigrationCenter
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::migration_center::GetLocation {
         super::builder::migration_center::GetLocation::new(self.inner.clone())
     }
@@ -609,6 +1465,24 @@ impl MigrationCenter {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_migrationcenter_v1::Result;
+    /// async fn sample(
+    ///    client: &MigrationCenter
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::migration_center::ListOperations {
         super::builder::migration_center::ListOperations::new(self.inner.clone())
     }
@@ -616,6 +1490,21 @@ impl MigrationCenter {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
+    /// use google_cloud_migrationcenter_v1::Result;
+    /// async fn sample(
+    ///    client: &MigrationCenter
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::migration_center::GetOperation {
         super::builder::migration_center::GetOperation::new(self.inner.clone())
     }
@@ -623,6 +1512,20 @@ impl MigrationCenter {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
+    /// use google_cloud_migrationcenter_v1::Result;
+    /// async fn sample(
+    ///    client: &MigrationCenter
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::migration_center::DeleteOperation {
         super::builder::migration_center::DeleteOperation::new(self.inner.clone())
     }
@@ -630,6 +1533,20 @@ impl MigrationCenter {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
+    /// use google_cloud_migrationcenter_v1::Result;
+    /// async fn sample(
+    ///    client: &MigrationCenter
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::migration_center::CancelOperation {
         super::builder::migration_center::CancelOperation::new(self.inner.clone())
     }

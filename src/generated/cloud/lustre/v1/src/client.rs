@@ -119,11 +119,44 @@ impl Lustre {
     }
 
     /// Lists instances in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_lustre_v1::client::Lustre;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_lustre_v1::Result;
+    /// async fn sample(
+    ///    client: &Lustre, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_instances()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_instances(&self) -> super::builder::lustre::ListInstances {
         super::builder::lustre::ListInstances::new(self.inner.clone())
     }
 
     /// Gets details of a single instance.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_lustre_v1::client::Lustre;
+    /// use google_cloud_lustre_v1::Result;
+    /// async fn sample(
+    ///    client: &Lustre, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_instance()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_instance(&self) -> super::builder::lustre::GetInstance {
         super::builder::lustre::GetInstance::new(self.inner.clone())
     }
@@ -139,6 +172,26 @@ impl Lustre {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_lustre_v1::client::Lustre;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_lustre_v1::model::Instance;
+    /// use google_cloud_lustre_v1::Result;
+    /// async fn sample(
+    ///    client: &Lustre, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_instance()
+    ///         .set_parent(parent).set_instance_id("instance_id_value")
+    ///         .set_instance(
+    ///             Instance::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_instance(&self) -> super::builder::lustre::CreateInstance {
         super::builder::lustre::CreateInstance::new(self.inner.clone())
     }
@@ -154,6 +207,28 @@ impl Lustre {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_lustre_v1::client::Lustre;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_lustre_v1::model::Instance;
+    /// use google_cloud_lustre_v1::Result;
+    /// async fn sample(
+    ///    client: &Lustre, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_instance()
+    ///         .set_instance(
+    ///             Instance::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_instance(&self) -> super::builder::lustre::UpdateInstance {
         super::builder::lustre::UpdateInstance::new(self.inner.clone())
     }
@@ -169,6 +244,21 @@ impl Lustre {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_lustre_v1::client::Lustre;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_lustre_v1::Result;
+    /// async fn sample(
+    ///    client: &Lustre, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_instance()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_instance(&self) -> super::builder::lustre::DeleteInstance {
         super::builder::lustre::DeleteInstance::new(self.inner.clone())
     }
@@ -184,6 +274,22 @@ impl Lustre {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_lustre_v1::client::Lustre;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_lustre_v1::Result;
+    /// async fn sample(
+    ///    client: &Lustre
+    /// ) -> Result<()> {
+    ///     let response = client.import_data()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn import_data(&self) -> super::builder::lustre::ImportData {
         super::builder::lustre::ImportData::new(self.inner.clone())
     }
@@ -199,16 +305,65 @@ impl Lustre {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_lustre_v1::client::Lustre;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_lustre_v1::Result;
+    /// async fn sample(
+    ///    client: &Lustre
+    /// ) -> Result<()> {
+    ///     let response = client.export_data()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn export_data(&self) -> super::builder::lustre::ExportData {
         super::builder::lustre::ExportData::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_lustre_v1::client::Lustre;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_lustre_v1::Result;
+    /// async fn sample(
+    ///    client: &Lustre
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::lustre::ListLocations {
         super::builder::lustre::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_lustre_v1::client::Lustre;
+    /// use google_cloud_lustre_v1::Result;
+    /// async fn sample(
+    ///    client: &Lustre
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::lustre::GetLocation {
         super::builder::lustre::GetLocation::new(self.inner.clone())
     }
@@ -216,6 +371,24 @@ impl Lustre {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_lustre_v1::client::Lustre;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_lustre_v1::Result;
+    /// async fn sample(
+    ///    client: &Lustre
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::lustre::ListOperations {
         super::builder::lustre::ListOperations::new(self.inner.clone())
     }
@@ -223,6 +396,21 @@ impl Lustre {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_lustre_v1::client::Lustre;
+    /// use google_cloud_lustre_v1::Result;
+    /// async fn sample(
+    ///    client: &Lustre
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::lustre::GetOperation {
         super::builder::lustre::GetOperation::new(self.inner.clone())
     }
@@ -230,6 +418,20 @@ impl Lustre {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_lustre_v1::client::Lustre;
+    /// use google_cloud_lustre_v1::Result;
+    /// async fn sample(
+    ///    client: &Lustre
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::lustre::DeleteOperation {
         super::builder::lustre::DeleteOperation::new(self.inner.clone())
     }
@@ -237,6 +439,20 @@ impl Lustre {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_lustre_v1::client::Lustre;
+    /// use google_cloud_lustre_v1::Result;
+    /// async fn sample(
+    ///    client: &Lustre
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::lustre::CancelOperation {
         super::builder::lustre::CancelOperation::new(self.inner.clone())
     }

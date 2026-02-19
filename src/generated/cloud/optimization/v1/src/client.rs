@@ -148,6 +148,21 @@ impl FleetRouting {
     /// The goal is to provide an assignment of `ShipmentRoute`s to `Vehicle`s that
     /// minimizes the total cost where cost has many components defined in the
     /// `ShipmentModel`.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::client::FleetRouting;
+    /// use google_cloud_optimization_v1::Result;
+    /// async fn sample(
+    ///    client: &FleetRouting
+    /// ) -> Result<()> {
+    ///     let response = client.optimize_tours()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn optimize_tours(&self) -> super::builder::fleet_routing::OptimizeTours {
         super::builder::fleet_routing::OptimizeTours::new(self.inner.clone())
     }
@@ -172,6 +187,22 @@ impl FleetRouting {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::client::FleetRouting;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_optimization_v1::Result;
+    /// async fn sample(
+    ///    client: &FleetRouting
+    /// ) -> Result<()> {
+    ///     let response = client.batch_optimize_tours()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn batch_optimize_tours(&self) -> super::builder::fleet_routing::BatchOptimizeTours {
         super::builder::fleet_routing::BatchOptimizeTours::new(self.inner.clone())
     }
@@ -179,6 +210,21 @@ impl FleetRouting {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::client::FleetRouting;
+    /// use google_cloud_optimization_v1::Result;
+    /// async fn sample(
+    ///    client: &FleetRouting
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::fleet_routing::GetOperation {
         super::builder::fleet_routing::GetOperation::new(self.inner.clone())
     }

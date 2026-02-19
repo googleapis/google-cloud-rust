@@ -40,6 +40,7 @@ pub mod list_object_contexts;
 pub mod make_public;
 pub mod move_file;
 pub mod object_csek_to_cmek;
+pub mod open_object_single_ranged_read;
 pub mod print_file_acl;
 pub mod print_file_acl_for_user;
 pub mod release_event_based_hold;

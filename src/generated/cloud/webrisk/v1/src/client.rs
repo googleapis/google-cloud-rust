@@ -125,6 +125,21 @@ impl WebRiskService {
     /// be returned. This Method only updates a single ThreatList at a time. To
     /// update multiple ThreatList databases, this method needs to be called once
     /// for each list.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_webrisk_v1::client::WebRiskService;
+    /// use google_cloud_webrisk_v1::Result;
+    /// async fn sample(
+    ///    client: &WebRiskService
+    /// ) -> Result<()> {
+    ///     let response = client.compute_threat_list_diff()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn compute_threat_list_diff(
         &self,
     ) -> super::builder::web_risk_service::ComputeThreatListDiff {
@@ -136,6 +151,21 @@ impl WebRiskService {
     /// The response will list all requested threatLists the URI was found to
     /// match. If the URI is not found on any of the requested ThreatList an
     /// empty response will be returned.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_webrisk_v1::client::WebRiskService;
+    /// use google_cloud_webrisk_v1::Result;
+    /// async fn sample(
+    ///    client: &WebRiskService
+    /// ) -> Result<()> {
+    ///     let response = client.search_uris()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn search_uris(&self) -> super::builder::web_risk_service::SearchUris {
         super::builder::web_risk_service::SearchUris::new(self.inner.clone())
     }
@@ -145,6 +175,21 @@ impl WebRiskService {
     /// and there is a match. The client side threatList only holds partial hashes
     /// so the client must query this method to determine if there is a full
     /// hash match of a threat.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_webrisk_v1::client::WebRiskService;
+    /// use google_cloud_webrisk_v1::Result;
+    /// async fn sample(
+    ///    client: &WebRiskService
+    /// ) -> Result<()> {
+    ///     let response = client.search_hashes()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn search_hashes(&self) -> super::builder::web_risk_service::SearchHashes {
         super::builder::web_risk_service::SearchHashes::new(self.inner.clone())
     }
@@ -156,6 +201,21 @@ impl WebRiskService {
     /// protect users that could get exposed to this threat in the future. Only
     /// allowlisted projects can use this method during Early Access. Please reach
     /// out to Sales or your customer engineer to obtain access.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_webrisk_v1::client::WebRiskService;
+    /// use google_cloud_webrisk_v1::Result;
+    /// async fn sample(
+    ///    client: &WebRiskService
+    /// ) -> Result<()> {
+    ///     let response = client.create_submission()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_submission(&self) -> super::builder::web_risk_service::CreateSubmission {
         super::builder::web_risk_service::CreateSubmission::new(self.inner.clone())
     }
@@ -180,6 +240,22 @@ impl WebRiskService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_webrisk_v1::client::WebRiskService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_webrisk_v1::Result;
+    /// async fn sample(
+    ///    client: &WebRiskService
+    /// ) -> Result<()> {
+    ///     let response = client.submit_uri()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn submit_uri(&self) -> super::builder::web_risk_service::SubmitUri {
         super::builder::web_risk_service::SubmitUri::new(self.inner.clone())
     }
@@ -187,6 +263,24 @@ impl WebRiskService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_webrisk_v1::client::WebRiskService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_webrisk_v1::Result;
+    /// async fn sample(
+    ///    client: &WebRiskService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::web_risk_service::ListOperations {
         super::builder::web_risk_service::ListOperations::new(self.inner.clone())
     }
@@ -194,6 +288,21 @@ impl WebRiskService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_webrisk_v1::client::WebRiskService;
+    /// use google_cloud_webrisk_v1::Result;
+    /// async fn sample(
+    ///    client: &WebRiskService
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::web_risk_service::GetOperation {
         super::builder::web_risk_service::GetOperation::new(self.inner.clone())
     }
@@ -201,6 +310,20 @@ impl WebRiskService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_webrisk_v1::client::WebRiskService;
+    /// use google_cloud_webrisk_v1::Result;
+    /// async fn sample(
+    ///    client: &WebRiskService
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::web_risk_service::DeleteOperation {
         super::builder::web_risk_service::DeleteOperation::new(self.inner.clone())
     }
@@ -208,6 +331,20 @@ impl WebRiskService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_webrisk_v1::client::WebRiskService;
+    /// use google_cloud_webrisk_v1::Result;
+    /// async fn sample(
+    ///    client: &WebRiskService
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::web_risk_service::CancelOperation {
         super::builder::web_risk_service::CancelOperation::new(self.inner.clone())
     }

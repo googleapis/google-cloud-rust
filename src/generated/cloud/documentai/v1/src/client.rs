@@ -124,6 +124,21 @@ impl DocumentProcessorService {
     }
 
     /// Processes a single document.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::client::DocumentProcessorService;
+    /// use google_cloud_documentai_v1::Result;
+    /// async fn sample(
+    ///    client: &DocumentProcessorService
+    /// ) -> Result<()> {
+    ///     let response = client.process_document()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn process_document(&self) -> super::builder::document_processor_service::ProcessDocument {
         super::builder::document_processor_service::ProcessDocument::new(self.inner.clone())
     }
@@ -140,6 +155,22 @@ impl DocumentProcessorService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::client::DocumentProcessorService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_documentai_v1::Result;
+    /// async fn sample(
+    ///    client: &DocumentProcessorService
+    /// ) -> Result<()> {
+    ///     let response = client.batch_process_documents()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn batch_process_documents(
         &self,
     ) -> super::builder::document_processor_service::BatchProcessDocuments {
@@ -151,6 +182,21 @@ impl DocumentProcessorService {
     /// here, because it isn't paginated.
     ///
     /// [google.cloud.documentai.v1.DocumentProcessorService.ListProcessorTypes]: crate::client::DocumentProcessorService::list_processor_types
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::client::DocumentProcessorService;
+    /// use google_cloud_documentai_v1::Result;
+    /// async fn sample(
+    ///    client: &DocumentProcessorService
+    /// ) -> Result<()> {
+    ///     let response = client.fetch_processor_types()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn fetch_processor_types(
         &self,
     ) -> super::builder::document_processor_service::FetchProcessorTypes {
@@ -158,6 +204,24 @@ impl DocumentProcessorService {
     }
 
     /// Lists the processor types that exist.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::client::DocumentProcessorService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_documentai_v1::Result;
+    /// async fn sample(
+    ///    client: &DocumentProcessorService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_processor_types()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_processor_types(
         &self,
     ) -> super::builder::document_processor_service::ListProcessorTypes {
@@ -165,6 +229,21 @@ impl DocumentProcessorService {
     }
 
     /// Gets a processor type detail.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::client::DocumentProcessorService;
+    /// use google_cloud_documentai_v1::Result;
+    /// async fn sample(
+    ///    client: &DocumentProcessorService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_processor_type()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_processor_type(
         &self,
     ) -> super::builder::document_processor_service::GetProcessorType {
@@ -172,11 +251,44 @@ impl DocumentProcessorService {
     }
 
     /// Lists all processors which belong to this project.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::client::DocumentProcessorService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_documentai_v1::Result;
+    /// async fn sample(
+    ///    client: &DocumentProcessorService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_processors()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_processors(&self) -> super::builder::document_processor_service::ListProcessors {
         super::builder::document_processor_service::ListProcessors::new(self.inner.clone())
     }
 
     /// Gets a processor detail.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::client::DocumentProcessorService;
+    /// use google_cloud_documentai_v1::Result;
+    /// async fn sample(
+    ///    client: &DocumentProcessorService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_processor()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_processor(&self) -> super::builder::document_processor_service::GetProcessor {
         super::builder::document_processor_service::GetProcessor::new(self.inner.clone())
     }
@@ -196,6 +308,22 @@ impl DocumentProcessorService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::client::DocumentProcessorService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_documentai_v1::Result;
+    /// async fn sample(
+    ///    client: &DocumentProcessorService
+    /// ) -> Result<()> {
+    ///     let response = client.train_processor_version()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn train_processor_version(
         &self,
     ) -> super::builder::document_processor_service::TrainProcessorVersion {
@@ -203,6 +331,21 @@ impl DocumentProcessorService {
     }
 
     /// Gets a processor version detail.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::client::DocumentProcessorService;
+    /// use google_cloud_documentai_v1::Result;
+    /// async fn sample(
+    ///    client: &DocumentProcessorService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_processor_version()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_processor_version(
         &self,
     ) -> super::builder::document_processor_service::GetProcessorVersion {
@@ -210,6 +353,24 @@ impl DocumentProcessorService {
     }
 
     /// Lists all versions of a processor.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::client::DocumentProcessorService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_documentai_v1::Result;
+    /// async fn sample(
+    ///    client: &DocumentProcessorService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_processor_versions()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_processor_versions(
         &self,
     ) -> super::builder::document_processor_service::ListProcessorVersions {
@@ -228,6 +389,21 @@ impl DocumentProcessorService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::client::DocumentProcessorService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_documentai_v1::Result;
+    /// async fn sample(
+    ///    client: &DocumentProcessorService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_processor_version()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_processor_version(
         &self,
     ) -> super::builder::document_processor_service::DeleteProcessorVersion {
@@ -245,6 +421,22 @@ impl DocumentProcessorService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::client::DocumentProcessorService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_documentai_v1::Result;
+    /// async fn sample(
+    ///    client: &DocumentProcessorService
+    /// ) -> Result<()> {
+    ///     let response = client.deploy_processor_version()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn deploy_processor_version(
         &self,
     ) -> super::builder::document_processor_service::DeployProcessorVersion {
@@ -262,6 +454,22 @@ impl DocumentProcessorService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::client::DocumentProcessorService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_documentai_v1::Result;
+    /// async fn sample(
+    ///    client: &DocumentProcessorService
+    /// ) -> Result<()> {
+    ///     let response = client.undeploy_processor_version()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn undeploy_processor_version(
         &self,
     ) -> super::builder::document_processor_service::UndeployProcessorVersion {
@@ -279,6 +487,25 @@ impl DocumentProcessorService {
     /// bucket in your project.
     ///
     /// [google.cloud.documentai.v1.ProcessorType]: crate::model::ProcessorType
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::client::DocumentProcessorService;
+    /// use google_cloud_documentai_v1::model::Processor;
+    /// use google_cloud_documentai_v1::Result;
+    /// async fn sample(
+    ///    client: &DocumentProcessorService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_processor()
+    ///         .set_parent(parent)
+    ///         .set_processor(
+    ///             Processor::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_processor(&self) -> super::builder::document_processor_service::CreateProcessor {
         super::builder::document_processor_service::CreateProcessor::new(self.inner.clone())
     }
@@ -295,6 +522,21 @@ impl DocumentProcessorService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::client::DocumentProcessorService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_documentai_v1::Result;
+    /// async fn sample(
+    ///    client: &DocumentProcessorService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_processor()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_processor(&self) -> super::builder::document_processor_service::DeleteProcessor {
         super::builder::document_processor_service::DeleteProcessor::new(self.inner.clone())
     }
@@ -310,6 +552,22 @@ impl DocumentProcessorService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::client::DocumentProcessorService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_documentai_v1::Result;
+    /// async fn sample(
+    ///    client: &DocumentProcessorService
+    /// ) -> Result<()> {
+    ///     let response = client.enable_processor()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn enable_processor(&self) -> super::builder::document_processor_service::EnableProcessor {
         super::builder::document_processor_service::EnableProcessor::new(self.inner.clone())
     }
@@ -325,6 +583,22 @@ impl DocumentProcessorService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::client::DocumentProcessorService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_documentai_v1::Result;
+    /// async fn sample(
+    ///    client: &DocumentProcessorService
+    /// ) -> Result<()> {
+    ///     let response = client.disable_processor()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn disable_processor(
         &self,
     ) -> super::builder::document_processor_service::DisableProcessor {
@@ -350,6 +624,22 @@ impl DocumentProcessorService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::client::DocumentProcessorService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_documentai_v1::Result;
+    /// async fn sample(
+    ///    client: &DocumentProcessorService
+    /// ) -> Result<()> {
+    ///     let response = client.set_default_processor_version()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_default_processor_version(
         &self,
     ) -> super::builder::document_processor_service::SetDefaultProcessorVersion {
@@ -370,6 +660,22 @@ impl DocumentProcessorService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::client::DocumentProcessorService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_documentai_v1::Result;
+    /// async fn sample(
+    ///    client: &DocumentProcessorService
+    /// ) -> Result<()> {
+    ///     let response = client.review_document()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn review_document(&self) -> super::builder::document_processor_service::ReviewDocument {
         super::builder::document_processor_service::ReviewDocument::new(self.inner.clone())
     }
@@ -386,6 +692,22 @@ impl DocumentProcessorService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::client::DocumentProcessorService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_documentai_v1::Result;
+    /// async fn sample(
+    ///    client: &DocumentProcessorService
+    /// ) -> Result<()> {
+    ///     let response = client.evaluate_processor_version()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn evaluate_processor_version(
         &self,
     ) -> super::builder::document_processor_service::EvaluateProcessorVersion {
@@ -395,21 +717,87 @@ impl DocumentProcessorService {
     }
 
     /// Retrieves a specific evaluation.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::client::DocumentProcessorService;
+    /// use google_cloud_documentai_v1::Result;
+    /// async fn sample(
+    ///    client: &DocumentProcessorService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_evaluation()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_evaluation(&self) -> super::builder::document_processor_service::GetEvaluation {
         super::builder::document_processor_service::GetEvaluation::new(self.inner.clone())
     }
 
     /// Retrieves a set of evaluations for a given processor version.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::client::DocumentProcessorService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_documentai_v1::Result;
+    /// async fn sample(
+    ///    client: &DocumentProcessorService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_evaluations()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_evaluations(&self) -> super::builder::document_processor_service::ListEvaluations {
         super::builder::document_processor_service::ListEvaluations::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::client::DocumentProcessorService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_documentai_v1::Result;
+    /// async fn sample(
+    ///    client: &DocumentProcessorService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::document_processor_service::ListLocations {
         super::builder::document_processor_service::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::client::DocumentProcessorService;
+    /// use google_cloud_documentai_v1::Result;
+    /// async fn sample(
+    ///    client: &DocumentProcessorService
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::document_processor_service::GetLocation {
         super::builder::document_processor_service::GetLocation::new(self.inner.clone())
     }
@@ -417,6 +805,24 @@ impl DocumentProcessorService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::client::DocumentProcessorService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_documentai_v1::Result;
+    /// async fn sample(
+    ///    client: &DocumentProcessorService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::document_processor_service::ListOperations {
         super::builder::document_processor_service::ListOperations::new(self.inner.clone())
     }
@@ -424,6 +830,21 @@ impl DocumentProcessorService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::client::DocumentProcessorService;
+    /// use google_cloud_documentai_v1::Result;
+    /// async fn sample(
+    ///    client: &DocumentProcessorService
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::document_processor_service::GetOperation {
         super::builder::document_processor_service::GetOperation::new(self.inner.clone())
     }
@@ -431,6 +852,20 @@ impl DocumentProcessorService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::client::DocumentProcessorService;
+    /// use google_cloud_documentai_v1::Result;
+    /// async fn sample(
+    ///    client: &DocumentProcessorService
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::document_processor_service::CancelOperation {
         super::builder::document_processor_service::CancelOperation::new(self.inner.clone())
     }

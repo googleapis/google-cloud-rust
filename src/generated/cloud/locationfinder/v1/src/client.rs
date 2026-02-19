@@ -120,6 +120,24 @@ impl CloudLocationFinder {
     }
 
     /// Lists cloud locations under a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_locationfinder_v1::client::CloudLocationFinder;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_locationfinder_v1::Result;
+    /// async fn sample(
+    ///    client: &CloudLocationFinder, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_cloud_locations()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_cloud_locations(
         &self,
     ) -> super::builder::cloud_location_finder::ListCloudLocations {
@@ -127,11 +145,44 @@ impl CloudLocationFinder {
     }
 
     /// Retrieves a resource containing information about a cloud location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_locationfinder_v1::client::CloudLocationFinder;
+    /// use google_cloud_locationfinder_v1::Result;
+    /// async fn sample(
+    ///    client: &CloudLocationFinder, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_cloud_location()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_cloud_location(&self) -> super::builder::cloud_location_finder::GetCloudLocation {
         super::builder::cloud_location_finder::GetCloudLocation::new(self.inner.clone())
     }
 
     /// Searches for cloud locations from a given source location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_locationfinder_v1::client::CloudLocationFinder;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_locationfinder_v1::Result;
+    /// async fn sample(
+    ///    client: &CloudLocationFinder
+    /// ) -> Result<()> {
+    ///     let mut list = client.search_cloud_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn search_cloud_locations(
         &self,
     ) -> super::builder::cloud_location_finder::SearchCloudLocations {
@@ -139,11 +190,44 @@ impl CloudLocationFinder {
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_locationfinder_v1::client::CloudLocationFinder;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_locationfinder_v1::Result;
+    /// async fn sample(
+    ///    client: &CloudLocationFinder
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::cloud_location_finder::ListLocations {
         super::builder::cloud_location_finder::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_locationfinder_v1::client::CloudLocationFinder;
+    /// use google_cloud_locationfinder_v1::Result;
+    /// async fn sample(
+    ///    client: &CloudLocationFinder
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::cloud_location_finder::GetLocation {
         super::builder::cloud_location_finder::GetLocation::new(self.inner.clone())
     }

@@ -38,11 +38,19 @@ const COOLDOWN_INTERVAL: Duration = Duration::from_secs(15 * 60);
 
 #[derive(Debug)]
 struct AccessBoundary {
+    /// A channel to keep track of the boundary state.
+    /// - `None`: We haven't fetched anything yet (uninitialized).
+    /// - `Some(...)`: We successfully talked to the IAM service or have a customer provided override.
+    ///   These values come with a TTL so we know how long to keep them around.
     rx_header: watch::Receiver<Option<BoundaryValue>>,
 }
 
 #[derive(Debug, Clone)]
 struct BoundaryValue {
+    /// This is an `Option` because the IAM service can signal that the
+    /// given credential has no access boundary. In that case, we save it as `None`
+    /// (along with the TTL in `expires_at`) so we don't repeatedly
+    /// fetch a non-existent boundary.
     value: Option<String>,
     expires_at: Instant,
 }
@@ -74,7 +82,17 @@ impl AccessBoundary {
         if Self::is_enabled() {
             tokio::spawn(refresh_task_mds(credentials, mds_client, tx_header));
         }
+        Self { rx_header }
+    }
 
+    #[cfg(test)]
+    // only used for testing
+    pub(crate) fn new_with_mock_provider<T>(provider: T) -> Self
+    where
+        T: AccessBoundaryProvider + 'static,
+    {
+        let (tx_header, rx_header) = watch::channel(None);
+        tokio::spawn(refresh_task(Arc::new(provider), tx_header));
         Self { rx_header }
     }
 
@@ -249,7 +267,6 @@ async fn refresh_task_mds(
                 }
             }
         }
-
         fetch_and_update(&provider, &tx_header).await;
     }
 }
@@ -651,6 +668,71 @@ pub(crate) mod tests {
         tokio::task::yield_now().await;
 
         let val = rx.borrow().clone();
-        assert_eq!(val.as_ref().and_then(|v| v.value.as_deref()), Some("0x123"));
+        let val = val.as_ref().and_then(|v| v.value.as_deref());
+        assert_eq!(val, Some("0x123"), "{val:?}");
+    }
+
+    #[tokio::test(start_paused = true)]
+    #[parallel]
+    async fn expired_access_boundary_returns_none() {
+        let (tx, rx_header) = watch::channel::<Option<BoundaryValue>>(None);
+        let access_boundary = AccessBoundary { rx_header };
+
+        let ttl = Duration::from_secs(10);
+        let expires_at = Instant::now() + ttl;
+        let _ = tx.send(Some(BoundaryValue {
+            value: Some("old-value".to_string()),
+            expires_at,
+        }));
+
+        // value is valid
+        let val = access_boundary.header_value();
+        assert_eq!(val.as_deref(), Some("old-value"), "{val:?}");
+
+        // advance time plus some buffer to expire the value
+        tokio::time::advance(ttl + Duration::from_secs(1)).await;
+
+        // value should return None if expired (non-blocking)
+        let val = access_boundary.header_value();
+        assert!(val.is_none(), "{val:?}");
+
+        // update with new value
+        let _ = tx.send(Some(BoundaryValue::new(Some("new-value".to_string()))));
+
+        let val = access_boundary.header_value();
+        assert_eq!(val.as_deref(), Some("new-value"), "{val:?}");
+    }
+
+    #[tokio::test(start_paused = true)]
+    #[parallel]
+    async fn access_boundary_provider_refreshes() {
+        let mut mock_provider = MockAccessBoundaryProvider::new();
+
+        mock_provider
+            .expect_fetch_access_boundary()
+            .times(1)
+            .returning(|| Ok(Some("old-value".to_string())));
+
+        mock_provider
+            .expect_fetch_access_boundary()
+            .times(1)
+            .returning(|| Ok(Some("new-value".to_string())));
+
+        let access_boundary = AccessBoundary::new_with_mock_provider(mock_provider);
+
+        // allow task to start and fail the first request
+        tokio::time::advance(Duration::from_secs(2)).await;
+        tokio::task::yield_now().await;
+
+        // value is valid
+        let val = access_boundary.header_value();
+        assert_eq!(val.as_deref(), Some("old-value"), "{val:?}");
+
+        // advance time beyond the time to refresh
+        tokio::time::advance(DEFAULT_TTL).await;
+        tokio::task::yield_now().await;
+
+        let val = access_boundary.header_value();
+        assert_eq!(val.as_deref(), Some("new-value"), "{val:?}");
     }
 }

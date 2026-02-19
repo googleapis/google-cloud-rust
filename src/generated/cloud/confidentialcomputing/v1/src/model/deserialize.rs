@@ -249,6 +249,7 @@ impl<'de> serde::de::Deserialize<'de> for super::VerifyAttestationRequest {
         enum __FieldTag {
             __td_ccel,
             __sev_snp_attestation,
+            __nvidia_attestation,
             __challenge,
             __gcp_credentials,
             __tpm_attestation,
@@ -279,6 +280,8 @@ impl<'de> serde::de::Deserialize<'de> for super::VerifyAttestationRequest {
                             "td_ccel" => Ok(__FieldTag::__td_ccel),
                             "sevSnpAttestation" => Ok(__FieldTag::__sev_snp_attestation),
                             "sev_snp_attestation" => Ok(__FieldTag::__sev_snp_attestation),
+                            "nvidiaAttestation" => Ok(__FieldTag::__nvidia_attestation),
+                            "nvidia_attestation" => Ok(__FieldTag::__nvidia_attestation),
                             "challenge" => Ok(__FieldTag::__challenge),
                             "gcpCredentials" => Ok(__FieldTag::__gcp_credentials),
                             "gcp_credentials" => Ok(__FieldTag::__gcp_credentials),
@@ -351,6 +354,23 @@ impl<'de> serde::de::Deserialize<'de> for super::VerifyAttestationRequest {
                                 ),
                             );
                         }
+                        __FieldTag::__nvidia_attestation => {
+                            if !fields.insert(__FieldTag::__nvidia_attestation) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for nvidia_attestation",
+                                ));
+                            }
+                            if result.device_attestation.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `device_attestation`, a oneof with full ID .google.cloud.confidentialcomputing.v1.VerifyAttestationRequest.nvidia_attestation, latest field was nvidiaAttestation",
+                                ));
+                            }
+                            result.device_attestation = std::option::Option::Some(
+                                crate::model::verify_attestation_request::DeviceAttestation::NvidiaAttestation(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::model::NvidiaAttestation>>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
                         __FieldTag::__challenge => {
                             if !fields.insert(__FieldTag::__challenge) {
                                 return std::result::Result::Err(A::Error::duplicate_field(
@@ -407,6 +427,695 @@ impl<'de> serde::de::Deserialize<'de> for super::VerifyAttestationRequest {
                             }
                             result.attester = map
                                 .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::NvidiaAttestation {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __spt,
+            __ppcie,
+            __mpt,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for NvidiaAttestation")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "spt" => Ok(__FieldTag::__spt),
+                            "ppcie" => Ok(__FieldTag::__ppcie),
+                            "mpt" => Ok(__FieldTag::__mpt),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::NvidiaAttestation;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct NvidiaAttestation")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__spt => {
+                            if !fields.insert(__FieldTag::__spt) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for spt",
+                                ));
+                            }
+                            if result.cc_feature.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `cc_feature`, a oneof with full ID .google.cloud.confidentialcomputing.v1.NvidiaAttestation.spt, latest field was spt",
+                                ));
+                            }
+                            result.cc_feature = std::option::Option::Some(
+                                crate::model::nvidia_attestation::CcFeature::Spt(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::model::nvidia_attestation::SinglePassthroughAttestation>>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__ppcie => {
+                            if !fields.insert(__FieldTag::__ppcie) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for ppcie",
+                                ));
+                            }
+                            if result.cc_feature.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `cc_feature`, a oneof with full ID .google.cloud.confidentialcomputing.v1.NvidiaAttestation.ppcie, latest field was ppcie",
+                                ));
+                            }
+                            result.cc_feature = std::option::Option::Some(
+                                crate::model::nvidia_attestation::CcFeature::Ppcie(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::model::nvidia_attestation::ProtectedPcieAttestation>>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__mpt => {
+                            if !fields.insert(__FieldTag::__mpt) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for mpt",
+                                ));
+                            }
+                            if result.cc_feature.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `cc_feature`, a oneof with full ID .google.cloud.confidentialcomputing.v1.NvidiaAttestation.mpt, latest field was mpt",
+                                ));
+                            }
+                            result.cc_feature = std::option::Option::Some(
+                                crate::model::nvidia_attestation::CcFeature::Mpt(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::model::nvidia_attestation::MultiGpuSecurePassthroughAttestation>>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::nvidia_attestation::GpuInfo {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __uuid,
+            __driver_version,
+            __vbios_version,
+            __gpu_architecture_type,
+            __attestation_certificate_chain,
+            __attestation_report,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for GpuInfo")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "uuid" => Ok(__FieldTag::__uuid),
+                            "driverVersion" => Ok(__FieldTag::__driver_version),
+                            "driver_version" => Ok(__FieldTag::__driver_version),
+                            "vbiosVersion" => Ok(__FieldTag::__vbios_version),
+                            "vbios_version" => Ok(__FieldTag::__vbios_version),
+                            "gpuArchitectureType" => Ok(__FieldTag::__gpu_architecture_type),
+                            "gpu_architecture_type" => Ok(__FieldTag::__gpu_architecture_type),
+                            "attestationCertificateChain" => {
+                                Ok(__FieldTag::__attestation_certificate_chain)
+                            }
+                            "attestation_certificate_chain" => {
+                                Ok(__FieldTag::__attestation_certificate_chain)
+                            }
+                            "attestationReport" => Ok(__FieldTag::__attestation_report),
+                            "attestation_report" => Ok(__FieldTag::__attestation_report),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::nvidia_attestation::GpuInfo;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct GpuInfo")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__uuid => {
+                            if !fields.insert(__FieldTag::__uuid) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for uuid",
+                                ));
+                            }
+                            result.uuid = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__driver_version => {
+                            if !fields.insert(__FieldTag::__driver_version) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for driver_version",
+                                ));
+                            }
+                            result.driver_version = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__vbios_version => {
+                            if !fields.insert(__FieldTag::__vbios_version) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for vbios_version",
+                                ));
+                            }
+                            result.vbios_version = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__gpu_architecture_type => {
+                            if !fields.insert(__FieldTag::__gpu_architecture_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for gpu_architecture_type",
+                                ));
+                            }
+                            result.gpu_architecture_type = map
+                                .next_value::<std::option::Option<
+                                    crate::model::nvidia_attestation::GpuArchitectureType,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__attestation_certificate_chain => {
+                            if !fields.insert(__FieldTag::__attestation_certificate_chain) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for attestation_certificate_chain",
+                                ));
+                            }
+                            struct __With(std::option::Option<::bytes::Bytes>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<serde_with::base64::Base64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.attestation_certificate_chain =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__attestation_report => {
+                            if !fields.insert(__FieldTag::__attestation_report) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for attestation_report",
+                                ));
+                            }
+                            struct __With(std::option::Option<::bytes::Bytes>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<serde_with::base64::Base64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.attestation_report =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::nvidia_attestation::SwitchInfo {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __uuid,
+            __attestation_certificate_chain,
+            __attestation_report,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for SwitchInfo")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "uuid" => Ok(__FieldTag::__uuid),
+                            "attestationCertificateChain" => {
+                                Ok(__FieldTag::__attestation_certificate_chain)
+                            }
+                            "attestation_certificate_chain" => {
+                                Ok(__FieldTag::__attestation_certificate_chain)
+                            }
+                            "attestationReport" => Ok(__FieldTag::__attestation_report),
+                            "attestation_report" => Ok(__FieldTag::__attestation_report),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::nvidia_attestation::SwitchInfo;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct SwitchInfo")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__uuid => {
+                            if !fields.insert(__FieldTag::__uuid) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for uuid",
+                                ));
+                            }
+                            result.uuid = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__attestation_certificate_chain => {
+                            if !fields.insert(__FieldTag::__attestation_certificate_chain) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for attestation_certificate_chain",
+                                ));
+                            }
+                            struct __With(std::option::Option<::bytes::Bytes>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<serde_with::base64::Base64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.attestation_certificate_chain =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__attestation_report => {
+                            if !fields.insert(__FieldTag::__attestation_report) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for attestation_report",
+                                ));
+                            }
+                            struct __With(std::option::Option<::bytes::Bytes>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<serde_with::base64::Base64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.attestation_report =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::nvidia_attestation::SinglePassthroughAttestation {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __gpu_quote,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for SinglePassthroughAttestation")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "gpuQuote" => Ok(__FieldTag::__gpu_quote),
+                            "gpu_quote" => Ok(__FieldTag::__gpu_quote),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::nvidia_attestation::SinglePassthroughAttestation;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct SinglePassthroughAttestation")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__gpu_quote => {
+                            if !fields.insert(__FieldTag::__gpu_quote) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for gpu_quote",
+                                ));
+                            }
+                            result.gpu_quote = map.next_value::<std::option::Option<crate::model::nvidia_attestation::GpuInfo>>()?
+                                ;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::nvidia_attestation::ProtectedPcieAttestation {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __gpu_quotes,
+            __switch_quotes,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ProtectedPcieAttestation")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "gpuQuotes" => Ok(__FieldTag::__gpu_quotes),
+                            "gpu_quotes" => Ok(__FieldTag::__gpu_quotes),
+                            "switchQuotes" => Ok(__FieldTag::__switch_quotes),
+                            "switch_quotes" => Ok(__FieldTag::__switch_quotes),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::nvidia_attestation::ProtectedPcieAttestation;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ProtectedPcieAttestation")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__gpu_quotes => {
+                            if !fields.insert(__FieldTag::__gpu_quotes) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for gpu_quotes",
+                                ));
+                            }
+                            result.gpu_quotes = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::nvidia_attestation::GpuInfo>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__switch_quotes => {
+                            if !fields.insert(__FieldTag::__switch_quotes) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for switch_quotes",
+                                ));
+                            }
+                            result.switch_quotes = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::nvidia_attestation::SwitchInfo>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de>
+    for super::nvidia_attestation::MultiGpuSecurePassthroughAttestation
+{
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __gpu_quotes,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for MultiGpuSecurePassthroughAttestation")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "gpuQuotes" => Ok(__FieldTag::__gpu_quotes),
+                            "gpu_quotes" => Ok(__FieldTag::__gpu_quotes),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::nvidia_attestation::MultiGpuSecurePassthroughAttestation;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct MultiGpuSecurePassthroughAttestation")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__gpu_quotes => {
+                            if !fields.insert(__FieldTag::__gpu_quotes) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for gpu_quotes",
+                                ));
+                            }
+                            result.gpu_quotes = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::nvidia_attestation::GpuInfo>,
+                                >>()?
                                 .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
@@ -1915,6 +2624,7 @@ impl<'de> serde::de::Deserialize<'de> for super::VerifyConfidentialSpaceRequest 
             __signed_entities,
             __gce_shielded_identity,
             __options,
+            __nvidia_attestation,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -1947,6 +2657,8 @@ impl<'de> serde::de::Deserialize<'de> for super::VerifyConfidentialSpaceRequest 
                             "gceShieldedIdentity" => Ok(__FieldTag::__gce_shielded_identity),
                             "gce_shielded_identity" => Ok(__FieldTag::__gce_shielded_identity),
                             "options" => Ok(__FieldTag::__options),
+                            "nvidiaAttestation" => Ok(__FieldTag::__nvidia_attestation),
+                            "nvidia_attestation" => Ok(__FieldTag::__nvidia_attestation),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -2051,6 +2763,16 @@ impl<'de> serde::de::Deserialize<'de> for super::VerifyConfidentialSpaceRequest 
                             }
                             result.options = map.next_value::<std::option::Option<crate::model::verify_confidential_space_request::ConfidentialSpaceOptions>>()?
                                 ;
+                        }
+                        __FieldTag::__nvidia_attestation => {
+                            if !fields.insert(__FieldTag::__nvidia_attestation) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for nvidia_attestation",
+                                ));
+                            }
+                            result.nvidia_attestation = map
+                                .next_value::<std::option::Option<crate::model::NvidiaAttestation>>(
+                                )?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -2433,6 +3155,7 @@ impl<'de> serde::de::Deserialize<'de> for super::VerifyConfidentialGkeRequest {
         enum __FieldTag {
             __tpm_attestation,
             __challenge,
+            __options,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -2456,6 +3179,7 @@ impl<'de> serde::de::Deserialize<'de> for super::VerifyConfidentialGkeRequest {
                             "tpmAttestation" => Ok(__FieldTag::__tpm_attestation),
                             "tpm_attestation" => Ok(__FieldTag::__tpm_attestation),
                             "challenge" => Ok(__FieldTag::__challenge),
+                            "options" => Ok(__FieldTag::__options),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -2506,6 +3230,120 @@ impl<'de> serde::de::Deserialize<'de> for super::VerifyConfidentialGkeRequest {
                             }
                             result.challenge = map
                                 .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__options => {
+                            if !fields.insert(__FieldTag::__options) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for options",
+                                ));
+                            }
+                            result.options = map.next_value::<std::option::Option<crate::model::verify_confidential_gke_request::ConfidentialGkeOptions>>()?
+                                ;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de>
+    for super::verify_confidential_gke_request::ConfidentialGkeOptions
+{
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __audience,
+            __nonce,
+            __signature_type,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ConfidentialGkeOptions")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "audience" => Ok(__FieldTag::__audience),
+                            "nonce" => Ok(__FieldTag::__nonce),
+                            "signatureType" => Ok(__FieldTag::__signature_type),
+                            "signature_type" => Ok(__FieldTag::__signature_type),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::verify_confidential_gke_request::ConfidentialGkeOptions;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ConfidentialGkeOptions")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__audience => {
+                            if !fields.insert(__FieldTag::__audience) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for audience",
+                                ));
+                            }
+                            result.audience = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__nonce => {
+                            if !fields.insert(__FieldTag::__nonce) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for nonce",
+                                ));
+                            }
+                            result.nonce = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__signature_type => {
+                            if !fields.insert(__FieldTag::__signature_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for signature_type",
+                                ));
+                            }
+                            result.signature_type = map
+                                .next_value::<std::option::Option<crate::model::SignatureType>>()?
                                 .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {

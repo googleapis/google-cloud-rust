@@ -430,6 +430,85 @@ impl super::stub::StorageControl for StorageControl {
             .and_then(gaxi::grpc::to_gax_response::<TR, google_cloud_longrunning::model::Operation>)
     }
 
+    async fn delete_folder_recursive(
+        &self,
+        req: crate::model::DeleteFolderRecursiveRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        use gaxi::{
+            grpc::tonic::{Extensions, GrpcMethod},
+            prost::ToProto,
+        };
+        let options = google_cloud_gax::options::internal::set_default_idempotency(options, true);
+        let extensions = {
+            let mut e = Extensions::new();
+            e.insert(GrpcMethod::new(
+                "google.storage.control.v2.StorageControl",
+                "DeleteFolderRecursive",
+            ));
+            e
+        };
+        let path = http::uri::PathAndQuery::from_static(
+            "/google.storage.control.v2.StorageControl/DeleteFolderRecursive",
+        );
+        let x_goog_request_params = {
+            use gaxi::routing_parameter::Segment;
+            gaxi::routing_parameter::format(&[None
+                .or_else(|| {
+                    gaxi::routing_parameter::value(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[],
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/buckets/"),
+                            Segment::SingleWildcard,
+                        ],
+                        &[Segment::MultiWildcard],
+                    )
+                })
+                .map(|v| ("bucket", v))])
+        };
+        if x_goog_request_params.is_empty() {
+            use gaxi::path_parameter::PathMismatchBuilder;
+            use gaxi::routing_parameter::Segment;
+            use google_cloud_gax::error::binding::BindingError;
+            let mut paths = Vec::new();
+            {
+                let builder = PathMismatchBuilder::default();
+                let builder = builder.maybe_add(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/buckets/"),
+                        Segment::SingleWildcard,
+                        Segment::MultiWildcard,
+                    ],
+                    "name",
+                    "projects/*/buckets/*/**",
+                );
+                paths.push(builder.build());
+            }
+            return Err(google_cloud_gax::error::Error::binding(BindingError {
+                paths,
+            }));
+        }
+
+        type TR = crate::google::longrunning::Operation;
+        self.inner
+            .execute(
+                extensions,
+                path,
+                req.to_proto().map_err(Error::deser)?,
+                options,
+                &info::X_GOOG_API_CLIENT_HEADER,
+                &x_goog_request_params,
+            )
+            .await
+            .and_then(gaxi::grpc::to_gax_response::<TR, google_cloud_longrunning::model::Operation>)
+    }
+
     async fn get_storage_layout(
         &self,
         req: crate::model::GetStorageLayoutRequest,
@@ -2012,6 +2091,20 @@ pub(crate) fn lro_any_to_prost(
             .and_then(|prost_msg| {
                 prost_types::Any::from_msg(&prost_msg).map_err(ConvertError::other)
             }),
+        "type.googleapis.com/google.storage.control.v2.DeleteFolderRecursiveMetadata" => value
+            .to_msg::<crate::model::DeleteFolderRecursiveMetadata>()
+            .map_err(ConvertError::other)?
+            .to_proto()
+            .and_then(|prost_msg| {
+                prost_types::Any::from_msg(&prost_msg).map_err(ConvertError::other)
+            }),
+        "type.googleapis.com/google.protobuf.Empty" => value
+            .to_msg::<wkt::Empty>()
+            .map_err(ConvertError::other)?
+            .to_proto()
+            .and_then(|prost_msg| {
+                prost_types::Any::from_msg(&prost_msg).map_err(ConvertError::other)
+            }),
         "type.googleapis.com/google.storage.control.v2.CreateAnywhereCacheMetadata" => value
             .to_msg::<crate::model::CreateAnywhereCacheMetadata>()
             .map_err(ConvertError::other)?
@@ -2053,6 +2146,16 @@ pub(crate) fn lro_any_from_prost(
             .and_then(|our_msg| wkt::Any::from_msg(&our_msg).map_err(ConvertError::other)),
         "type.googleapis.com/google.storage.control.v2.Folder" => value
             .to_msg::<crate::google::storage::control::v2::Folder>()
+            .map_err(ConvertError::other)?
+            .cnv()
+            .and_then(|our_msg| wkt::Any::from_msg(&our_msg).map_err(ConvertError::other)),
+        "type.googleapis.com/google.storage.control.v2.DeleteFolderRecursiveMetadata" => value
+            .to_msg::<crate::google::storage::control::v2::DeleteFolderRecursiveMetadata>()
+            .map_err(ConvertError::other)?
+            .cnv()
+            .and_then(|our_msg| wkt::Any::from_msg(&our_msg).map_err(ConvertError::other)),
+        "type.googleapis.com/google.protobuf.Empty" => value
+            .to_msg::<crate::google::protobuf::Empty>()
             .map_err(ConvertError::other)?
             .cnv()
             .and_then(|our_msg| wkt::Any::from_msg(&our_msg).map_err(ConvertError::other)),

@@ -47,6 +47,12 @@ pub trait StorageControl: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
+    async fn delete_folder_recursive(
+        &self,
+        req: crate::model::DeleteFolderRecursiveRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
+
     async fn get_storage_layout(
         &self,
         req: crate::model::GetStorageLayoutRequest,
@@ -236,6 +242,15 @@ impl<T: super::StorageControl> StorageControl for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::rename_folder(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_folder_recursive(
+        &self,
+        req: crate::model::DeleteFolderRecursiveRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        T::delete_folder_recursive(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.

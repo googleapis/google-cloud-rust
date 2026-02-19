@@ -141,6 +141,24 @@ impl OrgPolicyViolationsPreviewService {
     /// is available for at least 7 days.
     ///
     /// [google.cloud.policysimulator.v1.OrgPolicyViolationsPreview]: crate::model::OrgPolicyViolationsPreview
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_policysimulator_v1::client::OrgPolicyViolationsPreviewService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_policysimulator_v1::Result;
+    /// async fn sample(
+    ///    client: &OrgPolicyViolationsPreviewService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_org_policy_violations_previews()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_org_policy_violations_previews(
         &self,
     ) -> super::builder::org_policy_violations_preview_service::ListOrgPolicyViolationsPreviews
@@ -157,6 +175,21 @@ impl OrgPolicyViolationsPreviewService {
     /// is available for at least 7 days.
     ///
     /// [google.cloud.policysimulator.v1.OrgPolicyViolationsPreview]: crate::model::OrgPolicyViolationsPreview
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_policysimulator_v1::client::OrgPolicyViolationsPreviewService;
+    /// use google_cloud_policysimulator_v1::Result;
+    /// async fn sample(
+    ///    client: &OrgPolicyViolationsPreviewService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_org_policy_violations_preview()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_org_policy_violations_preview(
         &self,
     ) -> super::builder::org_policy_violations_preview_service::GetOrgPolicyViolationsPreview {
@@ -183,6 +216,26 @@ impl OrgPolicyViolationsPreviewService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_policysimulator_v1::client::OrgPolicyViolationsPreviewService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_policysimulator_v1::model::OrgPolicyViolationsPreview;
+    /// use google_cloud_policysimulator_v1::Result;
+    /// async fn sample(
+    ///    client: &OrgPolicyViolationsPreviewService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_org_policy_violations_preview()
+    ///         .set_parent(parent)
+    ///         .set_org_policy_violations_preview(
+    ///             OrgPolicyViolationsPreview::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_org_policy_violations_preview(
         &self,
     ) -> super::builder::org_policy_violations_preview_service::CreateOrgPolicyViolationsPreview
@@ -197,6 +250,24 @@ impl OrgPolicyViolationsPreviewService {
     /// [OrgPolicyViolationsPreview][google.cloud.policysimulator.v1.OrgPolicyViolationsPreview].
     ///
     /// [google.cloud.policysimulator.v1.OrgPolicyViolationsPreview]: crate::model::OrgPolicyViolationsPreview
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_policysimulator_v1::client::OrgPolicyViolationsPreviewService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_policysimulator_v1::Result;
+    /// async fn sample(
+    ///    client: &OrgPolicyViolationsPreviewService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_org_policy_violations()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_org_policy_violations(
         &self,
     ) -> super::builder::org_policy_violations_preview_service::ListOrgPolicyViolations {
@@ -208,6 +279,24 @@ impl OrgPolicyViolationsPreviewService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_policysimulator_v1::client::OrgPolicyViolationsPreviewService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_policysimulator_v1::Result;
+    /// async fn sample(
+    ///    client: &OrgPolicyViolationsPreviewService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(
         &self,
     ) -> super::builder::org_policy_violations_preview_service::ListOperations {
@@ -219,6 +308,21 @@ impl OrgPolicyViolationsPreviewService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_policysimulator_v1::client::OrgPolicyViolationsPreviewService;
+    /// use google_cloud_policysimulator_v1::Result;
+    /// async fn sample(
+    ///    client: &OrgPolicyViolationsPreviewService
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(
         &self,
     ) -> super::builder::org_policy_violations_preview_service::GetOperation {
@@ -345,6 +449,21 @@ impl Simulator {
     /// `Replay` is available for at least 7 days.
     ///
     /// [google.cloud.policysimulator.v1.Replay]: crate::model::Replay
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_policysimulator_v1::client::Simulator;
+    /// use google_cloud_policysimulator_v1::Result;
+    /// async fn sample(
+    ///    client: &Simulator, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_replay()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_replay(&self) -> super::builder::simulator::GetReplay {
         super::builder::simulator::GetReplay::new(self.inner.clone())
     }
@@ -364,6 +483,26 @@ impl Simulator {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_policysimulator_v1::client::Simulator;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_policysimulator_v1::model::Replay;
+    /// use google_cloud_policysimulator_v1::Result;
+    /// async fn sample(
+    ///    client: &Simulator, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_replay()
+    ///         .set_parent(parent)
+    ///         .set_replay(
+    ///             Replay::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_replay(&self) -> super::builder::simulator::CreateReplay {
         super::builder::simulator::CreateReplay::new(self.inner.clone())
     }
@@ -372,6 +511,24 @@ impl Simulator {
     /// [Replay][google.cloud.policysimulator.v1.Replay].
     ///
     /// [google.cloud.policysimulator.v1.Replay]: crate::model::Replay
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_policysimulator_v1::client::Simulator;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_policysimulator_v1::Result;
+    /// async fn sample(
+    ///    client: &Simulator, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_replay_results()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_replay_results(&self) -> super::builder::simulator::ListReplayResults {
         super::builder::simulator::ListReplayResults::new(self.inner.clone())
     }
@@ -379,6 +536,24 @@ impl Simulator {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_policysimulator_v1::client::Simulator;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_policysimulator_v1::Result;
+    /// async fn sample(
+    ///    client: &Simulator
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::simulator::ListOperations {
         super::builder::simulator::ListOperations::new(self.inner.clone())
     }
@@ -386,6 +561,21 @@ impl Simulator {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_policysimulator_v1::client::Simulator;
+    /// use google_cloud_policysimulator_v1::Result;
+    /// async fn sample(
+    ///    client: &Simulator
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::simulator::GetOperation {
         super::builder::simulator::GetOperation::new(self.inner.clone())
     }

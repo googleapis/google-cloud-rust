@@ -119,6 +119,21 @@ impl Builds {
     }
 
     /// Submits a build in a given project.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_run_v2::client::Builds;
+    /// use google_cloud_run_v2::Result;
+    /// async fn sample(
+    ///    client: &Builds
+    /// ) -> Result<()> {
+    ///     let response = client.submit_build()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn submit_build(&self) -> super::builder::builds::SubmitBuild {
         super::builder::builds::SubmitBuild::new(self.inner.clone())
     }
@@ -126,6 +141,24 @@ impl Builds {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_run_v2::client::Builds;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_run_v2::Result;
+    /// async fn sample(
+    ///    client: &Builds
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::builds::ListOperations {
         super::builder::builds::ListOperations::new(self.inner.clone())
     }
@@ -133,6 +166,21 @@ impl Builds {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_run_v2::client::Builds;
+    /// use google_cloud_run_v2::Result;
+    /// async fn sample(
+    ///    client: &Builds
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::builds::GetOperation {
         super::builder::builds::GetOperation::new(self.inner.clone())
     }
@@ -140,6 +188,20 @@ impl Builds {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_run_v2::client::Builds;
+    /// use google_cloud_run_v2::Result;
+    /// async fn sample(
+    ///    client: &Builds
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::builds::DeleteOperation {
         super::builder::builds::DeleteOperation::new(self.inner.clone())
     }
@@ -147,6 +209,21 @@ impl Builds {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_run_v2::client::Builds;
+    /// use google_cloud_run_v2::Result;
+    /// async fn sample(
+    ///    client: &Builds
+    /// ) -> Result<()> {
+    ///     let response = client.wait_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn wait_operation(&self) -> super::builder::builds::WaitOperation {
         super::builder::builds::WaitOperation::new(self.inner.clone())
     }
@@ -255,12 +332,45 @@ impl Executions {
     }
 
     /// Gets information about an Execution.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_run_v2::client::Executions;
+    /// use google_cloud_run_v2::Result;
+    /// async fn sample(
+    ///    client: &Executions, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_execution()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_execution(&self) -> super::builder::executions::GetExecution {
         super::builder::executions::GetExecution::new(self.inner.clone())
     }
 
     /// Lists Executions from a Job. Results are sorted by creation time,
     /// descending.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_run_v2::client::Executions;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_run_v2::Result;
+    /// async fn sample(
+    ///    client: &Executions, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_executions()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_executions(&self) -> super::builder::executions::ListExecutions {
         super::builder::executions::ListExecutions::new(self.inner.clone())
     }
@@ -276,6 +386,22 @@ impl Executions {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_run_v2::client::Executions;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_run_v2::Result;
+    /// async fn sample(
+    ///    client: &Executions, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.delete_execution()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_execution(&self) -> super::builder::executions::DeleteExecution {
         super::builder::executions::DeleteExecution::new(self.inner.clone())
     }
@@ -291,6 +417,22 @@ impl Executions {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_run_v2::client::Executions;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_run_v2::Result;
+    /// async fn sample(
+    ///    client: &Executions
+    /// ) -> Result<()> {
+    ///     let response = client.cancel_execution()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_execution(&self) -> super::builder::executions::CancelExecution {
         super::builder::executions::CancelExecution::new(self.inner.clone())
     }
@@ -298,6 +440,24 @@ impl Executions {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_run_v2::client::Executions;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_run_v2::Result;
+    /// async fn sample(
+    ///    client: &Executions
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::executions::ListOperations {
         super::builder::executions::ListOperations::new(self.inner.clone())
     }
@@ -305,6 +465,21 @@ impl Executions {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_run_v2::client::Executions;
+    /// use google_cloud_run_v2::Result;
+    /// async fn sample(
+    ///    client: &Executions
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::executions::GetOperation {
         super::builder::executions::GetOperation::new(self.inner.clone())
     }
@@ -312,6 +487,20 @@ impl Executions {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_run_v2::client::Executions;
+    /// use google_cloud_run_v2::Result;
+    /// async fn sample(
+    ///    client: &Executions
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::executions::DeleteOperation {
         super::builder::executions::DeleteOperation::new(self.inner.clone())
     }
@@ -319,6 +508,21 @@ impl Executions {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_run_v2::client::Executions;
+    /// use google_cloud_run_v2::Result;
+    /// async fn sample(
+    ///    client: &Executions
+    /// ) -> Result<()> {
+    ///     let response = client.wait_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn wait_operation(&self) -> super::builder::executions::WaitOperation {
         super::builder::executions::WaitOperation::new(self.inner.clone())
     }
@@ -437,6 +641,26 @@ impl Instances {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_run_v2::client::Instances;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_run_v2::model::Instance;
+    /// use google_cloud_run_v2::Result;
+    /// async fn sample(
+    ///    client: &Instances, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_instance()
+    ///         .set_parent(parent).set_instance_id("instance_id_value")
+    ///         .set_instance(
+    ///             Instance::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_instance(&self) -> super::builder::instances::CreateInstance {
         super::builder::instances::CreateInstance::new(self.inner.clone())
     }
@@ -452,16 +676,65 @@ impl Instances {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_run_v2::client::Instances;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_run_v2::Result;
+    /// async fn sample(
+    ///    client: &Instances, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.delete_instance()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_instance(&self) -> super::builder::instances::DeleteInstance {
         super::builder::instances::DeleteInstance::new(self.inner.clone())
     }
 
     /// Gets a Instance
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_run_v2::client::Instances;
+    /// use google_cloud_run_v2::Result;
+    /// async fn sample(
+    ///    client: &Instances, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_instance()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_instance(&self) -> super::builder::instances::GetInstance {
         super::builder::instances::GetInstance::new(self.inner.clone())
     }
 
     /// Lists Instances. Results are sorted by creation time, descending.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_run_v2::client::Instances;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_run_v2::Result;
+    /// async fn sample(
+    ///    client: &Instances, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_instances()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_instances(&self) -> super::builder::instances::ListInstances {
         super::builder::instances::ListInstances::new(self.inner.clone())
     }
@@ -477,6 +750,22 @@ impl Instances {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_run_v2::client::Instances;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_run_v2::Result;
+    /// async fn sample(
+    ///    client: &Instances
+    /// ) -> Result<()> {
+    ///     let response = client.stop_instance()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn stop_instance(&self) -> super::builder::instances::StopInstance {
         super::builder::instances::StopInstance::new(self.inner.clone())
     }
@@ -492,6 +781,22 @@ impl Instances {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_run_v2::client::Instances;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_run_v2::Result;
+    /// async fn sample(
+    ///    client: &Instances
+    /// ) -> Result<()> {
+    ///     let response = client.start_instance()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn start_instance(&self) -> super::builder::instances::StartInstance {
         super::builder::instances::StartInstance::new(self.inner.clone())
     }
@@ -499,6 +804,24 @@ impl Instances {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_run_v2::client::Instances;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_run_v2::Result;
+    /// async fn sample(
+    ///    client: &Instances
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::instances::ListOperations {
         super::builder::instances::ListOperations::new(self.inner.clone())
     }
@@ -506,6 +829,21 @@ impl Instances {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_run_v2::client::Instances;
+    /// use google_cloud_run_v2::Result;
+    /// async fn sample(
+    ///    client: &Instances
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::instances::GetOperation {
         super::builder::instances::GetOperation::new(self.inner.clone())
     }
@@ -513,6 +851,20 @@ impl Instances {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_run_v2::client::Instances;
+    /// use google_cloud_run_v2::Result;
+    /// async fn sample(
+    ///    client: &Instances
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::instances::DeleteOperation {
         super::builder::instances::DeleteOperation::new(self.inner.clone())
     }
@@ -520,6 +872,21 @@ impl Instances {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_run_v2::client::Instances;
+    /// use google_cloud_run_v2::Result;
+    /// async fn sample(
+    ///    client: &Instances
+    /// ) -> Result<()> {
+    ///     let response = client.wait_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn wait_operation(&self) -> super::builder::instances::WaitOperation {
         super::builder::instances::WaitOperation::new(self.inner.clone())
     }
@@ -638,16 +1005,69 @@ impl Jobs {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_run_v2::client::Jobs;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_run_v2::model::Job;
+    /// use google_cloud_run_v2::Result;
+    /// async fn sample(
+    ///    client: &Jobs, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_job()
+    ///         .set_parent(parent).set_job_id("job_id_value")
+    ///         .set_job(
+    ///             Job::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_job(&self) -> super::builder::jobs::CreateJob {
         super::builder::jobs::CreateJob::new(self.inner.clone())
     }
 
     /// Gets information about a Job.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_run_v2::client::Jobs;
+    /// use google_cloud_run_v2::Result;
+    /// async fn sample(
+    ///    client: &Jobs, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_job()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_job(&self) -> super::builder::jobs::GetJob {
         super::builder::jobs::GetJob::new(self.inner.clone())
     }
 
     /// Lists Jobs. Results are sorted by creation time, descending.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_run_v2::client::Jobs;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_run_v2::Result;
+    /// async fn sample(
+    ///    client: &Jobs, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_jobs()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_jobs(&self) -> super::builder::jobs::ListJobs {
         super::builder::jobs::ListJobs::new(self.inner.clone())
     }
@@ -663,6 +1083,25 @@ impl Jobs {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_run_v2::client::Jobs;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_run_v2::model::Job;
+    /// use google_cloud_run_v2::Result;
+    /// async fn sample(
+    ///    client: &Jobs, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_job()
+    ///         .set_job(
+    ///             Job::new().set_name(name)/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_job(&self) -> super::builder::jobs::UpdateJob {
         super::builder::jobs::UpdateJob::new(self.inner.clone())
     }
@@ -678,6 +1117,22 @@ impl Jobs {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_run_v2::client::Jobs;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_run_v2::Result;
+    /// async fn sample(
+    ///    client: &Jobs, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.delete_job()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_job(&self) -> super::builder::jobs::DeleteJob {
         super::builder::jobs::DeleteJob::new(self.inner.clone())
     }
@@ -693,18 +1148,64 @@ impl Jobs {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_run_v2::client::Jobs;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_run_v2::Result;
+    /// async fn sample(
+    ///    client: &Jobs
+    /// ) -> Result<()> {
+    ///     let response = client.run_job()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn run_job(&self) -> super::builder::jobs::RunJob {
         super::builder::jobs::RunJob::new(self.inner.clone())
     }
 
     /// Gets the IAM Access Control policy currently in effect for the given Job.
     /// This result does not include any inherited policies.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_run_v2::client::Jobs;
+    /// use google_cloud_run_v2::Result;
+    /// async fn sample(
+    ///    client: &Jobs
+    /// ) -> Result<()> {
+    ///     let response = client.get_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::jobs::GetIamPolicy {
         super::builder::jobs::GetIamPolicy::new(self.inner.clone())
     }
 
     /// Sets the IAM Access control policy for the specified Job. Overwrites
     /// any existing policy.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_run_v2::client::Jobs;
+    /// use google_cloud_run_v2::Result;
+    /// async fn sample(
+    ///    client: &Jobs
+    /// ) -> Result<()> {
+    ///     let response = client.set_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::jobs::SetIamPolicy {
         super::builder::jobs::SetIamPolicy::new(self.inner.clone())
     }
@@ -712,6 +1213,21 @@ impl Jobs {
     /// Returns permissions that a caller has on the specified Project.
     ///
     /// There are no permissions required for making this API call.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_run_v2::client::Jobs;
+    /// use google_cloud_run_v2::Result;
+    /// async fn sample(
+    ///    client: &Jobs
+    /// ) -> Result<()> {
+    ///     let response = client.test_iam_permissions()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::jobs::TestIamPermissions {
         super::builder::jobs::TestIamPermissions::new(self.inner.clone())
     }
@@ -719,6 +1235,24 @@ impl Jobs {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_run_v2::client::Jobs;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_run_v2::Result;
+    /// async fn sample(
+    ///    client: &Jobs
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::jobs::ListOperations {
         super::builder::jobs::ListOperations::new(self.inner.clone())
     }
@@ -726,6 +1260,21 @@ impl Jobs {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_run_v2::client::Jobs;
+    /// use google_cloud_run_v2::Result;
+    /// async fn sample(
+    ///    client: &Jobs
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::jobs::GetOperation {
         super::builder::jobs::GetOperation::new(self.inner.clone())
     }
@@ -733,6 +1282,20 @@ impl Jobs {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_run_v2::client::Jobs;
+    /// use google_cloud_run_v2::Result;
+    /// async fn sample(
+    ///    client: &Jobs
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::jobs::DeleteOperation {
         super::builder::jobs::DeleteOperation::new(self.inner.clone())
     }
@@ -740,6 +1303,21 @@ impl Jobs {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_run_v2::client::Jobs;
+    /// use google_cloud_run_v2::Result;
+    /// async fn sample(
+    ///    client: &Jobs
+    /// ) -> Result<()> {
+    ///     let response = client.wait_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn wait_operation(&self) -> super::builder::jobs::WaitOperation {
         super::builder::jobs::WaitOperation::new(self.inner.clone())
     }
@@ -848,12 +1426,45 @@ impl Revisions {
     }
 
     /// Gets information about a Revision.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_run_v2::client::Revisions;
+    /// use google_cloud_run_v2::Result;
+    /// async fn sample(
+    ///    client: &Revisions, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_revision()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_revision(&self) -> super::builder::revisions::GetRevision {
         super::builder::revisions::GetRevision::new(self.inner.clone())
     }
 
     /// Lists Revisions from a given Service, or from a given location.  Results
     /// are sorted by creation time, descending.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_run_v2::client::Revisions;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_run_v2::Result;
+    /// async fn sample(
+    ///    client: &Revisions, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_revisions()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_revisions(&self) -> super::builder::revisions::ListRevisions {
         super::builder::revisions::ListRevisions::new(self.inner.clone())
     }
@@ -869,6 +1480,22 @@ impl Revisions {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_run_v2::client::Revisions;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_run_v2::Result;
+    /// async fn sample(
+    ///    client: &Revisions, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.delete_revision()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_revision(&self) -> super::builder::revisions::DeleteRevision {
         super::builder::revisions::DeleteRevision::new(self.inner.clone())
     }
@@ -876,6 +1503,24 @@ impl Revisions {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_run_v2::client::Revisions;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_run_v2::Result;
+    /// async fn sample(
+    ///    client: &Revisions
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::revisions::ListOperations {
         super::builder::revisions::ListOperations::new(self.inner.clone())
     }
@@ -883,6 +1528,21 @@ impl Revisions {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_run_v2::client::Revisions;
+    /// use google_cloud_run_v2::Result;
+    /// async fn sample(
+    ///    client: &Revisions
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::revisions::GetOperation {
         super::builder::revisions::GetOperation::new(self.inner.clone())
     }
@@ -890,6 +1550,20 @@ impl Revisions {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_run_v2::client::Revisions;
+    /// use google_cloud_run_v2::Result;
+    /// async fn sample(
+    ///    client: &Revisions
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::revisions::DeleteOperation {
         super::builder::revisions::DeleteOperation::new(self.inner.clone())
     }
@@ -897,6 +1571,21 @@ impl Revisions {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_run_v2::client::Revisions;
+    /// use google_cloud_run_v2::Result;
+    /// async fn sample(
+    ///    client: &Revisions
+    /// ) -> Result<()> {
+    ///     let response = client.wait_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn wait_operation(&self) -> super::builder::revisions::WaitOperation {
         super::builder::revisions::WaitOperation::new(self.inner.clone())
     }
@@ -1015,16 +1704,69 @@ impl Services {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_run_v2::client::Services;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_run_v2::model::Service;
+    /// use google_cloud_run_v2::Result;
+    /// async fn sample(
+    ///    client: &Services, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_service()
+    ///         .set_parent(parent).set_service_id("service_id_value")
+    ///         .set_service(
+    ///             Service::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_service(&self) -> super::builder::services::CreateService {
         super::builder::services::CreateService::new(self.inner.clone())
     }
 
     /// Gets information about a Service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_run_v2::client::Services;
+    /// use google_cloud_run_v2::Result;
+    /// async fn sample(
+    ///    client: &Services, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_service()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_service(&self) -> super::builder::services::GetService {
         super::builder::services::GetService::new(self.inner.clone())
     }
 
     /// Lists Services. Results are sorted by creation time, descending.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_run_v2::client::Services;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_run_v2::Result;
+    /// async fn sample(
+    ///    client: &Services, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_services()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_services(&self) -> super::builder::services::ListServices {
         super::builder::services::ListServices::new(self.inner.clone())
     }
@@ -1040,6 +1782,28 @@ impl Services {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_run_v2::client::Services;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_run_v2::model::Service;
+    /// use google_cloud_run_v2::Result;
+    /// async fn sample(
+    ///    client: &Services, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_service()
+    ///         .set_service(
+    ///             Service::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_service(&self) -> super::builder::services::UpdateService {
         super::builder::services::UpdateService::new(self.inner.clone())
     }
@@ -1057,18 +1821,64 @@ impl Services {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_run_v2::client::Services;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_run_v2::Result;
+    /// async fn sample(
+    ///    client: &Services, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.delete_service()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_service(&self) -> super::builder::services::DeleteService {
         super::builder::services::DeleteService::new(self.inner.clone())
     }
 
     /// Gets the IAM Access Control policy currently in effect for the given
     /// Cloud Run Service. This result does not include any inherited policies.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_run_v2::client::Services;
+    /// use google_cloud_run_v2::Result;
+    /// async fn sample(
+    ///    client: &Services
+    /// ) -> Result<()> {
+    ///     let response = client.get_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::services::GetIamPolicy {
         super::builder::services::GetIamPolicy::new(self.inner.clone())
     }
 
     /// Sets the IAM Access control policy for the specified Service. Overwrites
     /// any existing policy.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_run_v2::client::Services;
+    /// use google_cloud_run_v2::Result;
+    /// async fn sample(
+    ///    client: &Services
+    /// ) -> Result<()> {
+    ///     let response = client.set_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::services::SetIamPolicy {
         super::builder::services::SetIamPolicy::new(self.inner.clone())
     }
@@ -1076,6 +1886,21 @@ impl Services {
     /// Returns permissions that a caller has on the specified Project.
     ///
     /// There are no permissions required for making this API call.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_run_v2::client::Services;
+    /// use google_cloud_run_v2::Result;
+    /// async fn sample(
+    ///    client: &Services
+    /// ) -> Result<()> {
+    ///     let response = client.test_iam_permissions()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::services::TestIamPermissions {
         super::builder::services::TestIamPermissions::new(self.inner.clone())
     }
@@ -1083,6 +1908,24 @@ impl Services {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_run_v2::client::Services;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_run_v2::Result;
+    /// async fn sample(
+    ///    client: &Services
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::services::ListOperations {
         super::builder::services::ListOperations::new(self.inner.clone())
     }
@@ -1090,6 +1933,21 @@ impl Services {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_run_v2::client::Services;
+    /// use google_cloud_run_v2::Result;
+    /// async fn sample(
+    ///    client: &Services
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::services::GetOperation {
         super::builder::services::GetOperation::new(self.inner.clone())
     }
@@ -1097,6 +1955,20 @@ impl Services {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_run_v2::client::Services;
+    /// use google_cloud_run_v2::Result;
+    /// async fn sample(
+    ///    client: &Services
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::services::DeleteOperation {
         super::builder::services::DeleteOperation::new(self.inner.clone())
     }
@@ -1104,6 +1976,21 @@ impl Services {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_run_v2::client::Services;
+    /// use google_cloud_run_v2::Result;
+    /// async fn sample(
+    ///    client: &Services
+    /// ) -> Result<()> {
+    ///     let response = client.wait_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn wait_operation(&self) -> super::builder::services::WaitOperation {
         super::builder::services::WaitOperation::new(self.inner.clone())
     }
@@ -1212,11 +2099,44 @@ impl Tasks {
     }
 
     /// Gets information about a Task.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_run_v2::client::Tasks;
+    /// use google_cloud_run_v2::Result;
+    /// async fn sample(
+    ///    client: &Tasks, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_task()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_task(&self) -> super::builder::tasks::GetTask {
         super::builder::tasks::GetTask::new(self.inner.clone())
     }
 
     /// Lists Tasks from an Execution of a Job.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_run_v2::client::Tasks;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_run_v2::Result;
+    /// async fn sample(
+    ///    client: &Tasks, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_tasks()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_tasks(&self) -> super::builder::tasks::ListTasks {
         super::builder::tasks::ListTasks::new(self.inner.clone())
     }
@@ -1224,6 +2144,24 @@ impl Tasks {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_run_v2::client::Tasks;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_run_v2::Result;
+    /// async fn sample(
+    ///    client: &Tasks
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::tasks::ListOperations {
         super::builder::tasks::ListOperations::new(self.inner.clone())
     }
@@ -1231,6 +2169,21 @@ impl Tasks {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_run_v2::client::Tasks;
+    /// use google_cloud_run_v2::Result;
+    /// async fn sample(
+    ///    client: &Tasks
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::tasks::GetOperation {
         super::builder::tasks::GetOperation::new(self.inner.clone())
     }
@@ -1238,6 +2191,20 @@ impl Tasks {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_run_v2::client::Tasks;
+    /// use google_cloud_run_v2::Result;
+    /// async fn sample(
+    ///    client: &Tasks
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::tasks::DeleteOperation {
         super::builder::tasks::DeleteOperation::new(self.inner.clone())
     }
@@ -1245,6 +2212,21 @@ impl Tasks {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_run_v2::client::Tasks;
+    /// use google_cloud_run_v2::Result;
+    /// async fn sample(
+    ///    client: &Tasks
+    /// ) -> Result<()> {
+    ///     let response = client.wait_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn wait_operation(&self) -> super::builder::tasks::WaitOperation {
         super::builder::tasks::WaitOperation::new(self.inner.clone())
     }
@@ -1363,16 +2345,69 @@ impl WorkerPools {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_run_v2::client::WorkerPools;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_run_v2::model::WorkerPool;
+    /// use google_cloud_run_v2::Result;
+    /// async fn sample(
+    ///    client: &WorkerPools, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_worker_pool()
+    ///         .set_parent(parent)
+    ///         .set_worker_pool(
+    ///             WorkerPool::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_worker_pool(&self) -> super::builder::worker_pools::CreateWorkerPool {
         super::builder::worker_pools::CreateWorkerPool::new(self.inner.clone())
     }
 
     /// Gets information about a WorkerPool.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_run_v2::client::WorkerPools;
+    /// use google_cloud_run_v2::Result;
+    /// async fn sample(
+    ///    client: &WorkerPools, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_worker_pool()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_worker_pool(&self) -> super::builder::worker_pools::GetWorkerPool {
         super::builder::worker_pools::GetWorkerPool::new(self.inner.clone())
     }
 
     /// Lists WorkerPools. Results are sorted by creation time, descending.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_run_v2::client::WorkerPools;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_run_v2::Result;
+    /// async fn sample(
+    ///    client: &WorkerPools, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_worker_pools()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_worker_pools(&self) -> super::builder::worker_pools::ListWorkerPools {
         super::builder::worker_pools::ListWorkerPools::new(self.inner.clone())
     }
@@ -1388,6 +2423,28 @@ impl WorkerPools {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_run_v2::client::WorkerPools;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_run_v2::model::WorkerPool;
+    /// use google_cloud_run_v2::Result;
+    /// async fn sample(
+    ///    client: &WorkerPools, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_worker_pool()
+    ///         .set_worker_pool(
+    ///             WorkerPool::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_worker_pool(&self) -> super::builder::worker_pools::UpdateWorkerPool {
         super::builder::worker_pools::UpdateWorkerPool::new(self.inner.clone())
     }
@@ -1403,18 +2460,64 @@ impl WorkerPools {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_run_v2::client::WorkerPools;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_run_v2::Result;
+    /// async fn sample(
+    ///    client: &WorkerPools, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.delete_worker_pool()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_worker_pool(&self) -> super::builder::worker_pools::DeleteWorkerPool {
         super::builder::worker_pools::DeleteWorkerPool::new(self.inner.clone())
     }
 
     /// Gets the IAM Access Control policy currently in effect for the given
     /// Cloud Run WorkerPool. This result does not include any inherited policies.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_run_v2::client::WorkerPools;
+    /// use google_cloud_run_v2::Result;
+    /// async fn sample(
+    ///    client: &WorkerPools
+    /// ) -> Result<()> {
+    ///     let response = client.get_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::worker_pools::GetIamPolicy {
         super::builder::worker_pools::GetIamPolicy::new(self.inner.clone())
     }
 
     /// Sets the IAM Access control policy for the specified WorkerPool. Overwrites
     /// any existing policy.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_run_v2::client::WorkerPools;
+    /// use google_cloud_run_v2::Result;
+    /// async fn sample(
+    ///    client: &WorkerPools
+    /// ) -> Result<()> {
+    ///     let response = client.set_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::worker_pools::SetIamPolicy {
         super::builder::worker_pools::SetIamPolicy::new(self.inner.clone())
     }
@@ -1422,6 +2525,21 @@ impl WorkerPools {
     /// Returns permissions that a caller has on the specified Project.
     ///
     /// There are no permissions required for making this API call.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_run_v2::client::WorkerPools;
+    /// use google_cloud_run_v2::Result;
+    /// async fn sample(
+    ///    client: &WorkerPools
+    /// ) -> Result<()> {
+    ///     let response = client.test_iam_permissions()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::worker_pools::TestIamPermissions {
         super::builder::worker_pools::TestIamPermissions::new(self.inner.clone())
     }
@@ -1429,6 +2547,24 @@ impl WorkerPools {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_run_v2::client::WorkerPools;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_run_v2::Result;
+    /// async fn sample(
+    ///    client: &WorkerPools
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::worker_pools::ListOperations {
         super::builder::worker_pools::ListOperations::new(self.inner.clone())
     }
@@ -1436,6 +2572,21 @@ impl WorkerPools {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_run_v2::client::WorkerPools;
+    /// use google_cloud_run_v2::Result;
+    /// async fn sample(
+    ///    client: &WorkerPools
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::worker_pools::GetOperation {
         super::builder::worker_pools::GetOperation::new(self.inner.clone())
     }
@@ -1443,6 +2594,20 @@ impl WorkerPools {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_run_v2::client::WorkerPools;
+    /// use google_cloud_run_v2::Result;
+    /// async fn sample(
+    ///    client: &WorkerPools
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::worker_pools::DeleteOperation {
         super::builder::worker_pools::DeleteOperation::new(self.inner.clone())
     }
@@ -1450,6 +2615,21 @@ impl WorkerPools {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_run_v2::client::WorkerPools;
+    /// use google_cloud_run_v2::Result;
+    /// async fn sample(
+    ///    client: &WorkerPools
+    /// ) -> Result<()> {
+    ///     let response = client.wait_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn wait_operation(&self) -> super::builder::worker_pools::WaitOperation {
         super::builder::worker_pools::WaitOperation::new(self.inner.clone())
     }

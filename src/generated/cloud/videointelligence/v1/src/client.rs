@@ -134,6 +134,22 @@ impl VideoIntelligenceService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_videointelligence_v1::client::VideoIntelligenceService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_videointelligence_v1::Result;
+    /// async fn sample(
+    ///    client: &VideoIntelligenceService
+    /// ) -> Result<()> {
+    ///     let response = client.annotate_video()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn annotate_video(&self) -> super::builder::video_intelligence_service::AnnotateVideo {
         super::builder::video_intelligence_service::AnnotateVideo::new(self.inner.clone())
     }
@@ -141,6 +157,24 @@ impl VideoIntelligenceService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_videointelligence_v1::client::VideoIntelligenceService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_videointelligence_v1::Result;
+    /// async fn sample(
+    ///    client: &VideoIntelligenceService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::video_intelligence_service::ListOperations {
         super::builder::video_intelligence_service::ListOperations::new(self.inner.clone())
     }
@@ -148,6 +182,21 @@ impl VideoIntelligenceService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_videointelligence_v1::client::VideoIntelligenceService;
+    /// use google_cloud_videointelligence_v1::Result;
+    /// async fn sample(
+    ///    client: &VideoIntelligenceService
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::video_intelligence_service::GetOperation {
         super::builder::video_intelligence_service::GetOperation::new(self.inner.clone())
     }
@@ -155,6 +204,20 @@ impl VideoIntelligenceService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_videointelligence_v1::client::VideoIntelligenceService;
+    /// use google_cloud_videointelligence_v1::Result;
+    /// async fn sample(
+    ///    client: &VideoIntelligenceService
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::video_intelligence_service::DeleteOperation {
         super::builder::video_intelligence_service::DeleteOperation::new(self.inner.clone())
     }
@@ -162,6 +225,20 @@ impl VideoIntelligenceService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_videointelligence_v1::client::VideoIntelligenceService;
+    /// use google_cloud_videointelligence_v1::Result;
+    /// async fn sample(
+    ///    client: &VideoIntelligenceService
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::video_intelligence_service::CancelOperation {
         super::builder::video_intelligence_service::CancelOperation::new(self.inner.clone())
     }

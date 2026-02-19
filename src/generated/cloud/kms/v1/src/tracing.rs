@@ -626,6 +626,15 @@ where
     }
 
     #[tracing::instrument(ret)]
+    async fn list_retired_resources(
+        &self,
+        req: crate::model::ListRetiredResourcesRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListRetiredResourcesResponse>> {
+        self.inner.list_retired_resources(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
     async fn get_key_ring(
         &self,
         req: crate::model::GetKeyRingRequest,
@@ -671,6 +680,15 @@ where
     }
 
     #[tracing::instrument(ret)]
+    async fn get_retired_resource(
+        &self,
+        req: crate::model::GetRetiredResourceRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::RetiredResource>> {
+        self.inner.get_retired_resource(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
     async fn create_key_ring(
         &self,
         req: crate::model::CreateKeyRingRequest,
@@ -695,6 +713,24 @@ where
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::CryptoKeyVersion>> {
         self.inner.create_crypto_key_version(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn delete_crypto_key(
+        &self,
+        req: crate::model::DeleteCryptoKeyRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        self.inner.delete_crypto_key(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn delete_crypto_key_version(
+        &self,
+        req: crate::model::DeleteCryptoKeyVersionRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        self.inner.delete_crypto_key_version(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -904,5 +940,19 @@ where
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.get_operation(req, options).await
+    }
+
+    fn get_polling_error_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
+        self.inner.get_polling_error_policy(options)
+    }
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
+        self.inner.get_polling_backoff_policy(options)
     }
 }

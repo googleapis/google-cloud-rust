@@ -129,6 +129,25 @@ impl DirectAccessService {
     }
 
     /// Creates a DeviceSession.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_devicestreaming_v1::client::DirectAccessService;
+    /// use google_cloud_devicestreaming_v1::model::DeviceSession;
+    /// use google_cloud_devicestreaming_v1::Result;
+    /// async fn sample(
+    ///    client: &DirectAccessService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_device_session()
+    ///         .set_parent(parent)
+    ///         .set_device_session(
+    ///             DeviceSession::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_device_session(
         &self,
     ) -> super::builder::direct_access_service::CreateDeviceSession {
@@ -136,6 +155,24 @@ impl DirectAccessService {
     }
 
     /// Lists DeviceSessions owned by the project user.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_devicestreaming_v1::client::DirectAccessService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_devicestreaming_v1::Result;
+    /// async fn sample(
+    ///    client: &DirectAccessService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_device_sessions()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_device_sessions(
         &self,
     ) -> super::builder::direct_access_service::ListDeviceSessions {
@@ -145,6 +182,21 @@ impl DirectAccessService {
     /// Gets a DeviceSession, which documents the allocation status and
     /// whether the device is allocated. Clients making requests from this API
     /// must poll GetDeviceSession.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_devicestreaming_v1::client::DirectAccessService;
+    /// use google_cloud_devicestreaming_v1::Result;
+    /// async fn sample(
+    ///    client: &DirectAccessService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_device_session()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_device_session(&self) -> super::builder::direct_access_service::GetDeviceSession {
         super::builder::direct_access_service::GetDeviceSession::new(self.inner.clone())
     }
@@ -154,6 +206,20 @@ impl DirectAccessService {
     /// connections.
     /// Canceled sessions are not deleted and can be retrieved or
     /// listed by the user until they expire based on the 28 day deletion policy.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_devicestreaming_v1::client::DirectAccessService;
+    /// use google_cloud_devicestreaming_v1::Result;
+    /// async fn sample(
+    ///    client: &DirectAccessService
+    /// ) -> Result<()> {
+    ///     client.cancel_device_session()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_device_session(
         &self,
     ) -> super::builder::direct_access_service::CancelDeviceSession {
@@ -162,6 +228,27 @@ impl DirectAccessService {
 
     /// Updates the current DeviceSession to the fields described by the
     /// update_mask.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_devicestreaming_v1::client::DirectAccessService;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_devicestreaming_v1::model::DeviceSession;
+    /// use google_cloud_devicestreaming_v1::Result;
+    /// async fn sample(
+    ///    client: &DirectAccessService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_device_session()
+    ///         .set_device_session(
+    ///             DeviceSession::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_device_session(
         &self,
     ) -> super::builder::direct_access_service::UpdateDeviceSession {
