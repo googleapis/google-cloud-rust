@@ -23,7 +23,7 @@ use std::sync::Arc;
 #[derive(Debug, Default)]
 pub(crate) struct Batch {
     messages: Vec<BundledMessage>,
-    initial_size: u32,
+    initial_size: u32, // TODO(NOW): Change this to topic instead.
     messages_byte_size: u32,
     batching_options: BatchingOptions,
 }
@@ -74,6 +74,10 @@ impl Batch {
     // Return true if adding the next message is within the byte threshold.
     pub(crate) fn can_add(&mut self, next: &BundledMessage) -> bool {
         self.size() + Self::message_size(&next.msg) as u32 <= self.batching_options.byte_threshold
+    }
+
+    pub(crate) fn can_fit(&self, msg: &crate::model::Message) -> bool {
+        (self.initial_size + Self::message_size(msg) as u32) <= self.batching_options.byte_threshold
     }
 
     /// Drains the batch and spawns a task to send the messages.

@@ -313,6 +313,67 @@ mod tests {
         Ok(())
     }
 
+    #[tokio::test]
+    async fn publisher_publish_msg_too_big() -> anyhow::Result<()> {
+        let mut mock = MockGapicPublisher::new();
+        mock.expect_publish()
+            .times(4)
+            .withf(|req, _o| req.topic == TOPIC)
+            .returning(publish_ok);
+
+        let client = GapicPublisher::from_stub(mock);
+        let key = "key";
+        let byte_threshold = TOPIC.len() + "hello".len() + key.len() + 1;
+        let publisher = PublisherPartialBuilder::new(client, TOPIC.to_string())
+            .set_byte_threshold(byte_threshold as u32)
+            .build();
+
+        // Validate without ordering key.
+        let handle = publisher.publish(Message::new().set_data("hello"));
+        assert_eq!(handle.await?, "hello");
+        let handle = publisher.publish(Message::new().set_data("too loooooooong"));
+        let got_err = handle.await.unwrap_err();
+        assert!(
+            matches!(
+                got_err,
+                crate::error::PublishError::ExceededByteThresholdError(())
+            ),
+            "{got_err:?}"
+        );
+        let handle = publisher.publish(Message::new().set_data("world"));
+        assert_eq!(handle.await?, "world");
+
+        // Validate with ordering key.
+        let handle = publisher.publish(Message::new().set_data("hello").set_ordering_key(key));
+        assert_eq!(handle.await?, "hello");
+        let pending_handle =
+            publisher.publish(Message::new().set_data("world").set_ordering_key(key));
+        let handle = publisher.publish(
+            Message::new()
+                .set_data("too loooooooong")
+                .set_ordering_key(key),
+        );
+        let got_err = handle.await.unwrap_err();
+        assert!(
+            matches!(
+                got_err,
+                crate::error::PublishError::ExceededByteThresholdError(())
+            ),
+            "{got_err:?}"
+        );
+        // Publishing should be paused for ordering key due to the error.
+        let handle = publisher.publish(Message::new().set_data("paused").set_ordering_key(key));
+        let got_err = handle.await.unwrap_err();
+        assert!(
+            matches!(got_err, crate::error::PublishError::OrderingKeyPaused(())),
+            "{got_err:?}"
+        );
+        // Validate that the pending handle is published.
+        assert_eq!(pending_handle.await?, "world");
+
+        Ok(())
+    }
+
     #[tokio::test(start_paused = true)]
     async fn worker_handles_forced_shutdown_gracefully() -> anyhow::Result<()> {
         let mock = MockGapicPublisher::new();
@@ -594,7 +655,7 @@ mod tests {
 
         let client = GapicPublisher::from_stub(mock);
         // Ensure that the first message does not pass the threshold.
-        let byte_threshold: usize = TOPIC.len() + "hello".len() + "key".len() + 1;
+        let byte_threshold = TOPIC.len() + "hello".len() + "key".len() + 1;
         let publisher = PublisherPartialBuilder::new(client, TOPIC.to_string())
             .set_message_count_threshold(MAX_MESSAGES)
             .set_byte_threshold(byte_threshold as u32)
