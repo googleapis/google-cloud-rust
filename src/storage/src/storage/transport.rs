@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#[cfg(google_cloud_unstable_tracing)]
 use super::tracing::TracingResponse;
 use crate::Result;
 use crate::model::{Object, ReadObjectRequest};
@@ -31,6 +32,7 @@ use crate::{
 #[cfg(google_cloud_unstable_tracing)]
 use gaxi::observability::ResultExt;
 use std::sync::Arc;
+#[cfg(google_cloud_unstable_tracing)]
 use tracing::Instrument;
 
 /// An implementation of [`stub::Storage`][crate::storage::stub::Storage] that
@@ -77,22 +79,27 @@ impl Storage {
         reader.response().await
     }
 
-    #[cfg(google_cloud_unstable_tracing)]
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn read_object_tracing(
         &self,
         req: ReadObjectRequest,
         options: RequestOptions,
     ) -> Result<ReadObjectResponse> {
-        let span = gaxi::client_request_span!("client::Storage", "read_object", &INSTRUMENTATION);
-        let response = self
-            .read_object_plain(req, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)?;
-        let inner = TracingResponse::new(response.into_parts(), span);
-        let response = ReadObjectResponse::new(Box::new(inner));
-        Ok(response)
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            let span =
+                gaxi::client_request_span!("client::Storage", "read_object", &INSTRUMENTATION);
+            let response = self
+                .read_object_plain(req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)?;
+            let inner = TracingResponse::new(response.into_parts(), span);
+            let response = ReadObjectResponse::new(Box::new(inner));
+            Ok(response)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
+        self.read_object_plain(req, options).await
     }
 
     async fn write_object_buffered_plain<P>(
@@ -109,7 +116,6 @@ impl Storage {
             .await
     }
 
-    #[cfg(google_cloud_unstable_tracing)]
     #[tracing::instrument(level = tracing::Level::DEBUG, ret, skip(payload))]
     async fn write_object_buffered_tracing<P>(
         &self,
@@ -120,11 +126,18 @@ impl Storage {
     where
         P: StreamingSource + Send + Sync + 'static,
     {
-        let span = gaxi::client_request_span!("client::Storage", "write_object", &INSTRUMENTATION);
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            let span =
+                gaxi::client_request_span!("client::Storage", "write_object", &INSTRUMENTATION);
+            self.write_object_buffered_plain(payload, req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.write_object_buffered_plain(payload, req, options)
-            .instrument(span.clone())
             .await
-            .record_in_span(&span)
     }
 
     async fn write_object_unbuffered_plain<P>(
@@ -141,7 +154,6 @@ impl Storage {
             .await
     }
 
-    #[cfg(google_cloud_unstable_tracing)]
     #[tracing::instrument(level = tracing::Level::DEBUG, ret, skip(payload))]
     async fn write_object_unbuffered_tracing<P>(
         &self,
@@ -152,11 +164,18 @@ impl Storage {
     where
         P: StreamingSource + Seek + Send + Sync + 'static,
     {
-        let span = gaxi::client_request_span!("client::Storage", "write_object", &INSTRUMENTATION);
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            let span =
+                gaxi::client_request_span!("client::Storage", "write_object", &INSTRUMENTATION);
+            self.write_object_unbuffered_plain(payload, req, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
         self.write_object_unbuffered_plain(payload, req, options)
-            .instrument(span.clone())
             .await
-            .record_in_span(&span)
     }
 
     async fn open_object_plain(
@@ -167,25 +186,29 @@ impl Storage {
         let (spec, ranges) = request.into_parts();
         let connector = Connector::new(spec, options, self.inner.grpc.clone());
         let (transport, readers) = ObjectDescriptorTransport::new(connector, ranges).await?;
-
         Ok((ObjectDescriptor::new(transport), readers))
     }
 
-    #[cfg(google_cloud_unstable_tracing)]
     #[tracing::instrument(level = tracing::Level::DEBUG, ret)]
     async fn open_object_tracing(
         &self,
         request: OpenObjectRequest,
         options: RequestOptions,
     ) -> Result<(ObjectDescriptor, Vec<ReadObjectResponse>)> {
-        let span = gaxi::client_request_span!("client::Storage", "open_object", &INSTRUMENTATION);
-        let (descriptor, responses) = self
-            .open_object_plain(request, options)
-            .instrument(span.clone())
-            .await
-            .record_in_span(&span)?;
-        // TODO(#3178) - wrap descriptor and responses with tracing decorators.
-        Ok((descriptor, responses))
+        #[cfg(google_cloud_unstable_tracing)]
+        {
+            let span =
+                gaxi::client_request_span!("client::Storage", "open_object", &INSTRUMENTATION);
+            let (descriptor, responses) = self
+                .open_object_plain(request, options)
+                .instrument(span.clone())
+                .await
+                .record_in_span(&span)?;
+            // TODO(#3178) - wrap descriptor and responses with tracing decorators.
+            Ok((descriptor, responses))
+        }
+        #[cfg(not(google_cloud_unstable_tracing))]
+        self.open_object_plain(request, options).await
     }
 }
 
@@ -196,7 +219,6 @@ impl super::stub::Storage for Storage {
         req: ReadObjectRequest,
         options: RequestOptions,
     ) -> Result<ReadObjectResponse> {
-        #[cfg(google_cloud_unstable_tracing)]
         if self.tracing {
             return self.read_object_tracing(req, options).await;
         }
@@ -213,7 +235,6 @@ impl super::stub::Storage for Storage {
     where
         P: StreamingSource + Send + Sync + 'static,
     {
-        #[cfg(google_cloud_unstable_tracing)]
         if self.tracing {
             return self
                 .write_object_buffered_tracing(payload, req, options)
@@ -233,7 +254,6 @@ impl super::stub::Storage for Storage {
     where
         P: StreamingSource + Seek + Send + Sync + 'static,
     {
-        #[cfg(google_cloud_unstable_tracing)]
         if self.tracing {
             return self
                 .write_object_unbuffered_tracing(payload, req, options)
@@ -248,7 +268,6 @@ impl super::stub::Storage for Storage {
         request: OpenObjectRequest,
         options: RequestOptions,
     ) -> Result<(ObjectDescriptor, Vec<ReadObjectResponse>)> {
-        #[cfg(google_cloud_unstable_tracing)]
         if self.tracing {
             return self.open_object_tracing(request, options).await;
         }
