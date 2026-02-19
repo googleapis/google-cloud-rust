@@ -451,7 +451,7 @@ tokio-test        = { default-features = false, version = "0.4" }
 
 # Local packages used as dependencies.
 google-cloud-auth        = { default-features = false, version = "1.5", path = "src/auth" }
-google-cloud-gax         = { default-features = false, version = "1.7", path = "src/gax" }
+google-cloud-gax         = { default-features = false, version = "1.8", path = "src/gax" }
 gaxi                     = { default-features = false, version = "0.7.10", path = "src/gax-internal", package = "google-cloud-gax-internal" }
 wkt                      = { default-features = false, version = "1", path = "src/wkt", package = "google-cloud-wkt" }
 google-cloud-wkt         = { default-features = false, version = "1", path = "src/wkt", package = "google-cloud-wkt" }
