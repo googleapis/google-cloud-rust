@@ -131,7 +131,7 @@ impl MultiUseTransactionBuilder {
                     request.request_options = Some(options);
                 }
                 
-                let response = self.transaction_builder.client.begin_transaction(request).await?;
+                let response = self.transaction_builder.client.begin_transaction(request, crate::RequestOptions::default()).await?;
                 TxSelector::Static(crate::model::transaction_selector::Selector::Id(
                 response.id,
             ))
@@ -281,12 +281,12 @@ impl ReadContext {
         statement: impl Into<crate::statement::Statement>,
     ) -> Result<crate::result_set::ResultSet, crate::Error> {
         let statement = statement.into();
-        let mut request = statement.build_request(self.session.name.clone());
+        let (mut request, options) = statement.build_request(self.session.name.clone());
         request.seqno = self.seqno.fetch_add(1, Ordering::SeqCst);
 
         let (tx_selector, callback) = self.resolve_transaction_selector().await?;
         request.transaction = Some(tx_selector);
-        let stream = self.client.execute_streaming_sql(request).send().await?;
+        let stream = self.client.execute_streaming_sql(request, options).send().await?;
         if let Some(cb) = callback {
             Ok(crate::result_set::ResultSet::new_with_callback(stream, cb))
         } else {
@@ -294,7 +294,7 @@ impl ReadContext {
         }
     }
 
-    async fn resolve_transaction_selector(
+    pub(crate) async fn resolve_transaction_selector(
         &self,
     ) -> Result<
         (
@@ -721,10 +721,11 @@ mod tests {
 
     #[tokio::test]
     async fn test_single_use_execute_query_with_implicit_params() {
-        use crate::statement::{Statement, ToSpannerValue};
+        use crate::statement::Statement;
+        use crate::value::ToValue;
 
         struct ImplicitParam;
-        impl ToSpannerValue for ImplicitParam {
+        impl ToValue for ImplicitParam {
             fn to_value(&self) -> serde_json::Value {
                 serde_json::Value::String("implicit_val".to_string())
             }
@@ -1018,6 +1019,25 @@ mod tests {
         
         // Second query
         let _ = tx.execute_query("SELECT 1").await.unwrap();
+    }
+
+    #[tokio::test]
+    async fn test_execute_query_with_timeout() {
+        let mut mock = create_mock_with_session();
+        mock.expect_execute_streaming_sql().withf(|req| {
+            req.get_ref().sql == "SELECT 1" 
+             // Note: We can't easily verify the retry policy timeout here because it is handled client-side 
+             // in the retry loop before the request is made. The individual request timeout might be set, 
+             // but checking it relies on tonic's behavior. 
+             // For now we verify the SQL matches.
+        }).returning(|_| {
+            Ok(gaxi::grpc::tonic::Response::new(create_mock_stream()))
+        });
+
+        let (db_client, _server) = setup_mock_db_client!(mock);
+        let stmt = crate::statement::Statement::new("SELECT 1").timeout(std::time::Duration::from_secs(5));
+        let tx = db_client.single_use().build();
+        let _ = tx.execute_query(stmt).await.unwrap();
     }
 
 

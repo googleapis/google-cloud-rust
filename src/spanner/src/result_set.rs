@@ -1,20 +1,61 @@
 use crate::google::spanner::v1::ResultSetMetadata;
 use gaxi::grpc::tonic::Status;
 use prost_types::Value;
-use std::collections::VecDeque;
-
-#[derive(Debug, PartialEq)]
-pub struct Row {
-    pub values: Vec<Value>,
-}
+use std::collections::{HashMap, VecDeque};
+use std::sync::Arc;
+use crate::google::spanner::v1::Type;
+use crate::row::Row;
 
 pub type TransactionCallback = Box<dyn FnOnce(Result<Vec<u8>, Status>) + Send + Sync>;
 
+/// A query result from Spanner.
+///
+/// Use `ResultSet` to iterate over the rows of a query result.
+///
+/// # Examples
+///
+/// ```rust,no_run
+/// use google_cloud_spanner::row::Row;
+/// use google_cloud_spanner::result_set::ResultSet;
+///
+/// async fn process_result_set(mut rs: ResultSet) -> Result<(), Box<dyn std::error::Error>> {
+///     while let Some(row) = rs.next().await? {
+///         // use try_get to handle potential errors safely
+///         let id: i64 = row.try_get("id")?;
+///         let name: Option<String> = row.try_get("name")?;
+///         
+///         println!("id: {}, name: {:?}", id, name);
+///     }
+///     Ok(())
+/// }
+/// ```
+///
+/// # Navigation
+///
+/// The [next](ResultSet::next) method should be used to move the result set to the next row.
+/// It returns `Ok(Some(Row))` if there is another row, `Ok(None)` if the result set is exhausted,
+/// or `Err(Status)` if an error occurs.
+///
+/// # Accessing Data
+///
+/// Data within a [Row](crate::row::Row) can be accessed using the `get` or `try_get` methods.
+///
+/// *   **Column Selection**: You can access columns by their name (string) or their zero-based index (integer).
+/// *   **Panics**: The `get` method will panic if:
+///     *   The column name or index is invalid.
+///     *   The requested type does not match the column type.
+///     *   The column contains a `NULL` value and the requested type is not an `Option<T>`.
+/// *   **Safe Access**: Use `try_get` if you want to handle these cases as errors instead of panics.
+/// *   **Null Handling**: Spanner columns can contain `NULL` values. It is recommended to use `Option<T>`
+///     for any field that might be nullable. Failing to use `Option<T>` for a null value with `get` will
+///     panic, and with `try_get` will return an error.
 pub struct ResultSet {
     pub metadata: Option<ResultSetMetadata>,
     stream: crate::client::stream::ServerStream,
     ready_rows: VecDeque<Row>,
     row_values: Vec<Value>,
+    column_names: Arc<HashMap<String, usize>>,
+    column_types: Arc<Vec<Type>>,
     chunked: bool,
     transaction_callback: Option<TransactionCallback>,
 }
@@ -26,6 +67,8 @@ impl ResultSet {
             stream,
             ready_rows: VecDeque::new(),
             row_values: Vec::new(),
+            column_names: Arc::new(HashMap::new()),
+            column_types: Arc::new(Vec::new()),
             chunked: false,
             transaction_callback: None,
         }
@@ -40,12 +83,20 @@ impl ResultSet {
             stream,
             ready_rows: VecDeque::new(),
             row_values: Vec::new(),
+            column_names: Arc::new(HashMap::new()),
+            column_types: Arc::new(Vec::new()),
             chunked: false,
             transaction_callback: Some(callback),
         }
     }
 
-    pub async fn next(&mut self) -> Result<Option<Row>, Status> {
+    /// Advances the stream to the next row.
+    ///
+    /// Returns:
+    /// * `Ok(Some(Row))` if a new row is available.
+    /// * `Ok(None)` if the stream has finished.
+    /// * `Err(crate::Error)` if an error occurred.
+    pub async fn next(&mut self) -> Result<Option<Row>, crate::Error> {
         // If we have rows already fully assembled from a previous stream chunk, return them.
         if let Some(row) = self.ready_rows.pop_front() {
             return Ok(Some(row));
@@ -59,13 +110,27 @@ impl ResultSet {
                     if let Some(cb) = self.transaction_callback.take() {
                         cb(Err(e.clone()));
                     }
-                    return Err(e);
+                    return Err(to_error(e));
                 }
             };
 
             if self.metadata.is_none() {
                 if let Some(meta) = &prs.metadata {
                     self.metadata = Some(meta.clone());
+                    if let Some(row_type) = &meta.row_type {
+                        let mut names = HashMap::new();
+                        let mut types = Vec::new();
+                        for (i, field) in row_type.fields.iter().enumerate() {
+                            names.insert(field.name.clone(), i);
+                            if let Some(t) = &field.r#type {
+                                types.push(t.clone());
+                            } else {
+                                types.push(Type::default());
+                            }
+                        }
+                        self.column_names = Arc::new(names);
+                        self.column_types = Arc::new(types);
+                    }
 
                     if let Some(cb) = self.transaction_callback.take() {
                         if let Some(tx) = &meta.transaction {
@@ -86,7 +151,7 @@ impl ResultSet {
             if self.chunked {
                 if let Some(last_val) = self.row_values.last_mut() {
                     if let Some(first_new) = values_iter.next() {
-                        Self::merge_values(last_val, first_new)?;
+                        Self::merge_values(last_val, first_new).map_err(to_error)?;
                     }
                 }
             }
@@ -110,7 +175,11 @@ impl ResultSet {
                         }
 
                         let row: Vec<Value> = self.row_values.drain(..columns).collect();
-                        self.ready_rows.push_back(Row { values: row });
+                        self.ready_rows.push_back(Row {
+                            raw_values: row,
+                            column_names: self.column_names.clone(),
+                            column_types: self.column_types.clone(),
+                        });
                     }
                 }
             }
@@ -132,11 +201,15 @@ impl ResultSet {
         if !self.row_values.is_empty() && !self.chunked {
             // we have lingering elements making up a full row
             let row: Vec<Value> = self.row_values.drain(..).collect();
-            return Ok(Some(Row { values: row }));
+            return Ok(Some(Row {
+                raw_values: row,
+                column_names: self.column_names.clone(),
+                column_types: self.column_types.clone(),
+            }));
         }
 
         if self.chunked {
-            return Err(Status::internal("stream closed with pending chunked value"));
+            return Err(to_error(Status::internal("stream closed with pending chunked value")));
         }
 
         Ok(None)
@@ -193,6 +266,14 @@ impl ResultSet {
             _ => Err(type_err()),
         }
     }
+}
+
+fn to_error(status: Status) -> crate::Error {
+    crate::Error::service(
+        google_cloud_gax::error::rpc::Status::default()
+            .set_code(status.code() as i32)
+            .set_message(status.message().to_string()),
+    )
 }
 
 #[cfg(test)]
@@ -308,7 +389,12 @@ mod tests {
         .await;
 
         let row = rs.next().await.unwrap().unwrap();
-        assert_eq!(row.values.len(), 2);
+        assert_eq!(row.raw_values.len(), 2);
+        
+        // Basic integration check
+        assert_eq!(row.raw_values[0], string_val("a"));
+        assert_eq!(row.raw_values[1], string_val("b"));
+
         assert!(rs.next().await.unwrap().is_none());
     }
 
@@ -332,9 +418,10 @@ mod tests {
         .await;
 
         let row1 = rs.next().await.unwrap().unwrap();
-        assert_eq!(row1.values.len(), 2);
+        assert_eq!(row1.raw_values.len(), 2);
         let row2 = rs.next().await.unwrap().unwrap();
-        assert_eq!(row2.values.len(), 2);
+        assert_eq!(row2.raw_values.len(), 2);
+        assert!(rs.next().await.unwrap().is_none());
         assert!(rs.next().await.unwrap().is_none());
     }
 
@@ -353,9 +440,9 @@ mod tests {
         .await;
 
         let row1 = rs.next().await.unwrap().unwrap();
-        assert_eq!(row1.values.len(), 1);
+        assert_eq!(row1.raw_values.len(), 1);
         let row2 = rs.next().await.unwrap().unwrap();
-        assert_eq!(row2.values.len(), 1);
+        assert_eq!(row2.raw_values.len(), 1);
         assert!(rs.next().await.unwrap().is_none());
     }
 
@@ -407,7 +494,7 @@ mod tests {
         .await;
 
         let row = rs.next().await.unwrap().unwrap();
-        assert_eq!(row.values.len(), 2);
+        assert_eq!(row.raw_values.len(), 2);
         assert!(rs.next().await.unwrap().is_none());
     }
 
@@ -438,8 +525,8 @@ mod tests {
         .await;
 
         let row = rs.next().await.unwrap().unwrap();
-        assert_eq!(row.values.len(), 1);
-        if let Some(prost_types::value::Kind::StringValue(ref s)) = row.values[0].kind {
+        assert_eq!(row.raw_values.len(), 1);
+        if let Some(prost_types::value::Kind::StringValue(ref s)) = row.raw_values[0].kind {
             assert_eq!(s, "hello world");
         } else {
             panic!("Expected StringValue");
@@ -474,8 +561,8 @@ mod tests {
         .await;
 
         let row = rs.next().await.unwrap().unwrap();
-        assert_eq!(row.values.len(), 1);
-        if let Some(prost_types::value::Kind::ListValue(ref l)) = row.values[0].kind {
+        assert_eq!(row.raw_values.len(), 1);
+        if let Some(prost_types::value::Kind::ListValue(ref l)) = row.raw_values[0].kind {
             assert_eq!(l.values.len(), 1);
             if let Some(prost_types::value::Kind::StringValue(ref s)) = l.values[0].kind {
                 assert_eq!(s, "AB");
@@ -519,8 +606,8 @@ mod tests {
         .await;
 
         let row = rs.next().await.unwrap().unwrap();
-        assert_eq!(row.values.len(), 1);
-        if let Some(prost_types::value::Kind::ListValue(ref l)) = row.values[0].kind {
+        assert_eq!(row.raw_values.len(), 1);
+        if let Some(prost_types::value::Kind::ListValue(ref l)) = row.raw_values[0].kind {
             assert_eq!(l.values.len(), 2);
             if let Some(prost_types::value::Kind::BoolValue(ref b1)) = l.values[0].kind {
                 assert_eq!(*b1, true);
@@ -554,9 +641,10 @@ mod tests {
 
         let result = rs.next().await;
         assert!(result.is_err());
+        let err = result.unwrap_err();
         assert_eq!(
-            result.unwrap_err().code(),
-            gaxi::grpc::tonic::Code::Internal
+            err.status().unwrap().code,
+            google_cloud_gax::error::rpc::Code::Internal
         );
     }
 
@@ -597,11 +685,11 @@ mod tests {
         .await;
 
         let row1 = rs.next().await.unwrap().unwrap();
-        assert_eq!(row1.values[0], string_val("before"));
+        assert_eq!(row1.raw_values[0], string_val("before"));
         let row2 = rs.next().await.unwrap().unwrap();
-        assert_eq!(row2.values[0], string_val("abcdefghijklmnopqrstuvwxyz"));
+        assert_eq!(row2.raw_values[0], string_val("abcdefghijklmnopqrstuvwxyz"));
         let row3 = rs.next().await.unwrap().unwrap();
-        assert_eq!(row3.values[0], string_val("after"));
+        assert_eq!(row3.raw_values[0], string_val("after"));
         assert!(rs.next().await.unwrap().is_none());
     }
 
@@ -648,11 +736,11 @@ mod tests {
         .await;
 
         let row1 = rs.next().await.unwrap().unwrap();
-        assert_eq!(row1.values[0], string_val("YmVmb3Jl")); // "before"
+        assert_eq!(row1.raw_values[0], string_val("YmVmb3Jl")); // "before"
         let row2 = rs.next().await.unwrap().unwrap();
-        assert_eq!(row2.values[0], string_val(base64_str));
+        assert_eq!(row2.raw_values[0], string_val(base64_str));
         let row3 = rs.next().await.unwrap().unwrap();
-        assert_eq!(row3.values[0], string_val("YWZ0ZXI=")); // "after"
+        assert_eq!(row3.raw_values[0], string_val("YWZ0ZXI=")); // "after"
         assert!(rs.next().await.unwrap().is_none());
     }
 
@@ -710,11 +798,11 @@ mod tests {
         .await;
 
         let row1 = rs.next().await.unwrap().unwrap();
-        assert_eq!(row1.values[0], list_val(vec![bool_val(true)]));
+        assert_eq!(row1.raw_values[0], list_val(vec![bool_val(true)]));
 
         let row2 = rs.next().await.unwrap().unwrap();
         assert_eq!(
-            row2.values[0],
+            row2.raw_values[0],
             list_val(vec![
                 bool_val(false),
                 null_val(),
@@ -728,7 +816,7 @@ mod tests {
         );
 
         let row3 = rs.next().await.unwrap().unwrap();
-        assert_eq!(row3.values[0], list_val(vec![bool_val(true)]));
+        assert_eq!(row3.raw_values[0], list_val(vec![bool_val(true)]));
 
         assert!(rs.next().await.unwrap().is_none());
     }
@@ -782,11 +870,11 @@ mod tests {
         .await;
 
         let row1 = rs.next().await.unwrap().unwrap();
-        assert_eq!(row1.values[0], list_val(vec![string_val("10")]));
+        assert_eq!(row1.raw_values[0], list_val(vec![string_val("10")]));
 
         let row2 = rs.next().await.unwrap().unwrap();
         assert_eq!(
-            row2.values[0],
+            row2.raw_values[0],
             list_val(vec![
                 string_val("1"),
                 string_val("2"),
@@ -800,7 +888,7 @@ mod tests {
         );
 
         let row3 = rs.next().await.unwrap().unwrap();
-        assert_eq!(row3.values[0], list_val(vec![string_val("20")]));
+        assert_eq!(row3.raw_values[0], list_val(vec![string_val("20")]));
 
         assert!(rs.next().await.unwrap().is_none());
     }
@@ -859,11 +947,11 @@ mod tests {
         .await;
 
         let row1 = rs.next().await.unwrap().unwrap();
-        assert_eq!(row1.values[0], list_val(vec![float_val(10.0)]));
+        assert_eq!(row1.raw_values[0], list_val(vec![float_val(10.0)]));
 
         let row2 = rs.next().await.unwrap().unwrap();
         assert_eq!(
-            row2.values[0],
+            row2.raw_values[0],
             list_val(vec![
                 null_val(),
                 float_val(2.0),
@@ -877,7 +965,7 @@ mod tests {
         );
 
         let row3 = rs.next().await.unwrap().unwrap();
-        assert_eq!(row3.values[0], list_val(vec![float_val(20.0)]));
+        assert_eq!(row3.raw_values[0], list_val(vec![float_val(20.0)]));
 
         assert!(rs.next().await.unwrap().is_none());
     }
@@ -931,11 +1019,11 @@ mod tests {
         .await;
 
         let row1 = rs.next().await.unwrap().unwrap();
-        assert_eq!(row1.values[0], list_val(vec![string_val("before")]));
+        assert_eq!(row1.raw_values[0], list_val(vec![string_val("before")]));
 
         let row2 = rs.next().await.unwrap().unwrap();
         assert_eq!(
-            row2.values[0],
+            row2.raw_values[0],
             list_val(vec![
                 string_val("a"),
                 string_val("b"),
@@ -949,7 +1037,7 @@ mod tests {
         );
 
         let row3 = rs.next().await.unwrap().unwrap();
-        assert_eq!(row3.values[0], list_val(vec![string_val("after")]));
+        assert_eq!(row3.raw_values[0], list_val(vec![string_val("after")]));
 
         assert!(rs.next().await.unwrap().is_none());
     }
@@ -1026,13 +1114,13 @@ mod tests {
 
         let row1 = rs.next().await.unwrap().unwrap();
         assert_eq!(
-            row1.values[0],
+            row1.raw_values[0],
             list_val(vec![struct_val(Some("before"), Some(10))])
         );
 
         let row2 = rs.next().await.unwrap().unwrap();
         assert_eq!(
-            row2.values[0],
+            row2.raw_values[0],
             list_val(vec![
                 struct_val(Some("a"), Some(1)),
                 struct_val(Some("b"), Some(2)),
@@ -1047,7 +1135,7 @@ mod tests {
 
         let row3 = rs.next().await.unwrap().unwrap();
         assert_eq!(
-            row3.values[0],
+            row3.raw_values[0],
             list_val(vec![struct_val(Some("after"), Some(20))])
         );
 

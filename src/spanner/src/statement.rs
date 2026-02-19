@@ -14,6 +14,7 @@ pub struct Statement {
     pub query_mode: Option<QueryMode>,
     pub data_boost_enabled: bool,
     pub directed_read_options: Option<DirectedReadOptions>,
+    pub timeout: Option<std::time::Duration>,
 }
 
 #[derive(Clone, Default)]
@@ -26,6 +27,7 @@ pub struct StatementBuilder {
     query_mode: Option<QueryMode>,
     data_boost_enabled: bool,
     directed_read_options: Option<DirectedReadOptions>,
+    timeout: Option<std::time::Duration>,
 }
 
 impl StatementBuilder {
@@ -39,7 +41,14 @@ impl StatementBuilder {
             query_mode: None,
             data_boost_enabled: false,
             directed_read_options: None,
+            timeout: None,
         }
+    }
+
+    /// Sets the SQL string for this statement.
+    pub fn sql(mut self, sql: impl Into<String>) -> Self {
+        self.sql = sql.into();
+        self
     }
 
     /// Adds a parameter value to this Statement.
@@ -49,7 +58,7 @@ impl StatementBuilder {
     /// It is recommended to use untyped parameter values, unless you explicitly want Spanner to
     /// verify that the type of the parameter value is exactly the same as the type that would
     /// otherwise be inferred from the SQL string.
-    pub fn add_param<T: ToSpannerValue + ?Sized>(
+    pub fn add_param<T: ToValue + ?Sized>(
         mut self,
         name: impl Into<String>,
         value: &T,
@@ -63,7 +72,7 @@ impl StatementBuilder {
     ///
     /// The parameter value is sent with an explicit type code to Spanner. The type code must
     /// correspond with the expression in the SQL string that the query parameter is bound to.
-    pub fn add_typed_param<T: ToSpannerValue + ?Sized>(
+    pub fn add_typed_param<T: ToValue + ?Sized>(
         mut self,
         name: impl Into<String>,
         value: &T,
@@ -139,6 +148,12 @@ impl StatementBuilder {
         self
     }
 
+    /// Sets the timeout for the request.
+    pub fn timeout(mut self, timeout: std::time::Duration) -> Self {
+        self.timeout = Some(timeout);
+        self
+    }
+
     /// Builds and returns the finalized Statement object.
     pub fn build(self) -> Statement {
         Statement {
@@ -150,6 +165,7 @@ impl StatementBuilder {
             query_mode: self.query_mode,
             data_boost_enabled: self.data_boost_enabled,
             directed_read_options: self.directed_read_options,
+            timeout: self.timeout,
         }
     }
 }
@@ -160,7 +176,12 @@ impl Statement {
         StatementBuilder::new(sql)
     }
 
-    pub fn build_request(self, session_name: String) -> ExecuteSqlRequest {
+    /// Creates a new StatementBuilder.
+    pub fn builder() -> StatementBuilder {
+        StatementBuilder::default()
+    }
+
+    pub fn build_request(self, session_name: String) -> (ExecuteSqlRequest, crate::RequestOptions) {
         let mut request = ExecuteSqlRequest::new();
         request.session = session_name;
         request.sql = self.sql;
@@ -183,7 +204,19 @@ impl Statement {
         if let Some(directed_read_options) = self.directed_read_options {
             request.directed_read_options = Some(directed_read_options);
         }
-        request
+
+        let mut options = crate::RequestOptions::default();
+        if let Some(timeout) = self.timeout {
+            options.set_attempt_timeout(timeout);
+        }
+
+        (request, options)
+    }
+}
+
+impl From<StatementBuilder> for Statement {
+    fn from(builder: StatementBuilder) -> Self {
+        builder.build()
     }
 }
 
@@ -199,55 +232,7 @@ impl From<&str> for Statement {
     }
 }
 
-pub trait ToSpannerValue {
-    fn to_value(&self) -> Value;
-}
-
-impl ToSpannerValue for String {
-    fn to_value(&self) -> Value {
-        Value::String(self.clone())
-    }
-}
-
-impl ToSpannerValue for &str {
-    fn to_value(&self) -> Value {
-        Value::String(self.to_string())
-    }
-}
-
-impl ToSpannerValue for i64 {
-    fn to_value(&self) -> Value {
-        Value::String(self.to_string())
-    }
-}
-
-impl ToSpannerValue for i32 {
-    fn to_value(&self) -> Value {
-        Value::String(self.to_string())
-    }
-}
-
-impl ToSpannerValue for bool {
-    fn to_value(&self) -> Value {
-        Value::Bool(*self)
-    }
-}
-
-impl ToSpannerValue for f64 {
-    fn to_value(&self) -> Value {
-        serde_json::Number::from_f64(*self)
-            .map(Value::Number)
-            .unwrap_or(Value::Null)
-    }
-}
-
-impl ToSpannerValue for f32 {
-    fn to_value(&self) -> Value {
-        serde_json::Number::from_f64(*self as f64)
-            .map(Value::Number)
-            .unwrap_or(Value::Null)
-    }
-}
+use crate::value::ToValue;
 
 #[cfg(test)]
 mod tests {
@@ -321,5 +306,11 @@ mod tests {
         assert!(stmt.data_boost_enabled);
         assert!(stmt.directed_read_options.is_some());
         assert_eq!(stmt.directed_read_options.unwrap(), directed_read_options);
+    }
+
+    #[test]
+    fn test_statement_builder_method() {
+        let stmt = Statement::builder().sql("SELECT 1").build();
+        assert_eq!(stmt.sql, "SELECT 1");
     }
 }

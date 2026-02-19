@@ -31,8 +31,9 @@ workspace = true
 
 [dependencies]
 async-trait.workspace  = true
+base64.workspace       = true
 bytes.workspace        = true
-chrono.workspace       = true
+chrono                 = { workspace = true, features = ["std"] }
 futures.workspace      = true
 futures-util           = "0.3.31"
 http.workspace         = true
@@ -60,6 +61,7 @@ wkt.workspace            = true
 
 # We use a lot of features from gaxi.
 gaxi = { workspace = true, features = ["_internal-common", "_internal-grpc-client"] }
+bigdecimal = "0.4.10"
 
 [dev-dependencies]
 tokio                       = { workspace = true, features = ["macros"] }

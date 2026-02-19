@@ -259,7 +259,10 @@ impl Client {
         let headers = Self::make_headers(api_client_header, request_params, &options).await?;
         let headers = self.add_auth_headers(headers).await?;
         let metadata = tonic::MetadataMap::from_headers(headers);
-        let request = ::tonic::Request::from_parts(metadata, extensions, request);
+        let mut request = ::tonic::Request::from_parts(metadata, extensions, request);
+        if let Some(attempt_timeout) = options.attempt_timeout() {
+            request.set_timeout(*attempt_timeout);
+        }
         let codec = tonic_prost::ProstCodec::<Request, Response>::default();
         let mut inner = self.inner.clone();
         inner.ready().await.map_err(Error::io)?;

@@ -135,6 +135,36 @@ impl ReadWriteTransaction {
         self.transaction.execute_query(statement).await
     }
 
+    pub async fn execute_update(
+        &self,
+        statement: impl Into<crate::statement::Statement>,
+    ) -> Result<i64, crate::Error> {
+        let statement = statement.into();
+        let (mut request, options) = statement.build_request(self.transaction.context.session.name.clone());
+        request.seqno = self.transaction.context.seqno.fetch_add(1, Ordering::SeqCst);
+        let (tx_selector, _) = self
+            .transaction
+            .context
+            .resolve_transaction_selector()
+            .await?;
+        request.transaction = Some(tx_selector);
+
+        let response = self
+            .transaction
+            .context
+            .client
+            .execute_sql(request, options)
+            .await?;
+        Ok(response
+            .stats
+            .ok_or_else(|| crate::Error::service(google_cloud_gax::error::rpc::Status::default().set_code(gaxi::grpc::tonic::Status::internal("No stats returned").code() as i32)))
+            .map(|s| match s.row_count {
+                Some(crate::generated::gapic_dataplane::model::result_set_stats::RowCount::RowCountExact(c)) => c,
+                Some(crate::generated::gapic_dataplane::model::result_set_stats::RowCount::RowCountLowerBound(c)) => c,
+                None => 0,
+            })?)
+    }
+
     pub(crate) async fn commit(&self) -> Result<crate::model::CommitResponse, crate::Error> {
         self.transition_state(TransactionState::Committed)?;
 
@@ -146,7 +176,7 @@ impl ReadWriteTransaction {
         request.session = self.transaction.context.session.name.clone();
         request = request.set_transaction_id(self.transaction.context.get_transaction_id().await?);
         request.mutations = vec![]; // TODO: Buffer mutations
-        self.transaction.context.client.commit(request).await
+        self.transaction.context.client.commit(request, crate::RequestOptions::default()).await
     }
 
     pub(crate) async fn rollback(&self) -> Result<(), crate::Error> {
@@ -159,7 +189,7 @@ impl ReadWriteTransaction {
         let mut request = crate::model::RollbackRequest::new();
         request.session = self.transaction.context.session.name.clone();
         request = request.set_transaction_id(self.transaction.context.get_transaction_id().await?);
-        self.transaction.context.client.rollback(request).await
+        self.transaction.context.client.rollback(request, crate::RequestOptions::default()).await
     }
 
     fn transition_state(&self, target: TransactionState) -> Result<(), crate::Error> {
@@ -290,13 +320,7 @@ mod tests {
 
         let res = runner.run(|tx| Box::pin(async move {
             let mut rs = tx.execute_query("SELECT 1").await?;
-            let row = rs.next().await.map_err(|e| {
-                crate::Error::service(
-                    google_cloud_gax::error::rpc::Status::default()
-                        .set_code(e.code() as i32)
-                        .set_message(e.message().to_string()),
-                )
-            })?;
+            let row = rs.next().await?;
             Ok(row)
         })).await.expect("Failed to run transaction");
         
@@ -429,7 +453,7 @@ mod tests {
                 false
             }
         }).returning(|_| {
-             Ok(gaxi::grpc::tonic::Response::new(create_mock_stream()))
+            Ok(gaxi::grpc::tonic::Response::new(create_mock_stream()))
         });
 
         // Expect Commit
@@ -459,5 +483,70 @@ mod tests {
             let _ = rs.next().await;
             Ok(())
         })).await.expect("Failed to run transaction");
+    }
+
+    #[tokio::test]
+    async fn test_read_write_transaction_execute_update() {
+        let mut mock = MockSpanner::new();
+        mock.expect_create_session().returning(|_| {
+            Ok(gaxi::grpc::tonic::Response::new(spanner_grpc_mock::google::spanner::v1::Session {
+                name: "projects/test-project/instances/test-instance/databases/test-db/sessions/123".to_string(),
+                multiplexed: false,
+                ..Default::default()
+            }))
+        });
+
+        mock.expect_begin_transaction().returning(|_| {
+             Ok(gaxi::grpc::tonic::Response::new(spanner_grpc_mock::google::spanner::v1::Transaction {
+                id: vec![0, 1, 2, 3],
+                read_timestamp: None,
+                precommit_token: None,
+            }))
+        });
+
+        mock.expect_execute_sql().returning(|req| {
+            let req = req.into_inner();
+            assert_eq!(req.sql, "UPDATE Users SET Name = 'Alice' WHERE Id = 1");
+            Ok(gaxi::grpc::tonic::Response::new(spanner_grpc_mock::google::spanner::v1::ResultSet {
+                metadata: None,
+                rows: vec![],
+                stats: Some(spanner_grpc_mock::google::spanner::v1::ResultSetStats {
+                    row_count: Some(spanner_grpc_mock::google::spanner::v1::result_set_stats::RowCount::RowCountExact(1)),
+                    query_plan: None,
+                    query_stats: None,
+                }),
+                cache_update: None,
+                precommit_token: None,
+            }))
+        });
+
+        mock.expect_commit().returning(|_| {
+            Ok(gaxi::grpc::tonic::Response::new(spanner_grpc_mock::google::spanner::v1::CommitResponse {
+                commit_timestamp: Some(prost_types::Timestamp::default()),
+                commit_stats: None,
+                multiplexed_session_retry: None,
+                snapshot_timestamp: None,
+            }))
+        });
+
+
+
+        // Setup mock client manually since setup_mock_db_client macro is not available in this scope or failed to import
+        let (address, _server) = start("0.0.0.0:0", mock).await.expect("Failed to start mock server");
+        let spanner = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await
+            .expect("Failed to build client");
+        let db_client = spanner.database_client("projects/test-project/instances/test-instance/databases/test-db").await.expect("Failed to create DatabaseClient");
+        
+         let mut tx = db_client.read_write_transaction().build().await.unwrap();
+        let result: Result<(i64, crate::model::CommitResponse), crate::Error> = tx.run(|tx| Box::pin(async move {
+            let count = tx.execute_update("UPDATE Users SET Name = 'Alice' WHERE Id = 1").await?;
+            Ok(count)
+        })).await;
+
+        assert_eq!(result.unwrap().0, 1);
     }
 }

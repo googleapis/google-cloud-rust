@@ -45,8 +45,11 @@ pub mod read_context;
 pub mod read_only_transaction;
 pub mod read_write_transaction;
 pub mod result_set;
+pub mod row;
 pub mod statement;
+pub mod partitioned_dml;
 pub mod types;
+pub mod value;
 pub mod stub {
     pub use crate::generated::gapic_dataplane::stub::*;
 }

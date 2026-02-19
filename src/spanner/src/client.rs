@@ -5,6 +5,34 @@ use crate::generated::gapic_dataplane::client::Spanner as GapicSpanner;
 use gaxi::options::{ClientConfig, Credentials};
 use std::sync::Arc;
 
+/// A client for the [Spanner] API.
+///
+/// Use this client to interact with the Spanner service.
+///
+/// # Example
+/// ```
+/// # use google_cloud_spanner::client::Spanner;
+/// # use google_cloud_spanner::statement::Statement;
+/// # use google_cloud_spanner::result_set::ResultSet;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+/// let spanner = Spanner::builder().build().await?;
+/// let database_client = spanner
+///     .database_client("projects/my-project/instances/my-instance/databases/my-database")
+///     .await?;
+/// let mut results: ResultSet = database_client
+///     .single_use()
+///     .build()
+///     .execute_query(Statement::builder().sql("select 'Hello World!' as greeting"))
+///     .await?;
+///
+/// while let Some(row) = results.next().await? {
+///     let greeting: Option<String> = row.get("greeting");
+///     println!("Greeting from Spanner: {:?}", greeting);
+/// }
+/// # Ok(()) }
+/// ```
+///
+/// [Spanner]: https://docs.cloud.google.com/spanner/docs
 #[derive(Clone, Debug)]
 pub struct Spanner {
     inner: Arc<GapicSpanner>,
@@ -47,10 +75,12 @@ impl Spanner {
     pub async fn create_session(
         &self,
         request: crate::model::CreateSessionRequest,
+        options: crate::RequestOptions,
     ) -> Result<crate::model::Session, crate::Error> {
         self.inner
             .create_session()
             .with_request(request)
+            .with_options(options)
             .send()
             .await
     }
@@ -58,39 +88,45 @@ impl Spanner {
     pub async fn execute_sql(
         &self,
         request: crate::model::ExecuteSqlRequest,
+        options: crate::RequestOptions,
     ) -> Result<crate::model::ResultSet, crate::Error> {
-        self.inner.execute_sql().with_request(request).send().await
+        self.inner.execute_sql().with_request(request).with_options(options).send().await
     }
 
     pub async fn execute_batch_dml(
         &self,
         request: crate::model::ExecuteBatchDmlRequest,
+        options: crate::RequestOptions,
     ) -> Result<crate::model::ExecuteBatchDmlResponse, crate::Error> {
         self.inner
             .execute_batch_dml()
             .with_request(request)
+            .with_options(options)
             .send()
             .await
     }
 
-    pub fn batch_write(&self, request: crate::model::BatchWriteRequest) -> builder::BatchWrite {
-        builder::BatchWrite::new(self.grpc_client.clone()).with_request(request)
+    pub fn batch_write(&self, request: crate::model::BatchWriteRequest, options: crate::RequestOptions) -> builder::BatchWrite {
+        builder::BatchWrite::new(self.grpc_client.clone()).with_request(request).with_options(options)
     }
 
     pub async fn read(
         &self,
         request: crate::model::ReadRequest,
+        options: crate::RequestOptions,
     ) -> Result<crate::model::ResultSet, crate::Error> {
-        self.inner.read().with_request(request).send().await
+        self.inner.read().with_request(request).with_options(options).send().await
     }
 
     pub async fn begin_transaction(
         &self,
         request: crate::model::BeginTransactionRequest,
+        options: crate::RequestOptions,
     ) -> Result<crate::model::Transaction, crate::Error> {
         self.inner
             .begin_transaction()
             .with_request(request)
+            .with_options(options)
             .send()
             .await
     }
@@ -98,15 +134,17 @@ impl Spanner {
     pub async fn commit(
         &self,
         request: crate::model::CommitRequest,
+        options: crate::RequestOptions,
     ) -> Result<crate::model::CommitResponse, crate::Error> {
-        self.inner.commit().with_request(request).send().await
+        self.inner.commit().with_request(request).with_options(options).send().await
     }
 
     pub async fn rollback(
         &self,
         request: crate::model::RollbackRequest,
+        options: crate::RequestOptions,
     ) -> Result<(), crate::Error> {
-        self.inner.rollback().with_request(request).send().await
+        self.inner.rollback().with_request(request).with_options(options).send().await
     }
 
     /// Executes an SQL statement, returning a stream of results.
@@ -116,16 +154,17 @@ impl Spanner {
     pub fn execute_streaming_sql(
         &self,
         request: crate::model::ExecuteSqlRequest,
+        options: crate::RequestOptions,
     ) -> builder::ExecuteStreamingSql {
-        builder::ExecuteStreamingSql::new(self.grpc_client.clone()).with_request(request)
+        builder::ExecuteStreamingSql::new(self.grpc_client.clone()).with_request(request).with_options(options)
     }
 
     /// Reads rows from the database, returning a stream of results.
     ///
     /// This is a custom streaming implementation over the underlying Spanner gRPC
     /// transport, since streaming responses are not yet auto-generated here.
-    pub fn streaming_read(&self, request: crate::model::ReadRequest) -> builder::StreamingRead {
-        builder::StreamingRead::new(self.grpc_client.clone()).with_request(request)
+    pub fn streaming_read(&self, request: crate::model::ReadRequest, options: crate::RequestOptions) -> builder::StreamingRead {
+        builder::StreamingRead::new(self.grpc_client.clone()).with_request(request).with_options(options)
     }
 
     /// Returns a new `DatabaseClient` for interacting with a specific database.
@@ -141,7 +180,7 @@ impl Spanner {
         session_template.multiplexed = true;
         request.session = Some(session_template);
 
-        let session = self.create_session(request).await?;
+        let session = self.create_session(request, crate::RequestOptions::default()).await?;
 
         Ok(crate::database_client::DatabaseClient {
             client: std::sync::Arc::new(self.clone()),
@@ -187,7 +226,7 @@ mod tests {
             "projects/test-project/instances/test-instance/databases/test-db".to_string();
 
         let session = client
-            .create_session(req)
+            .create_session(req, crate::RequestOptions::default())
             .await
             .expect("Failed to call create_session");
 
@@ -294,7 +333,7 @@ mod tests {
         req.sql = "SELECT 1".to_string();
 
         let result_set = client
-            .execute_sql(req)
+            .execute_sql(req, crate::RequestOptions::default())
             .await
             .expect("Failed to call execute_sql");
         assert!(result_set.metadata.is_some());
@@ -333,7 +372,7 @@ mod tests {
         req.session = "test_session".to_string();
 
         let response = client
-            .execute_batch_dml(req)
+            .execute_batch_dml(req, crate::RequestOptions::default())
             .await
             .expect("Failed to call execute_batch_dml");
         assert!(response.status.is_some());
@@ -378,7 +417,7 @@ mod tests {
         req.session = "test_session".to_string();
 
         let mut stream = client
-            .batch_write(req)
+            .batch_write(req, crate::RequestOptions::default())
             .send()
             .await
             .expect("Failed to call batch_write");
@@ -448,7 +487,7 @@ mod tests {
 
         // Use the handwritten streaming API
         let mut stream = client
-            .execute_streaming_sql(req)
+            .execute_streaming_sql(req, crate::RequestOptions::default())
             .send()
             .await
             .expect("Failed to call execute_streaming_sql");
@@ -504,7 +543,7 @@ mod tests {
         let mut req = ReadRequest::new();
         req.table = "test_table".to_string();
 
-        let result_set = client.read(req).await.expect("Failed to call read");
+        let result_set = client.read(req, crate::RequestOptions::default()).await.expect("Failed to call read");
         assert!(result_set.metadata.is_none());
     }
 
@@ -558,7 +597,7 @@ mod tests {
         req.table = "test_table".to_string();
 
         let mut stream = client
-            .streaming_read(req)
+            .streaming_read(req, crate::RequestOptions::default())
             .send()
             .await
             .expect("Failed to call streaming_read");
@@ -613,7 +652,7 @@ mod tests {
         req.session = "test_session".to_string();
 
         let tx = client
-            .begin_transaction(req)
+            .begin_transaction(req, crate::RequestOptions::default())
             .await
             .expect("Failed to call begin_transaction");
         assert_eq!(tx.id, vec![1, 2, 3]);
@@ -651,7 +690,7 @@ mod tests {
         let mut req = CommitRequest::new();
         req.session = "test_session".to_string();
 
-        let response = client.commit(req).await.expect("Failed to call commit");
+        let response = client.commit(req, crate::RequestOptions::default()).await.expect("Failed to call commit");
         assert!(response.commit_timestamp.is_some());
     }
 
@@ -677,6 +716,6 @@ mod tests {
         let mut req = RollbackRequest::new();
         req.session = "test_session".to_string();
 
-        client.rollback(req).await.expect("Failed to call rollback");
+        client.rollback(req, crate::RequestOptions::default()).await.expect("Failed to call rollback");
     }
 }
