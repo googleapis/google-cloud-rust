@@ -13,6 +13,7 @@
 // limitations under the License.
 
 // ANCHOR: all
+use std::sync::Arc;
 
 use google_cloud_gax::options::RequestOptionsBuilder;
 // ANCHOR: seed-function
@@ -128,7 +129,8 @@ async fn download(
     // ANCHOR_END: get-metadata
 
     // ANCHOR: create-destination
-    let file = tokio::fs::File::create(destination).await?;
+    let file = Arc::new(std::fs::File::create(destination)?);
+    file.set_len(metadata.size as u64)?;
     // ANCHOR_END: create-destination
     let start = std::time::Instant::now();
 
@@ -172,18 +174,14 @@ async fn download(
 // ANCHOR: write-stripe-function
 async fn write_stripe(
     client: Storage,
-    file: &tokio::fs::File,
+    file: &Arc<std::fs::File>,
     offset: u64,
     limit: u64,
     metadata: &Object,
 ) -> anyhow::Result<()> {
     use google_cloud_storage::model_ext::ReadRange;
-    use tokio::io::AsyncSeekExt;
+    use std::os::unix::fs::FileExt;
     // ANCHOR_END: write-stripe-function
-    // ANCHOR: write-stripe-seek
-    let mut writer = file.try_clone().await?;
-    writer.seek(std::io::SeekFrom::Start(offset)).await?;
-    // ANCHOR_END: write-stripe-seek
     // ANCHOR: write-stripe-reader
     let mut reader = client
         .read_object(&metadata.bucket, &metadata.name)
@@ -199,9 +197,12 @@ async fn write_stripe(
         .await?;
     // ANCHOR_END: write-stripe-reader
     // ANCHOR: write-stripe-loop
+    let mut current_pos = offset;
     while let Some(b) = reader.next().await.transpose()? {
-        use tokio::io::AsyncWriteExt;
-        writer.write_all(&b).await?;
+        let chunk_len = b.len() as u64;
+        let handle = file.clone();
+        tokio::task::spawn_blocking(move || handle.write_all_at(&b, current_pos)).await??;
+        current_pos += chunk_len;
     }
     // ANCHOR_END: write-stripe-loop
     // ANCHOR: write-stripe-function-end
