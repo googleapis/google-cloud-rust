@@ -13,6 +13,7 @@
 // limitations under the License.
 
 pub mod showcase;
+pub mod storage;
 
 use super::otlp::CloudTelemetryTracerProviderBuilder;
 use google_cloud_auth::credentials::Builder as CredentialsBuilder;

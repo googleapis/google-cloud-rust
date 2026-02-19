@@ -26,7 +26,7 @@ use futures::Stream;
 /// also provides an accessor to retrieve the object's metadata.
 #[derive(Debug)]
 pub struct ReadObjectResponse {
-    inner: Box<dyn dynamic::ReadObjectResponse + Send>,
+    inner: Box<dyn dynamic::ReadObjectResponse + Send + 'static>,
 }
 
 impl ReadObjectResponse {
@@ -35,6 +35,10 @@ impl ReadObjectResponse {
         T: dynamic::ReadObjectResponse + Send + 'static,
     {
         Self { inner }
+    }
+
+    pub(crate) fn into_parts(self) -> Box<dyn dynamic::ReadObjectResponse + Send + 'static> {
+        self.inner
     }
 
     /// Create a ReadObjectResponse, given a data source.

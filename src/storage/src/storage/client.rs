@@ -290,9 +290,10 @@ where
 
 impl Storage {
     pub(crate) async fn new(builder: ClientBuilder) -> BuilderResult<Self> {
+        let tracing = builder.config.tracing;
         let inner = StorageInner::from_parts(builder).await?;
         let options = inner.options.clone();
-        let stub = crate::storage::transport::Storage::new(Arc::new(inner));
+        let stub = crate::storage::transport::Storage::new(Arc::new(inner), tracing);
         Ok(Self { stub, options })
     }
 }
@@ -659,6 +660,39 @@ impl ClientBuilder {
     /// a single connection to about 100.
     pub fn with_grpc_subchannel_count(mut self, v: usize) -> Self {
         self.config.grpc_subchannel_count = Some(v);
+        self
+    }
+
+    /// Enable debug logs and traces using the [tracing][::tracing] framework.
+    ///
+    /// <div class="warning">
+    /// This may log or trace PII information, such as bucket and object names.
+    /// Consult the [tracing][::tracing] framework documentation to set up
+    /// filters and formatters to prevent leaking such information.
+    /// </div>
+    ///
+    /// # Example
+    /// ```
+    /// // In your `main` function enable a tracing subscriber, for example:
+    /// // tracing_subscriber::fmt::init();
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// let client = Storage::builder()
+    ///     .with_tracing()
+    ///     .build()
+    ///     .await?;
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// # More information
+    ///
+    /// The [Enable logging] guide shows you how to initialize a subscriber to
+    /// log events to the console.
+    ///
+    /// [Enable logging]: https://docs.cloud.google.com/rust/enable-logging
+    #[cfg(google_cloud_unstable_tracing)]
+    pub fn with_tracing(mut self) -> Self {
+        self.config.tracing = true;
         self
     }
 

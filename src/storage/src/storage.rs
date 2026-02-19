@@ -23,6 +23,8 @@ pub mod request_options;
 pub(crate) mod signed_url;
 pub mod streaming_source;
 pub mod stub;
+#[cfg(google_cloud_unstable_tracing)]
+pub(crate) mod tracing;
 pub(crate) mod transport;
 pub(crate) mod v1;
 pub(crate) mod write_object;
@@ -45,6 +47,18 @@ pub(crate) mod info {
                 library_type:  gaxi::api_header::GCCL,
             };
             ac.grpc_header_value()
+        };
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    lazy_static::lazy_static! {
+        pub(crate) static ref INSTRUMENTATION: gaxi::options::InstrumentationClientInfo = {
+            let mut info = gaxi::options::InstrumentationClientInfo::default();
+            info.service_name = "storage";
+            info.client_version = VERSION;
+            info.client_artifact = NAME;
+            info.default_host = "storage.googleapis.com";
+            info
         };
     }
 }
