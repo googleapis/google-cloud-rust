@@ -347,14 +347,10 @@ impl Builder {
     ///
     /// [service account keys]: https://cloud.google.com/iam/docs/keys-create-delete#creating
     pub fn build_access_token_credentials(self) -> BuildResult<AccessTokenCredentials> {
-        let quota_project_id = self.quota_project_id.clone();
-        let token_provider = self.build_token_provider()?;
-
-        let token_provider = TokenCache::new(token_provider);
         Ok(AccessTokenCredentials {
             inner: Arc::new(ServiceAccountCredentials {
-                quota_project_id,
-                token_provider,
+                quota_project_id: self.quota_project_id.clone(),
+                token_provider: TokenCache::new(self.build_token_provider()?),
             }),
         })
     }
@@ -688,9 +684,8 @@ mod tests {
         let mut mock = MockTokenProvider::new();
         mock.expect_token().times(1).return_once(|| Ok(token));
 
-        let cache = TokenCache::new(mock);
         let sac = ServiceAccountCredentials {
-            token_provider: cache.clone(),
+            token_provider: TokenCache::new(mock),
             quota_project_id: None,
         };
 
@@ -732,9 +727,8 @@ mod tests {
         let mut mock = MockTokenProvider::new();
         mock.expect_token().times(1).return_once(|| Ok(token));
 
-        let cache = TokenCache::new(mock);
         let sac = ServiceAccountCredentials {
-            token_provider: cache.clone(),
+            token_provider: TokenCache::new(mock),
             quota_project_id: Some(quota_project.to_string()),
         };
 
@@ -761,9 +755,8 @@ mod tests {
             .times(1)
             .return_once(|| Err(errors::non_retryable_from_str("fail")));
 
-        let cache = TokenCache::new(mock);
         let sac = ServiceAccountCredentials {
-            token_provider: cache.clone(),
+            token_provider: TokenCache::new(mock),
             quota_project_id: None,
         };
         let result = sac.headers(Extensions::new()).await;

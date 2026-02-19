@@ -293,12 +293,9 @@ impl Builder {
     /// # });
     /// ```
     pub fn build_access_token_credentials(self) -> BuildResult<AccessTokenCredentials> {
-        let quota_project_id = self.quota_project_id.clone();
-        let token_provider = TokenCache::new(self.build_token_provider());
-
         let mdsc = MDSCredentials {
-            quota_project_id,
-            token_provider,
+            quota_project_id: self.quota_project_id.clone(),
+            token_provider: TokenCache::new(self.build_token_provider()),
         };
         Ok(AccessTokenCredentials {
             inner: Arc::new(mdsc),
@@ -580,10 +577,9 @@ mod tests {
         let mut mock = MockTokenProvider::new();
         mock.expect_token().times(1).return_once(|| Ok(token));
 
-        let cache = TokenCache::new(mock);
         let mdsc = MDSCredentials {
             quota_project_id: None,
-            token_provider: cache.clone(),
+            token_provider: TokenCache::new(mock),
         };
 
         let mut extensions = Extensions::new();
@@ -641,10 +637,9 @@ mod tests {
             .times(1)
             .return_once(|| Err(errors::non_retryable_from_str("fail")));
 
-        let cache = TokenCache::new(mock);
         let mdsc = MDSCredentials {
             quota_project_id: None,
-            token_provider: cache.clone(),
+            token_provider: TokenCache::new(mock),
         };
         let result = mdsc.headers(Extensions::new()).await;
         assert!(result.is_err(), "{result:?}");

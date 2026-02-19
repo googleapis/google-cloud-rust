@@ -487,11 +487,9 @@ impl Builder {
     /// [application-default credentials]: https://cloud.google.com/docs/authentication/application-default-credentials
     pub fn build_access_token_credentials(self) -> BuildResult<AccessTokenCredentials> {
         let (token_provider, quota_project_id) = self.build_components()?;
-        let token_provider = TokenCache::new(token_provider);
-
         Ok(AccessTokenCredentials {
             inner: Arc::new(ImpersonatedServiceAccount {
-                token_provider,
+                token_provider: TokenCache::new(token_provider),
                 quota_project_id,
             }),
         })
@@ -576,7 +574,7 @@ impl Builder {
             BuilderSource::FromCredentials(source_credentials) => {
                 build_components_from_credentials(
                     source_credentials,
-                    self.service_account_impersonation_url.clone(),
+                    self.service_account_impersonation_url,
                 )?
             }
         };
@@ -597,7 +595,6 @@ impl Builder {
             lifetime: self.lifetime.unwrap_or(DEFAULT_LIFETIME),
         };
         let token_provider = self.retry_builder.build(token_provider);
-
         Ok((token_provider, quota_project_id))
     }
 }
