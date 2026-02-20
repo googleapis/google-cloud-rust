@@ -180,7 +180,6 @@ async fn write_stripe(
     metadata: &Object,
 ) -> anyhow::Result<()> {
     use google_cloud_storage::model_ext::ReadRange;
-    use std::os::unix::fs::FileExt;
     // ANCHOR_END: write-stripe-function
     // ANCHOR: write-stripe-reader
     let mut reader = client
@@ -201,7 +200,18 @@ async fn write_stripe(
     while let Some(b) = reader.next().await.transpose()? {
         let chunk_len = b.len() as u64;
         let handle = file.clone();
-        tokio::task::spawn_blocking(move || handle.write_all_at(&b, current_pos)).await??;
+        #[cfg(unix)]
+        tokio::task::spawn_blocking(move || {
+            use std::os::unix::fs::FileExt;
+            handle.write_all_at(&b, current_pos)
+        })
+        .await??;
+        #[cfg(windows)]
+        tokio::task::spawn_blocking(move || {
+            use std::os::windows::fs::FileExt;
+            handle.seek_write(&b, current_pos)
+        })
+        .await??;
         current_pos += chunk_len;
     }
     // ANCHOR_END: write-stripe-loop
