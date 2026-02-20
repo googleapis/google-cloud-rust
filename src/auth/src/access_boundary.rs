@@ -81,13 +81,6 @@ impl AccessBoundary {
     }
 
     #[cfg(test)]
-    // only used for testing
-    pub(crate) fn new_noop(val: Option<String>) -> Self {
-        let (_tx, rx_header) = watch::channel(val);
-        Self { rx_header }
-    }
-
-    #[cfg(test)]
     // only used for testing main
     pub(crate) fn new_with_mock_provider<T>(provider: T) -> Self
     where

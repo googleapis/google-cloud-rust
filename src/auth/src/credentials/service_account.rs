@@ -72,7 +72,7 @@
 
 pub(crate) mod jws;
 
-use crate::access_boundary::AccessBoundary;
+use crate::access_boundary::CredentialsWithAccessBoundary;
 use crate::build_errors::Error as BuilderError;
 use crate::constants::DEFAULT_SCOPE;
 use crate::credentials::dynamic::{AccessTokenCredentialsProvider, CredentialsProvider};
@@ -297,7 +297,7 @@ impl Builder {
     ///
     /// [creating service account keys]: https://cloud.google.com/iam/docs/keys-create-delete#creating
     pub fn build(self) -> BuildResult<Credentials> {
-        Ok(self.build_access_token_credentials()?.into())
+        Ok(self.build_credentials()?.into())
     }
 
     /// Returns an [AccessTokenCredentials] instance with the configured settings.
@@ -337,27 +337,29 @@ impl Builder {
     ///
     /// [service account keys]: https://cloud.google.com/iam/docs/keys-create-delete#creating
     pub fn build_access_token_credentials(self) -> BuildResult<AccessTokenCredentials> {
-        let quota_project_id = self.quota_project_id.clone();
+        Ok(self.build_credentials()?.into())
+    }
+
+    fn build_credentials(
+        self,
+    ) -> BuildResult<CredentialsWithAccessBoundary<ServiceAccountCredentials<TokenCache>>> {
         let iam_endpoint = self.iam_endpoint_override.clone();
+        let quota_project_id = self.quota_project_id.clone();
         let token_provider = self.build_token_provider()?;
         let client_email = token_provider.service_account_key.client_email.clone();
-
-        let token_provider = TokenCache::new(token_provider);
         let access_boundary_url = crate::access_boundary::service_account_lookup_url(
             &client_email,
             iam_endpoint.as_deref(),
         );
-        let access_boundary = Arc::new(AccessBoundary::new(
-            token_provider.clone(),
+        let creds = ServiceAccountCredentials {
+            quota_project_id,
+            token_provider: TokenCache::new(token_provider),
+        };
+
+        Ok(CredentialsWithAccessBoundary::new(
+            creds,
             access_boundary_url,
-        ));
-        Ok(AccessTokenCredentials {
-            inner: Arc::new(ServiceAccountCredentials {
-                quota_project_id,
-                token_provider,
-                access_boundary,
-            }),
-        })
+        ))
     }
 
     /// Returns a [crate::signer::Signer] instance with the configured settings.
@@ -486,7 +488,6 @@ where
 {
     token_provider: T,
     quota_project_id: Option<String>,
-    access_boundary: Arc<AccessBoundary>,
 }
 
 #[derive(Debug)]
@@ -598,11 +599,9 @@ where
 {
     async fn headers(&self, extensions: Extensions) -> Result<CacheableResource<HeaderMap>> {
         let token = self.token_provider.token(extensions).await?;
-        let access_boundary = self.access_boundary.header_value();
 
         AuthHeadersBuilder::new(&token)
             .maybe_quota_project_id(self.quota_project_id.as_deref())
-            .maybe_access_boundary(access_boundary.as_deref())
             .build()
     }
 }
@@ -622,7 +621,6 @@ where
 mod tests {
     use super::*;
     use crate::access_boundary::REGIONAL_ACCESS_BOUNDARIES_ENV_VAR;
-    use crate::access_boundary::tests::MockAccessBoundaryProvider;
     use crate::credentials::QUOTA_PROJECT_KEY;
     use crate::credentials::tests::{
         PKCS8_PK, b64_decode_to_json, get_access_boundary_from_headers, get_headers_from_cache,
@@ -696,7 +694,6 @@ mod tests {
         let sac = ServiceAccountCredentials {
             token_provider: TokenCache::new(mock),
             quota_project_id: None,
-            access_boundary: Arc::new(AccessBoundary::new_noop(None)),
         };
 
         let mut extensions = Extensions::new();
@@ -740,7 +737,6 @@ mod tests {
         let sac = ServiceAccountCredentials {
             token_provider: TokenCache::new(mock),
             quota_project_id: Some(quota_project.to_string()),
-            access_boundary: Arc::new(AccessBoundary::new_noop(None)),
         };
 
         let headers = get_headers_from_cache(sac.headers(Extensions::new()).await.unwrap())?;
@@ -769,7 +765,6 @@ mod tests {
         let sac = ServiceAccountCredentials {
             token_provider: TokenCache::new(mock),
             quota_project_id: None,
-            access_boundary: Arc::new(AccessBoundary::new_noop(None)),
         };
         let result = sac.headers(Extensions::new()).await;
         assert!(result.is_err(), "{result:?}");
@@ -1055,68 +1050,6 @@ mod tests {
         assert_eq!(client_email, service_account_key["client_email"]);
 
         let _bytes = signer.sign(b"test").await?;
-
-        Ok(())
-    }
-
-    #[tokio::test(start_paused = true)]
-    #[parallel]
-    async fn fetch_access_token_with_flaky_access_boundary() -> TestResult {
-        let token = Token {
-            token: "test-token".to_string(),
-            token_type: "Bearer".to_string(),
-            expires_at: None,
-            metadata: None,
-        };
-
-        let mut token_mock = MockTokenProvider::new();
-        token_mock.expect_token().times(1).return_once(|| Ok(token));
-
-        let mut access_boundary_mock = MockAccessBoundaryProvider::new();
-        access_boundary_mock
-            .expect_fetch_access_boundary()
-            .times(1)
-            .return_once(|| Err(errors::non_retryable_from_str("fail")));
-
-        access_boundary_mock
-            .expect_fetch_access_boundary()
-            .times(1)
-            .return_once(|| Ok(Some("0x123".to_string())));
-
-        let cache = TokenCache::new(token_mock);
-        let sac = ServiceAccountCredentials {
-            token_provider: cache.clone(),
-            quota_project_id: None,
-            access_boundary: Arc::new(AccessBoundary::new_with_mock_provider(access_boundary_mock)),
-        };
-
-        // should work, even that first access boundary fetch fails
-        let headers = sac.headers(Extensions::new()).await?;
-        let token = get_token_from_headers(headers.clone());
-        let access_boundary = get_access_boundary_from_headers(headers);
-        assert!(
-            token.is_some(),
-            "should be Some even on access boundary startup/error: {token:?}"
-        );
-        assert!(
-            access_boundary.is_none(),
-            "should be None on startup/error: {access_boundary:?}"
-        );
-
-        // advance time so that the access boundary refresh task runs
-        tokio::time::advance(Duration::from_secs(15 * 60)).await;
-        tokio::task::yield_now().await;
-
-        // should work, but now with access boundary
-        let headers = sac.headers(Extensions::new()).await?;
-        let token = get_token_from_headers(headers.clone());
-        let access_boundary = get_access_boundary_from_headers(headers);
-        assert!(token.is_some(), "should still have some token: {token:?}");
-        assert_eq!(
-            access_boundary.as_deref(),
-            Some("0x123"),
-            "should be 0x123 now that the error is gone: {access_boundary:?}"
-        );
 
         Ok(())
     }
