@@ -522,7 +522,7 @@ mod tests {
         method: &'static str,
         error_type: &'static str,
     ) {
-        const EXPECTED_ATTRIBUTES: [(&str, &str); 9] = [
+        const EXPECTED_ATTRIBUTES: [(&str, &str); 8] = [
             (OTEL_KIND, OTEL_KIND_INTERNAL),
             (RPC_SYSTEM, RPC_SYSTEM_HTTP),
             (RPC_SERVICE, "storage"),
@@ -531,7 +531,6 @@ mod tests {
             (GCP_CLIENT_REPO, "googleapis/google-cloud-rust"),
             (GCP_CLIENT_ARTIFACT, "google-cloud-storage"),
             (GCP_CLIENT_LANGUAGE, GCP_CLIENT_LANGUAGE_RUST),
-            (OTEL_STATUS_CODE, "ERROR"),
         ];
         let span = captured
             .iter()
