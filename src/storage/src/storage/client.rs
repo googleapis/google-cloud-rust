@@ -663,12 +663,23 @@ impl ClientBuilder {
         self
     }
 
-    /// Enable debug logs and traces using the [tracing][::tracing] framework.
+    /// Enable debug logs and traces using the [tracing] framework.
     ///
     /// <div class="warning">
-    /// This may log or trace PII information, such as bucket and object names.
-    /// Consult the [tracing][::tracing] framework documentation to set up
-    /// filters and formatters to prevent leaking such information.
+    ///
+    /// Traces at any level may contain sensitive data like bucket names, object
+    /// names, full URLs and error messages. Traces at the `INFO` level follow
+    /// [OpenTelemetry Semantic Conventions] with additional Storage attributes,
+    /// and are intended to be suitable for production monitoring. Traces at
+    /// the `DEBUG` level or lower are meant for detailed debugging and include
+    /// the full content of requests, responses, and the debug information for
+    /// the client.
+    ///
+    /// Review the contents of the traces and consult the [tracing]
+    /// framework documentation to set up filters and formatters to prevent
+    /// leaking sensitive information, depending on your intended use case.
+    ///
+    /// [OpenTelemetry Semantic Conventions]: https://opentelemetry.io/docs/concepts/semantic-conventions/
     /// </div>
     ///
     /// # Example
@@ -690,6 +701,7 @@ impl ClientBuilder {
     /// log events to the console.
     ///
     /// [Enable logging]: https://docs.cloud.google.com/rust/enable-logging
+    /// [tracing]: https://docs.rs/tracing
     pub fn with_tracing(mut self) -> Self {
         self.config.tracing = true;
         self
