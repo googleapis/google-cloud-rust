@@ -31,7 +31,7 @@ use std::collections::VecDeque;
 use std::sync::Arc;
 use tokio::sync::mpsc::UnboundedSender;
 
-/// Represents an open subscribe session.
+/// Represents an open subscribe stream.
 ///
 /// This is a stream-like struct for serving messages to an application.
 ///
@@ -39,17 +39,17 @@ use tokio::sync::mpsc::UnboundedSender;
 /// ```
 /// # use google_cloud_pubsub::client::Subscriber;
 /// # async fn sample(client: Subscriber) -> anyhow::Result<()> {
-/// let mut session = client
+/// let mut stream = client
 ///     .streaming_pull("projects/my-project/subscriptions/my-subscription")
 ///     .start();
-/// while let Some((m, h)) = session.next().await.transpose()? {
+/// while let Some((m, h)) = stream.next().await.transpose()? {
 ///     println!("Received message m={m:?}");
 ///     h.ack();
 /// }
 /// # Ok(()) }
 /// ```
 #[derive(Debug)]
-pub struct Session {
+pub struct MessageStream {
     /// The stub implementing this struct.
     inner: Arc<Transport>,
 
@@ -62,8 +62,8 @@ pub struct Session {
     /// message because tonic will not yield the stream to us until the first
     /// response is available.[^1]
     ///
-    /// The usability of the `Session` API would suffer if creating an instance
-    /// of `Session` is blocked on the first message being available.
+    /// The usability of the `MessageStream` API would suffer if creating an instance
+    /// of `MessageStream` is blocked on the first message being available.
     ///
     /// [^1]: <https://github.com/hyperium/tonic/issues/515>
     stream: Option<Stream<Transport>>,
@@ -91,7 +91,7 @@ pub struct Session {
     _lease_loop: tokio::task::JoinHandle<()>,
 }
 
-impl Session {
+impl MessageStream {
     pub(super) fn new(builder: StreamingPull) -> Self {
         let inner = builder.inner;
         let subscription = builder.subscription;
@@ -144,9 +144,9 @@ impl Session {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_pubsub::subscriber::session::Session;
-    /// # async fn sample(mut session: Session) -> anyhow::Result<()> {
-    /// while let Some((m, h)) = session.next().await.transpose()? {
+    /// # use google_cloud_pubsub::subscriber::MessageStream;
+    /// # async fn sample(mut stream: MessageStream) -> anyhow::Result<()> {
+    /// while let Some((m, h)) = stream.next().await.transpose()? {
     ///     println!("Received message m={m:?}");
     ///     h.ack();
     /// }
@@ -184,7 +184,7 @@ impl Session {
 
     #[cfg(feature = "unstable-stream")]
     #[cfg_attr(docsrs, doc(cfg(feature = "unstable-stream")))]
-    /// Converts the session to a [Stream][futures::Stream].
+    /// Converts the `MessageStream` to a [Stream][futures::Stream].
     pub fn into_stream(self) -> impl futures::Stream<Item = Result<(Message, Handler)>> + Unpin {
         use futures::stream::unfold;
         Box::pin(unfold(Some(self), move |state| async move {
@@ -255,7 +255,7 @@ impl Session {
     }
 
     #[cfg(test)]
-    /// Close the session, awaiting all pending acks and nacks.
+    /// Close the stream, awaiting all pending acks and nacks.
     ///
     /// This is a useful method for setting clean test expectations.
     async fn close(self) -> anyhow::Result<()> {
@@ -328,8 +328,8 @@ mod tests {
             .return_once(|_| Err(TonicStatus::failed_precondition("fail")));
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
-        let mut session = client.streaming_pull("projects/p/subscriptions/s").start();
-        let err = session
+        let mut stream = client.streaming_pull("projects/p/subscriptions/s").start();
+        let err = stream
             .next()
             .await
             .expect("stream should not be empty")
@@ -417,7 +417,7 @@ mod tests {
         });
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
-        let mut session = client.streaming_pull("projects/p/subscriptions/s").start();
+        let mut stream = client.streaming_pull("projects/p/subscriptions/s").start();
 
         response_tx.send(Ok(test_response(1..2))).await?;
         response_tx.send(Ok(test_response(2..4))).await?;
@@ -426,16 +426,16 @@ mod tests {
 
         for i in 1..7 {
             let (m, Handler::AtLeastOnce(h)) =
-                session.next().await.transpose()?.expect("message {i}/6");
+                stream.next().await.transpose()?.expect("message {i}/6");
             assert_eq!(m.data, test_data(i));
             assert_eq!(h.ack_id(), test_id(i));
             h.ack();
         }
-        let end = session.next().await.transpose()?;
+        let end = stream.next().await.transpose()?;
         assert!(end.is_none(), "Received extra message: {end:?}");
 
-        // Wait for the session to join its background tasks.
-        session.close().await?;
+        // Wait for the stream to join its background tasks.
+        stream.close().await?;
 
         // Verify the acks went through.
         let ack_req = ack_rx.try_recv()?;
@@ -474,21 +474,21 @@ mod tests {
         });
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
-        let mut session = client.streaming_pull("projects/p/subscriptions/s").start();
+        let mut stream = client.streaming_pull("projects/p/subscriptions/s").start();
 
         response_tx.send(Ok(test_response(0..30))).await?;
         drop(response_tx);
 
         // Ack some messages
         for i in 0..10 {
-            let Some((_, Handler::AtLeastOnce(h))) = session.next().await.transpose()? else {
+            let Some((_, Handler::AtLeastOnce(h))) = stream.next().await.transpose()? else {
                 anyhow::bail!("expected message {i}")
             };
             h.ack();
         }
         // Nack some messages
         for i in 10..20 {
-            let Some((_, Handler::AtLeastOnce(h))) = session.next().await.transpose()? else {
+            let Some((_, Handler::AtLeastOnce(h))) = stream.next().await.transpose()? else {
                 anyhow::bail!("expected message {i}")
             };
             drop(h);
@@ -496,7 +496,7 @@ mod tests {
         // Take a long time to process some messages
         let mut hold = Vec::new();
         for i in 20..30 {
-            let Some((_, Handler::AtLeastOnce(h))) = session.next().await.transpose()? else {
+            let Some((_, Handler::AtLeastOnce(h))) = stream.next().await.transpose()? else {
                 anyhow::bail!("expected message {i}")
             };
             hold.push(h);
@@ -506,8 +506,8 @@ mod tests {
         // this time, we should attempt at least one lease extension RPC.
         tokio::time::advance(Duration::from_secs(10)).await;
 
-        // Close the session, to make sure pending operations complete.
-        session.close().await?;
+        // Close the stream, to make sure pending operations complete.
+        stream.close().await?;
 
         // Verify the acks went through.
         let ack_req = ack_rx.try_recv()?;
@@ -554,8 +554,8 @@ mod tests {
             .return_once(|_| Ok(TonicResponse::from(response_rx)));
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
-        let mut session = client.streaming_pull("projects/p/subscriptions/s").start();
-        let (m, Handler::AtLeastOnce(h)) = session
+        let mut stream = client.streaming_pull("projects/p/subscriptions/s").start();
+        let (m, Handler::AtLeastOnce(h)) = stream
             .next()
             .await
             .transpose()?
@@ -581,18 +581,18 @@ mod tests {
             .return_once(|_| Ok(TonicResponse::from(response_rx)));
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
-        let mut session = client.streaming_pull("projects/p/subscriptions/s").start();
+        let mut stream = client.streaming_pull("projects/p/subscriptions/s").start();
 
         for i in 1..7 {
             response_tx.send(Ok(test_response(i..i + 1))).await?;
 
             let (m, Handler::AtLeastOnce(h)) =
-                session.next().await.transpose()?.expect("message {i}/6");
+                stream.next().await.transpose()?.expect("message {i}/6");
             assert_eq!(m.data, test_data(i));
             assert_eq!(h.ack_id(), test_id(i));
         }
         drop(response_tx);
-        let end = session.next().await.transpose()?;
+        let end = stream.next().await.transpose()?;
         assert!(end.is_none(), "Received extra message: {end:?}");
 
         Ok(())
@@ -607,7 +607,7 @@ mod tests {
             .return_once(|_| Ok(TonicResponse::from(response_rx)));
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
-        let mut session = client.streaming_pull("projects/p/subscriptions/s").start();
+        let mut stream = client.streaming_pull("projects/p/subscriptions/s").start();
 
         response_tx.send(Ok(test_response(1..2))).await?;
         // See if we can handle an empty range
@@ -617,11 +617,11 @@ mod tests {
 
         for i in 1..3 {
             let (m, Handler::AtLeastOnce(h)) =
-                session.next().await.transpose()?.expect("message {i}/2");
+                stream.next().await.transpose()?.expect("message {i}/2");
             assert_eq!(m.data, test_data(i));
             assert_eq!(h.ack_id(), test_id(i));
         }
-        let end = session.next().await.transpose()?;
+        let end = stream.next().await.transpose()?;
         assert!(end.is_none(), "Received extra message: {end:?}");
 
         Ok(())
@@ -654,7 +654,7 @@ mod tests {
         });
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
-        let mut session = client.streaming_pull("projects/p/subscriptions/s").start();
+        let mut stream = client.streaming_pull("projects/p/subscriptions/s").start();
 
         response_tx.send(Ok(test_response(1..4))).await?;
         // See if we can handle an empty range
@@ -665,20 +665,20 @@ mod tests {
         let mut handlers = Vec::new();
         for i in 1..7 {
             let (m, Handler::AtLeastOnce(h)) =
-                session.next().await.transpose()?.expect("message {i}/6");
+                stream.next().await.transpose()?.expect("message {i}/6");
             assert_eq!(m.data, test_data(i));
             assert_eq!(h.ack_id(), test_id(i));
             handlers.push(h);
         }
-        let end = session.next().await.transpose()?;
+        let end = stream.next().await.transpose()?;
         assert!(end.is_none(), "Received extra message: {end:?}");
 
         // Advance the clock 10s, which is the default stream ack deadline. In
         // this time, we should attempt at least one lease extension RPC.
         tokio::time::advance(Duration::from_secs(10)).await;
 
-        // Close the session, to make sure pending operations complete.
-        session.close().await?;
+        // Close the stream, to make sure pending operations complete.
+        stream.close().await?;
 
         // Verify at least one lease extension attempt was made.
         let extend_req = extend_rx.try_recv()?;
@@ -699,7 +699,7 @@ mod tests {
             .return_once(|_| Ok(TonicResponse::from(response_rx)));
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
-        let mut session = client.streaming_pull("projects/p/subscriptions/s").start();
+        let mut stream = client.streaming_pull("projects/p/subscriptions/s").start();
 
         response_tx.send(Ok(test_response(1..4))).await?;
         response_tx
@@ -709,11 +709,11 @@ mod tests {
 
         for i in 1..4 {
             let (m, Handler::AtLeastOnce(h)) =
-                session.next().await.transpose()?.expect("message {i}/3");
+                stream.next().await.transpose()?.expect("message {i}/3");
             assert_eq!(m.data, test_data(i));
             assert_eq!(h.ack_id(), test_id(i));
         }
-        let err = session
+        let err = stream
             .next()
             .await
             .transpose()
@@ -751,12 +751,14 @@ mod tests {
             });
             Ok(TonicResponse::from(response_rx))
         });
+        mock.expect_modify_ack_deadline()
+            .returning(|_| Ok(TonicResponse::from(())));
 
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
-        let mut session = client.streaming_pull("projects/p/subscriptions/s").start();
+        let mut stream = client.streaming_pull("projects/p/subscriptions/s").start();
         response_tx.send(Ok(test_response(1..4))).await?;
-        let _ = session.next().await;
+        let _ = stream.next().await;
 
         let initial_req = recover_writes_rx
             .recv()
@@ -772,9 +774,9 @@ mod tests {
             .expect("should receive a keepalive request")?;
         assert_eq!(keepalive_req, v1::StreamingPullRequest::default());
 
-        // Drop the session, which should signal a shutdown of the keepalive
+        // Drop the stream, which should signal a shutdown of the keepalive
         // task.
-        drop(session);
+        drop(stream);
 
         // Advance the time far enough to expect a keepalive ping, if the
         // keepalive task was still running.
@@ -865,9 +867,9 @@ mod tests {
 
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
-        let mut session = client.streaming_pull("projects/p/subscriptions/s").start();
+        let mut stream = client.streaming_pull("projects/p/subscriptions/s").start();
 
-        let _ = tokio::time::timeout(TEST_TIMEOUT, session.next())
+        let _ = tokio::time::timeout(TEST_TIMEOUT, stream.next())
             .await
             .expect_err("next() should never yield.");
 
@@ -897,8 +899,8 @@ mod tests {
             .return_once(|_| Err(TonicStatus::failed_precondition("fail")));
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
-        let mut session = client.streaming_pull("projects/p/subscriptions/s").start();
-        let err = session
+        let mut stream = client.streaming_pull("projects/p/subscriptions/s").start();
+        let err = stream
             .next()
             .await
             .expect("stream should not be empty")
@@ -953,7 +955,7 @@ mod tests {
         });
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
-        let mut session = client.streaming_pull("projects/p/subscriptions/s").start();
+        let mut stream = client.streaming_pull("projects/p/subscriptions/s").start();
 
         response_tx_1.send(Ok(test_response(0..10))).await?;
         response_tx_1.send(Ok(test_response(10..20))).await?;
@@ -971,18 +973,18 @@ mod tests {
         drop(response_tx_3);
 
         for i in 0..50 {
-            let (m, h) = session
+            let (m, h) = stream
                 .next()
                 .await
                 .unwrap_or_else(|| panic!("expected message {}/50", i + 1))?;
             assert_eq!(m.data, test_data(i));
             h.ack();
         }
-        let end = session.next().await.transpose()?;
+        let end = stream.next().await.transpose()?;
         assert!(end.is_none(), "Received extra message: {end:?}");
 
-        // Wait for the session to join its background tasks.
-        session.close().await?;
+        // Wait for the stream to join its background tasks.
+        stream.close().await?;
 
         // Verify the acks went through.
         let mut got = Vec::new();
@@ -1025,7 +1027,7 @@ mod tests {
         });
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
-        let mut session = client.streaming_pull("projects/p/subscriptions/s").start();
+        let mut stream = client.streaming_pull("projects/p/subscriptions/s").start();
 
         response_tx.send(Ok(test_response(0..10))).await?;
         response_tx.send(Ok(test_response(10..20))).await?;
@@ -1035,14 +1037,14 @@ mod tests {
         drop(response_tx);
 
         for i in 0..20 {
-            let (m, h) = session
+            let (m, h) = stream
                 .next()
                 .await
                 .unwrap_or_else(|| panic!("expected message {}/20", i + 1))?;
             assert_eq!(m.data, test_data(i));
             h.ack();
         }
-        let err = session
+        let err = stream
             .next()
             .await
             .transpose()
@@ -1055,8 +1057,8 @@ mod tests {
         );
         assert_eq!(status.message, "fail");
 
-        // Wait for the session to join its background tasks.
-        session.close().await?;
+        // Wait for the stream to join its background tasks.
+        stream.close().await?;
 
         // Verify the acks went through.
         let mut got = Vec::new();

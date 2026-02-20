@@ -456,9 +456,7 @@ pub struct AuthProvider {
     ///   will be accepted.
     ///   For example, if no audiences are in the setting, LibraryService API will
     ///   accept JWTs with the following audiences:
-    ///
-    /// <https://library-example.googleapis.com/google.example.library.v1.LibraryService>
-    ///
+    /// - <https://library-example.googleapis.com/google.example.library.v1.LibraryService>
     /// - <https://library-example.googleapis.com/>
     ///
     /// Example:

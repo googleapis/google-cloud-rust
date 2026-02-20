@@ -119,6 +119,21 @@ impl Applications {
     }
 
     /// Gets information about an application.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_appengine_v1::client::Applications;
+    /// use google_cloud_appengine_v1::Result;
+    /// async fn sample(
+    ///    client: &Applications
+    /// ) -> Result<()> {
+    ///     let response = client.get_application()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_application(&self) -> super::builder::applications::GetApplication {
         super::builder::applications::GetApplication::new(self.inner.clone())
     }
@@ -140,6 +155,22 @@ impl Applications {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_appengine_v1::client::Applications;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_appengine_v1::Result;
+    /// async fn sample(
+    ///    client: &Applications
+    /// ) -> Result<()> {
+    ///     let response = client.create_application()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_application(&self) -> super::builder::applications::CreateApplication {
         super::builder::applications::CreateApplication::new(self.inner.clone())
     }
@@ -160,6 +191,22 @@ impl Applications {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_appengine_v1::client::Applications;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_appengine_v1::Result;
+    /// async fn sample(
+    ///    client: &Applications
+    /// ) -> Result<()> {
+    ///     let response = client.update_application()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_application(&self) -> super::builder::applications::UpdateApplication {
         super::builder::applications::UpdateApplication::new(self.inner.clone())
     }
@@ -184,6 +231,22 @@ impl Applications {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_appengine_v1::client::Applications;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_appengine_v1::Result;
+    /// async fn sample(
+    ///    client: &Applications
+    /// ) -> Result<()> {
+    ///     let response = client.repair_application()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn repair_application(&self) -> super::builder::applications::RepairApplication {
         super::builder::applications::RepairApplication::new(self.inner.clone())
     }
@@ -191,6 +254,24 @@ impl Applications {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_appengine_v1::client::Applications;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_appengine_v1::Result;
+    /// async fn sample(
+    ///    client: &Applications
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::applications::ListOperations {
         super::builder::applications::ListOperations::new(self.inner.clone())
     }
@@ -198,6 +279,21 @@ impl Applications {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_appengine_v1::client::Applications;
+    /// use google_cloud_appengine_v1::Result;
+    /// async fn sample(
+    ///    client: &Applications
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::applications::GetOperation {
         super::builder::applications::GetOperation::new(self.inner.clone())
     }
@@ -306,11 +402,44 @@ impl Services {
     }
 
     /// Lists all the services in the application.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_appengine_v1::client::Services;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_appengine_v1::Result;
+    /// async fn sample(
+    ///    client: &Services
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_services()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_services(&self) -> super::builder::services::ListServices {
         super::builder::services::ListServices::new(self.inner.clone())
     }
 
     /// Gets the current configuration of the specified service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_appengine_v1::client::Services;
+    /// use google_cloud_appengine_v1::Result;
+    /// async fn sample(
+    ///    client: &Services
+    /// ) -> Result<()> {
+    ///     let response = client.get_service()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_service(&self) -> super::builder::services::GetService {
         super::builder::services::GetService::new(self.inner.clone())
     }
@@ -326,6 +455,22 @@ impl Services {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_appengine_v1::client::Services;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_appengine_v1::Result;
+    /// async fn sample(
+    ///    client: &Services
+    /// ) -> Result<()> {
+    ///     let response = client.update_service()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_service(&self) -> super::builder::services::UpdateService {
         super::builder::services::UpdateService::new(self.inner.clone())
     }
@@ -341,6 +486,21 @@ impl Services {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_appengine_v1::client::Services;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_appengine_v1::Result;
+    /// async fn sample(
+    ///    client: &Services
+    /// ) -> Result<()> {
+    ///     client.delete_service()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_service(&self) -> super::builder::services::DeleteService {
         super::builder::services::DeleteService::new(self.inner.clone())
     }
@@ -348,6 +508,24 @@ impl Services {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_appengine_v1::client::Services;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_appengine_v1::Result;
+    /// async fn sample(
+    ///    client: &Services
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::services::ListOperations {
         super::builder::services::ListOperations::new(self.inner.clone())
     }
@@ -355,6 +533,21 @@ impl Services {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_appengine_v1::client::Services;
+    /// use google_cloud_appengine_v1::Result;
+    /// async fn sample(
+    ///    client: &Services
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::services::GetOperation {
         super::builder::services::GetOperation::new(self.inner.clone())
     }
@@ -463,6 +656,24 @@ impl Versions {
     }
 
     /// Lists the versions of a service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_appengine_v1::client::Versions;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_appengine_v1::Result;
+    /// async fn sample(
+    ///    client: &Versions
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_versions()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_versions(&self) -> super::builder::versions::ListVersions {
         super::builder::versions::ListVersions::new(self.inner.clone())
     }
@@ -470,6 +681,21 @@ impl Versions {
     /// Gets the specified Version resource.
     /// By default, only a `BASIC_VIEW` will be returned.
     /// Specify the `FULL_VIEW` parameter to get the full resource.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_appengine_v1::client::Versions;
+    /// use google_cloud_appengine_v1::Result;
+    /// async fn sample(
+    ///    client: &Versions
+    /// ) -> Result<()> {
+    ///     let response = client.get_version()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_version(&self) -> super::builder::versions::GetVersion {
         super::builder::versions::GetVersion::new(self.inner.clone())
     }
@@ -485,6 +711,22 @@ impl Versions {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_appengine_v1::client::Versions;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_appengine_v1::Result;
+    /// async fn sample(
+    ///    client: &Versions
+    /// ) -> Result<()> {
+    ///     let response = client.create_version()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_version(&self) -> super::builder::versions::CreateVersion {
         super::builder::versions::CreateVersion::new(self.inner.clone())
     }
@@ -535,6 +777,22 @@ impl Versions {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_appengine_v1::client::Versions;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_appengine_v1::Result;
+    /// async fn sample(
+    ///    client: &Versions
+    /// ) -> Result<()> {
+    ///     let response = client.update_version()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_version(&self) -> super::builder::versions::UpdateVersion {
         super::builder::versions::UpdateVersion::new(self.inner.clone())
     }
@@ -550,6 +808,21 @@ impl Versions {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_appengine_v1::client::Versions;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_appengine_v1::Result;
+    /// async fn sample(
+    ///    client: &Versions
+    /// ) -> Result<()> {
+    ///     client.delete_version()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_version(&self) -> super::builder::versions::DeleteVersion {
         super::builder::versions::DeleteVersion::new(self.inner.clone())
     }
@@ -557,6 +830,24 @@ impl Versions {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_appengine_v1::client::Versions;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_appengine_v1::Result;
+    /// async fn sample(
+    ///    client: &Versions
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::versions::ListOperations {
         super::builder::versions::ListOperations::new(self.inner.clone())
     }
@@ -564,6 +855,21 @@ impl Versions {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_appengine_v1::client::Versions;
+    /// use google_cloud_appengine_v1::Result;
+    /// async fn sample(
+    ///    client: &Versions
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::versions::GetOperation {
         super::builder::versions::GetOperation::new(self.inner.clone())
     }
@@ -675,11 +981,44 @@ impl Instances {
     ///
     /// Tip: To aggregate details about instances over time, see the
     /// [Stackdriver Monitoring API](https://cloud.google.com/monitoring/api/ref_v3/rest/v3/projects.timeSeries/list).
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_appengine_v1::client::Instances;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_appengine_v1::Result;
+    /// async fn sample(
+    ///    client: &Instances, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_instances()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_instances(&self) -> super::builder::instances::ListInstances {
         super::builder::instances::ListInstances::new(self.inner.clone())
     }
 
     /// Gets instance information.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_appengine_v1::client::Instances;
+    /// use google_cloud_appengine_v1::Result;
+    /// async fn sample(
+    ///    client: &Instances
+    /// ) -> Result<()> {
+    ///     let response = client.get_instance()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_instance(&self) -> super::builder::instances::GetInstance {
         super::builder::instances::GetInstance::new(self.inner.clone())
     }
@@ -706,6 +1045,21 @@ impl Instances {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_appengine_v1::client::Instances;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_appengine_v1::Result;
+    /// async fn sample(
+    ///    client: &Instances
+    /// ) -> Result<()> {
+    ///     client.delete_instance()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_instance(&self) -> super::builder::instances::DeleteInstance {
         super::builder::instances::DeleteInstance::new(self.inner.clone())
     }
@@ -728,6 +1082,22 @@ impl Instances {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_appengine_v1::client::Instances;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_appengine_v1::Result;
+    /// async fn sample(
+    ///    client: &Instances
+    /// ) -> Result<()> {
+    ///     let response = client.debug_instance()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn debug_instance(&self) -> super::builder::instances::DebugInstance {
         super::builder::instances::DebugInstance::new(self.inner.clone())
     }
@@ -735,6 +1105,24 @@ impl Instances {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_appengine_v1::client::Instances;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_appengine_v1::Result;
+    /// async fn sample(
+    ///    client: &Instances
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::instances::ListOperations {
         super::builder::instances::ListOperations::new(self.inner.clone())
     }
@@ -742,6 +1130,21 @@ impl Instances {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_appengine_v1::client::Instances;
+    /// use google_cloud_appengine_v1::Result;
+    /// async fn sample(
+    ///    client: &Instances
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::instances::GetOperation {
         super::builder::instances::GetOperation::new(self.inner.clone())
     }
@@ -859,6 +1262,24 @@ impl Firewall {
     }
 
     /// Lists the firewall rules of an application.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_appengine_v1::client::Firewall;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_appengine_v1::Result;
+    /// async fn sample(
+    ///    client: &Firewall
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_ingress_rules()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_ingress_rules(&self) -> super::builder::firewall::ListIngressRules {
         super::builder::firewall::ListIngressRules::new(self.inner.clone())
     }
@@ -868,26 +1289,100 @@ impl Firewall {
     ///
     /// If the final rule does not match traffic with the '*' wildcard IP range,
     /// then an "allow all" rule is explicitly added to the end of the list.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_appengine_v1::client::Firewall;
+    /// use google_cloud_appengine_v1::Result;
+    /// async fn sample(
+    ///    client: &Firewall
+    /// ) -> Result<()> {
+    ///     let response = client.batch_update_ingress_rules()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn batch_update_ingress_rules(&self) -> super::builder::firewall::BatchUpdateIngressRules {
         super::builder::firewall::BatchUpdateIngressRules::new(self.inner.clone())
     }
 
     /// Creates a firewall rule for the application.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_appengine_v1::client::Firewall;
+    /// use google_cloud_appengine_v1::Result;
+    /// async fn sample(
+    ///    client: &Firewall
+    /// ) -> Result<()> {
+    ///     let response = client.create_ingress_rule()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_ingress_rule(&self) -> super::builder::firewall::CreateIngressRule {
         super::builder::firewall::CreateIngressRule::new(self.inner.clone())
     }
 
     /// Gets the specified firewall rule.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_appengine_v1::client::Firewall;
+    /// use google_cloud_appengine_v1::Result;
+    /// async fn sample(
+    ///    client: &Firewall
+    /// ) -> Result<()> {
+    ///     let response = client.get_ingress_rule()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_ingress_rule(&self) -> super::builder::firewall::GetIngressRule {
         super::builder::firewall::GetIngressRule::new(self.inner.clone())
     }
 
     /// Updates the specified firewall rule.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_appengine_v1::client::Firewall;
+    /// use google_cloud_appengine_v1::Result;
+    /// async fn sample(
+    ///    client: &Firewall
+    /// ) -> Result<()> {
+    ///     let response = client.update_ingress_rule()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_ingress_rule(&self) -> super::builder::firewall::UpdateIngressRule {
         super::builder::firewall::UpdateIngressRule::new(self.inner.clone())
     }
 
     /// Deletes the specified firewall rule.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_appengine_v1::client::Firewall;
+    /// use google_cloud_appengine_v1::Result;
+    /// async fn sample(
+    ///    client: &Firewall
+    /// ) -> Result<()> {
+    ///     client.delete_ingress_rule()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_ingress_rule(&self) -> super::builder::firewall::DeleteIngressRule {
         super::builder::firewall::DeleteIngressRule::new(self.inner.clone())
     }
@@ -895,6 +1390,24 @@ impl Firewall {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_appengine_v1::client::Firewall;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_appengine_v1::Result;
+    /// async fn sample(
+    ///    client: &Firewall
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::firewall::ListOperations {
         super::builder::firewall::ListOperations::new(self.inner.clone())
     }
@@ -902,6 +1415,21 @@ impl Firewall {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_appengine_v1::client::Firewall;
+    /// use google_cloud_appengine_v1::Result;
+    /// async fn sample(
+    ///    client: &Firewall
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::firewall::GetOperation {
         super::builder::firewall::GetOperation::new(self.inner.clone())
     }
@@ -1013,6 +1541,24 @@ impl AuthorizedDomains {
     }
 
     /// Lists all domains the user is authorized to administer.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_appengine_v1::client::AuthorizedDomains;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_appengine_v1::Result;
+    /// async fn sample(
+    ///    client: &AuthorizedDomains
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_authorized_domains()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_authorized_domains(
         &self,
     ) -> super::builder::authorized_domains::ListAuthorizedDomains {
@@ -1022,6 +1568,24 @@ impl AuthorizedDomains {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_appengine_v1::client::AuthorizedDomains;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_appengine_v1::Result;
+    /// async fn sample(
+    ///    client: &AuthorizedDomains
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::authorized_domains::ListOperations {
         super::builder::authorized_domains::ListOperations::new(self.inner.clone())
     }
@@ -1029,6 +1593,21 @@ impl AuthorizedDomains {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_appengine_v1::client::AuthorizedDomains;
+    /// use google_cloud_appengine_v1::Result;
+    /// async fn sample(
+    ///    client: &AuthorizedDomains
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::authorized_domains::GetOperation {
         super::builder::authorized_domains::GetOperation::new(self.inner.clone())
     }
@@ -1139,6 +1718,24 @@ impl AuthorizedCertificates {
     }
 
     /// Lists all SSL certificates the user is authorized to administer.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_appengine_v1::client::AuthorizedCertificates;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_appengine_v1::Result;
+    /// async fn sample(
+    ///    client: &AuthorizedCertificates
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_authorized_certificates()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_authorized_certificates(
         &self,
     ) -> super::builder::authorized_certificates::ListAuthorizedCertificates {
@@ -1146,6 +1743,21 @@ impl AuthorizedCertificates {
     }
 
     /// Gets the specified SSL certificate.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_appengine_v1::client::AuthorizedCertificates;
+    /// use google_cloud_appengine_v1::Result;
+    /// async fn sample(
+    ///    client: &AuthorizedCertificates
+    /// ) -> Result<()> {
+    ///     let response = client.get_authorized_certificate()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_authorized_certificate(
         &self,
     ) -> super::builder::authorized_certificates::GetAuthorizedCertificate {
@@ -1153,6 +1765,21 @@ impl AuthorizedCertificates {
     }
 
     /// Uploads the specified SSL certificate.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_appengine_v1::client::AuthorizedCertificates;
+    /// use google_cloud_appengine_v1::Result;
+    /// async fn sample(
+    ///    client: &AuthorizedCertificates
+    /// ) -> Result<()> {
+    ///     let response = client.create_authorized_certificate()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_authorized_certificate(
         &self,
     ) -> super::builder::authorized_certificates::CreateAuthorizedCertificate {
@@ -1166,6 +1793,21 @@ impl AuthorizedCertificates {
     /// certificate. The new certificate must be applicable to the same domains as
     /// the original certificate. The certificate `display_name` may also be
     /// updated.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_appengine_v1::client::AuthorizedCertificates;
+    /// use google_cloud_appengine_v1::Result;
+    /// async fn sample(
+    ///    client: &AuthorizedCertificates
+    /// ) -> Result<()> {
+    ///     let response = client.update_authorized_certificate()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_authorized_certificate(
         &self,
     ) -> super::builder::authorized_certificates::UpdateAuthorizedCertificate {
@@ -1175,6 +1817,20 @@ impl AuthorizedCertificates {
     }
 
     /// Deletes the specified SSL certificate.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_appengine_v1::client::AuthorizedCertificates;
+    /// use google_cloud_appengine_v1::Result;
+    /// async fn sample(
+    ///    client: &AuthorizedCertificates
+    /// ) -> Result<()> {
+    ///     client.delete_authorized_certificate()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_authorized_certificate(
         &self,
     ) -> super::builder::authorized_certificates::DeleteAuthorizedCertificate {
@@ -1186,6 +1842,24 @@ impl AuthorizedCertificates {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_appengine_v1::client::AuthorizedCertificates;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_appengine_v1::Result;
+    /// async fn sample(
+    ///    client: &AuthorizedCertificates
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::authorized_certificates::ListOperations {
         super::builder::authorized_certificates::ListOperations::new(self.inner.clone())
     }
@@ -1193,6 +1867,21 @@ impl AuthorizedCertificates {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_appengine_v1::client::AuthorizedCertificates;
+    /// use google_cloud_appengine_v1::Result;
+    /// async fn sample(
+    ///    client: &AuthorizedCertificates
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::authorized_certificates::GetOperation {
         super::builder::authorized_certificates::GetOperation::new(self.inner.clone())
     }
@@ -1301,11 +1990,44 @@ impl DomainMappings {
     }
 
     /// Lists the domain mappings on an application.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_appengine_v1::client::DomainMappings;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_appengine_v1::Result;
+    /// async fn sample(
+    ///    client: &DomainMappings
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_domain_mappings()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_domain_mappings(&self) -> super::builder::domain_mappings::ListDomainMappings {
         super::builder::domain_mappings::ListDomainMappings::new(self.inner.clone())
     }
 
     /// Gets the specified domain mapping.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_appengine_v1::client::DomainMappings;
+    /// use google_cloud_appengine_v1::Result;
+    /// async fn sample(
+    ///    client: &DomainMappings
+    /// ) -> Result<()> {
+    ///     let response = client.get_domain_mapping()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_domain_mapping(&self) -> super::builder::domain_mappings::GetDomainMapping {
         super::builder::domain_mappings::GetDomainMapping::new(self.inner.clone())
     }
@@ -1323,6 +2045,22 @@ impl DomainMappings {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_appengine_v1::client::DomainMappings;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_appengine_v1::Result;
+    /// async fn sample(
+    ///    client: &DomainMappings
+    /// ) -> Result<()> {
+    ///     let response = client.create_domain_mapping()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_domain_mapping(&self) -> super::builder::domain_mappings::CreateDomainMapping {
         super::builder::domain_mappings::CreateDomainMapping::new(self.inner.clone())
     }
@@ -1341,6 +2079,22 @@ impl DomainMappings {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_appengine_v1::client::DomainMappings;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_appengine_v1::Result;
+    /// async fn sample(
+    ///    client: &DomainMappings
+    /// ) -> Result<()> {
+    ///     let response = client.update_domain_mapping()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_domain_mapping(&self) -> super::builder::domain_mappings::UpdateDomainMapping {
         super::builder::domain_mappings::UpdateDomainMapping::new(self.inner.clone())
     }
@@ -1358,6 +2112,21 @@ impl DomainMappings {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_appengine_v1::client::DomainMappings;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_appengine_v1::Result;
+    /// async fn sample(
+    ///    client: &DomainMappings
+    /// ) -> Result<()> {
+    ///     client.delete_domain_mapping()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_domain_mapping(&self) -> super::builder::domain_mappings::DeleteDomainMapping {
         super::builder::domain_mappings::DeleteDomainMapping::new(self.inner.clone())
     }
@@ -1365,6 +2134,24 @@ impl DomainMappings {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_appengine_v1::client::DomainMappings;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_appengine_v1::Result;
+    /// async fn sample(
+    ///    client: &DomainMappings
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::domain_mappings::ListOperations {
         super::builder::domain_mappings::ListOperations::new(self.inner.clone())
     }
@@ -1372,6 +2159,21 @@ impl DomainMappings {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_appengine_v1::client::DomainMappings;
+    /// use google_cloud_appengine_v1::Result;
+    /// async fn sample(
+    ///    client: &DomainMappings
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::domain_mappings::GetOperation {
         super::builder::domain_mappings::GetOperation::new(self.inner.clone())
     }

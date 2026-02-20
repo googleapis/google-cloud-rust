@@ -120,6 +120,10 @@ impl std::fmt::Debug for super::AutokeyConfig {
         debug_struct.field("key_project", &self.key_project);
         debug_struct.field("state", &self.state);
         debug_struct.field("etag", &self.etag);
+        debug_struct.field(
+            "key_project_resolution_mode",
+            &self.key_project_resolution_mode,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -946,6 +950,20 @@ impl std::fmt::Debug for super::KeyAccessJustificationsPolicy {
     }
 }
 
+impl std::fmt::Debug for super::RetiredResource {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RetiredResource");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("original_resource", &self.original_resource);
+        debug_struct.field("resource_type", &self.resource_type);
+        debug_struct.field("delete_time", &self.delete_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::ListKeyRingsRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListKeyRingsRequest");
@@ -1008,6 +1026,19 @@ impl std::fmt::Debug for super::ListImportJobsRequest {
     }
 }
 
+impl std::fmt::Debug for super::ListRetiredResourcesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListRetiredResourcesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::ListKeyRingsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListKeyRingsResponse");
@@ -1051,6 +1082,19 @@ impl std::fmt::Debug for super::ListImportJobsResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListImportJobsResponse");
         debug_struct.field("import_jobs", &self.import_jobs);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("total_size", &self.total_size);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ListRetiredResourcesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListRetiredResourcesResponse");
+        debug_struct.field("retired_resources", &self.retired_resources);
         debug_struct.field("next_page_token", &self.next_page_token);
         debug_struct.field("total_size", &self.total_size);
         if !self._unknown_fields.is_empty() {
@@ -1116,6 +1160,17 @@ impl std::fmt::Debug for super::GetImportJobRequest {
     }
 }
 
+impl std::fmt::Debug for super::GetRetiredResourceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetRetiredResourceRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::CreateKeyRingRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CreateKeyRingRequest");
@@ -1151,6 +1206,28 @@ impl std::fmt::Debug for super::CreateCryptoKeyVersionRequest {
         let mut debug_struct = f.debug_struct("CreateCryptoKeyVersionRequest");
         debug_struct.field("parent", &self.parent);
         debug_struct.field("crypto_key_version", &self.crypto_key_version);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::DeleteCryptoKeyRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteCryptoKeyRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::DeleteCryptoKeyVersionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteCryptoKeyVersionRequest");
+        debug_struct.field("name", &self.name);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1626,6 +1703,27 @@ impl std::fmt::Debug for super::LocationMetadata {
             "hsm_single_tenant_available",
             &self.hsm_single_tenant_available,
         );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::DeleteCryptoKeyMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteCryptoKeyMetadata");
+        debug_struct.field("retired_resource", &self.retired_resource);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::DeleteCryptoKeyVersionMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteCryptoKeyVersionMetadata");
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

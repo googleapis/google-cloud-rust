@@ -12,46 +12,69 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::credentials::CacheableResource;
+use crate::constants::TRUST_BOUNDARY_HEADER;
+use crate::credentials::{
+    AccessToken, AccessTokenCredentialsProvider, CacheableResource, CredentialsProvider, dynamic,
+};
 use crate::errors::CredentialsError;
-use crate::headers_util::AuthHeadersBuilder;
-use crate::token::CachedTokenProvider;
-use http::Extensions;
+use crate::{Result, errors};
+use http::{Extensions, HeaderMap, HeaderValue};
 use reqwest::Client;
 use std::clone::Clone;
 use std::fmt::Debug;
 use std::sync::Arc;
 use tokio::sync::watch;
-use tokio::time::{Duration, sleep};
+use tokio::time::{Duration, Instant, sleep};
 
 pub(crate) const REGIONAL_ACCESS_BOUNDARIES_ENV_VAR: &str = "GOOGLE_AUTH_ENABLE_TRUST_BOUNDARIES";
 const NO_OP_ENCODED_LOCATIONS: &str = "0x0";
 
+#[allow(dead_code)]
 // TTL: 6 hours
 const DEFAULT_TTL: Duration = Duration::from_secs(6 * 60 * 60);
-// Refresh interval: every hour
-const REFRESH_INTERVAL: Duration = Duration::from_secs(60 * 60);
+// Refresh slack: an hour before the TTL expires
+const REFRESH_SLACK: Duration = Duration::from_secs(60 * 60);
 // Period to wait after an error: 15 minutes
 const COOLDOWN_INTERVAL: Duration = Duration::from_secs(15 * 60);
 
 #[derive(Debug)]
-pub(crate) struct AccessBoundary {
-    rx_header: watch::Receiver<Option<String>>,
+struct AccessBoundary {
+    /// A channel to keep track of the boundary state.
+    /// - `None`: We haven't fetched anything yet (uninitialized).
+    /// - `Some(...)`: We successfully talked to the IAM service or have a customer provided override.
+    ///   These values come with a TTL so we know how long to keep them around.
+    rx_header: watch::Receiver<Option<BoundaryValue>>,
+}
+
+#[derive(Debug, Clone)]
+struct BoundaryValue {
+    /// This is an `Option` because the IAM service can signal that the
+    /// given credential has no access boundary. In that case, we save it as `None`
+    /// (along with the TTL in `expires_at`) so we don't repeatedly
+    /// fetch a non-existent boundary.
+    value: Option<String>,
+    expires_at: Instant,
+}
+
+impl BoundaryValue {
+    fn new(value: Option<String>) -> Self {
+        Self {
+            value,
+            expires_at: Instant::now() + DEFAULT_TTL,
+        }
+    }
 }
 
 impl AccessBoundary {
-    pub(crate) fn new<T>(token_provider: T, url: String) -> Self
+    fn new<T>(credentials: Arc<T>, url: String) -> Self
     where
-        T: CachedTokenProvider + 'static,
+        T: dynamic::AccessTokenCredentialsProvider + 'static,
     {
         let (tx_header, rx_header) = watch::channel(None);
 
         if Self::is_enabled() {
-            let provider = IAMAccessBoundaryProvider {
-                token_provider,
-                url,
-            };
-            tokio::spawn(refresh_task(Arc::new(provider), tx_header));
+            let provider = IAMAccessBoundaryProvider { credentials, url };
+            tokio::spawn(refresh_task(provider, tx_header));
         }
 
         Self { rx_header }
@@ -65,13 +88,13 @@ impl AccessBoundary {
     }
 
     #[cfg(test)]
-    // only used for testing
+    // only used for testing main
     pub(crate) fn new_with_mock_provider<T>(provider: T) -> Self
     where
         T: AccessBoundaryProvider + 'static,
     {
         let (tx_header, rx_header) = watch::channel(None);
-        tokio::spawn(refresh_task(Arc::new(provider), tx_header));
+        tokio::spawn(refresh_task(provider, tx_header));
         Self { rx_header }
     }
 
@@ -83,40 +106,105 @@ impl AccessBoundary {
     }
 
     pub(crate) fn header_value(&self) -> Option<String> {
-        // TODO(#4186): handle expiration. Each new entry should have TTL per design doc.
         let val = self.rx_header.borrow().clone();
-        if val.as_ref().is_some_and(|v| v == NO_OP_ENCODED_LOCATIONS) {
-            return None;
+        val.filter(|b| b.expires_at >= Instant::now()) // fail open if expired
+            .and_then(|b| b.value)
+            .filter(|v| v != NO_OP_ENCODED_LOCATIONS)
+    }
+}
+
+/// A decorator for [crate::credentials::AccessTokenCredentialsProvider] with access boundary information.
+#[derive(Clone, Debug)]
+pub(crate) struct CredentialsWithAccessBoundary<T>
+where
+    T: dynamic::AccessTokenCredentialsProvider + 'static,
+{
+    credentials: Arc<T>,
+    access_boundary: Arc<AccessBoundary>,
+}
+
+impl<T> CredentialsWithAccessBoundary<T>
+where
+    T: dynamic::AccessTokenCredentialsProvider + 'static,
+{
+    pub(crate) fn new(credentials: T, access_boundary_url: String) -> Self {
+        let credentials = Arc::new(credentials);
+        let access_boundary = Arc::new(AccessBoundary::new(
+            credentials.clone(),
+            access_boundary_url,
+        ));
+        Self {
+            credentials,
+            access_boundary,
         }
-        val
+    }
+}
+
+/// Decorates Credentials and AccessTokenCredentials with access boundary information.
+impl<T> CredentialsProvider for CredentialsWithAccessBoundary<T>
+where
+    T: dynamic::AccessTokenCredentialsProvider + 'static,
+{
+    async fn headers(&self, extensions: Extensions) -> Result<CacheableResource<HeaderMap>> {
+        let cached_headers = self.credentials.headers(extensions).await?;
+
+        // TODO(#4186): cache our own entity tag for access boundaries and avoid extra computations
+        let (entity_tag, mut headers) = match cached_headers {
+            CacheableResource::New { entity_tag, data } => (entity_tag, data),
+            CacheableResource::NotModified => return Ok(CacheableResource::NotModified),
+        };
+
+        if let Some(value) = self.access_boundary.header_value() {
+            headers.insert(
+                TRUST_BOUNDARY_HEADER,
+                HeaderValue::from_str(&value).map_err(errors::non_retryable)?,
+            );
+        }
+
+        Ok(CacheableResource::New {
+            entity_tag,
+            data: headers,
+        })
+    }
+
+    async fn universe_domain(&self) -> Option<String> {
+        self.credentials.universe_domain().await
+    }
+}
+
+impl<T> AccessTokenCredentialsProvider for CredentialsWithAccessBoundary<T>
+where
+    T: dynamic::AccessTokenCredentialsProvider + 'static,
+{
+    async fn access_token(&self) -> Result<AccessToken> {
+        self.credentials.access_token().await
     }
 }
 
 // internal trait for testability and avoid dependency on reqwest
 // which causes issues with tokio::time::advance and tokio::task::yield_now
-
 #[async_trait::async_trait]
 pub(crate) trait AccessBoundaryProvider: std::fmt::Debug + Send + Sync {
-    async fn fetch_access_boundary(&self) -> Result<Option<String>, CredentialsError>;
+    async fn fetch_access_boundary(&self) -> Result<Option<String>>;
 }
 
 // default implementation that uses IAM Access Boundaries API
 #[derive(Debug)]
 struct IAMAccessBoundaryProvider<T>
 where
-    T: CachedTokenProvider + 'static,
+    T: dynamic::AccessTokenCredentialsProvider + 'static,
 {
-    token_provider: T,
+    credentials: Arc<T>,
     url: String,
 }
 
 #[async_trait::async_trait]
 impl<T> AccessBoundaryProvider for IAMAccessBoundaryProvider<T>
 where
-    T: CachedTokenProvider + 'static,
+    T: dynamic::AccessTokenCredentialsProvider + 'static,
 {
-    async fn fetch_access_boundary(&self) -> Result<Option<String>, CredentialsError> {
-        fetch_access_boundary(&self.token_provider, &self.url).await
+    async fn fetch_access_boundary(&self) -> Result<Option<String>> {
+        fetch_access_boundary(self.credentials.as_ref(), &self.url).await
     }
 }
 
@@ -128,15 +216,11 @@ struct AllowedLocationsResponse {
     encoded_locations: String,
 }
 
-async fn fetch_access_boundary<T>(
-    token_provider: &T,
-    url: &str,
-) -> Result<Option<String>, CredentialsError>
+async fn fetch_access_boundary<T>(credentials: &T, url: &str) -> Result<Option<String>>
 where
-    T: CachedTokenProvider + 'static,
+    T: dynamic::AccessTokenCredentialsProvider + 'static,
 {
-    let token = token_provider.token(Extensions::new()).await?;
-    let headers = AuthHeadersBuilder::new(&token).build()?;
+    let headers = credentials.headers(Extensions::new()).await?;
     let headers = match headers {
         CacheableResource::New { data, .. } => data,
         CacheableResource::NotModified => {
@@ -173,15 +257,15 @@ where
     Ok(None)
 }
 
-async fn refresh_task<T>(provider: Arc<T>, tx_header: watch::Sender<Option<String>>)
+async fn refresh_task<T>(provider: T, tx_header: watch::Sender<Option<BoundaryValue>>)
 where
     T: AccessBoundaryProvider,
 {
     loop {
         match provider.fetch_access_boundary().await {
             Ok(val) => {
-                let _ = tx_header.send(val);
-                sleep(REFRESH_INTERVAL).await;
+                let _ = tx_header.send(Some(BoundaryValue::new(val)));
+                sleep(DEFAULT_TTL - REFRESH_SLACK).await
             }
             Err(_e) => {
                 sleep(COOLDOWN_INTERVAL).await;
@@ -201,17 +285,32 @@ pub(crate) fn service_account_lookup_url(
 #[cfg(test)]
 pub(crate) mod tests {
     use super::*;
-    use crate::token::Token;
-    use crate::token::tests::MockTokenProvider;
-    use crate::token_cache::TokenCache;
+    use crate::credentials::tests::{get_access_boundary_from_headers, get_token_from_headers};
+    use crate::credentials::{AccessToken, EntityTag};
+    use http::header::{AUTHORIZATION, HeaderValue};
+    use http::{Extensions, HeaderMap};
     use httptest::{Expectation, Server, matchers::*, responders::*};
     use scoped_env::ScopedEnv;
     use serde_json::json;
     use serial_test::{parallel, serial};
-    use std::sync::Arc;
     use test_case::test_case;
 
     type TestResult = anyhow::Result<()>;
+
+    // Used by tests in other modules.
+    mockall::mock! {
+        #[derive(Debug)]
+        Credentials {}
+
+        impl CredentialsProvider for Credentials {
+            async fn headers(&self, extensions: Extensions) -> Result<CacheableResource<HeaderMap>>;
+            async fn universe_domain(&self) -> Option<String>;
+        }
+
+        impl AccessTokenCredentialsProvider for Credentials {
+            async fn access_token(&self) -> Result<AccessToken>;
+        }
+    }
 
     // Used by tests in other modules.
     mockall::mock! {
@@ -220,7 +319,7 @@ pub(crate) mod tests {
 
         #[async_trait::async_trait]
         impl AccessBoundaryProvider for AccessBoundaryProvider {
-            async fn fetch_access_boundary(&self) -> Result<Option<String>, CredentialsError>;
+            async fn fetch_access_boundary(&self) -> Result<Option<String>>;
         }
     }
 
@@ -234,8 +333,9 @@ pub(crate) mod tests {
     }
 
     #[tokio::test]
-    #[parallel]
+    #[serial]
     async fn test_fetch_access_boundary_success() -> TestResult {
+        let _env = ScopedEnv::set(REGIONAL_ACCESS_BOUNDARIES_ENV_VAR, "true");
         let server = Server::run();
         server.expect(
             Expectation::matching(request::method_path("GET", "/allowedLocations")).respond_with(
@@ -248,21 +348,33 @@ pub(crate) mod tests {
             ),
         );
 
-        let mut mock = MockTokenProvider::new();
-        mock.expect_token().returning(|| {
-            Ok(Token {
-                token: "test-token".into(),
-                token_type: "Bearer".into(),
-                expires_at: None,
-                metadata: None,
+        let mut mock = MockCredentials::new();
+        mock.expect_headers().returning(|_extensions| {
+            let headers = HeaderMap::from_iter([(
+                AUTHORIZATION,
+                HeaderValue::from_static("Bearer test-token"),
+            )]);
+            Ok(CacheableResource::New {
+                entity_tag: EntityTag::default(),
+                data: headers,
             })
         });
-
-        let token_provider = TokenCache::new(mock);
         let url = server.url("/allowedLocations").to_string();
 
-        let result = fetch_access_boundary(&token_provider, &url).await?;
-        assert_eq!(result.as_deref(), Some("0x123"), "{result:?}");
+        let creds = CredentialsWithAccessBoundary::new(mock, url);
+
+        // wait for the background task to fetch the access boundary.
+        tokio::time::sleep(std::time::Duration::from_secs(1)).await;
+
+        let cached_headers = creds.headers(Extensions::new()).await?;
+        let token = get_token_from_headers(cached_headers.clone());
+        assert!(token.is_some(), "{token:?}");
+        let access_boundary = get_access_boundary_from_headers(cached_headers);
+        assert_eq!(
+            access_boundary.as_deref(),
+            Some("0x123"),
+            "{access_boundary:?}"
+        );
 
         Ok(())
     }
@@ -280,20 +392,20 @@ pub(crate) mod tests {
             ),
         );
 
-        let mut mock = MockTokenProvider::new();
-        mock.expect_token().returning(|| {
-            Ok(Token {
-                token: "test-token".into(),
-                token_type: "Bearer".into(),
-                expires_at: None,
-                metadata: None,
+        let mut mock = MockCredentials::new();
+        mock.expect_headers().return_once(|_extensions| {
+            let headers = HeaderMap::from_iter([(
+                AUTHORIZATION,
+                HeaderValue::from_static("Bearer test-token"),
+            )]);
+            Ok(CacheableResource::New {
+                entity_tag: EntityTag::default(),
+                data: headers,
             })
         });
-
-        let token_provider = TokenCache::new(mock);
         let url = server.url("/allowedLocations").to_string();
 
-        let val = fetch_access_boundary(&token_provider, &url).await?;
+        let val = fetch_access_boundary(&mock, &url).await?;
         assert!(val.is_none(), "{val:?}");
 
         Ok(())
@@ -308,20 +420,21 @@ pub(crate) mod tests {
                 .respond_with(status_code(503)),
         );
 
-        let mut mock = MockTokenProvider::new();
-        mock.expect_token().returning(|| {
-            Ok(Token {
-                token: "test-token".into(),
-                token_type: "Bearer".into(),
-                expires_at: None,
-                metadata: None,
+        let mut mock = MockCredentials::new();
+        mock.expect_headers().return_once(|_extensions| {
+            let headers = HeaderMap::from_iter([(
+                AUTHORIZATION,
+                HeaderValue::from_static("Bearer test-token"),
+            )]);
+            Ok(CacheableResource::New {
+                entity_tag: EntityTag::default(),
+                data: headers,
             })
         });
 
-        let token_provider = TokenCache::new(mock);
         let url = server.url("/allowedLocations").to_string();
 
-        let result = fetch_access_boundary(&token_provider, &url).await;
+        let result = fetch_access_boundary(&mock, &url).await;
         let err = result.unwrap_err();
         assert!(err.is_transient(), "{err:?}");
     }
@@ -329,52 +442,58 @@ pub(crate) mod tests {
     #[tokio::test]
     #[parallel]
     async fn test_fetch_access_boundary_token_error() {
-        let mut mock = MockTokenProvider::new();
-        mock.expect_token().returning(|| {
+        let mut mock = MockCredentials::new();
+        mock.expect_headers().return_once(|_extensions| {
             Err(CredentialsError::from_msg(
                 false,
                 "invalid creds".to_string(),
             ))
         });
 
-        let token_provider = TokenCache::new(mock);
-        let result = fetch_access_boundary(&token_provider, "http://localhost").await;
+        let result = fetch_access_boundary(&mock, "http://localhost").await;
         let err = result.unwrap_err();
         assert!(!err.is_transient(), "{err:?}");
     }
 
     #[tokio::test]
     #[serial]
-    async fn test_access_boundary_new_disabled() {
+    async fn test_access_boundary_new_disabled() -> TestResult {
         let _env = ScopedEnv::remove(REGIONAL_ACCESS_BOUNDARIES_ENV_VAR);
 
-        let mut mock = MockTokenProvider::new();
-        mock.expect_token().returning(|| {
-            Ok(Token {
-                token: "test-token".into(),
-                token_type: "Bearer".into(),
-                expires_at: None,
-                metadata: None,
+        let mut mock = MockCredentials::new();
+        mock.expect_headers().return_once(|_extensions| {
+            let headers = HeaderMap::from_iter([(
+                AUTHORIZATION,
+                HeaderValue::from_static("Bearer test-token"),
+            )]);
+            Ok(CacheableResource::New {
+                entity_tag: EntityTag::default(),
+                data: headers,
             })
         });
+        let creds = CredentialsWithAccessBoundary::new(mock, "http://localhost".to_string());
 
-        let token_provider = TokenCache::new(mock);
-        let access_boundary = AccessBoundary::new(token_provider, "http://localhost".to_string());
+        let cached_headers = creds.headers(Extensions::new()).await?;
+        let token = get_token_from_headers(cached_headers.clone());
+        assert!(token.is_some(), "{token:?}");
+        let access_boundary = get_access_boundary_from_headers(cached_headers);
+        assert!(access_boundary.is_none(), "{access_boundary:?}");
 
-        let val = access_boundary.header_value();
-        assert!(val.is_none(), "{val:?}");
+        Ok(())
     }
 
-    #[test]
+    #[tokio::test]
     #[parallel]
-    fn test_access_boundary_header_value_no_op() {
+    async fn test_access_boundary_header_value_no_op() {
         let (tx, rx_header) = watch::channel(None);
         let access_boundary = AccessBoundary { rx_header };
 
-        let _ = tx.send(Some("0x123".to_string()));
+        let _ = tx.send(Some(BoundaryValue::new(Some("0x123".to_string()))));
         assert_eq!(access_boundary.header_value().as_deref(), Some("0x123"));
 
-        let _ = tx.send(Some(NO_OP_ENCODED_LOCATIONS.to_string()));
+        let _ = tx.send(Some(BoundaryValue::new(Some(
+            NO_OP_ENCODED_LOCATIONS.to_string(),
+        ))));
         let val = access_boundary.header_value();
         assert!(val.is_none(), "{val:?}");
 
@@ -424,10 +543,10 @@ pub(crate) mod tests {
             .times(1)
             .return_once(|| Ok(Some("0x123".to_string())));
 
-        let (tx, rx) = watch::channel::<Option<String>>(None);
+        let (tx, rx) = watch::channel::<Option<BoundaryValue>>(None);
 
         tokio::spawn(async move {
-            refresh_task(Arc::new(mock_provider), tx).await;
+            refresh_task(mock_provider, tx).await;
         });
 
         // allow task to start and fail the first request
@@ -452,6 +571,71 @@ pub(crate) mod tests {
         tokio::task::yield_now().await;
 
         let val = rx.borrow().clone();
-        assert_eq!(val.as_deref(), Some("0x123"));
+        let val = val.as_ref().and_then(|v| v.value.as_deref());
+        assert_eq!(val, Some("0x123"), "{val:?}");
+    }
+
+    #[tokio::test(start_paused = true)]
+    #[parallel]
+    async fn expired_access_boundary_returns_none() {
+        let (tx, rx_header) = watch::channel::<Option<BoundaryValue>>(None);
+        let access_boundary = AccessBoundary { rx_header };
+
+        let ttl = Duration::from_secs(10);
+        let expires_at = Instant::now() + ttl;
+        let _ = tx.send(Some(BoundaryValue {
+            value: Some("old-value".to_string()),
+            expires_at,
+        }));
+
+        // value is valid
+        let val = access_boundary.header_value();
+        assert_eq!(val.as_deref(), Some("old-value"), "{val:?}");
+
+        // advance time plus some buffer to expire the value
+        tokio::time::advance(ttl + Duration::from_secs(1)).await;
+
+        // value should return None if expired (non-blocking)
+        let val = access_boundary.header_value();
+        assert!(val.is_none(), "{val:?}");
+
+        // update with new value
+        let _ = tx.send(Some(BoundaryValue::new(Some("new-value".to_string()))));
+
+        let val = access_boundary.header_value();
+        assert_eq!(val.as_deref(), Some("new-value"), "{val:?}");
+    }
+
+    #[tokio::test(start_paused = true)]
+    #[parallel]
+    async fn access_boundary_provider_refreshes() {
+        let mut mock_provider = MockAccessBoundaryProvider::new();
+
+        mock_provider
+            .expect_fetch_access_boundary()
+            .times(1)
+            .returning(|| Ok(Some("old-value".to_string())));
+
+        mock_provider
+            .expect_fetch_access_boundary()
+            .times(1)
+            .returning(|| Ok(Some("new-value".to_string())));
+
+        let access_boundary = AccessBoundary::new_with_mock_provider(mock_provider);
+
+        // allow task to start and fail the first request
+        tokio::time::advance(Duration::from_secs(2)).await;
+        tokio::task::yield_now().await;
+
+        // value is valid
+        let val = access_boundary.header_value();
+        assert_eq!(val.as_deref(), Some("old-value"), "{val:?}");
+
+        // advance time beyond the time to refresh
+        tokio::time::advance(DEFAULT_TTL).await;
+        tokio::task::yield_now().await;
+
+        let val = access_boundary.header_value();
+        assert_eq!(val.as_deref(), Some("new-value"), "{val:?}");
     }
 }

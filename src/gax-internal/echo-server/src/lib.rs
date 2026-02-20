@@ -30,9 +30,7 @@ use serde_json::json;
 use std::collections::HashMap;
 use tokio::task::JoinHandle;
 
-type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;
-
-pub async fn start() -> Result<(String, JoinHandle<()>)> {
+pub async fn start() -> anyhow::Result<(String, JoinHandle<()>)> {
     let app = axum::Router::new()
         .route("/echo", axum::routing::get(echo))
         .route("/error", axum::routing::get(error));
@@ -58,7 +56,7 @@ impl ClientFactory for Factory {
     }
 }
 
-pub fn make_status() -> Result<Status> {
+pub fn make_status() -> anyhow::Result<Status> {
     let value = make_status_value()?;
     let payload = bytes::Bytes::from_owner(value.to_string());
     let status = Status::try_from(&payload)?;
@@ -76,7 +74,7 @@ async fn echo(
     }
 }
 
-async fn echo_impl(query: HashMap<String, String>, headers: HeaderMap) -> Result<String> {
+async fn echo_impl(query: HashMap<String, String>, headers: HeaderMap) -> anyhow::Result<String> {
     if let Some(delay) = query
         .get("delay_ms")
         .map(|s| s.parse::<u64>())
@@ -114,12 +112,12 @@ async fn error(
 async fn error_impl(
     _query: HashMap<String, String>,
     _headers: HeaderMap,
-) -> Result<(StatusCode, String)> {
+) -> anyhow::Result<(StatusCode, String)> {
     let status = make_status_value()?;
     Ok((StatusCode::BAD_REQUEST, status.to_string()))
 }
 
-fn make_status_value() -> Result<serde_json::Value> {
+fn make_status_value() -> anyhow::Result<serde_json::Value> {
     let details = StatusDetails::BadRequest(BadRequest::default().set_field_violations(
         vec![FieldViolation::default()
             .set_field( "field" )
@@ -136,8 +134,7 @@ fn make_status_value() -> Result<serde_json::Value> {
     Ok(status)
 }
 
-fn headers_to_json(headers: HeaderMap) -> Result<serde_json::Value> {
-    let to_dyn = |e| -> Box<dyn std::error::Error + 'static> { Box::new(e) };
+fn headers_to_json(headers: HeaderMap) -> anyhow::Result<serde_json::Value> {
     let headers = headers
         .into_iter()
         .map(|(k, v)| {
@@ -147,12 +144,14 @@ fn headers_to_json(headers: HeaderMap) -> Result<serde_json::Value> {
             )
         })
         .map(|(k, v)| v.map(|s| (k, s)))
-        .map(|r| r.map_err(to_dyn))
-        .collect::<Result<Vec<_>>>()?;
+        .collect::<Result<Vec<_>, _>>()?;
 
     Ok(serde_json::Value::Object(headers.into_iter().collect()))
 }
 
-fn internal_error(e: Box<dyn std::error::Error>) -> (StatusCode, String) {
-    (StatusCode::INTERNAL_SERVER_ERROR, format!("{e}"))
+fn internal_error<E>(e: E) -> (StatusCode, String)
+where
+    E: std::fmt::Debug,
+{
+    (StatusCode::INTERNAL_SERVER_ERROR, format!("{e:?}"))
 }

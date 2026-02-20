@@ -120,16 +120,68 @@ impl CloudScheduler {
     }
 
     /// Lists jobs.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_scheduler_v1::client::CloudScheduler;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_scheduler_v1::Result;
+    /// async fn sample(
+    ///    client: &CloudScheduler, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_jobs()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_jobs(&self) -> super::builder::cloud_scheduler::ListJobs {
         super::builder::cloud_scheduler::ListJobs::new(self.inner.clone())
     }
 
     /// Gets a job.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_scheduler_v1::client::CloudScheduler;
+    /// use google_cloud_scheduler_v1::Result;
+    /// async fn sample(
+    ///    client: &CloudScheduler, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_job()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_job(&self) -> super::builder::cloud_scheduler::GetJob {
         super::builder::cloud_scheduler::GetJob::new(self.inner.clone())
     }
 
     /// Creates a job.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_scheduler_v1::client::CloudScheduler;
+    /// use google_cloud_scheduler_v1::model::Job;
+    /// use google_cloud_scheduler_v1::Result;
+    /// async fn sample(
+    ///    client: &CloudScheduler, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_job()
+    ///         .set_parent(parent)
+    ///         .set_job(
+    ///             Job::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_job(&self) -> super::builder::cloud_scheduler::CreateJob {
         super::builder::cloud_scheduler::CreateJob::new(self.inner.clone())
     }
@@ -147,11 +199,46 @@ impl CloudScheduler {
     ///
     /// [google.cloud.scheduler.v1.Job]: crate::model::Job
     /// [google.cloud.scheduler.v1.Job.State.UPDATE_FAILED]: crate::model::job::State::UpdateFailed
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_scheduler_v1::client::CloudScheduler;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_scheduler_v1::model::Job;
+    /// use google_cloud_scheduler_v1::Result;
+    /// async fn sample(
+    ///    client: &CloudScheduler, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_job()
+    ///         .set_job(
+    ///             Job::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_job(&self) -> super::builder::cloud_scheduler::UpdateJob {
         super::builder::cloud_scheduler::UpdateJob::new(self.inner.clone())
     }
 
     /// Deletes a job.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_scheduler_v1::client::CloudScheduler;
+    /// use google_cloud_scheduler_v1::Result;
+    /// async fn sample(
+    ///    client: &CloudScheduler, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_job()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_job(&self) -> super::builder::cloud_scheduler::DeleteJob {
         super::builder::cloud_scheduler::DeleteJob::new(self.inner.clone())
     }
@@ -171,6 +258,21 @@ impl CloudScheduler {
     /// [google.cloud.scheduler.v1.Job.State.ENABLED]: crate::model::job::State::Enabled
     /// [google.cloud.scheduler.v1.Job.State.PAUSED]: crate::model::job::State::Paused
     /// [google.cloud.scheduler.v1.Job.state]: crate::model::Job::state
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_scheduler_v1::client::CloudScheduler;
+    /// use google_cloud_scheduler_v1::Result;
+    /// async fn sample(
+    ///    client: &CloudScheduler
+    /// ) -> Result<()> {
+    ///     let response = client.pause_job()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn pause_job(&self) -> super::builder::cloud_scheduler::PauseJob {
         super::builder::cloud_scheduler::PauseJob::new(self.inner.clone())
     }
@@ -188,6 +290,21 @@ impl CloudScheduler {
     /// [google.cloud.scheduler.v1.Job.State.ENABLED]: crate::model::job::State::Enabled
     /// [google.cloud.scheduler.v1.Job.State.PAUSED]: crate::model::job::State::Paused
     /// [google.cloud.scheduler.v1.Job.state]: crate::model::Job::state
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_scheduler_v1::client::CloudScheduler;
+    /// use google_cloud_scheduler_v1::Result;
+    /// async fn sample(
+    ///    client: &CloudScheduler
+    /// ) -> Result<()> {
+    ///     let response = client.resume_job()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn resume_job(&self) -> super::builder::cloud_scheduler::ResumeJob {
         super::builder::cloud_scheduler::ResumeJob::new(self.inner.clone())
     }
@@ -196,16 +313,64 @@ impl CloudScheduler {
     ///
     /// When this method is called, Cloud Scheduler will dispatch the job, even
     /// if the job is already running.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_scheduler_v1::client::CloudScheduler;
+    /// use google_cloud_scheduler_v1::Result;
+    /// async fn sample(
+    ///    client: &CloudScheduler
+    /// ) -> Result<()> {
+    ///     let response = client.run_job()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn run_job(&self) -> super::builder::cloud_scheduler::RunJob {
         super::builder::cloud_scheduler::RunJob::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_scheduler_v1::client::CloudScheduler;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_scheduler_v1::Result;
+    /// async fn sample(
+    ///    client: &CloudScheduler
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::cloud_scheduler::ListLocations {
         super::builder::cloud_scheduler::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_scheduler_v1::client::CloudScheduler;
+    /// use google_cloud_scheduler_v1::Result;
+    /// async fn sample(
+    ///    client: &CloudScheduler
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::cloud_scheduler::GetLocation {
         super::builder::cloud_scheduler::GetLocation::new(self.inner.clone())
     }

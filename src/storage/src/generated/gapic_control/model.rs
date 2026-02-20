@@ -963,6 +963,128 @@ impl wkt::message::Message for RenameFolderRequest {
     }
 }
 
+/// Request message for DeleteFolderRecursive.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeleteFolderRecursiveRequest {
+    /// Required. Name of the folder being deleted, however all of its contents
+    /// will be deleted too. Format:
+    /// `projects/{project}/buckets/{bucket}/folders/{folder}`
+    pub name: std::string::String,
+
+    /// Optional. Makes the operation only succeed conditional on whether the root
+    /// folder's current metageneration matches the given value.
+    pub if_metageneration_match: std::option::Option<i64>,
+
+    /// Optional. Makes the operation only succeed conditional on whether the root
+    /// folder's current metageneration does not match the given value.
+    pub if_metageneration_not_match: std::option::Option<i64>,
+
+    /// Optional. A unique identifier for this request. UUID is the recommended
+    /// format, but other formats are still accepted.
+    pub request_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteFolderRecursiveRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteFolderRecursiveRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::DeleteFolderRecursiveRequest;
+    /// let x = DeleteFolderRecursiveRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [if_metageneration_match][crate::model::DeleteFolderRecursiveRequest::if_metageneration_match].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::DeleteFolderRecursiveRequest;
+    /// let x = DeleteFolderRecursiveRequest::new().set_if_metageneration_match(42);
+    /// ```
+    pub fn set_if_metageneration_match<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.if_metageneration_match = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [if_metageneration_match][crate::model::DeleteFolderRecursiveRequest::if_metageneration_match].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::DeleteFolderRecursiveRequest;
+    /// let x = DeleteFolderRecursiveRequest::new().set_or_clear_if_metageneration_match(Some(42));
+    /// let x = DeleteFolderRecursiveRequest::new().set_or_clear_if_metageneration_match(None::<i32>);
+    /// ```
+    pub fn set_or_clear_if_metageneration_match<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.if_metageneration_match = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [if_metageneration_not_match][crate::model::DeleteFolderRecursiveRequest::if_metageneration_not_match].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::DeleteFolderRecursiveRequest;
+    /// let x = DeleteFolderRecursiveRequest::new().set_if_metageneration_not_match(42);
+    /// ```
+    pub fn set_if_metageneration_not_match<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.if_metageneration_not_match = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [if_metageneration_not_match][crate::model::DeleteFolderRecursiveRequest::if_metageneration_not_match].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::DeleteFolderRecursiveRequest;
+    /// let x = DeleteFolderRecursiveRequest::new().set_or_clear_if_metageneration_not_match(Some(42));
+    /// let x = DeleteFolderRecursiveRequest::new().set_or_clear_if_metageneration_not_match(None::<i32>);
+    /// ```
+    pub fn set_or_clear_if_metageneration_not_match<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.if_metageneration_not_match = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::DeleteFolderRecursiveRequest::request_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::DeleteFolderRecursiveRequest;
+    /// let x = DeleteFolderRecursiveRequest::new().set_request_id("example");
+    /// ```
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteFolderRecursiveRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.storage.control.v2.DeleteFolderRecursiveRequest"
+    }
+}
+
 /// The message contains metadata that is common to all Storage Control
 /// long-running operations, present in its `google.longrunning.Operation`
 /// messages, and accessible via `metadata.common_metadata`.
@@ -1227,6 +1349,77 @@ impl RenameFolderMetadata {
 impl wkt::message::Message for RenameFolderMetadata {
     fn typename() -> &'static str {
         "type.googleapis.com/google.storage.control.v2.RenameFolderMetadata"
+    }
+}
+
+/// Message returned in the metadata field of the Operation resource for
+/// DeleteFolderRecursive operations.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeleteFolderRecursiveMetadata {
+    /// Generic metadata for the long running operation.
+    pub common_metadata: std::option::Option<crate::model::CommonLongRunningOperationMetadata>,
+
+    /// The path of the folder recursively deleted.
+    pub folder_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteFolderRecursiveMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [common_metadata][crate::model::DeleteFolderRecursiveMetadata::common_metadata].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::DeleteFolderRecursiveMetadata;
+    /// use google_cloud_storage::model::CommonLongRunningOperationMetadata;
+    /// let x = DeleteFolderRecursiveMetadata::new().set_common_metadata(CommonLongRunningOperationMetadata::default()/* use setters */);
+    /// ```
+    pub fn set_common_metadata<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CommonLongRunningOperationMetadata>,
+    {
+        self.common_metadata = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [common_metadata][crate::model::DeleteFolderRecursiveMetadata::common_metadata].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::DeleteFolderRecursiveMetadata;
+    /// use google_cloud_storage::model::CommonLongRunningOperationMetadata;
+    /// let x = DeleteFolderRecursiveMetadata::new().set_or_clear_common_metadata(Some(CommonLongRunningOperationMetadata::default()/* use setters */));
+    /// let x = DeleteFolderRecursiveMetadata::new().set_or_clear_common_metadata(None::<CommonLongRunningOperationMetadata>);
+    /// ```
+    pub fn set_or_clear_common_metadata<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::CommonLongRunningOperationMetadata>,
+    {
+        self.common_metadata = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [folder_id][crate::model::DeleteFolderRecursiveMetadata::folder_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storage::model::DeleteFolderRecursiveMetadata;
+    /// let x = DeleteFolderRecursiveMetadata::new().set_folder_id("example");
+    /// ```
+    pub fn set_folder_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.folder_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteFolderRecursiveMetadata {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.storage.control.v2.DeleteFolderRecursiveMetadata"
     }
 }
 

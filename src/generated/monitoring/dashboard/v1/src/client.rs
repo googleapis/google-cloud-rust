@@ -126,6 +126,25 @@ impl DashboardsService {
     /// method requires the `monitoring.dashboards.create` permission on the
     /// specified project. For more information about permissions, see [Cloud
     /// Identity and Access Management](https://cloud.google.com/iam).
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::client::DashboardsService;
+    /// use google_cloud_monitoring_dashboard_v1::model::Dashboard;
+    /// use google_cloud_monitoring_dashboard_v1::Result;
+    /// async fn sample(
+    ///    client: &DashboardsService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_dashboard()
+    ///         .set_parent(parent)
+    ///         .set_dashboard(
+    ///             Dashboard::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_dashboard(&self) -> super::builder::dashboards_service::CreateDashboard {
         super::builder::dashboards_service::CreateDashboard::new(self.inner.clone())
     }
@@ -135,6 +154,24 @@ impl DashboardsService {
     /// This method requires the `monitoring.dashboards.list` permission
     /// on the specified project. For more information, see
     /// [Cloud Identity and Access Management](https://cloud.google.com/iam).
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::client::DashboardsService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_monitoring_dashboard_v1::Result;
+    /// async fn sample(
+    ///    client: &DashboardsService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_dashboards()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_dashboards(&self) -> super::builder::dashboards_service::ListDashboards {
         super::builder::dashboards_service::ListDashboards::new(self.inner.clone())
     }
@@ -144,6 +181,21 @@ impl DashboardsService {
     /// This method requires the `monitoring.dashboards.get` permission
     /// on the specified dashboard. For more information, see
     /// [Cloud Identity and Access Management](https://cloud.google.com/iam).
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::client::DashboardsService;
+    /// use google_cloud_monitoring_dashboard_v1::Result;
+    /// async fn sample(
+    ///    client: &DashboardsService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_dashboard()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_dashboard(&self) -> super::builder::dashboards_service::GetDashboard {
         super::builder::dashboards_service::GetDashboard::new(self.inner.clone())
     }
@@ -153,6 +205,20 @@ impl DashboardsService {
     /// This method requires the `monitoring.dashboards.delete` permission
     /// on the specified dashboard. For more information, see
     /// [Cloud Identity and Access Management](https://cloud.google.com/iam).
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::client::DashboardsService;
+    /// use google_cloud_monitoring_dashboard_v1::Result;
+    /// async fn sample(
+    ///    client: &DashboardsService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_dashboard()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_dashboard(&self) -> super::builder::dashboards_service::DeleteDashboard {
         super::builder::dashboards_service::DeleteDashboard::new(self.inner.clone())
     }
@@ -162,6 +228,24 @@ impl DashboardsService {
     /// This method requires the `monitoring.dashboards.update` permission
     /// on the specified dashboard. For more information, see
     /// [Cloud Identity and Access Management](https://cloud.google.com/iam).
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::client::DashboardsService;
+    /// use google_cloud_monitoring_dashboard_v1::model::Dashboard;
+    /// use google_cloud_monitoring_dashboard_v1::Result;
+    /// async fn sample(
+    ///    client: &DashboardsService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_dashboard()
+    ///         .set_dashboard(
+    ///             Dashboard::new().set_name(name)/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_dashboard(&self) -> super::builder::dashboards_service::UpdateDashboard {
         super::builder::dashboards_service::UpdateDashboard::new(self.inner.clone())
     }

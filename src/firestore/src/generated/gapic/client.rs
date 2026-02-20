@@ -126,36 +126,142 @@ impl Firestore {
     }
 
     /// Gets a single document.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore::client::Firestore;
+    /// use google_cloud_firestore::Result;
+    /// async fn sample(
+    ///    client: &Firestore
+    /// ) -> Result<()> {
+    ///     let response = client.get_document()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_document(&self) -> super::builder::firestore::GetDocument {
         super::builder::firestore::GetDocument::new(self.inner.clone())
     }
 
     /// Lists documents.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore::client::Firestore;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_firestore::Result;
+    /// async fn sample(
+    ///    client: &Firestore
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_documents()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_documents(&self) -> super::builder::firestore::ListDocuments {
         super::builder::firestore::ListDocuments::new(self.inner.clone())
     }
 
     /// Updates or inserts a document.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore::client::Firestore;
+    /// use google_cloud_firestore::Result;
+    /// async fn sample(
+    ///    client: &Firestore
+    /// ) -> Result<()> {
+    ///     let response = client.update_document()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_document(&self) -> super::builder::firestore::UpdateDocument {
         super::builder::firestore::UpdateDocument::new(self.inner.clone())
     }
 
     /// Deletes a document.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore::client::Firestore;
+    /// use google_cloud_firestore::Result;
+    /// async fn sample(
+    ///    client: &Firestore
+    /// ) -> Result<()> {
+    ///     client.delete_document()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_document(&self) -> super::builder::firestore::DeleteDocument {
         super::builder::firestore::DeleteDocument::new(self.inner.clone())
     }
 
     /// Starts a new transaction.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore::client::Firestore;
+    /// use google_cloud_firestore::Result;
+    /// async fn sample(
+    ///    client: &Firestore
+    /// ) -> Result<()> {
+    ///     let response = client.begin_transaction()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn begin_transaction(&self) -> super::builder::firestore::BeginTransaction {
         super::builder::firestore::BeginTransaction::new(self.inner.clone())
     }
 
     /// Commits a transaction, while optionally updating documents.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore::client::Firestore;
+    /// use google_cloud_firestore::Result;
+    /// async fn sample(
+    ///    client: &Firestore
+    /// ) -> Result<()> {
+    ///     let response = client.commit()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn commit(&self) -> super::builder::firestore::Commit {
         super::builder::firestore::Commit::new(self.inner.clone())
     }
 
     /// Rolls back a transaction.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore::client::Firestore;
+    /// use google_cloud_firestore::Result;
+    /// async fn sample(
+    ///    client: &Firestore
+    /// ) -> Result<()> {
+    ///     client.rollback()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn rollback(&self) -> super::builder::firestore::Rollback {
         super::builder::firestore::Rollback::new(self.inner.clone())
     }
@@ -163,11 +269,44 @@ impl Firestore {
     /// Partitions a query by returning partition cursors that can be used to run
     /// the query in parallel. The returned partition cursors are split points that
     /// can be used by RunQuery as starting/end points for the query results.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore::client::Firestore;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_firestore::Result;
+    /// async fn sample(
+    ///    client: &Firestore
+    /// ) -> Result<()> {
+    ///     let mut list = client.partition_query()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn partition_query(&self) -> super::builder::firestore::PartitionQuery {
         super::builder::firestore::PartitionQuery::new(self.inner.clone())
     }
 
     /// Lists all the collection IDs underneath a document.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore::client::Firestore;
+    /// use google_cloud_firestore::Result;
+    /// async fn sample(
+    ///    client: &Firestore
+    /// ) -> Result<()> {
+    ///     let response = client.list_collection_ids()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_collection_ids(&self) -> super::builder::firestore::ListCollectionIds {
         super::builder::firestore::ListCollectionIds::new(self.inner.clone())
     }
@@ -185,11 +324,41 @@ impl Firestore {
     ///
     /// [google.firestore.v1.BatchWriteResponse]: crate::model::BatchWriteResponse
     /// [google.firestore.v1.Firestore.Commit]: crate::client::Firestore::commit
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore::client::Firestore;
+    /// use google_cloud_firestore::Result;
+    /// async fn sample(
+    ///    client: &Firestore
+    /// ) -> Result<()> {
+    ///     let response = client.batch_write()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn batch_write(&self) -> super::builder::firestore::BatchWrite {
         super::builder::firestore::BatchWrite::new(self.inner.clone())
     }
 
     /// Creates a new document.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore::client::Firestore;
+    /// use google_cloud_firestore::Result;
+    /// async fn sample(
+    ///    client: &Firestore
+    /// ) -> Result<()> {
+    ///     let response = client.create_document()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_document(&self) -> super::builder::firestore::CreateDocument {
         super::builder::firestore::CreateDocument::new(self.inner.clone())
     }

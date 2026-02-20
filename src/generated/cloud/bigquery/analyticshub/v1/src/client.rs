@@ -125,12 +125,48 @@ impl AnalyticsHubService {
     }
 
     /// Lists all data exchanges in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_analyticshub_v1::client::AnalyticsHubService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_bigquery_analyticshub_v1::Result;
+    /// async fn sample(
+    ///    client: &AnalyticsHubService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_data_exchanges()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_data_exchanges(&self) -> super::builder::analytics_hub_service::ListDataExchanges {
         super::builder::analytics_hub_service::ListDataExchanges::new(self.inner.clone())
     }
 
     /// Lists all data exchanges from projects in a given organization and
     /// location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_analyticshub_v1::client::AnalyticsHubService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_bigquery_analyticshub_v1::Result;
+    /// async fn sample(
+    ///    client: &AnalyticsHubService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_org_data_exchanges()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_org_data_exchanges(
         &self,
     ) -> super::builder::analytics_hub_service::ListOrgDataExchanges {
@@ -138,11 +174,45 @@ impl AnalyticsHubService {
     }
 
     /// Gets the details of a data exchange.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_analyticshub_v1::client::AnalyticsHubService;
+    /// use google_cloud_bigquery_analyticshub_v1::Result;
+    /// async fn sample(
+    ///    client: &AnalyticsHubService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_data_exchange()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_data_exchange(&self) -> super::builder::analytics_hub_service::GetDataExchange {
         super::builder::analytics_hub_service::GetDataExchange::new(self.inner.clone())
     }
 
     /// Creates a new data exchange.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_analyticshub_v1::client::AnalyticsHubService;
+    /// use google_cloud_bigquery_analyticshub_v1::model::DataExchange;
+    /// use google_cloud_bigquery_analyticshub_v1::Result;
+    /// async fn sample(
+    ///    client: &AnalyticsHubService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_data_exchange()
+    ///         .set_parent(parent)
+    ///         .set_data_exchange(
+    ///             DataExchange::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_data_exchange(
         &self,
     ) -> super::builder::analytics_hub_service::CreateDataExchange {
@@ -150,6 +220,27 @@ impl AnalyticsHubService {
     }
 
     /// Updates an existing data exchange.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_analyticshub_v1::client::AnalyticsHubService;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_bigquery_analyticshub_v1::model::DataExchange;
+    /// use google_cloud_bigquery_analyticshub_v1::Result;
+    /// async fn sample(
+    ///    client: &AnalyticsHubService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_data_exchange()
+    ///         .set_data_exchange(
+    ///             DataExchange::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_data_exchange(
         &self,
     ) -> super::builder::analytics_hub_service::UpdateDataExchange {
@@ -157,6 +248,20 @@ impl AnalyticsHubService {
     }
 
     /// Deletes an existing data exchange.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_analyticshub_v1::client::AnalyticsHubService;
+    /// use google_cloud_bigquery_analyticshub_v1::Result;
+    /// async fn sample(
+    ///    client: &AnalyticsHubService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_data_exchange()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_data_exchange(
         &self,
     ) -> super::builder::analytics_hub_service::DeleteDataExchange {
@@ -164,26 +269,113 @@ impl AnalyticsHubService {
     }
 
     /// Lists all listings in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_analyticshub_v1::client::AnalyticsHubService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_bigquery_analyticshub_v1::Result;
+    /// async fn sample(
+    ///    client: &AnalyticsHubService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_listings()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_listings(&self) -> super::builder::analytics_hub_service::ListListings {
         super::builder::analytics_hub_service::ListListings::new(self.inner.clone())
     }
 
     /// Gets the details of a listing.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_analyticshub_v1::client::AnalyticsHubService;
+    /// use google_cloud_bigquery_analyticshub_v1::Result;
+    /// async fn sample(
+    ///    client: &AnalyticsHubService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_listing()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_listing(&self) -> super::builder::analytics_hub_service::GetListing {
         super::builder::analytics_hub_service::GetListing::new(self.inner.clone())
     }
 
     /// Creates a new listing.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_analyticshub_v1::client::AnalyticsHubService;
+    /// use google_cloud_bigquery_analyticshub_v1::model::Listing;
+    /// use google_cloud_bigquery_analyticshub_v1::Result;
+    /// async fn sample(
+    ///    client: &AnalyticsHubService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_listing()
+    ///         .set_parent(parent).set_listing_id("listing_id_value")
+    ///         .set_listing(
+    ///             Listing::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_listing(&self) -> super::builder::analytics_hub_service::CreateListing {
         super::builder::analytics_hub_service::CreateListing::new(self.inner.clone())
     }
 
     /// Updates an existing listing.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_analyticshub_v1::client::AnalyticsHubService;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_bigquery_analyticshub_v1::model::Listing;
+    /// use google_cloud_bigquery_analyticshub_v1::Result;
+    /// async fn sample(
+    ///    client: &AnalyticsHubService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_listing()
+    ///         .set_listing(
+    ///             Listing::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_listing(&self) -> super::builder::analytics_hub_service::UpdateListing {
         super::builder::analytics_hub_service::UpdateListing::new(self.inner.clone())
     }
 
     /// Deletes a listing.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_analyticshub_v1::client::AnalyticsHubService;
+    /// use google_cloud_bigquery_analyticshub_v1::Result;
+    /// async fn sample(
+    ///    client: &AnalyticsHubService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_listing()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_listing(&self) -> super::builder::analytics_hub_service::DeleteListing {
         super::builder::analytics_hub_service::DeleteListing::new(self.inner.clone())
     }
@@ -194,6 +386,21 @@ impl AnalyticsHubService {
     /// reference only BigQuery datasets.
     /// Upon subscription to a listing for a BigQuery dataset, Analytics Hub
     /// creates a linked dataset in the subscriber's project.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_analyticshub_v1::client::AnalyticsHubService;
+    /// use google_cloud_bigquery_analyticshub_v1::Result;
+    /// async fn sample(
+    ///    client: &AnalyticsHubService
+    /// ) -> Result<()> {
+    ///     let response = client.subscribe_listing()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn subscribe_listing(&self) -> super::builder::analytics_hub_service::SubscribeListing {
         super::builder::analytics_hub_service::SubscribeListing::new(self.inner.clone())
     }
@@ -212,6 +419,22 @@ impl AnalyticsHubService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_analyticshub_v1::client::AnalyticsHubService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_bigquery_analyticshub_v1::Result;
+    /// async fn sample(
+    ///    client: &AnalyticsHubService
+    /// ) -> Result<()> {
+    ///     let response = client.subscribe_data_exchange()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn subscribe_data_exchange(
         &self,
     ) -> super::builder::analytics_hub_service::SubscribeDataExchange {
@@ -231,6 +454,22 @@ impl AnalyticsHubService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_analyticshub_v1::client::AnalyticsHubService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_bigquery_analyticshub_v1::Result;
+    /// async fn sample(
+    ///    client: &AnalyticsHubService
+    /// ) -> Result<()> {
+    ///     let response = client.refresh_subscription()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn refresh_subscription(
         &self,
     ) -> super::builder::analytics_hub_service::RefreshSubscription {
@@ -238,16 +477,67 @@ impl AnalyticsHubService {
     }
 
     /// Gets the details of a Subscription.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_analyticshub_v1::client::AnalyticsHubService;
+    /// use google_cloud_bigquery_analyticshub_v1::Result;
+    /// async fn sample(
+    ///    client: &AnalyticsHubService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_subscription()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_subscription(&self) -> super::builder::analytics_hub_service::GetSubscription {
         super::builder::analytics_hub_service::GetSubscription::new(self.inner.clone())
     }
 
     /// Lists all subscriptions in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_analyticshub_v1::client::AnalyticsHubService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_bigquery_analyticshub_v1::Result;
+    /// async fn sample(
+    ///    client: &AnalyticsHubService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_subscriptions()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_subscriptions(&self) -> super::builder::analytics_hub_service::ListSubscriptions {
         super::builder::analytics_hub_service::ListSubscriptions::new(self.inner.clone())
     }
 
     /// Lists all subscriptions on a given Data Exchange or Listing.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_analyticshub_v1::client::AnalyticsHubService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_bigquery_analyticshub_v1::Result;
+    /// async fn sample(
+    ///    client: &AnalyticsHubService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_shared_resource_subscriptions()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_shared_resource_subscriptions(
         &self,
     ) -> super::builder::analytics_hub_service::ListSharedResourceSubscriptions {
@@ -257,6 +547,21 @@ impl AnalyticsHubService {
     }
 
     /// Revokes a given subscription.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_analyticshub_v1::client::AnalyticsHubService;
+    /// use google_cloud_bigquery_analyticshub_v1::Result;
+    /// async fn sample(
+    ///    client: &AnalyticsHubService
+    /// ) -> Result<()> {
+    ///     let response = client.revoke_subscription()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn revoke_subscription(&self) -> super::builder::analytics_hub_service::RevokeSubscription {
         super::builder::analytics_hub_service::RevokeSubscription::new(self.inner.clone())
     }
@@ -272,21 +577,81 @@ impl AnalyticsHubService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_analyticshub_v1::client::AnalyticsHubService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_bigquery_analyticshub_v1::Result;
+    /// async fn sample(
+    ///    client: &AnalyticsHubService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_subscription()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_subscription(&self) -> super::builder::analytics_hub_service::DeleteSubscription {
         super::builder::analytics_hub_service::DeleteSubscription::new(self.inner.clone())
     }
 
     /// Gets the IAM policy.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_analyticshub_v1::client::AnalyticsHubService;
+    /// use google_cloud_bigquery_analyticshub_v1::Result;
+    /// async fn sample(
+    ///    client: &AnalyticsHubService
+    /// ) -> Result<()> {
+    ///     let response = client.get_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::analytics_hub_service::GetIamPolicy {
         super::builder::analytics_hub_service::GetIamPolicy::new(self.inner.clone())
     }
 
     /// Sets the IAM policy.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_analyticshub_v1::client::AnalyticsHubService;
+    /// use google_cloud_bigquery_analyticshub_v1::Result;
+    /// async fn sample(
+    ///    client: &AnalyticsHubService
+    /// ) -> Result<()> {
+    ///     let response = client.set_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::analytics_hub_service::SetIamPolicy {
         super::builder::analytics_hub_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Returns the permissions that a caller has.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_analyticshub_v1::client::AnalyticsHubService;
+    /// use google_cloud_bigquery_analyticshub_v1::Result;
+    /// async fn sample(
+    ///    client: &AnalyticsHubService
+    /// ) -> Result<()> {
+    ///     let response = client.test_iam_permissions()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(
         &self,
     ) -> super::builder::analytics_hub_service::TestIamPermissions {
@@ -294,6 +659,25 @@ impl AnalyticsHubService {
     }
 
     /// Creates a new QueryTemplate
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_analyticshub_v1::client::AnalyticsHubService;
+    /// use google_cloud_bigquery_analyticshub_v1::model::QueryTemplate;
+    /// use google_cloud_bigquery_analyticshub_v1::Result;
+    /// async fn sample(
+    ///    client: &AnalyticsHubService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_query_template()
+    ///         .set_parent(parent)
+    ///         .set_query_template(
+    ///             QueryTemplate::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_query_template(
         &self,
     ) -> super::builder::analytics_hub_service::CreateQueryTemplate {
@@ -301,11 +685,44 @@ impl AnalyticsHubService {
     }
 
     /// Gets a QueryTemplate
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_analyticshub_v1::client::AnalyticsHubService;
+    /// use google_cloud_bigquery_analyticshub_v1::Result;
+    /// async fn sample(
+    ///    client: &AnalyticsHubService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_query_template()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_query_template(&self) -> super::builder::analytics_hub_service::GetQueryTemplate {
         super::builder::analytics_hub_service::GetQueryTemplate::new(self.inner.clone())
     }
 
     /// Lists all QueryTemplates in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_analyticshub_v1::client::AnalyticsHubService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_bigquery_analyticshub_v1::Result;
+    /// async fn sample(
+    ///    client: &AnalyticsHubService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_query_templates()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_query_templates(
         &self,
     ) -> super::builder::analytics_hub_service::ListQueryTemplates {
@@ -313,6 +730,27 @@ impl AnalyticsHubService {
     }
 
     /// Updates an existing QueryTemplate
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_analyticshub_v1::client::AnalyticsHubService;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_bigquery_analyticshub_v1::model::QueryTemplate;
+    /// use google_cloud_bigquery_analyticshub_v1::Result;
+    /// async fn sample(
+    ///    client: &AnalyticsHubService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_query_template()
+    ///         .set_query_template(
+    ///             QueryTemplate::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_query_template(
         &self,
     ) -> super::builder::analytics_hub_service::UpdateQueryTemplate {
@@ -320,6 +758,20 @@ impl AnalyticsHubService {
     }
 
     /// Deletes a query template.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_analyticshub_v1::client::AnalyticsHubService;
+    /// use google_cloud_bigquery_analyticshub_v1::Result;
+    /// async fn sample(
+    ///    client: &AnalyticsHubService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_query_template()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_query_template(
         &self,
     ) -> super::builder::analytics_hub_service::DeleteQueryTemplate {
@@ -327,6 +779,21 @@ impl AnalyticsHubService {
     }
 
     /// Submits a query template for approval.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_analyticshub_v1::client::AnalyticsHubService;
+    /// use google_cloud_bigquery_analyticshub_v1::Result;
+    /// async fn sample(
+    ///    client: &AnalyticsHubService
+    /// ) -> Result<()> {
+    ///     let response = client.submit_query_template()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn submit_query_template(
         &self,
     ) -> super::builder::analytics_hub_service::SubmitQueryTemplate {
@@ -334,6 +801,21 @@ impl AnalyticsHubService {
     }
 
     /// Approves a query template.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_analyticshub_v1::client::AnalyticsHubService;
+    /// use google_cloud_bigquery_analyticshub_v1::Result;
+    /// async fn sample(
+    ///    client: &AnalyticsHubService
+    /// ) -> Result<()> {
+    ///     let response = client.approve_query_template()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn approve_query_template(
         &self,
     ) -> super::builder::analytics_hub_service::ApproveQueryTemplate {
@@ -343,6 +825,21 @@ impl AnalyticsHubService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_analyticshub_v1::client::AnalyticsHubService;
+    /// use google_cloud_bigquery_analyticshub_v1::Result;
+    /// async fn sample(
+    ///    client: &AnalyticsHubService
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::analytics_hub_service::GetOperation {
         super::builder::analytics_hub_service::GetOperation::new(self.inner.clone())
     }

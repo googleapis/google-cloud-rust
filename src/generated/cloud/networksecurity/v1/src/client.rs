@@ -122,11 +122,44 @@ impl AddressGroupService {
     }
 
     /// Lists address groups in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::AddressGroupService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &AddressGroupService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_address_groups()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_address_groups(&self) -> super::builder::address_group_service::ListAddressGroups {
         super::builder::address_group_service::ListAddressGroups::new(self.inner.clone())
     }
 
     /// Gets details of a single address group.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::AddressGroupService;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &AddressGroupService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_address_group()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_address_group(&self) -> super::builder::address_group_service::GetAddressGroup {
         super::builder::address_group_service::GetAddressGroup::new(self.inner.clone())
     }
@@ -142,6 +175,26 @@ impl AddressGroupService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::AddressGroupService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_networksecurity_v1::model::AddressGroup;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &AddressGroupService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_address_group()
+    ///         .set_parent(parent)
+    ///         .set_address_group(
+    ///             AddressGroup::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_address_group(
         &self,
     ) -> super::builder::address_group_service::CreateAddressGroup {
@@ -159,6 +212,28 @@ impl AddressGroupService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::AddressGroupService;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_networksecurity_v1::model::AddressGroup;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &AddressGroupService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_address_group()
+    ///         .set_address_group(
+    ///             AddressGroup::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_address_group(
         &self,
     ) -> super::builder::address_group_service::UpdateAddressGroup {
@@ -176,6 +251,22 @@ impl AddressGroupService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::AddressGroupService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &AddressGroupService
+    /// ) -> Result<()> {
+    ///     let response = client.add_address_group_items()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn add_address_group_items(
         &self,
     ) -> super::builder::address_group_service::AddAddressGroupItems {
@@ -193,6 +284,22 @@ impl AddressGroupService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::AddressGroupService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &AddressGroupService
+    /// ) -> Result<()> {
+    ///     let response = client.remove_address_group_items()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn remove_address_group_items(
         &self,
     ) -> super::builder::address_group_service::RemoveAddressGroupItems {
@@ -210,6 +317,22 @@ impl AddressGroupService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::AddressGroupService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &AddressGroupService
+    /// ) -> Result<()> {
+    ///     let response = client.clone_address_group_items()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn clone_address_group_items(
         &self,
     ) -> super::builder::address_group_service::CloneAddressGroupItems {
@@ -227,6 +350,21 @@ impl AddressGroupService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::AddressGroupService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &AddressGroupService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_address_group()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_address_group(
         &self,
     ) -> super::builder::address_group_service::DeleteAddressGroup {
@@ -234,6 +372,24 @@ impl AddressGroupService {
     }
 
     /// Lists references of an address group.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::AddressGroupService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &AddressGroupService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_address_group_references()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_address_group_references(
         &self,
     ) -> super::builder::address_group_service::ListAddressGroupReferences {
@@ -241,11 +397,44 @@ impl AddressGroupService {
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::AddressGroupService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &AddressGroupService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::address_group_service::ListLocations {
         super::builder::address_group_service::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::AddressGroupService;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &AddressGroupService
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::address_group_service::GetLocation {
         super::builder::address_group_service::GetLocation::new(self.inner.clone())
     }
@@ -255,12 +444,42 @@ impl AddressGroupService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::AddressGroupService;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &AddressGroupService
+    /// ) -> Result<()> {
+    ///     let response = client.set_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::address_group_service::SetIamPolicy {
         super::builder::address_group_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::AddressGroupService;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &AddressGroupService
+    /// ) -> Result<()> {
+    ///     let response = client.get_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::address_group_service::GetIamPolicy {
         super::builder::address_group_service::GetIamPolicy::new(self.inner.clone())
     }
@@ -272,6 +491,21 @@ impl AddressGroupService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::AddressGroupService;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &AddressGroupService
+    /// ) -> Result<()> {
+    ///     let response = client.test_iam_permissions()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(
         &self,
     ) -> super::builder::address_group_service::TestIamPermissions {
@@ -281,6 +515,24 @@ impl AddressGroupService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::AddressGroupService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &AddressGroupService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::address_group_service::ListOperations {
         super::builder::address_group_service::ListOperations::new(self.inner.clone())
     }
@@ -288,6 +540,21 @@ impl AddressGroupService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::AddressGroupService;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &AddressGroupService
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::address_group_service::GetOperation {
         super::builder::address_group_service::GetOperation::new(self.inner.clone())
     }
@@ -295,6 +562,20 @@ impl AddressGroupService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::AddressGroupService;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &AddressGroupService
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::address_group_service::DeleteOperation {
         super::builder::address_group_service::DeleteOperation::new(self.inner.clone())
     }
@@ -302,6 +583,20 @@ impl AddressGroupService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::AddressGroupService;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &AddressGroupService
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::address_group_service::CancelOperation {
         super::builder::address_group_service::CancelOperation::new(self.inner.clone())
     }
@@ -416,6 +711,24 @@ impl OrganizationAddressGroupService {
     }
 
     /// Lists address groups in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::OrganizationAddressGroupService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &OrganizationAddressGroupService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_address_groups()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_address_groups(
         &self,
     ) -> super::builder::organization_address_group_service::ListAddressGroups {
@@ -425,6 +738,21 @@ impl OrganizationAddressGroupService {
     }
 
     /// Gets details of a single address group.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::OrganizationAddressGroupService;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &OrganizationAddressGroupService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_address_group()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_address_group(
         &self,
     ) -> super::builder::organization_address_group_service::GetAddressGroup {
@@ -442,6 +770,26 @@ impl OrganizationAddressGroupService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::OrganizationAddressGroupService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_networksecurity_v1::model::AddressGroup;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &OrganizationAddressGroupService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_address_group()
+    ///         .set_parent(parent)
+    ///         .set_address_group(
+    ///             AddressGroup::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_address_group(
         &self,
     ) -> super::builder::organization_address_group_service::CreateAddressGroup {
@@ -461,6 +809,28 @@ impl OrganizationAddressGroupService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::OrganizationAddressGroupService;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_networksecurity_v1::model::AddressGroup;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &OrganizationAddressGroupService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_address_group()
+    ///         .set_address_group(
+    ///             AddressGroup::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_address_group(
         &self,
     ) -> super::builder::organization_address_group_service::UpdateAddressGroup {
@@ -480,6 +850,22 @@ impl OrganizationAddressGroupService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::OrganizationAddressGroupService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &OrganizationAddressGroupService
+    /// ) -> Result<()> {
+    ///     let response = client.add_address_group_items()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn add_address_group_items(
         &self,
     ) -> super::builder::organization_address_group_service::AddAddressGroupItems {
@@ -499,6 +885,22 @@ impl OrganizationAddressGroupService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::OrganizationAddressGroupService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &OrganizationAddressGroupService
+    /// ) -> Result<()> {
+    ///     let response = client.remove_address_group_items()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn remove_address_group_items(
         &self,
     ) -> super::builder::organization_address_group_service::RemoveAddressGroupItems {
@@ -518,6 +920,22 @@ impl OrganizationAddressGroupService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::OrganizationAddressGroupService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &OrganizationAddressGroupService
+    /// ) -> Result<()> {
+    ///     let response = client.clone_address_group_items()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn clone_address_group_items(
         &self,
     ) -> super::builder::organization_address_group_service::CloneAddressGroupItems {
@@ -537,6 +955,21 @@ impl OrganizationAddressGroupService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::OrganizationAddressGroupService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &OrganizationAddressGroupService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_address_group()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_address_group(
         &self,
     ) -> super::builder::organization_address_group_service::DeleteAddressGroup {
@@ -546,6 +979,24 @@ impl OrganizationAddressGroupService {
     }
 
     /// Lists references of an address group.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::OrganizationAddressGroupService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &OrganizationAddressGroupService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_address_group_references()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_address_group_references(
         &self,
     ) -> super::builder::organization_address_group_service::ListAddressGroupReferences {
@@ -555,6 +1006,24 @@ impl OrganizationAddressGroupService {
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::OrganizationAddressGroupService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &OrganizationAddressGroupService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(
         &self,
     ) -> super::builder::organization_address_group_service::ListLocations {
@@ -562,6 +1031,21 @@ impl OrganizationAddressGroupService {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::OrganizationAddressGroupService;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &OrganizationAddressGroupService
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::organization_address_group_service::GetLocation {
         super::builder::organization_address_group_service::GetLocation::new(self.inner.clone())
     }
@@ -571,6 +1055,21 @@ impl OrganizationAddressGroupService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::OrganizationAddressGroupService;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &OrganizationAddressGroupService
+    /// ) -> Result<()> {
+    ///     let response = client.set_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(
         &self,
     ) -> super::builder::organization_address_group_service::SetIamPolicy {
@@ -579,6 +1078,21 @@ impl OrganizationAddressGroupService {
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::OrganizationAddressGroupService;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &OrganizationAddressGroupService
+    /// ) -> Result<()> {
+    ///     let response = client.get_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(
         &self,
     ) -> super::builder::organization_address_group_service::GetIamPolicy {
@@ -592,6 +1106,21 @@ impl OrganizationAddressGroupService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::OrganizationAddressGroupService;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &OrganizationAddressGroupService
+    /// ) -> Result<()> {
+    ///     let response = client.test_iam_permissions()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(
         &self,
     ) -> super::builder::organization_address_group_service::TestIamPermissions {
@@ -603,6 +1132,24 @@ impl OrganizationAddressGroupService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::OrganizationAddressGroupService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &OrganizationAddressGroupService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(
         &self,
     ) -> super::builder::organization_address_group_service::ListOperations {
@@ -612,6 +1159,21 @@ impl OrganizationAddressGroupService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::OrganizationAddressGroupService;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &OrganizationAddressGroupService
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(
         &self,
     ) -> super::builder::organization_address_group_service::GetOperation {
@@ -621,6 +1183,20 @@ impl OrganizationAddressGroupService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::OrganizationAddressGroupService;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &OrganizationAddressGroupService
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(
         &self,
     ) -> super::builder::organization_address_group_service::DeleteOperation {
@@ -630,6 +1206,20 @@ impl OrganizationAddressGroupService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::OrganizationAddressGroupService;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &OrganizationAddressGroupService
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(
         &self,
     ) -> super::builder::organization_address_group_service::CancelOperation {
@@ -742,6 +1332,24 @@ impl NetworkSecurity {
     }
 
     /// Lists AuthorizationPolicies in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::NetworkSecurity;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &NetworkSecurity, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_authorization_policies()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_authorization_policies(
         &self,
     ) -> super::builder::network_security::ListAuthorizationPolicies {
@@ -749,6 +1357,21 @@ impl NetworkSecurity {
     }
 
     /// Gets details of a single AuthorizationPolicy.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::NetworkSecurity;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &NetworkSecurity, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_authorization_policy()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_authorization_policy(
         &self,
     ) -> super::builder::network_security::GetAuthorizationPolicy {
@@ -766,6 +1389,26 @@ impl NetworkSecurity {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::NetworkSecurity;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_networksecurity_v1::model::AuthorizationPolicy;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &NetworkSecurity, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_authorization_policy()
+    ///         .set_parent(parent)
+    ///         .set_authorization_policy(
+    ///             AuthorizationPolicy::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_authorization_policy(
         &self,
     ) -> super::builder::network_security::CreateAuthorizationPolicy {
@@ -783,6 +1426,28 @@ impl NetworkSecurity {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::NetworkSecurity;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_networksecurity_v1::model::AuthorizationPolicy;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &NetworkSecurity, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_authorization_policy()
+    ///         .set_authorization_policy(
+    ///             AuthorizationPolicy::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_authorization_policy(
         &self,
     ) -> super::builder::network_security::UpdateAuthorizationPolicy {
@@ -800,6 +1465,21 @@ impl NetworkSecurity {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::NetworkSecurity;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &NetworkSecurity, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_authorization_policy()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_authorization_policy(
         &self,
     ) -> super::builder::network_security::DeleteAuthorizationPolicy {
@@ -807,6 +1487,24 @@ impl NetworkSecurity {
     }
 
     /// Lists ServerTlsPolicies in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::NetworkSecurity;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &NetworkSecurity, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_server_tls_policies()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_server_tls_policies(
         &self,
     ) -> super::builder::network_security::ListServerTlsPolicies {
@@ -814,6 +1512,21 @@ impl NetworkSecurity {
     }
 
     /// Gets details of a single ServerTlsPolicy.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::NetworkSecurity;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &NetworkSecurity, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_server_tls_policy()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_server_tls_policy(&self) -> super::builder::network_security::GetServerTlsPolicy {
         super::builder::network_security::GetServerTlsPolicy::new(self.inner.clone())
     }
@@ -829,6 +1542,26 @@ impl NetworkSecurity {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::NetworkSecurity;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_networksecurity_v1::model::ServerTlsPolicy;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &NetworkSecurity, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_server_tls_policy()
+    ///         .set_parent(parent)
+    ///         .set_server_tls_policy(
+    ///             ServerTlsPolicy::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_server_tls_policy(
         &self,
     ) -> super::builder::network_security::CreateServerTlsPolicy {
@@ -846,6 +1579,28 @@ impl NetworkSecurity {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::NetworkSecurity;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_networksecurity_v1::model::ServerTlsPolicy;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &NetworkSecurity, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_server_tls_policy()
+    ///         .set_server_tls_policy(
+    ///             ServerTlsPolicy::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_server_tls_policy(
         &self,
     ) -> super::builder::network_security::UpdateServerTlsPolicy {
@@ -863,6 +1618,21 @@ impl NetworkSecurity {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::NetworkSecurity;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &NetworkSecurity, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_server_tls_policy()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_server_tls_policy(
         &self,
     ) -> super::builder::network_security::DeleteServerTlsPolicy {
@@ -870,6 +1640,24 @@ impl NetworkSecurity {
     }
 
     /// Lists ClientTlsPolicies in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::NetworkSecurity;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &NetworkSecurity, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_client_tls_policies()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_client_tls_policies(
         &self,
     ) -> super::builder::network_security::ListClientTlsPolicies {
@@ -877,6 +1665,21 @@ impl NetworkSecurity {
     }
 
     /// Gets details of a single ClientTlsPolicy.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::NetworkSecurity;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &NetworkSecurity, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_client_tls_policy()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_client_tls_policy(&self) -> super::builder::network_security::GetClientTlsPolicy {
         super::builder::network_security::GetClientTlsPolicy::new(self.inner.clone())
     }
@@ -892,6 +1695,26 @@ impl NetworkSecurity {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::NetworkSecurity;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_networksecurity_v1::model::ClientTlsPolicy;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &NetworkSecurity, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_client_tls_policy()
+    ///         .set_parent(parent)
+    ///         .set_client_tls_policy(
+    ///             ClientTlsPolicy::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_client_tls_policy(
         &self,
     ) -> super::builder::network_security::CreateClientTlsPolicy {
@@ -909,6 +1732,28 @@ impl NetworkSecurity {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::NetworkSecurity;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_networksecurity_v1::model::ClientTlsPolicy;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &NetworkSecurity, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_client_tls_policy()
+    ///         .set_client_tls_policy(
+    ///             ClientTlsPolicy::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_client_tls_policy(
         &self,
     ) -> super::builder::network_security::UpdateClientTlsPolicy {
@@ -926,6 +1771,21 @@ impl NetworkSecurity {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::NetworkSecurity;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &NetworkSecurity, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_client_tls_policy()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_client_tls_policy(
         &self,
     ) -> super::builder::network_security::DeleteClientTlsPolicy {
@@ -933,11 +1793,44 @@ impl NetworkSecurity {
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::NetworkSecurity;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &NetworkSecurity
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::network_security::ListLocations {
         super::builder::network_security::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::NetworkSecurity;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &NetworkSecurity
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::network_security::GetLocation {
         super::builder::network_security::GetLocation::new(self.inner.clone())
     }
@@ -947,12 +1840,42 @@ impl NetworkSecurity {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::NetworkSecurity;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &NetworkSecurity
+    /// ) -> Result<()> {
+    ///     let response = client.set_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::network_security::SetIamPolicy {
         super::builder::network_security::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::NetworkSecurity;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &NetworkSecurity
+    /// ) -> Result<()> {
+    ///     let response = client.get_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::network_security::GetIamPolicy {
         super::builder::network_security::GetIamPolicy::new(self.inner.clone())
     }
@@ -964,6 +1887,21 @@ impl NetworkSecurity {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::NetworkSecurity;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &NetworkSecurity
+    /// ) -> Result<()> {
+    ///     let response = client.test_iam_permissions()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::network_security::TestIamPermissions {
         super::builder::network_security::TestIamPermissions::new(self.inner.clone())
     }
@@ -971,6 +1909,24 @@ impl NetworkSecurity {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::NetworkSecurity;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &NetworkSecurity
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::network_security::ListOperations {
         super::builder::network_security::ListOperations::new(self.inner.clone())
     }
@@ -978,6 +1934,21 @@ impl NetworkSecurity {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::NetworkSecurity;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &NetworkSecurity
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::network_security::GetOperation {
         super::builder::network_security::GetOperation::new(self.inner.clone())
     }
@@ -985,6 +1956,20 @@ impl NetworkSecurity {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::NetworkSecurity;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &NetworkSecurity
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::network_security::DeleteOperation {
         super::builder::network_security::DeleteOperation::new(self.inner.clone())
     }
@@ -992,6 +1977,20 @@ impl NetworkSecurity {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::NetworkSecurity;
+    /// use google_cloud_networksecurity_v1::Result;
+    /// async fn sample(
+    ///    client: &NetworkSecurity
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::network_security::CancelOperation {
         super::builder::network_security::CancelOperation::new(self.inner.clone())
     }

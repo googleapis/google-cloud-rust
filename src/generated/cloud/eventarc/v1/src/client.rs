@@ -120,11 +120,44 @@ impl Eventarc {
     }
 
     /// Get a single trigger.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::client::Eventarc;
+    /// use google_cloud_eventarc_v1::Result;
+    /// async fn sample(
+    ///    client: &Eventarc, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_trigger()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_trigger(&self) -> super::builder::eventarc::GetTrigger {
         super::builder::eventarc::GetTrigger::new(self.inner.clone())
     }
 
     /// List triggers.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::client::Eventarc;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_eventarc_v1::Result;
+    /// async fn sample(
+    ///    client: &Eventarc, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_triggers()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_triggers(&self) -> super::builder::eventarc::ListTriggers {
         super::builder::eventarc::ListTriggers::new(self.inner.clone())
     }
@@ -140,6 +173,26 @@ impl Eventarc {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::client::Eventarc;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_eventarc_v1::model::Trigger;
+    /// use google_cloud_eventarc_v1::Result;
+    /// async fn sample(
+    ///    client: &Eventarc, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_trigger()
+    ///         .set_parent(parent).set_trigger_id("trigger_id_value")
+    ///         .set_trigger(
+    ///             Trigger::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_trigger(&self) -> super::builder::eventarc::CreateTrigger {
         super::builder::eventarc::CreateTrigger::new(self.inner.clone())
     }
@@ -155,6 +208,28 @@ impl Eventarc {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::client::Eventarc;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_eventarc_v1::model::Trigger;
+    /// use google_cloud_eventarc_v1::Result;
+    /// async fn sample(
+    ///    client: &Eventarc, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_trigger()
+    ///         .set_trigger(
+    ///             Trigger::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_trigger(&self) -> super::builder::eventarc::UpdateTrigger {
         super::builder::eventarc::UpdateTrigger::new(self.inner.clone())
     }
@@ -170,16 +245,65 @@ impl Eventarc {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::client::Eventarc;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_eventarc_v1::Result;
+    /// async fn sample(
+    ///    client: &Eventarc, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.delete_trigger()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_trigger(&self) -> super::builder::eventarc::DeleteTrigger {
         super::builder::eventarc::DeleteTrigger::new(self.inner.clone())
     }
 
     /// Get a single Channel.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::client::Eventarc;
+    /// use google_cloud_eventarc_v1::Result;
+    /// async fn sample(
+    ///    client: &Eventarc, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_channel()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_channel(&self) -> super::builder::eventarc::GetChannel {
         super::builder::eventarc::GetChannel::new(self.inner.clone())
     }
 
     /// List channels.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::client::Eventarc;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_eventarc_v1::Result;
+    /// async fn sample(
+    ///    client: &Eventarc, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_channels()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_channels(&self) -> super::builder::eventarc::ListChannels {
         super::builder::eventarc::ListChannels::new(self.inner.clone())
     }
@@ -195,6 +319,26 @@ impl Eventarc {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::client::Eventarc;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_eventarc_v1::model::Channel;
+    /// use google_cloud_eventarc_v1::Result;
+    /// async fn sample(
+    ///    client: &Eventarc, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_channel()
+    ///         .set_parent(parent).set_channel_id("channel_id_value")
+    ///         .set_channel(
+    ///             Channel::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_channel(&self) -> super::builder::eventarc::CreateChannel {
         super::builder::eventarc::CreateChannel::new(self.inner.clone())
     }
@@ -210,6 +354,28 @@ impl Eventarc {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::client::Eventarc;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_eventarc_v1::model::Channel;
+    /// use google_cloud_eventarc_v1::Result;
+    /// async fn sample(
+    ///    client: &Eventarc, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_channel()
+    ///         .set_channel(
+    ///             Channel::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_channel(&self) -> super::builder::eventarc::UpdateChannel {
         super::builder::eventarc::UpdateChannel::new(self.inner.clone())
     }
@@ -225,26 +391,108 @@ impl Eventarc {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::client::Eventarc;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_eventarc_v1::Result;
+    /// async fn sample(
+    ///    client: &Eventarc, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.delete_channel()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_channel(&self) -> super::builder::eventarc::DeleteChannel {
         super::builder::eventarc::DeleteChannel::new(self.inner.clone())
     }
 
     /// Get a single Provider.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::client::Eventarc;
+    /// use google_cloud_eventarc_v1::Result;
+    /// async fn sample(
+    ///    client: &Eventarc, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_provider()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_provider(&self) -> super::builder::eventarc::GetProvider {
         super::builder::eventarc::GetProvider::new(self.inner.clone())
     }
 
     /// List providers.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::client::Eventarc;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_eventarc_v1::Result;
+    /// async fn sample(
+    ///    client: &Eventarc, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_providers()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_providers(&self) -> super::builder::eventarc::ListProviders {
         super::builder::eventarc::ListProviders::new(self.inner.clone())
     }
 
     /// Get a single ChannelConnection.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::client::Eventarc;
+    /// use google_cloud_eventarc_v1::Result;
+    /// async fn sample(
+    ///    client: &Eventarc, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_channel_connection()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_channel_connection(&self) -> super::builder::eventarc::GetChannelConnection {
         super::builder::eventarc::GetChannelConnection::new(self.inner.clone())
     }
 
     /// List channel connections.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::client::Eventarc;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_eventarc_v1::Result;
+    /// async fn sample(
+    ///    client: &Eventarc, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_channel_connections()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_channel_connections(&self) -> super::builder::eventarc::ListChannelConnections {
         super::builder::eventarc::ListChannelConnections::new(self.inner.clone())
     }
@@ -260,6 +508,26 @@ impl Eventarc {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::client::Eventarc;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_eventarc_v1::model::ChannelConnection;
+    /// use google_cloud_eventarc_v1::Result;
+    /// async fn sample(
+    ///    client: &Eventarc, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_channel_connection()
+    ///         .set_parent(parent)
+    ///         .set_channel_connection(
+    ///             ChannelConnection::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_channel_connection(&self) -> super::builder::eventarc::CreateChannelConnection {
         super::builder::eventarc::CreateChannelConnection::new(self.inner.clone())
     }
@@ -275,6 +543,22 @@ impl Eventarc {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::client::Eventarc;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_eventarc_v1::Result;
+    /// async fn sample(
+    ///    client: &Eventarc, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.delete_channel_connection()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_channel_connection(&self) -> super::builder::eventarc::DeleteChannelConnection {
         super::builder::eventarc::DeleteChannelConnection::new(self.inner.clone())
     }
@@ -282,11 +566,47 @@ impl Eventarc {
     /// Get a GoogleChannelConfig.
     /// The name of the GoogleChannelConfig in the response is ALWAYS coded with
     /// projectID.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::client::Eventarc;
+    /// use google_cloud_eventarc_v1::Result;
+    /// async fn sample(
+    ///    client: &Eventarc, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_google_channel_config()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_google_channel_config(&self) -> super::builder::eventarc::GetGoogleChannelConfig {
         super::builder::eventarc::GetGoogleChannelConfig::new(self.inner.clone())
     }
 
     /// Update a single GoogleChannelConfig
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::client::Eventarc;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_eventarc_v1::model::GoogleChannelConfig;
+    /// use google_cloud_eventarc_v1::Result;
+    /// async fn sample(
+    ///    client: &Eventarc, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_google_channel_config()
+    ///         .set_google_channel_config(
+    ///             GoogleChannelConfig::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_google_channel_config(
         &self,
     ) -> super::builder::eventarc::UpdateGoogleChannelConfig {
@@ -294,16 +614,64 @@ impl Eventarc {
     }
 
     /// Get a single MessageBus.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::client::Eventarc;
+    /// use google_cloud_eventarc_v1::Result;
+    /// async fn sample(
+    ///    client: &Eventarc, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_message_bus()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_message_bus(&self) -> super::builder::eventarc::GetMessageBus {
         super::builder::eventarc::GetMessageBus::new(self.inner.clone())
     }
 
     /// List message buses.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::client::Eventarc;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_eventarc_v1::Result;
+    /// async fn sample(
+    ///    client: &Eventarc, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_message_buses()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_message_buses(&self) -> super::builder::eventarc::ListMessageBuses {
         super::builder::eventarc::ListMessageBuses::new(self.inner.clone())
     }
 
     /// List message bus enrollments.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::client::Eventarc;
+    /// use google_cloud_eventarc_v1::Result;
+    /// async fn sample(
+    ///    client: &Eventarc
+    /// ) -> Result<()> {
+    ///     let response = client.list_message_bus_enrollments()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_message_bus_enrollments(
         &self,
     ) -> super::builder::eventarc::ListMessageBusEnrollments {
@@ -321,6 +689,26 @@ impl Eventarc {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::client::Eventarc;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_eventarc_v1::model::MessageBus;
+    /// use google_cloud_eventarc_v1::Result;
+    /// async fn sample(
+    ///    client: &Eventarc, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_message_bus()
+    ///         .set_parent(parent)
+    ///         .set_message_bus(
+    ///             MessageBus::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_message_bus(&self) -> super::builder::eventarc::CreateMessageBus {
         super::builder::eventarc::CreateMessageBus::new(self.inner.clone())
     }
@@ -336,6 +724,28 @@ impl Eventarc {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::client::Eventarc;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_eventarc_v1::model::MessageBus;
+    /// use google_cloud_eventarc_v1::Result;
+    /// async fn sample(
+    ///    client: &Eventarc, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_message_bus()
+    ///         .set_message_bus(
+    ///             MessageBus::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_message_bus(&self) -> super::builder::eventarc::UpdateMessageBus {
         super::builder::eventarc::UpdateMessageBus::new(self.inner.clone())
     }
@@ -351,16 +761,65 @@ impl Eventarc {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::client::Eventarc;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_eventarc_v1::Result;
+    /// async fn sample(
+    ///    client: &Eventarc, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.delete_message_bus()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_message_bus(&self) -> super::builder::eventarc::DeleteMessageBus {
         super::builder::eventarc::DeleteMessageBus::new(self.inner.clone())
     }
 
     /// Get a single Enrollment.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::client::Eventarc;
+    /// use google_cloud_eventarc_v1::Result;
+    /// async fn sample(
+    ///    client: &Eventarc, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_enrollment()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_enrollment(&self) -> super::builder::eventarc::GetEnrollment {
         super::builder::eventarc::GetEnrollment::new(self.inner.clone())
     }
 
     /// List Enrollments.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::client::Eventarc;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_eventarc_v1::Result;
+    /// async fn sample(
+    ///    client: &Eventarc, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_enrollments()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_enrollments(&self) -> super::builder::eventarc::ListEnrollments {
         super::builder::eventarc::ListEnrollments::new(self.inner.clone())
     }
@@ -376,6 +835,26 @@ impl Eventarc {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::client::Eventarc;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_eventarc_v1::model::Enrollment;
+    /// use google_cloud_eventarc_v1::Result;
+    /// async fn sample(
+    ///    client: &Eventarc, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_enrollment()
+    ///         .set_parent(parent).set_enrollment_id("enrollment_id_value")
+    ///         .set_enrollment(
+    ///             Enrollment::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_enrollment(&self) -> super::builder::eventarc::CreateEnrollment {
         super::builder::eventarc::CreateEnrollment::new(self.inner.clone())
     }
@@ -391,6 +870,28 @@ impl Eventarc {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::client::Eventarc;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_eventarc_v1::model::Enrollment;
+    /// use google_cloud_eventarc_v1::Result;
+    /// async fn sample(
+    ///    client: &Eventarc, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_enrollment()
+    ///         .set_enrollment(
+    ///             Enrollment::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_enrollment(&self) -> super::builder::eventarc::UpdateEnrollment {
         super::builder::eventarc::UpdateEnrollment::new(self.inner.clone())
     }
@@ -406,16 +907,65 @@ impl Eventarc {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::client::Eventarc;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_eventarc_v1::Result;
+    /// async fn sample(
+    ///    client: &Eventarc, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.delete_enrollment()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_enrollment(&self) -> super::builder::eventarc::DeleteEnrollment {
         super::builder::eventarc::DeleteEnrollment::new(self.inner.clone())
     }
 
     /// Get a single Pipeline.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::client::Eventarc;
+    /// use google_cloud_eventarc_v1::Result;
+    /// async fn sample(
+    ///    client: &Eventarc, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_pipeline()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_pipeline(&self) -> super::builder::eventarc::GetPipeline {
         super::builder::eventarc::GetPipeline::new(self.inner.clone())
     }
 
     /// List pipelines.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::client::Eventarc;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_eventarc_v1::Result;
+    /// async fn sample(
+    ///    client: &Eventarc, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_pipelines()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_pipelines(&self) -> super::builder::eventarc::ListPipelines {
         super::builder::eventarc::ListPipelines::new(self.inner.clone())
     }
@@ -431,6 +981,26 @@ impl Eventarc {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::client::Eventarc;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_eventarc_v1::model::Pipeline;
+    /// use google_cloud_eventarc_v1::Result;
+    /// async fn sample(
+    ///    client: &Eventarc, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_pipeline()
+    ///         .set_parent(parent).set_pipeline_id("pipeline_id_value")
+    ///         .set_pipeline(
+    ///             Pipeline::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_pipeline(&self) -> super::builder::eventarc::CreatePipeline {
         super::builder::eventarc::CreatePipeline::new(self.inner.clone())
     }
@@ -446,6 +1016,28 @@ impl Eventarc {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::client::Eventarc;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_eventarc_v1::model::Pipeline;
+    /// use google_cloud_eventarc_v1::Result;
+    /// async fn sample(
+    ///    client: &Eventarc, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_pipeline()
+    ///         .set_pipeline(
+    ///             Pipeline::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_pipeline(&self) -> super::builder::eventarc::UpdatePipeline {
         super::builder::eventarc::UpdatePipeline::new(self.inner.clone())
     }
@@ -461,16 +1053,65 @@ impl Eventarc {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::client::Eventarc;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_eventarc_v1::Result;
+    /// async fn sample(
+    ///    client: &Eventarc, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.delete_pipeline()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_pipeline(&self) -> super::builder::eventarc::DeletePipeline {
         super::builder::eventarc::DeletePipeline::new(self.inner.clone())
     }
 
     /// Get a single GoogleApiSource.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::client::Eventarc;
+    /// use google_cloud_eventarc_v1::Result;
+    /// async fn sample(
+    ///    client: &Eventarc, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_google_api_source()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_google_api_source(&self) -> super::builder::eventarc::GetGoogleApiSource {
         super::builder::eventarc::GetGoogleApiSource::new(self.inner.clone())
     }
 
     /// List GoogleApiSources.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::client::Eventarc;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_eventarc_v1::Result;
+    /// async fn sample(
+    ///    client: &Eventarc, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_google_api_sources()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_google_api_sources(&self) -> super::builder::eventarc::ListGoogleApiSources {
         super::builder::eventarc::ListGoogleApiSources::new(self.inner.clone())
     }
@@ -486,6 +1127,26 @@ impl Eventarc {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::client::Eventarc;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_eventarc_v1::model::GoogleApiSource;
+    /// use google_cloud_eventarc_v1::Result;
+    /// async fn sample(
+    ///    client: &Eventarc, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_google_api_source()
+    ///         .set_parent(parent)
+    ///         .set_google_api_source(
+    ///             GoogleApiSource::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_google_api_source(&self) -> super::builder::eventarc::CreateGoogleApiSource {
         super::builder::eventarc::CreateGoogleApiSource::new(self.inner.clone())
     }
@@ -501,6 +1162,28 @@ impl Eventarc {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::client::Eventarc;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_eventarc_v1::model::GoogleApiSource;
+    /// use google_cloud_eventarc_v1::Result;
+    /// async fn sample(
+    ///    client: &Eventarc, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_google_api_source()
+    ///         .set_google_api_source(
+    ///             GoogleApiSource::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_google_api_source(&self) -> super::builder::eventarc::UpdateGoogleApiSource {
         super::builder::eventarc::UpdateGoogleApiSource::new(self.inner.clone())
     }
@@ -516,16 +1199,65 @@ impl Eventarc {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::client::Eventarc;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_eventarc_v1::Result;
+    /// async fn sample(
+    ///    client: &Eventarc, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.delete_google_api_source()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_google_api_source(&self) -> super::builder::eventarc::DeleteGoogleApiSource {
         super::builder::eventarc::DeleteGoogleApiSource::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::client::Eventarc;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_eventarc_v1::Result;
+    /// async fn sample(
+    ///    client: &Eventarc
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::eventarc::ListLocations {
         super::builder::eventarc::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::client::Eventarc;
+    /// use google_cloud_eventarc_v1::Result;
+    /// async fn sample(
+    ///    client: &Eventarc
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::eventarc::GetLocation {
         super::builder::eventarc::GetLocation::new(self.inner.clone())
     }
@@ -535,12 +1267,42 @@ impl Eventarc {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::client::Eventarc;
+    /// use google_cloud_eventarc_v1::Result;
+    /// async fn sample(
+    ///    client: &Eventarc
+    /// ) -> Result<()> {
+    ///     let response = client.set_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::eventarc::SetIamPolicy {
         super::builder::eventarc::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::client::Eventarc;
+    /// use google_cloud_eventarc_v1::Result;
+    /// async fn sample(
+    ///    client: &Eventarc
+    /// ) -> Result<()> {
+    ///     let response = client.get_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::eventarc::GetIamPolicy {
         super::builder::eventarc::GetIamPolicy::new(self.inner.clone())
     }
@@ -552,6 +1314,21 @@ impl Eventarc {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::client::Eventarc;
+    /// use google_cloud_eventarc_v1::Result;
+    /// async fn sample(
+    ///    client: &Eventarc
+    /// ) -> Result<()> {
+    ///     let response = client.test_iam_permissions()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::eventarc::TestIamPermissions {
         super::builder::eventarc::TestIamPermissions::new(self.inner.clone())
     }
@@ -559,6 +1336,24 @@ impl Eventarc {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::client::Eventarc;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_eventarc_v1::Result;
+    /// async fn sample(
+    ///    client: &Eventarc
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::eventarc::ListOperations {
         super::builder::eventarc::ListOperations::new(self.inner.clone())
     }
@@ -566,6 +1361,21 @@ impl Eventarc {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::client::Eventarc;
+    /// use google_cloud_eventarc_v1::Result;
+    /// async fn sample(
+    ///    client: &Eventarc
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::eventarc::GetOperation {
         super::builder::eventarc::GetOperation::new(self.inner.clone())
     }
@@ -573,6 +1383,20 @@ impl Eventarc {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::client::Eventarc;
+    /// use google_cloud_eventarc_v1::Result;
+    /// async fn sample(
+    ///    client: &Eventarc
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::eventarc::DeleteOperation {
         super::builder::eventarc::DeleteOperation::new(self.inner.clone())
     }
@@ -580,6 +1404,20 @@ impl Eventarc {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::client::Eventarc;
+    /// use google_cloud_eventarc_v1::Result;
+    /// async fn sample(
+    ///    client: &Eventarc
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::eventarc::CancelOperation {
         super::builder::eventarc::CancelOperation::new(self.inner.clone())
     }

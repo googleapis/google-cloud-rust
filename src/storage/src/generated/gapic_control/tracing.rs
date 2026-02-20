@@ -83,6 +83,15 @@ where
     }
 
     #[tracing::instrument(ret)]
+    async fn delete_folder_recursive(
+        &self,
+        req: crate::model::DeleteFolderRecursiveRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        self.inner.delete_folder_recursive(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
     async fn get_storage_layout(
         &self,
         req: crate::model::GetStorageLayoutRequest,

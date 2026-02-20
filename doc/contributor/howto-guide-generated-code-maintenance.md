@@ -77,7 +77,6 @@ V=$(sed -n 's/^version: *//p' librarian.yaml)
 go run github.com/googleapis/librarian/cmd/librarian@${V} update discovery
 go run github.com/googleapis/librarian/cmd/librarian@${V} update googleapis
 go run github.com/googleapis/librarian/cmd/librarian@${V} generate --all
-cargo update --workspace
 git commit -m"chore: update discovery and googleapis SHA circa $(date +%Y-%m-%d)" .
 ```
 
@@ -177,7 +176,7 @@ index e088d86a5..7531ff313 100644
            source: google.cloud.gkehub.configmanagement.v1
 ```
 
-The edit the `Cargo.toml` file to define this as an internal dependency:
+Then edit the `Cargo.toml` file to define this as an internal dependency:
 
 ```patch
 diff --git a/Cargo.toml b/Cargo.toml
@@ -242,6 +241,17 @@ And we will be able to issue shorter commands, such as:
 
 ```bash
 librarian generate --all
+```
+
+## Formatting librarian.yaml
+
+If you make manual changes to `librarian.yaml`, you should run `librarian tidy`
+to automatically format and sort the file. This ensures consistency and
+readability.
+
+```bash
+V=$(sed -n 's/^version: *//p' librarian.yaml)
+go run github.com/googleapis/librarian/cmd/librarian@${V} tidy
 ```
 
 ## Special cases

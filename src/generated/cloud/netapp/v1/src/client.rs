@@ -119,6 +119,24 @@ impl NetApp {
     }
 
     /// Returns descriptions of all storage pools owned by the caller.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::client::NetApp;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_netapp_v1::Result;
+    /// async fn sample(
+    ///    client: &NetApp, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_storage_pools()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_storage_pools(&self) -> super::builder::net_app::ListStoragePools {
         super::builder::net_app::ListStoragePools::new(self.inner.clone())
     }
@@ -134,11 +152,46 @@ impl NetApp {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::client::NetApp;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_netapp_v1::model::StoragePool;
+    /// use google_cloud_netapp_v1::Result;
+    /// async fn sample(
+    ///    client: &NetApp, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_storage_pool()
+    ///         .set_parent(parent)
+    ///         .set_storage_pool(
+    ///             StoragePool::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_storage_pool(&self) -> super::builder::net_app::CreateStoragePool {
         super::builder::net_app::CreateStoragePool::new(self.inner.clone())
     }
 
     /// Returns the description of the specified storage pool by poolId.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::client::NetApp;
+    /// use google_cloud_netapp_v1::Result;
+    /// async fn sample(
+    ///    client: &NetApp, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_storage_pool()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_storage_pool(&self) -> super::builder::net_app::GetStoragePool {
         super::builder::net_app::GetStoragePool::new(self.inner.clone())
     }
@@ -154,6 +207,28 @@ impl NetApp {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::client::NetApp;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_netapp_v1::model::StoragePool;
+    /// use google_cloud_netapp_v1::Result;
+    /// async fn sample(
+    ///    client: &NetApp, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_storage_pool()
+    ///         .set_storage_pool(
+    ///             StoragePool::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_storage_pool(&self) -> super::builder::net_app::UpdateStoragePool {
         super::builder::net_app::UpdateStoragePool::new(self.inner.clone())
     }
@@ -169,6 +244,21 @@ impl NetApp {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::client::NetApp;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_netapp_v1::Result;
+    /// async fn sample(
+    ///    client: &NetApp, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_storage_pool()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_storage_pool(&self) -> super::builder::net_app::DeleteStoragePool {
         super::builder::net_app::DeleteStoragePool::new(self.inner.clone())
     }
@@ -185,6 +275,21 @@ impl NetApp {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::client::NetApp;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_netapp_v1::Result;
+    /// async fn sample(
+    ///    client: &NetApp
+    /// ) -> Result<()> {
+    ///     client.validate_directory_service()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn validate_directory_service(&self) -> super::builder::net_app::ValidateDirectoryService {
         super::builder::net_app::ValidateDirectoryService::new(self.inner.clone())
     }
@@ -201,16 +306,65 @@ impl NetApp {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::client::NetApp;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_netapp_v1::Result;
+    /// async fn sample(
+    ///    client: &NetApp
+    /// ) -> Result<()> {
+    ///     let response = client.switch_active_replica_zone()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn switch_active_replica_zone(&self) -> super::builder::net_app::SwitchActiveReplicaZone {
         super::builder::net_app::SwitchActiveReplicaZone::new(self.inner.clone())
     }
 
     /// Lists Volumes in a given project.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::client::NetApp;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_netapp_v1::Result;
+    /// async fn sample(
+    ///    client: &NetApp, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_volumes()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_volumes(&self) -> super::builder::net_app::ListVolumes {
         super::builder::net_app::ListVolumes::new(self.inner.clone())
     }
 
     /// Gets details of a single Volume.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::client::NetApp;
+    /// use google_cloud_netapp_v1::Result;
+    /// async fn sample(
+    ///    client: &NetApp, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_volume()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_volume(&self) -> super::builder::net_app::GetVolume {
         super::builder::net_app::GetVolume::new(self.inner.clone())
     }
@@ -226,6 +380,26 @@ impl NetApp {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::client::NetApp;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_netapp_v1::model::Volume;
+    /// use google_cloud_netapp_v1::Result;
+    /// async fn sample(
+    ///    client: &NetApp, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_volume()
+    ///         .set_parent(parent).set_volume_id("volume_id_value")
+    ///         .set_volume(
+    ///             Volume::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_volume(&self) -> super::builder::net_app::CreateVolume {
         super::builder::net_app::CreateVolume::new(self.inner.clone())
     }
@@ -241,6 +415,28 @@ impl NetApp {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::client::NetApp;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_netapp_v1::model::Volume;
+    /// use google_cloud_netapp_v1::Result;
+    /// async fn sample(
+    ///    client: &NetApp, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_volume()
+    ///         .set_volume(
+    ///             Volume::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_volume(&self) -> super::builder::net_app::UpdateVolume {
         super::builder::net_app::UpdateVolume::new(self.inner.clone())
     }
@@ -256,6 +452,21 @@ impl NetApp {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::client::NetApp;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_netapp_v1::Result;
+    /// async fn sample(
+    ///    client: &NetApp, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_volume()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_volume(&self) -> super::builder::net_app::DeleteVolume {
         super::builder::net_app::DeleteVolume::new(self.inner.clone())
     }
@@ -273,16 +484,65 @@ impl NetApp {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::client::NetApp;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_netapp_v1::Result;
+    /// async fn sample(
+    ///    client: &NetApp
+    /// ) -> Result<()> {
+    ///     let response = client.revert_volume()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn revert_volume(&self) -> super::builder::net_app::RevertVolume {
         super::builder::net_app::RevertVolume::new(self.inner.clone())
     }
 
     /// Returns descriptions of all snapshots for a volume.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::client::NetApp;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_netapp_v1::Result;
+    /// async fn sample(
+    ///    client: &NetApp, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_snapshots()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_snapshots(&self) -> super::builder::net_app::ListSnapshots {
         super::builder::net_app::ListSnapshots::new(self.inner.clone())
     }
 
     /// Describe a snapshot for a volume.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::client::NetApp;
+    /// use google_cloud_netapp_v1::Result;
+    /// async fn sample(
+    ///    client: &NetApp, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_snapshot()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_snapshot(&self) -> super::builder::net_app::GetSnapshot {
         super::builder::net_app::GetSnapshot::new(self.inner.clone())
     }
@@ -298,6 +558,26 @@ impl NetApp {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::client::NetApp;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_netapp_v1::model::Snapshot;
+    /// use google_cloud_netapp_v1::Result;
+    /// async fn sample(
+    ///    client: &NetApp, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_snapshot()
+    ///         .set_parent(parent).set_snapshot_id("snapshot_id_value")
+    ///         .set_snapshot(
+    ///             Snapshot::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_snapshot(&self) -> super::builder::net_app::CreateSnapshot {
         super::builder::net_app::CreateSnapshot::new(self.inner.clone())
     }
@@ -313,6 +593,21 @@ impl NetApp {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::client::NetApp;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_netapp_v1::Result;
+    /// async fn sample(
+    ///    client: &NetApp, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_snapshot()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_snapshot(&self) -> super::builder::net_app::DeleteSnapshot {
         super::builder::net_app::DeleteSnapshot::new(self.inner.clone())
     }
@@ -328,16 +623,71 @@ impl NetApp {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::client::NetApp;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_netapp_v1::model::Snapshot;
+    /// use google_cloud_netapp_v1::Result;
+    /// async fn sample(
+    ///    client: &NetApp, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_snapshot()
+    ///         .set_snapshot(
+    ///             Snapshot::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_snapshot(&self) -> super::builder::net_app::UpdateSnapshot {
         super::builder::net_app::UpdateSnapshot::new(self.inner.clone())
     }
 
     /// Lists active directories.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::client::NetApp;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_netapp_v1::Result;
+    /// async fn sample(
+    ///    client: &NetApp, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_active_directories()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_active_directories(&self) -> super::builder::net_app::ListActiveDirectories {
         super::builder::net_app::ListActiveDirectories::new(self.inner.clone())
     }
 
     /// Describes a specified active directory.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::client::NetApp;
+    /// use google_cloud_netapp_v1::Result;
+    /// async fn sample(
+    ///    client: &NetApp, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_active_directory()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_active_directory(&self) -> super::builder::net_app::GetActiveDirectory {
         super::builder::net_app::GetActiveDirectory::new(self.inner.clone())
     }
@@ -354,6 +704,26 @@ impl NetApp {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::client::NetApp;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_netapp_v1::model::ActiveDirectory;
+    /// use google_cloud_netapp_v1::Result;
+    /// async fn sample(
+    ///    client: &NetApp, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_active_directory()
+    ///         .set_parent(parent)
+    ///         .set_active_directory(
+    ///             ActiveDirectory::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_active_directory(&self) -> super::builder::net_app::CreateActiveDirectory {
         super::builder::net_app::CreateActiveDirectory::new(self.inner.clone())
     }
@@ -369,6 +739,28 @@ impl NetApp {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::client::NetApp;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_netapp_v1::model::ActiveDirectory;
+    /// use google_cloud_netapp_v1::Result;
+    /// async fn sample(
+    ///    client: &NetApp, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_active_directory()
+    ///         .set_active_directory(
+    ///             ActiveDirectory::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_active_directory(&self) -> super::builder::net_app::UpdateActiveDirectory {
         super::builder::net_app::UpdateActiveDirectory::new(self.inner.clone())
     }
@@ -384,11 +776,44 @@ impl NetApp {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::client::NetApp;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_netapp_v1::Result;
+    /// async fn sample(
+    ///    client: &NetApp, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_active_directory()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_active_directory(&self) -> super::builder::net_app::DeleteActiveDirectory {
         super::builder::net_app::DeleteActiveDirectory::new(self.inner.clone())
     }
 
     /// Returns descriptions of all KMS configs owned by the caller.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::client::NetApp;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_netapp_v1::Result;
+    /// async fn sample(
+    ///    client: &NetApp, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_kms_configs()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_kms_configs(&self) -> super::builder::net_app::ListKmsConfigs {
         super::builder::net_app::ListKmsConfigs::new(self.inner.clone())
     }
@@ -404,11 +829,46 @@ impl NetApp {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::client::NetApp;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_netapp_v1::model::KmsConfig;
+    /// use google_cloud_netapp_v1::Result;
+    /// async fn sample(
+    ///    client: &NetApp, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_kms_config()
+    ///         .set_parent(parent)
+    ///         .set_kms_config(
+    ///             KmsConfig::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_kms_config(&self) -> super::builder::net_app::CreateKmsConfig {
         super::builder::net_app::CreateKmsConfig::new(self.inner.clone())
     }
 
     /// Returns the description of the specified KMS config by kms_config_id.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::client::NetApp;
+    /// use google_cloud_netapp_v1::Result;
+    /// async fn sample(
+    ///    client: &NetApp, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_kms_config()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_kms_config(&self) -> super::builder::net_app::GetKmsConfig {
         super::builder::net_app::GetKmsConfig::new(self.inner.clone())
     }
@@ -424,6 +884,28 @@ impl NetApp {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::client::NetApp;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_netapp_v1::model::KmsConfig;
+    /// use google_cloud_netapp_v1::Result;
+    /// async fn sample(
+    ///    client: &NetApp, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_kms_config()
+    ///         .set_kms_config(
+    ///             KmsConfig::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_kms_config(&self) -> super::builder::net_app::UpdateKmsConfig {
         super::builder::net_app::UpdateKmsConfig::new(self.inner.clone())
     }
@@ -440,11 +922,42 @@ impl NetApp {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::client::NetApp;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_netapp_v1::Result;
+    /// async fn sample(
+    ///    client: &NetApp
+    /// ) -> Result<()> {
+    ///     let response = client.encrypt_volumes()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn encrypt_volumes(&self) -> super::builder::net_app::EncryptVolumes {
         super::builder::net_app::EncryptVolumes::new(self.inner.clone())
     }
 
     /// Verifies KMS config reachability.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::client::NetApp;
+    /// use google_cloud_netapp_v1::Result;
+    /// async fn sample(
+    ///    client: &NetApp
+    /// ) -> Result<()> {
+    ///     let response = client.verify_kms_config()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn verify_kms_config(&self) -> super::builder::net_app::VerifyKmsConfig {
         super::builder::net_app::VerifyKmsConfig::new(self.inner.clone())
     }
@@ -460,16 +973,64 @@ impl NetApp {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::client::NetApp;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_netapp_v1::Result;
+    /// async fn sample(
+    ///    client: &NetApp, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_kms_config()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_kms_config(&self) -> super::builder::net_app::DeleteKmsConfig {
         super::builder::net_app::DeleteKmsConfig::new(self.inner.clone())
     }
 
     /// Returns descriptions of all replications for a volume.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::client::NetApp;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_netapp_v1::Result;
+    /// async fn sample(
+    ///    client: &NetApp, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_replications()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_replications(&self) -> super::builder::net_app::ListReplications {
         super::builder::net_app::ListReplications::new(self.inner.clone())
     }
 
     /// Describe a replication for a volume.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::client::NetApp;
+    /// use google_cloud_netapp_v1::Result;
+    /// async fn sample(
+    ///    client: &NetApp, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_replication()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_replication(&self) -> super::builder::net_app::GetReplication {
         super::builder::net_app::GetReplication::new(self.inner.clone())
     }
@@ -485,6 +1046,26 @@ impl NetApp {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::client::NetApp;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_netapp_v1::model::Replication;
+    /// use google_cloud_netapp_v1::Result;
+    /// async fn sample(
+    ///    client: &NetApp, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_replication()
+    ///         .set_parent(parent).set_replication_id("replication_id_value")
+    ///         .set_replication(
+    ///             Replication::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_replication(&self) -> super::builder::net_app::CreateReplication {
         super::builder::net_app::CreateReplication::new(self.inner.clone())
     }
@@ -500,6 +1081,21 @@ impl NetApp {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::client::NetApp;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_netapp_v1::Result;
+    /// async fn sample(
+    ///    client: &NetApp, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_replication()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_replication(&self) -> super::builder::net_app::DeleteReplication {
         super::builder::net_app::DeleteReplication::new(self.inner.clone())
     }
@@ -515,6 +1111,28 @@ impl NetApp {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::client::NetApp;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_netapp_v1::model::Replication;
+    /// use google_cloud_netapp_v1::Result;
+    /// async fn sample(
+    ///    client: &NetApp, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_replication()
+    ///         .set_replication(
+    ///             Replication::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_replication(&self) -> super::builder::net_app::UpdateReplication {
         super::builder::net_app::UpdateReplication::new(self.inner.clone())
     }
@@ -530,6 +1148,22 @@ impl NetApp {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::client::NetApp;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_netapp_v1::Result;
+    /// async fn sample(
+    ///    client: &NetApp
+    /// ) -> Result<()> {
+    ///     let response = client.stop_replication()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn stop_replication(&self) -> super::builder::net_app::StopReplication {
         super::builder::net_app::StopReplication::new(self.inner.clone())
     }
@@ -545,6 +1179,22 @@ impl NetApp {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::client::NetApp;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_netapp_v1::Result;
+    /// async fn sample(
+    ///    client: &NetApp
+    /// ) -> Result<()> {
+    ///     let response = client.resume_replication()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn resume_replication(&self) -> super::builder::net_app::ResumeReplication {
         super::builder::net_app::ResumeReplication::new(self.inner.clone())
     }
@@ -561,6 +1211,22 @@ impl NetApp {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::client::NetApp;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_netapp_v1::Result;
+    /// async fn sample(
+    ///    client: &NetApp
+    /// ) -> Result<()> {
+    ///     let response = client.reverse_replication_direction()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn reverse_replication_direction(
         &self,
     ) -> super::builder::net_app::ReverseReplicationDirection {
@@ -578,6 +1244,22 @@ impl NetApp {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::client::NetApp;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_netapp_v1::Result;
+    /// async fn sample(
+    ///    client: &NetApp
+    /// ) -> Result<()> {
+    ///     let response = client.establish_peering()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn establish_peering(&self) -> super::builder::net_app::EstablishPeering {
         super::builder::net_app::EstablishPeering::new(self.inner.clone())
     }
@@ -594,6 +1276,22 @@ impl NetApp {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::client::NetApp;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_netapp_v1::Result;
+    /// async fn sample(
+    ///    client: &NetApp
+    /// ) -> Result<()> {
+    ///     let response = client.sync_replication()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn sync_replication(&self) -> super::builder::net_app::SyncReplication {
         super::builder::net_app::SyncReplication::new(self.inner.clone())
     }
@@ -609,16 +1307,69 @@ impl NetApp {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::client::NetApp;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_netapp_v1::model::BackupVault;
+    /// use google_cloud_netapp_v1::Result;
+    /// async fn sample(
+    ///    client: &NetApp, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_backup_vault()
+    ///         .set_parent(parent)
+    ///         .set_backup_vault(
+    ///             BackupVault::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_backup_vault(&self) -> super::builder::net_app::CreateBackupVault {
         super::builder::net_app::CreateBackupVault::new(self.inner.clone())
     }
 
     /// Returns the description of the specified backup vault
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::client::NetApp;
+    /// use google_cloud_netapp_v1::Result;
+    /// async fn sample(
+    ///    client: &NetApp, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_backup_vault()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_backup_vault(&self) -> super::builder::net_app::GetBackupVault {
         super::builder::net_app::GetBackupVault::new(self.inner.clone())
     }
 
     /// Returns list of all available backup vaults.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::client::NetApp;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_netapp_v1::Result;
+    /// async fn sample(
+    ///    client: &NetApp, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_backup_vaults()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_backup_vaults(&self) -> super::builder::net_app::ListBackupVaults {
         super::builder::net_app::ListBackupVaults::new(self.inner.clone())
     }
@@ -634,6 +1385,28 @@ impl NetApp {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::client::NetApp;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_netapp_v1::model::BackupVault;
+    /// use google_cloud_netapp_v1::Result;
+    /// async fn sample(
+    ///    client: &NetApp, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_backup_vault()
+    ///         .set_backup_vault(
+    ///             BackupVault::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_backup_vault(&self) -> super::builder::net_app::UpdateBackupVault {
         super::builder::net_app::UpdateBackupVault::new(self.inner.clone())
     }
@@ -649,6 +1422,21 @@ impl NetApp {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::client::NetApp;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_netapp_v1::Result;
+    /// async fn sample(
+    ///    client: &NetApp, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_backup_vault()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_backup_vault(&self) -> super::builder::net_app::DeleteBackupVault {
         super::builder::net_app::DeleteBackupVault::new(self.inner.clone())
     }
@@ -667,16 +1455,69 @@ impl NetApp {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::client::NetApp;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_netapp_v1::model::Backup;
+    /// use google_cloud_netapp_v1::Result;
+    /// async fn sample(
+    ///    client: &NetApp, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_backup()
+    ///         .set_parent(parent).set_backup_id("backup_id_value")
+    ///         .set_backup(
+    ///             Backup::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_backup(&self) -> super::builder::net_app::CreateBackup {
         super::builder::net_app::CreateBackup::new(self.inner.clone())
     }
 
     /// Returns the description of the specified backup
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::client::NetApp;
+    /// use google_cloud_netapp_v1::Result;
+    /// async fn sample(
+    ///    client: &NetApp, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_backup()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_backup(&self) -> super::builder::net_app::GetBackup {
         super::builder::net_app::GetBackup::new(self.inner.clone())
     }
 
     /// Returns descriptions of all backups for a backupVault.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::client::NetApp;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_netapp_v1::Result;
+    /// async fn sample(
+    ///    client: &NetApp, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_backups()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_backups(&self) -> super::builder::net_app::ListBackups {
         super::builder::net_app::ListBackups::new(self.inner.clone())
     }
@@ -692,6 +1533,21 @@ impl NetApp {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::client::NetApp;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_netapp_v1::Result;
+    /// async fn sample(
+    ///    client: &NetApp, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_backup()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_backup(&self) -> super::builder::net_app::DeleteBackup {
         super::builder::net_app::DeleteBackup::new(self.inner.clone())
     }
@@ -707,6 +1563,28 @@ impl NetApp {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::client::NetApp;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_netapp_v1::model::Backup;
+    /// use google_cloud_netapp_v1::Result;
+    /// async fn sample(
+    ///    client: &NetApp, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_backup()
+    ///         .set_backup(
+    ///             Backup::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_backup(&self) -> super::builder::net_app::UpdateBackup {
         super::builder::net_app::UpdateBackup::new(self.inner.clone())
     }
@@ -722,16 +1600,69 @@ impl NetApp {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::client::NetApp;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_netapp_v1::model::BackupPolicy;
+    /// use google_cloud_netapp_v1::Result;
+    /// async fn sample(
+    ///    client: &NetApp, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_backup_policy()
+    ///         .set_parent(parent)
+    ///         .set_backup_policy(
+    ///             BackupPolicy::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_backup_policy(&self) -> super::builder::net_app::CreateBackupPolicy {
         super::builder::net_app::CreateBackupPolicy::new(self.inner.clone())
     }
 
     /// Returns the description of the specified backup policy by backup_policy_id.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::client::NetApp;
+    /// use google_cloud_netapp_v1::Result;
+    /// async fn sample(
+    ///    client: &NetApp, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_backup_policy()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_backup_policy(&self) -> super::builder::net_app::GetBackupPolicy {
         super::builder::net_app::GetBackupPolicy::new(self.inner.clone())
     }
 
     /// Returns list of all available backup policies.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::client::NetApp;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_netapp_v1::Result;
+    /// async fn sample(
+    ///    client: &NetApp, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_backup_policies()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_backup_policies(&self) -> super::builder::net_app::ListBackupPolicies {
         super::builder::net_app::ListBackupPolicies::new(self.inner.clone())
     }
@@ -747,6 +1678,28 @@ impl NetApp {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::client::NetApp;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_netapp_v1::model::BackupPolicy;
+    /// use google_cloud_netapp_v1::Result;
+    /// async fn sample(
+    ///    client: &NetApp, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_backup_policy()
+    ///         .set_backup_policy(
+    ///             BackupPolicy::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_backup_policy(&self) -> super::builder::net_app::UpdateBackupPolicy {
         super::builder::net_app::UpdateBackupPolicy::new(self.inner.clone())
     }
@@ -762,16 +1715,64 @@ impl NetApp {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::client::NetApp;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_netapp_v1::Result;
+    /// async fn sample(
+    ///    client: &NetApp, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_backup_policy()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_backup_policy(&self) -> super::builder::net_app::DeleteBackupPolicy {
         super::builder::net_app::DeleteBackupPolicy::new(self.inner.clone())
     }
 
     /// Returns list of all quota rules in a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::client::NetApp;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_netapp_v1::Result;
+    /// async fn sample(
+    ///    client: &NetApp, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_quota_rules()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_quota_rules(&self) -> super::builder::net_app::ListQuotaRules {
         super::builder::net_app::ListQuotaRules::new(self.inner.clone())
     }
 
     /// Returns details of the specified quota rule.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::client::NetApp;
+    /// use google_cloud_netapp_v1::Result;
+    /// async fn sample(
+    ///    client: &NetApp, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_quota_rule()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_quota_rule(&self) -> super::builder::net_app::GetQuotaRule {
         super::builder::net_app::GetQuotaRule::new(self.inner.clone())
     }
@@ -787,6 +1788,26 @@ impl NetApp {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::client::NetApp;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_netapp_v1::model::QuotaRule;
+    /// use google_cloud_netapp_v1::Result;
+    /// async fn sample(
+    ///    client: &NetApp, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_quota_rule()
+    ///         .set_parent(parent)
+    ///         .set_quota_rule(
+    ///             QuotaRule::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_quota_rule(&self) -> super::builder::net_app::CreateQuotaRule {
         super::builder::net_app::CreateQuotaRule::new(self.inner.clone())
     }
@@ -802,6 +1823,28 @@ impl NetApp {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::client::NetApp;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_netapp_v1::model::QuotaRule;
+    /// use google_cloud_netapp_v1::Result;
+    /// async fn sample(
+    ///    client: &NetApp, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_quota_rule()
+    ///         .set_quota_rule(
+    ///             QuotaRule::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_quota_rule(&self) -> super::builder::net_app::UpdateQuotaRule {
         super::builder::net_app::UpdateQuotaRule::new(self.inner.clone())
     }
@@ -817,6 +1860,21 @@ impl NetApp {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::client::NetApp;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_netapp_v1::Result;
+    /// async fn sample(
+    ///    client: &NetApp, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_quota_rule()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_quota_rule(&self) -> super::builder::net_app::DeleteQuotaRule {
         super::builder::net_app::DeleteQuotaRule::new(self.inner.clone())
     }
@@ -832,17 +1890,66 @@ impl NetApp {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::client::NetApp;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_netapp_v1::Result;
+    /// async fn sample(
+    ///    client: &NetApp
+    /// ) -> Result<()> {
+    ///     let response = client.restore_backup_files()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn restore_backup_files(&self) -> super::builder::net_app::RestoreBackupFiles {
         super::builder::net_app::RestoreBackupFiles::new(self.inner.clone())
     }
 
     /// Returns a list of host groups in a `location`. Use `-` as location to list
     /// host groups across all locations.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::client::NetApp;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_netapp_v1::Result;
+    /// async fn sample(
+    ///    client: &NetApp, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_host_groups()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_host_groups(&self) -> super::builder::net_app::ListHostGroups {
         super::builder::net_app::ListHostGroups::new(self.inner.clone())
     }
 
     /// Returns details of the specified host group.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::client::NetApp;
+    /// use google_cloud_netapp_v1::Result;
+    /// async fn sample(
+    ///    client: &NetApp, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_host_group()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_host_group(&self) -> super::builder::net_app::GetHostGroup {
         super::builder::net_app::GetHostGroup::new(self.inner.clone())
     }
@@ -858,6 +1965,26 @@ impl NetApp {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::client::NetApp;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_netapp_v1::model::HostGroup;
+    /// use google_cloud_netapp_v1::Result;
+    /// async fn sample(
+    ///    client: &NetApp, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_host_group()
+    ///         .set_parent(parent)
+    ///         .set_host_group(
+    ///             HostGroup::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_host_group(&self) -> super::builder::net_app::CreateHostGroup {
         super::builder::net_app::CreateHostGroup::new(self.inner.clone())
     }
@@ -873,6 +2000,28 @@ impl NetApp {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::client::NetApp;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_netapp_v1::model::HostGroup;
+    /// use google_cloud_netapp_v1::Result;
+    /// async fn sample(
+    ///    client: &NetApp, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_host_group()
+    ///         .set_host_group(
+    ///             HostGroup::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_host_group(&self) -> super::builder::net_app::UpdateHostGroup {
         super::builder::net_app::UpdateHostGroup::new(self.inner.clone())
     }
@@ -888,16 +2037,64 @@ impl NetApp {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::client::NetApp;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_netapp_v1::Result;
+    /// async fn sample(
+    ///    client: &NetApp, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_host_group()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_host_group(&self) -> super::builder::net_app::DeleteHostGroup {
         super::builder::net_app::DeleteHostGroup::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::client::NetApp;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_netapp_v1::Result;
+    /// async fn sample(
+    ///    client: &NetApp
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::net_app::ListLocations {
         super::builder::net_app::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::client::NetApp;
+    /// use google_cloud_netapp_v1::Result;
+    /// async fn sample(
+    ///    client: &NetApp
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::net_app::GetLocation {
         super::builder::net_app::GetLocation::new(self.inner.clone())
     }
@@ -905,6 +2102,24 @@ impl NetApp {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::client::NetApp;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_netapp_v1::Result;
+    /// async fn sample(
+    ///    client: &NetApp
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::net_app::ListOperations {
         super::builder::net_app::ListOperations::new(self.inner.clone())
     }
@@ -912,6 +2127,21 @@ impl NetApp {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::client::NetApp;
+    /// use google_cloud_netapp_v1::Result;
+    /// async fn sample(
+    ///    client: &NetApp
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::net_app::GetOperation {
         super::builder::net_app::GetOperation::new(self.inner.clone())
     }
@@ -919,6 +2149,20 @@ impl NetApp {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::client::NetApp;
+    /// use google_cloud_netapp_v1::Result;
+    /// async fn sample(
+    ///    client: &NetApp
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::net_app::DeleteOperation {
         super::builder::net_app::DeleteOperation::new(self.inner.clone())
     }
@@ -926,6 +2170,20 @@ impl NetApp {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::client::NetApp;
+    /// use google_cloud_netapp_v1::Result;
+    /// async fn sample(
+    ///    client: &NetApp
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::net_app::CancelOperation {
         super::builder::net_app::CancelOperation::new(self.inner.clone())
     }

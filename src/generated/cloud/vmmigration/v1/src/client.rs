@@ -119,11 +119,44 @@ impl VmMigration {
     }
 
     /// Lists Sources in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_vmmigration_v1::Result;
+    /// async fn sample(
+    ///    client: &VmMigration, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_sources()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_sources(&self) -> super::builder::vm_migration::ListSources {
         super::builder::vm_migration::ListSources::new(self.inner.clone())
     }
 
     /// Gets details of a single Source.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// use google_cloud_vmmigration_v1::Result;
+    /// async fn sample(
+    ///    client: &VmMigration, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_source()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_source(&self) -> super::builder::vm_migration::GetSource {
         super::builder::vm_migration::GetSource::new(self.inner.clone())
     }
@@ -139,6 +172,26 @@ impl VmMigration {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_vmmigration_v1::model::Source;
+    /// use google_cloud_vmmigration_v1::Result;
+    /// async fn sample(
+    ///    client: &VmMigration, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_source()
+    ///         .set_parent(parent).set_source_id("source_id_value")
+    ///         .set_source(
+    ///             Source::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_source(&self) -> super::builder::vm_migration::CreateSource {
         super::builder::vm_migration::CreateSource::new(self.inner.clone())
     }
@@ -154,6 +207,28 @@ impl VmMigration {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_vmmigration_v1::model::Source;
+    /// use google_cloud_vmmigration_v1::Result;
+    /// async fn sample(
+    ///    client: &VmMigration, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_source()
+    ///         .set_source(
+    ///             Source::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_source(&self) -> super::builder::vm_migration::UpdateSource {
         super::builder::vm_migration::UpdateSource::new(self.inner.clone())
     }
@@ -169,6 +244,21 @@ impl VmMigration {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_vmmigration_v1::Result;
+    /// async fn sample(
+    ///    client: &VmMigration, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_source()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_source(&self) -> super::builder::vm_migration::DeleteSource {
         super::builder::vm_migration::DeleteSource::new(self.inner.clone())
     }
@@ -178,6 +268,21 @@ impl VmMigration {
     /// Compute Engine). The inventory describes the list of existing VMs in that
     /// source. Note that this operation lists the VMs on the remote source, as
     /// opposed to listing the MigratingVms resources in the vmmigration service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// use google_cloud_vmmigration_v1::Result;
+    /// async fn sample(
+    ///    client: &VmMigration
+    /// ) -> Result<()> {
+    ///     let response = client.fetch_inventory()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn fetch_inventory(&self) -> super::builder::vm_migration::FetchInventory {
         super::builder::vm_migration::FetchInventory::new(self.inner.clone())
     }
@@ -188,16 +293,67 @@ impl VmMigration {
     /// source. Note that this operation lists the resources on the remote source,
     /// as opposed to listing the MigratingVms resources in the vmmigration
     /// service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_vmmigration_v1::Result;
+    /// async fn sample(
+    ///    client: &VmMigration
+    /// ) -> Result<()> {
+    ///     let mut list = client.fetch_storage_inventory()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn fetch_storage_inventory(&self) -> super::builder::vm_migration::FetchStorageInventory {
         super::builder::vm_migration::FetchStorageInventory::new(self.inner.clone())
     }
 
     /// Lists Utilization Reports of the given Source.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_vmmigration_v1::Result;
+    /// async fn sample(
+    ///    client: &VmMigration, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_utilization_reports()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_utilization_reports(&self) -> super::builder::vm_migration::ListUtilizationReports {
         super::builder::vm_migration::ListUtilizationReports::new(self.inner.clone())
     }
 
     /// Gets a single Utilization Report.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// use google_cloud_vmmigration_v1::Result;
+    /// async fn sample(
+    ///    client: &VmMigration, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_utilization_report()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_utilization_report(&self) -> super::builder::vm_migration::GetUtilizationReport {
         super::builder::vm_migration::GetUtilizationReport::new(self.inner.clone())
     }
@@ -213,6 +369,26 @@ impl VmMigration {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_vmmigration_v1::model::UtilizationReport;
+    /// use google_cloud_vmmigration_v1::Result;
+    /// async fn sample(
+    ///    client: &VmMigration, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_utilization_report()
+    ///         .set_parent(parent)
+    ///         .set_utilization_report(
+    ///             UtilizationReport::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_utilization_report(
         &self,
     ) -> super::builder::vm_migration::CreateUtilizationReport {
@@ -230,6 +406,21 @@ impl VmMigration {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_vmmigration_v1::Result;
+    /// async fn sample(
+    ///    client: &VmMigration, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_utilization_report()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_utilization_report(
         &self,
     ) -> super::builder::vm_migration::DeleteUtilizationReport {
@@ -237,6 +428,24 @@ impl VmMigration {
     }
 
     /// Lists DatacenterConnectors in a given Source.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_vmmigration_v1::Result;
+    /// async fn sample(
+    ///    client: &VmMigration, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_datacenter_connectors()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_datacenter_connectors(
         &self,
     ) -> super::builder::vm_migration::ListDatacenterConnectors {
@@ -244,6 +453,21 @@ impl VmMigration {
     }
 
     /// Gets details of a single DatacenterConnector.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// use google_cloud_vmmigration_v1::Result;
+    /// async fn sample(
+    ///    client: &VmMigration, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_datacenter_connector()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_datacenter_connector(&self) -> super::builder::vm_migration::GetDatacenterConnector {
         super::builder::vm_migration::GetDatacenterConnector::new(self.inner.clone())
     }
@@ -259,6 +483,26 @@ impl VmMigration {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_vmmigration_v1::model::DatacenterConnector;
+    /// use google_cloud_vmmigration_v1::Result;
+    /// async fn sample(
+    ///    client: &VmMigration, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_datacenter_connector()
+    ///         .set_parent(parent)
+    ///         .set_datacenter_connector(
+    ///             DatacenterConnector::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_datacenter_connector(
         &self,
     ) -> super::builder::vm_migration::CreateDatacenterConnector {
@@ -276,6 +520,21 @@ impl VmMigration {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_vmmigration_v1::Result;
+    /// async fn sample(
+    ///    client: &VmMigration, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_datacenter_connector()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_datacenter_connector(
         &self,
     ) -> super::builder::vm_migration::DeleteDatacenterConnector {
@@ -294,6 +553,22 @@ impl VmMigration {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_vmmigration_v1::Result;
+    /// async fn sample(
+    ///    client: &VmMigration
+    /// ) -> Result<()> {
+    ///     let response = client.upgrade_appliance()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn upgrade_appliance(&self) -> super::builder::vm_migration::UpgradeAppliance {
         super::builder::vm_migration::UpgradeAppliance::new(self.inner.clone())
     }
@@ -309,16 +584,69 @@ impl VmMigration {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_vmmigration_v1::model::MigratingVm;
+    /// use google_cloud_vmmigration_v1::Result;
+    /// async fn sample(
+    ///    client: &VmMigration, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_migrating_vm()
+    ///         .set_parent(parent)
+    ///         .set_migrating_vm(
+    ///             MigratingVm::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_migrating_vm(&self) -> super::builder::vm_migration::CreateMigratingVm {
         super::builder::vm_migration::CreateMigratingVm::new(self.inner.clone())
     }
 
     /// Lists MigratingVms in a given Source.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_vmmigration_v1::Result;
+    /// async fn sample(
+    ///    client: &VmMigration, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_migrating_vms()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_migrating_vms(&self) -> super::builder::vm_migration::ListMigratingVms {
         super::builder::vm_migration::ListMigratingVms::new(self.inner.clone())
     }
 
     /// Gets details of a single MigratingVm.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// use google_cloud_vmmigration_v1::Result;
+    /// async fn sample(
+    ///    client: &VmMigration, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_migrating_vm()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_migrating_vm(&self) -> super::builder::vm_migration::GetMigratingVm {
         super::builder::vm_migration::GetMigratingVm::new(self.inner.clone())
     }
@@ -334,6 +662,28 @@ impl VmMigration {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_vmmigration_v1::model::MigratingVm;
+    /// use google_cloud_vmmigration_v1::Result;
+    /// async fn sample(
+    ///    client: &VmMigration, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_migrating_vm()
+    ///         .set_migrating_vm(
+    ///             MigratingVm::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_migrating_vm(&self) -> super::builder::vm_migration::UpdateMigratingVm {
         super::builder::vm_migration::UpdateMigratingVm::new(self.inner.clone())
     }
@@ -349,6 +699,21 @@ impl VmMigration {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_vmmigration_v1::Result;
+    /// async fn sample(
+    ///    client: &VmMigration, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_migrating_vm()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_migrating_vm(&self) -> super::builder::vm_migration::DeleteMigratingVm {
         super::builder::vm_migration::DeleteMigratingVm::new(self.inner.clone())
     }
@@ -365,6 +730,22 @@ impl VmMigration {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_vmmigration_v1::Result;
+    /// async fn sample(
+    ///    client: &VmMigration
+    /// ) -> Result<()> {
+    ///     let response = client.start_migration()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn start_migration(&self) -> super::builder::vm_migration::StartMigration {
         super::builder::vm_migration::StartMigration::new(self.inner.clone())
     }
@@ -383,6 +764,22 @@ impl VmMigration {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_vmmigration_v1::Result;
+    /// async fn sample(
+    ///    client: &VmMigration
+    /// ) -> Result<()> {
+    ///     let response = client.resume_migration()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn resume_migration(&self) -> super::builder::vm_migration::ResumeMigration {
         super::builder::vm_migration::ResumeMigration::new(self.inner.clone())
     }
@@ -400,6 +797,22 @@ impl VmMigration {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_vmmigration_v1::Result;
+    /// async fn sample(
+    ///    client: &VmMigration
+    /// ) -> Result<()> {
+    ///     let response = client.pause_migration()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn pause_migration(&self) -> super::builder::vm_migration::PauseMigration {
         super::builder::vm_migration::PauseMigration::new(self.inner.clone())
     }
@@ -416,6 +829,22 @@ impl VmMigration {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_vmmigration_v1::Result;
+    /// async fn sample(
+    ///    client: &VmMigration
+    /// ) -> Result<()> {
+    ///     let response = client.finalize_migration()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn finalize_migration(&self) -> super::builder::vm_migration::FinalizeMigration {
         super::builder::vm_migration::FinalizeMigration::new(self.inner.clone())
     }
@@ -431,6 +860,22 @@ impl VmMigration {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_vmmigration_v1::Result;
+    /// async fn sample(
+    ///    client: &VmMigration
+    /// ) -> Result<()> {
+    ///     let response = client.extend_migration()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn extend_migration(&self) -> super::builder::vm_migration::ExtendMigration {
         super::builder::vm_migration::ExtendMigration::new(self.inner.clone())
     }
@@ -446,6 +891,26 @@ impl VmMigration {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_vmmigration_v1::model::CloneJob;
+    /// use google_cloud_vmmigration_v1::Result;
+    /// async fn sample(
+    ///    client: &VmMigration, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_clone_job()
+    ///         .set_parent(parent)
+    ///         .set_clone_job(
+    ///             CloneJob::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_clone_job(&self) -> super::builder::vm_migration::CreateCloneJob {
         super::builder::vm_migration::CreateCloneJob::new(self.inner.clone())
     }
@@ -461,17 +926,66 @@ impl VmMigration {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_vmmigration_v1::Result;
+    /// async fn sample(
+    ///    client: &VmMigration
+    /// ) -> Result<()> {
+    ///     let response = client.cancel_clone_job()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_clone_job(&self) -> super::builder::vm_migration::CancelCloneJob {
         super::builder::vm_migration::CancelCloneJob::new(self.inner.clone())
     }
 
     /// Lists the CloneJobs of a migrating VM. Only 25 most recent CloneJobs are
     /// listed.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_vmmigration_v1::Result;
+    /// async fn sample(
+    ///    client: &VmMigration, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_clone_jobs()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_clone_jobs(&self) -> super::builder::vm_migration::ListCloneJobs {
         super::builder::vm_migration::ListCloneJobs::new(self.inner.clone())
     }
 
     /// Gets details of a single CloneJob.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// use google_cloud_vmmigration_v1::Result;
+    /// async fn sample(
+    ///    client: &VmMigration, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_clone_job()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_clone_job(&self) -> super::builder::vm_migration::GetCloneJob {
         super::builder::vm_migration::GetCloneJob::new(self.inner.clone())
     }
@@ -489,6 +1003,26 @@ impl VmMigration {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_vmmigration_v1::model::CutoverJob;
+    /// use google_cloud_vmmigration_v1::Result;
+    /// async fn sample(
+    ///    client: &VmMigration, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_cutover_job()
+    ///         .set_parent(parent)
+    ///         .set_cutover_job(
+    ///             CutoverJob::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_cutover_job(&self) -> super::builder::vm_migration::CreateCutoverJob {
         super::builder::vm_migration::CreateCutoverJob::new(self.inner.clone())
     }
@@ -504,27 +1038,109 @@ impl VmMigration {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_vmmigration_v1::Result;
+    /// async fn sample(
+    ///    client: &VmMigration
+    /// ) -> Result<()> {
+    ///     let response = client.cancel_cutover_job()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_cutover_job(&self) -> super::builder::vm_migration::CancelCutoverJob {
         super::builder::vm_migration::CancelCutoverJob::new(self.inner.clone())
     }
 
     /// Lists the CutoverJobs of a migrating VM. Only 25 most recent CutoverJobs
     /// are listed.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_vmmigration_v1::Result;
+    /// async fn sample(
+    ///    client: &VmMigration, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_cutover_jobs()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_cutover_jobs(&self) -> super::builder::vm_migration::ListCutoverJobs {
         super::builder::vm_migration::ListCutoverJobs::new(self.inner.clone())
     }
 
     /// Gets details of a single CutoverJob.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// use google_cloud_vmmigration_v1::Result;
+    /// async fn sample(
+    ///    client: &VmMigration, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_cutover_job()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_cutover_job(&self) -> super::builder::vm_migration::GetCutoverJob {
         super::builder::vm_migration::GetCutoverJob::new(self.inner.clone())
     }
 
     /// Lists Groups in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_vmmigration_v1::Result;
+    /// async fn sample(
+    ///    client: &VmMigration, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_groups()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_groups(&self) -> super::builder::vm_migration::ListGroups {
         super::builder::vm_migration::ListGroups::new(self.inner.clone())
     }
 
     /// Gets details of a single Group.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// use google_cloud_vmmigration_v1::Result;
+    /// async fn sample(
+    ///    client: &VmMigration, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_group()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_group(&self) -> super::builder::vm_migration::GetGroup {
         super::builder::vm_migration::GetGroup::new(self.inner.clone())
     }
@@ -540,6 +1156,26 @@ impl VmMigration {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_vmmigration_v1::model::Group;
+    /// use google_cloud_vmmigration_v1::Result;
+    /// async fn sample(
+    ///    client: &VmMigration, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_group()
+    ///         .set_parent(parent).set_group_id("group_id_value")
+    ///         .set_group(
+    ///             Group::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_group(&self) -> super::builder::vm_migration::CreateGroup {
         super::builder::vm_migration::CreateGroup::new(self.inner.clone())
     }
@@ -555,6 +1191,28 @@ impl VmMigration {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_vmmigration_v1::model::Group;
+    /// use google_cloud_vmmigration_v1::Result;
+    /// async fn sample(
+    ///    client: &VmMigration, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_group()
+    ///         .set_group(
+    ///             Group::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_group(&self) -> super::builder::vm_migration::UpdateGroup {
         super::builder::vm_migration::UpdateGroup::new(self.inner.clone())
     }
@@ -570,6 +1228,21 @@ impl VmMigration {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_vmmigration_v1::Result;
+    /// async fn sample(
+    ///    client: &VmMigration, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_group()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_group(&self) -> super::builder::vm_migration::DeleteGroup {
         super::builder::vm_migration::DeleteGroup::new(self.inner.clone())
     }
@@ -585,6 +1258,22 @@ impl VmMigration {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_vmmigration_v1::Result;
+    /// async fn sample(
+    ///    client: &VmMigration
+    /// ) -> Result<()> {
+    ///     let response = client.add_group_migration()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn add_group_migration(&self) -> super::builder::vm_migration::AddGroupMigration {
         super::builder::vm_migration::AddGroupMigration::new(self.inner.clone())
     }
@@ -600,6 +1289,22 @@ impl VmMigration {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_vmmigration_v1::Result;
+    /// async fn sample(
+    ///    client: &VmMigration
+    /// ) -> Result<()> {
+    ///     let response = client.remove_group_migration()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn remove_group_migration(&self) -> super::builder::vm_migration::RemoveGroupMigration {
         super::builder::vm_migration::RemoveGroupMigration::new(self.inner.clone())
     }
@@ -608,6 +1313,24 @@ impl VmMigration {
     ///
     /// NOTE: TargetProject is a global resource; hence the only supported value
     /// for location is `global`.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_vmmigration_v1::Result;
+    /// async fn sample(
+    ///    client: &VmMigration, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_target_projects()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_target_projects(&self) -> super::builder::vm_migration::ListTargetProjects {
         super::builder::vm_migration::ListTargetProjects::new(self.inner.clone())
     }
@@ -616,6 +1339,21 @@ impl VmMigration {
     ///
     /// NOTE: TargetProject is a global resource; hence the only supported value
     /// for location is `global`.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// use google_cloud_vmmigration_v1::Result;
+    /// async fn sample(
+    ///    client: &VmMigration, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_target_project()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_target_project(&self) -> super::builder::vm_migration::GetTargetProject {
         super::builder::vm_migration::GetTargetProject::new(self.inner.clone())
     }
@@ -634,6 +1372,26 @@ impl VmMigration {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_vmmigration_v1::model::TargetProject;
+    /// use google_cloud_vmmigration_v1::Result;
+    /// async fn sample(
+    ///    client: &VmMigration, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_target_project()
+    ///         .set_parent(parent)
+    ///         .set_target_project(
+    ///             TargetProject::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_target_project(&self) -> super::builder::vm_migration::CreateTargetProject {
         super::builder::vm_migration::CreateTargetProject::new(self.inner.clone())
     }
@@ -652,6 +1410,28 @@ impl VmMigration {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_vmmigration_v1::model::TargetProject;
+    /// use google_cloud_vmmigration_v1::Result;
+    /// async fn sample(
+    ///    client: &VmMigration, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_target_project()
+    ///         .set_target_project(
+    ///             TargetProject::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_target_project(&self) -> super::builder::vm_migration::UpdateTargetProject {
         super::builder::vm_migration::UpdateTargetProject::new(self.inner.clone())
     }
@@ -670,26 +1450,107 @@ impl VmMigration {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_vmmigration_v1::Result;
+    /// async fn sample(
+    ///    client: &VmMigration, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_target_project()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_target_project(&self) -> super::builder::vm_migration::DeleteTargetProject {
         super::builder::vm_migration::DeleteTargetProject::new(self.inner.clone())
     }
 
     /// Lists ReplicationCycles in a given MigratingVM.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_vmmigration_v1::Result;
+    /// async fn sample(
+    ///    client: &VmMigration, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_replication_cycles()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_replication_cycles(&self) -> super::builder::vm_migration::ListReplicationCycles {
         super::builder::vm_migration::ListReplicationCycles::new(self.inner.clone())
     }
 
     /// Gets details of a single ReplicationCycle.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// use google_cloud_vmmigration_v1::Result;
+    /// async fn sample(
+    ///    client: &VmMigration, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_replication_cycle()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_replication_cycle(&self) -> super::builder::vm_migration::GetReplicationCycle {
         super::builder::vm_migration::GetReplicationCycle::new(self.inner.clone())
     }
 
     /// Lists ImageImports in a given project.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_vmmigration_v1::Result;
+    /// async fn sample(
+    ///    client: &VmMigration, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_image_imports()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_image_imports(&self) -> super::builder::vm_migration::ListImageImports {
         super::builder::vm_migration::ListImageImports::new(self.inner.clone())
     }
 
     /// Gets details of a single ImageImport.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// use google_cloud_vmmigration_v1::Result;
+    /// async fn sample(
+    ///    client: &VmMigration, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_image_import()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_image_import(&self) -> super::builder::vm_migration::GetImageImport {
         super::builder::vm_migration::GetImageImport::new(self.inner.clone())
     }
@@ -705,6 +1566,26 @@ impl VmMigration {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_vmmigration_v1::model::ImageImport;
+    /// use google_cloud_vmmigration_v1::Result;
+    /// async fn sample(
+    ///    client: &VmMigration, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_image_import()
+    ///         .set_parent(parent)
+    ///         .set_image_import(
+    ///             ImageImport::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_image_import(&self) -> super::builder::vm_migration::CreateImageImport {
         super::builder::vm_migration::CreateImageImport::new(self.inner.clone())
     }
@@ -720,16 +1601,64 @@ impl VmMigration {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_vmmigration_v1::Result;
+    /// async fn sample(
+    ///    client: &VmMigration, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_image_import()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_image_import(&self) -> super::builder::vm_migration::DeleteImageImport {
         super::builder::vm_migration::DeleteImageImport::new(self.inner.clone())
     }
 
     /// Lists ImageImportJobs in a given project.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_vmmigration_v1::Result;
+    /// async fn sample(
+    ///    client: &VmMigration, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_image_import_jobs()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_image_import_jobs(&self) -> super::builder::vm_migration::ListImageImportJobs {
         super::builder::vm_migration::ListImageImportJobs::new(self.inner.clone())
     }
 
     /// Gets details of a single ImageImportJob.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// use google_cloud_vmmigration_v1::Result;
+    /// async fn sample(
+    ///    client: &VmMigration, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_image_import_job()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_image_import_job(&self) -> super::builder::vm_migration::GetImageImportJob {
         super::builder::vm_migration::GetImageImportJob::new(self.inner.clone())
     }
@@ -745,6 +1674,22 @@ impl VmMigration {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_vmmigration_v1::Result;
+    /// async fn sample(
+    ///    client: &VmMigration
+    /// ) -> Result<()> {
+    ///     let response = client.cancel_image_import_job()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_image_import_job(&self) -> super::builder::vm_migration::CancelImageImportJob {
         super::builder::vm_migration::CancelImageImportJob::new(self.inner.clone())
     }
@@ -760,6 +1705,26 @@ impl VmMigration {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_vmmigration_v1::model::DiskMigrationJob;
+    /// use google_cloud_vmmigration_v1::Result;
+    /// async fn sample(
+    ///    client: &VmMigration, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_disk_migration_job()
+    ///         .set_parent(parent)
+    ///         .set_disk_migration_job(
+    ///             DiskMigrationJob::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_disk_migration_job(
         &self,
     ) -> super::builder::vm_migration::CreateDiskMigrationJob {
@@ -767,11 +1732,44 @@ impl VmMigration {
     }
 
     /// Lists DiskMigrationJobs in a given Source.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_vmmigration_v1::Result;
+    /// async fn sample(
+    ///    client: &VmMigration, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_disk_migration_jobs()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_disk_migration_jobs(&self) -> super::builder::vm_migration::ListDiskMigrationJobs {
         super::builder::vm_migration::ListDiskMigrationJobs::new(self.inner.clone())
     }
 
     /// Gets details of a single DiskMigrationJob.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// use google_cloud_vmmigration_v1::Result;
+    /// async fn sample(
+    ///    client: &VmMigration, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_disk_migration_job()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_disk_migration_job(&self) -> super::builder::vm_migration::GetDiskMigrationJob {
         super::builder::vm_migration::GetDiskMigrationJob::new(self.inner.clone())
     }
@@ -787,6 +1785,28 @@ impl VmMigration {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_vmmigration_v1::model::DiskMigrationJob;
+    /// use google_cloud_vmmigration_v1::Result;
+    /// async fn sample(
+    ///    client: &VmMigration, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_disk_migration_job()
+    ///         .set_disk_migration_job(
+    ///             DiskMigrationJob::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_disk_migration_job(
         &self,
     ) -> super::builder::vm_migration::UpdateDiskMigrationJob {
@@ -804,6 +1824,21 @@ impl VmMigration {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_vmmigration_v1::Result;
+    /// async fn sample(
+    ///    client: &VmMigration, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_disk_migration_job()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_disk_migration_job(
         &self,
     ) -> super::builder::vm_migration::DeleteDiskMigrationJob {
@@ -821,6 +1856,22 @@ impl VmMigration {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_vmmigration_v1::Result;
+    /// async fn sample(
+    ///    client: &VmMigration
+    /// ) -> Result<()> {
+    ///     let response = client.run_disk_migration_job()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn run_disk_migration_job(&self) -> super::builder::vm_migration::RunDiskMigrationJob {
         super::builder::vm_migration::RunDiskMigrationJob::new(self.inner.clone())
     }
@@ -836,6 +1887,22 @@ impl VmMigration {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_vmmigration_v1::Result;
+    /// async fn sample(
+    ///    client: &VmMigration
+    /// ) -> Result<()> {
+    ///     let response = client.cancel_disk_migration_job()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_disk_migration_job(
         &self,
     ) -> super::builder::vm_migration::CancelDiskMigrationJob {
@@ -843,11 +1910,44 @@ impl VmMigration {
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_vmmigration_v1::Result;
+    /// async fn sample(
+    ///    client: &VmMigration
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::vm_migration::ListLocations {
         super::builder::vm_migration::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// use google_cloud_vmmigration_v1::Result;
+    /// async fn sample(
+    ///    client: &VmMigration
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::vm_migration::GetLocation {
         super::builder::vm_migration::GetLocation::new(self.inner.clone())
     }
@@ -855,6 +1955,24 @@ impl VmMigration {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_vmmigration_v1::Result;
+    /// async fn sample(
+    ///    client: &VmMigration
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::vm_migration::ListOperations {
         super::builder::vm_migration::ListOperations::new(self.inner.clone())
     }
@@ -862,6 +1980,21 @@ impl VmMigration {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// use google_cloud_vmmigration_v1::Result;
+    /// async fn sample(
+    ///    client: &VmMigration
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::vm_migration::GetOperation {
         super::builder::vm_migration::GetOperation::new(self.inner.clone())
     }
@@ -869,6 +2002,20 @@ impl VmMigration {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// use google_cloud_vmmigration_v1::Result;
+    /// async fn sample(
+    ///    client: &VmMigration
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::vm_migration::DeleteOperation {
         super::builder::vm_migration::DeleteOperation::new(self.inner.clone())
     }
@@ -876,6 +2023,20 @@ impl VmMigration {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// use google_cloud_vmmigration_v1::Result;
+    /// async fn sample(
+    ///    client: &VmMigration
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::vm_migration::CancelOperation {
         super::builder::vm_migration::CancelOperation::new(self.inner.clone())
     }

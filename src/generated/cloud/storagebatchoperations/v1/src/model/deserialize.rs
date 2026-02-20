@@ -560,6 +560,7 @@ impl<'de> serde::de::Deserialize<'de> for super::DeleteJobRequest {
         enum __FieldTag {
             __name,
             __request_id,
+            __force,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -583,6 +584,7 @@ impl<'de> serde::de::Deserialize<'de> for super::DeleteJobRequest {
                             "name" => Ok(__FieldTag::__name),
                             "requestId" => Ok(__FieldTag::__request_id),
                             "request_id" => Ok(__FieldTag::__request_id),
+                            "force" => Ok(__FieldTag::__force),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -626,6 +628,16 @@ impl<'de> serde::de::Deserialize<'de> for super::DeleteJobRequest {
                             }
                             result.request_id = map
                                 .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__force => {
+                            if !fields.insert(__FieldTag::__force) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for force",
+                                ));
+                            }
+                            result.force = map
+                                .next_value::<std::option::Option<bool>>()?
                                 .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
@@ -693,6 +705,332 @@ impl<'de> serde::de::Deserialize<'de> for super::CancelJobResponse {
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
                     #[allow(clippy::match_single_binding)]
                     match tag {
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::ListBucketOperationsRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __parent,
+            __filter,
+            __page_size,
+            __page_token,
+            __order_by,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ListBucketOperationsRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "parent" => Ok(__FieldTag::__parent),
+                            "filter" => Ok(__FieldTag::__filter),
+                            "pageSize" => Ok(__FieldTag::__page_size),
+                            "page_size" => Ok(__FieldTag::__page_size),
+                            "pageToken" => Ok(__FieldTag::__page_token),
+                            "page_token" => Ok(__FieldTag::__page_token),
+                            "orderBy" => Ok(__FieldTag::__order_by),
+                            "order_by" => Ok(__FieldTag::__order_by),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::ListBucketOperationsRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ListBucketOperationsRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__parent => {
+                            if !fields.insert(__FieldTag::__parent) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for parent",
+                                ));
+                            }
+                            result.parent = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__filter => {
+                            if !fields.insert(__FieldTag::__filter) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for filter",
+                                ));
+                            }
+                            result.filter = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__page_size => {
+                            if !fields.insert(__FieldTag::__page_size) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for page_size",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.page_size = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__page_token => {
+                            if !fields.insert(__FieldTag::__page_token) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for page_token",
+                                ));
+                            }
+                            result.page_token = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__order_by => {
+                            if !fields.insert(__FieldTag::__order_by) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for order_by",
+                                ));
+                            }
+                            result.order_by = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::ListBucketOperationsResponse {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __bucket_operations,
+            __next_page_token,
+            __unreachable,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ListBucketOperationsResponse")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "bucketOperations" => Ok(__FieldTag::__bucket_operations),
+                            "bucket_operations" => Ok(__FieldTag::__bucket_operations),
+                            "nextPageToken" => Ok(__FieldTag::__next_page_token),
+                            "next_page_token" => Ok(__FieldTag::__next_page_token),
+                            "unreachable" => Ok(__FieldTag::__unreachable),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::ListBucketOperationsResponse;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ListBucketOperationsResponse")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__bucket_operations => {
+                            if !fields.insert(__FieldTag::__bucket_operations) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for bucket_operations",
+                                ));
+                            }
+                            result.bucket_operations =
+                                map.next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::BucketOperation>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__next_page_token => {
+                            if !fields.insert(__FieldTag::__next_page_token) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for next_page_token",
+                                ));
+                            }
+                            result.next_page_token = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__unreachable => {
+                            if !fields.insert(__FieldTag::__unreachable) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for unreachable",
+                                ));
+                            }
+                            result.unreachable = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::GetBucketOperationRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for GetBucketOperationRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::GetBucketOperationRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct GetBucketOperationRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -872,6 +1210,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Job {
             __error_summaries,
             __state,
             __dry_run,
+            __is_multi_bucket_job,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -918,6 +1257,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Job {
                             "state" => Ok(__FieldTag::__state),
                             "dryRun" => Ok(__FieldTag::__dry_run),
                             "dry_run" => Ok(__FieldTag::__dry_run),
+                            "isMultiBucketJob" => Ok(__FieldTag::__is_multi_bucket_job),
+                            "is_multi_bucket_job" => Ok(__FieldTag::__is_multi_bucket_job),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -1134,6 +1475,314 @@ impl<'de> serde::de::Deserialize<'de> for super::Job {
                             result.dry_run = map
                                 .next_value::<std::option::Option<bool>>()?
                                 .unwrap_or_default();
+                        }
+                        __FieldTag::__is_multi_bucket_job => {
+                            if !fields.insert(__FieldTag::__is_multi_bucket_job) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for is_multi_bucket_job",
+                                ));
+                            }
+                            result.is_multi_bucket_job = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::BucketOperation {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            __bucket_name,
+            __prefix_list,
+            __manifest,
+            __put_object_hold,
+            __delete_object,
+            __put_metadata,
+            __rewrite_object,
+            __create_time,
+            __start_time,
+            __complete_time,
+            __counters,
+            __error_summaries,
+            __state,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for BucketOperation")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            "bucketName" => Ok(__FieldTag::__bucket_name),
+                            "bucket_name" => Ok(__FieldTag::__bucket_name),
+                            "prefixList" => Ok(__FieldTag::__prefix_list),
+                            "prefix_list" => Ok(__FieldTag::__prefix_list),
+                            "manifest" => Ok(__FieldTag::__manifest),
+                            "putObjectHold" => Ok(__FieldTag::__put_object_hold),
+                            "put_object_hold" => Ok(__FieldTag::__put_object_hold),
+                            "deleteObject" => Ok(__FieldTag::__delete_object),
+                            "delete_object" => Ok(__FieldTag::__delete_object),
+                            "putMetadata" => Ok(__FieldTag::__put_metadata),
+                            "put_metadata" => Ok(__FieldTag::__put_metadata),
+                            "rewriteObject" => Ok(__FieldTag::__rewrite_object),
+                            "rewrite_object" => Ok(__FieldTag::__rewrite_object),
+                            "createTime" => Ok(__FieldTag::__create_time),
+                            "create_time" => Ok(__FieldTag::__create_time),
+                            "startTime" => Ok(__FieldTag::__start_time),
+                            "start_time" => Ok(__FieldTag::__start_time),
+                            "completeTime" => Ok(__FieldTag::__complete_time),
+                            "complete_time" => Ok(__FieldTag::__complete_time),
+                            "counters" => Ok(__FieldTag::__counters),
+                            "errorSummaries" => Ok(__FieldTag::__error_summaries),
+                            "error_summaries" => Ok(__FieldTag::__error_summaries),
+                            "state" => Ok(__FieldTag::__state),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::BucketOperation;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct BucketOperation")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__bucket_name => {
+                            if !fields.insert(__FieldTag::__bucket_name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for bucket_name",
+                                ));
+                            }
+                            result.bucket_name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__prefix_list => {
+                            if !fields.insert(__FieldTag::__prefix_list) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for prefix_list",
+                                ));
+                            }
+                            if result.object_configuration.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `object_configuration`, a oneof with full ID .google.cloud.storagebatchoperations.v1.BucketOperation.prefix_list, latest field was prefixList",
+                                ));
+                            }
+                            result.object_configuration = std::option::Option::Some(
+                                crate::model::bucket_operation::ObjectConfiguration::PrefixList(
+                                    map.next_value::<std::option::Option<
+                                        std::boxed::Box<crate::model::PrefixList>,
+                                    >>()?
+                                    .unwrap_or_default(),
+                                ),
+                            );
+                        }
+                        __FieldTag::__manifest => {
+                            if !fields.insert(__FieldTag::__manifest) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for manifest",
+                                ));
+                            }
+                            if result.object_configuration.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `object_configuration`, a oneof with full ID .google.cloud.storagebatchoperations.v1.BucketOperation.manifest, latest field was manifest",
+                                ));
+                            }
+                            result.object_configuration = std::option::Option::Some(
+                                crate::model::bucket_operation::ObjectConfiguration::Manifest(
+                                    map.next_value::<std::option::Option<
+                                        std::boxed::Box<crate::model::Manifest>,
+                                    >>()?
+                                    .unwrap_or_default(),
+                                ),
+                            );
+                        }
+                        __FieldTag::__put_object_hold => {
+                            if !fields.insert(__FieldTag::__put_object_hold) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for put_object_hold",
+                                ));
+                            }
+                            if result.transformation.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `transformation`, a oneof with full ID .google.cloud.storagebatchoperations.v1.BucketOperation.put_object_hold, latest field was putObjectHold",
+                                ));
+                            }
+                            result.transformation = std::option::Option::Some(
+                                crate::model::bucket_operation::Transformation::PutObjectHold(
+                                    map.next_value::<std::option::Option<
+                                        std::boxed::Box<crate::model::PutObjectHold>,
+                                    >>()?
+                                    .unwrap_or_default(),
+                                ),
+                            );
+                        }
+                        __FieldTag::__delete_object => {
+                            if !fields.insert(__FieldTag::__delete_object) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for delete_object",
+                                ));
+                            }
+                            if result.transformation.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `transformation`, a oneof with full ID .google.cloud.storagebatchoperations.v1.BucketOperation.delete_object, latest field was deleteObject",
+                                ));
+                            }
+                            result.transformation = std::option::Option::Some(
+                                crate::model::bucket_operation::Transformation::DeleteObject(
+                                    map.next_value::<std::option::Option<
+                                        std::boxed::Box<crate::model::DeleteObject>,
+                                    >>()?
+                                    .unwrap_or_default(),
+                                ),
+                            );
+                        }
+                        __FieldTag::__put_metadata => {
+                            if !fields.insert(__FieldTag::__put_metadata) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for put_metadata",
+                                ));
+                            }
+                            if result.transformation.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `transformation`, a oneof with full ID .google.cloud.storagebatchoperations.v1.BucketOperation.put_metadata, latest field was putMetadata",
+                                ));
+                            }
+                            result.transformation = std::option::Option::Some(
+                                crate::model::bucket_operation::Transformation::PutMetadata(
+                                    map.next_value::<std::option::Option<
+                                        std::boxed::Box<crate::model::PutMetadata>,
+                                    >>()?
+                                    .unwrap_or_default(),
+                                ),
+                            );
+                        }
+                        __FieldTag::__rewrite_object => {
+                            if !fields.insert(__FieldTag::__rewrite_object) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for rewrite_object",
+                                ));
+                            }
+                            if result.transformation.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `transformation`, a oneof with full ID .google.cloud.storagebatchoperations.v1.BucketOperation.rewrite_object, latest field was rewriteObject",
+                                ));
+                            }
+                            result.transformation = std::option::Option::Some(
+                                crate::model::bucket_operation::Transformation::RewriteObject(
+                                    map.next_value::<std::option::Option<
+                                        std::boxed::Box<crate::model::RewriteObject>,
+                                    >>()?
+                                    .unwrap_or_default(),
+                                ),
+                            );
+                        }
+                        __FieldTag::__create_time => {
+                            if !fields.insert(__FieldTag::__create_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for create_time",
+                                ));
+                            }
+                            result.create_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::__start_time => {
+                            if !fields.insert(__FieldTag::__start_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for start_time",
+                                ));
+                            }
+                            result.start_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::__complete_time => {
+                            if !fields.insert(__FieldTag::__complete_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for complete_time",
+                                ));
+                            }
+                            result.complete_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::__counters => {
+                            if !fields.insert(__FieldTag::__counters) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for counters",
+                                ));
+                            }
+                            result.counters =
+                                map.next_value::<std::option::Option<crate::model::Counters>>()?;
+                        }
+                        __FieldTag::__error_summaries => {
+                            if !fields.insert(__FieldTag::__error_summaries) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for error_summaries",
+                                ));
+                            }
+                            result.error_summaries = map.next_value::<std::option::Option<std::vec::Vec<crate::model::ErrorSummary>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__state => {
+                            if !fields.insert(__FieldTag::__state) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for state",
+                                ));
+                            }
+                            result.state = map.next_value::<std::option::Option<crate::model::bucket_operation::State>>()?.unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

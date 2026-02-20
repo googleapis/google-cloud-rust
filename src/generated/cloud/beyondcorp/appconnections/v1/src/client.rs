@@ -133,6 +133,24 @@ impl AppConnectionsService {
     }
 
     /// Lists AppConnections in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnections_v1::client::AppConnectionsService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_beyondcorp_appconnections_v1::Result;
+    /// async fn sample(
+    ///    client: &AppConnectionsService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_app_connections()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_app_connections(
         &self,
     ) -> super::builder::app_connections_service::ListAppConnections {
@@ -140,6 +158,21 @@ impl AppConnectionsService {
     }
 
     /// Gets details of a single AppConnection.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnections_v1::client::AppConnectionsService;
+    /// use google_cloud_beyondcorp_appconnections_v1::Result;
+    /// async fn sample(
+    ///    client: &AppConnectionsService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_app_connection()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_app_connection(&self) -> super::builder::app_connections_service::GetAppConnection {
         super::builder::app_connections_service::GetAppConnection::new(self.inner.clone())
     }
@@ -155,6 +188,26 @@ impl AppConnectionsService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnections_v1::client::AppConnectionsService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_beyondcorp_appconnections_v1::model::AppConnection;
+    /// use google_cloud_beyondcorp_appconnections_v1::Result;
+    /// async fn sample(
+    ///    client: &AppConnectionsService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_app_connection()
+    ///         .set_parent(parent)
+    ///         .set_app_connection(
+    ///             AppConnection::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_app_connection(
         &self,
     ) -> super::builder::app_connections_service::CreateAppConnection {
@@ -172,6 +225,28 @@ impl AppConnectionsService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnections_v1::client::AppConnectionsService;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_beyondcorp_appconnections_v1::model::AppConnection;
+    /// use google_cloud_beyondcorp_appconnections_v1::Result;
+    /// async fn sample(
+    ///    client: &AppConnectionsService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_app_connection()
+    ///         .set_app_connection(
+    ///             AppConnection::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_app_connection(
         &self,
     ) -> super::builder::app_connections_service::UpdateAppConnection {
@@ -189,6 +264,21 @@ impl AppConnectionsService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnections_v1::client::AppConnectionsService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_beyondcorp_appconnections_v1::Result;
+    /// async fn sample(
+    ///    client: &AppConnectionsService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_app_connection()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_app_connection(
         &self,
     ) -> super::builder::app_connections_service::DeleteAppConnection {
@@ -198,6 +288,24 @@ impl AppConnectionsService {
     /// Resolves AppConnections details for a given AppConnector.
     /// An internal method called by a connector to find AppConnections to connect
     /// to.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnections_v1::client::AppConnectionsService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_beyondcorp_appconnections_v1::Result;
+    /// async fn sample(
+    ///    client: &AppConnectionsService
+    /// ) -> Result<()> {
+    ///     let mut list = client.resolve_app_connections()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn resolve_app_connections(
         &self,
     ) -> super::builder::app_connections_service::ResolveAppConnections {
@@ -205,11 +313,44 @@ impl AppConnectionsService {
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnections_v1::client::AppConnectionsService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_beyondcorp_appconnections_v1::Result;
+    /// async fn sample(
+    ///    client: &AppConnectionsService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::app_connections_service::ListLocations {
         super::builder::app_connections_service::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnections_v1::client::AppConnectionsService;
+    /// use google_cloud_beyondcorp_appconnections_v1::Result;
+    /// async fn sample(
+    ///    client: &AppConnectionsService
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::app_connections_service::GetLocation {
         super::builder::app_connections_service::GetLocation::new(self.inner.clone())
     }
@@ -219,12 +360,42 @@ impl AppConnectionsService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnections_v1::client::AppConnectionsService;
+    /// use google_cloud_beyondcorp_appconnections_v1::Result;
+    /// async fn sample(
+    ///    client: &AppConnectionsService
+    /// ) -> Result<()> {
+    ///     let response = client.set_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::app_connections_service::SetIamPolicy {
         super::builder::app_connections_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnections_v1::client::AppConnectionsService;
+    /// use google_cloud_beyondcorp_appconnections_v1::Result;
+    /// async fn sample(
+    ///    client: &AppConnectionsService
+    /// ) -> Result<()> {
+    ///     let response = client.get_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::app_connections_service::GetIamPolicy {
         super::builder::app_connections_service::GetIamPolicy::new(self.inner.clone())
     }
@@ -236,6 +407,21 @@ impl AppConnectionsService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnections_v1::client::AppConnectionsService;
+    /// use google_cloud_beyondcorp_appconnections_v1::Result;
+    /// async fn sample(
+    ///    client: &AppConnectionsService
+    /// ) -> Result<()> {
+    ///     let response = client.test_iam_permissions()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(
         &self,
     ) -> super::builder::app_connections_service::TestIamPermissions {
@@ -245,6 +431,24 @@ impl AppConnectionsService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnections_v1::client::AppConnectionsService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_beyondcorp_appconnections_v1::Result;
+    /// async fn sample(
+    ///    client: &AppConnectionsService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::app_connections_service::ListOperations {
         super::builder::app_connections_service::ListOperations::new(self.inner.clone())
     }
@@ -252,6 +456,21 @@ impl AppConnectionsService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnections_v1::client::AppConnectionsService;
+    /// use google_cloud_beyondcorp_appconnections_v1::Result;
+    /// async fn sample(
+    ///    client: &AppConnectionsService
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::app_connections_service::GetOperation {
         super::builder::app_connections_service::GetOperation::new(self.inner.clone())
     }
@@ -259,6 +478,20 @@ impl AppConnectionsService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnections_v1::client::AppConnectionsService;
+    /// use google_cloud_beyondcorp_appconnections_v1::Result;
+    /// async fn sample(
+    ///    client: &AppConnectionsService
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::app_connections_service::DeleteOperation {
         super::builder::app_connections_service::DeleteOperation::new(self.inner.clone())
     }
@@ -266,6 +499,20 @@ impl AppConnectionsService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnections_v1::client::AppConnectionsService;
+    /// use google_cloud_beyondcorp_appconnections_v1::Result;
+    /// async fn sample(
+    ///    client: &AppConnectionsService
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::app_connections_service::CancelOperation {
         super::builder::app_connections_service::CancelOperation::new(self.inner.clone())
     }

@@ -323,6 +323,24 @@ impl StorageControl {
         self.control.rename_folder()
     }
 
+    /// Deletes a folder recursively. This operation is only applicable to a
+    /// hierarchical namespace enabled bucket.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn delete_folder_recursive(
+        &self,
+    ) -> crate::builder::storage_control::DeleteFolderRecursive {
+        self.control.delete_folder_recursive()
+    }
+
     /// Returns the storage layout configuration for a given bucket.
     pub fn get_storage_layout(&self) -> crate::builder::storage_control::GetStorageLayout {
         self.control.get_storage_layout()

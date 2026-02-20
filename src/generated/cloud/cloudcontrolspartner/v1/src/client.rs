@@ -121,26 +121,107 @@ impl CloudControlsPartnerCore {
     }
 
     /// Gets details of a single workload
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudcontrolspartner_v1::client::CloudControlsPartnerCore;
+    /// use google_cloud_cloudcontrolspartner_v1::Result;
+    /// async fn sample(
+    ///    client: &CloudControlsPartnerCore, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_workload()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_workload(&self) -> super::builder::cloud_controls_partner_core::GetWorkload {
         super::builder::cloud_controls_partner_core::GetWorkload::new(self.inner.clone())
     }
 
     /// Lists customer workloads for a given customer org id
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudcontrolspartner_v1::client::CloudControlsPartnerCore;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_cloudcontrolspartner_v1::Result;
+    /// async fn sample(
+    ///    client: &CloudControlsPartnerCore, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_workloads()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_workloads(&self) -> super::builder::cloud_controls_partner_core::ListWorkloads {
         super::builder::cloud_controls_partner_core::ListWorkloads::new(self.inner.clone())
     }
 
     /// Gets details of a single customer
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudcontrolspartner_v1::client::CloudControlsPartnerCore;
+    /// use google_cloud_cloudcontrolspartner_v1::Result;
+    /// async fn sample(
+    ///    client: &CloudControlsPartnerCore, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_customer()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_customer(&self) -> super::builder::cloud_controls_partner_core::GetCustomer {
         super::builder::cloud_controls_partner_core::GetCustomer::new(self.inner.clone())
     }
 
     /// Lists customers of a partner identified by its Google Cloud organization ID
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudcontrolspartner_v1::client::CloudControlsPartnerCore;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_cloudcontrolspartner_v1::Result;
+    /// async fn sample(
+    ///    client: &CloudControlsPartnerCore, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_customers()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_customers(&self) -> super::builder::cloud_controls_partner_core::ListCustomers {
         super::builder::cloud_controls_partner_core::ListCustomers::new(self.inner.clone())
     }
 
     /// Gets the EKM connections associated with a workload
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudcontrolspartner_v1::client::CloudControlsPartnerCore;
+    /// use google_cloud_cloudcontrolspartner_v1::Result;
+    /// async fn sample(
+    ///    client: &CloudControlsPartnerCore, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_ekm_connections()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_ekm_connections(
         &self,
     ) -> super::builder::cloud_controls_partner_core::GetEkmConnections {
@@ -148,6 +229,21 @@ impl CloudControlsPartnerCore {
     }
 
     /// Gets the partner permissions granted for a workload
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudcontrolspartner_v1::client::CloudControlsPartnerCore;
+    /// use google_cloud_cloudcontrolspartner_v1::Result;
+    /// async fn sample(
+    ///    client: &CloudControlsPartnerCore, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_partner_permissions()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_partner_permissions(
         &self,
     ) -> super::builder::cloud_controls_partner_core::GetPartnerPermissions {
@@ -156,6 +252,24 @@ impl CloudControlsPartnerCore {
 
     /// Deprecated: Only returns access approval requests directly associated with
     /// an assured workload folder.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudcontrolspartner_v1::client::CloudControlsPartnerCore;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_cloudcontrolspartner_v1::Result;
+    /// async fn sample(
+    ///    client: &CloudControlsPartnerCore, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_access_approval_requests()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     #[deprecated]
     pub fn list_access_approval_requests(
         &self,
@@ -166,21 +280,90 @@ impl CloudControlsPartnerCore {
     }
 
     /// Get details of a Partner.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudcontrolspartner_v1::client::CloudControlsPartnerCore;
+    /// use google_cloud_cloudcontrolspartner_v1::Result;
+    /// async fn sample(
+    ///    client: &CloudControlsPartnerCore, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_partner()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_partner(&self) -> super::builder::cloud_controls_partner_core::GetPartner {
         super::builder::cloud_controls_partner_core::GetPartner::new(self.inner.clone())
     }
 
     /// Creates a new customer.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudcontrolspartner_v1::client::CloudControlsPartnerCore;
+    /// use google_cloud_cloudcontrolspartner_v1::model::Customer;
+    /// use google_cloud_cloudcontrolspartner_v1::Result;
+    /// async fn sample(
+    ///    client: &CloudControlsPartnerCore, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_customer()
+    ///         .set_parent(parent).set_customer_id("customer_id_value")
+    ///         .set_customer(
+    ///             Customer::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_customer(&self) -> super::builder::cloud_controls_partner_core::CreateCustomer {
         super::builder::cloud_controls_partner_core::CreateCustomer::new(self.inner.clone())
     }
 
     /// Update details of a single customer
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudcontrolspartner_v1::client::CloudControlsPartnerCore;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_cloudcontrolspartner_v1::model::Customer;
+    /// use google_cloud_cloudcontrolspartner_v1::Result;
+    /// async fn sample(
+    ///    client: &CloudControlsPartnerCore, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_customer()
+    ///         .set_customer(
+    ///             Customer::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_customer(&self) -> super::builder::cloud_controls_partner_core::UpdateCustomer {
         super::builder::cloud_controls_partner_core::UpdateCustomer::new(self.inner.clone())
     }
 
     /// Delete details of a single customer
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudcontrolspartner_v1::client::CloudControlsPartnerCore;
+    /// use google_cloud_cloudcontrolspartner_v1::Result;
+    /// async fn sample(
+    ///    client: &CloudControlsPartnerCore, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_customer()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_customer(&self) -> super::builder::cloud_controls_partner_core::DeleteCustomer {
         super::builder::cloud_controls_partner_core::DeleteCustomer::new(self.inner.clone())
     }
@@ -299,6 +482,24 @@ impl CloudControlsPartnerMonitoring {
     /// character) as a wildcard character instead of {customer} & {workload}.
     /// Format:
     /// `organizations/{organization}/locations/{location}/customers/{customer}/workloads/{workload}`
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudcontrolspartner_v1::client::CloudControlsPartnerMonitoring;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_cloudcontrolspartner_v1::Result;
+    /// async fn sample(
+    ///    client: &CloudControlsPartnerMonitoring, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_violations()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_violations(
         &self,
     ) -> super::builder::cloud_controls_partner_monitoring::ListViolations {
@@ -306,6 +507,21 @@ impl CloudControlsPartnerMonitoring {
     }
 
     /// Gets details of a single Violation.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_cloudcontrolspartner_v1::client::CloudControlsPartnerMonitoring;
+    /// use google_cloud_cloudcontrolspartner_v1::Result;
+    /// async fn sample(
+    ///    client: &CloudControlsPartnerMonitoring, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_violation()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_violation(&self) -> super::builder::cloud_controls_partner_monitoring::GetViolation {
         super::builder::cloud_controls_partner_monitoring::GetViolation::new(self.inner.clone())
     }

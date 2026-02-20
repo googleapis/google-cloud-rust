@@ -40,6 +40,8 @@ locals {
     "--cfg google_cloud_unstable_storage_bidi"
   ])
 
+  tokio_unstable_flags = "--cfg tokio_unstable"
+
   # These builds appear in both the PR (Pull Request) triggers and the
   # PM (Post Merge) triggers. See below for builds that only appear in one.
   common_builds = {
@@ -125,6 +127,11 @@ locals {
     test-current = {
       config = "complex.yaml"
       flags  = local.unstable_flags
+      script = "test"
+    }
+    test-tokio-unstable = {
+      config = "complex.yaml"
+      flags  = local.tokio_unstable_flags
       script = "test"
     }
     test-msrv = {

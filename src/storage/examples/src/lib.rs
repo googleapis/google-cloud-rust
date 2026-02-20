@@ -392,6 +392,22 @@ pub async fn run_object_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     tracing::info!("running download_byte_range example");
     objects::download_byte_range::sample(&client, &id, "object-to-download.txt", 4, 10).await?;
 
+    tracing::info!("running open_object_single_ranged_read example");
+    let downloaded_file = tempfile::NamedTempFile::new()?;
+    let downloaded_file_name = downloaded_file.path().to_str().unwrap();
+    let object_name = "object-to-download.txt";
+    let range_start = 4;
+    let range_end = 10;
+    objects::open_object_single_ranged_read::sample(
+        &client,
+        &id,
+        object_name,
+        range_start,
+        range_end,
+        downloaded_file_name,
+    )
+    .await?;
+
     tracing::info!("running file_upload_from_memory example");
     objects::file_upload_from_memory::sample(&client, &id).await?;
     tracing::info!("running file_download_into_memory example");

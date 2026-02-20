@@ -13,3 +13,4 @@
 // limitations under the License.
 
 pub mod create_pull_subscription;
+pub mod list_subscriptions;

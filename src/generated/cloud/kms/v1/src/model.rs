@@ -585,7 +585,8 @@ impl wkt::message::Message for UpdateAutokeyConfigRequest {
 #[non_exhaustive]
 pub struct GetAutokeyConfigRequest {
     /// Required. Name of the [AutokeyConfig][google.cloud.kms.v1.AutokeyConfig]
-    /// resource, e.g. `folders/{FOLDER_NUMBER}/autokeyConfig`.
+    /// resource, e.g. `folders/{FOLDER_NUMBER}/autokeyConfig` or
+    /// `projects/{PROJECT_NUMBER}/autokeyConfig`.
     ///
     /// [google.cloud.kms.v1.AutokeyConfig]: crate::model::AutokeyConfig
     pub name: std::string::String,
@@ -622,7 +623,8 @@ impl wkt::message::Message for GetAutokeyConfigRequest {
 #[non_exhaustive]
 pub struct AutokeyConfig {
     /// Identifier. Name of the [AutokeyConfig][google.cloud.kms.v1.AutokeyConfig]
-    /// resource, e.g. `folders/{FOLDER_NUMBER}/autokeyConfig`.
+    /// resource, e.g. `folders/{FOLDER_NUMBER}/autokeyConfig` or
+    /// `projects/{PROJECT_NUMBER}/autokeyConfig`.
     ///
     /// [google.cloud.kms.v1.AutokeyConfig]: crate::model::AutokeyConfig
     pub name: std::string::String,
@@ -652,6 +654,11 @@ pub struct AutokeyConfig {
     /// an up-to-date value before proceeding. The request will be rejected with an
     /// ABORTED error on a mismatched etag.
     pub etag: std::string::String,
+
+    /// Optional. KeyProjectResolutionMode for the AutokeyConfig.
+    /// Valid values are `DEDICATED_KEY_PROJECT`, `RESOURCE_PROJECT`, or
+    /// `DISABLED`.
+    pub key_project_resolution_mode: crate::model::autokey_config::KeyProjectResolutionMode,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -714,6 +721,26 @@ impl AutokeyConfig {
         self.etag = v.into();
         self
     }
+
+    /// Sets the value of [key_project_resolution_mode][crate::model::AutokeyConfig::key_project_resolution_mode].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::AutokeyConfig;
+    /// use google_cloud_kms_v1::model::autokey_config::KeyProjectResolutionMode;
+    /// let x0 = AutokeyConfig::new().set_key_project_resolution_mode(KeyProjectResolutionMode::DedicatedKeyProject);
+    /// let x1 = AutokeyConfig::new().set_key_project_resolution_mode(KeyProjectResolutionMode::ResourceProject);
+    /// let x2 = AutokeyConfig::new().set_key_project_resolution_mode(KeyProjectResolutionMode::Disabled);
+    /// ```
+    pub fn set_key_project_resolution_mode<
+        T: std::convert::Into<crate::model::autokey_config::KeyProjectResolutionMode>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.key_project_resolution_mode = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for AutokeyConfig {
@@ -755,6 +782,9 @@ pub mod autokey_config {
         /// The AutokeyConfig is not yet initialized or has been reset to its default
         /// uninitialized state.
         Uninitialized,
+        /// The service account lacks the necessary permissions in the key project to
+        /// configure Autokey.
+        KeyProjectPermissionDenied,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [State::value] or
@@ -781,6 +811,7 @@ pub mod autokey_config {
                 Self::Active => std::option::Option::Some(1),
                 Self::KeyProjectDeleted => std::option::Option::Some(2),
                 Self::Uninitialized => std::option::Option::Some(3),
+                Self::KeyProjectPermissionDenied => std::option::Option::Some(4),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -795,6 +826,9 @@ pub mod autokey_config {
                 Self::Active => std::option::Option::Some("ACTIVE"),
                 Self::KeyProjectDeleted => std::option::Option::Some("KEY_PROJECT_DELETED"),
                 Self::Uninitialized => std::option::Option::Some("UNINITIALIZED"),
+                Self::KeyProjectPermissionDenied => {
+                    std::option::Option::Some("KEY_PROJECT_PERMISSION_DENIED")
+                }
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -820,6 +854,7 @@ pub mod autokey_config {
                 1 => Self::Active,
                 2 => Self::KeyProjectDeleted,
                 3 => Self::Uninitialized,
+                4 => Self::KeyProjectPermissionDenied,
                 _ => Self::UnknownValue(state::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -835,6 +870,7 @@ pub mod autokey_config {
                 "ACTIVE" => Self::Active,
                 "KEY_PROJECT_DELETED" => Self::KeyProjectDeleted,
                 "UNINITIALIZED" => Self::Uninitialized,
+                "KEY_PROJECT_PERMISSION_DENIED" => Self::KeyProjectPermissionDenied,
                 _ => Self::UnknownValue(state::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -852,6 +888,7 @@ pub mod autokey_config {
                 Self::Active => serializer.serialize_i32(1),
                 Self::KeyProjectDeleted => serializer.serialize_i32(2),
                 Self::Uninitialized => serializer.serialize_i32(3),
+                Self::KeyProjectPermissionDenied => serializer.serialize_i32(4),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -865,6 +902,168 @@ pub mod autokey_config {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
                 ".google.cloud.kms.v1.AutokeyConfig.State",
             ))
+        }
+    }
+
+    /// Defines the resolution mode enum for the key project.
+    /// The
+    /// [KeyProjectResolutionMode][google.cloud.kms.v1.AutokeyConfig.KeyProjectResolutionMode]
+    /// determines the mechanism by which
+    /// [AutokeyConfig][google.cloud.kms.v1.AutokeyConfig] identifies a
+    /// [key_project][google.cloud.kms.v1.AutokeyConfig.key_project] at its
+    /// specific configuration node. This parameter also determines if Autokey can
+    /// be used within this project or folder.
+    ///
+    /// [google.cloud.kms.v1.AutokeyConfig]: crate::model::AutokeyConfig
+    /// [google.cloud.kms.v1.AutokeyConfig.KeyProjectResolutionMode]: crate::model::autokey_config::KeyProjectResolutionMode
+    /// [google.cloud.kms.v1.AutokeyConfig.key_project]: crate::model::AutokeyConfig::key_project
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum KeyProjectResolutionMode {
+        /// Default value. KeyProjectResolutionMode when not specified will act as
+        /// `DEDICATED_KEY_PROJECT`.
+        Unspecified,
+        /// Keys are created in a dedicated project specified by `key_project`.
+        DedicatedKeyProject,
+        /// Keys are created in the same project as the resource requesting the key.
+        /// The `key_project` must not be set when this mode is used.
+        ResourceProject,
+        /// Disables the AutokeyConfig. When this mode is set, any AutokeyConfig
+        /// from higher levels in the resource hierarchy are ignored for this
+        /// resource and its descendants. This setting can be overridden
+        /// by a more specific configuration at a lower level. For example,
+        /// if Autokey is disabled on a folder, it can be re-enabled on a sub-folder
+        /// or project within that folder by setting a different mode (e.g.,
+        /// DEDICATED_KEY_PROJECT or RESOURCE_PROJECT).
+        Disabled,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [KeyProjectResolutionMode::value] or
+        /// [KeyProjectResolutionMode::name].
+        UnknownValue(key_project_resolution_mode::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod key_project_resolution_mode {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl KeyProjectResolutionMode {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::DedicatedKeyProject => std::option::Option::Some(1),
+                Self::ResourceProject => std::option::Option::Some(2),
+                Self::Disabled => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => {
+                    std::option::Option::Some("KEY_PROJECT_RESOLUTION_MODE_UNSPECIFIED")
+                }
+                Self::DedicatedKeyProject => std::option::Option::Some("DEDICATED_KEY_PROJECT"),
+                Self::ResourceProject => std::option::Option::Some("RESOURCE_PROJECT"),
+                Self::Disabled => std::option::Option::Some("DISABLED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for KeyProjectResolutionMode {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for KeyProjectResolutionMode {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for KeyProjectResolutionMode {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::DedicatedKeyProject,
+                2 => Self::ResourceProject,
+                3 => Self::Disabled,
+                _ => Self::UnknownValue(key_project_resolution_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for KeyProjectResolutionMode {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "KEY_PROJECT_RESOLUTION_MODE_UNSPECIFIED" => Self::Unspecified,
+                "DEDICATED_KEY_PROJECT" => Self::DedicatedKeyProject,
+                "RESOURCE_PROJECT" => Self::ResourceProject,
+                "DISABLED" => Self::Disabled,
+                _ => Self::UnknownValue(key_project_resolution_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for KeyProjectResolutionMode {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::DedicatedKeyProject => serializer.serialize_i32(1),
+                Self::ResourceProject => serializer.serialize_i32(2),
+                Self::Disabled => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for KeyProjectResolutionMode {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(
+                wkt::internal::EnumVisitor::<KeyProjectResolutionMode>::new(
+                    ".google.cloud.kms.v1.AutokeyConfig.KeyProjectResolutionMode",
+                ),
+            )
         }
     }
 }
@@ -8002,11 +8201,32 @@ pub mod crypto_key_version {
         /// datatracker.ietf.org/doc/draft-connolly-cfrg-xwing-kem/.
         KemXwing,
         /// The post-quantum Module-Lattice-Based Digital Signature Algorithm, at
+        /// security level 1. Randomized version.
+        PqSignMlDsa44,
+        /// The post-quantum Module-Lattice-Based Digital Signature Algorithm, at
         /// security level 3. Randomized version.
         PqSignMlDsa65,
+        /// The post-quantum Module-Lattice-Based Digital Signature Algorithm, at
+        /// security level 5. Randomized version.
+        PqSignMlDsa87,
         /// The post-quantum stateless hash-based digital signature algorithm, at
         /// security level 1. Randomized version.
         PqSignSlhDsaSha2128S,
+        /// The post-quantum stateless hash-based digital signature algorithm, at
+        /// security level 1. Randomized pre-hash version supporting SHA256 digests.
+        PqSignHashSlhDsaSha2128SSha256,
+        /// The post-quantum Module-Lattice-Based Digital Signature Algorithm, at
+        /// security level 1. Randomized version supporting externally-computed
+        /// message representatives.
+        PqSignMlDsa44ExternalMu,
+        /// The post-quantum Module-Lattice-Based Digital Signature Algorithm, at
+        /// security level 3. Randomized version supporting externally-computed
+        /// message representatives.
+        PqSignMlDsa65ExternalMu,
+        /// The post-quantum Module-Lattice-Based Digital Signature Algorithm, at
+        /// security level 5. Randomized version supporting externally-computed
+        /// message representatives.
+        PqSignMlDsa87ExternalMu,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [CryptoKeyVersionAlgorithm::value] or
@@ -8068,8 +8288,14 @@ pub mod crypto_key_version {
                 Self::MlKem768 => std::option::Option::Some(47),
                 Self::MlKem1024 => std::option::Option::Some(48),
                 Self::KemXwing => std::option::Option::Some(63),
+                Self::PqSignMlDsa44 => std::option::Option::Some(68),
                 Self::PqSignMlDsa65 => std::option::Option::Some(56),
+                Self::PqSignMlDsa87 => std::option::Option::Some(69),
                 Self::PqSignSlhDsaSha2128S => std::option::Option::Some(57),
+                Self::PqSignHashSlhDsaSha2128SSha256 => std::option::Option::Some(60),
+                Self::PqSignMlDsa44ExternalMu => std::option::Option::Some(70),
+                Self::PqSignMlDsa65ExternalMu => std::option::Option::Some(67),
+                Self::PqSignMlDsa87ExternalMu => std::option::Option::Some(71),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -8149,9 +8375,23 @@ pub mod crypto_key_version {
                 Self::MlKem768 => std::option::Option::Some("ML_KEM_768"),
                 Self::MlKem1024 => std::option::Option::Some("ML_KEM_1024"),
                 Self::KemXwing => std::option::Option::Some("KEM_XWING"),
+                Self::PqSignMlDsa44 => std::option::Option::Some("PQ_SIGN_ML_DSA_44"),
                 Self::PqSignMlDsa65 => std::option::Option::Some("PQ_SIGN_ML_DSA_65"),
+                Self::PqSignMlDsa87 => std::option::Option::Some("PQ_SIGN_ML_DSA_87"),
                 Self::PqSignSlhDsaSha2128S => {
                     std::option::Option::Some("PQ_SIGN_SLH_DSA_SHA2_128S")
+                }
+                Self::PqSignHashSlhDsaSha2128SSha256 => {
+                    std::option::Option::Some("PQ_SIGN_HASH_SLH_DSA_SHA2_128S_SHA256")
+                }
+                Self::PqSignMlDsa44ExternalMu => {
+                    std::option::Option::Some("PQ_SIGN_ML_DSA_44_EXTERNAL_MU")
+                }
+                Self::PqSignMlDsa65ExternalMu => {
+                    std::option::Option::Some("PQ_SIGN_ML_DSA_65_EXTERNAL_MU")
+                }
+                Self::PqSignMlDsa87ExternalMu => {
+                    std::option::Option::Some("PQ_SIGN_ML_DSA_87_EXTERNAL_MU")
                 }
                 Self::UnknownValue(u) => u.0.name(),
             }
@@ -8214,7 +8454,13 @@ pub mod crypto_key_version {
                 48 => Self::MlKem1024,
                 56 => Self::PqSignMlDsa65,
                 57 => Self::PqSignSlhDsaSha2128S,
+                60 => Self::PqSignHashSlhDsaSha2128SSha256,
                 63 => Self::KemXwing,
+                67 => Self::PqSignMlDsa65ExternalMu,
+                68 => Self::PqSignMlDsa44,
+                69 => Self::PqSignMlDsa87,
+                70 => Self::PqSignMlDsa44ExternalMu,
+                71 => Self::PqSignMlDsa87ExternalMu,
                 _ => Self::UnknownValue(crypto_key_version_algorithm::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -8265,8 +8511,14 @@ pub mod crypto_key_version {
                 "ML_KEM_768" => Self::MlKem768,
                 "ML_KEM_1024" => Self::MlKem1024,
                 "KEM_XWING" => Self::KemXwing,
+                "PQ_SIGN_ML_DSA_44" => Self::PqSignMlDsa44,
                 "PQ_SIGN_ML_DSA_65" => Self::PqSignMlDsa65,
+                "PQ_SIGN_ML_DSA_87" => Self::PqSignMlDsa87,
                 "PQ_SIGN_SLH_DSA_SHA2_128S" => Self::PqSignSlhDsaSha2128S,
+                "PQ_SIGN_HASH_SLH_DSA_SHA2_128S_SHA256" => Self::PqSignHashSlhDsaSha2128SSha256,
+                "PQ_SIGN_ML_DSA_44_EXTERNAL_MU" => Self::PqSignMlDsa44ExternalMu,
+                "PQ_SIGN_ML_DSA_65_EXTERNAL_MU" => Self::PqSignMlDsa65ExternalMu,
+                "PQ_SIGN_ML_DSA_87_EXTERNAL_MU" => Self::PqSignMlDsa87ExternalMu,
                 _ => Self::UnknownValue(crypto_key_version_algorithm::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -8319,8 +8571,14 @@ pub mod crypto_key_version {
                 Self::MlKem768 => serializer.serialize_i32(47),
                 Self::MlKem1024 => serializer.serialize_i32(48),
                 Self::KemXwing => serializer.serialize_i32(63),
+                Self::PqSignMlDsa44 => serializer.serialize_i32(68),
                 Self::PqSignMlDsa65 => serializer.serialize_i32(56),
+                Self::PqSignMlDsa87 => serializer.serialize_i32(69),
                 Self::PqSignSlhDsaSha2128S => serializer.serialize_i32(57),
+                Self::PqSignHashSlhDsaSha2128SSha256 => serializer.serialize_i32(60),
+                Self::PqSignMlDsa44ExternalMu => serializer.serialize_i32(70),
+                Self::PqSignMlDsa65ExternalMu => serializer.serialize_i32(67),
+                Self::PqSignMlDsa87ExternalMu => serializer.serialize_i32(71),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -9361,8 +9619,7 @@ pub struct ImportJob {
     /// operations are performed. Currently, this field is only populated for keys
     /// stored in HSM_SINGLE_TENANT. Note, this list is non-exhaustive and may
     /// apply to additional [ProtectionLevels][google.cloud.kms.v1.ProtectionLevel]
-    /// in the future.
-    /// Supported resources:
+    /// in the future. Supported resources:
     ///
     /// * `"projects/*/locations/*/singleTenantHsmInstances/*"`
     ///
@@ -10194,6 +10451,123 @@ impl wkt::message::Message for KeyAccessJustificationsPolicy {
     }
 }
 
+/// A RetiredResource resource represents the record of a deleted
+/// [CryptoKey][google.cloud.kms.v1.CryptoKey]. Its purpose is to provide
+/// visibility into retained user data and to prevent reuse of these names for
+/// new [CryptoKeys][google.cloud.kms.v1.CryptoKey].
+///
+/// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct RetiredResource {
+    /// Output only. Identifier. The resource name for this
+    /// [RetiredResource][google.cloud.kms.v1.RetiredResource] in the format
+    /// `projects/*/locations/*/retiredResources/*`.
+    ///
+    /// [google.cloud.kms.v1.RetiredResource]: crate::model::RetiredResource
+    pub name: std::string::String,
+
+    /// Output only. The full resource name of the original
+    /// [CryptoKey][google.cloud.kms.v1.CryptoKey] that was deleted in the format
+    /// `projects/*/locations/*/keyRings/*/cryptoKeys/*`.
+    ///
+    /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
+    pub original_resource: std::string::String,
+
+    /// Output only. The resource type of the original deleted resource.
+    pub resource_type: std::string::String,
+
+    /// Output only. The time at which the original resource was deleted and this
+    /// RetiredResource record was created.
+    pub delete_time: std::option::Option<wkt::Timestamp>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl RetiredResource {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::RetiredResource::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::RetiredResource;
+    /// let x = RetiredResource::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [original_resource][crate::model::RetiredResource::original_resource].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::RetiredResource;
+    /// let x = RetiredResource::new().set_original_resource("example");
+    /// ```
+    pub fn set_original_resource<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.original_resource = v.into();
+        self
+    }
+
+    /// Sets the value of [resource_type][crate::model::RetiredResource::resource_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::RetiredResource;
+    /// let x = RetiredResource::new().set_resource_type("example");
+    /// ```
+    pub fn set_resource_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.resource_type = v.into();
+        self
+    }
+
+    /// Sets the value of [delete_time][crate::model::RetiredResource::delete_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::RetiredResource;
+    /// use wkt::Timestamp;
+    /// let x = RetiredResource::new().set_delete_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_delete_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.delete_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [delete_time][crate::model::RetiredResource::delete_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::RetiredResource;
+    /// use wkt::Timestamp;
+    /// let x = RetiredResource::new().set_or_clear_delete_time(Some(Timestamp::default()/* use setters */));
+    /// let x = RetiredResource::new().set_or_clear_delete_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.delete_time = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for RetiredResource {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.kms.v1.RetiredResource"
+    }
+}
+
 /// Request message for
 /// [KeyManagementService.ListKeyRings][google.cloud.kms.v1.KeyManagementService.ListKeyRings].
 ///
@@ -10710,6 +11084,90 @@ impl wkt::message::Message for ListImportJobsRequest {
     }
 }
 
+/// Request message for
+/// [KeyManagementService.ListRetiredResources][google.cloud.kms.v1.KeyManagementService.ListRetiredResources].
+///
+/// [google.cloud.kms.v1.KeyManagementService.ListRetiredResources]: crate::client::KeyManagementService::list_retired_resources
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListRetiredResourcesRequest {
+    /// Required. The project-specific location holding the
+    /// [RetiredResources][google.cloud.kms.v1.RetiredResource], in the format
+    /// `projects/*/locations/*`.
+    ///
+    /// [google.cloud.kms.v1.RetiredResource]: crate::model::RetiredResource
+    pub parent: std::string::String,
+
+    /// Optional. Optional limit on the number of
+    /// [RetiredResources][google.cloud.kms.v1.RetiredResource] to be included in
+    /// the response. Further
+    /// [RetiredResources][google.cloud.kms.v1.RetiredResource] can subsequently be
+    /// obtained by including the
+    /// [ListRetiredResourcesResponse.next_page_token][google.cloud.kms.v1.ListRetiredResourcesResponse.next_page_token]
+    /// in a subsequent request. If unspecified, the server will pick an
+    /// appropriate default.
+    ///
+    /// [google.cloud.kms.v1.ListRetiredResourcesResponse.next_page_token]: crate::model::ListRetiredResourcesResponse::next_page_token
+    /// [google.cloud.kms.v1.RetiredResource]: crate::model::RetiredResource
+    pub page_size: i32,
+
+    /// Optional. Optional pagination token, returned earlier via
+    /// [ListRetiredResourcesResponse.next_page_token][google.cloud.kms.v1.ListRetiredResourcesResponse.next_page_token].
+    ///
+    /// [google.cloud.kms.v1.ListRetiredResourcesResponse.next_page_token]: crate::model::ListRetiredResourcesResponse::next_page_token
+    pub page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListRetiredResourcesRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListRetiredResourcesRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ListRetiredResourcesRequest;
+    /// let x = ListRetiredResourcesRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListRetiredResourcesRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ListRetiredResourcesRequest;
+    /// let x = ListRetiredResourcesRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListRetiredResourcesRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ListRetiredResourcesRequest;
+    /// let x = ListRetiredResourcesRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListRetiredResourcesRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.kms.v1.ListRetiredResourcesRequest"
+    }
+}
+
 /// Response message for
 /// [KeyManagementService.ListKeyRings][google.cloud.kms.v1.KeyManagementService.ListKeyRings].
 ///
@@ -11131,6 +11589,106 @@ impl google_cloud_gax::paginator::internal::PageableResponse for ListImportJobsR
     }
 }
 
+/// Response message for
+/// [KeyManagementService.ListRetiredResources][google.cloud.kms.v1.KeyManagementService.ListRetiredResources].
+///
+/// [google.cloud.kms.v1.KeyManagementService.ListRetiredResources]: crate::client::KeyManagementService::list_retired_resources
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListRetiredResourcesResponse {
+    /// The list of [RetiredResources][google.cloud.kms.v1.RetiredResource].
+    ///
+    /// [google.cloud.kms.v1.RetiredResource]: crate::model::RetiredResource
+    pub retired_resources: std::vec::Vec<crate::model::RetiredResource>,
+
+    /// A token to retrieve the next page of results. Pass this value in
+    /// [ListRetiredResourcesRequest.page_token][google.cloud.kms.v1.ListRetiredResourcesRequest.page_token]
+    /// to retrieve the next page of results.
+    ///
+    /// [google.cloud.kms.v1.ListRetiredResourcesRequest.page_token]: crate::model::ListRetiredResourcesRequest::page_token
+    pub next_page_token: std::string::String,
+
+    /// The total number of [RetiredResources][google.cloud.kms.v1.RetiredResource]
+    /// that matched the query.
+    ///
+    /// [google.cloud.kms.v1.RetiredResource]: crate::model::RetiredResource
+    pub total_size: i64,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListRetiredResourcesResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [retired_resources][crate::model::ListRetiredResourcesResponse::retired_resources].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ListRetiredResourcesResponse;
+    /// use google_cloud_kms_v1::model::RetiredResource;
+    /// let x = ListRetiredResourcesResponse::new()
+    ///     .set_retired_resources([
+    ///         RetiredResource::default()/* use setters */,
+    ///         RetiredResource::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_retired_resources<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::RetiredResource>,
+    {
+        use std::iter::Iterator;
+        self.retired_resources = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListRetiredResourcesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ListRetiredResourcesResponse;
+    /// let x = ListRetiredResourcesResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [total_size][crate::model::ListRetiredResourcesResponse::total_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ListRetiredResourcesResponse;
+    /// let x = ListRetiredResourcesResponse::new().set_total_size(42);
+    /// ```
+    pub fn set_total_size<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.total_size = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListRetiredResourcesResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.kms.v1.ListRetiredResourcesResponse"
+    }
+}
+
+#[doc(hidden)]
+impl google_cloud_gax::paginator::internal::PageableResponse for ListRetiredResourcesResponse {
+    type PageItem = crate::model::RetiredResource;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.retired_resources
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
 /// Request message for
 /// [KeyManagementService.GetKeyRing][google.cloud.kms.v1.KeyManagementService.GetKeyRing].
 ///
@@ -11366,6 +11924,47 @@ impl GetImportJobRequest {
 impl wkt::message::Message for GetImportJobRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.kms.v1.GetImportJobRequest"
+    }
+}
+
+/// Request message for
+/// [KeyManagementService.GetRetiredResource][google.cloud.kms.v1.KeyManagementService.GetRetiredResource].
+///
+/// [google.cloud.kms.v1.KeyManagementService.GetRetiredResource]: crate::client::KeyManagementService::get_retired_resource
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetRetiredResourceRequest {
+    /// Required. The [name][google.cloud.kms.v1.RetiredResource.name] of the
+    /// [RetiredResource][google.cloud.kms.v1.RetiredResource] to get.
+    ///
+    /// [google.cloud.kms.v1.RetiredResource]: crate::model::RetiredResource
+    /// [google.cloud.kms.v1.RetiredResource.name]: crate::model::RetiredResource::name
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetRetiredResourceRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetRetiredResourceRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::GetRetiredResourceRequest;
+    /// let x = GetRetiredResourceRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetRetiredResourceRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.kms.v1.GetRetiredResourceRequest"
     }
 }
 
@@ -11667,6 +12266,88 @@ impl CreateCryptoKeyVersionRequest {
 impl wkt::message::Message for CreateCryptoKeyVersionRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.kms.v1.CreateCryptoKeyVersionRequest"
+    }
+}
+
+/// Request message for
+/// [KeyManagementService.DeleteCryptoKey][google.cloud.kms.v1.KeyManagementService.DeleteCryptoKey].
+///
+/// [google.cloud.kms.v1.KeyManagementService.DeleteCryptoKey]: crate::client::KeyManagementService::delete_crypto_key
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeleteCryptoKeyRequest {
+    /// Required. The [name][google.cloud.kms.v1.CryptoKey.name] of the
+    /// [CryptoKey][google.cloud.kms.v1.CryptoKey] to delete.
+    ///
+    /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
+    /// [google.cloud.kms.v1.CryptoKey.name]: crate::model::CryptoKey::name
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteCryptoKeyRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteCryptoKeyRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::DeleteCryptoKeyRequest;
+    /// let x = DeleteCryptoKeyRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteCryptoKeyRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.kms.v1.DeleteCryptoKeyRequest"
+    }
+}
+
+/// Request message for
+/// [KeyManagementService.DeleteCryptoKeyVersion][google.cloud.kms.v1.KeyManagementService.DeleteCryptoKeyVersion].
+///
+/// [google.cloud.kms.v1.KeyManagementService.DeleteCryptoKeyVersion]: crate::client::KeyManagementService::delete_crypto_key_version
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeleteCryptoKeyVersionRequest {
+    /// Required. The [name][google.cloud.kms.v1.CryptoKeyVersion.name] of the
+    /// [CryptoKeyVersion][google.cloud.kms.v1.CryptoKeyVersion] to delete.
+    ///
+    /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
+    /// [google.cloud.kms.v1.CryptoKeyVersion.name]: crate::model::CryptoKeyVersion::name
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteCryptoKeyVersionRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteCryptoKeyVersionRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::DeleteCryptoKeyVersionRequest;
+    /// let x = DeleteCryptoKeyVersionRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteCryptoKeyVersionRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.kms.v1.DeleteCryptoKeyVersionRequest"
     }
 }
 
@@ -16264,6 +16945,75 @@ impl LocationMetadata {
 impl wkt::message::Message for LocationMetadata {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.kms.v1.LocationMetadata"
+    }
+}
+
+/// Represents the metadata of the
+/// [KeyManagementService.DeleteCryptoKey][google.cloud.kms.v1.KeyManagementService.DeleteCryptoKey]
+/// long-running operation.
+///
+/// [google.cloud.kms.v1.KeyManagementService.DeleteCryptoKey]: crate::client::KeyManagementService::delete_crypto_key
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeleteCryptoKeyMetadata {
+    /// Output only. The resource name of the
+    /// [RetiredResource][google.cloud.kms.v1.RetiredResource] created as a result
+    /// of this operation, in the format
+    /// `projects/*/locations/*/retiredResources/*`.
+    ///
+    /// [google.cloud.kms.v1.RetiredResource]: crate::model::RetiredResource
+    pub retired_resource: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteCryptoKeyMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [retired_resource][crate::model::DeleteCryptoKeyMetadata::retired_resource].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::DeleteCryptoKeyMetadata;
+    /// let x = DeleteCryptoKeyMetadata::new().set_retired_resource("example");
+    /// ```
+    pub fn set_retired_resource<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.retired_resource = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteCryptoKeyMetadata {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.kms.v1.DeleteCryptoKeyMetadata"
+    }
+}
+
+/// Represents the metadata of the
+/// [KeyManagementService.DeleteCryptoKeyVersion][google.cloud.kms.v1.KeyManagementService.DeleteCryptoKeyVersion]
+/// long-running operation.
+///
+/// [google.cloud.kms.v1.KeyManagementService.DeleteCryptoKeyVersion]: crate::client::KeyManagementService::delete_crypto_key_version
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeleteCryptoKeyVersionMetadata {
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteCryptoKeyVersionMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+}
+
+impl wkt::message::Message for DeleteCryptoKeyVersionMetadata {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.kms.v1.DeleteCryptoKeyVersionMetadata"
     }
 }
 

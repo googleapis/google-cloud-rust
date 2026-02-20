@@ -172,6 +172,28 @@ impl ::prost::Name for RenameFolderRequest {
     }
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
+pub struct DeleteFolderRecursiveRequest {
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+    #[prost(int64, optional, tag = "2")]
+    pub if_metageneration_match: ::core::option::Option<i64>,
+    #[prost(int64, optional, tag = "3")]
+    pub if_metageneration_not_match: ::core::option::Option<i64>,
+    #[prost(string, tag = "4")]
+    pub request_id: ::prost::alloc::string::String,
+}
+impl ::prost::Name for DeleteFolderRecursiveRequest {
+    const NAME: &'static str = "DeleteFolderRecursiveRequest";
+    const PACKAGE: &'static str = "google.storage.control.v2";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.storage.control.v2.DeleteFolderRecursiveRequest".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.storage.control.v2.DeleteFolderRecursiveRequest"
+            .into()
+    }
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CommonLongRunningOperationMetadata {
     #[prost(message, optional, tag = "1")]
     pub create_time: ::core::option::Option<::prost_types::Timestamp>,
@@ -214,6 +236,24 @@ impl ::prost::Name for RenameFolderMetadata {
     }
     fn type_url() -> ::prost::alloc::string::String {
         "type.googleapis.com/google.storage.control.v2.RenameFolderMetadata".into()
+    }
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct DeleteFolderRecursiveMetadata {
+    #[prost(message, optional, tag = "1")]
+    pub common_metadata: ::core::option::Option<CommonLongRunningOperationMetadata>,
+    #[prost(string, tag = "2")]
+    pub folder_id: ::prost::alloc::string::String,
+}
+impl ::prost::Name for DeleteFolderRecursiveMetadata {
+    const NAME: &'static str = "DeleteFolderRecursiveMetadata";
+    const PACKAGE: &'static str = "google.storage.control.v2";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.storage.control.v2.DeleteFolderRecursiveMetadata".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.storage.control.v2.DeleteFolderRecursiveMetadata"
+            .into()
     }
 }
 #[derive(Clone, PartialEq, ::prost::Message)]

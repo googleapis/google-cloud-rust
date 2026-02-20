@@ -130,6 +130,22 @@ impl AlloyDBCSQLAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_alloydb_v1::client::AlloyDBCSQLAdmin;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_alloydb_v1::Result;
+    /// async fn sample(
+    ///    client: &AlloyDBCSQLAdmin
+    /// ) -> Result<()> {
+    ///     let response = client.restore_from_cloud_sql()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn restore_from_cloud_sql(
         &self,
     ) -> super::builder::alloy_dbcsql_admin::RestoreFromCloudSQL {
@@ -137,11 +153,44 @@ impl AlloyDBCSQLAdmin {
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_alloydb_v1::client::AlloyDBCSQLAdmin;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_alloydb_v1::Result;
+    /// async fn sample(
+    ///    client: &AlloyDBCSQLAdmin
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::alloy_dbcsql_admin::ListLocations {
         super::builder::alloy_dbcsql_admin::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_alloydb_v1::client::AlloyDBCSQLAdmin;
+    /// use google_cloud_alloydb_v1::Result;
+    /// async fn sample(
+    ///    client: &AlloyDBCSQLAdmin
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::alloy_dbcsql_admin::GetLocation {
         super::builder::alloy_dbcsql_admin::GetLocation::new(self.inner.clone())
     }
@@ -149,6 +198,24 @@ impl AlloyDBCSQLAdmin {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_alloydb_v1::client::AlloyDBCSQLAdmin;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_alloydb_v1::Result;
+    /// async fn sample(
+    ///    client: &AlloyDBCSQLAdmin
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::alloy_dbcsql_admin::ListOperations {
         super::builder::alloy_dbcsql_admin::ListOperations::new(self.inner.clone())
     }
@@ -156,6 +223,21 @@ impl AlloyDBCSQLAdmin {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_alloydb_v1::client::AlloyDBCSQLAdmin;
+    /// use google_cloud_alloydb_v1::Result;
+    /// async fn sample(
+    ///    client: &AlloyDBCSQLAdmin
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::alloy_dbcsql_admin::GetOperation {
         super::builder::alloy_dbcsql_admin::GetOperation::new(self.inner.clone())
     }
@@ -163,6 +245,20 @@ impl AlloyDBCSQLAdmin {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_alloydb_v1::client::AlloyDBCSQLAdmin;
+    /// use google_cloud_alloydb_v1::Result;
+    /// async fn sample(
+    ///    client: &AlloyDBCSQLAdmin
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::alloy_dbcsql_admin::DeleteOperation {
         super::builder::alloy_dbcsql_admin::DeleteOperation::new(self.inner.clone())
     }
@@ -170,6 +266,20 @@ impl AlloyDBCSQLAdmin {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_alloydb_v1::client::AlloyDBCSQLAdmin;
+    /// use google_cloud_alloydb_v1::Result;
+    /// async fn sample(
+    ///    client: &AlloyDBCSQLAdmin
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::alloy_dbcsql_admin::CancelOperation {
         super::builder::alloy_dbcsql_admin::CancelOperation::new(self.inner.clone())
     }
@@ -278,11 +388,44 @@ impl AlloyDBAdmin {
     }
 
     /// Lists Clusters in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_alloydb_v1::client::AlloyDBAdmin;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_alloydb_v1::Result;
+    /// async fn sample(
+    ///    client: &AlloyDBAdmin, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_clusters()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_clusters(&self) -> super::builder::alloy_db_admin::ListClusters {
         super::builder::alloy_db_admin::ListClusters::new(self.inner.clone())
     }
 
     /// Gets details of a single Cluster.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_alloydb_v1::client::AlloyDBAdmin;
+    /// use google_cloud_alloydb_v1::Result;
+    /// async fn sample(
+    ///    client: &AlloyDBAdmin, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_cluster()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_cluster(&self) -> super::builder::alloy_db_admin::GetCluster {
         super::builder::alloy_db_admin::GetCluster::new(self.inner.clone())
     }
@@ -298,6 +441,26 @@ impl AlloyDBAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_alloydb_v1::client::AlloyDBAdmin;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_alloydb_v1::model::Cluster;
+    /// use google_cloud_alloydb_v1::Result;
+    /// async fn sample(
+    ///    client: &AlloyDBAdmin, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_cluster()
+    ///         .set_parent(parent).set_cluster_id("cluster_id_value")
+    ///         .set_cluster(
+    ///             Cluster::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_cluster(&self) -> super::builder::alloy_db_admin::CreateCluster {
         super::builder::alloy_db_admin::CreateCluster::new(self.inner.clone())
     }
@@ -313,6 +476,28 @@ impl AlloyDBAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_alloydb_v1::client::AlloyDBAdmin;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_alloydb_v1::model::Cluster;
+    /// use google_cloud_alloydb_v1::Result;
+    /// async fn sample(
+    ///    client: &AlloyDBAdmin, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_cluster()
+    ///         .set_cluster(
+    ///             Cluster::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_cluster(&self) -> super::builder::alloy_db_admin::UpdateCluster {
         super::builder::alloy_db_admin::UpdateCluster::new(self.inner.clone())
     }
@@ -329,6 +514,22 @@ impl AlloyDBAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_alloydb_v1::client::AlloyDBAdmin;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_alloydb_v1::Result;
+    /// async fn sample(
+    ///    client: &AlloyDBAdmin
+    /// ) -> Result<()> {
+    ///     let response = client.export_cluster()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn export_cluster(&self) -> super::builder::alloy_db_admin::ExportCluster {
         super::builder::alloy_db_admin::ExportCluster::new(self.inner.clone())
     }
@@ -345,6 +546,22 @@ impl AlloyDBAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_alloydb_v1::client::AlloyDBAdmin;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_alloydb_v1::Result;
+    /// async fn sample(
+    ///    client: &AlloyDBAdmin
+    /// ) -> Result<()> {
+    ///     let response = client.import_cluster()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn import_cluster(&self) -> super::builder::alloy_db_admin::ImportCluster {
         super::builder::alloy_db_admin::ImportCluster::new(self.inner.clone())
     }
@@ -361,6 +578,22 @@ impl AlloyDBAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_alloydb_v1::client::AlloyDBAdmin;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_alloydb_v1::Result;
+    /// async fn sample(
+    ///    client: &AlloyDBAdmin
+    /// ) -> Result<()> {
+    ///     let response = client.upgrade_cluster()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn upgrade_cluster(&self) -> super::builder::alloy_db_admin::UpgradeCluster {
         super::builder::alloy_db_admin::UpgradeCluster::new(self.inner.clone())
     }
@@ -376,6 +609,21 @@ impl AlloyDBAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_alloydb_v1::client::AlloyDBAdmin;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_alloydb_v1::Result;
+    /// async fn sample(
+    ///    client: &AlloyDBAdmin, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_cluster()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_cluster(&self) -> super::builder::alloy_db_admin::DeleteCluster {
         super::builder::alloy_db_admin::DeleteCluster::new(self.inner.clone())
     }
@@ -394,6 +642,22 @@ impl AlloyDBAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_alloydb_v1::client::AlloyDBAdmin;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_alloydb_v1::Result;
+    /// async fn sample(
+    ///    client: &AlloyDBAdmin
+    /// ) -> Result<()> {
+    ///     let response = client.promote_cluster()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn promote_cluster(&self) -> super::builder::alloy_db_admin::PromoteCluster {
         super::builder::alloy_db_admin::PromoteCluster::new(self.inner.clone())
     }
@@ -411,6 +675,22 @@ impl AlloyDBAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_alloydb_v1::client::AlloyDBAdmin;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_alloydb_v1::Result;
+    /// async fn sample(
+    ///    client: &AlloyDBAdmin
+    /// ) -> Result<()> {
+    ///     let response = client.switchover_cluster()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn switchover_cluster(&self) -> super::builder::alloy_db_admin::SwitchoverCluster {
         super::builder::alloy_db_admin::SwitchoverCluster::new(self.inner.clone())
     }
@@ -428,6 +708,22 @@ impl AlloyDBAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_alloydb_v1::client::AlloyDBAdmin;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_alloydb_v1::Result;
+    /// async fn sample(
+    ///    client: &AlloyDBAdmin
+    /// ) -> Result<()> {
+    ///     let response = client.restore_cluster()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn restore_cluster(&self) -> super::builder::alloy_db_admin::RestoreCluster {
         super::builder::alloy_db_admin::RestoreCluster::new(self.inner.clone())
     }
@@ -444,6 +740,22 @@ impl AlloyDBAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_alloydb_v1::client::AlloyDBAdmin;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_alloydb_v1::Result;
+    /// async fn sample(
+    ///    client: &AlloyDBAdmin
+    /// ) -> Result<()> {
+    ///     let response = client.create_secondary_cluster()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_secondary_cluster(
         &self,
     ) -> super::builder::alloy_db_admin::CreateSecondaryCluster {
@@ -451,11 +763,44 @@ impl AlloyDBAdmin {
     }
 
     /// Lists Instances in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_alloydb_v1::client::AlloyDBAdmin;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_alloydb_v1::Result;
+    /// async fn sample(
+    ///    client: &AlloyDBAdmin, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_instances()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_instances(&self) -> super::builder::alloy_db_admin::ListInstances {
         super::builder::alloy_db_admin::ListInstances::new(self.inner.clone())
     }
 
     /// Gets details of a single Instance.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_alloydb_v1::client::AlloyDBAdmin;
+    /// use google_cloud_alloydb_v1::Result;
+    /// async fn sample(
+    ///    client: &AlloyDBAdmin, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_instance()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_instance(&self) -> super::builder::alloy_db_admin::GetInstance {
         super::builder::alloy_db_admin::GetInstance::new(self.inner.clone())
     }
@@ -471,6 +816,26 @@ impl AlloyDBAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_alloydb_v1::client::AlloyDBAdmin;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_alloydb_v1::model::Instance;
+    /// use google_cloud_alloydb_v1::Result;
+    /// async fn sample(
+    ///    client: &AlloyDBAdmin, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_instance()
+    ///         .set_parent(parent).set_instance_id("instance_id_value")
+    ///         .set_instance(
+    ///             Instance::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_instance(&self) -> super::builder::alloy_db_admin::CreateInstance {
         super::builder::alloy_db_admin::CreateInstance::new(self.inner.clone())
     }
@@ -486,6 +851,22 @@ impl AlloyDBAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_alloydb_v1::client::AlloyDBAdmin;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_alloydb_v1::Result;
+    /// async fn sample(
+    ///    client: &AlloyDBAdmin
+    /// ) -> Result<()> {
+    ///     let response = client.create_secondary_instance()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_secondary_instance(
         &self,
     ) -> super::builder::alloy_db_admin::CreateSecondaryInstance {
@@ -512,6 +893,22 @@ impl AlloyDBAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_alloydb_v1::client::AlloyDBAdmin;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_alloydb_v1::Result;
+    /// async fn sample(
+    ///    client: &AlloyDBAdmin
+    /// ) -> Result<()> {
+    ///     let response = client.batch_create_instances()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn batch_create_instances(&self) -> super::builder::alloy_db_admin::BatchCreateInstances {
         super::builder::alloy_db_admin::BatchCreateInstances::new(self.inner.clone())
     }
@@ -527,6 +924,28 @@ impl AlloyDBAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_alloydb_v1::client::AlloyDBAdmin;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_alloydb_v1::model::Instance;
+    /// use google_cloud_alloydb_v1::Result;
+    /// async fn sample(
+    ///    client: &AlloyDBAdmin, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_instance()
+    ///         .set_instance(
+    ///             Instance::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_instance(&self) -> super::builder::alloy_db_admin::UpdateInstance {
         super::builder::alloy_db_admin::UpdateInstance::new(self.inner.clone())
     }
@@ -542,6 +961,21 @@ impl AlloyDBAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_alloydb_v1::client::AlloyDBAdmin;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_alloydb_v1::Result;
+    /// async fn sample(
+    ///    client: &AlloyDBAdmin, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_instance()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_instance(&self) -> super::builder::alloy_db_admin::DeleteInstance {
         super::builder::alloy_db_admin::DeleteInstance::new(self.inner.clone())
     }
@@ -559,6 +993,22 @@ impl AlloyDBAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_alloydb_v1::client::AlloyDBAdmin;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_alloydb_v1::Result;
+    /// async fn sample(
+    ///    client: &AlloyDBAdmin
+    /// ) -> Result<()> {
+    ///     let response = client.failover_instance()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn failover_instance(&self) -> super::builder::alloy_db_admin::FailoverInstance {
         super::builder::alloy_db_admin::FailoverInstance::new(self.inner.clone())
     }
@@ -575,6 +1025,22 @@ impl AlloyDBAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_alloydb_v1::client::AlloyDBAdmin;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_alloydb_v1::Result;
+    /// async fn sample(
+    ///    client: &AlloyDBAdmin
+    /// ) -> Result<()> {
+    ///     let response = client.inject_fault()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn inject_fault(&self) -> super::builder::alloy_db_admin::InjectFault {
         super::builder::alloy_db_admin::InjectFault::new(self.inner.clone())
     }
@@ -591,21 +1057,85 @@ impl AlloyDBAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_alloydb_v1::client::AlloyDBAdmin;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_alloydb_v1::Result;
+    /// async fn sample(
+    ///    client: &AlloyDBAdmin
+    /// ) -> Result<()> {
+    ///     let response = client.restart_instance()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn restart_instance(&self) -> super::builder::alloy_db_admin::RestartInstance {
         super::builder::alloy_db_admin::RestartInstance::new(self.inner.clone())
     }
 
     /// Executes a SQL statement in a database inside an AlloyDB instance.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_alloydb_v1::client::AlloyDBAdmin;
+    /// use google_cloud_alloydb_v1::Result;
+    /// async fn sample(
+    ///    client: &AlloyDBAdmin
+    /// ) -> Result<()> {
+    ///     let response = client.execute_sql()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn execute_sql(&self) -> super::builder::alloy_db_admin::ExecuteSql {
         super::builder::alloy_db_admin::ExecuteSql::new(self.inner.clone())
     }
 
     /// Lists Backups in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_alloydb_v1::client::AlloyDBAdmin;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_alloydb_v1::Result;
+    /// async fn sample(
+    ///    client: &AlloyDBAdmin, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_backups()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_backups(&self) -> super::builder::alloy_db_admin::ListBackups {
         super::builder::alloy_db_admin::ListBackups::new(self.inner.clone())
     }
 
     /// Gets details of a single Backup.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_alloydb_v1::client::AlloyDBAdmin;
+    /// use google_cloud_alloydb_v1::Result;
+    /// async fn sample(
+    ///    client: &AlloyDBAdmin, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_backup()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_backup(&self) -> super::builder::alloy_db_admin::GetBackup {
         super::builder::alloy_db_admin::GetBackup::new(self.inner.clone())
     }
@@ -621,6 +1151,26 @@ impl AlloyDBAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_alloydb_v1::client::AlloyDBAdmin;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_alloydb_v1::model::Backup;
+    /// use google_cloud_alloydb_v1::Result;
+    /// async fn sample(
+    ///    client: &AlloyDBAdmin, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_backup()
+    ///         .set_parent(parent).set_backup_id("backup_id_value")
+    ///         .set_backup(
+    ///             Backup::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_backup(&self) -> super::builder::alloy_db_admin::CreateBackup {
         super::builder::alloy_db_admin::CreateBackup::new(self.inner.clone())
     }
@@ -636,6 +1186,28 @@ impl AlloyDBAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_alloydb_v1::client::AlloyDBAdmin;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_alloydb_v1::model::Backup;
+    /// use google_cloud_alloydb_v1::Result;
+    /// async fn sample(
+    ///    client: &AlloyDBAdmin, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_backup()
+    ///         .set_backup(
+    ///             Backup::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_backup(&self) -> super::builder::alloy_db_admin::UpdateBackup {
         super::builder::alloy_db_admin::UpdateBackup::new(self.inner.clone())
     }
@@ -651,11 +1223,44 @@ impl AlloyDBAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_alloydb_v1::client::AlloyDBAdmin;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_alloydb_v1::Result;
+    /// async fn sample(
+    ///    client: &AlloyDBAdmin, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_backup()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_backup(&self) -> super::builder::alloy_db_admin::DeleteBackup {
         super::builder::alloy_db_admin::DeleteBackup::new(self.inner.clone())
     }
 
     /// Lists SupportedDatabaseFlags for a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_alloydb_v1::client::AlloyDBAdmin;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_alloydb_v1::Result;
+    /// async fn sample(
+    ///    client: &AlloyDBAdmin, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_supported_database_flags()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_supported_database_flags(
         &self,
     ) -> super::builder::alloy_db_admin::ListSupportedDatabaseFlags {
@@ -667,6 +1272,21 @@ impl AlloyDBAdmin {
     /// Auth Proxy client. The endpoint's behavior is subject to change without
     /// notice, so do not rely on its behavior remaining constant. Future changes
     /// will not break AlloyDB connectors or the Auth Proxy client.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_alloydb_v1::client::AlloyDBAdmin;
+    /// use google_cloud_alloydb_v1::Result;
+    /// async fn sample(
+    ///    client: &AlloyDBAdmin
+    /// ) -> Result<()> {
+    ///     let response = client.generate_client_certificate()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn generate_client_certificate(
         &self,
     ) -> super::builder::alloy_db_admin::GenerateClientCertificate {
@@ -674,46 +1294,199 @@ impl AlloyDBAdmin {
     }
 
     /// Get instance metadata used for a connection.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_alloydb_v1::client::AlloyDBAdmin;
+    /// use google_cloud_alloydb_v1::Result;
+    /// async fn sample(
+    ///    client: &AlloyDBAdmin
+    /// ) -> Result<()> {
+    ///     let response = client.get_connection_info()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_connection_info(&self) -> super::builder::alloy_db_admin::GetConnectionInfo {
         super::builder::alloy_db_admin::GetConnectionInfo::new(self.inner.clone())
     }
 
     /// Lists Users in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_alloydb_v1::client::AlloyDBAdmin;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_alloydb_v1::Result;
+    /// async fn sample(
+    ///    client: &AlloyDBAdmin, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_users()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_users(&self) -> super::builder::alloy_db_admin::ListUsers {
         super::builder::alloy_db_admin::ListUsers::new(self.inner.clone())
     }
 
     /// Gets details of a single User.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_alloydb_v1::client::AlloyDBAdmin;
+    /// use google_cloud_alloydb_v1::Result;
+    /// async fn sample(
+    ///    client: &AlloyDBAdmin, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_user()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_user(&self) -> super::builder::alloy_db_admin::GetUser {
         super::builder::alloy_db_admin::GetUser::new(self.inner.clone())
     }
 
     /// Creates a new User in a given project, location, and cluster.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_alloydb_v1::client::AlloyDBAdmin;
+    /// use google_cloud_alloydb_v1::model::User;
+    /// use google_cloud_alloydb_v1::Result;
+    /// async fn sample(
+    ///    client: &AlloyDBAdmin, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_user()
+    ///         .set_parent(parent).set_user_id("user_id_value")
+    ///         .set_user(
+    ///             User::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_user(&self) -> super::builder::alloy_db_admin::CreateUser {
         super::builder::alloy_db_admin::CreateUser::new(self.inner.clone())
     }
 
     /// Updates the parameters of a single User.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_alloydb_v1::client::AlloyDBAdmin;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_alloydb_v1::model::User;
+    /// use google_cloud_alloydb_v1::Result;
+    /// async fn sample(
+    ///    client: &AlloyDBAdmin, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_user()
+    ///         .set_user(
+    ///             User::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_user(&self) -> super::builder::alloy_db_admin::UpdateUser {
         super::builder::alloy_db_admin::UpdateUser::new(self.inner.clone())
     }
 
     /// Deletes a single User.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_alloydb_v1::client::AlloyDBAdmin;
+    /// use google_cloud_alloydb_v1::Result;
+    /// async fn sample(
+    ///    client: &AlloyDBAdmin, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_user()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_user(&self) -> super::builder::alloy_db_admin::DeleteUser {
         super::builder::alloy_db_admin::DeleteUser::new(self.inner.clone())
     }
 
     /// Lists Databases in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_alloydb_v1::client::AlloyDBAdmin;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_alloydb_v1::Result;
+    /// async fn sample(
+    ///    client: &AlloyDBAdmin, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_databases()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_databases(&self) -> super::builder::alloy_db_admin::ListDatabases {
         super::builder::alloy_db_admin::ListDatabases::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_alloydb_v1::client::AlloyDBAdmin;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_alloydb_v1::Result;
+    /// async fn sample(
+    ///    client: &AlloyDBAdmin
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::alloy_db_admin::ListLocations {
         super::builder::alloy_db_admin::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_alloydb_v1::client::AlloyDBAdmin;
+    /// use google_cloud_alloydb_v1::Result;
+    /// async fn sample(
+    ///    client: &AlloyDBAdmin
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::alloy_db_admin::GetLocation {
         super::builder::alloy_db_admin::GetLocation::new(self.inner.clone())
     }
@@ -721,6 +1494,24 @@ impl AlloyDBAdmin {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_alloydb_v1::client::AlloyDBAdmin;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_alloydb_v1::Result;
+    /// async fn sample(
+    ///    client: &AlloyDBAdmin
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::alloy_db_admin::ListOperations {
         super::builder::alloy_db_admin::ListOperations::new(self.inner.clone())
     }
@@ -728,6 +1519,21 @@ impl AlloyDBAdmin {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_alloydb_v1::client::AlloyDBAdmin;
+    /// use google_cloud_alloydb_v1::Result;
+    /// async fn sample(
+    ///    client: &AlloyDBAdmin
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::alloy_db_admin::GetOperation {
         super::builder::alloy_db_admin::GetOperation::new(self.inner.clone())
     }
@@ -735,6 +1541,20 @@ impl AlloyDBAdmin {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_alloydb_v1::client::AlloyDBAdmin;
+    /// use google_cloud_alloydb_v1::Result;
+    /// async fn sample(
+    ///    client: &AlloyDBAdmin
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::alloy_db_admin::DeleteOperation {
         super::builder::alloy_db_admin::DeleteOperation::new(self.inner.clone())
     }
@@ -742,6 +1562,20 @@ impl AlloyDBAdmin {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_alloydb_v1::client::AlloyDBAdmin;
+    /// use google_cloud_alloydb_v1::Result;
+    /// async fn sample(
+    ///    client: &AlloyDBAdmin
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::alloy_db_admin::CancelOperation {
         super::builder::alloy_db_admin::CancelOperation::new(self.inner.clone())
     }

@@ -403,6 +403,7 @@ impl std::fmt::Debug for super::StreamingRecognitionFeatures {
         );
         debug_struct.field("interim_results", &self.interim_results);
         debug_struct.field("voice_activity_timeout", &self.voice_activity_timeout);
+        debug_struct.field("endpointing_sensitivity", &self.endpointing_sensitivity);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

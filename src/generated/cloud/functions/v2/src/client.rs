@@ -124,11 +124,44 @@ impl FunctionService {
     }
 
     /// Returns a function with the given name from the requested project.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_functions_v2::client::FunctionService;
+    /// use google_cloud_functions_v2::Result;
+    /// async fn sample(
+    ///    client: &FunctionService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_function()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_function(&self) -> super::builder::function_service::GetFunction {
         super::builder::function_service::GetFunction::new(self.inner.clone())
     }
 
     /// Returns a list of functions that belong to the requested project.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_functions_v2::client::FunctionService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_functions_v2::Result;
+    /// async fn sample(
+    ///    client: &FunctionService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_functions()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_functions(&self) -> super::builder::function_service::ListFunctions {
         super::builder::function_service::ListFunctions::new(self.inner.clone())
     }
@@ -146,6 +179,26 @@ impl FunctionService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_functions_v2::client::FunctionService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_functions_v2::model::Function;
+    /// use google_cloud_functions_v2::Result;
+    /// async fn sample(
+    ///    client: &FunctionService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_function()
+    ///         .set_parent(parent).set_function_id("function_id_value")
+    ///         .set_function(
+    ///             Function::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_function(&self) -> super::builder::function_service::CreateFunction {
         super::builder::function_service::CreateFunction::new(self.inner.clone())
     }
@@ -161,6 +214,28 @@ impl FunctionService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_functions_v2::client::FunctionService;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_functions_v2::model::Function;
+    /// use google_cloud_functions_v2::Result;
+    /// async fn sample(
+    ///    client: &FunctionService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_function()
+    ///         .set_function(
+    ///             Function::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_function(&self) -> super::builder::function_service::UpdateFunction {
         super::builder::function_service::UpdateFunction::new(self.inner.clone())
     }
@@ -178,6 +253,21 @@ impl FunctionService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_functions_v2::client::FunctionService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_functions_v2::Result;
+    /// async fn sample(
+    ///    client: &FunctionService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_function()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_function(&self) -> super::builder::function_service::DeleteFunction {
         super::builder::function_service::DeleteFunction::new(self.inner.clone())
     }
@@ -205,6 +295,21 @@ impl FunctionService {
     /// Do not specify this header:
     ///
     /// * `Authorization: Bearer YOUR_TOKEN`
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_functions_v2::client::FunctionService;
+    /// use google_cloud_functions_v2::Result;
+    /// async fn sample(
+    ///    client: &FunctionService
+    /// ) -> Result<()> {
+    ///     let response = client.generate_upload_url()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn generate_upload_url(&self) -> super::builder::function_service::GenerateUploadUrl {
         super::builder::function_service::GenerateUploadUrl::new(self.inner.clone())
     }
@@ -214,16 +319,64 @@ impl FunctionService {
     /// 30 minutes of generation.
     /// For more information about the signed URL usage see:
     /// <https://cloud.google.com/storage/docs/access-control/signed-urls>
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_functions_v2::client::FunctionService;
+    /// use google_cloud_functions_v2::Result;
+    /// async fn sample(
+    ///    client: &FunctionService
+    /// ) -> Result<()> {
+    ///     let response = client.generate_download_url()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn generate_download_url(&self) -> super::builder::function_service::GenerateDownloadUrl {
         super::builder::function_service::GenerateDownloadUrl::new(self.inner.clone())
     }
 
     /// Returns a list of runtimes that are supported for the requested project.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_functions_v2::client::FunctionService;
+    /// use google_cloud_functions_v2::Result;
+    /// async fn sample(
+    ///    client: &FunctionService
+    /// ) -> Result<()> {
+    ///     let response = client.list_runtimes()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_runtimes(&self) -> super::builder::function_service::ListRuntimes {
         super::builder::function_service::ListRuntimes::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_functions_v2::client::FunctionService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_functions_v2::Result;
+    /// async fn sample(
+    ///    client: &FunctionService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::function_service::ListLocations {
         super::builder::function_service::ListLocations::new(self.inner.clone())
     }
@@ -233,12 +386,42 @@ impl FunctionService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_functions_v2::client::FunctionService;
+    /// use google_cloud_functions_v2::Result;
+    /// async fn sample(
+    ///    client: &FunctionService
+    /// ) -> Result<()> {
+    ///     let response = client.set_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::function_service::SetIamPolicy {
         super::builder::function_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_functions_v2::client::FunctionService;
+    /// use google_cloud_functions_v2::Result;
+    /// async fn sample(
+    ///    client: &FunctionService
+    /// ) -> Result<()> {
+    ///     let response = client.get_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::function_service::GetIamPolicy {
         super::builder::function_service::GetIamPolicy::new(self.inner.clone())
     }
@@ -250,6 +433,21 @@ impl FunctionService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_functions_v2::client::FunctionService;
+    /// use google_cloud_functions_v2::Result;
+    /// async fn sample(
+    ///    client: &FunctionService
+    /// ) -> Result<()> {
+    ///     let response = client.test_iam_permissions()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::function_service::TestIamPermissions {
         super::builder::function_service::TestIamPermissions::new(self.inner.clone())
     }
@@ -257,6 +455,24 @@ impl FunctionService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_functions_v2::client::FunctionService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_functions_v2::Result;
+    /// async fn sample(
+    ///    client: &FunctionService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::function_service::ListOperations {
         super::builder::function_service::ListOperations::new(self.inner.clone())
     }
@@ -264,6 +480,21 @@ impl FunctionService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_functions_v2::client::FunctionService;
+    /// use google_cloud_functions_v2::Result;
+    /// async fn sample(
+    ///    client: &FunctionService
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::function_service::GetOperation {
         super::builder::function_service::GetOperation::new(self.inner.clone())
     }

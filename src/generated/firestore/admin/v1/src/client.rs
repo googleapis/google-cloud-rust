@@ -163,26 +163,108 @@ impl FirestoreAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::client::FirestoreAdmin;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_firestore_admin_v1::model::Index;
+    /// use google_cloud_firestore_admin_v1::Result;
+    /// async fn sample(
+    ///    client: &FirestoreAdmin, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_index()
+    ///         .set_parent(parent)
+    ///         .set_index(
+    ///             Index::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_index(&self) -> super::builder::firestore_admin::CreateIndex {
         super::builder::firestore_admin::CreateIndex::new(self.inner.clone())
     }
 
     /// Lists composite indexes.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::client::FirestoreAdmin;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_firestore_admin_v1::Result;
+    /// async fn sample(
+    ///    client: &FirestoreAdmin, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_indexes()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_indexes(&self) -> super::builder::firestore_admin::ListIndexes {
         super::builder::firestore_admin::ListIndexes::new(self.inner.clone())
     }
 
     /// Gets a composite index.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::client::FirestoreAdmin;
+    /// use google_cloud_firestore_admin_v1::Result;
+    /// async fn sample(
+    ///    client: &FirestoreAdmin, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_index()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_index(&self) -> super::builder::firestore_admin::GetIndex {
         super::builder::firestore_admin::GetIndex::new(self.inner.clone())
     }
 
     /// Deletes a composite index.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::client::FirestoreAdmin;
+    /// use google_cloud_firestore_admin_v1::Result;
+    /// async fn sample(
+    ///    client: &FirestoreAdmin, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_index()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_index(&self) -> super::builder::firestore_admin::DeleteIndex {
         super::builder::firestore_admin::DeleteIndex::new(self.inner.clone())
     }
 
     /// Gets the metadata and configuration for a Field.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::client::FirestoreAdmin;
+    /// use google_cloud_firestore_admin_v1::Result;
+    /// async fn sample(
+    ///    client: &FirestoreAdmin, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_field()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_field(&self) -> super::builder::firestore_admin::GetField {
         super::builder::firestore_admin::GetField::new(self.inner.clone())
     }
@@ -217,6 +299,28 @@ impl FirestoreAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::client::FirestoreAdmin;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_firestore_admin_v1::model::Field;
+    /// use google_cloud_firestore_admin_v1::Result;
+    /// async fn sample(
+    ///    client: &FirestoreAdmin, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_field()
+    ///         .set_field(
+    ///             Field::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_field(&self) -> super::builder::firestore_admin::UpdateField {
         super::builder::firestore_admin::UpdateField::new(self.inner.clone())
     }
@@ -232,6 +336,24 @@ impl FirestoreAdmin {
     /// `ttlConfig:*`.
     ///
     /// [google.firestore.admin.v1.FirestoreAdmin.ListFields]: crate::client::FirestoreAdmin::list_fields
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::client::FirestoreAdmin;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_firestore_admin_v1::Result;
+    /// async fn sample(
+    ///    client: &FirestoreAdmin, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_fields()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_fields(&self) -> super::builder::firestore_admin::ListFields {
         super::builder::firestore_admin::ListFields::new(self.inner.clone())
     }
@@ -257,6 +379,22 @@ impl FirestoreAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::client::FirestoreAdmin;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_firestore_admin_v1::Result;
+    /// async fn sample(
+    ///    client: &FirestoreAdmin
+    /// ) -> Result<()> {
+    ///     let response = client.export_documents()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn export_documents(&self) -> super::builder::firestore_admin::ExportDocuments {
         super::builder::firestore_admin::ExportDocuments::new(self.inner.clone())
     }
@@ -276,6 +414,21 @@ impl FirestoreAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::client::FirestoreAdmin;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_firestore_admin_v1::Result;
+    /// async fn sample(
+    ///    client: &FirestoreAdmin
+    /// ) -> Result<()> {
+    ///     client.import_documents()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn import_documents(&self) -> super::builder::firestore_admin::ImportDocuments {
         super::builder::firestore_admin::ImportDocuments::new(self.inner.clone())
     }
@@ -298,6 +451,22 @@ impl FirestoreAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::client::FirestoreAdmin;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_firestore_admin_v1::Result;
+    /// async fn sample(
+    ///    client: &FirestoreAdmin
+    /// ) -> Result<()> {
+    ///     let response = client.bulk_delete_documents()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn bulk_delete_documents(&self) -> super::builder::firestore_admin::BulkDeleteDocuments {
         super::builder::firestore_admin::BulkDeleteDocuments::new(self.inner.clone())
     }
@@ -313,16 +482,66 @@ impl FirestoreAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::client::FirestoreAdmin;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_firestore_admin_v1::model::Database;
+    /// use google_cloud_firestore_admin_v1::Result;
+    /// async fn sample(
+    ///    client: &FirestoreAdmin, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_database()
+    ///         .set_parent(parent).set_database_id("database_id_value")
+    ///         .set_database(
+    ///             Database::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_database(&self) -> super::builder::firestore_admin::CreateDatabase {
         super::builder::firestore_admin::CreateDatabase::new(self.inner.clone())
     }
 
     /// Gets information about a database.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::client::FirestoreAdmin;
+    /// use google_cloud_firestore_admin_v1::Result;
+    /// async fn sample(
+    ///    client: &FirestoreAdmin, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_database()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_database(&self) -> super::builder::firestore_admin::GetDatabase {
         super::builder::firestore_admin::GetDatabase::new(self.inner.clone())
     }
 
     /// List all the databases in the project.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::client::FirestoreAdmin;
+    /// use google_cloud_firestore_admin_v1::Result;
+    /// async fn sample(
+    ///    client: &FirestoreAdmin
+    /// ) -> Result<()> {
+    ///     let response = client.list_databases()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_databases(&self) -> super::builder::firestore_admin::ListDatabases {
         super::builder::firestore_admin::ListDatabases::new(self.inner.clone())
     }
@@ -338,6 +557,28 @@ impl FirestoreAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::client::FirestoreAdmin;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_firestore_admin_v1::model::Database;
+    /// use google_cloud_firestore_admin_v1::Result;
+    /// async fn sample(
+    ///    client: &FirestoreAdmin, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_database()
+    ///         .set_database(
+    ///             Database::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_database(&self) -> super::builder::firestore_admin::UpdateDatabase {
         super::builder::firestore_admin::UpdateDatabase::new(self.inner.clone())
     }
@@ -353,58 +594,226 @@ impl FirestoreAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::client::FirestoreAdmin;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_firestore_admin_v1::Result;
+    /// async fn sample(
+    ///    client: &FirestoreAdmin, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.delete_database()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_database(&self) -> super::builder::firestore_admin::DeleteDatabase {
         super::builder::firestore_admin::DeleteDatabase::new(self.inner.clone())
     }
 
     /// Create a user creds.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::client::FirestoreAdmin;
+    /// use google_cloud_firestore_admin_v1::model::UserCreds;
+    /// use google_cloud_firestore_admin_v1::Result;
+    /// async fn sample(
+    ///    client: &FirestoreAdmin, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_user_creds()
+    ///         .set_parent(parent)
+    ///         .set_user_creds(
+    ///             UserCreds::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_user_creds(&self) -> super::builder::firestore_admin::CreateUserCreds {
         super::builder::firestore_admin::CreateUserCreds::new(self.inner.clone())
     }
 
     /// Gets a user creds resource. Note that the returned resource does not
     /// contain the secret value itself.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::client::FirestoreAdmin;
+    /// use google_cloud_firestore_admin_v1::Result;
+    /// async fn sample(
+    ///    client: &FirestoreAdmin, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_user_creds()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_user_creds(&self) -> super::builder::firestore_admin::GetUserCreds {
         super::builder::firestore_admin::GetUserCreds::new(self.inner.clone())
     }
 
     /// List all user creds in the database. Note that the returned resource
     /// does not contain the secret value itself.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::client::FirestoreAdmin;
+    /// use google_cloud_firestore_admin_v1::Result;
+    /// async fn sample(
+    ///    client: &FirestoreAdmin
+    /// ) -> Result<()> {
+    ///     let response = client.list_user_creds()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_user_creds(&self) -> super::builder::firestore_admin::ListUserCreds {
         super::builder::firestore_admin::ListUserCreds::new(self.inner.clone())
     }
 
     /// Enables a user creds. No-op if the user creds are already enabled.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::client::FirestoreAdmin;
+    /// use google_cloud_firestore_admin_v1::Result;
+    /// async fn sample(
+    ///    client: &FirestoreAdmin
+    /// ) -> Result<()> {
+    ///     let response = client.enable_user_creds()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn enable_user_creds(&self) -> super::builder::firestore_admin::EnableUserCreds {
         super::builder::firestore_admin::EnableUserCreds::new(self.inner.clone())
     }
 
     /// Disables a user creds. No-op if the user creds are already disabled.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::client::FirestoreAdmin;
+    /// use google_cloud_firestore_admin_v1::Result;
+    /// async fn sample(
+    ///    client: &FirestoreAdmin
+    /// ) -> Result<()> {
+    ///     let response = client.disable_user_creds()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn disable_user_creds(&self) -> super::builder::firestore_admin::DisableUserCreds {
         super::builder::firestore_admin::DisableUserCreds::new(self.inner.clone())
     }
 
     /// Resets the password of a user creds.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::client::FirestoreAdmin;
+    /// use google_cloud_firestore_admin_v1::Result;
+    /// async fn sample(
+    ///    client: &FirestoreAdmin
+    /// ) -> Result<()> {
+    ///     let response = client.reset_user_password()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn reset_user_password(&self) -> super::builder::firestore_admin::ResetUserPassword {
         super::builder::firestore_admin::ResetUserPassword::new(self.inner.clone())
     }
 
     /// Deletes a user creds.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::client::FirestoreAdmin;
+    /// use google_cloud_firestore_admin_v1::Result;
+    /// async fn sample(
+    ///    client: &FirestoreAdmin, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_user_creds()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_user_creds(&self) -> super::builder::firestore_admin::DeleteUserCreds {
         super::builder::firestore_admin::DeleteUserCreds::new(self.inner.clone())
     }
 
     /// Gets information about a backup.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::client::FirestoreAdmin;
+    /// use google_cloud_firestore_admin_v1::Result;
+    /// async fn sample(
+    ///    client: &FirestoreAdmin, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_backup()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_backup(&self) -> super::builder::firestore_admin::GetBackup {
         super::builder::firestore_admin::GetBackup::new(self.inner.clone())
     }
 
     /// Lists all the backups.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::client::FirestoreAdmin;
+    /// use google_cloud_firestore_admin_v1::Result;
+    /// async fn sample(
+    ///    client: &FirestoreAdmin
+    /// ) -> Result<()> {
+    ///     let response = client.list_backups()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_backups(&self) -> super::builder::firestore_admin::ListBackups {
         super::builder::firestore_admin::ListBackups::new(self.inner.clone())
     }
 
     /// Deletes a backup.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::client::FirestoreAdmin;
+    /// use google_cloud_firestore_admin_v1::Result;
+    /// async fn sample(
+    ///    client: &FirestoreAdmin, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_backup()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_backup(&self) -> super::builder::firestore_admin::DeleteBackup {
         super::builder::firestore_admin::DeleteBackup::new(self.inner.clone())
     }
@@ -443,6 +852,22 @@ impl FirestoreAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::client::FirestoreAdmin;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_firestore_admin_v1::Result;
+    /// async fn sample(
+    ///    client: &FirestoreAdmin
+    /// ) -> Result<()> {
+    ///     let response = client.restore_database()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn restore_database(&self) -> super::builder::firestore_admin::RestoreDatabase {
         super::builder::firestore_admin::RestoreDatabase::new(self.inner.clone())
     }
@@ -450,26 +875,110 @@ impl FirestoreAdmin {
     /// Creates a backup schedule on a database.
     /// At most two backup schedules can be configured on a database, one daily
     /// backup schedule and one weekly backup schedule.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::client::FirestoreAdmin;
+    /// use google_cloud_firestore_admin_v1::model::BackupSchedule;
+    /// use google_cloud_firestore_admin_v1::Result;
+    /// async fn sample(
+    ///    client: &FirestoreAdmin, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_backup_schedule()
+    ///         .set_parent(parent)
+    ///         .set_backup_schedule(
+    ///             BackupSchedule::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_backup_schedule(&self) -> super::builder::firestore_admin::CreateBackupSchedule {
         super::builder::firestore_admin::CreateBackupSchedule::new(self.inner.clone())
     }
 
     /// Gets information about a backup schedule.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::client::FirestoreAdmin;
+    /// use google_cloud_firestore_admin_v1::Result;
+    /// async fn sample(
+    ///    client: &FirestoreAdmin, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_backup_schedule()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_backup_schedule(&self) -> super::builder::firestore_admin::GetBackupSchedule {
         super::builder::firestore_admin::GetBackupSchedule::new(self.inner.clone())
     }
 
     /// List backup schedules.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::client::FirestoreAdmin;
+    /// use google_cloud_firestore_admin_v1::Result;
+    /// async fn sample(
+    ///    client: &FirestoreAdmin
+    /// ) -> Result<()> {
+    ///     let response = client.list_backup_schedules()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_backup_schedules(&self) -> super::builder::firestore_admin::ListBackupSchedules {
         super::builder::firestore_admin::ListBackupSchedules::new(self.inner.clone())
     }
 
     /// Updates a backup schedule.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::client::FirestoreAdmin;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_firestore_admin_v1::model::BackupSchedule;
+    /// use google_cloud_firestore_admin_v1::Result;
+    /// async fn sample(
+    ///    client: &FirestoreAdmin, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_backup_schedule()
+    ///         .set_backup_schedule(
+    ///             BackupSchedule::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_backup_schedule(&self) -> super::builder::firestore_admin::UpdateBackupSchedule {
         super::builder::firestore_admin::UpdateBackupSchedule::new(self.inner.clone())
     }
 
     /// Deletes a backup schedule.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::client::FirestoreAdmin;
+    /// use google_cloud_firestore_admin_v1::Result;
+    /// async fn sample(
+    ///    client: &FirestoreAdmin, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_backup_schedule()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_backup_schedule(&self) -> super::builder::firestore_admin::DeleteBackupSchedule {
         super::builder::firestore_admin::DeleteBackupSchedule::new(self.inner.clone())
     }
@@ -508,6 +1017,22 @@ impl FirestoreAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::client::FirestoreAdmin;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_firestore_admin_v1::Result;
+    /// async fn sample(
+    ///    client: &FirestoreAdmin
+    /// ) -> Result<()> {
+    ///     let response = client.clone_database()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn clone_database(&self) -> super::builder::firestore_admin::CloneDatabase {
         super::builder::firestore_admin::CloneDatabase::new(self.inner.clone())
     }
@@ -515,6 +1040,24 @@ impl FirestoreAdmin {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::client::FirestoreAdmin;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_firestore_admin_v1::Result;
+    /// async fn sample(
+    ///    client: &FirestoreAdmin
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::firestore_admin::ListOperations {
         super::builder::firestore_admin::ListOperations::new(self.inner.clone())
     }
@@ -522,6 +1065,21 @@ impl FirestoreAdmin {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::client::FirestoreAdmin;
+    /// use google_cloud_firestore_admin_v1::Result;
+    /// async fn sample(
+    ///    client: &FirestoreAdmin
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::firestore_admin::GetOperation {
         super::builder::firestore_admin::GetOperation::new(self.inner.clone())
     }
@@ -529,6 +1087,20 @@ impl FirestoreAdmin {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::client::FirestoreAdmin;
+    /// use google_cloud_firestore_admin_v1::Result;
+    /// async fn sample(
+    ///    client: &FirestoreAdmin
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::firestore_admin::DeleteOperation {
         super::builder::firestore_admin::DeleteOperation::new(self.inner.clone())
     }
@@ -536,6 +1108,20 @@ impl FirestoreAdmin {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::client::FirestoreAdmin;
+    /// use google_cloud_firestore_admin_v1::Result;
+    /// async fn sample(
+    ///    client: &FirestoreAdmin
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::firestore_admin::CancelOperation {
         super::builder::firestore_admin::CancelOperation::new(self.inner.clone())
     }

@@ -120,6 +120,21 @@ impl MetricsScopes {
     }
 
     /// Returns a specific `Metrics Scope`.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_metricsscope_v1::client::MetricsScopes;
+    /// use google_cloud_monitoring_metricsscope_v1::Result;
+    /// async fn sample(
+    ///    client: &MetricsScopes, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_metrics_scope()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_metrics_scope(&self) -> super::builder::metrics_scopes::GetMetricsScope {
         super::builder::metrics_scopes::GetMetricsScope::new(self.inner.clone())
     }
@@ -127,6 +142,21 @@ impl MetricsScopes {
     /// Returns a list of every `Metrics Scope` that a specific `MonitoredProject`
     /// has been added to. The metrics scope representing the specified monitored
     /// project will always be the first entry in the response.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_metricsscope_v1::client::MetricsScopes;
+    /// use google_cloud_monitoring_metricsscope_v1::Result;
+    /// async fn sample(
+    ///    client: &MetricsScopes
+    /// ) -> Result<()> {
+    ///     let response = client.list_metrics_scopes_by_monitored_project()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_metrics_scopes_by_monitored_project(
         &self,
     ) -> super::builder::metrics_scopes::ListMetricsScopesByMonitoredProject {
@@ -145,6 +175,26 @@ impl MetricsScopes {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_metricsscope_v1::client::MetricsScopes;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_monitoring_metricsscope_v1::model::MonitoredProject;
+    /// use google_cloud_monitoring_metricsscope_v1::Result;
+    /// async fn sample(
+    ///    client: &MetricsScopes, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_monitored_project()
+    ///         .set_parent(parent)
+    ///         .set_monitored_project(
+    ///             MonitoredProject::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_monitored_project(
         &self,
     ) -> super::builder::metrics_scopes::CreateMonitoredProject {
@@ -162,6 +212,21 @@ impl MetricsScopes {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_metricsscope_v1::client::MetricsScopes;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_monitoring_metricsscope_v1::Result;
+    /// async fn sample(
+    ///    client: &MetricsScopes, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_monitored_project()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_monitored_project(
         &self,
     ) -> super::builder::metrics_scopes::DeleteMonitoredProject {
@@ -171,6 +236,21 @@ impl MetricsScopes {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_metricsscope_v1::client::MetricsScopes;
+    /// use google_cloud_monitoring_metricsscope_v1::Result;
+    /// async fn sample(
+    ///    client: &MetricsScopes
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::metrics_scopes::GetOperation {
         super::builder::metrics_scopes::GetOperation::new(self.inner.clone())
     }

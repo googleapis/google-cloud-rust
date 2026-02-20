@@ -359,6 +359,9 @@ impl serde::ser::Serialize for super::BaseImage {
             }
             state.serialize_entry("layerCount", &__With(&self.layer_count))?;
         }
+        if !self.registry.is_empty() {
+            state.serialize_entry("registry", &self.registry)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -4085,6 +4088,9 @@ impl serde::ser::Serialize for super::VulnerabilityNote {
         }
         if self.cvss_v2.is_some() {
             state.serialize_entry("cvssV2", &self.cvss_v2)?;
+        }
+        if self.advisory_publish_time.is_some() {
+            state.serialize_entry("advisoryPublishTime", &self.advisory_publish_time)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

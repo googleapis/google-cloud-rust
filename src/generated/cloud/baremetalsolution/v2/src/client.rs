@@ -127,11 +127,44 @@ impl BareMetalSolution {
     }
 
     /// List servers in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_baremetalsolution_v2::client::BareMetalSolution;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_baremetalsolution_v2::Result;
+    /// async fn sample(
+    ///    client: &BareMetalSolution, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_instances()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_instances(&self) -> super::builder::bare_metal_solution::ListInstances {
         super::builder::bare_metal_solution::ListInstances::new(self.inner.clone())
     }
 
     /// Get details about a single server.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_baremetalsolution_v2::client::BareMetalSolution;
+    /// use google_cloud_baremetalsolution_v2::Result;
+    /// async fn sample(
+    ///    client: &BareMetalSolution, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_instance()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_instance(&self) -> super::builder::bare_metal_solution::GetInstance {
         super::builder::bare_metal_solution::GetInstance::new(self.inner.clone())
     }
@@ -147,12 +180,49 @@ impl BareMetalSolution {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_baremetalsolution_v2::client::BareMetalSolution;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_baremetalsolution_v2::model::Instance;
+    /// use google_cloud_baremetalsolution_v2::Result;
+    /// async fn sample(
+    ///    client: &BareMetalSolution, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_instance()
+    ///         .set_instance(
+    ///             Instance::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_instance(&self) -> super::builder::bare_metal_solution::UpdateInstance {
         super::builder::bare_metal_solution::UpdateInstance::new(self.inner.clone())
     }
 
     /// RenameInstance sets a new name for an instance.
     /// Use with caution, previous names become immediately invalidated.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_baremetalsolution_v2::client::BareMetalSolution;
+    /// use google_cloud_baremetalsolution_v2::Result;
+    /// async fn sample(
+    ///    client: &BareMetalSolution
+    /// ) -> Result<()> {
+    ///     let response = client.rename_instance()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn rename_instance(&self) -> super::builder::bare_metal_solution::RenameInstance {
         super::builder::bare_metal_solution::RenameInstance::new(self.inner.clone())
     }
@@ -169,6 +239,22 @@ impl BareMetalSolution {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_baremetalsolution_v2::client::BareMetalSolution;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_baremetalsolution_v2::Result;
+    /// async fn sample(
+    ///    client: &BareMetalSolution
+    /// ) -> Result<()> {
+    ///     let response = client.reset_instance()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn reset_instance(&self) -> super::builder::bare_metal_solution::ResetInstance {
         super::builder::bare_metal_solution::ResetInstance::new(self.inner.clone())
     }
@@ -184,6 +270,22 @@ impl BareMetalSolution {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_baremetalsolution_v2::client::BareMetalSolution;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_baremetalsolution_v2::Result;
+    /// async fn sample(
+    ///    client: &BareMetalSolution
+    /// ) -> Result<()> {
+    ///     let response = client.start_instance()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn start_instance(&self) -> super::builder::bare_metal_solution::StartInstance {
         super::builder::bare_metal_solution::StartInstance::new(self.inner.clone())
     }
@@ -199,6 +301,22 @@ impl BareMetalSolution {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_baremetalsolution_v2::client::BareMetalSolution;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_baremetalsolution_v2::Result;
+    /// async fn sample(
+    ///    client: &BareMetalSolution
+    /// ) -> Result<()> {
+    ///     let response = client.stop_instance()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn stop_instance(&self) -> super::builder::bare_metal_solution::StopInstance {
         super::builder::bare_metal_solution::StopInstance::new(self.inner.clone())
     }
@@ -214,6 +332,22 @@ impl BareMetalSolution {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_baremetalsolution_v2::client::BareMetalSolution;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_baremetalsolution_v2::Result;
+    /// async fn sample(
+    ///    client: &BareMetalSolution
+    /// ) -> Result<()> {
+    ///     let response = client.enable_interactive_serial_console()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn enable_interactive_serial_console(
         &self,
     ) -> super::builder::bare_metal_solution::EnableInteractiveSerialConsole {
@@ -231,6 +365,22 @@ impl BareMetalSolution {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_baremetalsolution_v2::client::BareMetalSolution;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_baremetalsolution_v2::Result;
+    /// async fn sample(
+    ///    client: &BareMetalSolution
+    /// ) -> Result<()> {
+    ///     let response = client.disable_interactive_serial_console()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn disable_interactive_serial_console(
         &self,
     ) -> super::builder::bare_metal_solution::DisableInteractiveSerialConsole {
@@ -250,33 +400,133 @@ impl BareMetalSolution {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_baremetalsolution_v2::client::BareMetalSolution;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_baremetalsolution_v2::Result;
+    /// async fn sample(
+    ///    client: &BareMetalSolution
+    /// ) -> Result<()> {
+    ///     let response = client.detach_lun()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn detach_lun(&self) -> super::builder::bare_metal_solution::DetachLun {
         super::builder::bare_metal_solution::DetachLun::new(self.inner.clone())
     }
 
     /// Lists the public SSH keys registered for the specified project.
     /// These SSH keys are used only for the interactive serial console feature.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_baremetalsolution_v2::client::BareMetalSolution;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_baremetalsolution_v2::Result;
+    /// async fn sample(
+    ///    client: &BareMetalSolution, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_ssh_keys()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_ssh_keys(&self) -> super::builder::bare_metal_solution::ListSSHKeys {
         super::builder::bare_metal_solution::ListSSHKeys::new(self.inner.clone())
     }
 
     /// Register a public SSH key in the specified project for use with the
     /// interactive serial console feature.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_baremetalsolution_v2::client::BareMetalSolution;
+    /// use google_cloud_baremetalsolution_v2::model::SSHKey;
+    /// use google_cloud_baremetalsolution_v2::Result;
+    /// async fn sample(
+    ///    client: &BareMetalSolution, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_ssh_key()
+    ///         .set_parent(parent)
+    ///         .set_ssh_key(
+    ///             SSHKey::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_ssh_key(&self) -> super::builder::bare_metal_solution::CreateSSHKey {
         super::builder::bare_metal_solution::CreateSSHKey::new(self.inner.clone())
     }
 
     /// Deletes a public SSH key registered in the specified project.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_baremetalsolution_v2::client::BareMetalSolution;
+    /// use google_cloud_baremetalsolution_v2::Result;
+    /// async fn sample(
+    ///    client: &BareMetalSolution, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_ssh_key()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_ssh_key(&self) -> super::builder::bare_metal_solution::DeleteSSHKey {
         super::builder::bare_metal_solution::DeleteSSHKey::new(self.inner.clone())
     }
 
     /// List storage volumes in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_baremetalsolution_v2::client::BareMetalSolution;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_baremetalsolution_v2::Result;
+    /// async fn sample(
+    ///    client: &BareMetalSolution, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_volumes()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_volumes(&self) -> super::builder::bare_metal_solution::ListVolumes {
         super::builder::bare_metal_solution::ListVolumes::new(self.inner.clone())
     }
 
     /// Get details of a single storage volume.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_baremetalsolution_v2::client::BareMetalSolution;
+    /// use google_cloud_baremetalsolution_v2::Result;
+    /// async fn sample(
+    ///    client: &BareMetalSolution, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_volume()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_volume(&self) -> super::builder::bare_metal_solution::GetVolume {
         super::builder::bare_metal_solution::GetVolume::new(self.inner.clone())
     }
@@ -292,12 +542,49 @@ impl BareMetalSolution {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_baremetalsolution_v2::client::BareMetalSolution;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_baremetalsolution_v2::model::Volume;
+    /// use google_cloud_baremetalsolution_v2::Result;
+    /// async fn sample(
+    ///    client: &BareMetalSolution, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_volume()
+    ///         .set_volume(
+    ///             Volume::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_volume(&self) -> super::builder::bare_metal_solution::UpdateVolume {
         super::builder::bare_metal_solution::UpdateVolume::new(self.inner.clone())
     }
 
     /// RenameVolume sets a new name for a volume.
     /// Use with caution, previous names become immediately invalidated.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_baremetalsolution_v2::client::BareMetalSolution;
+    /// use google_cloud_baremetalsolution_v2::Result;
+    /// async fn sample(
+    ///    client: &BareMetalSolution
+    /// ) -> Result<()> {
+    ///     let response = client.rename_volume()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn rename_volume(&self) -> super::builder::bare_metal_solution::RenameVolume {
         super::builder::bare_metal_solution::RenameVolume::new(self.inner.clone())
     }
@@ -314,6 +601,21 @@ impl BareMetalSolution {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_baremetalsolution_v2::client::BareMetalSolution;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_baremetalsolution_v2::Result;
+    /// async fn sample(
+    ///    client: &BareMetalSolution
+    /// ) -> Result<()> {
+    ///     client.evict_volume()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn evict_volume(&self) -> super::builder::bare_metal_solution::EvictVolume {
         super::builder::bare_metal_solution::EvictVolume::new(self.inner.clone())
     }
@@ -329,22 +631,86 @@ impl BareMetalSolution {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_baremetalsolution_v2::client::BareMetalSolution;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_baremetalsolution_v2::Result;
+    /// async fn sample(
+    ///    client: &BareMetalSolution
+    /// ) -> Result<()> {
+    ///     let response = client.resize_volume()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn resize_volume(&self) -> super::builder::bare_metal_solution::ResizeVolume {
         super::builder::bare_metal_solution::ResizeVolume::new(self.inner.clone())
     }
 
     /// List network in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_baremetalsolution_v2::client::BareMetalSolution;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_baremetalsolution_v2::Result;
+    /// async fn sample(
+    ///    client: &BareMetalSolution, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_networks()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_networks(&self) -> super::builder::bare_metal_solution::ListNetworks {
         super::builder::bare_metal_solution::ListNetworks::new(self.inner.clone())
     }
 
     /// List all Networks (and used IPs for each Network) in the vendor account
     /// associated with the specified project.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_baremetalsolution_v2::client::BareMetalSolution;
+    /// use google_cloud_baremetalsolution_v2::Result;
+    /// async fn sample(
+    ///    client: &BareMetalSolution
+    /// ) -> Result<()> {
+    ///     let response = client.list_network_usage()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_network_usage(&self) -> super::builder::bare_metal_solution::ListNetworkUsage {
         super::builder::bare_metal_solution::ListNetworkUsage::new(self.inner.clone())
     }
 
     /// Get details of a single network.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_baremetalsolution_v2::client::BareMetalSolution;
+    /// use google_cloud_baremetalsolution_v2::Result;
+    /// async fn sample(
+    ///    client: &BareMetalSolution, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_network()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_network(&self) -> super::builder::bare_metal_solution::GetNetwork {
         super::builder::bare_metal_solution::GetNetwork::new(self.inner.clone())
     }
@@ -360,12 +726,53 @@ impl BareMetalSolution {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_baremetalsolution_v2::client::BareMetalSolution;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_baremetalsolution_v2::model::Network;
+    /// use google_cloud_baremetalsolution_v2::Result;
+    /// async fn sample(
+    ///    client: &BareMetalSolution, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_network()
+    ///         .set_network(
+    ///             Network::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_network(&self) -> super::builder::bare_metal_solution::UpdateNetwork {
         super::builder::bare_metal_solution::UpdateNetwork::new(self.inner.clone())
     }
 
     /// Takes a snapshot of a boot volume.
     /// Returns INVALID_ARGUMENT if called for a non-boot volume.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_baremetalsolution_v2::client::BareMetalSolution;
+    /// use google_cloud_baremetalsolution_v2::model::VolumeSnapshot;
+    /// use google_cloud_baremetalsolution_v2::Result;
+    /// async fn sample(
+    ///    client: &BareMetalSolution, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_volume_snapshot()
+    ///         .set_parent(parent)
+    ///         .set_volume_snapshot(
+    ///             VolumeSnapshot::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_volume_snapshot(
         &self,
     ) -> super::builder::bare_metal_solution::CreateVolumeSnapshot {
@@ -384,6 +791,22 @@ impl BareMetalSolution {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_baremetalsolution_v2::client::BareMetalSolution;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_baremetalsolution_v2::Result;
+    /// async fn sample(
+    ///    client: &BareMetalSolution
+    /// ) -> Result<()> {
+    ///     let response = client.restore_volume_snapshot()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn restore_volume_snapshot(
         &self,
     ) -> super::builder::bare_metal_solution::RestoreVolumeSnapshot {
@@ -392,6 +815,20 @@ impl BareMetalSolution {
 
     /// Deletes a volume snapshot.
     /// Returns INVALID_ARGUMENT if called for a non-boot volume.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_baremetalsolution_v2::client::BareMetalSolution;
+    /// use google_cloud_baremetalsolution_v2::Result;
+    /// async fn sample(
+    ///    client: &BareMetalSolution, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_volume_snapshot()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_volume_snapshot(
         &self,
     ) -> super::builder::bare_metal_solution::DeleteVolumeSnapshot {
@@ -400,6 +837,21 @@ impl BareMetalSolution {
 
     /// Returns the specified snapshot resource.
     /// Returns INVALID_ARGUMENT if called for a non-boot volume.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_baremetalsolution_v2::client::BareMetalSolution;
+    /// use google_cloud_baremetalsolution_v2::Result;
+    /// async fn sample(
+    ///    client: &BareMetalSolution, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_volume_snapshot()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_volume_snapshot(&self) -> super::builder::bare_metal_solution::GetVolumeSnapshot {
         super::builder::bare_metal_solution::GetVolumeSnapshot::new(self.inner.clone())
     }
@@ -407,6 +859,24 @@ impl BareMetalSolution {
     /// Retrieves the list of snapshots for the specified volume.
     /// Returns a response with an empty list of snapshots if called
     /// for a non-boot volume.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_baremetalsolution_v2::client::BareMetalSolution;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_baremetalsolution_v2::Result;
+    /// async fn sample(
+    ///    client: &BareMetalSolution, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_volume_snapshots()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_volume_snapshots(
         &self,
     ) -> super::builder::bare_metal_solution::ListVolumeSnapshots {
@@ -414,11 +884,44 @@ impl BareMetalSolution {
     }
 
     /// Get details of a single storage logical unit number(LUN).
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_baremetalsolution_v2::client::BareMetalSolution;
+    /// use google_cloud_baremetalsolution_v2::Result;
+    /// async fn sample(
+    ///    client: &BareMetalSolution, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_lun()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_lun(&self) -> super::builder::bare_metal_solution::GetLun {
         super::builder::bare_metal_solution::GetLun::new(self.inner.clone())
     }
 
     /// List storage volume luns for given storage volume.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_baremetalsolution_v2::client::BareMetalSolution;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_baremetalsolution_v2::Result;
+    /// async fn sample(
+    ///    client: &BareMetalSolution, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_luns()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_luns(&self) -> super::builder::bare_metal_solution::ListLuns {
         super::builder::bare_metal_solution::ListLuns::new(self.inner.clone())
     }
@@ -435,16 +938,64 @@ impl BareMetalSolution {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_baremetalsolution_v2::client::BareMetalSolution;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_baremetalsolution_v2::Result;
+    /// async fn sample(
+    ///    client: &BareMetalSolution
+    /// ) -> Result<()> {
+    ///     client.evict_lun()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn evict_lun(&self) -> super::builder::bare_metal_solution::EvictLun {
         super::builder::bare_metal_solution::EvictLun::new(self.inner.clone())
     }
 
     /// Get details of a single NFS share.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_baremetalsolution_v2::client::BareMetalSolution;
+    /// use google_cloud_baremetalsolution_v2::Result;
+    /// async fn sample(
+    ///    client: &BareMetalSolution, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_nfs_share()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_nfs_share(&self) -> super::builder::bare_metal_solution::GetNfsShare {
         super::builder::bare_metal_solution::GetNfsShare::new(self.inner.clone())
     }
 
     /// List NFS shares.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_baremetalsolution_v2::client::BareMetalSolution;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_baremetalsolution_v2::Result;
+    /// async fn sample(
+    ///    client: &BareMetalSolution, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_nfs_shares()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_nfs_shares(&self) -> super::builder::bare_metal_solution::ListNfsShares {
         super::builder::bare_metal_solution::ListNfsShares::new(self.inner.clone())
     }
@@ -460,6 +1011,28 @@ impl BareMetalSolution {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_baremetalsolution_v2::client::BareMetalSolution;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_baremetalsolution_v2::model::NfsShare;
+    /// use google_cloud_baremetalsolution_v2::Result;
+    /// async fn sample(
+    ///    client: &BareMetalSolution, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_nfs_share()
+    ///         .set_nfs_share(
+    ///             NfsShare::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_nfs_share(&self) -> super::builder::bare_metal_solution::UpdateNfsShare {
         super::builder::bare_metal_solution::UpdateNfsShare::new(self.inner.clone())
     }
@@ -475,12 +1048,47 @@ impl BareMetalSolution {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_baremetalsolution_v2::client::BareMetalSolution;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_baremetalsolution_v2::model::NfsShare;
+    /// use google_cloud_baremetalsolution_v2::Result;
+    /// async fn sample(
+    ///    client: &BareMetalSolution, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_nfs_share()
+    ///         .set_parent(parent)
+    ///         .set_nfs_share(
+    ///             NfsShare::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_nfs_share(&self) -> super::builder::bare_metal_solution::CreateNfsShare {
         super::builder::bare_metal_solution::CreateNfsShare::new(self.inner.clone())
     }
 
     /// RenameNfsShare sets a new name for an nfsshare.
     /// Use with caution, previous names become immediately invalidated.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_baremetalsolution_v2::client::BareMetalSolution;
+    /// use google_cloud_baremetalsolution_v2::Result;
+    /// async fn sample(
+    ///    client: &BareMetalSolution
+    /// ) -> Result<()> {
+    ///     let response = client.rename_nfs_share()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn rename_nfs_share(&self) -> super::builder::bare_metal_solution::RenameNfsShare {
         super::builder::bare_metal_solution::RenameNfsShare::new(self.inner.clone())
     }
@@ -496,11 +1104,44 @@ impl BareMetalSolution {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_baremetalsolution_v2::client::BareMetalSolution;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_baremetalsolution_v2::Result;
+    /// async fn sample(
+    ///    client: &BareMetalSolution, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_nfs_share()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_nfs_share(&self) -> super::builder::bare_metal_solution::DeleteNfsShare {
         super::builder::bare_metal_solution::DeleteNfsShare::new(self.inner.clone())
     }
 
     /// List the budget details to provision resources on a given project.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_baremetalsolution_v2::client::BareMetalSolution;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_baremetalsolution_v2::Result;
+    /// async fn sample(
+    ///    client: &BareMetalSolution, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_provisioning_quotas()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_provisioning_quotas(
         &self,
     ) -> super::builder::bare_metal_solution::ListProvisioningQuotas {
@@ -508,6 +1149,21 @@ impl BareMetalSolution {
     }
 
     /// Submit a provisiong configuration for a given project.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_baremetalsolution_v2::client::BareMetalSolution;
+    /// use google_cloud_baremetalsolution_v2::Result;
+    /// async fn sample(
+    ///    client: &BareMetalSolution
+    /// ) -> Result<()> {
+    ///     let response = client.submit_provisioning_config()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn submit_provisioning_config(
         &self,
     ) -> super::builder::bare_metal_solution::SubmitProvisioningConfig {
@@ -515,6 +1171,21 @@ impl BareMetalSolution {
     }
 
     /// Get ProvisioningConfig by name.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_baremetalsolution_v2::client::BareMetalSolution;
+    /// use google_cloud_baremetalsolution_v2::Result;
+    /// async fn sample(
+    ///    client: &BareMetalSolution, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_provisioning_config()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_provisioning_config(
         &self,
     ) -> super::builder::bare_metal_solution::GetProvisioningConfig {
@@ -522,6 +1193,25 @@ impl BareMetalSolution {
     }
 
     /// Create new ProvisioningConfig.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_baremetalsolution_v2::client::BareMetalSolution;
+    /// use google_cloud_baremetalsolution_v2::model::ProvisioningConfig;
+    /// use google_cloud_baremetalsolution_v2::Result;
+    /// async fn sample(
+    ///    client: &BareMetalSolution, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_provisioning_config()
+    ///         .set_parent(parent)
+    ///         .set_provisioning_config(
+    ///             ProvisioningConfig::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_provisioning_config(
         &self,
     ) -> super::builder::bare_metal_solution::CreateProvisioningConfig {
@@ -529,6 +1219,27 @@ impl BareMetalSolution {
     }
 
     /// Update existing ProvisioningConfig.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_baremetalsolution_v2::client::BareMetalSolution;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_baremetalsolution_v2::model::ProvisioningConfig;
+    /// use google_cloud_baremetalsolution_v2::Result;
+    /// async fn sample(
+    ///    client: &BareMetalSolution, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_provisioning_config()
+    ///         .set_provisioning_config(
+    ///             ProvisioningConfig::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_provisioning_config(
         &self,
     ) -> super::builder::bare_metal_solution::UpdateProvisioningConfig {
@@ -537,21 +1248,87 @@ impl BareMetalSolution {
 
     /// RenameNetwork sets a new name for a network.
     /// Use with caution, previous names become immediately invalidated.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_baremetalsolution_v2::client::BareMetalSolution;
+    /// use google_cloud_baremetalsolution_v2::Result;
+    /// async fn sample(
+    ///    client: &BareMetalSolution
+    /// ) -> Result<()> {
+    ///     let response = client.rename_network()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn rename_network(&self) -> super::builder::bare_metal_solution::RenameNetwork {
         super::builder::bare_metal_solution::RenameNetwork::new(self.inner.clone())
     }
 
     /// Retrieves the list of OS images which are currently approved.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_baremetalsolution_v2::client::BareMetalSolution;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_baremetalsolution_v2::Result;
+    /// async fn sample(
+    ///    client: &BareMetalSolution, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_os_images()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_os_images(&self) -> super::builder::bare_metal_solution::ListOSImages {
         super::builder::bare_metal_solution::ListOSImages::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_baremetalsolution_v2::client::BareMetalSolution;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_baremetalsolution_v2::Result;
+    /// async fn sample(
+    ///    client: &BareMetalSolution
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::bare_metal_solution::ListLocations {
         super::builder::bare_metal_solution::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_baremetalsolution_v2::client::BareMetalSolution;
+    /// use google_cloud_baremetalsolution_v2::Result;
+    /// async fn sample(
+    ///    client: &BareMetalSolution
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::bare_metal_solution::GetLocation {
         super::builder::bare_metal_solution::GetLocation::new(self.inner.clone())
     }
@@ -559,6 +1336,21 @@ impl BareMetalSolution {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_baremetalsolution_v2::client::BareMetalSolution;
+    /// use google_cloud_baremetalsolution_v2::Result;
+    /// async fn sample(
+    ///    client: &BareMetalSolution
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::bare_metal_solution::GetOperation {
         super::builder::bare_metal_solution::GetOperation::new(self.inner.clone())
     }

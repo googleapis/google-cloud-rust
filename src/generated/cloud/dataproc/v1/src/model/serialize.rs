@@ -45,6 +45,9 @@ impl serde::ser::Serialize for super::AutoscalingPolicy {
         if !self.labels.is_empty() {
             state.serialize_entry("labels", &self.labels)?;
         }
+        if !wkt::internal::is_default(&self.cluster_type) {
+            state.serialize_entry("clusterType", &self.cluster_type)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -799,6 +802,9 @@ impl serde::ser::Serialize for super::ClusterConfig {
         #[allow(unused_imports)]
         use std::option::Option::Some;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.cluster_type) {
+            state.serialize_entry("clusterType", &self.cluster_type)?;
+        }
         if !wkt::internal::is_default(&self.cluster_tier) {
             state.serialize_entry("clusterTier", &self.cluster_tier)?;
         }

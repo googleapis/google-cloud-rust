@@ -130,6 +130,26 @@ impl AssuredWorkloadsService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::client::AssuredWorkloadsService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_assuredworkloads_v1::model::Workload;
+    /// use google_cloud_assuredworkloads_v1::Result;
+    /// async fn sample(
+    ///    client: &AssuredWorkloadsService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_workload()
+    ///         .set_parent(parent)
+    ///         .set_workload(
+    ///             Workload::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_workload(&self) -> super::builder::assured_workloads_service::CreateWorkload {
         super::builder::assured_workloads_service::CreateWorkload::new(self.inner.clone())
     }
@@ -138,6 +158,27 @@ impl AssuredWorkloadsService {
     /// Currently allows updating of workload display_name and labels.
     /// For force updates don't set etag field in the Workload.
     /// Only one update operation per workload can be in progress.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::client::AssuredWorkloadsService;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_assuredworkloads_v1::model::Workload;
+    /// use google_cloud_assuredworkloads_v1::Result;
+    /// async fn sample(
+    ///    client: &AssuredWorkloadsService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_workload()
+    ///         .set_workload(
+    ///             Workload::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_workload(&self) -> super::builder::assured_workloads_service::UpdateWorkload {
         super::builder::assured_workloads_service::UpdateWorkload::new(self.inner.clone())
     }
@@ -148,6 +189,21 @@ impl AssuredWorkloadsService {
     /// In addition to assuredworkloads.workload.update permission, the user should
     /// also have orgpolicy.policy.set permission on the folder resource
     /// to use this functionality.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::client::AssuredWorkloadsService;
+    /// use google_cloud_assuredworkloads_v1::Result;
+    /// async fn sample(
+    ///    client: &AssuredWorkloadsService
+    /// ) -> Result<()> {
+    ///     let response = client.restrict_allowed_resources()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn restrict_allowed_resources(
         &self,
     ) -> super::builder::assured_workloads_service::RestrictAllowedResources {
@@ -157,16 +213,63 @@ impl AssuredWorkloadsService {
     /// Deletes the workload. Make sure that workload's direct children are already
     /// in a deleted state, otherwise the request will fail with a
     /// FAILED_PRECONDITION error.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::client::AssuredWorkloadsService;
+    /// use google_cloud_assuredworkloads_v1::Result;
+    /// async fn sample(
+    ///    client: &AssuredWorkloadsService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_workload()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_workload(&self) -> super::builder::assured_workloads_service::DeleteWorkload {
         super::builder::assured_workloads_service::DeleteWorkload::new(self.inner.clone())
     }
 
     /// Gets Assured Workload associated with a CRM Node
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::client::AssuredWorkloadsService;
+    /// use google_cloud_assuredworkloads_v1::Result;
+    /// async fn sample(
+    ///    client: &AssuredWorkloadsService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_workload()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_workload(&self) -> super::builder::assured_workloads_service::GetWorkload {
         super::builder::assured_workloads_service::GetWorkload::new(self.inner.clone())
     }
 
     /// Lists Assured Workloads under a CRM Node.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::client::AssuredWorkloadsService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_assuredworkloads_v1::Result;
+    /// async fn sample(
+    ///    client: &AssuredWorkloadsService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_workloads()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_workloads(&self) -> super::builder::assured_workloads_service::ListWorkloads {
         super::builder::assured_workloads_service::ListWorkloads::new(self.inner.clone())
     }
@@ -174,6 +277,24 @@ impl AssuredWorkloadsService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::client::AssuredWorkloadsService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_assuredworkloads_v1::Result;
+    /// async fn sample(
+    ///    client: &AssuredWorkloadsService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::assured_workloads_service::ListOperations {
         super::builder::assured_workloads_service::ListOperations::new(self.inner.clone())
     }
@@ -181,6 +302,21 @@ impl AssuredWorkloadsService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::client::AssuredWorkloadsService;
+    /// use google_cloud_assuredworkloads_v1::Result;
+    /// async fn sample(
+    ///    client: &AssuredWorkloadsService
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::assured_workloads_service::GetOperation {
         super::builder::assured_workloads_service::GetOperation::new(self.inner.clone())
     }

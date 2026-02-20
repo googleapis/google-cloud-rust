@@ -472,7 +472,6 @@ impl Error {
         }
     }
 
-    // TODO(#2316) - update the troubleshooting text.
     /// Not part of the public API, subject to change without notice.
     ///
     /// If true, the request was missing required parameters or the parameters
@@ -481,14 +480,11 @@ impl Error {
     /// # Troubleshooting
     ///
     /// Typically this indicates a problem in the application. A required field
-    /// in the request builder was not initialized or the format of the field
-    /// does not match the expectations.
+    /// in the request builder was not initialized, or the format of the field
+    /// does not match the expectations to make a successful request.
     ///
-    /// We are working to improve the messages in these errors to make them
-    /// self-explanatory, until bug [#2316] is fixed, please consult the service
-    /// REST API documentation.
-    ///
-    /// [#2316]: https://github.com/googleapis/google-cloud-rust/issues/2316
+    /// When printed out in debug format the error indicates what formats and
+    /// fields to use.
     #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
     pub fn is_binding(&self) -> bool {
         matches!(&self.kind, ErrorKind::Binding)

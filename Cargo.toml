@@ -387,7 +387,7 @@ time                  = { default-features = false, version = "0.3.45" }
 tokio                 = { default-features = false, version = "1.45.1" }
 tokio-metrics         = { default-features = false, version = "0.4.7" }
 tokio-util            = { default-features = false, version = "0.7.9" }
-toml_edit             = { default-features = false, version = "0.24" }
+toml_edit             = { default-features = false, version = "0.25" }
 tracing-log           = { default-features = false, version = "0.2" }
 tracing-opentelemetry = { default-features = false, version = "0.32" }
 tracing-subscriber    = { default-features = false, version = "0.3.22" }
@@ -413,9 +413,9 @@ prost-types = { default-features = false, version = "0.14" }
 # WARNING: When this changes to 0.14 we need to bump the google-cloud-gax-internal major version.
 reqwest = { default-features = false, version = "0.13.2" }
 # WARNING: When any of these change to 0.15 we need to bump the google-cloud-gax-internal major version.
-tonic             = { default-features = false, version = "0.14.3", features = ["tls-native-roots"] }
-tonic-prost       = { default-features = false, version = "0.14.3" }
-tonic-prost-build = { default-features = false, version = "0.14.3" }
+tonic             = { default-features = false, version = "0.14.4", features = ["tls-native-roots"] }
+tonic-prost       = { default-features = false, version = "0.14.4" }
+tonic-prost-build = { default-features = false, version = "0.14.4" }
 # WARNING: When this changes to 0.6 we need to bump the google-cloud-gax-internal major version.
 tower = { default-features = false, version = "0.5.2", features = ["util"] }
 # WARNING: When this changes to 0.2 we need to bump the google-cloud-gax-internal major version.
@@ -452,10 +452,10 @@ tokio-test        = { default-features = false, version = "0.4" }
 # Local packages used as dependencies.
 google-cloud-auth        = { default-features = false, version = "1.5", path = "src/auth" }
 google-cloud-gax         = { default-features = false, version = "1.6", path = "src/gax" }
-gaxi                     = { default-features = false, version = "0.7.9", path = "src/gax-internal", package = "google-cloud-gax-internal" }
+gaxi                     = { default-features = false, version = "0.7.10", path = "src/gax-internal", package = "google-cloud-gax-internal" }
 wkt                      = { default-features = false, version = "1", path = "src/wkt", package = "google-cloud-wkt" }
 google-cloud-wkt         = { default-features = false, version = "1", path = "src/wkt", package = "google-cloud-wkt" }
-google-cloud-api         = { default-features = false, version = "1", path = "src/generated/api/types" }
+google-cloud-api         = { default-features = false, version = "1.3.0", path = "src/generated/api/types" }
 google-cloud-iam-v1      = { default-features = false, version = "1", path = "src/generated/iam/v1" }
 google-cloud-location    = { default-features = false, version = "1", path = "src/generated/cloud/location" }
 google-cloud-longrunning = { default-features = false, version = "1.2", path = "src/generated/longrunning" }
@@ -464,12 +464,12 @@ google-cloud-rpc         = { default-features = false, version = "1", path = "sr
 google-cloud-type        = { default-features = false, version = "1", path = "src/generated/type" }
 # These are used by specific generated libraries.
 google-cloud-apps-script-type                   = { default-features = false, version = "1", path = "src/generated/apps/script/gtype" }
-google-cloud-apps-script-type-calendar          = { default-features = false, version = "1", path = "src/generated/apps/script/calendar" }
-google-cloud-apps-script-type-docs              = { default-features = false, version = "1", path = "src/generated/apps/script/docs" }
-google-cloud-apps-script-type-drive             = { default-features = false, version = "1", path = "src/generated/apps/script/drive" }
-google-cloud-apps-script-type-gmail             = { default-features = false, version = "1", path = "src/generated/apps/script/gmail" }
-google-cloud-apps-script-type-sheets            = { default-features = false, version = "1", path = "src/generated/apps/script/sheets" }
-google-cloud-apps-script-type-slides            = { default-features = false, version = "1", path = "src/generated/apps/script/slides" }
+google-cloud-apps-script-type-calendar          = { default-features = false, version = "1.4.0", path = "src/generated/apps/script/calendar" }
+google-cloud-apps-script-type-docs              = { default-features = false, version = "1.4.0", path = "src/generated/apps/script/docs" }
+google-cloud-apps-script-type-drive             = { default-features = false, version = "1.4.0", path = "src/generated/apps/script/drive" }
+google-cloud-apps-script-type-gmail             = { default-features = false, version = "1.4.0", path = "src/generated/apps/script/gmail" }
+google-cloud-apps-script-type-sheets            = { default-features = false, version = "1.4.0", path = "src/generated/apps/script/sheets" }
+google-cloud-apps-script-type-slides            = { default-features = false, version = "1.4.0", path = "src/generated/apps/script/slides" }
 google-cloud-common                             = { default-features = false, version = "1", path = "src/generated/cloud/common" }
 google-cloud-gkehub-configmanagement-v1         = { default-features = false, version = "1", path = "src/generated/cloud/gkehub/configmanagement/v1" }
 google-cloud-gkehub-multiclusteringress-v1      = { default-features = false, version = "1", path = "src/generated/cloud/gkehub/multiclusteringress/v1" }
@@ -518,4 +518,5 @@ unexpected_cfgs = { level = "deny", check-cfg = [
   # Enables re-generation of protos. Only needed on major version updates to
   # Prost and/or Tonic.
   'cfg(google_cloud_generate_protos)',
+  'cfg(tokio_unstable)',
 ] }

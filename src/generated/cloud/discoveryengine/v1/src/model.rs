@@ -17697,6 +17697,10 @@ pub struct DataStore {
     /// Optional. Configuration for advanced site search.
     pub advanced_site_search_config: std::option::Option<crate::model::AdvancedSiteSearchConfig>,
 
+    /// Optional. Configuration for Natural Language Query Understanding.
+    pub natural_language_query_understanding_config:
+        std::option::Option<crate::model::NaturalLanguageQueryUnderstandingConfig>,
+
     /// Input only. The KMS key to be used to protect this DataStore at creation
     /// time.
     ///
@@ -17955,6 +17959,42 @@ impl DataStore {
         T: std::convert::Into<crate::model::AdvancedSiteSearchConfig>,
     {
         self.advanced_site_search_config = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [natural_language_query_understanding_config][crate::model::DataStore::natural_language_query_understanding_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_discoveryengine_v1::model::DataStore;
+    /// use google_cloud_discoveryengine_v1::model::NaturalLanguageQueryUnderstandingConfig;
+    /// let x = DataStore::new().set_natural_language_query_understanding_config(NaturalLanguageQueryUnderstandingConfig::default()/* use setters */);
+    /// ```
+    pub fn set_natural_language_query_understanding_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::NaturalLanguageQueryUnderstandingConfig>,
+    {
+        self.natural_language_query_understanding_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [natural_language_query_understanding_config][crate::model::DataStore::natural_language_query_understanding_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_discoveryengine_v1::model::DataStore;
+    /// use google_cloud_discoveryengine_v1::model::NaturalLanguageQueryUnderstandingConfig;
+    /// let x = DataStore::new().set_or_clear_natural_language_query_understanding_config(Some(NaturalLanguageQueryUnderstandingConfig::default()/* use setters */));
+    /// let x = DataStore::new().set_or_clear_natural_language_query_understanding_config(None::<NaturalLanguageQueryUnderstandingConfig>);
+    /// ```
+    pub fn set_or_clear_natural_language_query_understanding_config<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::NaturalLanguageQueryUnderstandingConfig>,
+    {
+        self.natural_language_query_understanding_config = v.map(|x| x.into());
         self
     }
 
@@ -18643,6 +18683,206 @@ impl AdvancedSiteSearchConfig {
 impl wkt::message::Message for AdvancedSiteSearchConfig {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.AdvancedSiteSearchConfig"
+    }
+}
+
+/// Configuration for Natural Language Query Understanding.
+#[cfg(feature = "data-store-service")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct NaturalLanguageQueryUnderstandingConfig {
+    /// Mode of Natural Language Query Understanding. If this field is unset, the
+    /// behavior defaults to
+    /// [NaturalLanguageQueryUnderstandingConfig.Mode.DISABLED][google.cloud.discoveryengine.v1.NaturalLanguageQueryUnderstandingConfig.Mode.DISABLED].
+    ///
+    /// [google.cloud.discoveryengine.v1.NaturalLanguageQueryUnderstandingConfig.Mode.DISABLED]: crate::model::natural_language_query_understanding_config::Mode::Disabled
+    pub mode: crate::model::natural_language_query_understanding_config::Mode,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "data-store-service")]
+impl NaturalLanguageQueryUnderstandingConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [mode][crate::model::NaturalLanguageQueryUnderstandingConfig::mode].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_discoveryengine_v1::model::NaturalLanguageQueryUnderstandingConfig;
+    /// use google_cloud_discoveryengine_v1::model::natural_language_query_understanding_config::Mode;
+    /// let x0 = NaturalLanguageQueryUnderstandingConfig::new().set_mode(Mode::Disabled);
+    /// let x1 = NaturalLanguageQueryUnderstandingConfig::new().set_mode(Mode::Enabled);
+    /// ```
+    pub fn set_mode<
+        T: std::convert::Into<crate::model::natural_language_query_understanding_config::Mode>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.mode = v.into();
+        self
+    }
+}
+
+#[cfg(feature = "data-store-service")]
+impl wkt::message::Message for NaturalLanguageQueryUnderstandingConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.discoveryengine.v1.NaturalLanguageQueryUnderstandingConfig"
+    }
+}
+
+/// Defines additional types related to [NaturalLanguageQueryUnderstandingConfig].
+#[cfg(feature = "data-store-service")]
+pub mod natural_language_query_understanding_config {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Mode of Natural Language Query Understanding. When the
+    /// NaturalLanguageQueryUnderstandingConfig.Mode is ENABLED, the natural
+    /// language understanding capabilities will be enabled for a search request if
+    /// the NaturalLanguageQueryUnderstandingSpec.FilterExtractionCondition in the
+    /// SearchRequest is ENABLED.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[cfg(feature = "data-store-service")]
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Mode {
+        /// Default value.
+        Unspecified,
+        /// Natural Language Query Understanding is disabled.
+        Disabled,
+        /// Natural Language Query Understanding is enabled.
+        Enabled,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Mode::value] or
+        /// [Mode::name].
+        UnknownValue(mode::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    #[cfg(feature = "data-store-service")]
+    pub mod mode {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    #[cfg(feature = "data-store-service")]
+    impl Mode {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Disabled => std::option::Option::Some(1),
+                Self::Enabled => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("MODE_UNSPECIFIED"),
+                Self::Disabled => std::option::Option::Some("DISABLED"),
+                Self::Enabled => std::option::Option::Some("ENABLED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    #[cfg(feature = "data-store-service")]
+    impl std::default::Default for Mode {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    #[cfg(feature = "data-store-service")]
+    impl std::fmt::Display for Mode {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    #[cfg(feature = "data-store-service")]
+    impl std::convert::From<i32> for Mode {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Disabled,
+                2 => Self::Enabled,
+                _ => Self::UnknownValue(mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    #[cfg(feature = "data-store-service")]
+    impl std::convert::From<&str> for Mode {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "MODE_UNSPECIFIED" => Self::Unspecified,
+                "DISABLED" => Self::Disabled,
+                "ENABLED" => Self::Enabled,
+                _ => Self::UnknownValue(mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    #[cfg(feature = "data-store-service")]
+    impl serde::ser::Serialize for Mode {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Disabled => serializer.serialize_i32(1),
+                Self::Enabled => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    #[cfg(feature = "data-store-service")]
+    impl<'de> serde::de::Deserialize<'de> for Mode {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Mode>::new(
+                ".google.cloud.discoveryengine.v1.NaturalLanguageQueryUnderstandingConfig.Mode",
+            ))
+        }
     }
 }
 
@@ -38903,6 +39143,28 @@ pub struct SearchRequest {
     /// Raw search query.
     pub query: std::string::String,
 
+    /// Optional. The categories associated with a category page. Must be set for
+    /// category navigation queries to achieve good search quality. The format
+    /// should be the same as
+    /// [PageInfo.page_category][google.cloud.discoveryengine.v1.PageInfo.page_category].
+    /// This field is the equivalent of the query for browse (navigation) queries.
+    /// It's used by the browse model when the query is empty.
+    ///
+    /// If the field is empty, it will not be used by the browse model.
+    /// If the field contains more than one element, only the first element will
+    /// be used.
+    ///
+    /// To represent full path of a category, use '>' character to separate
+    /// different hierarchies. If '>' is part of the category name, replace it with
+    /// other character(s).
+    /// For example, `Graphics Cards > RTX>4090 > Founders Edition` where "RTX >
+    /// 4090" represents one level, can be rewritten as `Graphics Cards > RTX_4090
+    ///
+    /// Founders Edition`
+    ///
+    /// [google.cloud.discoveryengine.v1.PageInfo.page_category]: crate::model::PageInfo::page_category
+    pub page_categories: std::vec::Vec<std::string::String>,
+
     /// Raw image query.
     pub image_query: std::option::Option<crate::model::search_request::ImageQuery>,
 
@@ -38939,6 +39201,8 @@ pub struct SearchRequest {
     /// unset.
     ///
     /// If this field is negative, an  `INVALID_ARGUMENT`  is returned.
+    ///
+    /// A large offset may be capped to a reasonable threshold.
     ///
     /// [google.cloud.discoveryengine.v1.Document]: crate::model::Document
     /// [google.cloud.discoveryengine.v1.SearchRequest.page_token]: crate::model::SearchRequest::page_token
@@ -39064,10 +39328,10 @@ pub struct SearchRequest {
     pub spell_correction_spec:
         std::option::Option<crate::model::search_request::SpellCorrectionSpec>,
 
-    /// A unique identifier for tracking visitors. For example, this could be
-    /// implemented with an HTTP cookie, which should be able to uniquely identify
-    /// a visitor on a single device. This unique identifier should not change if
-    /// the visitor logs in or out of the website.
+    /// Optional. A unique identifier for tracking visitors. For example, this
+    /// could be implemented with an HTTP cookie, which should be able to uniquely
+    /// identify a visitor on a single device. This unique identifier should not
+    /// change if the visitor logs in or out of the website.
     ///
     /// This field should NOT have a fixed value such as `unknown_visitor`.
     ///
@@ -39086,82 +39350,8 @@ pub struct SearchRequest {
     /// A specification for configuring the behavior of content search.
     pub content_search_spec: std::option::Option<crate::model::search_request::ContentSearchSpec>,
 
-    /// Whether to turn on safe search. This is only supported for
-    /// website search.
-    pub safe_search: bool,
-
-    /// The user labels applied to a resource must meet the following requirements:
-    ///
-    /// * Each resource can have multiple labels, up to a maximum of 64.
-    /// * Each label must be a key-value pair.
-    /// * Keys have a minimum length of 1 character and a maximum length of 63
-    ///   characters and cannot be empty. Values can be empty and have a maximum
-    ///   length of 63 characters.
-    /// * Keys and values can contain only lowercase letters, numeric characters,
-    ///   underscores, and dashes. All characters must use UTF-8 encoding, and
-    ///   international characters are allowed.
-    /// * The key portion of a label must be unique. However, you can use the same
-    ///   key with multiple resources.
-    /// * Keys must start with a lowercase letter or international character.
-    ///
-    /// See [Google Cloud
-    /// Document](https://cloud.google.com/resource-manager/docs/creating-managing-labels#requirements)
-    /// for more details.
-    pub user_labels: std::collections::HashMap<std::string::String, std::string::String>,
-
-    /// Search as you type configuration. Only supported for the
-    /// [IndustryVertical.MEDIA][google.cloud.discoveryengine.v1.IndustryVertical.MEDIA]
-    /// vertical.
-    ///
-    /// [google.cloud.discoveryengine.v1.IndustryVertical.MEDIA]: crate::model::IndustryVertical::Media
-    pub search_as_you_type_spec:
-        std::option::Option<crate::model::search_request::SearchAsYouTypeSpec>,
-
-    /// Optional. Config for display feature, like match highlighting on search
-    /// results.
-    pub display_spec: std::option::Option<crate::model::search_request::DisplaySpec>,
-
-    /// The session resource name. Optional.
-    ///
-    /// Session allows users to do multi-turn /search API calls or coordination
-    /// between /search API calls and /answer API calls.
-    ///
-    /// Example #1 (multi-turn /search API calls):
-    /// Call /search API with the session ID generated in the first call.
-    /// Here, the previous search query gets considered in query
-    /// standing. I.e., if the first query is "How did Alphabet do in 2022?"
-    /// and the current query is "How about 2023?", the current query will
-    /// be interpreted as "How did Alphabet do in 2023?".
-    ///
-    /// Example #2 (coordination between /search API calls and /answer API calls):
-    /// Call /answer API with the session ID generated in the first call.
-    /// Here, the answer generation happens in the context of the search
-    /// results from the first search call.
-    ///
-    /// Multi-turn Search feature is currently at private GA stage. Please use
-    /// v1alpha or v1beta version instead before we launch this feature to public
-    /// GA. Or ask for allowlisting through Google Support team.
-    pub session: std::string::String,
-
-    /// Session specification.
-    ///
-    /// Can be used only when `session` is set.
-    pub session_spec: std::option::Option<crate::model::search_request::SessionSpec>,
-
-    /// The relevance threshold of the search results.
-    ///
-    /// Default to Google defined threshold, leveraging a balance of
-    /// precision and recall to deliver both highly accurate results and
-    /// comprehensive coverage of relevant information.
-    ///
-    /// This feature is not supported for healthcare search.
-    pub relevance_threshold: crate::model::search_request::RelevanceThreshold,
-
-    /// Optional. The specification for returning the relevance score.
-    pub relevance_score_spec: std::option::Option<crate::model::search_request::RelevanceScoreSpec>,
-
-    /// The ranking expression controls the customized ranking on retrieval
-    /// documents. This overrides
+    /// Optional. The ranking expression controls the customized ranking on
+    /// retrieval documents. This overrides
     /// [ServingConfig.ranking_expression][google.cloud.discoveryengine.v1.ServingConfig.ranking_expression].
     /// The syntax and supported features depend on the
     /// `ranking_expression_backend` value. If `ranking_expression_backend` is not
@@ -39240,8 +39430,105 @@ pub struct SearchRequest {
     /// [google.cloud.discoveryengine.v1.ServingConfig.ranking_expression]: crate::model::ServingConfig::ranking_expression
     pub ranking_expression: std::string::String,
 
-    /// The backend to use for the ranking expression evaluation.
+    /// Optional. The backend to use for the ranking expression evaluation.
     pub ranking_expression_backend: crate::model::search_request::RankingExpressionBackend,
+
+    /// Whether to turn on safe search. This is only supported for
+    /// website search.
+    pub safe_search: bool,
+
+    /// The user labels applied to a resource must meet the following requirements:
+    ///
+    /// * Each resource can have multiple labels, up to a maximum of 64.
+    /// * Each label must be a key-value pair.
+    /// * Keys have a minimum length of 1 character and a maximum length of 63
+    ///   characters and cannot be empty. Values can be empty and have a maximum
+    ///   length of 63 characters.
+    /// * Keys and values can contain only lowercase letters, numeric characters,
+    ///   underscores, and dashes. All characters must use UTF-8 encoding, and
+    ///   international characters are allowed.
+    /// * The key portion of a label must be unique. However, you can use the same
+    ///   key with multiple resources.
+    /// * Keys must start with a lowercase letter or international character.
+    ///
+    /// See [Google Cloud
+    /// Document](https://cloud.google.com/resource-manager/docs/creating-managing-labels#requirements)
+    /// for more details.
+    pub user_labels: std::collections::HashMap<std::string::String, std::string::String>,
+
+    /// Optional. Config for natural language query understanding capabilities,
+    /// such as extracting structured field filters from the query. Refer to [this
+    /// documentation](https://cloud.google.com/generative-ai-app-builder/docs/natural-language-queries)
+    /// for more information.
+    /// If `naturalLanguageQueryUnderstandingSpec` is not specified, no additional
+    /// natural language query understanding will be done.
+    pub natural_language_query_understanding_spec:
+        std::option::Option<crate::model::search_request::NaturalLanguageQueryUnderstandingSpec>,
+
+    /// Search as you type configuration. Only supported for the
+    /// [IndustryVertical.MEDIA][google.cloud.discoveryengine.v1.IndustryVertical.MEDIA]
+    /// vertical.
+    ///
+    /// [google.cloud.discoveryengine.v1.IndustryVertical.MEDIA]: crate::model::IndustryVertical::Media
+    pub search_as_you_type_spec:
+        std::option::Option<crate::model::search_request::SearchAsYouTypeSpec>,
+
+    /// Optional. Config for display feature, like match highlighting on search
+    /// results.
+    pub display_spec: std::option::Option<crate::model::search_request::DisplaySpec>,
+
+    /// Optional. Crowding specifications for improving result diversity.
+    /// If multiple CrowdingSpecs are specified, crowding will be evaluated on
+    /// each unique combination of the `field` values, and max_count will be the
+    /// maximum value of `max_count` across all CrowdingSpecs.
+    /// For example, if the first CrowdingSpec has `field` = "color" and
+    /// `max_count` = 3, and the second CrowdingSpec has `field` = "size" and
+    /// `max_count` = 2, then after 3 documents that share the same color AND size
+    /// have been returned, subsequent ones should be
+    /// removed or demoted.
+    pub crowding_specs: std::vec::Vec<crate::model::search_request::CrowdingSpec>,
+
+    /// The session resource name. Optional.
+    ///
+    /// Session allows users to do multi-turn /search API calls or coordination
+    /// between /search API calls and /answer API calls.
+    ///
+    /// Example #1 (multi-turn /search API calls):
+    /// Call /search API with the session ID generated in the first call.
+    /// Here, the previous search query gets considered in query
+    /// standing. I.e., if the first query is "How did Alphabet do in 2022?"
+    /// and the current query is "How about 2023?", the current query will
+    /// be interpreted as "How did Alphabet do in 2023?".
+    ///
+    /// Example #2 (coordination between /search API calls and /answer API calls):
+    /// Call /answer API with the session ID generated in the first call.
+    /// Here, the answer generation happens in the context of the search
+    /// results from the first search call.
+    ///
+    /// Multi-turn Search feature is currently at private GA stage. Please use
+    /// v1alpha or v1beta version instead before we launch this feature to public
+    /// GA. Or ask for allowlisting through Google Support team.
+    pub session: std::string::String,
+
+    /// Session specification.
+    ///
+    /// Can be used only when `session` is set.
+    pub session_spec: std::option::Option<crate::model::search_request::SessionSpec>,
+
+    /// The global relevance threshold of the search results.
+    ///
+    /// Defaults to Google defined threshold, leveraging a balance of
+    /// precision and recall to deliver both highly accurate results and
+    /// comprehensive coverage of relevant information.
+    ///
+    /// If more granular relevance filtering is required, use the
+    /// `relevance_filter_spec` instead.
+    ///
+    /// This feature is not supported for healthcare search.
+    pub relevance_threshold: crate::model::search_request::RelevanceThreshold,
+
+    /// Optional. The specification for returning the relevance score.
+    pub relevance_score_spec: std::option::Option<crate::model::search_request::RelevanceScoreSpec>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -39290,6 +39577,23 @@ impl SearchRequest {
     /// ```
     pub fn set_query<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.query = v.into();
+        self
+    }
+
+    /// Sets the value of [page_categories][crate::model::SearchRequest::page_categories].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_discoveryengine_v1::model::SearchRequest;
+    /// let x = SearchRequest::new().set_page_categories(["a", "b", "c"]);
+    /// ```
+    pub fn set_page_categories<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.page_categories = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -39668,6 +39972,40 @@ impl SearchRequest {
         self
     }
 
+    /// Sets the value of [ranking_expression][crate::model::SearchRequest::ranking_expression].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_discoveryengine_v1::model::SearchRequest;
+    /// let x = SearchRequest::new().set_ranking_expression("example");
+    /// ```
+    pub fn set_ranking_expression<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.ranking_expression = v.into();
+        self
+    }
+
+    /// Sets the value of [ranking_expression_backend][crate::model::SearchRequest::ranking_expression_backend].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_discoveryengine_v1::model::SearchRequest;
+    /// use google_cloud_discoveryengine_v1::model::search_request::RankingExpressionBackend;
+    /// let x0 = SearchRequest::new().set_ranking_expression_backend(RankingExpressionBackend::RankByEmbedding);
+    /// let x1 = SearchRequest::new().set_ranking_expression_backend(RankingExpressionBackend::RankByFormula);
+    /// ```
+    pub fn set_ranking_expression_backend<
+        T: std::convert::Into<crate::model::search_request::RankingExpressionBackend>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.ranking_expression_backend = v.into();
+        self
+    }
+
     /// Sets the value of [safe_search][crate::model::SearchRequest::safe_search].
     ///
     /// # Example
@@ -39698,6 +40036,42 @@ impl SearchRequest {
     {
         use std::iter::Iterator;
         self.user_labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [natural_language_query_understanding_spec][crate::model::SearchRequest::natural_language_query_understanding_spec].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_discoveryengine_v1::model::SearchRequest;
+    /// use google_cloud_discoveryengine_v1::model::search_request::NaturalLanguageQueryUnderstandingSpec;
+    /// let x = SearchRequest::new().set_natural_language_query_understanding_spec(NaturalLanguageQueryUnderstandingSpec::default()/* use setters */);
+    /// ```
+    pub fn set_natural_language_query_understanding_spec<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::search_request::NaturalLanguageQueryUnderstandingSpec>,
+    {
+        self.natural_language_query_understanding_spec = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [natural_language_query_understanding_spec][crate::model::SearchRequest::natural_language_query_understanding_spec].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_discoveryengine_v1::model::SearchRequest;
+    /// use google_cloud_discoveryengine_v1::model::search_request::NaturalLanguageQueryUnderstandingSpec;
+    /// let x = SearchRequest::new().set_or_clear_natural_language_query_understanding_spec(Some(NaturalLanguageQueryUnderstandingSpec::default()/* use setters */));
+    /// let x = SearchRequest::new().set_or_clear_natural_language_query_understanding_spec(None::<NaturalLanguageQueryUnderstandingSpec>);
+    /// ```
+    pub fn set_or_clear_natural_language_query_understanding_spec<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::search_request::NaturalLanguageQueryUnderstandingSpec>,
+    {
+        self.natural_language_query_understanding_spec = v.map(|x| x.into());
         self
     }
 
@@ -39764,6 +40138,28 @@ impl SearchRequest {
         T: std::convert::Into<crate::model::search_request::DisplaySpec>,
     {
         self.display_spec = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [crowding_specs][crate::model::SearchRequest::crowding_specs].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_discoveryengine_v1::model::SearchRequest;
+    /// use google_cloud_discoveryengine_v1::model::search_request::CrowdingSpec;
+    /// let x = SearchRequest::new()
+    ///     .set_crowding_specs([
+    ///         CrowdingSpec::default()/* use setters */,
+    ///         CrowdingSpec::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_crowding_specs<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::search_request::CrowdingSpec>,
+    {
+        use std::iter::Iterator;
+        self.crowding_specs = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -39862,40 +40258,6 @@ impl SearchRequest {
         T: std::convert::Into<crate::model::search_request::RelevanceScoreSpec>,
     {
         self.relevance_score_spec = v.map(|x| x.into());
-        self
-    }
-
-    /// Sets the value of [ranking_expression][crate::model::SearchRequest::ranking_expression].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_discoveryengine_v1::model::SearchRequest;
-    /// let x = SearchRequest::new().set_ranking_expression("example");
-    /// ```
-    pub fn set_ranking_expression<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.ranking_expression = v.into();
-        self
-    }
-
-    /// Sets the value of [ranking_expression_backend][crate::model::SearchRequest::ranking_expression_backend].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_discoveryengine_v1::model::SearchRequest;
-    /// use google_cloud_discoveryengine_v1::model::search_request::RankingExpressionBackend;
-    /// let x0 = SearchRequest::new().set_ranking_expression_backend(RankingExpressionBackend::RankByEmbedding);
-    /// let x1 = SearchRequest::new().set_ranking_expression_backend(RankingExpressionBackend::RankByFormula);
-    /// ```
-    pub fn set_ranking_expression_backend<
-        T: std::convert::Into<crate::model::search_request::RankingExpressionBackend>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.ranking_expression_backend = v.into();
         self
     }
 }
@@ -40058,6 +40420,8 @@ pub mod search_request {
         /// Required. Full resource name of
         /// [DataStore][google.cloud.discoveryengine.v1.DataStore], such as
         /// `projects/{project}/locations/{location}/collections/{collection_id}/dataStores/{data_store_id}`.
+        /// The path must include the project number, project id is not supported for
+        /// this field.
         ///
         /// [google.cloud.discoveryengine.v1.DataStore]: crate::model::DataStore
         pub data_store: std::string::String,
@@ -43193,6 +43557,542 @@ pub mod search_request {
         }
     }
 
+    /// Specification to enable natural language understanding capabilities for
+    /// search requests.
+    #[cfg(any(
+        feature = "assistant-service",
+        feature = "conversational-search-service",
+        feature = "search-service",
+        feature = "serving-config-service",
+    ))]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct NaturalLanguageQueryUnderstandingSpec {
+
+        /// The condition under which filter extraction should occur.
+        /// Server behavior defaults to `DISABLED`.
+        pub filter_extraction_condition: crate::model::search_request::natural_language_query_understanding_spec::FilterExtractionCondition,
+
+        /// Field names used for location-based filtering, where geolocation filters
+        /// are detected in natural language search queries.
+        /// Only valid when the FilterExtractionCondition is set to `ENABLED`.
+        ///
+        /// If this field is set, it overrides the field names set in
+        /// [ServingConfig.geo_search_query_detection_field_names][google.cloud.discoveryengine.v1.ServingConfig.geo_search_query_detection_field_names].
+        pub geo_search_query_detection_field_names: std::vec::Vec<std::string::String>,
+
+        /// Optional. Controls behavior of how extracted filters are applied to the
+        /// search. The default behavior depends on the request. For single datastore
+        /// structured search, the default is `HARD_FILTER`. For multi-datastore
+        /// search, the default behavior is `SOFT_BOOST`.
+        /// Location-based filters are always applied as hard filters, and the
+        /// `SOFT_BOOST` setting will not affect them.
+        /// This field is only used if
+        /// [SearchRequest.NaturalLanguageQueryUnderstandingSpec.FilterExtractionCondition][google.cloud.discoveryengine.v1.SearchRequest.NaturalLanguageQueryUnderstandingSpec.FilterExtractionCondition]
+        /// is set to
+        /// [FilterExtractionCondition.ENABLED][google.cloud.discoveryengine.v1.SearchRequest.NaturalLanguageQueryUnderstandingSpec.FilterExtractionCondition.ENABLED].
+        ///
+        /// [google.cloud.discoveryengine.v1.SearchRequest.NaturalLanguageQueryUnderstandingSpec.FilterExtractionCondition]: crate::model::search_request::natural_language_query_understanding_spec::FilterExtractionCondition
+        /// [google.cloud.discoveryengine.v1.SearchRequest.NaturalLanguageQueryUnderstandingSpec.FilterExtractionCondition.ENABLED]: crate::model::search_request::natural_language_query_understanding_spec::FilterExtractionCondition::Enabled
+        pub extracted_filter_behavior: crate::model::search_request::natural_language_query_understanding_spec::ExtractedFilterBehavior,
+
+        /// Optional. Allowlist of fields that can be used for natural language
+        /// filter extraction. By default, if this is unspecified, all indexable
+        /// fields are eligible for natural language filter extraction (but are not
+        /// guaranteed to be used). If any fields are specified in
+        /// allowed_field_names, only the fields that are both marked as indexable in
+        /// the schema and specified in the allowlist will be eligible for natural
+        /// language filter extraction. Note: for multi-datastore search, this is not
+        /// yet supported, and will be ignored.
+        pub allowed_field_names: std::vec::Vec<std::string::String>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(any(
+        feature = "assistant-service",
+        feature = "conversational-search-service",
+        feature = "search-service",
+        feature = "serving-config-service",
+    ))]
+    impl NaturalLanguageQueryUnderstandingSpec {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [filter_extraction_condition][crate::model::search_request::NaturalLanguageQueryUnderstandingSpec::filter_extraction_condition].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_discoveryengine_v1::model::search_request::NaturalLanguageQueryUnderstandingSpec;
+        /// use google_cloud_discoveryengine_v1::model::search_request::natural_language_query_understanding_spec::FilterExtractionCondition;
+        /// let x0 = NaturalLanguageQueryUnderstandingSpec::new().set_filter_extraction_condition(FilterExtractionCondition::Disabled);
+        /// let x1 = NaturalLanguageQueryUnderstandingSpec::new().set_filter_extraction_condition(FilterExtractionCondition::Enabled);
+        /// ```
+        pub fn set_filter_extraction_condition<T: std::convert::Into<crate::model::search_request::natural_language_query_understanding_spec::FilterExtractionCondition>>(mut self, v: T) -> Self{
+            self.filter_extraction_condition = v.into();
+            self
+        }
+
+        /// Sets the value of [geo_search_query_detection_field_names][crate::model::search_request::NaturalLanguageQueryUnderstandingSpec::geo_search_query_detection_field_names].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_discoveryengine_v1::model::search_request::NaturalLanguageQueryUnderstandingSpec;
+        /// let x = NaturalLanguageQueryUnderstandingSpec::new().set_geo_search_query_detection_field_names(["a", "b", "c"]);
+        /// ```
+        pub fn set_geo_search_query_detection_field_names<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.geo_search_query_detection_field_names = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [extracted_filter_behavior][crate::model::search_request::NaturalLanguageQueryUnderstandingSpec::extracted_filter_behavior].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_discoveryengine_v1::model::search_request::NaturalLanguageQueryUnderstandingSpec;
+        /// use google_cloud_discoveryengine_v1::model::search_request::natural_language_query_understanding_spec::ExtractedFilterBehavior;
+        /// let x0 = NaturalLanguageQueryUnderstandingSpec::new().set_extracted_filter_behavior(ExtractedFilterBehavior::HardFilter);
+        /// let x1 = NaturalLanguageQueryUnderstandingSpec::new().set_extracted_filter_behavior(ExtractedFilterBehavior::SoftBoost);
+        /// ```
+        pub fn set_extracted_filter_behavior<T: std::convert::Into<crate::model::search_request::natural_language_query_understanding_spec::ExtractedFilterBehavior>>(mut self, v: T) -> Self{
+            self.extracted_filter_behavior = v.into();
+            self
+        }
+
+        /// Sets the value of [allowed_field_names][crate::model::search_request::NaturalLanguageQueryUnderstandingSpec::allowed_field_names].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_discoveryengine_v1::model::search_request::NaturalLanguageQueryUnderstandingSpec;
+        /// let x = NaturalLanguageQueryUnderstandingSpec::new().set_allowed_field_names(["a", "b", "c"]);
+        /// ```
+        pub fn set_allowed_field_names<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.allowed_field_names = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    #[cfg(any(
+        feature = "assistant-service",
+        feature = "conversational-search-service",
+        feature = "search-service",
+        feature = "serving-config-service",
+    ))]
+    impl wkt::message::Message for NaturalLanguageQueryUnderstandingSpec {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.discoveryengine.v1.SearchRequest.NaturalLanguageQueryUnderstandingSpec"
+        }
+    }
+
+    /// Defines additional types related to [NaturalLanguageQueryUnderstandingSpec].
+    #[cfg(any(
+        feature = "assistant-service",
+        feature = "conversational-search-service",
+        feature = "search-service",
+        feature = "serving-config-service",
+    ))]
+    pub mod natural_language_query_understanding_spec {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Enum describing under which condition filter extraction should occur.
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[cfg(any(
+            feature = "assistant-service",
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum FilterExtractionCondition {
+            /// Server behavior defaults to `DISABLED`.
+            ConditionUnspecified,
+            /// Disables NL filter extraction.
+            Disabled,
+            /// Enables NL filter extraction.
+            Enabled,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [FilterExtractionCondition::value] or
+            /// [FilterExtractionCondition::name].
+            UnknownValue(filter_extraction_condition::UnknownValue),
+        }
+
+        #[doc(hidden)]
+        #[cfg(any(
+            feature = "assistant-service",
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
+        pub mod filter_extraction_condition {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
+
+        #[cfg(any(
+            feature = "assistant-service",
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
+        impl FilterExtractionCondition {
+            /// Gets the enum value.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::ConditionUnspecified => std::option::Option::Some(0),
+                    Self::Disabled => std::option::Option::Some(1),
+                    Self::Enabled => std::option::Option::Some(2),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
+            }
+
+            /// Gets the enum value as a string.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::ConditionUnspecified => {
+                        std::option::Option::Some("CONDITION_UNSPECIFIED")
+                    }
+                    Self::Disabled => std::option::Option::Some("DISABLED"),
+                    Self::Enabled => std::option::Option::Some("ENABLED"),
+                    Self::UnknownValue(u) => u.0.name(),
+                }
+            }
+        }
+
+        #[cfg(any(
+            feature = "assistant-service",
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
+        impl std::default::Default for FilterExtractionCondition {
+            fn default() -> Self {
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        #[cfg(any(
+            feature = "assistant-service",
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
+        impl std::fmt::Display for FilterExtractionCondition {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        #[cfg(any(
+            feature = "assistant-service",
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
+        impl std::convert::From<i32> for FilterExtractionCondition {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::ConditionUnspecified,
+                    1 => Self::Disabled,
+                    2 => Self::Enabled,
+                    _ => Self::UnknownValue(filter_extraction_condition::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        #[cfg(any(
+            feature = "assistant-service",
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
+        impl std::convert::From<&str> for FilterExtractionCondition {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "CONDITION_UNSPECIFIED" => Self::ConditionUnspecified,
+                    "DISABLED" => Self::Disabled,
+                    "ENABLED" => Self::Enabled,
+                    _ => Self::UnknownValue(filter_extraction_condition::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        #[cfg(any(
+            feature = "assistant-service",
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
+        impl serde::ser::Serialize for FilterExtractionCondition {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::ConditionUnspecified => serializer.serialize_i32(0),
+                    Self::Disabled => serializer.serialize_i32(1),
+                    Self::Enabled => serializer.serialize_i32(2),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        #[cfg(any(
+            feature = "assistant-service",
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
+        impl<'de> serde::de::Deserialize<'de> for FilterExtractionCondition {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<FilterExtractionCondition>::new(
+                    ".google.cloud.discoveryengine.v1.SearchRequest.NaturalLanguageQueryUnderstandingSpec.FilterExtractionCondition"))
+            }
+        }
+
+        /// Enum describing how extracted filters are applied to the search.
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[cfg(any(
+            feature = "assistant-service",
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum ExtractedFilterBehavior {
+            /// `EXTRACTED_FILTER_BEHAVIOR_UNSPECIFIED` will use the default behavior
+            /// for extracted filters. For single datastore search, the default is to
+            /// apply as hard filters. For multi-datastore search, the default is to
+            /// apply as soft boosts.
+            Unspecified,
+            /// Applies all extracted filters as hard filters on the results. Results
+            /// that do not pass the extracted filters will not be returned in the
+            /// result set.
+            HardFilter,
+            /// Applies all extracted filters as soft boosts. Results that pass the
+            /// filters will be boosted up to higher ranks in the result set.
+            SoftBoost,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [ExtractedFilterBehavior::value] or
+            /// [ExtractedFilterBehavior::name].
+            UnknownValue(extracted_filter_behavior::UnknownValue),
+        }
+
+        #[doc(hidden)]
+        #[cfg(any(
+            feature = "assistant-service",
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
+        pub mod extracted_filter_behavior {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
+
+        #[cfg(any(
+            feature = "assistant-service",
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
+        impl ExtractedFilterBehavior {
+            /// Gets the enum value.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some(0),
+                    Self::HardFilter => std::option::Option::Some(1),
+                    Self::SoftBoost => std::option::Option::Some(2),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
+            }
+
+            /// Gets the enum value as a string.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unspecified => {
+                        std::option::Option::Some("EXTRACTED_FILTER_BEHAVIOR_UNSPECIFIED")
+                    }
+                    Self::HardFilter => std::option::Option::Some("HARD_FILTER"),
+                    Self::SoftBoost => std::option::Option::Some("SOFT_BOOST"),
+                    Self::UnknownValue(u) => u.0.name(),
+                }
+            }
+        }
+
+        #[cfg(any(
+            feature = "assistant-service",
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
+        impl std::default::Default for ExtractedFilterBehavior {
+            fn default() -> Self {
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        #[cfg(any(
+            feature = "assistant-service",
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
+        impl std::fmt::Display for ExtractedFilterBehavior {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        #[cfg(any(
+            feature = "assistant-service",
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
+        impl std::convert::From<i32> for ExtractedFilterBehavior {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unspecified,
+                    1 => Self::HardFilter,
+                    2 => Self::SoftBoost,
+                    _ => Self::UnknownValue(extracted_filter_behavior::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        #[cfg(any(
+            feature = "assistant-service",
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
+        impl std::convert::From<&str> for ExtractedFilterBehavior {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "EXTRACTED_FILTER_BEHAVIOR_UNSPECIFIED" => Self::Unspecified,
+                    "HARD_FILTER" => Self::HardFilter,
+                    "SOFT_BOOST" => Self::SoftBoost,
+                    _ => Self::UnknownValue(extracted_filter_behavior::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        #[cfg(any(
+            feature = "assistant-service",
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
+        impl serde::ser::Serialize for ExtractedFilterBehavior {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unspecified => serializer.serialize_i32(0),
+                    Self::HardFilter => serializer.serialize_i32(1),
+                    Self::SoftBoost => serializer.serialize_i32(2),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        #[cfg(any(
+            feature = "assistant-service",
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
+        impl<'de> serde::de::Deserialize<'de> for ExtractedFilterBehavior {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<ExtractedFilterBehavior>::new(
+                    ".google.cloud.discoveryengine.v1.SearchRequest.NaturalLanguageQueryUnderstandingSpec.ExtractedFilterBehavior"))
+            }
+        }
+    }
+
     /// Specification for search as you type in search requests.
     #[cfg(any(
         feature = "assistant-service",
@@ -43737,6 +44637,314 @@ pub mod search_request {
         }
     }
 
+    /// Specification for crowding. Crowding improves the diversity of search
+    /// results by limiting the number of results that share the same field value.
+    /// For example, crowding on the color field with a max_count of 3 and mode
+    /// DROP_CROWDED_RESULTS will return at most 3 results with the same color
+    /// across all pages.
+    #[cfg(any(
+        feature = "assistant-service",
+        feature = "conversational-search-service",
+        feature = "search-service",
+        feature = "serving-config-service",
+    ))]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct CrowdingSpec {
+        /// The field to use for crowding. Documents can be crowded by a field in the
+        /// [Document][google.cloud.discoveryengine.v1.Document] object. Crowding
+        /// field is case sensitive.
+        ///
+        /// [google.cloud.discoveryengine.v1.Document]: crate::model::Document
+        pub field: std::string::String,
+
+        /// The maximum number of documents to keep per value of the field. Once
+        /// there are at least max_count previous results which contain the same
+        /// value for the given field (according to the order specified in
+        /// `order_by`), later results with the same value are "crowded away".
+        /// If not specified, the default value is 1.
+        pub max_count: i32,
+
+        /// Mode to use for documents that are crowded away.
+        pub mode: crate::model::search_request::crowding_spec::Mode,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(any(
+        feature = "assistant-service",
+        feature = "conversational-search-service",
+        feature = "search-service",
+        feature = "serving-config-service",
+    ))]
+    impl CrowdingSpec {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [field][crate::model::search_request::CrowdingSpec::field].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_discoveryengine_v1::model::search_request::CrowdingSpec;
+        /// let x = CrowdingSpec::new().set_field("example");
+        /// ```
+        pub fn set_field<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.field = v.into();
+            self
+        }
+
+        /// Sets the value of [max_count][crate::model::search_request::CrowdingSpec::max_count].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_discoveryengine_v1::model::search_request::CrowdingSpec;
+        /// let x = CrowdingSpec::new().set_max_count(42);
+        /// ```
+        pub fn set_max_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            self.max_count = v.into();
+            self
+        }
+
+        /// Sets the value of [mode][crate::model::search_request::CrowdingSpec::mode].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_discoveryengine_v1::model::search_request::CrowdingSpec;
+        /// use google_cloud_discoveryengine_v1::model::search_request::crowding_spec::Mode;
+        /// let x0 = CrowdingSpec::new().set_mode(Mode::DropCrowdedResults);
+        /// let x1 = CrowdingSpec::new().set_mode(Mode::DemoteCrowdedResultsToEnd);
+        /// ```
+        pub fn set_mode<
+            T: std::convert::Into<crate::model::search_request::crowding_spec::Mode>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.mode = v.into();
+            self
+        }
+    }
+
+    #[cfg(any(
+        feature = "assistant-service",
+        feature = "conversational-search-service",
+        feature = "search-service",
+        feature = "serving-config-service",
+    ))]
+    impl wkt::message::Message for CrowdingSpec {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.discoveryengine.v1.SearchRequest.CrowdingSpec"
+        }
+    }
+
+    /// Defines additional types related to [CrowdingSpec].
+    #[cfg(any(
+        feature = "assistant-service",
+        feature = "conversational-search-service",
+        feature = "search-service",
+        feature = "serving-config-service",
+    ))]
+    pub mod crowding_spec {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Enum describing the mode to use for documents that are crowded away.
+        /// They can be dropped or demoted to the later pages.
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[cfg(any(
+            feature = "assistant-service",
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum Mode {
+            /// Unspecified crowding mode. In this case, server behavior defaults to
+            /// [Mode.DROP_CROWDED_RESULTS][google.cloud.discoveryengine.v1.SearchRequest.CrowdingSpec.Mode.DROP_CROWDED_RESULTS].
+            ///
+            /// [google.cloud.discoveryengine.v1.SearchRequest.CrowdingSpec.Mode.DROP_CROWDED_RESULTS]: crate::model::search_request::crowding_spec::Mode::DropCrowdedResults
+            Unspecified,
+            /// Drop crowded results.
+            DropCrowdedResults,
+            /// Demote crowded results to the later pages.
+            DemoteCrowdedResultsToEnd,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [Mode::value] or
+            /// [Mode::name].
+            UnknownValue(mode::UnknownValue),
+        }
+
+        #[doc(hidden)]
+        #[cfg(any(
+            feature = "assistant-service",
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
+        pub mod mode {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
+
+        #[cfg(any(
+            feature = "assistant-service",
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
+        impl Mode {
+            /// Gets the enum value.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some(0),
+                    Self::DropCrowdedResults => std::option::Option::Some(1),
+                    Self::DemoteCrowdedResultsToEnd => std::option::Option::Some(2),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
+            }
+
+            /// Gets the enum value as a string.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some("MODE_UNSPECIFIED"),
+                    Self::DropCrowdedResults => std::option::Option::Some("DROP_CROWDED_RESULTS"),
+                    Self::DemoteCrowdedResultsToEnd => {
+                        std::option::Option::Some("DEMOTE_CROWDED_RESULTS_TO_END")
+                    }
+                    Self::UnknownValue(u) => u.0.name(),
+                }
+            }
+        }
+
+        #[cfg(any(
+            feature = "assistant-service",
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
+        impl std::default::Default for Mode {
+            fn default() -> Self {
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        #[cfg(any(
+            feature = "assistant-service",
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
+        impl std::fmt::Display for Mode {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        #[cfg(any(
+            feature = "assistant-service",
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
+        impl std::convert::From<i32> for Mode {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unspecified,
+                    1 => Self::DropCrowdedResults,
+                    2 => Self::DemoteCrowdedResultsToEnd,
+                    _ => Self::UnknownValue(mode::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        #[cfg(any(
+            feature = "assistant-service",
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
+        impl std::convert::From<&str> for Mode {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "MODE_UNSPECIFIED" => Self::Unspecified,
+                    "DROP_CROWDED_RESULTS" => Self::DropCrowdedResults,
+                    "DEMOTE_CROWDED_RESULTS_TO_END" => Self::DemoteCrowdedResultsToEnd,
+                    _ => Self::UnknownValue(mode::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        #[cfg(any(
+            feature = "assistant-service",
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
+        impl serde::ser::Serialize for Mode {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unspecified => serializer.serialize_i32(0),
+                    Self::DropCrowdedResults => serializer.serialize_i32(1),
+                    Self::DemoteCrowdedResultsToEnd => serializer.serialize_i32(2),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        #[cfg(any(
+            feature = "assistant-service",
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
+        impl<'de> serde::de::Deserialize<'de> for Mode {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<Mode>::new(
+                    ".google.cloud.discoveryengine.v1.SearchRequest.CrowdingSpec.Mode",
+                ))
+            }
+        }
+    }
+
     /// Session specification.
     ///
     /// Multi-turn Search feature is currently at private GA stage. Please use
@@ -43912,6 +45120,218 @@ pub mod search_request {
     impl wkt::message::Message for RelevanceScoreSpec {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.SearchRequest.RelevanceScoreSpec"
+        }
+    }
+
+    /// The backend to use for the ranking expression evaluation.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[cfg(any(
+        feature = "assistant-service",
+        feature = "conversational-search-service",
+        feature = "search-service",
+        feature = "serving-config-service",
+    ))]
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum RankingExpressionBackend {
+        /// Default option for unspecified/unknown values.
+        Unspecified,
+        /// Deprecated: Use `RANK_BY_EMBEDDING` instead.
+        /// Ranking by custom embedding model, the default way to evaluate the
+        /// ranking expression. Legacy enum option, `RANK_BY_EMBEDDING` should be
+        /// used instead.
+        #[deprecated]
+        Byoe,
+        /// Deprecated: Use `RANK_BY_FORMULA` instead.
+        /// Ranking by custom formula. Legacy enum option, `RANK_BY_FORMULA` should
+        /// be used instead.
+        #[deprecated]
+        Clearbox,
+        /// Ranking by custom embedding model, the default way to evaluate the
+        /// ranking expression.
+        RankByEmbedding,
+        /// Ranking by custom formula.
+        RankByFormula,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [RankingExpressionBackend::value] or
+        /// [RankingExpressionBackend::name].
+        UnknownValue(ranking_expression_backend::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    #[cfg(any(
+        feature = "assistant-service",
+        feature = "conversational-search-service",
+        feature = "search-service",
+        feature = "serving-config-service",
+    ))]
+    pub mod ranking_expression_backend {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    #[cfg(any(
+        feature = "assistant-service",
+        feature = "conversational-search-service",
+        feature = "search-service",
+        feature = "serving-config-service",
+    ))]
+    impl RankingExpressionBackend {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Byoe => std::option::Option::Some(1),
+                Self::Clearbox => std::option::Option::Some(2),
+                Self::RankByEmbedding => std::option::Option::Some(3),
+                Self::RankByFormula => std::option::Option::Some(4),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => {
+                    std::option::Option::Some("RANKING_EXPRESSION_BACKEND_UNSPECIFIED")
+                }
+                Self::Byoe => std::option::Option::Some("BYOE"),
+                Self::Clearbox => std::option::Option::Some("CLEARBOX"),
+                Self::RankByEmbedding => std::option::Option::Some("RANK_BY_EMBEDDING"),
+                Self::RankByFormula => std::option::Option::Some("RANK_BY_FORMULA"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    #[cfg(any(
+        feature = "assistant-service",
+        feature = "conversational-search-service",
+        feature = "search-service",
+        feature = "serving-config-service",
+    ))]
+    impl std::default::Default for RankingExpressionBackend {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    #[cfg(any(
+        feature = "assistant-service",
+        feature = "conversational-search-service",
+        feature = "search-service",
+        feature = "serving-config-service",
+    ))]
+    impl std::fmt::Display for RankingExpressionBackend {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    #[cfg(any(
+        feature = "assistant-service",
+        feature = "conversational-search-service",
+        feature = "search-service",
+        feature = "serving-config-service",
+    ))]
+    impl std::convert::From<i32> for RankingExpressionBackend {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Byoe,
+                2 => Self::Clearbox,
+                3 => Self::RankByEmbedding,
+                4 => Self::RankByFormula,
+                _ => Self::UnknownValue(ranking_expression_backend::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    #[cfg(any(
+        feature = "assistant-service",
+        feature = "conversational-search-service",
+        feature = "search-service",
+        feature = "serving-config-service",
+    ))]
+    impl std::convert::From<&str> for RankingExpressionBackend {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "RANKING_EXPRESSION_BACKEND_UNSPECIFIED" => Self::Unspecified,
+                "BYOE" => Self::Byoe,
+                "CLEARBOX" => Self::Clearbox,
+                "RANK_BY_EMBEDDING" => Self::RankByEmbedding,
+                "RANK_BY_FORMULA" => Self::RankByFormula,
+                _ => Self::UnknownValue(ranking_expression_backend::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    #[cfg(any(
+        feature = "assistant-service",
+        feature = "conversational-search-service",
+        feature = "search-service",
+        feature = "serving-config-service",
+    ))]
+    impl serde::ser::Serialize for RankingExpressionBackend {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Byoe => serializer.serialize_i32(1),
+                Self::Clearbox => serializer.serialize_i32(2),
+                Self::RankByEmbedding => serializer.serialize_i32(3),
+                Self::RankByFormula => serializer.serialize_i32(4),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    #[cfg(any(
+        feature = "assistant-service",
+        feature = "conversational-search-service",
+        feature = "search-service",
+        feature = "serving-config-service",
+    ))]
+    impl<'de> serde::de::Deserialize<'de> for RankingExpressionBackend {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(
+                wkt::internal::EnumVisitor::<RankingExpressionBackend>::new(
+                    ".google.cloud.discoveryengine.v1.SearchRequest.RankingExpressionBackend",
+                ),
+            )
         }
     }
 
@@ -44117,197 +45537,6 @@ pub mod search_request {
             ))
         }
     }
-
-    /// The backend to use for the ranking expression evaluation.
-    ///
-    /// # Working with unknown values
-    ///
-    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
-    /// additional enum variants at any time. Adding new variants is not considered
-    /// a breaking change. Applications should write their code in anticipation of:
-    ///
-    /// - New values appearing in future releases of the client library, **and**
-    /// - New values received dynamically, without application changes.
-    ///
-    /// Please consult the [Working with enums] section in the user guide for some
-    /// guidelines.
-    ///
-    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
-    #[cfg(any(
-        feature = "assistant-service",
-        feature = "conversational-search-service",
-        feature = "search-service",
-        feature = "serving-config-service",
-    ))]
-    #[derive(Clone, Debug, PartialEq)]
-    #[non_exhaustive]
-    pub enum RankingExpressionBackend {
-        /// Default option for unspecified/unknown values.
-        Unspecified,
-        /// Ranking by custom embedding model, the default way to evaluate the
-        /// ranking expression.
-        RankByEmbedding,
-        /// Ranking by custom formula.
-        RankByFormula,
-        /// If set, the enum was initialized with an unknown value.
-        ///
-        /// Applications can examine the value using [RankingExpressionBackend::value] or
-        /// [RankingExpressionBackend::name].
-        UnknownValue(ranking_expression_backend::UnknownValue),
-    }
-
-    #[doc(hidden)]
-    #[cfg(any(
-        feature = "assistant-service",
-        feature = "conversational-search-service",
-        feature = "search-service",
-        feature = "serving-config-service",
-    ))]
-    pub mod ranking_expression_backend {
-        #[allow(unused_imports)]
-        use super::*;
-        #[derive(Clone, Debug, PartialEq)]
-        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
-    }
-
-    #[cfg(any(
-        feature = "assistant-service",
-        feature = "conversational-search-service",
-        feature = "search-service",
-        feature = "serving-config-service",
-    ))]
-    impl RankingExpressionBackend {
-        /// Gets the enum value.
-        ///
-        /// Returns `None` if the enum contains an unknown value deserialized from
-        /// the string representation of enums.
-        pub fn value(&self) -> std::option::Option<i32> {
-            match self {
-                Self::Unspecified => std::option::Option::Some(0),
-                Self::RankByEmbedding => std::option::Option::Some(3),
-                Self::RankByFormula => std::option::Option::Some(4),
-                Self::UnknownValue(u) => u.0.value(),
-            }
-        }
-
-        /// Gets the enum value as a string.
-        ///
-        /// Returns `None` if the enum contains an unknown value deserialized from
-        /// the integer representation of enums.
-        pub fn name(&self) -> std::option::Option<&str> {
-            match self {
-                Self::Unspecified => {
-                    std::option::Option::Some("RANKING_EXPRESSION_BACKEND_UNSPECIFIED")
-                }
-                Self::RankByEmbedding => std::option::Option::Some("RANK_BY_EMBEDDING"),
-                Self::RankByFormula => std::option::Option::Some("RANK_BY_FORMULA"),
-                Self::UnknownValue(u) => u.0.name(),
-            }
-        }
-    }
-
-    #[cfg(any(
-        feature = "assistant-service",
-        feature = "conversational-search-service",
-        feature = "search-service",
-        feature = "serving-config-service",
-    ))]
-    impl std::default::Default for RankingExpressionBackend {
-        fn default() -> Self {
-            use std::convert::From;
-            Self::from(0)
-        }
-    }
-
-    #[cfg(any(
-        feature = "assistant-service",
-        feature = "conversational-search-service",
-        feature = "search-service",
-        feature = "serving-config-service",
-    ))]
-    impl std::fmt::Display for RankingExpressionBackend {
-        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
-            wkt::internal::display_enum(f, self.name(), self.value())
-        }
-    }
-
-    #[cfg(any(
-        feature = "assistant-service",
-        feature = "conversational-search-service",
-        feature = "search-service",
-        feature = "serving-config-service",
-    ))]
-    impl std::convert::From<i32> for RankingExpressionBackend {
-        fn from(value: i32) -> Self {
-            match value {
-                0 => Self::Unspecified,
-                3 => Self::RankByEmbedding,
-                4 => Self::RankByFormula,
-                _ => Self::UnknownValue(ranking_expression_backend::UnknownValue(
-                    wkt::internal::UnknownEnumValue::Integer(value),
-                )),
-            }
-        }
-    }
-
-    #[cfg(any(
-        feature = "assistant-service",
-        feature = "conversational-search-service",
-        feature = "search-service",
-        feature = "serving-config-service",
-    ))]
-    impl std::convert::From<&str> for RankingExpressionBackend {
-        fn from(value: &str) -> Self {
-            use std::string::ToString;
-            match value {
-                "RANKING_EXPRESSION_BACKEND_UNSPECIFIED" => Self::Unspecified,
-                "RANK_BY_EMBEDDING" => Self::RankByEmbedding,
-                "RANK_BY_FORMULA" => Self::RankByFormula,
-                _ => Self::UnknownValue(ranking_expression_backend::UnknownValue(
-                    wkt::internal::UnknownEnumValue::String(value.to_string()),
-                )),
-            }
-        }
-    }
-
-    #[cfg(any(
-        feature = "assistant-service",
-        feature = "conversational-search-service",
-        feature = "search-service",
-        feature = "serving-config-service",
-    ))]
-    impl serde::ser::Serialize for RankingExpressionBackend {
-        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-        where
-            S: serde::Serializer,
-        {
-            match self {
-                Self::Unspecified => serializer.serialize_i32(0),
-                Self::RankByEmbedding => serializer.serialize_i32(3),
-                Self::RankByFormula => serializer.serialize_i32(4),
-                Self::UnknownValue(u) => u.0.serialize(serializer),
-            }
-        }
-    }
-
-    #[cfg(any(
-        feature = "assistant-service",
-        feature = "conversational-search-service",
-        feature = "search-service",
-        feature = "serving-config-service",
-    ))]
-    impl<'de> serde::de::Deserialize<'de> for RankingExpressionBackend {
-        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-        where
-            D: serde::Deserializer<'de>,
-        {
-            deserializer.deserialize_any(
-                wkt::internal::EnumVisitor::<RankingExpressionBackend>::new(
-                    ".google.cloud.discoveryengine.v1.SearchRequest.RankingExpressionBackend",
-                ),
-            )
-        }
-    }
 }
 
 /// Response message for
@@ -44380,6 +45609,11 @@ pub struct SearchResponse {
     pub query_expansion_info:
         std::option::Option<crate::model::search_response::QueryExpansionInfo>,
 
+    /// Output only. Natural language query understanding information for the
+    /// returned results.
+    pub natural_language_query_understanding_info:
+        std::option::Option<crate::model::search_response::NaturalLanguageQueryUnderstandingInfo>,
+
     /// Session information.
     ///
     /// Only set if
@@ -44391,6 +45625,9 @@ pub struct SearchResponse {
 
     /// Promotions for site search.
     pub search_link_promotions: std::vec::Vec<crate::model::SearchLinkPromotion>,
+
+    /// Output only. Indicates the semantic state of the search response.
+    pub semantic_state: crate::model::search_response::SemanticState,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -44574,6 +45811,42 @@ impl SearchResponse {
         self
     }
 
+    /// Sets the value of [natural_language_query_understanding_info][crate::model::SearchResponse::natural_language_query_understanding_info].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_discoveryengine_v1::model::SearchResponse;
+    /// use google_cloud_discoveryengine_v1::model::search_response::NaturalLanguageQueryUnderstandingInfo;
+    /// let x = SearchResponse::new().set_natural_language_query_understanding_info(NaturalLanguageQueryUnderstandingInfo::default()/* use setters */);
+    /// ```
+    pub fn set_natural_language_query_understanding_info<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::search_response::NaturalLanguageQueryUnderstandingInfo>,
+    {
+        self.natural_language_query_understanding_info = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [natural_language_query_understanding_info][crate::model::SearchResponse::natural_language_query_understanding_info].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_discoveryengine_v1::model::SearchResponse;
+    /// use google_cloud_discoveryengine_v1::model::search_response::NaturalLanguageQueryUnderstandingInfo;
+    /// let x = SearchResponse::new().set_or_clear_natural_language_query_understanding_info(Some(NaturalLanguageQueryUnderstandingInfo::default()/* use setters */));
+    /// let x = SearchResponse::new().set_or_clear_natural_language_query_understanding_info(None::<NaturalLanguageQueryUnderstandingInfo>);
+    /// ```
+    pub fn set_or_clear_natural_language_query_understanding_info<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::search_response::NaturalLanguageQueryUnderstandingInfo>,
+    {
+        self.natural_language_query_understanding_info = v.map(|x| x.into());
+        self
+    }
+
     /// Sets the value of [session_info][crate::model::SearchResponse::session_info].
     ///
     /// # Example
@@ -44626,6 +45899,25 @@ impl SearchResponse {
     {
         use std::iter::Iterator;
         self.search_link_promotions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [semantic_state][crate::model::SearchResponse::semantic_state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_discoveryengine_v1::model::SearchResponse;
+    /// use google_cloud_discoveryengine_v1::model::search_response::SemanticState;
+    /// let x0 = SearchResponse::new().set_semantic_state(SemanticState::Disabled);
+    /// let x1 = SearchResponse::new().set_semantic_state(SemanticState::Enabled);
+    /// ```
+    pub fn set_semantic_state<
+        T: std::convert::Into<crate::model::search_response::SemanticState>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.semantic_state = v.into();
         self
     }
 }
@@ -44686,7 +45978,7 @@ pub mod search_response {
         /// Output only. Google provided available scores.
         pub model_scores: std::collections::HashMap<std::string::String, crate::model::DoubleList>,
 
-        /// A set of ranking signals associated with the result.
+        /// Optional. A set of ranking signals associated with the result.
         pub rank_signals:
             std::option::Option<crate::model::search_response::search_result::RankSignals>,
 
@@ -44851,31 +46143,31 @@ pub mod search_response {
         #[derive(Clone, Default, PartialEq)]
         #[non_exhaustive]
         pub struct RankSignals {
-            /// Keyword matching adjustment.
+            /// Optional. Keyword matching adjustment.
             pub keyword_similarity_score: std::option::Option<f32>,
 
-            /// Semantic relevance adjustment.
+            /// Optional. Semantic relevance adjustment.
             pub relevance_score: std::option::Option<f32>,
 
-            /// Semantic similarity adjustment.
+            /// Optional. Semantic similarity adjustment.
             pub semantic_similarity_score: std::option::Option<f32>,
 
-            /// Predicted conversion rate adjustment as a rank.
+            /// Optional. Predicted conversion rate adjustment as a rank.
             pub pctr_rank: std::option::Option<f32>,
 
-            /// Topicality adjustment as a rank.
+            /// Optional. Topicality adjustment as a rank.
             pub topicality_rank: std::option::Option<f32>,
 
-            /// Age of the document in hours.
+            /// Optional. Age of the document in hours.
             pub document_age: std::option::Option<f32>,
 
-            /// Combined custom boosts for a doc.
+            /// Optional. Combined custom boosts for a doc.
             pub boosting_factor: std::option::Option<f32>,
 
-            /// The default rank of the result.
+            /// Optional. The default rank of the result.
             pub default_rank: f32,
 
-            /// A list of custom clearbox signals.
+            /// Optional. A list of custom clearbox signals.
             pub custom_signals: std::vec::Vec<
                 crate::model::search_response::search_result::rank_signals::CustomSignal,
             >,
@@ -45167,10 +46459,11 @@ pub mod search_response {
             #[derive(Clone, Default, PartialEq)]
             #[non_exhaustive]
             pub struct CustomSignal {
-                /// Name of the signal.
+                /// Optional. Name of the signal.
                 pub name: std::string::String,
 
-                /// Float value representing the ranking signal (e.g. 1.25 for BM25).
+                /// Optional. Float value representing the ranking signal (e.g. 1.25 for
+                /// BM25).
                 pub value: f32,
 
                 pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -46424,6 +47717,1001 @@ pub mod search_response {
         }
     }
 
+    /// Information describing what natural language understanding was
+    /// done on the input query.
+    #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct NaturalLanguageQueryUnderstandingInfo {
+
+        /// The filters that were extracted from the input query.
+        pub extracted_filters: std::string::String,
+
+        /// Rewritten input query minus the extracted filters.
+        pub rewritten_query: std::string::String,
+
+        /// The classified intents from the input query.
+        pub classified_intents: std::vec::Vec<std::string::String>,
+
+        /// The filters that were extracted from the input query represented in a
+        /// structured form.
+        pub structured_extracted_filter: std::option::Option<crate::model::search_response::natural_language_query_understanding_info::StructuredExtractedFilter>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+    impl NaturalLanguageQueryUnderstandingInfo {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [extracted_filters][crate::model::search_response::NaturalLanguageQueryUnderstandingInfo::extracted_filters].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_discoveryengine_v1::model::search_response::NaturalLanguageQueryUnderstandingInfo;
+        /// let x = NaturalLanguageQueryUnderstandingInfo::new().set_extracted_filters("example");
+        /// ```
+        pub fn set_extracted_filters<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.extracted_filters = v.into();
+            self
+        }
+
+        /// Sets the value of [rewritten_query][crate::model::search_response::NaturalLanguageQueryUnderstandingInfo::rewritten_query].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_discoveryengine_v1::model::search_response::NaturalLanguageQueryUnderstandingInfo;
+        /// let x = NaturalLanguageQueryUnderstandingInfo::new().set_rewritten_query("example");
+        /// ```
+        pub fn set_rewritten_query<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.rewritten_query = v.into();
+            self
+        }
+
+        /// Sets the value of [classified_intents][crate::model::search_response::NaturalLanguageQueryUnderstandingInfo::classified_intents].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_discoveryengine_v1::model::search_response::NaturalLanguageQueryUnderstandingInfo;
+        /// let x = NaturalLanguageQueryUnderstandingInfo::new().set_classified_intents(["a", "b", "c"]);
+        /// ```
+        pub fn set_classified_intents<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.classified_intents = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [structured_extracted_filter][crate::model::search_response::NaturalLanguageQueryUnderstandingInfo::structured_extracted_filter].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_discoveryengine_v1::model::search_response::NaturalLanguageQueryUnderstandingInfo;
+        /// use google_cloud_discoveryengine_v1::model::search_response::natural_language_query_understanding_info::StructuredExtractedFilter;
+        /// let x = NaturalLanguageQueryUnderstandingInfo::new().set_structured_extracted_filter(StructuredExtractedFilter::default()/* use setters */);
+        /// ```
+        pub fn set_structured_extracted_filter<T>(mut self, v: T) -> Self
+        where T: std::convert::Into<crate::model::search_response::natural_language_query_understanding_info::StructuredExtractedFilter>
+        {
+            self.structured_extracted_filter = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [structured_extracted_filter][crate::model::search_response::NaturalLanguageQueryUnderstandingInfo::structured_extracted_filter].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_discoveryengine_v1::model::search_response::NaturalLanguageQueryUnderstandingInfo;
+        /// use google_cloud_discoveryengine_v1::model::search_response::natural_language_query_understanding_info::StructuredExtractedFilter;
+        /// let x = NaturalLanguageQueryUnderstandingInfo::new().set_or_clear_structured_extracted_filter(Some(StructuredExtractedFilter::default()/* use setters */));
+        /// let x = NaturalLanguageQueryUnderstandingInfo::new().set_or_clear_structured_extracted_filter(None::<StructuredExtractedFilter>);
+        /// ```
+        pub fn set_or_clear_structured_extracted_filter<T>(mut self, v: std::option::Option<T>) -> Self
+        where T: std::convert::Into<crate::model::search_response::natural_language_query_understanding_info::StructuredExtractedFilter>
+        {
+            self.structured_extracted_filter = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+    impl wkt::message::Message for NaturalLanguageQueryUnderstandingInfo {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.discoveryengine.v1.SearchResponse.NaturalLanguageQueryUnderstandingInfo"
+        }
+    }
+
+    /// Defines additional types related to [NaturalLanguageQueryUnderstandingInfo].
+    #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+    pub mod natural_language_query_understanding_info {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// The filters that were extracted from the input query represented in a
+        /// structured form.
+        #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct StructuredExtractedFilter {
+
+            /// The expression denoting the filter that was extracted from the input
+            /// query in a structured form. It can be a simple expression denoting a
+            /// single string, numerical or geolocation constraint or a compound
+            /// expression which is a combination of multiple expressions connected
+            /// using logical (OR and AND) operators.
+            pub expression: std::option::Option<crate::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::Expression>,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+        impl StructuredExtractedFilter {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [expression][crate::model::search_response::natural_language_query_understanding_info::StructuredExtractedFilter::expression].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_discoveryengine_v1::model::search_response::natural_language_query_understanding_info::StructuredExtractedFilter;
+            /// use google_cloud_discoveryengine_v1::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::Expression;
+            /// let x = StructuredExtractedFilter::new().set_expression(Expression::default()/* use setters */);
+            /// ```
+            pub fn set_expression<T>(mut self, v: T) -> Self
+            where T: std::convert::Into<crate::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::Expression>
+            {
+                self.expression = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [expression][crate::model::search_response::natural_language_query_understanding_info::StructuredExtractedFilter::expression].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_discoveryengine_v1::model::search_response::natural_language_query_understanding_info::StructuredExtractedFilter;
+            /// use google_cloud_discoveryengine_v1::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::Expression;
+            /// let x = StructuredExtractedFilter::new().set_or_clear_expression(Some(Expression::default()/* use setters */));
+            /// let x = StructuredExtractedFilter::new().set_or_clear_expression(None::<Expression>);
+            /// ```
+            pub fn set_or_clear_expression<T>(mut self, v: std::option::Option<T>) -> Self
+            where T: std::convert::Into<crate::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::Expression>
+            {
+                self.expression = v.map(|x| x.into());
+                self
+            }
+        }
+
+        #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+        impl wkt::message::Message for StructuredExtractedFilter {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.discoveryengine.v1.SearchResponse.NaturalLanguageQueryUnderstandingInfo.StructuredExtractedFilter"
+            }
+        }
+
+        /// Defines additional types related to [StructuredExtractedFilter].
+        #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+        pub mod structured_extracted_filter {
+            #[allow(unused_imports)]
+            use super::*;
+
+            /// Constraint expression of a string field.
+            #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+            #[derive(Clone, Default, PartialEq)]
+            #[non_exhaustive]
+            pub struct StringConstraint {
+                /// Name of the string field as defined in the schema.
+                pub field_name: std::string::String,
+
+                /// Values of the string field. The record will only be returned if the
+                /// field value matches one of the values specified here.
+                pub values: std::vec::Vec<std::string::String>,
+
+                /// Identifies the keywords within the search query that match a filter.
+                pub query_segment: std::string::String,
+
+                pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+            }
+
+            #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+            impl StringConstraint {
+                pub fn new() -> Self {
+                    std::default::Default::default()
+                }
+
+                /// Sets the value of [field_name][crate::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::StringConstraint::field_name].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_discoveryengine_v1::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::StringConstraint;
+                /// let x = StringConstraint::new().set_field_name("example");
+                /// ```
+                pub fn set_field_name<T: std::convert::Into<std::string::String>>(
+                    mut self,
+                    v: T,
+                ) -> Self {
+                    self.field_name = v.into();
+                    self
+                }
+
+                /// Sets the value of [values][crate::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::StringConstraint::values].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_discoveryengine_v1::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::StringConstraint;
+                /// let x = StringConstraint::new().set_values(["a", "b", "c"]);
+                /// ```
+                pub fn set_values<T, V>(mut self, v: T) -> Self
+                where
+                    T: std::iter::IntoIterator<Item = V>,
+                    V: std::convert::Into<std::string::String>,
+                {
+                    use std::iter::Iterator;
+                    self.values = v.into_iter().map(|i| i.into()).collect();
+                    self
+                }
+
+                /// Sets the value of [query_segment][crate::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::StringConstraint::query_segment].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_discoveryengine_v1::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::StringConstraint;
+                /// let x = StringConstraint::new().set_query_segment("example");
+                /// ```
+                pub fn set_query_segment<T: std::convert::Into<std::string::String>>(
+                    mut self,
+                    v: T,
+                ) -> Self {
+                    self.query_segment = v.into();
+                    self
+                }
+            }
+
+            #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+            impl wkt::message::Message for StringConstraint {
+                fn typename() -> &'static str {
+                    "type.googleapis.com/google.cloud.discoveryengine.v1.SearchResponse.NaturalLanguageQueryUnderstandingInfo.StructuredExtractedFilter.StringConstraint"
+                }
+            }
+
+            /// Constraint expression of a number field. Example: price < 100.
+            #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+            #[derive(Clone, Default, PartialEq)]
+            #[non_exhaustive]
+            pub struct NumberConstraint {
+
+                /// Name of the numerical field as defined in the schema.
+                pub field_name: std::string::String,
+
+                /// The comparison operation performed between the field value and the
+                /// value specified in the constraint.
+                pub comparison: crate::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::number_constraint::Comparison,
+
+                /// The value specified in the numerical constraint.
+                pub value: f64,
+
+                /// Identifies the keywords within the search query that match a filter.
+                pub query_segment: std::string::String,
+
+                pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+            }
+
+            #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+            impl NumberConstraint {
+                pub fn new() -> Self {
+                    std::default::Default::default()
+                }
+
+                /// Sets the value of [field_name][crate::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::NumberConstraint::field_name].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_discoveryengine_v1::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::NumberConstraint;
+                /// let x = NumberConstraint::new().set_field_name("example");
+                /// ```
+                pub fn set_field_name<T: std::convert::Into<std::string::String>>(
+                    mut self,
+                    v: T,
+                ) -> Self {
+                    self.field_name = v.into();
+                    self
+                }
+
+                /// Sets the value of [comparison][crate::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::NumberConstraint::comparison].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_discoveryengine_v1::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::NumberConstraint;
+                /// use google_cloud_discoveryengine_v1::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::number_constraint::Comparison;
+                /// let x0 = NumberConstraint::new().set_comparison(Comparison::Equals);
+                /// let x1 = NumberConstraint::new().set_comparison(Comparison::LessThanEquals);
+                /// let x2 = NumberConstraint::new().set_comparison(Comparison::LessThan);
+                /// ```
+                pub fn set_comparison<T: std::convert::Into<crate::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::number_constraint::Comparison>>(mut self, v: T) -> Self{
+                    self.comparison = v.into();
+                    self
+                }
+
+                /// Sets the value of [value][crate::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::NumberConstraint::value].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_discoveryengine_v1::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::NumberConstraint;
+                /// let x = NumberConstraint::new().set_value(42.0);
+                /// ```
+                pub fn set_value<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
+                    self.value = v.into();
+                    self
+                }
+
+                /// Sets the value of [query_segment][crate::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::NumberConstraint::query_segment].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_discoveryengine_v1::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::NumberConstraint;
+                /// let x = NumberConstraint::new().set_query_segment("example");
+                /// ```
+                pub fn set_query_segment<T: std::convert::Into<std::string::String>>(
+                    mut self,
+                    v: T,
+                ) -> Self {
+                    self.query_segment = v.into();
+                    self
+                }
+            }
+
+            #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+            impl wkt::message::Message for NumberConstraint {
+                fn typename() -> &'static str {
+                    "type.googleapis.com/google.cloud.discoveryengine.v1.SearchResponse.NaturalLanguageQueryUnderstandingInfo.StructuredExtractedFilter.NumberConstraint"
+                }
+            }
+
+            /// Defines additional types related to [NumberConstraint].
+            #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+            pub mod number_constraint {
+                #[allow(unused_imports)]
+                use super::*;
+
+                /// The comparison operation that was performed.
+                ///
+                /// # Working with unknown values
+                ///
+                /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+                /// additional enum variants at any time. Adding new variants is not considered
+                /// a breaking change. Applications should write their code in anticipation of:
+                ///
+                /// - New values appearing in future releases of the client library, **and**
+                /// - New values received dynamically, without application changes.
+                ///
+                /// Please consult the [Working with enums] section in the user guide for some
+                /// guidelines.
+                ///
+                /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+                #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+                #[derive(Clone, Debug, PartialEq)]
+                #[non_exhaustive]
+                pub enum Comparison {
+                    /// Undefined comparison operator.
+                    Unspecified,
+                    /// Denotes equality `=` operator.
+                    Equals,
+                    /// Denotes less than or equal to `<=` operator.
+                    LessThanEquals,
+                    /// Denotes less than `<` operator.
+                    LessThan,
+                    /// Denotes greater than or equal to `>=` operator.
+                    GreaterThanEquals,
+                    /// Denotes greater than `>` operator.
+                    GreaterThan,
+                    /// If set, the enum was initialized with an unknown value.
+                    ///
+                    /// Applications can examine the value using [Comparison::value] or
+                    /// [Comparison::name].
+                    UnknownValue(comparison::UnknownValue),
+                }
+
+                #[doc(hidden)]
+                #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+                pub mod comparison {
+                    #[allow(unused_imports)]
+                    use super::*;
+                    #[derive(Clone, Debug, PartialEq)]
+                    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+                }
+
+                #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+                impl Comparison {
+                    /// Gets the enum value.
+                    ///
+                    /// Returns `None` if the enum contains an unknown value deserialized from
+                    /// the string representation of enums.
+                    pub fn value(&self) -> std::option::Option<i32> {
+                        match self {
+                            Self::Unspecified => std::option::Option::Some(0),
+                            Self::Equals => std::option::Option::Some(1),
+                            Self::LessThanEquals => std::option::Option::Some(2),
+                            Self::LessThan => std::option::Option::Some(3),
+                            Self::GreaterThanEquals => std::option::Option::Some(4),
+                            Self::GreaterThan => std::option::Option::Some(5),
+                            Self::UnknownValue(u) => u.0.value(),
+                        }
+                    }
+
+                    /// Gets the enum value as a string.
+                    ///
+                    /// Returns `None` if the enum contains an unknown value deserialized from
+                    /// the integer representation of enums.
+                    pub fn name(&self) -> std::option::Option<&str> {
+                        match self {
+                            Self::Unspecified => {
+                                std::option::Option::Some("COMPARISON_UNSPECIFIED")
+                            }
+                            Self::Equals => std::option::Option::Some("EQUALS"),
+                            Self::LessThanEquals => std::option::Option::Some("LESS_THAN_EQUALS"),
+                            Self::LessThan => std::option::Option::Some("LESS_THAN"),
+                            Self::GreaterThanEquals => {
+                                std::option::Option::Some("GREATER_THAN_EQUALS")
+                            }
+                            Self::GreaterThan => std::option::Option::Some("GREATER_THAN"),
+                            Self::UnknownValue(u) => u.0.name(),
+                        }
+                    }
+                }
+
+                #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+                impl std::default::Default for Comparison {
+                    fn default() -> Self {
+                        use std::convert::From;
+                        Self::from(0)
+                    }
+                }
+
+                #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+                impl std::fmt::Display for Comparison {
+                    fn fmt(
+                        &self,
+                        f: &mut std::fmt::Formatter<'_>,
+                    ) -> std::result::Result<(), std::fmt::Error> {
+                        wkt::internal::display_enum(f, self.name(), self.value())
+                    }
+                }
+
+                #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+                impl std::convert::From<i32> for Comparison {
+                    fn from(value: i32) -> Self {
+                        match value {
+                            0 => Self::Unspecified,
+                            1 => Self::Equals,
+                            2 => Self::LessThanEquals,
+                            3 => Self::LessThan,
+                            4 => Self::GreaterThanEquals,
+                            5 => Self::GreaterThan,
+                            _ => Self::UnknownValue(comparison::UnknownValue(
+                                wkt::internal::UnknownEnumValue::Integer(value),
+                            )),
+                        }
+                    }
+                }
+
+                #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+                impl std::convert::From<&str> for Comparison {
+                    fn from(value: &str) -> Self {
+                        use std::string::ToString;
+                        match value {
+                            "COMPARISON_UNSPECIFIED" => Self::Unspecified,
+                            "EQUALS" => Self::Equals,
+                            "LESS_THAN_EQUALS" => Self::LessThanEquals,
+                            "LESS_THAN" => Self::LessThan,
+                            "GREATER_THAN_EQUALS" => Self::GreaterThanEquals,
+                            "GREATER_THAN" => Self::GreaterThan,
+                            _ => Self::UnknownValue(comparison::UnknownValue(
+                                wkt::internal::UnknownEnumValue::String(value.to_string()),
+                            )),
+                        }
+                    }
+                }
+
+                #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+                impl serde::ser::Serialize for Comparison {
+                    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                    where
+                        S: serde::Serializer,
+                    {
+                        match self {
+                            Self::Unspecified => serializer.serialize_i32(0),
+                            Self::Equals => serializer.serialize_i32(1),
+                            Self::LessThanEquals => serializer.serialize_i32(2),
+                            Self::LessThan => serializer.serialize_i32(3),
+                            Self::GreaterThanEquals => serializer.serialize_i32(4),
+                            Self::GreaterThan => serializer.serialize_i32(5),
+                            Self::UnknownValue(u) => u.0.serialize(serializer),
+                        }
+                    }
+                }
+
+                #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+                impl<'de> serde::de::Deserialize<'de> for Comparison {
+                    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                    where
+                        D: serde::Deserializer<'de>,
+                    {
+                        deserializer.deserialize_any(wkt::internal::EnumVisitor::<Comparison>::new(
+                            ".google.cloud.discoveryengine.v1.SearchResponse.NaturalLanguageQueryUnderstandingInfo.StructuredExtractedFilter.NumberConstraint.Comparison"))
+                    }
+                }
+            }
+
+            /// Constraint of a geolocation field.
+            /// Name of the geolocation field as defined in the schema.
+            #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+            #[derive(Clone, Default, PartialEq)]
+            #[non_exhaustive]
+            pub struct GeolocationConstraint {
+                /// The name of the geolocation field as defined in the schema.
+                pub field_name: std::string::String,
+
+                /// The reference address that was inferred from the input query. The
+                /// proximity of the reference address to the geolocation field will be
+                /// used to filter the results.
+                pub address: std::string::String,
+
+                /// The latitude of the geolocation inferred from the input query.
+                pub latitude: f64,
+
+                /// The longitude of the geolocation inferred from the input query.
+                pub longitude: f64,
+
+                /// The radius in meters around the address. The record is returned if
+                /// the location of the geolocation field is within the radius.
+                pub radius_in_meters: f32,
+
+                pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+            }
+
+            #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+            impl GeolocationConstraint {
+                pub fn new() -> Self {
+                    std::default::Default::default()
+                }
+
+                /// Sets the value of [field_name][crate::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::GeolocationConstraint::field_name].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_discoveryengine_v1::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::GeolocationConstraint;
+                /// let x = GeolocationConstraint::new().set_field_name("example");
+                /// ```
+                pub fn set_field_name<T: std::convert::Into<std::string::String>>(
+                    mut self,
+                    v: T,
+                ) -> Self {
+                    self.field_name = v.into();
+                    self
+                }
+
+                /// Sets the value of [address][crate::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::GeolocationConstraint::address].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_discoveryengine_v1::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::GeolocationConstraint;
+                /// let x = GeolocationConstraint::new().set_address("example");
+                /// ```
+                pub fn set_address<T: std::convert::Into<std::string::String>>(
+                    mut self,
+                    v: T,
+                ) -> Self {
+                    self.address = v.into();
+                    self
+                }
+
+                /// Sets the value of [latitude][crate::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::GeolocationConstraint::latitude].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_discoveryengine_v1::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::GeolocationConstraint;
+                /// let x = GeolocationConstraint::new().set_latitude(42.0);
+                /// ```
+                pub fn set_latitude<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
+                    self.latitude = v.into();
+                    self
+                }
+
+                /// Sets the value of [longitude][crate::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::GeolocationConstraint::longitude].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_discoveryengine_v1::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::GeolocationConstraint;
+                /// let x = GeolocationConstraint::new().set_longitude(42.0);
+                /// ```
+                pub fn set_longitude<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
+                    self.longitude = v.into();
+                    self
+                }
+
+                /// Sets the value of [radius_in_meters][crate::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::GeolocationConstraint::radius_in_meters].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_discoveryengine_v1::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::GeolocationConstraint;
+                /// let x = GeolocationConstraint::new().set_radius_in_meters(42.0);
+                /// ```
+                pub fn set_radius_in_meters<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
+                    self.radius_in_meters = v.into();
+                    self
+                }
+            }
+
+            #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+            impl wkt::message::Message for GeolocationConstraint {
+                fn typename() -> &'static str {
+                    "type.googleapis.com/google.cloud.discoveryengine.v1.SearchResponse.NaturalLanguageQueryUnderstandingInfo.StructuredExtractedFilter.GeolocationConstraint"
+                }
+            }
+
+            /// Logical `And` operator.
+            #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+            #[derive(Clone, Default, PartialEq)]
+            #[non_exhaustive]
+            pub struct AndExpression {
+
+                /// The expressions that were ANDed together.
+                pub expressions: std::vec::Vec<crate::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::Expression>,
+
+                pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+            }
+
+            #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+            impl AndExpression {
+                pub fn new() -> Self {
+                    std::default::Default::default()
+                }
+
+                /// Sets the value of [expressions][crate::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::AndExpression::expressions].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_discoveryengine_v1::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::AndExpression;
+                /// use google_cloud_discoveryengine_v1::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::Expression;
+                /// let x = AndExpression::new()
+                ///     .set_expressions([
+                ///         Expression::default()/* use setters */,
+                ///         Expression::default()/* use (different) setters */,
+                ///     ]);
+                /// ```
+                pub fn set_expressions<T, V>(mut self, v: T) -> Self
+                where
+                    T: std::iter::IntoIterator<Item = V>,
+                    V: std::convert::Into<crate::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::Expression>
+                {
+                    use std::iter::Iterator;
+                    self.expressions = v.into_iter().map(|i| i.into()).collect();
+                    self
+                }
+            }
+
+            #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+            impl wkt::message::Message for AndExpression {
+                fn typename() -> &'static str {
+                    "type.googleapis.com/google.cloud.discoveryengine.v1.SearchResponse.NaturalLanguageQueryUnderstandingInfo.StructuredExtractedFilter.AndExpression"
+                }
+            }
+
+            /// Logical `Or` operator.
+            #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+            #[derive(Clone, Default, PartialEq)]
+            #[non_exhaustive]
+            pub struct OrExpression {
+
+                /// The expressions that were ORed together.
+                pub expressions: std::vec::Vec<crate::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::Expression>,
+
+                pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+            }
+
+            #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+            impl OrExpression {
+                pub fn new() -> Self {
+                    std::default::Default::default()
+                }
+
+                /// Sets the value of [expressions][crate::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::OrExpression::expressions].
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_discoveryengine_v1::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::OrExpression;
+                /// use google_cloud_discoveryengine_v1::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::Expression;
+                /// let x = OrExpression::new()
+                ///     .set_expressions([
+                ///         Expression::default()/* use setters */,
+                ///         Expression::default()/* use (different) setters */,
+                ///     ]);
+                /// ```
+                pub fn set_expressions<T, V>(mut self, v: T) -> Self
+                where
+                    T: std::iter::IntoIterator<Item = V>,
+                    V: std::convert::Into<crate::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::Expression>
+                {
+                    use std::iter::Iterator;
+                    self.expressions = v.into_iter().map(|i| i.into()).collect();
+                    self
+                }
+            }
+
+            #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+            impl wkt::message::Message for OrExpression {
+                fn typename() -> &'static str {
+                    "type.googleapis.com/google.cloud.discoveryengine.v1.SearchResponse.NaturalLanguageQueryUnderstandingInfo.StructuredExtractedFilter.OrExpression"
+                }
+            }
+
+            /// The expression denoting the filter that was extracted from the input
+            /// query.
+            #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+            #[derive(Clone, Default, PartialEq)]
+            #[non_exhaustive]
+            pub struct Expression {
+
+                /// The expression type.
+                pub expr: std::option::Option<crate::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::expression::Expr>,
+
+                pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+            }
+
+            #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+            impl Expression {
+                pub fn new() -> Self {
+                    std::default::Default::default()
+                }
+
+                /// Sets the value of [expr][crate::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::Expression::expr].
+                ///
+                /// Note that all the setters affecting `expr` are mutually
+                /// exclusive.
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_discoveryengine_v1::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::Expression;
+                /// use google_cloud_discoveryengine_v1::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::StringConstraint;
+                /// let x = Expression::new().set_expr(Some(
+                ///     google_cloud_discoveryengine_v1::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::expression::Expr::StringConstraint(StringConstraint::default().into())));
+                /// ```
+                pub fn set_expr<T: std::convert::Into<std::option::Option<crate::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::expression::Expr>>>(mut self, v: T) -> Self
+                {
+                    self.expr = v.into();
+                    self
+                }
+
+                /// The value of [expr][crate::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::Expression::expr]
+                /// if it holds a `StringConstraint`, `None` if the field is not set or
+                /// holds a different branch.
+                pub fn string_constraint(&self) -> std::option::Option<&std::boxed::Box<crate::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::StringConstraint>>{
+                    #[allow(unreachable_patterns)]
+                    self.expr.as_ref().and_then(|v| match v {
+                        crate::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::expression::Expr::StringConstraint(v) => std::option::Option::Some(v),
+                        _ => std::option::Option::None,
+                    })
+                }
+
+                /// Sets the value of [expr][crate::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::Expression::expr]
+                /// to hold a `StringConstraint`.
+                ///
+                /// Note that all the setters affecting `expr` are
+                /// mutually exclusive.
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_discoveryengine_v1::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::Expression;
+                /// use google_cloud_discoveryengine_v1::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::StringConstraint;
+                /// let x = Expression::new().set_string_constraint(StringConstraint::default()/* use setters */);
+                /// assert!(x.string_constraint().is_some());
+                /// assert!(x.number_constraint().is_none());
+                /// assert!(x.geolocation_constraint().is_none());
+                /// assert!(x.and_expr().is_none());
+                /// assert!(x.or_expr().is_none());
+                /// ```
+                pub fn set_string_constraint<T: std::convert::Into<std::boxed::Box<crate::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::StringConstraint>>>(mut self, v: T) -> Self{
+                    self.expr = std::option::Option::Some(
+                        crate::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::expression::Expr::StringConstraint(
+                            v.into()
+                        )
+                    );
+                    self
+                }
+
+                /// The value of [expr][crate::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::Expression::expr]
+                /// if it holds a `NumberConstraint`, `None` if the field is not set or
+                /// holds a different branch.
+                pub fn number_constraint(&self) -> std::option::Option<&std::boxed::Box<crate::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::NumberConstraint>>{
+                    #[allow(unreachable_patterns)]
+                    self.expr.as_ref().and_then(|v| match v {
+                        crate::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::expression::Expr::NumberConstraint(v) => std::option::Option::Some(v),
+                        _ => std::option::Option::None,
+                    })
+                }
+
+                /// Sets the value of [expr][crate::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::Expression::expr]
+                /// to hold a `NumberConstraint`.
+                ///
+                /// Note that all the setters affecting `expr` are
+                /// mutually exclusive.
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_discoveryengine_v1::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::Expression;
+                /// use google_cloud_discoveryengine_v1::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::NumberConstraint;
+                /// let x = Expression::new().set_number_constraint(NumberConstraint::default()/* use setters */);
+                /// assert!(x.number_constraint().is_some());
+                /// assert!(x.string_constraint().is_none());
+                /// assert!(x.geolocation_constraint().is_none());
+                /// assert!(x.and_expr().is_none());
+                /// assert!(x.or_expr().is_none());
+                /// ```
+                pub fn set_number_constraint<T: std::convert::Into<std::boxed::Box<crate::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::NumberConstraint>>>(mut self, v: T) -> Self{
+                    self.expr = std::option::Option::Some(
+                        crate::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::expression::Expr::NumberConstraint(
+                            v.into()
+                        )
+                    );
+                    self
+                }
+
+                /// The value of [expr][crate::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::Expression::expr]
+                /// if it holds a `GeolocationConstraint`, `None` if the field is not set or
+                /// holds a different branch.
+                pub fn geolocation_constraint(&self) -> std::option::Option<&std::boxed::Box<crate::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::GeolocationConstraint>>{
+                    #[allow(unreachable_patterns)]
+                    self.expr.as_ref().and_then(|v| match v {
+                        crate::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::expression::Expr::GeolocationConstraint(v) => std::option::Option::Some(v),
+                        _ => std::option::Option::None,
+                    })
+                }
+
+                /// Sets the value of [expr][crate::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::Expression::expr]
+                /// to hold a `GeolocationConstraint`.
+                ///
+                /// Note that all the setters affecting `expr` are
+                /// mutually exclusive.
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_discoveryengine_v1::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::Expression;
+                /// use google_cloud_discoveryengine_v1::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::GeolocationConstraint;
+                /// let x = Expression::new().set_geolocation_constraint(GeolocationConstraint::default()/* use setters */);
+                /// assert!(x.geolocation_constraint().is_some());
+                /// assert!(x.string_constraint().is_none());
+                /// assert!(x.number_constraint().is_none());
+                /// assert!(x.and_expr().is_none());
+                /// assert!(x.or_expr().is_none());
+                /// ```
+                pub fn set_geolocation_constraint<T: std::convert::Into<std::boxed::Box<crate::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::GeolocationConstraint>>>(mut self, v: T) -> Self{
+                    self.expr = std::option::Option::Some(
+                        crate::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::expression::Expr::GeolocationConstraint(
+                            v.into()
+                        )
+                    );
+                    self
+                }
+
+                /// The value of [expr][crate::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::Expression::expr]
+                /// if it holds a `AndExpr`, `None` if the field is not set or
+                /// holds a different branch.
+                pub fn and_expr(&self) -> std::option::Option<&std::boxed::Box<crate::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::AndExpression>>{
+                    #[allow(unreachable_patterns)]
+                    self.expr.as_ref().and_then(|v| match v {
+                        crate::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::expression::Expr::AndExpr(v) => std::option::Option::Some(v),
+                        _ => std::option::Option::None,
+                    })
+                }
+
+                /// Sets the value of [expr][crate::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::Expression::expr]
+                /// to hold a `AndExpr`.
+                ///
+                /// Note that all the setters affecting `expr` are
+                /// mutually exclusive.
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_discoveryengine_v1::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::Expression;
+                /// use google_cloud_discoveryengine_v1::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::AndExpression;
+                /// let x = Expression::new().set_and_expr(AndExpression::default()/* use setters */);
+                /// assert!(x.and_expr().is_some());
+                /// assert!(x.string_constraint().is_none());
+                /// assert!(x.number_constraint().is_none());
+                /// assert!(x.geolocation_constraint().is_none());
+                /// assert!(x.or_expr().is_none());
+                /// ```
+                pub fn set_and_expr<T: std::convert::Into<std::boxed::Box<crate::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::AndExpression>>>(mut self, v: T) -> Self{
+                    self.expr = std::option::Option::Some(
+                        crate::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::expression::Expr::AndExpr(
+                            v.into()
+                        )
+                    );
+                    self
+                }
+
+                /// The value of [expr][crate::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::Expression::expr]
+                /// if it holds a `OrExpr`, `None` if the field is not set or
+                /// holds a different branch.
+                pub fn or_expr(&self) -> std::option::Option<&std::boxed::Box<crate::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::OrExpression>>{
+                    #[allow(unreachable_patterns)]
+                    self.expr.as_ref().and_then(|v| match v {
+                        crate::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::expression::Expr::OrExpr(v) => std::option::Option::Some(v),
+                        _ => std::option::Option::None,
+                    })
+                }
+
+                /// Sets the value of [expr][crate::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::Expression::expr]
+                /// to hold a `OrExpr`.
+                ///
+                /// Note that all the setters affecting `expr` are
+                /// mutually exclusive.
+                ///
+                /// # Example
+                /// ```ignore,no_run
+                /// # use google_cloud_discoveryengine_v1::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::Expression;
+                /// use google_cloud_discoveryengine_v1::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::OrExpression;
+                /// let x = Expression::new().set_or_expr(OrExpression::default()/* use setters */);
+                /// assert!(x.or_expr().is_some());
+                /// assert!(x.string_constraint().is_none());
+                /// assert!(x.number_constraint().is_none());
+                /// assert!(x.geolocation_constraint().is_none());
+                /// assert!(x.and_expr().is_none());
+                /// ```
+                pub fn set_or_expr<T: std::convert::Into<std::boxed::Box<crate::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::OrExpression>>>(mut self, v: T) -> Self{
+                    self.expr = std::option::Option::Some(
+                        crate::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::expression::Expr::OrExpr(
+                            v.into()
+                        )
+                    );
+                    self
+                }
+            }
+
+            #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+            impl wkt::message::Message for Expression {
+                fn typename() -> &'static str {
+                    "type.googleapis.com/google.cloud.discoveryengine.v1.SearchResponse.NaturalLanguageQueryUnderstandingInfo.StructuredExtractedFilter.Expression"
+                }
+            }
+
+            /// Defines additional types related to [Expression].
+            #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+            pub mod expression {
+                #[allow(unused_imports)]
+                use super::*;
+
+                /// The expression type.
+                #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+                #[derive(Clone, Debug, PartialEq)]
+                #[non_exhaustive]
+                pub enum Expr {
+                    /// String constraint expression.
+                    StringConstraint(std::boxed::Box<crate::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::StringConstraint>),
+                    /// Numerical constraint expression.
+                    NumberConstraint(std::boxed::Box<crate::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::NumberConstraint>),
+                    /// Geolocation constraint expression.
+                    GeolocationConstraint(std::boxed::Box<crate::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::GeolocationConstraint>),
+                    /// Logical "And" compound operator connecting multiple expressions.
+                    AndExpr(std::boxed::Box<crate::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::AndExpression>),
+                    /// Logical "Or" compound operator connecting multiple expressions.
+                    OrExpr(std::boxed::Box<crate::model::search_response::natural_language_query_understanding_info::structured_extracted_filter::OrExpression>),
+                }
+            }
+        }
+    }
+
     /// Information about the session.
     #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
     #[derive(Clone, Default, PartialEq)]
@@ -46483,6 +48771,147 @@ pub mod search_response {
     impl wkt::message::Message for SessionInfo {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.SearchResponse.SessionInfo"
+        }
+    }
+
+    /// Semantic state of the search response.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum SemanticState {
+        /// Default value. Should not be used.
+        Unspecified,
+        /// Semantic search was disabled for this search response.
+        Disabled,
+        /// Semantic search was enabled for this search response.
+        Enabled,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [SemanticState::value] or
+        /// [SemanticState::name].
+        UnknownValue(semantic_state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+    pub mod semantic_state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+    impl SemanticState {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Disabled => std::option::Option::Some(1),
+                Self::Enabled => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("SEMANTIC_STATE_UNSPECIFIED"),
+                Self::Disabled => std::option::Option::Some("DISABLED"),
+                Self::Enabled => std::option::Option::Some("ENABLED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+    impl std::default::Default for SemanticState {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+    impl std::fmt::Display for SemanticState {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+    impl std::convert::From<i32> for SemanticState {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Disabled,
+                2 => Self::Enabled,
+                _ => Self::UnknownValue(semantic_state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+    impl std::convert::From<&str> for SemanticState {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "SEMANTIC_STATE_UNSPECIFIED" => Self::Unspecified,
+                "DISABLED" => Self::Disabled,
+                "ENABLED" => Self::Enabled,
+                _ => Self::UnknownValue(semantic_state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+    impl serde::ser::Serialize for SemanticState {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Disabled => serializer.serialize_i32(1),
+                Self::Enabled => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
+    impl<'de> serde::de::Deserialize<'de> for SemanticState {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<SemanticState>::new(
+                ".google.cloud.discoveryengine.v1.SearchResponse.SemanticState",
+            ))
         }
     }
 }

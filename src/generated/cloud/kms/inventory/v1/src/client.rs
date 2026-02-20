@@ -122,6 +122,24 @@ impl KeyDashboardService {
     /// Returns cryptographic keys managed by Cloud KMS in a given Cloud project.
     /// Note that this data is sourced from snapshots, meaning it may not
     /// completely reflect the actual state of key metadata at call time.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_kms_inventory_v1::client::KeyDashboardService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_kms_inventory_v1::Result;
+    /// async fn sample(
+    ///    client: &KeyDashboardService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_crypto_keys()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_crypto_keys(&self) -> super::builder::key_dashboard_service::ListCryptoKeys {
         super::builder::key_dashboard_service::ListCryptoKeys::new(self.inner.clone())
     }
@@ -232,12 +250,34 @@ impl KeyTrackingService {
     }
 
     /// Returns aggregate information about the resources protected by the given
-    /// Cloud KMS [CryptoKey][google.cloud.kms.v1.CryptoKey]. Only resources within
-    /// the same Cloud organization as the key will be returned. The project that
-    /// holds the key must be part of an organization in order for this call to
-    /// succeed.
+    /// Cloud KMS [CryptoKey][google.cloud.kms.v1.CryptoKey]. By default,
+    /// summary of resources within the same Cloud organization as the key will be
+    /// returned, which requires the KMS organization service account to be
+    /// configured(refer
+    /// <https://docs.cloud.google.com/kms/docs/view-key-usage#required-roles>).
+    /// If the KMS organization service account is not configured or key's project
+    /// is not part of an organization, set
+    /// [fallback_scope][google.cloud.kms.inventory.v1.GetProtectedResourcesSummaryRequest.fallback_scope]
+    /// to `FALLBACK_SCOPE_PROJECT` to retrieve a summary of protected resources
+    /// within the key's project.
     ///
+    /// [google.cloud.kms.inventory.v1.GetProtectedResourcesSummaryRequest.fallback_scope]: crate::model::GetProtectedResourcesSummaryRequest::fallback_scope
     /// [google.cloud.kms.v1.CryptoKey]: google_cloud_kms_v1::model::CryptoKey
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_kms_inventory_v1::client::KeyTrackingService;
+    /// use google_cloud_kms_inventory_v1::Result;
+    /// async fn sample(
+    ///    client: &KeyTrackingService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_protected_resources_summary()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_protected_resources_summary(
         &self,
     ) -> super::builder::key_tracking_service::GetProtectedResourcesSummary {
@@ -245,9 +285,28 @@ impl KeyTrackingService {
     }
 
     /// Returns metadata about the resources protected by the given Cloud KMS
-    /// [CryptoKey][google.cloud.kms.v1.CryptoKey] in the given Cloud organization.
+    /// [CryptoKey][google.cloud.kms.v1.CryptoKey] in the given Cloud
+    /// organization/project.
     ///
     /// [google.cloud.kms.v1.CryptoKey]: google_cloud_kms_v1::model::CryptoKey
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_kms_inventory_v1::client::KeyTrackingService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_kms_inventory_v1::Result;
+    /// async fn sample(
+    ///    client: &KeyTrackingService
+    /// ) -> Result<()> {
+    ///     let mut list = client.search_protected_resources()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn search_protected_resources(
         &self,
     ) -> super::builder::key_tracking_service::SearchProtectedResources {

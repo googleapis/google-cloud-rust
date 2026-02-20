@@ -10824,9 +10824,7 @@ pub struct AssessmentEnvironment {
     /// request. This can be the link to the client module's project. Examples
     /// include:
     ///
-    ///
-    /// "github.com/GoogleCloudPlatform/recaptcha-enterprise-google-tag-manager"
-    ///
+    /// - "github.com/GoogleCloudPlatform/recaptcha-enterprise-google-tag-manager"
     /// - "wordpress.org/plugins/recaptcha-something"
     pub client: std::string::String,
 

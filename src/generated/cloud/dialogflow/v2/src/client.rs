@@ -124,6 +124,21 @@ impl Agents {
     }
 
     /// Retrieves the specified agent.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Agents;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Agents
+    /// ) -> Result<()> {
+    ///     let response = client.get_agent()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_agent(&self) -> super::builder::agents::GetAgent {
         super::builder::agents::GetAgent::new(self.inner.clone())
     }
@@ -133,11 +148,40 @@ impl Agents {
     /// Note: You should always train an agent prior to sending it queries. See the
     /// [training
     /// documentation](https://cloud.google.com/dialogflow/es/docs/training).
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Agents;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Agents
+    /// ) -> Result<()> {
+    ///     let response = client.set_agent()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_agent(&self) -> super::builder::agents::SetAgent {
         super::builder::agents::SetAgent::new(self.inner.clone())
     }
 
     /// Deletes the specified agent.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Agents;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Agents
+    /// ) -> Result<()> {
+    ///     client.delete_agent()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_agent(&self) -> super::builder::agents::DeleteAgent {
         super::builder::agents::DeleteAgent::new(self.inner.clone())
     }
@@ -149,6 +193,24 @@ impl Agents {
     /// access to. One can achieve that with a wildcard project collection id "-".
     /// Refer to [List
     /// Sub-Collections](https://cloud.google.com/apis/design/design_patterns#list_sub-collections).
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Agents;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Agents
+    /// ) -> Result<()> {
+    ///     let mut list = client.search_agents()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn search_agents(&self) -> super::builder::agents::SearchAgents {
         super::builder::agents::SearchAgents::new(self.inner.clone())
     }
@@ -177,6 +239,21 @@ impl Agents {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Agents;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Agents
+    /// ) -> Result<()> {
+    ///     client.train_agent()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn train_agent(&self) -> super::builder::agents::TrainAgent {
         super::builder::agents::TrainAgent::new(self.inner.clone())
     }
@@ -203,6 +280,22 @@ impl Agents {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Agents;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Agents
+    /// ) -> Result<()> {
+    ///     let response = client.export_agent()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn export_agent(&self) -> super::builder::agents::ExportAgent {
         super::builder::agents::ExportAgent::new(self.inner.clone())
     }
@@ -247,6 +340,21 @@ impl Agents {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Agents;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Agents
+    /// ) -> Result<()> {
+    ///     client.import_agent()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn import_agent(&self) -> super::builder::agents::ImportAgent {
         super::builder::agents::ImportAgent::new(self.inner.clone())
     }
@@ -288,22 +396,85 @@ impl Agents {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Agents;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Agents
+    /// ) -> Result<()> {
+    ///     client.restore_agent()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn restore_agent(&self) -> super::builder::agents::RestoreAgent {
         super::builder::agents::RestoreAgent::new(self.inner.clone())
     }
 
     /// Gets agent validation result. Agent validation is performed during
     /// training time and is updated automatically when training is completed.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Agents;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Agents
+    /// ) -> Result<()> {
+    ///     let response = client.get_validation_result()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_validation_result(&self) -> super::builder::agents::GetValidationResult {
         super::builder::agents::GetValidationResult::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Agents;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Agents
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::agents::ListLocations {
         super::builder::agents::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Agents;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Agents
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::agents::GetLocation {
         super::builder::agents::GetLocation::new(self.inner.clone())
     }
@@ -311,6 +482,24 @@ impl Agents {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Agents;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Agents
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::agents::ListOperations {
         super::builder::agents::ListOperations::new(self.inner.clone())
     }
@@ -318,6 +507,21 @@ impl Agents {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Agents;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Agents
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::agents::GetOperation {
         super::builder::agents::GetOperation::new(self.inner.clone())
     }
@@ -325,6 +529,20 @@ impl Agents {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Agents;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Agents
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::agents::CancelOperation {
         super::builder::agents::CancelOperation::new(self.inner.clone())
     }
@@ -440,21 +658,93 @@ impl AnswerRecords {
 
     /// Returns the list of all answer records in the specified project in reverse
     /// chronological order.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::AnswerRecords;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &AnswerRecords, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_answer_records()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_answer_records(&self) -> super::builder::answer_records::ListAnswerRecords {
         super::builder::answer_records::ListAnswerRecords::new(self.inner.clone())
     }
 
     /// Updates the specified answer record.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::AnswerRecords;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_dialogflow_v2::model::AnswerRecord;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &AnswerRecords, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_answer_record()
+    ///         .set_answer_record(
+    ///             AnswerRecord::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_answer_record(&self) -> super::builder::answer_records::UpdateAnswerRecord {
         super::builder::answer_records::UpdateAnswerRecord::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::AnswerRecords;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &AnswerRecords
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::answer_records::ListLocations {
         super::builder::answer_records::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::AnswerRecords;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &AnswerRecords
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::answer_records::GetLocation {
         super::builder::answer_records::GetLocation::new(self.inner.clone())
     }
@@ -462,6 +752,24 @@ impl AnswerRecords {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::AnswerRecords;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &AnswerRecords
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::answer_records::ListOperations {
         super::builder::answer_records::ListOperations::new(self.inner.clone())
     }
@@ -469,6 +777,21 @@ impl AnswerRecords {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::AnswerRecords;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &AnswerRecords
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::answer_records::GetOperation {
         super::builder::answer_records::GetOperation::new(self.inner.clone())
     }
@@ -476,6 +799,20 @@ impl AnswerRecords {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::AnswerRecords;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &AnswerRecords
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::answer_records::CancelOperation {
         super::builder::answer_records::CancelOperation::new(self.inner.clone())
     }
@@ -589,11 +926,44 @@ impl Contexts {
     }
 
     /// Returns the list of all contexts in the specified session.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Contexts;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Contexts, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_contexts()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_contexts(&self) -> super::builder::contexts::ListContexts {
         super::builder::contexts::ListContexts::new(self.inner.clone())
     }
 
     /// Retrieves the specified context.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Contexts;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Contexts, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_context()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_context(&self) -> super::builder::contexts::GetContext {
         super::builder::contexts::GetContext::new(self.inner.clone())
     }
@@ -601,31 +971,132 @@ impl Contexts {
     /// Creates a context.
     ///
     /// If the specified context already exists, overrides the context.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Contexts;
+    /// use google_cloud_dialogflow_v2::model::Context;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Contexts, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_context()
+    ///         .set_parent(parent)
+    ///         .set_context(
+    ///             Context::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_context(&self) -> super::builder::contexts::CreateContext {
         super::builder::contexts::CreateContext::new(self.inner.clone())
     }
 
     /// Updates the specified context.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Contexts;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_dialogflow_v2::model::Context;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Contexts, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_context()
+    ///         .set_context(
+    ///             Context::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_context(&self) -> super::builder::contexts::UpdateContext {
         super::builder::contexts::UpdateContext::new(self.inner.clone())
     }
 
     /// Deletes the specified context.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Contexts;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Contexts, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_context()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_context(&self) -> super::builder::contexts::DeleteContext {
         super::builder::contexts::DeleteContext::new(self.inner.clone())
     }
 
     /// Deletes all active contexts in the specified session.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Contexts;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Contexts
+    /// ) -> Result<()> {
+    ///     client.delete_all_contexts()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_all_contexts(&self) -> super::builder::contexts::DeleteAllContexts {
         super::builder::contexts::DeleteAllContexts::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Contexts;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Contexts
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::contexts::ListLocations {
         super::builder::contexts::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Contexts;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Contexts
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::contexts::GetLocation {
         super::builder::contexts::GetLocation::new(self.inner.clone())
     }
@@ -633,6 +1104,24 @@ impl Contexts {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Contexts;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Contexts
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::contexts::ListOperations {
         super::builder::contexts::ListOperations::new(self.inner.clone())
     }
@@ -640,6 +1129,21 @@ impl Contexts {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Contexts;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Contexts
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::contexts::GetOperation {
         super::builder::contexts::GetOperation::new(self.inner.clone())
     }
@@ -647,6 +1151,20 @@ impl Contexts {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Contexts;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Contexts
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::contexts::CancelOperation {
         super::builder::contexts::CancelOperation::new(self.inner.clone())
     }
@@ -785,28 +1303,110 @@ impl Conversations {
     /// [google.cloud.dialogflow.v2.Conversation.conversation_profile]: crate::model::Conversation::conversation_profile
     /// [google.cloud.dialogflow.v2.Intent]: crate::model::Intent
     /// [google.cloud.dialogflow.v2.Intent.live_agent_handoff]: crate::model::Intent::live_agent_handoff
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Conversations;
+    /// use google_cloud_dialogflow_v2::model::Conversation;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Conversations, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_conversation()
+    ///         .set_parent(parent).set_conversation_id("conversation_id_value")
+    ///         .set_conversation(
+    ///             Conversation::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_conversation(&self) -> super::builder::conversations::CreateConversation {
         super::builder::conversations::CreateConversation::new(self.inner.clone())
     }
 
     /// Returns the list of all conversations in the specified project.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Conversations;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Conversations, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_conversations()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_conversations(&self) -> super::builder::conversations::ListConversations {
         super::builder::conversations::ListConversations::new(self.inner.clone())
     }
 
     /// Retrieves the specific conversation.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Conversations;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Conversations, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_conversation()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_conversation(&self) -> super::builder::conversations::GetConversation {
         super::builder::conversations::GetConversation::new(self.inner.clone())
     }
 
     /// Completes the specified conversation. Finished conversations are purged
     /// from the database after 30 days.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Conversations;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Conversations
+    /// ) -> Result<()> {
+    ///     let response = client.complete_conversation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn complete_conversation(&self) -> super::builder::conversations::CompleteConversation {
         super::builder::conversations::CompleteConversation::new(self.inner.clone())
     }
 
     /// Data ingestion API.
     /// Ingests context references for an existing conversation.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Conversations;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Conversations
+    /// ) -> Result<()> {
+    ///     let response = client.ingest_context_references()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn ingest_context_references(
         &self,
     ) -> super::builder::conversations::IngestContextReferences {
@@ -818,6 +1418,24 @@ impl Conversations {
     /// updates without duplication, send request with filter
     /// `create_time_epoch_microseconds >
     /// [first item's create_time of previous request]` and empty page_token.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Conversations;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Conversations, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_messages()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_messages(&self) -> super::builder::conversations::ListMessages {
         super::builder::conversations::ListMessages::new(self.inner.clone())
     }
@@ -825,6 +1443,21 @@ impl Conversations {
     /// Suggests summary for a conversation based on specific historical messages.
     /// The range of the messages to be used for summary can be specified in the
     /// request.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Conversations;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Conversations
+    /// ) -> Result<()> {
+    ///     let response = client.suggest_conversation_summary()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn suggest_conversation_summary(
         &self,
     ) -> super::builder::conversations::SuggestConversationSummary {
@@ -833,6 +1466,21 @@ impl Conversations {
 
     /// Generates and returns a summary for a conversation that does not have a
     /// resource created for it.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Conversations;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Conversations
+    /// ) -> Result<()> {
+    ///     let response = client.generate_stateless_summary()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn generate_stateless_summary(
         &self,
     ) -> super::builder::conversations::GenerateStatelessSummary {
@@ -841,6 +1489,21 @@ impl Conversations {
 
     /// Generates and returns a suggestion for a conversation that does not have a
     /// resource created for it.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Conversations;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Conversations
+    /// ) -> Result<()> {
+    ///     let response = client.generate_stateless_suggestion()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn generate_stateless_suggestion(
         &self,
     ) -> super::builder::conversations::GenerateStatelessSuggestion {
@@ -848,6 +1511,21 @@ impl Conversations {
     }
 
     /// Get answers for the given query based on knowledge documents.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Conversations;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Conversations
+    /// ) -> Result<()> {
+    ///     let response = client.search_knowledge()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn search_knowledge(&self) -> super::builder::conversations::SearchKnowledge {
         super::builder::conversations::SearchKnowledge::new(self.inner.clone())
     }
@@ -855,16 +1533,64 @@ impl Conversations {
     /// Generates all the suggestions using generators configured in the
     /// conversation profile. A generator is used only if its trigger event is
     /// matched.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Conversations;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Conversations
+    /// ) -> Result<()> {
+    ///     let response = client.generate_suggestions()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn generate_suggestions(&self) -> super::builder::conversations::GenerateSuggestions {
         super::builder::conversations::GenerateSuggestions::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Conversations;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Conversations
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::conversations::ListLocations {
         super::builder::conversations::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Conversations;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Conversations
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::conversations::GetLocation {
         super::builder::conversations::GetLocation::new(self.inner.clone())
     }
@@ -872,6 +1598,24 @@ impl Conversations {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Conversations;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Conversations
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::conversations::ListOperations {
         super::builder::conversations::ListOperations::new(self.inner.clone())
     }
@@ -879,6 +1623,21 @@ impl Conversations {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Conversations;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Conversations
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::conversations::GetOperation {
         super::builder::conversations::GetOperation::new(self.inner.clone())
     }
@@ -886,6 +1645,20 @@ impl Conversations {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Conversations;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Conversations
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::conversations::CancelOperation {
         super::builder::conversations::CancelOperation::new(self.inner.clone())
     }
@@ -1023,6 +1796,26 @@ impl ConversationDatasets {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::ConversationDatasets;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_dialogflow_v2::model::ConversationDataset;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &ConversationDatasets, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_conversation_dataset()
+    ///         .set_parent(parent)
+    ///         .set_conversation_dataset(
+    ///             ConversationDataset::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_conversation_dataset(
         &self,
     ) -> super::builder::conversation_datasets::CreateConversationDataset {
@@ -1030,6 +1823,21 @@ impl ConversationDatasets {
     }
 
     /// Retrieves the specified conversation dataset.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::ConversationDatasets;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &ConversationDatasets, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_conversation_dataset()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_conversation_dataset(
         &self,
     ) -> super::builder::conversation_datasets::GetConversationDataset {
@@ -1038,6 +1846,24 @@ impl ConversationDatasets {
 
     /// Returns the list of all conversation datasets in the specified
     /// project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::ConversationDatasets;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &ConversationDatasets, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_conversation_datasets()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_conversation_datasets(
         &self,
     ) -> super::builder::conversation_datasets::ListConversationDatasets {
@@ -1066,6 +1892,21 @@ impl ConversationDatasets {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::ConversationDatasets;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &ConversationDatasets, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_conversation_dataset()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_conversation_dataset(
         &self,
     ) -> super::builder::conversation_datasets::DeleteConversationDataset {
@@ -1097,6 +1938,22 @@ impl ConversationDatasets {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::ConversationDatasets;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &ConversationDatasets
+    /// ) -> Result<()> {
+    ///     let response = client.import_conversation_data()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn import_conversation_data(
         &self,
     ) -> super::builder::conversation_datasets::ImportConversationData {
@@ -1104,11 +1961,44 @@ impl ConversationDatasets {
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::ConversationDatasets;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &ConversationDatasets
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::conversation_datasets::ListLocations {
         super::builder::conversation_datasets::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::ConversationDatasets;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &ConversationDatasets
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::conversation_datasets::GetLocation {
         super::builder::conversation_datasets::GetLocation::new(self.inner.clone())
     }
@@ -1116,6 +2006,24 @@ impl ConversationDatasets {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::ConversationDatasets;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &ConversationDatasets
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::conversation_datasets::ListOperations {
         super::builder::conversation_datasets::ListOperations::new(self.inner.clone())
     }
@@ -1123,6 +2031,21 @@ impl ConversationDatasets {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::ConversationDatasets;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &ConversationDatasets
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::conversation_datasets::GetOperation {
         super::builder::conversation_datasets::GetOperation::new(self.inner.clone())
     }
@@ -1130,6 +2053,20 @@ impl ConversationDatasets {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::ConversationDatasets;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &ConversationDatasets
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::conversation_datasets::CancelOperation {
         super::builder::conversation_datasets::CancelOperation::new(self.inner.clone())
     }
@@ -1264,6 +2201,26 @@ impl ConversationModels {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::ConversationModels;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_dialogflow_v2::model::ConversationModel;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &ConversationModels, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_conversation_model()
+    ///         .set_parent(parent)
+    ///         .set_conversation_model(
+    ///             ConversationModel::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_conversation_model(
         &self,
     ) -> super::builder::conversation_models::CreateConversationModel {
@@ -1271,6 +2228,21 @@ impl ConversationModels {
     }
 
     /// Gets conversation model.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::ConversationModels;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &ConversationModels
+    /// ) -> Result<()> {
+    ///     let response = client.get_conversation_model()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_conversation_model(
         &self,
     ) -> super::builder::conversation_models::GetConversationModel {
@@ -1278,6 +2250,24 @@ impl ConversationModels {
     }
 
     /// Lists conversation models.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::ConversationModels;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &ConversationModels, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_conversation_models()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_conversation_models(
         &self,
     ) -> super::builder::conversation_models::ListConversationModels {
@@ -1306,6 +2296,21 @@ impl ConversationModels {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::ConversationModels;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &ConversationModels
+    /// ) -> Result<()> {
+    ///     client.delete_conversation_model()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_conversation_model(
         &self,
     ) -> super::builder::conversation_models::DeleteConversationModel {
@@ -1337,6 +2342,21 @@ impl ConversationModels {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::ConversationModels;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &ConversationModels
+    /// ) -> Result<()> {
+    ///     client.deploy_conversation_model()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn deploy_conversation_model(
         &self,
     ) -> super::builder::conversation_models::DeployConversationModel {
@@ -1369,6 +2389,21 @@ impl ConversationModels {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::ConversationModels;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &ConversationModels
+    /// ) -> Result<()> {
+    ///     client.undeploy_conversation_model()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn undeploy_conversation_model(
         &self,
     ) -> super::builder::conversation_models::UndeployConversationModel {
@@ -1376,6 +2411,21 @@ impl ConversationModels {
     }
 
     /// Gets an evaluation of conversation model.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::ConversationModels;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &ConversationModels
+    /// ) -> Result<()> {
+    ///     let response = client.get_conversation_model_evaluation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_conversation_model_evaluation(
         &self,
     ) -> super::builder::conversation_models::GetConversationModelEvaluation {
@@ -1383,6 +2433,24 @@ impl ConversationModels {
     }
 
     /// Lists evaluations of a conversation model.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::ConversationModels;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &ConversationModels, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_conversation_model_evaluations()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_conversation_model_evaluations(
         &self,
     ) -> super::builder::conversation_models::ListConversationModelEvaluations {
@@ -1402,6 +2470,22 @@ impl ConversationModels {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::ConversationModels;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &ConversationModels
+    /// ) -> Result<()> {
+    ///     let response = client.create_conversation_model_evaluation()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_conversation_model_evaluation(
         &self,
     ) -> super::builder::conversation_models::CreateConversationModelEvaluation {
@@ -1411,11 +2495,44 @@ impl ConversationModels {
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::ConversationModels;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &ConversationModels
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::conversation_models::ListLocations {
         super::builder::conversation_models::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::ConversationModels;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &ConversationModels
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::conversation_models::GetLocation {
         super::builder::conversation_models::GetLocation::new(self.inner.clone())
     }
@@ -1423,6 +2540,24 @@ impl ConversationModels {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::ConversationModels;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &ConversationModels
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::conversation_models::ListOperations {
         super::builder::conversation_models::ListOperations::new(self.inner.clone())
     }
@@ -1430,6 +2565,21 @@ impl ConversationModels {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::ConversationModels;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &ConversationModels
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::conversation_models::GetOperation {
         super::builder::conversation_models::GetOperation::new(self.inner.clone())
     }
@@ -1437,6 +2587,20 @@ impl ConversationModels {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::ConversationModels;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &ConversationModels
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::conversation_models::CancelOperation {
         super::builder::conversation_models::CancelOperation::new(self.inner.clone())
     }
@@ -1552,6 +2716,24 @@ impl ConversationProfiles {
     }
 
     /// Returns the list of all conversation profiles in the specified project.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::ConversationProfiles;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &ConversationProfiles, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_conversation_profiles()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_conversation_profiles(
         &self,
     ) -> super::builder::conversation_profiles::ListConversationProfiles {
@@ -1559,6 +2741,21 @@ impl ConversationProfiles {
     }
 
     /// Retrieves the specified conversation profile.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::ConversationProfiles;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &ConversationProfiles, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_conversation_profile()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_conversation_profile(
         &self,
     ) -> super::builder::conversation_profiles::GetConversationProfile {
@@ -1577,6 +2774,25 @@ impl ConversationProfiles {
     /// [google.cloud.dialogflow.v2.ConversationProfile.create_time]: crate::model::ConversationProfile::create_time
     /// [google.cloud.dialogflow.v2.ConversationProfile.update_time]: crate::model::ConversationProfile::update_time
     /// [google.cloud.dialogflow.v2.ConversationProfiles.GetConversationProfile]: crate::client::ConversationProfiles::get_conversation_profile
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::ConversationProfiles;
+    /// use google_cloud_dialogflow_v2::model::ConversationProfile;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &ConversationProfiles, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_conversation_profile()
+    ///         .set_parent(parent)
+    ///         .set_conversation_profile(
+    ///             ConversationProfile::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_conversation_profile(
         &self,
     ) -> super::builder::conversation_profiles::CreateConversationProfile {
@@ -1595,6 +2811,27 @@ impl ConversationProfiles {
     /// [google.cloud.dialogflow.v2.ConversationProfile.create_time]: crate::model::ConversationProfile::create_time
     /// [google.cloud.dialogflow.v2.ConversationProfile.update_time]: crate::model::ConversationProfile::update_time
     /// [google.cloud.dialogflow.v2.ConversationProfiles.GetConversationProfile]: crate::client::ConversationProfiles::get_conversation_profile
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::ConversationProfiles;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_dialogflow_v2::model::ConversationProfile;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &ConversationProfiles, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_conversation_profile()
+    ///         .set_conversation_profile(
+    ///             ConversationProfile::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_conversation_profile(
         &self,
     ) -> super::builder::conversation_profiles::UpdateConversationProfile {
@@ -1602,6 +2839,20 @@ impl ConversationProfiles {
     }
 
     /// Deletes the specified conversation profile.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::ConversationProfiles;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &ConversationProfiles, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_conversation_profile()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_conversation_profile(
         &self,
     ) -> super::builder::conversation_profiles::DeleteConversationProfile {
@@ -1639,6 +2890,22 @@ impl ConversationProfiles {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::ConversationProfiles;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &ConversationProfiles
+    /// ) -> Result<()> {
+    ///     let response = client.set_suggestion_feature_config()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_suggestion_feature_config(
         &self,
     ) -> super::builder::conversation_profiles::SetSuggestionFeatureConfig {
@@ -1669,6 +2936,22 @@ impl ConversationProfiles {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::ConversationProfiles;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &ConversationProfiles
+    /// ) -> Result<()> {
+    ///     let response = client.clear_suggestion_feature_config()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn clear_suggestion_feature_config(
         &self,
     ) -> super::builder::conversation_profiles::ClearSuggestionFeatureConfig {
@@ -1676,11 +2959,44 @@ impl ConversationProfiles {
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::ConversationProfiles;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &ConversationProfiles
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::conversation_profiles::ListLocations {
         super::builder::conversation_profiles::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::ConversationProfiles;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &ConversationProfiles
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::conversation_profiles::GetLocation {
         super::builder::conversation_profiles::GetLocation::new(self.inner.clone())
     }
@@ -1688,6 +3004,24 @@ impl ConversationProfiles {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::ConversationProfiles;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &ConversationProfiles
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::conversation_profiles::ListOperations {
         super::builder::conversation_profiles::ListOperations::new(self.inner.clone())
     }
@@ -1695,6 +3029,21 @@ impl ConversationProfiles {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::ConversationProfiles;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &ConversationProfiles
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::conversation_profiles::GetOperation {
         super::builder::conversation_profiles::GetOperation::new(self.inner.clone())
     }
@@ -1702,6 +3051,20 @@ impl ConversationProfiles {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::ConversationProfiles;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &ConversationProfiles
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::conversation_profiles::CancelOperation {
         super::builder::conversation_profiles::CancelOperation::new(self.inner.clone())
     }
@@ -1816,11 +3179,44 @@ impl Documents {
     }
 
     /// Returns the list of all documents of the knowledge base.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Documents;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Documents, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_documents()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_documents(&self) -> super::builder::documents::ListDocuments {
         super::builder::documents::ListDocuments::new(self.inner.clone())
     }
 
     /// Retrieves the specified document.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Documents;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Documents, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_document()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_document(&self) -> super::builder::documents::GetDocument {
         super::builder::documents::GetDocument::new(self.inner.clone())
     }
@@ -1847,6 +3243,26 @@ impl Documents {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Documents;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_dialogflow_v2::model::Document;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Documents, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_document()
+    ///         .set_parent(parent)
+    ///         .set_document(
+    ///             Document::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_document(&self) -> super::builder::documents::CreateDocument {
         super::builder::documents::CreateDocument::new(self.inner.clone())
     }
@@ -1876,6 +3292,22 @@ impl Documents {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Documents;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Documents
+    /// ) -> Result<()> {
+    ///     let response = client.import_documents()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn import_documents(&self) -> super::builder::documents::ImportDocuments {
         super::builder::documents::ImportDocuments::new(self.inner.clone())
     }
@@ -1902,6 +3334,21 @@ impl Documents {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Documents;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Documents, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_document()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_document(&self) -> super::builder::documents::DeleteDocument {
         super::builder::documents::DeleteDocument::new(self.inner.clone())
     }
@@ -1928,6 +3375,28 @@ impl Documents {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Documents;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_dialogflow_v2::model::Document;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Documents, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_document()
+    ///         .set_document(
+    ///             Document::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_document(&self) -> super::builder::documents::UpdateDocument {
         super::builder::documents::UpdateDocument::new(self.inner.clone())
     }
@@ -1960,6 +3429,22 @@ impl Documents {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Documents;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Documents
+    /// ) -> Result<()> {
+    ///     let response = client.reload_document()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn reload_document(&self) -> super::builder::documents::ReloadDocument {
         super::builder::documents::ReloadDocument::new(self.inner.clone())
     }
@@ -1987,16 +3472,65 @@ impl Documents {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Documents;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Documents
+    /// ) -> Result<()> {
+    ///     let response = client.export_document()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn export_document(&self) -> super::builder::documents::ExportDocument {
         super::builder::documents::ExportDocument::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Documents;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Documents
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::documents::ListLocations {
         super::builder::documents::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Documents;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Documents
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::documents::GetLocation {
         super::builder::documents::GetLocation::new(self.inner.clone())
     }
@@ -2004,6 +3538,24 @@ impl Documents {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Documents;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Documents
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::documents::ListOperations {
         super::builder::documents::ListOperations::new(self.inner.clone())
     }
@@ -2011,6 +3563,21 @@ impl Documents {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Documents;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Documents
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::documents::GetOperation {
         super::builder::documents::GetOperation::new(self.inner.clone())
     }
@@ -2018,6 +3585,20 @@ impl Documents {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Documents;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Documents
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::documents::CancelOperation {
         super::builder::documents::CancelOperation::new(self.inner.clone())
     }
@@ -2130,6 +3711,21 @@ impl EncryptionSpecService {
     }
 
     /// Gets location-level encryption key specification.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::EncryptionSpecService;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &EncryptionSpecService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_encryption_spec()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_encryption_spec(
         &self,
     ) -> super::builder::encryption_spec_service::GetEncryptionSpec {
@@ -2151,6 +3747,22 @@ impl EncryptionSpecService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::EncryptionSpecService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &EncryptionSpecService
+    /// ) -> Result<()> {
+    ///     let response = client.initialize_encryption_spec()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn initialize_encryption_spec(
         &self,
     ) -> super::builder::encryption_spec_service::InitializeEncryptionSpec {
@@ -2158,11 +3770,44 @@ impl EncryptionSpecService {
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::EncryptionSpecService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &EncryptionSpecService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::encryption_spec_service::ListLocations {
         super::builder::encryption_spec_service::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::EncryptionSpecService;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &EncryptionSpecService
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::encryption_spec_service::GetLocation {
         super::builder::encryption_spec_service::GetLocation::new(self.inner.clone())
     }
@@ -2170,6 +3815,24 @@ impl EncryptionSpecService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::EncryptionSpecService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &EncryptionSpecService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::encryption_spec_service::ListOperations {
         super::builder::encryption_spec_service::ListOperations::new(self.inner.clone())
     }
@@ -2177,6 +3840,21 @@ impl EncryptionSpecService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::EncryptionSpecService;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &EncryptionSpecService
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::encryption_spec_service::GetOperation {
         super::builder::encryption_spec_service::GetOperation::new(self.inner.clone())
     }
@@ -2184,6 +3862,20 @@ impl EncryptionSpecService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::EncryptionSpecService;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &EncryptionSpecService
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::encryption_spec_service::CancelOperation {
         super::builder::encryption_spec_service::CancelOperation::new(self.inner.clone())
     }
@@ -2297,11 +3989,44 @@ impl EntityTypes {
     }
 
     /// Returns the list of all entity types in the specified agent.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::EntityTypes;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &EntityTypes, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_entity_types()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_entity_types(&self) -> super::builder::entity_types::ListEntityTypes {
         super::builder::entity_types::ListEntityTypes::new(self.inner.clone())
     }
 
     /// Retrieves the specified entity type.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::EntityTypes;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &EntityTypes, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_entity_type()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_entity_type(&self) -> super::builder::entity_types::GetEntityType {
         super::builder::entity_types::GetEntityType::new(self.inner.clone())
     }
@@ -2311,6 +4036,25 @@ impl EntityTypes {
     /// Note: You should always train an agent prior to sending it queries. See the
     /// [training
     /// documentation](https://cloud.google.com/dialogflow/es/docs/training).
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::EntityTypes;
+    /// use google_cloud_dialogflow_v2::model::EntityType;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &EntityTypes, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_entity_type()
+    ///         .set_parent(parent)
+    ///         .set_entity_type(
+    ///             EntityType::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_entity_type(&self) -> super::builder::entity_types::CreateEntityType {
         super::builder::entity_types::CreateEntityType::new(self.inner.clone())
     }
@@ -2320,6 +4064,27 @@ impl EntityTypes {
     /// Note: You should always train an agent prior to sending it queries. See the
     /// [training
     /// documentation](https://cloud.google.com/dialogflow/es/docs/training).
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::EntityTypes;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_dialogflow_v2::model::EntityType;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &EntityTypes, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_entity_type()
+    ///         .set_entity_type(
+    ///             EntityType::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_entity_type(&self) -> super::builder::entity_types::UpdateEntityType {
         super::builder::entity_types::UpdateEntityType::new(self.inner.clone())
     }
@@ -2329,6 +4094,20 @@ impl EntityTypes {
     /// Note: You should always train an agent prior to sending it queries. See the
     /// [training
     /// documentation](https://cloud.google.com/dialogflow/es/docs/training).
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::EntityTypes;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &EntityTypes, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_entity_type()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_entity_type(&self) -> super::builder::entity_types::DeleteEntityType {
         super::builder::entity_types::DeleteEntityType::new(self.inner.clone())
     }
@@ -2359,6 +4138,22 @@ impl EntityTypes {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::EntityTypes;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &EntityTypes
+    /// ) -> Result<()> {
+    ///     let response = client.batch_update_entity_types()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn batch_update_entity_types(
         &self,
     ) -> super::builder::entity_types::BatchUpdateEntityTypes {
@@ -2389,6 +4184,21 @@ impl EntityTypes {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::EntityTypes;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &EntityTypes
+    /// ) -> Result<()> {
+    ///     client.batch_delete_entity_types()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn batch_delete_entity_types(
         &self,
     ) -> super::builder::entity_types::BatchDeleteEntityTypes {
@@ -2419,6 +4229,21 @@ impl EntityTypes {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::EntityTypes;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &EntityTypes
+    /// ) -> Result<()> {
+    ///     client.batch_create_entities()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn batch_create_entities(&self) -> super::builder::entity_types::BatchCreateEntities {
         super::builder::entity_types::BatchCreateEntities::new(self.inner.clone())
     }
@@ -2449,6 +4274,21 @@ impl EntityTypes {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::EntityTypes;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &EntityTypes
+    /// ) -> Result<()> {
+    ///     client.batch_update_entities()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn batch_update_entities(&self) -> super::builder::entity_types::BatchUpdateEntities {
         super::builder::entity_types::BatchUpdateEntities::new(self.inner.clone())
     }
@@ -2477,16 +4317,64 @@ impl EntityTypes {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::EntityTypes;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &EntityTypes
+    /// ) -> Result<()> {
+    ///     client.batch_delete_entities()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn batch_delete_entities(&self) -> super::builder::entity_types::BatchDeleteEntities {
         super::builder::entity_types::BatchDeleteEntities::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::EntityTypes;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &EntityTypes
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::entity_types::ListLocations {
         super::builder::entity_types::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::EntityTypes;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &EntityTypes
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::entity_types::GetLocation {
         super::builder::entity_types::GetLocation::new(self.inner.clone())
     }
@@ -2494,6 +4382,24 @@ impl EntityTypes {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::EntityTypes;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &EntityTypes
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::entity_types::ListOperations {
         super::builder::entity_types::ListOperations::new(self.inner.clone())
     }
@@ -2501,6 +4407,21 @@ impl EntityTypes {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::EntityTypes;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &EntityTypes
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::entity_types::GetOperation {
         super::builder::entity_types::GetOperation::new(self.inner.clone())
     }
@@ -2508,6 +4429,20 @@ impl EntityTypes {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::EntityTypes;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &EntityTypes
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::entity_types::CancelOperation {
         super::builder::entity_types::CancelOperation::new(self.inner.clone())
     }
@@ -2621,16 +4556,68 @@ impl Environments {
     }
 
     /// Returns the list of all non-default environments of the specified agent.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Environments;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Environments, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_environments()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_environments(&self) -> super::builder::environments::ListEnvironments {
         super::builder::environments::ListEnvironments::new(self.inner.clone())
     }
 
     /// Retrieves the specified agent environment.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Environments;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Environments, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_environment()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_environment(&self) -> super::builder::environments::GetEnvironment {
         super::builder::environments::GetEnvironment::new(self.inner.clone())
     }
 
     /// Creates an agent environment.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Environments;
+    /// use google_cloud_dialogflow_v2::model::Environment;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Environments, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_environment()
+    ///         .set_parent(parent).set_environment_id("environment_id_value")
+    ///         .set_environment(
+    ///             Environment::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_environment(&self) -> super::builder::environments::CreateEnvironment {
         super::builder::environments::CreateEnvironment::new(self.inner.clone())
     }
@@ -2647,26 +4634,112 @@ impl Environments {
     /// version in the default environment. WARNING: this will negate all recent
     /// changes to the draft agent and can't be undone. You may want to save the
     /// draft agent to a version before calling this method.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Environments;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_dialogflow_v2::model::Environment;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Environments, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_environment()
+    ///         .set_environment(
+    ///             Environment::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_environment(&self) -> super::builder::environments::UpdateEnvironment {
         super::builder::environments::UpdateEnvironment::new(self.inner.clone())
     }
 
     /// Deletes the specified agent environment.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Environments;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Environments, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_environment()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_environment(&self) -> super::builder::environments::DeleteEnvironment {
         super::builder::environments::DeleteEnvironment::new(self.inner.clone())
     }
 
     /// Gets the history of the specified environment.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Environments;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Environments
+    /// ) -> Result<()> {
+    ///     let mut list = client.get_environment_history()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_environment_history(&self) -> super::builder::environments::GetEnvironmentHistory {
         super::builder::environments::GetEnvironmentHistory::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Environments;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Environments
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::environments::ListLocations {
         super::builder::environments::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Environments;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Environments
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::environments::GetLocation {
         super::builder::environments::GetLocation::new(self.inner.clone())
     }
@@ -2674,6 +4747,24 @@ impl Environments {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Environments;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Environments
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::environments::ListOperations {
         super::builder::environments::ListOperations::new(self.inner.clone())
     }
@@ -2681,6 +4772,21 @@ impl Environments {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Environments;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Environments
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::environments::GetOperation {
         super::builder::environments::GetOperation::new(self.inner.clone())
     }
@@ -2688,6 +4794,20 @@ impl Environments {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Environments;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Environments
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::environments::CancelOperation {
         super::builder::environments::CancelOperation::new(self.inner.clone())
     }
@@ -2801,21 +4921,90 @@ impl Fulfillments {
     }
 
     /// Retrieves the fulfillment.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Fulfillments;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Fulfillments, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_fulfillment()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_fulfillment(&self) -> super::builder::fulfillments::GetFulfillment {
         super::builder::fulfillments::GetFulfillment::new(self.inner.clone())
     }
 
     /// Updates the fulfillment.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Fulfillments;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_dialogflow_v2::model::Fulfillment;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Fulfillments, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_fulfillment()
+    ///         .set_fulfillment(
+    ///             Fulfillment::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_fulfillment(&self) -> super::builder::fulfillments::UpdateFulfillment {
         super::builder::fulfillments::UpdateFulfillment::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Fulfillments;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Fulfillments
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::fulfillments::ListLocations {
         super::builder::fulfillments::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Fulfillments;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Fulfillments
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::fulfillments::GetLocation {
         super::builder::fulfillments::GetLocation::new(self.inner.clone())
     }
@@ -2823,6 +5012,24 @@ impl Fulfillments {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Fulfillments;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Fulfillments
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::fulfillments::ListOperations {
         super::builder::fulfillments::ListOperations::new(self.inner.clone())
     }
@@ -2830,6 +5037,21 @@ impl Fulfillments {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Fulfillments;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Fulfillments
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::fulfillments::GetOperation {
         super::builder::fulfillments::GetOperation::new(self.inner.clone())
     }
@@ -2837,6 +5059,20 @@ impl Fulfillments {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Fulfillments;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Fulfillments
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::fulfillments::CancelOperation {
         super::builder::fulfillments::CancelOperation::new(self.inner.clone())
     }
@@ -2952,36 +5188,156 @@ impl Generators {
     }
 
     /// Creates a generator.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Generators;
+    /// use google_cloud_dialogflow_v2::model::Generator;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Generators, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_generator()
+    ///         .set_parent(parent).set_generator_id("generator_id_value")
+    ///         .set_generator(
+    ///             Generator::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_generator(&self) -> super::builder::generators::CreateGenerator {
         super::builder::generators::CreateGenerator::new(self.inner.clone())
     }
 
     /// Retrieves a generator.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Generators;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Generators, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_generator()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_generator(&self) -> super::builder::generators::GetGenerator {
         super::builder::generators::GetGenerator::new(self.inner.clone())
     }
 
     /// Lists generators.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Generators;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Generators, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_generators()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_generators(&self) -> super::builder::generators::ListGenerators {
         super::builder::generators::ListGenerators::new(self.inner.clone())
     }
 
     /// Deletes a generator.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Generators;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Generators, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_generator()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_generator(&self) -> super::builder::generators::DeleteGenerator {
         super::builder::generators::DeleteGenerator::new(self.inner.clone())
     }
 
     /// Updates a generator.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Generators;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_dialogflow_v2::model::Generator;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Generators, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_generator()
+    ///         .set_generator(
+    ///             Generator::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_generator(&self) -> super::builder::generators::UpdateGenerator {
         super::builder::generators::UpdateGenerator::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Generators;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Generators
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::generators::ListLocations {
         super::builder::generators::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Generators;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Generators
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::generators::GetLocation {
         super::builder::generators::GetLocation::new(self.inner.clone())
     }
@@ -2989,6 +5345,24 @@ impl Generators {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Generators;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Generators
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::generators::ListOperations {
         super::builder::generators::ListOperations::new(self.inner.clone())
     }
@@ -2996,6 +5370,21 @@ impl Generators {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Generators;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Generators
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::generators::GetOperation {
         super::builder::generators::GetOperation::new(self.inner.clone())
     }
@@ -3003,6 +5392,20 @@ impl Generators {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Generators;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Generators
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::generators::CancelOperation {
         super::builder::generators::CancelOperation::new(self.inner.clone())
     }
@@ -3125,6 +5528,26 @@ impl GeneratorEvaluations {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::GeneratorEvaluations;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_dialogflow_v2::model::GeneratorEvaluation;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &GeneratorEvaluations, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_generator_evaluation()
+    ///         .set_parent(parent)
+    ///         .set_generator_evaluation(
+    ///             GeneratorEvaluation::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_generator_evaluation(
         &self,
     ) -> super::builder::generator_evaluations::CreateGeneratorEvaluation {
@@ -3132,6 +5555,21 @@ impl GeneratorEvaluations {
     }
 
     /// Gets an evaluation of generator.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::GeneratorEvaluations;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &GeneratorEvaluations, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_generator_evaluation()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_generator_evaluation(
         &self,
     ) -> super::builder::generator_evaluations::GetGeneratorEvaluation {
@@ -3139,6 +5577,24 @@ impl GeneratorEvaluations {
     }
 
     /// Lists evaluations of generator.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::GeneratorEvaluations;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &GeneratorEvaluations, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_generator_evaluations()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_generator_evaluations(
         &self,
     ) -> super::builder::generator_evaluations::ListGeneratorEvaluations {
@@ -3146,6 +5602,20 @@ impl GeneratorEvaluations {
     }
 
     /// Deletes an evaluation of generator.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::GeneratorEvaluations;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &GeneratorEvaluations, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_generator_evaluation()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_generator_evaluation(
         &self,
     ) -> super::builder::generator_evaluations::DeleteGeneratorEvaluation {
@@ -3153,11 +5623,44 @@ impl GeneratorEvaluations {
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::GeneratorEvaluations;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &GeneratorEvaluations
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::generator_evaluations::ListLocations {
         super::builder::generator_evaluations::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::GeneratorEvaluations;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &GeneratorEvaluations
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::generator_evaluations::GetLocation {
         super::builder::generator_evaluations::GetLocation::new(self.inner.clone())
     }
@@ -3165,6 +5668,24 @@ impl GeneratorEvaluations {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::GeneratorEvaluations;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &GeneratorEvaluations
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::generator_evaluations::ListOperations {
         super::builder::generator_evaluations::ListOperations::new(self.inner.clone())
     }
@@ -3172,6 +5693,21 @@ impl GeneratorEvaluations {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::GeneratorEvaluations;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &GeneratorEvaluations
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::generator_evaluations::GetOperation {
         super::builder::generator_evaluations::GetOperation::new(self.inner.clone())
     }
@@ -3179,6 +5715,20 @@ impl GeneratorEvaluations {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::GeneratorEvaluations;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &GeneratorEvaluations
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::generator_evaluations::CancelOperation {
         super::builder::generator_evaluations::CancelOperation::new(self.inner.clone())
     }
@@ -3292,11 +5842,44 @@ impl Intents {
     }
 
     /// Returns the list of all intents in the specified agent.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Intents;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Intents, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_intents()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_intents(&self) -> super::builder::intents::ListIntents {
         super::builder::intents::ListIntents::new(self.inner.clone())
     }
 
     /// Retrieves the specified intent.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Intents;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Intents, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_intent()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_intent(&self) -> super::builder::intents::GetIntent {
         super::builder::intents::GetIntent::new(self.inner.clone())
     }
@@ -3306,6 +5889,25 @@ impl Intents {
     /// Note: You should always train an agent prior to sending it queries. See the
     /// [training
     /// documentation](https://cloud.google.com/dialogflow/es/docs/training).
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Intents;
+    /// use google_cloud_dialogflow_v2::model::Intent;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Intents, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_intent()
+    ///         .set_parent(parent)
+    ///         .set_intent(
+    ///             Intent::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_intent(&self) -> super::builder::intents::CreateIntent {
         super::builder::intents::CreateIntent::new(self.inner.clone())
     }
@@ -3315,6 +5917,27 @@ impl Intents {
     /// Note: You should always train an agent prior to sending it queries. See the
     /// [training
     /// documentation](https://cloud.google.com/dialogflow/es/docs/training).
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Intents;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_dialogflow_v2::model::Intent;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Intents, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_intent()
+    ///         .set_intent(
+    ///             Intent::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_intent(&self) -> super::builder::intents::UpdateIntent {
         super::builder::intents::UpdateIntent::new(self.inner.clone())
     }
@@ -3324,6 +5947,20 @@ impl Intents {
     /// Note: You should always train an agent prior to sending it queries. See the
     /// [training
     /// documentation](https://cloud.google.com/dialogflow/es/docs/training).
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Intents;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Intents, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_intent()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_intent(&self) -> super::builder::intents::DeleteIntent {
         super::builder::intents::DeleteIntent::new(self.inner.clone())
     }
@@ -3354,6 +5991,22 @@ impl Intents {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Intents;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Intents
+    /// ) -> Result<()> {
+    ///     let response = client.batch_update_intents()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn batch_update_intents(&self) -> super::builder::intents::BatchUpdateIntents {
         super::builder::intents::BatchUpdateIntents::new(self.inner.clone())
     }
@@ -3382,16 +6035,64 @@ impl Intents {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Intents;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Intents
+    /// ) -> Result<()> {
+    ///     client.batch_delete_intents()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn batch_delete_intents(&self) -> super::builder::intents::BatchDeleteIntents {
         super::builder::intents::BatchDeleteIntents::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Intents;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Intents
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::intents::ListLocations {
         super::builder::intents::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Intents;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Intents
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::intents::GetLocation {
         super::builder::intents::GetLocation::new(self.inner.clone())
     }
@@ -3399,6 +6100,24 @@ impl Intents {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Intents;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Intents
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::intents::ListOperations {
         super::builder::intents::ListOperations::new(self.inner.clone())
     }
@@ -3406,6 +6125,21 @@ impl Intents {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Intents;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Intents
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::intents::GetOperation {
         super::builder::intents::GetOperation::new(self.inner.clone())
     }
@@ -3413,6 +6147,20 @@ impl Intents {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Intents;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Intents
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::intents::CancelOperation {
         super::builder::intents::CancelOperation::new(self.inner.clone())
     }
@@ -3527,36 +6275,156 @@ impl KnowledgeBases {
     }
 
     /// Returns the list of all knowledge bases of the specified agent.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::KnowledgeBases;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &KnowledgeBases, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_knowledge_bases()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_knowledge_bases(&self) -> super::builder::knowledge_bases::ListKnowledgeBases {
         super::builder::knowledge_bases::ListKnowledgeBases::new(self.inner.clone())
     }
 
     /// Retrieves the specified knowledge base.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::KnowledgeBases;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &KnowledgeBases, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_knowledge_base()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_knowledge_base(&self) -> super::builder::knowledge_bases::GetKnowledgeBase {
         super::builder::knowledge_bases::GetKnowledgeBase::new(self.inner.clone())
     }
 
     /// Creates a knowledge base.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::KnowledgeBases;
+    /// use google_cloud_dialogflow_v2::model::KnowledgeBase;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &KnowledgeBases, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_knowledge_base()
+    ///         .set_parent(parent)
+    ///         .set_knowledge_base(
+    ///             KnowledgeBase::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_knowledge_base(&self) -> super::builder::knowledge_bases::CreateKnowledgeBase {
         super::builder::knowledge_bases::CreateKnowledgeBase::new(self.inner.clone())
     }
 
     /// Deletes the specified knowledge base.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::KnowledgeBases;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &KnowledgeBases, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_knowledge_base()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_knowledge_base(&self) -> super::builder::knowledge_bases::DeleteKnowledgeBase {
         super::builder::knowledge_bases::DeleteKnowledgeBase::new(self.inner.clone())
     }
 
     /// Updates the specified knowledge base.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::KnowledgeBases;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_dialogflow_v2::model::KnowledgeBase;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &KnowledgeBases, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_knowledge_base()
+    ///         .set_knowledge_base(
+    ///             KnowledgeBase::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_knowledge_base(&self) -> super::builder::knowledge_bases::UpdateKnowledgeBase {
         super::builder::knowledge_bases::UpdateKnowledgeBase::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::KnowledgeBases;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &KnowledgeBases
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::knowledge_bases::ListLocations {
         super::builder::knowledge_bases::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::KnowledgeBases;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &KnowledgeBases
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::knowledge_bases::GetLocation {
         super::builder::knowledge_bases::GetLocation::new(self.inner.clone())
     }
@@ -3564,6 +6432,24 @@ impl KnowledgeBases {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::KnowledgeBases;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &KnowledgeBases
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::knowledge_bases::ListOperations {
         super::builder::knowledge_bases::ListOperations::new(self.inner.clone())
     }
@@ -3571,6 +6457,21 @@ impl KnowledgeBases {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::KnowledgeBases;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &KnowledgeBases
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::knowledge_bases::GetOperation {
         super::builder::knowledge_bases::GetOperation::new(self.inner.clone())
     }
@@ -3578,6 +6479,20 @@ impl KnowledgeBases {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::KnowledgeBases;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &KnowledgeBases
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::knowledge_bases::CancelOperation {
         super::builder::knowledge_bases::CancelOperation::new(self.inner.clone())
     }
@@ -3691,21 +6606,94 @@ impl Participants {
     }
 
     /// Creates a new participant in a conversation.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Participants;
+    /// use google_cloud_dialogflow_v2::model::Participant;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Participants, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_participant()
+    ///         .set_parent(parent)
+    ///         .set_participant(
+    ///             Participant::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_participant(&self) -> super::builder::participants::CreateParticipant {
         super::builder::participants::CreateParticipant::new(self.inner.clone())
     }
 
     /// Retrieves a conversation participant.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Participants;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Participants, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_participant()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_participant(&self) -> super::builder::participants::GetParticipant {
         super::builder::participants::GetParticipant::new(self.inner.clone())
     }
 
     /// Returns the list of all participants in the specified conversation.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Participants;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Participants, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_participants()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_participants(&self) -> super::builder::participants::ListParticipants {
         super::builder::participants::ListParticipants::new(self.inner.clone())
     }
 
     /// Updates the specified participant.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Participants;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_dialogflow_v2::model::Participant;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Participants, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_participant()
+    ///         .set_participant(
+    ///             Participant::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_participant(&self) -> super::builder::participants::UpdateParticipant {
         super::builder::participants::UpdateParticipant::new(self.inner.clone())
     }
@@ -3716,39 +6704,147 @@ impl Participants {
     /// Note: Always use agent versions for production traffic
     /// sent to virtual agents. See [Versions and
     /// environments](https://cloud.google.com/dialogflow/es/docs/agents-versions).
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Participants;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Participants
+    /// ) -> Result<()> {
+    ///     let response = client.analyze_content()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn analyze_content(&self) -> super::builder::participants::AnalyzeContent {
         super::builder::participants::AnalyzeContent::new(self.inner.clone())
     }
 
     /// Gets suggested articles for a participant based on specific historical
     /// messages.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Participants;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Participants
+    /// ) -> Result<()> {
+    ///     let response = client.suggest_articles()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn suggest_articles(&self) -> super::builder::participants::SuggestArticles {
         super::builder::participants::SuggestArticles::new(self.inner.clone())
     }
 
     /// Gets suggested faq answers for a participant based on specific historical
     /// messages.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Participants;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Participants
+    /// ) -> Result<()> {
+    ///     let response = client.suggest_faq_answers()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn suggest_faq_answers(&self) -> super::builder::participants::SuggestFaqAnswers {
         super::builder::participants::SuggestFaqAnswers::new(self.inner.clone())
     }
 
     /// Gets smart replies for a participant based on specific historical
     /// messages.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Participants;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Participants
+    /// ) -> Result<()> {
+    ///     let response = client.suggest_smart_replies()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn suggest_smart_replies(&self) -> super::builder::participants::SuggestSmartReplies {
         super::builder::participants::SuggestSmartReplies::new(self.inner.clone())
     }
 
     /// Gets knowledge assist suggestions based on historical messages.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Participants;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Participants
+    /// ) -> Result<()> {
+    ///     let response = client.suggest_knowledge_assist()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn suggest_knowledge_assist(&self) -> super::builder::participants::SuggestKnowledgeAssist {
         super::builder::participants::SuggestKnowledgeAssist::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Participants;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Participants
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::participants::ListLocations {
         super::builder::participants::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Participants;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Participants
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::participants::GetLocation {
         super::builder::participants::GetLocation::new(self.inner.clone())
     }
@@ -3756,6 +6852,24 @@ impl Participants {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Participants;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Participants
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::participants::ListOperations {
         super::builder::participants::ListOperations::new(self.inner.clone())
     }
@@ -3763,6 +6877,21 @@ impl Participants {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Participants;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Participants
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::participants::GetOperation {
         super::builder::participants::GetOperation::new(self.inner.clone())
     }
@@ -3770,6 +6899,20 @@ impl Participants {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Participants;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Participants
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::participants::CancelOperation {
         super::builder::participants::CancelOperation::new(self.inner.clone())
     }
@@ -3900,16 +7043,64 @@ impl Sessions {
     /// environments](https://cloud.google.com/dialogflow/es/docs/agents-versions).
     ///
     /// [google.cloud.dialogflow.v2.Participants.AnalyzeContent]: crate::client::Participants::analyze_content
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Sessions;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Sessions
+    /// ) -> Result<()> {
+    ///     let response = client.detect_intent()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn detect_intent(&self) -> super::builder::sessions::DetectIntent {
         super::builder::sessions::DetectIntent::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Sessions;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Sessions
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::sessions::ListLocations {
         super::builder::sessions::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Sessions;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Sessions
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::sessions::GetLocation {
         super::builder::sessions::GetLocation::new(self.inner.clone())
     }
@@ -3917,6 +7108,24 @@ impl Sessions {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Sessions;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Sessions
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::sessions::ListOperations {
         super::builder::sessions::ListOperations::new(self.inner.clone())
     }
@@ -3924,6 +7133,21 @@ impl Sessions {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Sessions;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Sessions
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::sessions::GetOperation {
         super::builder::sessions::GetOperation::new(self.inner.clone())
     }
@@ -3931,6 +7155,20 @@ impl Sessions {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Sessions;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Sessions
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::sessions::CancelOperation {
         super::builder::sessions::CancelOperation::new(self.inner.clone())
     }
@@ -4050,6 +7288,24 @@ impl SessionEntityTypes {
     /// This method doesn't work with Google Assistant integration.
     /// Contact Dialogflow support if you need to use session entities
     /// with Google Assistant integration.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::SessionEntityTypes;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &SessionEntityTypes, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_session_entity_types()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_session_entity_types(
         &self,
     ) -> super::builder::session_entity_types::ListSessionEntityTypes {
@@ -4061,6 +7317,21 @@ impl SessionEntityTypes {
     /// This method doesn't work with Google Assistant integration.
     /// Contact Dialogflow support if you need to use session entities
     /// with Google Assistant integration.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::SessionEntityTypes;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &SessionEntityTypes, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_session_entity_type()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_session_entity_type(
         &self,
     ) -> super::builder::session_entity_types::GetSessionEntityType {
@@ -4075,6 +7346,25 @@ impl SessionEntityTypes {
     /// This method doesn't work with Google Assistant integration.
     /// Contact Dialogflow support if you need to use session entities
     /// with Google Assistant integration.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::SessionEntityTypes;
+    /// use google_cloud_dialogflow_v2::model::SessionEntityType;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &SessionEntityTypes, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_session_entity_type()
+    ///         .set_parent(parent)
+    ///         .set_session_entity_type(
+    ///             SessionEntityType::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_session_entity_type(
         &self,
     ) -> super::builder::session_entity_types::CreateSessionEntityType {
@@ -4086,6 +7376,27 @@ impl SessionEntityTypes {
     /// This method doesn't work with Google Assistant integration.
     /// Contact Dialogflow support if you need to use session entities
     /// with Google Assistant integration.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::SessionEntityTypes;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_dialogflow_v2::model::SessionEntityType;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &SessionEntityTypes, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_session_entity_type()
+    ///         .set_session_entity_type(
+    ///             SessionEntityType::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_session_entity_type(
         &self,
     ) -> super::builder::session_entity_types::UpdateSessionEntityType {
@@ -4097,6 +7408,20 @@ impl SessionEntityTypes {
     /// This method doesn't work with Google Assistant integration.
     /// Contact Dialogflow support if you need to use session entities
     /// with Google Assistant integration.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::SessionEntityTypes;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &SessionEntityTypes, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_session_entity_type()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_session_entity_type(
         &self,
     ) -> super::builder::session_entity_types::DeleteSessionEntityType {
@@ -4104,11 +7429,44 @@ impl SessionEntityTypes {
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::SessionEntityTypes;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &SessionEntityTypes
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::session_entity_types::ListLocations {
         super::builder::session_entity_types::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::SessionEntityTypes;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &SessionEntityTypes
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::session_entity_types::GetLocation {
         super::builder::session_entity_types::GetLocation::new(self.inner.clone())
     }
@@ -4116,6 +7474,24 @@ impl SessionEntityTypes {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::SessionEntityTypes;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &SessionEntityTypes
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::session_entity_types::ListOperations {
         super::builder::session_entity_types::ListOperations::new(self.inner.clone())
     }
@@ -4123,6 +7499,21 @@ impl SessionEntityTypes {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::SessionEntityTypes;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &SessionEntityTypes
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::session_entity_types::GetOperation {
         super::builder::session_entity_types::GetOperation::new(self.inner.clone())
     }
@@ -4130,6 +7521,20 @@ impl SessionEntityTypes {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::SessionEntityTypes;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &SessionEntityTypes
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::session_entity_types::CancelOperation {
         super::builder::session_entity_types::CancelOperation::new(self.inner.clone())
     }
@@ -4243,36 +7648,156 @@ impl SipTrunks {
     }
 
     /// Creates a SipTrunk for a specified location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::SipTrunks;
+    /// use google_cloud_dialogflow_v2::model::SipTrunk;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &SipTrunks, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_sip_trunk()
+    ///         .set_parent(parent)
+    ///         .set_sip_trunk(
+    ///             SipTrunk::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_sip_trunk(&self) -> super::builder::sip_trunks::CreateSipTrunk {
         super::builder::sip_trunks::CreateSipTrunk::new(self.inner.clone())
     }
 
     /// Deletes a specified SipTrunk.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::SipTrunks;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &SipTrunks, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_sip_trunk()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_sip_trunk(&self) -> super::builder::sip_trunks::DeleteSipTrunk {
         super::builder::sip_trunks::DeleteSipTrunk::new(self.inner.clone())
     }
 
     /// Returns a list of SipTrunks in the specified location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::SipTrunks;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &SipTrunks, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_sip_trunks()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_sip_trunks(&self) -> super::builder::sip_trunks::ListSipTrunks {
         super::builder::sip_trunks::ListSipTrunks::new(self.inner.clone())
     }
 
     /// Retrieves the specified SipTrunk.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::SipTrunks;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &SipTrunks, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_sip_trunk()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_sip_trunk(&self) -> super::builder::sip_trunks::GetSipTrunk {
         super::builder::sip_trunks::GetSipTrunk::new(self.inner.clone())
     }
 
     /// Updates the specified SipTrunk.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::SipTrunks;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_dialogflow_v2::model::SipTrunk;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &SipTrunks, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_sip_trunk()
+    ///         .set_sip_trunk(
+    ///             SipTrunk::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_sip_trunk(&self) -> super::builder::sip_trunks::UpdateSipTrunk {
         super::builder::sip_trunks::UpdateSipTrunk::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::SipTrunks;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &SipTrunks
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::sip_trunks::ListLocations {
         super::builder::sip_trunks::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::SipTrunks;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &SipTrunks
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::sip_trunks::GetLocation {
         super::builder::sip_trunks::GetLocation::new(self.inner.clone())
     }
@@ -4280,6 +7805,24 @@ impl SipTrunks {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::SipTrunks;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &SipTrunks
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::sip_trunks::ListOperations {
         super::builder::sip_trunks::ListOperations::new(self.inner.clone())
     }
@@ -4287,6 +7830,21 @@ impl SipTrunks {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::SipTrunks;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &SipTrunks
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::sip_trunks::GetOperation {
         super::builder::sip_trunks::GetOperation::new(self.inner.clone())
     }
@@ -4294,6 +7852,20 @@ impl SipTrunks {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::SipTrunks;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &SipTrunks
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::sip_trunks::CancelOperation {
         super::builder::sip_trunks::CancelOperation::new(self.inner.clone())
     }
@@ -4407,36 +7979,156 @@ impl Tools {
     }
 
     /// Creates a tool.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Tools;
+    /// use google_cloud_dialogflow_v2::model::Tool;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Tools, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_tool()
+    ///         .set_parent(parent).set_tool_id("tool_id_value")
+    ///         .set_tool(
+    ///             Tool::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_tool(&self) -> super::builder::tools::CreateTool {
         super::builder::tools::CreateTool::new(self.inner.clone())
     }
 
     /// Retrieves a tool.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Tools;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Tools, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_tool()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_tool(&self) -> super::builder::tools::GetTool {
         super::builder::tools::GetTool::new(self.inner.clone())
     }
 
     /// Lists tools.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Tools;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Tools, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_tools()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_tools(&self) -> super::builder::tools::ListTools {
         super::builder::tools::ListTools::new(self.inner.clone())
     }
 
     /// Deletes a tool.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Tools;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Tools, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_tool()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_tool(&self) -> super::builder::tools::DeleteTool {
         super::builder::tools::DeleteTool::new(self.inner.clone())
     }
 
     /// Updates a tool.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Tools;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_dialogflow_v2::model::Tool;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Tools, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_tool()
+    ///         .set_tool(
+    ///             Tool::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_tool(&self) -> super::builder::tools::UpdateTool {
         super::builder::tools::UpdateTool::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Tools;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Tools
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::tools::ListLocations {
         super::builder::tools::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Tools;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Tools
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::tools::GetLocation {
         super::builder::tools::GetLocation::new(self.inner.clone())
     }
@@ -4444,6 +8136,24 @@ impl Tools {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Tools;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Tools
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::tools::ListOperations {
         super::builder::tools::ListOperations::new(self.inner.clone())
     }
@@ -4451,6 +8161,21 @@ impl Tools {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Tools;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Tools
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::tools::GetOperation {
         super::builder::tools::GetOperation::new(self.inner.clone())
     }
@@ -4458,6 +8183,20 @@ impl Tools {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Tools;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Tools
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::tools::CancelOperation {
         super::builder::tools::CancelOperation::new(self.inner.clone())
     }
@@ -4571,11 +8310,44 @@ impl Versions {
     }
 
     /// Returns the list of all versions of the specified agent.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Versions;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Versions, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_versions()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_versions(&self) -> super::builder::versions::ListVersions {
         super::builder::versions::ListVersions::new(self.inner.clone())
     }
 
     /// Retrieves the specified agent version.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Versions;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Versions, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_version()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_version(&self) -> super::builder::versions::GetVersion {
         super::builder::versions::GetVersion::new(self.inner.clone())
     }
@@ -4583,6 +8355,25 @@ impl Versions {
     /// Creates an agent version.
     ///
     /// The new version points to the agent instance in the "default" environment.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Versions;
+    /// use google_cloud_dialogflow_v2::model::Version;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Versions, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_version()
+    ///         .set_parent(parent)
+    ///         .set_version(
+    ///             Version::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_version(&self) -> super::builder::versions::CreateVersion {
         super::builder::versions::CreateVersion::new(self.inner.clone())
     }
@@ -4592,21 +8383,89 @@ impl Versions {
     /// Note that this method does not allow you to update the state of the agent
     /// the given version points to. It allows you to update only mutable
     /// properties of the version resource.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Versions;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_dialogflow_v2::model::Version;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Versions, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_version()
+    ///         .set_version(
+    ///             Version::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_version(&self) -> super::builder::versions::UpdateVersion {
         super::builder::versions::UpdateVersion::new(self.inner.clone())
     }
 
     /// Delete the specified agent version.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Versions;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Versions, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_version()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_version(&self) -> super::builder::versions::DeleteVersion {
         super::builder::versions::DeleteVersion::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Versions;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Versions
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::versions::ListLocations {
         super::builder::versions::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Versions;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Versions
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::versions::GetLocation {
         super::builder::versions::GetLocation::new(self.inner.clone())
     }
@@ -4614,6 +8473,24 @@ impl Versions {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Versions;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Versions
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::versions::ListOperations {
         super::builder::versions::ListOperations::new(self.inner.clone())
     }
@@ -4621,6 +8498,21 @@ impl Versions {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Versions;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Versions
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::versions::GetOperation {
         super::builder::versions::GetOperation::new(self.inner.clone())
     }
@@ -4628,6 +8520,20 @@ impl Versions {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dialogflow_v2::client::Versions;
+    /// use google_cloud_dialogflow_v2::Result;
+    /// async fn sample(
+    ///    client: &Versions
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::versions::CancelOperation {
         super::builder::versions::CancelOperation::new(self.inner.clone())
     }

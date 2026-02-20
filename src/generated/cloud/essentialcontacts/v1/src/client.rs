@@ -121,27 +121,114 @@ impl EssentialContactsService {
     }
 
     /// Adds a new contact for a resource.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_essentialcontacts_v1::client::EssentialContactsService;
+    /// use google_cloud_essentialcontacts_v1::model::Contact;
+    /// use google_cloud_essentialcontacts_v1::Result;
+    /// async fn sample(
+    ///    client: &EssentialContactsService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_contact()
+    ///         .set_parent(parent)
+    ///         .set_contact(
+    ///             Contact::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_contact(&self) -> super::builder::essential_contacts_service::CreateContact {
         super::builder::essential_contacts_service::CreateContact::new(self.inner.clone())
     }
 
     /// Updates a contact.
     /// Note: A contact's email address cannot be changed.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_essentialcontacts_v1::client::EssentialContactsService;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_essentialcontacts_v1::model::Contact;
+    /// use google_cloud_essentialcontacts_v1::Result;
+    /// async fn sample(
+    ///    client: &EssentialContactsService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_contact()
+    ///         .set_contact(
+    ///             Contact::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_contact(&self) -> super::builder::essential_contacts_service::UpdateContact {
         super::builder::essential_contacts_service::UpdateContact::new(self.inner.clone())
     }
 
     /// Lists the contacts that have been set on a resource.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_essentialcontacts_v1::client::EssentialContactsService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_essentialcontacts_v1::Result;
+    /// async fn sample(
+    ///    client: &EssentialContactsService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_contacts()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_contacts(&self) -> super::builder::essential_contacts_service::ListContacts {
         super::builder::essential_contacts_service::ListContacts::new(self.inner.clone())
     }
 
     /// Gets a single contact.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_essentialcontacts_v1::client::EssentialContactsService;
+    /// use google_cloud_essentialcontacts_v1::Result;
+    /// async fn sample(
+    ///    client: &EssentialContactsService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_contact()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_contact(&self) -> super::builder::essential_contacts_service::GetContact {
         super::builder::essential_contacts_service::GetContact::new(self.inner.clone())
     }
 
     /// Deletes a contact.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_essentialcontacts_v1::client::EssentialContactsService;
+    /// use google_cloud_essentialcontacts_v1::Result;
+    /// async fn sample(
+    ///    client: &EssentialContactsService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_contact()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_contact(&self) -> super::builder::essential_contacts_service::DeleteContact {
         super::builder::essential_contacts_service::DeleteContact::new(self.inner.clone())
     }
@@ -149,12 +236,44 @@ impl EssentialContactsService {
     /// Lists all contacts for the resource that are subscribed to the
     /// specified notification categories, including contacts inherited from
     /// any parent resources.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_essentialcontacts_v1::client::EssentialContactsService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_essentialcontacts_v1::Result;
+    /// async fn sample(
+    ///    client: &EssentialContactsService
+    /// ) -> Result<()> {
+    ///     let mut list = client.compute_contacts()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn compute_contacts(&self) -> super::builder::essential_contacts_service::ComputeContacts {
         super::builder::essential_contacts_service::ComputeContacts::new(self.inner.clone())
     }
 
     /// Allows a contact admin to send a test message to contact to verify that it
     /// has been configured correctly.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_essentialcontacts_v1::client::EssentialContactsService;
+    /// use google_cloud_essentialcontacts_v1::Result;
+    /// async fn sample(
+    ///    client: &EssentialContactsService
+    /// ) -> Result<()> {
+    ///     client.send_test_message()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn send_test_message(&self) -> super::builder::essential_contacts_service::SendTestMessage {
         super::builder::essential_contacts_service::SendTestMessage::new(self.inner.clone())
     }

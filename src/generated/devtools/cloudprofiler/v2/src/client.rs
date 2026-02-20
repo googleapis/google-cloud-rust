@@ -140,6 +140,21 @@ impl ProfilerService {
     /// status. To a gRPC client, the extension will be return as a
     /// binary-serialized proto in the trailing metadata item named
     /// "google.rpc.retryinfo-bin".
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_profiler_v2::client::ProfilerService;
+    /// use google_cloud_profiler_v2::Result;
+    /// async fn sample(
+    ///    client: &ProfilerService
+    /// ) -> Result<()> {
+    ///     let response = client.create_profile()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_profile(&self) -> super::builder::profiler_service::CreateProfile {
         super::builder::profiler_service::CreateProfile::new(self.inner.clone())
     }
@@ -152,6 +167,25 @@ impl ProfilerService {
     /// profiler
     /// agent](https://cloud.google.com/profiler/docs/about-profiler#profiling_agent)
     /// instead for profile collection._
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_profiler_v2::client::ProfilerService;
+    /// use google_cloud_profiler_v2::model::Profile;
+    /// use google_cloud_profiler_v2::Result;
+    /// async fn sample(
+    ///    client: &ProfilerService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_offline_profile()
+    ///         .set_parent(parent)
+    ///         .set_profile(
+    ///             Profile::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_offline_profile(&self) -> super::builder::profiler_service::CreateOfflineProfile {
         super::builder::profiler_service::CreateOfflineProfile::new(self.inner.clone())
     }
@@ -165,6 +199,27 @@ impl ProfilerService {
     /// profiler
     /// agent](https://cloud.google.com/profiler/docs/about-profiler#profiling_agent)
     /// instead for profile collection._
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_profiler_v2::client::ProfilerService;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_profiler_v2::model::Profile;
+    /// use google_cloud_profiler_v2::Result;
+    /// async fn sample(
+    ///    client: &ProfilerService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_profile()
+    ///         .set_profile(
+    ///             Profile::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_profile(&self) -> super::builder::profiler_service::UpdateProfile {
         super::builder::profiler_service::UpdateProfile::new(self.inner.clone())
     }
@@ -275,6 +330,24 @@ impl ExportService {
 
     /// Lists profiles which have been collected so far and for which the caller
     /// has permission to view.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_profiler_v2::client::ExportService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_profiler_v2::Result;
+    /// async fn sample(
+    ///    client: &ExportService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_profiles()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_profiles(&self) -> super::builder::export_service::ListProfiles {
         super::builder::export_service::ListProfiles::new(self.inner.clone())
     }

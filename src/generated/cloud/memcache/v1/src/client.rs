@@ -134,11 +134,44 @@ impl CloudMemcache {
     }
 
     /// Lists Instances in a given location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_memcache_v1::client::CloudMemcache;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_memcache_v1::Result;
+    /// async fn sample(
+    ///    client: &CloudMemcache, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_instances()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_instances(&self) -> super::builder::cloud_memcache::ListInstances {
         super::builder::cloud_memcache::ListInstances::new(self.inner.clone())
     }
 
     /// Gets details of a single Instance.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_memcache_v1::client::CloudMemcache;
+    /// use google_cloud_memcache_v1::Result;
+    /// async fn sample(
+    ///    client: &CloudMemcache, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_instance()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_instance(&self) -> super::builder::cloud_memcache::GetInstance {
         super::builder::cloud_memcache::GetInstance::new(self.inner.clone())
     }
@@ -154,6 +187,26 @@ impl CloudMemcache {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_memcache_v1::client::CloudMemcache;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_memcache_v1::model::Instance;
+    /// use google_cloud_memcache_v1::Result;
+    /// async fn sample(
+    ///    client: &CloudMemcache, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_instance()
+    ///         .set_parent(parent).set_instance_id("instance_id_value")
+    ///         .set_instance(
+    ///             Instance::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_instance(&self) -> super::builder::cloud_memcache::CreateInstance {
         super::builder::cloud_memcache::CreateInstance::new(self.inner.clone())
     }
@@ -169,6 +222,28 @@ impl CloudMemcache {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_memcache_v1::client::CloudMemcache;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_memcache_v1::model::Instance;
+    /// use google_cloud_memcache_v1::Result;
+    /// async fn sample(
+    ///    client: &CloudMemcache, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_instance()
+    ///         .set_instance(
+    ///             Instance::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_instance(&self) -> super::builder::cloud_memcache::UpdateInstance {
         super::builder::cloud_memcache::UpdateInstance::new(self.inner.clone())
     }
@@ -187,6 +262,22 @@ impl CloudMemcache {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_memcache_v1::client::CloudMemcache;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_memcache_v1::Result;
+    /// async fn sample(
+    ///    client: &CloudMemcache
+    /// ) -> Result<()> {
+    ///     let response = client.update_parameters()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_parameters(&self) -> super::builder::cloud_memcache::UpdateParameters {
         super::builder::cloud_memcache::UpdateParameters::new(self.inner.clone())
     }
@@ -202,6 +293,21 @@ impl CloudMemcache {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_memcache_v1::client::CloudMemcache;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_memcache_v1::Result;
+    /// async fn sample(
+    ///    client: &CloudMemcache, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_instance()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_instance(&self) -> super::builder::cloud_memcache::DeleteInstance {
         super::builder::cloud_memcache::DeleteInstance::new(self.inner.clone())
     }
@@ -218,6 +324,22 @@ impl CloudMemcache {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_memcache_v1::client::CloudMemcache;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_memcache_v1::Result;
+    /// async fn sample(
+    ///    client: &CloudMemcache
+    /// ) -> Result<()> {
+    ///     let response = client.apply_parameters()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn apply_parameters(&self) -> super::builder::cloud_memcache::ApplyParameters {
         super::builder::cloud_memcache::ApplyParameters::new(self.inner.clone())
     }
@@ -233,16 +355,65 @@ impl CloudMemcache {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_memcache_v1::client::CloudMemcache;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_memcache_v1::Result;
+    /// async fn sample(
+    ///    client: &CloudMemcache
+    /// ) -> Result<()> {
+    ///     let response = client.reschedule_maintenance()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn reschedule_maintenance(&self) -> super::builder::cloud_memcache::RescheduleMaintenance {
         super::builder::cloud_memcache::RescheduleMaintenance::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_memcache_v1::client::CloudMemcache;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_memcache_v1::Result;
+    /// async fn sample(
+    ///    client: &CloudMemcache
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::cloud_memcache::ListLocations {
         super::builder::cloud_memcache::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_memcache_v1::client::CloudMemcache;
+    /// use google_cloud_memcache_v1::Result;
+    /// async fn sample(
+    ///    client: &CloudMemcache
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::cloud_memcache::GetLocation {
         super::builder::cloud_memcache::GetLocation::new(self.inner.clone())
     }
@@ -250,6 +421,24 @@ impl CloudMemcache {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_memcache_v1::client::CloudMemcache;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_memcache_v1::Result;
+    /// async fn sample(
+    ///    client: &CloudMemcache
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::cloud_memcache::ListOperations {
         super::builder::cloud_memcache::ListOperations::new(self.inner.clone())
     }
@@ -257,6 +446,21 @@ impl CloudMemcache {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_memcache_v1::client::CloudMemcache;
+    /// use google_cloud_memcache_v1::Result;
+    /// async fn sample(
+    ///    client: &CloudMemcache
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::cloud_memcache::GetOperation {
         super::builder::cloud_memcache::GetOperation::new(self.inner.clone())
     }
@@ -264,6 +468,20 @@ impl CloudMemcache {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_memcache_v1::client::CloudMemcache;
+    /// use google_cloud_memcache_v1::Result;
+    /// async fn sample(
+    ///    client: &CloudMemcache
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::cloud_memcache::DeleteOperation {
         super::builder::cloud_memcache::DeleteOperation::new(self.inner.clone())
     }
@@ -271,6 +489,20 @@ impl CloudMemcache {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_memcache_v1::client::CloudMemcache;
+    /// use google_cloud_memcache_v1::Result;
+    /// async fn sample(
+    ///    client: &CloudMemcache
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::cloud_memcache::CancelOperation {
         super::builder::cloud_memcache::CancelOperation::new(self.inner.clone())
     }

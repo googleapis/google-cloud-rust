@@ -4714,6 +4714,10 @@ pub struct StreamingRecognitionFeatures {
     pub voice_activity_timeout:
         std::option::Option<crate::model::streaming_recognition_features::VoiceActivityTimeout>,
 
+    /// Optional. Endpointing sensitivity for this stream.
+    pub endpointing_sensitivity:
+        crate::model::streaming_recognition_features::EndpointingSensitivity,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -4776,6 +4780,26 @@ impl StreamingRecognitionFeatures {
         T: std::convert::Into<crate::model::streaming_recognition_features::VoiceActivityTimeout>,
     {
         self.voice_activity_timeout = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [endpointing_sensitivity][crate::model::StreamingRecognitionFeatures::endpointing_sensitivity].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_speech_v2::model::StreamingRecognitionFeatures;
+    /// use google_cloud_speech_v2::model::streaming_recognition_features::EndpointingSensitivity;
+    /// let x0 = StreamingRecognitionFeatures::new().set_endpointing_sensitivity(EndpointingSensitivity::Standard);
+    /// let x1 = StreamingRecognitionFeatures::new().set_endpointing_sensitivity(EndpointingSensitivity::Supershort);
+    /// let x2 = StreamingRecognitionFeatures::new().set_endpointing_sensitivity(EndpointingSensitivity::Short);
+    /// ```
+    pub fn set_endpointing_sensitivity<
+        T: std::convert::Into<crate::model::streaming_recognition_features::EndpointingSensitivity>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.endpointing_sensitivity = v.into();
         self
     }
 }
@@ -4883,6 +4907,154 @@ pub mod streaming_recognition_features {
     impl wkt::message::Message for VoiceActivityTimeout {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.speech.v2.StreamingRecognitionFeatures.VoiceActivityTimeout"
+        }
+    }
+
+    /// Endpointing sensitivity is intended for applications that want to minimize
+    /// result latency, possibly at the expense of quality. Some utterances may be
+    /// broken up into multiple fragments.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum EndpointingSensitivity {
+        /// If no value is specified, the values for
+        /// ENDPOINTING_SENSITIVITY_STANDARD will be used.
+        Unspecified,
+        /// Standard sensitivity, no optimization for latency.
+        Standard,
+        /// Super short sensitivity, optimized for super short utterances like single
+        /// words ("Yes", "No", "Hello", etc.) or a single phrase, command or short
+        /// query (e.g. "check balance", "five dollars", "call Mom").
+        Supershort,
+        /// Short sensitivity, optimized for short utterances like single sentences.
+        /// (e.g. "Remind me to call the dentist tomorrow morning at nine",
+        /// "Navigate to the nearest coffee shop that is currently open")
+        Short,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [EndpointingSensitivity::value] or
+        /// [EndpointingSensitivity::name].
+        UnknownValue(endpointing_sensitivity::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod endpointing_sensitivity {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl EndpointingSensitivity {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Standard => std::option::Option::Some(1),
+                Self::Supershort => std::option::Option::Some(2),
+                Self::Short => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => {
+                    std::option::Option::Some("ENDPOINTING_SENSITIVITY_UNSPECIFIED")
+                }
+                Self::Standard => std::option::Option::Some("ENDPOINTING_SENSITIVITY_STANDARD"),
+                Self::Supershort => std::option::Option::Some("ENDPOINTING_SENSITIVITY_SUPERSHORT"),
+                Self::Short => std::option::Option::Some("ENDPOINTING_SENSITIVITY_SHORT"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for EndpointingSensitivity {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for EndpointingSensitivity {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for EndpointingSensitivity {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Standard,
+                2 => Self::Supershort,
+                3 => Self::Short,
+                _ => Self::UnknownValue(endpointing_sensitivity::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for EndpointingSensitivity {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "ENDPOINTING_SENSITIVITY_UNSPECIFIED" => Self::Unspecified,
+                "ENDPOINTING_SENSITIVITY_STANDARD" => Self::Standard,
+                "ENDPOINTING_SENSITIVITY_SUPERSHORT" => Self::Supershort,
+                "ENDPOINTING_SENSITIVITY_SHORT" => Self::Short,
+                _ => Self::UnknownValue(endpointing_sensitivity::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for EndpointingSensitivity {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Standard => serializer.serialize_i32(1),
+                Self::Supershort => serializer.serialize_i32(2),
+                Self::Short => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for EndpointingSensitivity {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<EndpointingSensitivity>::new(
+                ".google.cloud.speech.v2.StreamingRecognitionFeatures.EndpointingSensitivity",
+            ))
         }
     }
 }

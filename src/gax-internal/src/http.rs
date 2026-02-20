@@ -87,11 +87,8 @@ impl ReqwestClient {
             builder = builder.redirect(::reqwest::redirect::Policy::none());
         }
         let inner = builder.build().map_err(BuilderError::transport)?;
-        let host = crate::host::from_endpoint(
-            config.endpoint.as_deref(),
-            default_endpoint,
-            |_origin, host| host,
-        )?;
+        let host = crate::host::header(config.endpoint.as_deref(), default_endpoint)
+            .map_err(|e| e.client_builder())?;
         let tracing_enabled = crate::options::tracing_enabled(&config);
         let endpoint = config
             .endpoint
@@ -427,7 +424,7 @@ async fn to_http_response<O: serde::de::DeserializeOwned + Default>(
 mod tests {
     use super::*;
     #[cfg(google_cloud_unstable_tracing)]
-    use crate::observability::create_client_request_span;
+    use crate::client_request_span;
     use crate::options::ClientConfig;
     use crate::options::InstrumentationClientInfo;
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
@@ -654,8 +651,7 @@ mod tests {
     #[cfg(google_cloud_unstable_tracing)]
     async fn test_t3_span_enrichment() {
         let guard = TestLayer::initialize();
-        let t3_span =
-            create_client_request_span("t3_span", "test_method", &TEST_INSTRUMENTATION_INFO);
+        let t3_span = client_request_span!("Service", "test_method", &TEST_INSTRUMENTATION_INFO);
 
         // Simulate T4 span scope ending before calling to_http_response
         {
@@ -689,7 +685,7 @@ mod tests {
             t3_captured
                 .attributes
                 .get(crate::observability::attributes::keys::OTEL_NAME),
-            Some(&"t3_span".into())
+            Some(&"google_cloud_gax_internal::Service::test_method".into())
         );
 
         assert_eq!(

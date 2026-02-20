@@ -123,11 +123,44 @@ impl Policies {
     ///
     /// The response lists only policy metadata. In particular, policy rules are
     /// omitted.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_v2::client::Policies;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_iam_v2::Result;
+    /// async fn sample(
+    ///    client: &Policies
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_policies()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_policies(&self) -> super::builder::policies::ListPolicies {
         super::builder::policies::ListPolicies::new(self.inner.clone())
     }
 
     /// Gets a policy.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_v2::client::Policies;
+    /// use google_cloud_iam_v2::Result;
+    /// async fn sample(
+    ///    client: &Policies
+    /// ) -> Result<()> {
+    ///     let response = client.get_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_policy(&self) -> super::builder::policies::GetPolicy {
         super::builder::policies::GetPolicy::new(self.inner.clone())
     }
@@ -143,6 +176,22 @@ impl Policies {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_v2::client::Policies;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_iam_v2::Result;
+    /// async fn sample(
+    ///    client: &Policies
+    /// ) -> Result<()> {
+    ///     let response = client.create_policy()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_policy(&self) -> super::builder::policies::CreatePolicy {
         super::builder::policies::CreatePolicy::new(self.inner.clone())
     }
@@ -170,6 +219,22 @@ impl Policies {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_v2::client::Policies;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_iam_v2::Result;
+    /// async fn sample(
+    ///    client: &Policies
+    /// ) -> Result<()> {
+    ///     let response = client.update_policy()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_policy(&self) -> super::builder::policies::UpdatePolicy {
         super::builder::policies::UpdatePolicy::new(self.inner.clone())
     }
@@ -185,6 +250,22 @@ impl Policies {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_v2::client::Policies;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_iam_v2::Result;
+    /// async fn sample(
+    ///    client: &Policies
+    /// ) -> Result<()> {
+    ///     let response = client.delete_policy()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_policy(&self) -> super::builder::policies::DeletePolicy {
         super::builder::policies::DeletePolicy::new(self.inner.clone())
     }
@@ -192,6 +273,21 @@ impl Policies {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_v2::client::Policies;
+    /// use google_cloud_iam_v2::Result;
+    /// async fn sample(
+    ///    client: &Policies
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::policies::GetOperation {
         super::builder::policies::GetOperation::new(self.inner.clone())
     }

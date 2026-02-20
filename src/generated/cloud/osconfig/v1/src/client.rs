@@ -124,28 +124,109 @@ impl OsConfigService {
     }
 
     /// Patch VM instances by creating and running a patch job.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_osconfig_v1::client::OsConfigService;
+    /// use google_cloud_osconfig_v1::Result;
+    /// async fn sample(
+    ///    client: &OsConfigService
+    /// ) -> Result<()> {
+    ///     let response = client.execute_patch_job()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn execute_patch_job(&self) -> super::builder::os_config_service::ExecutePatchJob {
         super::builder::os_config_service::ExecutePatchJob::new(self.inner.clone())
     }
 
     /// Get the patch job. This can be used to track the progress of an
     /// ongoing patch job or review the details of completed jobs.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_osconfig_v1::client::OsConfigService;
+    /// use google_cloud_osconfig_v1::Result;
+    /// async fn sample(
+    ///    client: &OsConfigService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_patch_job()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_patch_job(&self) -> super::builder::os_config_service::GetPatchJob {
         super::builder::os_config_service::GetPatchJob::new(self.inner.clone())
     }
 
     /// Cancel a patch job. The patch job must be active. Canceled patch jobs
     /// cannot be restarted.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_osconfig_v1::client::OsConfigService;
+    /// use google_cloud_osconfig_v1::Result;
+    /// async fn sample(
+    ///    client: &OsConfigService
+    /// ) -> Result<()> {
+    ///     let response = client.cancel_patch_job()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_patch_job(&self) -> super::builder::os_config_service::CancelPatchJob {
         super::builder::os_config_service::CancelPatchJob::new(self.inner.clone())
     }
 
     /// Get a list of patch jobs.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_osconfig_v1::client::OsConfigService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_osconfig_v1::Result;
+    /// async fn sample(
+    ///    client: &OsConfigService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_patch_jobs()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_patch_jobs(&self) -> super::builder::os_config_service::ListPatchJobs {
         super::builder::os_config_service::ListPatchJobs::new(self.inner.clone())
     }
 
     /// Get a list of instance details for a given patch job.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_osconfig_v1::client::OsConfigService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_osconfig_v1::Result;
+    /// async fn sample(
+    ///    client: &OsConfigService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_patch_job_instance_details()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_patch_job_instance_details(
         &self,
     ) -> super::builder::os_config_service::ListPatchJobInstanceDetails {
@@ -153,6 +234,25 @@ impl OsConfigService {
     }
 
     /// Create an OS Config patch deployment.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_osconfig_v1::client::OsConfigService;
+    /// use google_cloud_osconfig_v1::model::PatchDeployment;
+    /// use google_cloud_osconfig_v1::Result;
+    /// async fn sample(
+    ///    client: &OsConfigService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_patch_deployment()
+    ///         .set_parent(parent)
+    ///         .set_patch_deployment(
+    ///             PatchDeployment::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_patch_deployment(
         &self,
     ) -> super::builder::os_config_service::CreatePatchDeployment {
@@ -160,11 +260,44 @@ impl OsConfigService {
     }
 
     /// Get an OS Config patch deployment.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_osconfig_v1::client::OsConfigService;
+    /// use google_cloud_osconfig_v1::Result;
+    /// async fn sample(
+    ///    client: &OsConfigService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_patch_deployment()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_patch_deployment(&self) -> super::builder::os_config_service::GetPatchDeployment {
         super::builder::os_config_service::GetPatchDeployment::new(self.inner.clone())
     }
 
     /// Get a page of OS Config patch deployments.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_osconfig_v1::client::OsConfigService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_osconfig_v1::Result;
+    /// async fn sample(
+    ///    client: &OsConfigService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_patch_deployments()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_patch_deployments(
         &self,
     ) -> super::builder::os_config_service::ListPatchDeployments {
@@ -172,6 +305,20 @@ impl OsConfigService {
     }
 
     /// Delete an OS Config patch deployment.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_osconfig_v1::client::OsConfigService;
+    /// use google_cloud_osconfig_v1::Result;
+    /// async fn sample(
+    ///    client: &OsConfigService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_patch_deployment()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_patch_deployment(
         &self,
     ) -> super::builder::os_config_service::DeletePatchDeployment {
@@ -179,6 +326,27 @@ impl OsConfigService {
     }
 
     /// Update an OS Config patch deployment.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_osconfig_v1::client::OsConfigService;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_osconfig_v1::model::PatchDeployment;
+    /// use google_cloud_osconfig_v1::Result;
+    /// async fn sample(
+    ///    client: &OsConfigService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_patch_deployment()
+    ///         .set_patch_deployment(
+    ///             PatchDeployment::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_patch_deployment(
         &self,
     ) -> super::builder::os_config_service::UpdatePatchDeployment {
@@ -187,6 +355,21 @@ impl OsConfigService {
 
     /// Change state of patch deployment to "PAUSED".
     /// Patch deployment in paused state doesn't generate patch jobs.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_osconfig_v1::client::OsConfigService;
+    /// use google_cloud_osconfig_v1::Result;
+    /// async fn sample(
+    ///    client: &OsConfigService
+    /// ) -> Result<()> {
+    ///     let response = client.pause_patch_deployment()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn pause_patch_deployment(
         &self,
     ) -> super::builder::os_config_service::PausePatchDeployment {
@@ -195,6 +378,21 @@ impl OsConfigService {
 
     /// Change state of patch deployment back to "ACTIVE".
     /// Patch deployment in active state continues to generate patch jobs.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_osconfig_v1::client::OsConfigService;
+    /// use google_cloud_osconfig_v1::Result;
+    /// async fn sample(
+    ///    client: &OsConfigService
+    /// ) -> Result<()> {
+    ///     let response = client.resume_patch_deployment()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn resume_patch_deployment(
         &self,
     ) -> super::builder::os_config_service::ResumePatchDeployment {
@@ -204,6 +402,21 @@ impl OsConfigService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_osconfig_v1::client::OsConfigService;
+    /// use google_cloud_osconfig_v1::Result;
+    /// async fn sample(
+    ///    client: &OsConfigService
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::os_config_service::GetOperation {
         super::builder::os_config_service::GetOperation::new(self.inner.clone())
     }
@@ -211,6 +424,20 @@ impl OsConfigService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_osconfig_v1::client::OsConfigService;
+    /// use google_cloud_osconfig_v1::Result;
+    /// async fn sample(
+    ///    client: &OsConfigService
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::os_config_service::CancelOperation {
         super::builder::os_config_service::CancelOperation::new(self.inner.clone())
     }
@@ -341,6 +568,26 @@ impl OsConfigZonalService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_osconfig_v1::client::OsConfigZonalService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_osconfig_v1::model::OSPolicyAssignment;
+    /// use google_cloud_osconfig_v1::Result;
+    /// async fn sample(
+    ///    client: &OsConfigZonalService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_os_policy_assignment()
+    ///         .set_parent(parent)
+    ///         .set_os_policy_assignment(
+    ///             OSPolicyAssignment::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_os_policy_assignment(
         &self,
     ) -> super::builder::os_config_zonal_service::CreateOSPolicyAssignment {
@@ -366,6 +613,28 @@ impl OsConfigZonalService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_osconfig_v1::client::OsConfigZonalService;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_osconfig_v1::model::OSPolicyAssignment;
+    /// use google_cloud_osconfig_v1::Result;
+    /// async fn sample(
+    ///    client: &OsConfigZonalService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_os_policy_assignment()
+    ///         .set_os_policy_assignment(
+    ///             OSPolicyAssignment::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_os_policy_assignment(
         &self,
     ) -> super::builder::os_config_zonal_service::UpdateOSPolicyAssignment {
@@ -377,6 +646,21 @@ impl OsConfigZonalService {
     /// This method always returns the latest revision. In order to retrieve a
     /// previous revision of the assignment, also provide the revision ID in the
     /// `name` parameter.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_osconfig_v1::client::OsConfigZonalService;
+    /// use google_cloud_osconfig_v1::Result;
+    /// async fn sample(
+    ///    client: &OsConfigZonalService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_os_policy_assignment()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_os_policy_assignment(
         &self,
     ) -> super::builder::os_config_zonal_service::GetOSPolicyAssignment {
@@ -386,6 +670,24 @@ impl OsConfigZonalService {
     /// List the OS policy assignments under the parent resource.
     ///
     /// For each OS policy assignment, the latest revision is returned.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_osconfig_v1::client::OsConfigZonalService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_osconfig_v1::Result;
+    /// async fn sample(
+    ///    client: &OsConfigZonalService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_os_policy_assignments()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_os_policy_assignments(
         &self,
     ) -> super::builder::os_config_zonal_service::ListOSPolicyAssignments {
@@ -393,6 +695,24 @@ impl OsConfigZonalService {
     }
 
     /// List the OS policy assignment revisions for a given OS policy assignment.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_osconfig_v1::client::OsConfigZonalService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_osconfig_v1::Result;
+    /// async fn sample(
+    ///    client: &OsConfigZonalService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_os_policy_assignment_revisions()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_os_policy_assignment_revisions(
         &self,
     ) -> super::builder::os_config_zonal_service::ListOSPolicyAssignmentRevisions {
@@ -423,6 +743,21 @@ impl OsConfigZonalService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_osconfig_v1::client::OsConfigZonalService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_osconfig_v1::Result;
+    /// async fn sample(
+    ///    client: &OsConfigZonalService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_os_policy_assignment()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_os_policy_assignment(
         &self,
     ) -> super::builder::os_config_zonal_service::DeleteOSPolicyAssignment {
@@ -431,6 +766,21 @@ impl OsConfigZonalService {
 
     /// Get the OS policy asssignment report for the specified Compute Engine VM
     /// instance.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_osconfig_v1::client::OsConfigZonalService;
+    /// use google_cloud_osconfig_v1::Result;
+    /// async fn sample(
+    ///    client: &OsConfigZonalService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_os_policy_assignment_report()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_os_policy_assignment_report(
         &self,
     ) -> super::builder::os_config_zonal_service::GetOSPolicyAssignmentReport {
@@ -441,6 +791,24 @@ impl OsConfigZonalService {
 
     /// List OS policy asssignment reports for all Compute Engine VM instances in
     /// the specified zone.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_osconfig_v1::client::OsConfigZonalService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_osconfig_v1::Result;
+    /// async fn sample(
+    ///    client: &OsConfigZonalService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_os_policy_assignment_reports()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_os_policy_assignment_reports(
         &self,
     ) -> super::builder::os_config_zonal_service::ListOSPolicyAssignmentReports {
@@ -451,17 +819,65 @@ impl OsConfigZonalService {
 
     /// Get inventory data for the specified VM instance. If the VM has no
     /// associated inventory, the message `NOT_FOUND` is returned.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_osconfig_v1::client::OsConfigZonalService;
+    /// use google_cloud_osconfig_v1::Result;
+    /// async fn sample(
+    ///    client: &OsConfigZonalService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_inventory()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_inventory(&self) -> super::builder::os_config_zonal_service::GetInventory {
         super::builder::os_config_zonal_service::GetInventory::new(self.inner.clone())
     }
 
     /// List inventory data for all VM instances in the specified zone.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_osconfig_v1::client::OsConfigZonalService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_osconfig_v1::Result;
+    /// async fn sample(
+    ///    client: &OsConfigZonalService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_inventories()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_inventories(&self) -> super::builder::os_config_zonal_service::ListInventories {
         super::builder::os_config_zonal_service::ListInventories::new(self.inner.clone())
     }
 
     /// Gets the vulnerability report for the specified VM instance. Only VMs with
     /// inventory data have vulnerability reports associated with them.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_osconfig_v1::client::OsConfigZonalService;
+    /// use google_cloud_osconfig_v1::Result;
+    /// async fn sample(
+    ///    client: &OsConfigZonalService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_vulnerability_report()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_vulnerability_report(
         &self,
     ) -> super::builder::os_config_zonal_service::GetVulnerabilityReport {
@@ -469,6 +885,24 @@ impl OsConfigZonalService {
     }
 
     /// List vulnerability reports for all VM instances in the specified zone.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_osconfig_v1::client::OsConfigZonalService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_osconfig_v1::Result;
+    /// async fn sample(
+    ///    client: &OsConfigZonalService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_vulnerability_reports()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_vulnerability_reports(
         &self,
     ) -> super::builder::os_config_zonal_service::ListVulnerabilityReports {
@@ -478,6 +912,21 @@ impl OsConfigZonalService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_osconfig_v1::client::OsConfigZonalService;
+    /// use google_cloud_osconfig_v1::Result;
+    /// async fn sample(
+    ///    client: &OsConfigZonalService
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::os_config_zonal_service::GetOperation {
         super::builder::os_config_zonal_service::GetOperation::new(self.inner.clone())
     }
@@ -485,6 +934,20 @@ impl OsConfigZonalService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_osconfig_v1::client::OsConfigZonalService;
+    /// use google_cloud_osconfig_v1::Result;
+    /// async fn sample(
+    ///    client: &OsConfigZonalService
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::os_config_zonal_service::CancelOperation {
         super::builder::os_config_zonal_service::CancelOperation::new(self.inner.clone())
     }
