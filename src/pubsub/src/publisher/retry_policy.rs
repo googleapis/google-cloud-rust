@@ -47,15 +47,6 @@ pub(crate) fn default_retry_policy() -> impl RetryPolicy {
     RetryableErrors.with_time_limit(Duration::from_secs(600))
 }
 
-/// The default retry policy for messages with ordering keys in the Pub/Sub
-/// publisher.
-///
-/// The client will retry all the errors shown as retryable in the service
-/// documentation forever.
-pub(crate) fn default_ordering_retry_policy() -> impl RetryPolicy {
-    RetryableErrors
-}
-
 /// Follows the retry strategy recommended by the Cloud Pub/Sub guides on
 /// [error codes].
 ///
