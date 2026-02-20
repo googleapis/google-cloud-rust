@@ -13,7 +13,9 @@
 // limitations under the License.
 
 use crate::constants::TRUST_BOUNDARY_HEADER;
-use crate::credentials::{CacheableResource, Credentials, CredentialsProvider};
+use crate::credentials::{
+    AccessToken, AccessTokenCredentialsProvider, CacheableResource, CredentialsProvider, dynamic,
+};
 use crate::errors::CredentialsError;
 use crate::{Result, errors};
 use http::{Extensions, HeaderMap, HeaderValue};
@@ -24,9 +26,10 @@ use std::sync::Arc;
 use tokio::sync::watch;
 use tokio::time::{Duration, Instant, sleep};
 
-const REGIONAL_ACCESS_BOUNDARIES_ENV_VAR: &str = "GOOGLE_AUTH_ENABLE_TRUST_BOUNDARIES";
+pub(crate) const REGIONAL_ACCESS_BOUNDARIES_ENV_VAR: &str = "GOOGLE_AUTH_ENABLE_TRUST_BOUNDARIES";
 const NO_OP_ENCODED_LOCATIONS: &str = "0x0";
 
+#[allow(dead_code)]
 // TTL: 6 hours
 const DEFAULT_TTL: Duration = Duration::from_secs(6 * 60 * 60);
 // Refresh slack: an hour before the TTL expires
@@ -63,12 +66,15 @@ impl BoundaryValue {
 }
 
 impl AccessBoundary {
-    fn new(credentials: Credentials, url: String) -> Self {
+    fn new<T>(credentials: Arc<T>, url: String) -> Self
+    where
+        T: dynamic::AccessTokenCredentialsProvider + 'static,
+    {
         let (tx_header, rx_header) = watch::channel(None);
 
         if Self::is_enabled() {
             let provider = IAMAccessBoundaryProvider { credentials, url };
-            tokio::spawn(refresh_task(Arc::new(provider), tx_header));
+            tokio::spawn(refresh_task(provider, tx_header));
         }
 
         Self { rx_header }
@@ -81,7 +87,7 @@ impl AccessBoundary {
         T: AccessBoundaryProvider + 'static,
     {
         let (tx_header, rx_header) = watch::channel(None);
-        tokio::spawn(refresh_task(Arc::new(provider), tx_header));
+        tokio::spawn(refresh_task(provider, tx_header));
         Self { rx_header }
     }
 
@@ -102,13 +108,20 @@ impl AccessBoundary {
 
 /// A decorator for [crate::credentials::CredentialsProvider] with access boundary information.
 #[derive(Clone, Debug)]
-pub(crate) struct CredentialsWithAccessBoundary {
-    credentials: Credentials,
+pub(crate) struct CredentialsWithAccessBoundary<T>
+where
+    T: dynamic::AccessTokenCredentialsProvider + 'static,
+{
+    credentials: Arc<T>,
     access_boundary: Arc<AccessBoundary>,
 }
 
-impl CredentialsWithAccessBoundary {
-    pub(crate) fn new(credentials: Credentials, access_boundary_url: String) -> Self {
+impl<T> CredentialsWithAccessBoundary<T>
+where
+    T: dynamic::AccessTokenCredentialsProvider + 'static,
+{
+    pub(crate) fn new(credentials: T, access_boundary_url: String) -> Self {
+        let credentials = Arc::new(credentials);
         let access_boundary = Arc::new(AccessBoundary::new(
             credentials.clone(),
             access_boundary_url,
@@ -121,10 +134,14 @@ impl CredentialsWithAccessBoundary {
 }
 
 /// Decorates [Credentials] with access boundary information.
-impl CredentialsProvider for CredentialsWithAccessBoundary {
+impl<T> CredentialsProvider for CredentialsWithAccessBoundary<T>
+where
+    T: dynamic::AccessTokenCredentialsProvider + 'static,
+{
     async fn headers(&self, extensions: Extensions) -> Result<CacheableResource<HeaderMap>> {
         let cached_headers = self.credentials.headers(extensions).await?;
 
+        // TODO(#4186): cache our own entity tag for access boundaries and avoid extra computations
         let (entity_tag, mut headers) = match cached_headers {
             CacheableResource::New { entity_tag, data } => (entity_tag, data),
             CacheableResource::NotModified => return Ok(CacheableResource::NotModified),
@@ -148,6 +165,15 @@ impl CredentialsProvider for CredentialsWithAccessBoundary {
     }
 }
 
+impl<T> AccessTokenCredentialsProvider for CredentialsWithAccessBoundary<T>
+where
+    T: dynamic::AccessTokenCredentialsProvider + 'static,
+{
+    async fn access_token(&self) -> Result<AccessToken> {
+        self.credentials.access_token().await
+    }
+}
+
 // internal trait for testability and avoid dependency on reqwest
 // which causes issues with tokio::time::advance and tokio::task::yield_now
 #[async_trait::async_trait]
@@ -157,15 +183,21 @@ pub(crate) trait AccessBoundaryProvider: std::fmt::Debug + Send + Sync {
 
 // default implementation that uses IAM Access Boundaries API
 #[derive(Debug)]
-struct IAMAccessBoundaryProvider {
-    credentials: Credentials,
+struct IAMAccessBoundaryProvider<T>
+where
+    T: dynamic::AccessTokenCredentialsProvider + 'static,
+{
+    credentials: Arc<T>,
     url: String,
 }
 
 #[async_trait::async_trait]
-impl AccessBoundaryProvider for IAMAccessBoundaryProvider {
+impl<T> AccessBoundaryProvider for IAMAccessBoundaryProvider<T>
+where
+    T: dynamic::AccessTokenCredentialsProvider + 'static,
+{
     async fn fetch_access_boundary(&self) -> Result<Option<String>> {
-        fetch_access_boundary(&self.credentials, &self.url).await
+        fetch_access_boundary(self.credentials.as_ref(), &self.url).await
     }
 }
 
@@ -177,7 +209,10 @@ struct AllowedLocationsResponse {
     encoded_locations: String,
 }
 
-async fn fetch_access_boundary(credentials: &Credentials, url: &str) -> Result<Option<String>> {
+async fn fetch_access_boundary<T>(credentials: &T, url: &str) -> Result<Option<String>>
+where
+    T: dynamic::AccessTokenCredentialsProvider + 'static,
+{
     let headers = credentials.headers(Extensions::new()).await?;
     let headers = match headers {
         CacheableResource::New { data, .. } => data,
@@ -215,7 +250,7 @@ async fn fetch_access_boundary(credentials: &Credentials, url: &str) -> Result<O
     Ok(None)
 }
 
-async fn refresh_task<T>(provider: Arc<T>, tx_header: watch::Sender<Option<BoundaryValue>>)
+async fn refresh_task<T>(provider: T, tx_header: watch::Sender<Option<BoundaryValue>>)
 where
     T: AccessBoundaryProvider,
 {
@@ -243,15 +278,14 @@ pub(crate) fn service_account_lookup_url(
 #[cfg(test)]
 pub(crate) mod tests {
     use super::*;
-    use crate::credentials::EntityTag;
     use crate::credentials::tests::get_access_boundary_from_headers;
+    use crate::credentials::{AccessToken, EntityTag};
     use http::header::{AUTHORIZATION, HeaderValue};
     use http::{Extensions, HeaderMap};
     use httptest::{Expectation, Server, matchers::*, responders::*};
     use scoped_env::ScopedEnv;
     use serde_json::json;
     use serial_test::{parallel, serial};
-    use std::sync::Arc;
     use test_case::test_case;
 
     type TestResult = anyhow::Result<()>;
@@ -263,6 +297,10 @@ pub(crate) mod tests {
         impl CredentialsProvider for Credentials {
             async fn headers(&self, extensions: Extensions) -> Result<CacheableResource<HeaderMap>>;
             async fn universe_domain(&self) -> Option<String>;
+        }
+
+        impl AccessTokenCredentialsProvider for Credentials {
+            async fn access_token(&self) -> Result<AccessToken>;
         }
     }
 
@@ -313,10 +351,9 @@ pub(crate) mod tests {
                 data: headers,
             })
         });
-        let creds = Credentials::from(mock);
         let url = server.url("/allowedLocations").to_string();
 
-        let creds = CredentialsWithAccessBoundary::new(creds, url);
+        let creds = CredentialsWithAccessBoundary::new(mock, url);
 
         // wait for the background task to fetch the access boundary.
         tokio::time::sleep(std::time::Duration::from_secs(1)).await;
@@ -356,10 +393,9 @@ pub(crate) mod tests {
                 data: headers,
             })
         });
-        let creds = Credentials::from(mock);
         let url = server.url("/allowedLocations").to_string();
 
-        let val = fetch_access_boundary(&creds, &url).await?;
+        let val = fetch_access_boundary(&mock, &url).await?;
         assert!(val.is_none(), "{val:?}");
 
         Ok(())
@@ -385,11 +421,10 @@ pub(crate) mod tests {
                 data: headers,
             })
         });
-        let creds = Credentials::from(mock);
 
         let url = server.url("/allowedLocations").to_string();
 
-        let result = fetch_access_boundary(&creds, &url).await;
+        let result = fetch_access_boundary(&mock, &url).await;
         let err = result.unwrap_err();
         assert!(err.is_transient(), "{err:?}");
     }
@@ -404,9 +439,8 @@ pub(crate) mod tests {
                 "invalid creds".to_string(),
             ))
         });
-        let creds = Credentials::from(mock);
 
-        let result = fetch_access_boundary(&creds, "http://localhost").await;
+        let result = fetch_access_boundary(&mock, "http://localhost").await;
         let err = result.unwrap_err();
         assert!(!err.is_transient(), "{err:?}");
     }
@@ -427,8 +461,7 @@ pub(crate) mod tests {
                 data: headers,
             })
         });
-        let creds = Credentials::from(mock);
-        let creds = CredentialsWithAccessBoundary::new(creds, "http://localhost".to_string());
+        let creds = CredentialsWithAccessBoundary::new(mock, "http://localhost".to_string());
 
         let cached_headers = creds.headers(Extensions::new()).await?;
         let access_boundary = get_access_boundary_from_headers(cached_headers);
@@ -501,7 +534,7 @@ pub(crate) mod tests {
         let (tx, rx) = watch::channel::<Option<BoundaryValue>>(None);
 
         tokio::spawn(async move {
-            refresh_task(Arc::new(mock_provider), tx).await;
+            refresh_task(mock_provider, tx).await;
         });
 
         // allow task to start and fail the first request
