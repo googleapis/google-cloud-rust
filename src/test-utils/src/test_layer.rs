@@ -339,7 +339,7 @@ where
         }
     }
 
-    /// Called before [`on_event`], to determine if `on_event` should be called.
+    /// Called before `on_event`, to determine if `on_event` should be called.
     fn event_enabled(&self, _event: &tracing::Event<'_>, _ctx: Context<'_, S>) -> bool {
         true
     }
