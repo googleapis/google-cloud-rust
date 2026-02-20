@@ -49,7 +49,9 @@ pub async fn run() -> anyhow::Result<()> {
         "google_cloud_storage::client::Storage::open_object",
     ]);
     let missing = required.difference(&span_names).collect::<Vec<_>>();
-    assert!(missing.is_empty(), "missing={missing:?}\n\n{trace:?}",);
+    // Sometimes a few traces are not delivered are are reported as "missing":
+    //   https://github.com/user-attachments/assets/7a534f6c-930e-4f97-b840-2ed01de2095e
+    assert!(missing.len() <= 2, "missing={missing:?}\n\n{trace:?}",);
 
     Ok(())
 }
