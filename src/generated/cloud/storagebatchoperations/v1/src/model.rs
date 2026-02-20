@@ -435,6 +435,12 @@ pub struct DeleteJobRequest {
     /// UUID is not supported (00000000-0000-0000-0000-000000000000).
     pub request_id: std::string::String,
 
+    /// Optional. If set to true, any child bucket operations of the job will also
+    /// be deleted. Highly recommended to be set to true by all clients. Users
+    /// cannot mutate bucket operations directly, so only the jobs.delete
+    /// permission is required to delete a job (and its child bucket operations).
+    pub force: bool,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -466,6 +472,18 @@ impl DeleteJobRequest {
         self.request_id = v.into();
         self
     }
+
+    /// Sets the value of [force][crate::model::DeleteJobRequest::force].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storagebatchoperations_v1::model::DeleteJobRequest;
+    /// let x = DeleteJobRequest::new().set_force(true);
+    /// ```
+    pub fn set_force<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.force = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for DeleteJobRequest {
@@ -490,6 +508,229 @@ impl CancelJobResponse {
 impl wkt::message::Message for CancelJobResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.storagebatchoperations.v1.CancelJobResponse"
+    }
+}
+
+/// Message for request to list BucketOperations
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListBucketOperationsRequest {
+    /// Required. Format: projects/{project_id}/locations/global/jobs/{job_id}.
+    pub parent: std::string::String,
+
+    /// Optional. Filters results as defined by <https://google.aip.dev/160>.
+    pub filter: std::string::String,
+
+    /// Optional. The list page size. Default page size is 100.
+    pub page_size: i32,
+
+    /// Optional. The list page token.
+    pub page_token: std::string::String,
+
+    /// Optional. Field to sort by. Supported fields are name, create_time.
+    pub order_by: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListBucketOperationsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListBucketOperationsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storagebatchoperations_v1::model::ListBucketOperationsRequest;
+    /// let x = ListBucketOperationsRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::ListBucketOperationsRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storagebatchoperations_v1::model::ListBucketOperationsRequest;
+    /// let x = ListBucketOperationsRequest::new().set_filter("example");
+    /// ```
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListBucketOperationsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storagebatchoperations_v1::model::ListBucketOperationsRequest;
+    /// let x = ListBucketOperationsRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListBucketOperationsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storagebatchoperations_v1::model::ListBucketOperationsRequest;
+    /// let x = ListBucketOperationsRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [order_by][crate::model::ListBucketOperationsRequest::order_by].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storagebatchoperations_v1::model::ListBucketOperationsRequest;
+    /// let x = ListBucketOperationsRequest::new().set_order_by("example");
+    /// ```
+    pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.order_by = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListBucketOperationsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.storagebatchoperations.v1.ListBucketOperationsRequest"
+    }
+}
+
+/// Message for response to listing BucketOperations
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListBucketOperationsResponse {
+    /// A list of storage batch bucket operations.
+    pub bucket_operations: std::vec::Vec<crate::model::BucketOperation>,
+
+    /// A token identifying a page of results.
+    pub next_page_token: std::string::String,
+
+    /// Locations that could not be reached.
+    pub unreachable: std::vec::Vec<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListBucketOperationsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [bucket_operations][crate::model::ListBucketOperationsResponse::bucket_operations].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storagebatchoperations_v1::model::ListBucketOperationsResponse;
+    /// use google_cloud_storagebatchoperations_v1::model::BucketOperation;
+    /// let x = ListBucketOperationsResponse::new()
+    ///     .set_bucket_operations([
+    ///         BucketOperation::default()/* use setters */,
+    ///         BucketOperation::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_bucket_operations<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::BucketOperation>,
+    {
+        use std::iter::Iterator;
+        self.bucket_operations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListBucketOperationsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storagebatchoperations_v1::model::ListBucketOperationsResponse;
+    /// let x = ListBucketOperationsResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [unreachable][crate::model::ListBucketOperationsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storagebatchoperations_v1::model::ListBucketOperationsResponse;
+    /// let x = ListBucketOperationsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
+    pub fn set_unreachable<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.unreachable = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ListBucketOperationsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.storagebatchoperations.v1.ListBucketOperationsResponse"
+    }
+}
+
+#[doc(hidden)]
+impl google_cloud_gax::paginator::internal::PageableResponse for ListBucketOperationsResponse {
+    type PageItem = crate::model::BucketOperation;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.bucket_operations
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// Message for getting a BucketOperation.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetBucketOperationRequest {
+    /// Required. `name` of the bucket operation to retrieve.
+    /// Format:
+    /// projects/{project_id}/locations/global/jobs/{job_id}/bucketOperations/{bucket_operation_id}.
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetBucketOperationRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetBucketOperationRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storagebatchoperations_v1::model::GetBucketOperationRequest;
+    /// let x = GetBucketOperationRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetBucketOperationRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.storagebatchoperations.v1.GetBucketOperationRequest"
     }
 }
 
@@ -716,6 +957,10 @@ pub struct Job {
     /// object count and, if the object configuration is a prefix list, the bytes
     /// found from source. No transformations will be performed.
     pub dry_run: bool,
+
+    /// Output only. If true, this Job operates on multiple buckets. Multibucket
+    /// jobs are subject to different quota limits than single-bucket jobs.
+    pub is_multi_bucket_job: bool,
 
     /// Specifies objects to be transformed.
     pub source: std::option::Option<crate::model::job::Source>,
@@ -966,6 +1211,18 @@ impl Job {
     /// ```
     pub fn set_dry_run<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.dry_run = v.into();
+        self
+    }
+
+    /// Sets the value of [is_multi_bucket_job][crate::model::Job::is_multi_bucket_job].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storagebatchoperations_v1::model::Job;
+    /// let x = Job::new().set_is_multi_bucket_job(true);
+    /// ```
+    pub fn set_is_multi_bucket_job<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.is_multi_bucket_job = v.into();
         self
     }
 
@@ -1237,6 +1494,8 @@ pub mod job {
         Canceled,
         /// Terminated due to an unrecoverable failure.
         Failed,
+        /// Queued but not yet started.
+        Queued,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [State::value] or
@@ -1264,6 +1523,7 @@ pub mod job {
                 Self::Succeeded => std::option::Option::Some(2),
                 Self::Canceled => std::option::Option::Some(3),
                 Self::Failed => std::option::Option::Some(4),
+                Self::Queued => std::option::Option::Some(5),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -1279,6 +1539,7 @@ pub mod job {
                 Self::Succeeded => std::option::Option::Some("SUCCEEDED"),
                 Self::Canceled => std::option::Option::Some("CANCELED"),
                 Self::Failed => std::option::Option::Some("FAILED"),
+                Self::Queued => std::option::Option::Some("QUEUED"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -1305,6 +1566,7 @@ pub mod job {
                 2 => Self::Succeeded,
                 3 => Self::Canceled,
                 4 => Self::Failed,
+                5 => Self::Queued,
                 _ => Self::UnknownValue(state::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -1321,6 +1583,7 @@ pub mod job {
                 "SUCCEEDED" => Self::Succeeded,
                 "CANCELED" => Self::Canceled,
                 "FAILED" => Self::Failed,
+                "QUEUED" => Self::Queued,
                 _ => Self::UnknownValue(state::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -1339,6 +1602,7 @@ pub mod job {
                 Self::Succeeded => serializer.serialize_i32(2),
                 Self::Canceled => serializer.serialize_i32(3),
                 Self::Failed => serializer.serialize_i32(4),
+                Self::Queued => serializer.serialize_i32(5),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -1364,6 +1628,725 @@ pub mod job {
     }
 
     /// Operation to be performed on the objects.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Transformation {
+        /// Changes object hold status.
+        PutObjectHold(std::boxed::Box<crate::model::PutObjectHold>),
+        /// Delete objects.
+        DeleteObject(std::boxed::Box<crate::model::DeleteObject>),
+        /// Updates object metadata. Allows updating fixed-key and custom metadata
+        /// and fixed-key metadata i.e. Cache-Control, Content-Disposition,
+        /// Content-Encoding, Content-Language, Content-Type, Custom-Time.
+        PutMetadata(std::boxed::Box<crate::model::PutMetadata>),
+        /// Rewrite the object and updates metadata like KMS key.
+        RewriteObject(std::boxed::Box<crate::model::RewriteObject>),
+    }
+}
+
+/// BucketOperation represents a bucket-level breakdown of a Job.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct BucketOperation {
+    /// Identifier. The resource name of the BucketOperation. This is defined by
+    /// the service. Format:
+    /// projects/{project}/locations/global/jobs/{job_id}/bucketOperations/{bucket_operation}.
+    pub name: std::string::String,
+
+    /// The bucket name of the objects to be transformed in the BucketOperation.
+    pub bucket_name: std::string::String,
+
+    /// Output only. The time that the BucketOperation was created.
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The time that the BucketOperation was started.
+    pub start_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The time that the BucketOperation was completed.
+    pub complete_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. Information about the progress of the bucket operation.
+    pub counters: std::option::Option<crate::model::Counters>,
+
+    /// Output only. Summarizes errors encountered with sample error log entries.
+    pub error_summaries: std::vec::Vec<crate::model::ErrorSummary>,
+
+    /// Output only. State of the BucketOperation.
+    pub state: crate::model::bucket_operation::State,
+
+    /// Specifies objects to be transformed in the BucketOperation.
+    pub object_configuration:
+        std::option::Option<crate::model::bucket_operation::ObjectConfiguration>,
+
+    /// Action to be performed on the objects.
+    pub transformation: std::option::Option<crate::model::bucket_operation::Transformation>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl BucketOperation {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::BucketOperation::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storagebatchoperations_v1::model::BucketOperation;
+    /// let x = BucketOperation::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [bucket_name][crate::model::BucketOperation::bucket_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storagebatchoperations_v1::model::BucketOperation;
+    /// let x = BucketOperation::new().set_bucket_name("example");
+    /// ```
+    pub fn set_bucket_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.bucket_name = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::BucketOperation::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storagebatchoperations_v1::model::BucketOperation;
+    /// use wkt::Timestamp;
+    /// let x = BucketOperation::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::BucketOperation::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storagebatchoperations_v1::model::BucketOperation;
+    /// use wkt::Timestamp;
+    /// let x = BucketOperation::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = BucketOperation::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [start_time][crate::model::BucketOperation::start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storagebatchoperations_v1::model::BucketOperation;
+    /// use wkt::Timestamp;
+    /// let x = BucketOperation::new().set_start_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_start_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.start_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [start_time][crate::model::BucketOperation::start_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storagebatchoperations_v1::model::BucketOperation;
+    /// use wkt::Timestamp;
+    /// let x = BucketOperation::new().set_or_clear_start_time(Some(Timestamp::default()/* use setters */));
+    /// let x = BucketOperation::new().set_or_clear_start_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.start_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [complete_time][crate::model::BucketOperation::complete_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storagebatchoperations_v1::model::BucketOperation;
+    /// use wkt::Timestamp;
+    /// let x = BucketOperation::new().set_complete_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_complete_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.complete_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [complete_time][crate::model::BucketOperation::complete_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storagebatchoperations_v1::model::BucketOperation;
+    /// use wkt::Timestamp;
+    /// let x = BucketOperation::new().set_or_clear_complete_time(Some(Timestamp::default()/* use setters */));
+    /// let x = BucketOperation::new().set_or_clear_complete_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_complete_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.complete_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [counters][crate::model::BucketOperation::counters].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storagebatchoperations_v1::model::BucketOperation;
+    /// use google_cloud_storagebatchoperations_v1::model::Counters;
+    /// let x = BucketOperation::new().set_counters(Counters::default()/* use setters */);
+    /// ```
+    pub fn set_counters<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Counters>,
+    {
+        self.counters = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [counters][crate::model::BucketOperation::counters].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storagebatchoperations_v1::model::BucketOperation;
+    /// use google_cloud_storagebatchoperations_v1::model::Counters;
+    /// let x = BucketOperation::new().set_or_clear_counters(Some(Counters::default()/* use setters */));
+    /// let x = BucketOperation::new().set_or_clear_counters(None::<Counters>);
+    /// ```
+    pub fn set_or_clear_counters<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Counters>,
+    {
+        self.counters = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [error_summaries][crate::model::BucketOperation::error_summaries].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storagebatchoperations_v1::model::BucketOperation;
+    /// use google_cloud_storagebatchoperations_v1::model::ErrorSummary;
+    /// let x = BucketOperation::new()
+    ///     .set_error_summaries([
+    ///         ErrorSummary::default()/* use setters */,
+    ///         ErrorSummary::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_error_summaries<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::ErrorSummary>,
+    {
+        use std::iter::Iterator;
+        self.error_summaries = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [state][crate::model::BucketOperation::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storagebatchoperations_v1::model::BucketOperation;
+    /// use google_cloud_storagebatchoperations_v1::model::bucket_operation::State;
+    /// let x0 = BucketOperation::new().set_state(State::Queued);
+    /// let x1 = BucketOperation::new().set_state(State::Running);
+    /// let x2 = BucketOperation::new().set_state(State::Succeeded);
+    /// ```
+    pub fn set_state<T: std::convert::Into<crate::model::bucket_operation::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.state = v.into();
+        self
+    }
+
+    /// Sets the value of [object_configuration][crate::model::BucketOperation::object_configuration].
+    ///
+    /// Note that all the setters affecting `object_configuration` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storagebatchoperations_v1::model::BucketOperation;
+    /// use google_cloud_storagebatchoperations_v1::model::PrefixList;
+    /// let x = BucketOperation::new().set_object_configuration(Some(
+    ///     google_cloud_storagebatchoperations_v1::model::bucket_operation::ObjectConfiguration::PrefixList(PrefixList::default().into())));
+    /// ```
+    pub fn set_object_configuration<
+        T: std::convert::Into<
+                std::option::Option<crate::model::bucket_operation::ObjectConfiguration>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.object_configuration = v.into();
+        self
+    }
+
+    /// The value of [object_configuration][crate::model::BucketOperation::object_configuration]
+    /// if it holds a `PrefixList`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn prefix_list(&self) -> std::option::Option<&std::boxed::Box<crate::model::PrefixList>> {
+        #[allow(unreachable_patterns)]
+        self.object_configuration.as_ref().and_then(|v| match v {
+            crate::model::bucket_operation::ObjectConfiguration::PrefixList(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [object_configuration][crate::model::BucketOperation::object_configuration]
+    /// to hold a `PrefixList`.
+    ///
+    /// Note that all the setters affecting `object_configuration` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storagebatchoperations_v1::model::BucketOperation;
+    /// use google_cloud_storagebatchoperations_v1::model::PrefixList;
+    /// let x = BucketOperation::new().set_prefix_list(PrefixList::default()/* use setters */);
+    /// assert!(x.prefix_list().is_some());
+    /// assert!(x.manifest().is_none());
+    /// ```
+    pub fn set_prefix_list<T: std::convert::Into<std::boxed::Box<crate::model::PrefixList>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.object_configuration = std::option::Option::Some(
+            crate::model::bucket_operation::ObjectConfiguration::PrefixList(v.into()),
+        );
+        self
+    }
+
+    /// The value of [object_configuration][crate::model::BucketOperation::object_configuration]
+    /// if it holds a `Manifest`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn manifest(&self) -> std::option::Option<&std::boxed::Box<crate::model::Manifest>> {
+        #[allow(unreachable_patterns)]
+        self.object_configuration.as_ref().and_then(|v| match v {
+            crate::model::bucket_operation::ObjectConfiguration::Manifest(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [object_configuration][crate::model::BucketOperation::object_configuration]
+    /// to hold a `Manifest`.
+    ///
+    /// Note that all the setters affecting `object_configuration` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storagebatchoperations_v1::model::BucketOperation;
+    /// use google_cloud_storagebatchoperations_v1::model::Manifest;
+    /// let x = BucketOperation::new().set_manifest(Manifest::default()/* use setters */);
+    /// assert!(x.manifest().is_some());
+    /// assert!(x.prefix_list().is_none());
+    /// ```
+    pub fn set_manifest<T: std::convert::Into<std::boxed::Box<crate::model::Manifest>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.object_configuration = std::option::Option::Some(
+            crate::model::bucket_operation::ObjectConfiguration::Manifest(v.into()),
+        );
+        self
+    }
+
+    /// Sets the value of [transformation][crate::model::BucketOperation::transformation].
+    ///
+    /// Note that all the setters affecting `transformation` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storagebatchoperations_v1::model::BucketOperation;
+    /// use google_cloud_storagebatchoperations_v1::model::PutObjectHold;
+    /// let x = BucketOperation::new().set_transformation(Some(
+    ///     google_cloud_storagebatchoperations_v1::model::bucket_operation::Transformation::PutObjectHold(PutObjectHold::default().into())));
+    /// ```
+    pub fn set_transformation<
+        T: std::convert::Into<std::option::Option<crate::model::bucket_operation::Transformation>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.transformation = v.into();
+        self
+    }
+
+    /// The value of [transformation][crate::model::BucketOperation::transformation]
+    /// if it holds a `PutObjectHold`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn put_object_hold(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::PutObjectHold>> {
+        #[allow(unreachable_patterns)]
+        self.transformation.as_ref().and_then(|v| match v {
+            crate::model::bucket_operation::Transformation::PutObjectHold(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [transformation][crate::model::BucketOperation::transformation]
+    /// to hold a `PutObjectHold`.
+    ///
+    /// Note that all the setters affecting `transformation` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storagebatchoperations_v1::model::BucketOperation;
+    /// use google_cloud_storagebatchoperations_v1::model::PutObjectHold;
+    /// let x = BucketOperation::new().set_put_object_hold(PutObjectHold::default()/* use setters */);
+    /// assert!(x.put_object_hold().is_some());
+    /// assert!(x.delete_object().is_none());
+    /// assert!(x.put_metadata().is_none());
+    /// assert!(x.rewrite_object().is_none());
+    /// ```
+    pub fn set_put_object_hold<
+        T: std::convert::Into<std::boxed::Box<crate::model::PutObjectHold>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.transformation = std::option::Option::Some(
+            crate::model::bucket_operation::Transformation::PutObjectHold(v.into()),
+        );
+        self
+    }
+
+    /// The value of [transformation][crate::model::BucketOperation::transformation]
+    /// if it holds a `DeleteObject`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn delete_object(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::DeleteObject>> {
+        #[allow(unreachable_patterns)]
+        self.transformation.as_ref().and_then(|v| match v {
+            crate::model::bucket_operation::Transformation::DeleteObject(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [transformation][crate::model::BucketOperation::transformation]
+    /// to hold a `DeleteObject`.
+    ///
+    /// Note that all the setters affecting `transformation` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storagebatchoperations_v1::model::BucketOperation;
+    /// use google_cloud_storagebatchoperations_v1::model::DeleteObject;
+    /// let x = BucketOperation::new().set_delete_object(DeleteObject::default()/* use setters */);
+    /// assert!(x.delete_object().is_some());
+    /// assert!(x.put_object_hold().is_none());
+    /// assert!(x.put_metadata().is_none());
+    /// assert!(x.rewrite_object().is_none());
+    /// ```
+    pub fn set_delete_object<T: std::convert::Into<std::boxed::Box<crate::model::DeleteObject>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.transformation = std::option::Option::Some(
+            crate::model::bucket_operation::Transformation::DeleteObject(v.into()),
+        );
+        self
+    }
+
+    /// The value of [transformation][crate::model::BucketOperation::transformation]
+    /// if it holds a `PutMetadata`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn put_metadata(&self) -> std::option::Option<&std::boxed::Box<crate::model::PutMetadata>> {
+        #[allow(unreachable_patterns)]
+        self.transformation.as_ref().and_then(|v| match v {
+            crate::model::bucket_operation::Transformation::PutMetadata(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [transformation][crate::model::BucketOperation::transformation]
+    /// to hold a `PutMetadata`.
+    ///
+    /// Note that all the setters affecting `transformation` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storagebatchoperations_v1::model::BucketOperation;
+    /// use google_cloud_storagebatchoperations_v1::model::PutMetadata;
+    /// let x = BucketOperation::new().set_put_metadata(PutMetadata::default()/* use setters */);
+    /// assert!(x.put_metadata().is_some());
+    /// assert!(x.put_object_hold().is_none());
+    /// assert!(x.delete_object().is_none());
+    /// assert!(x.rewrite_object().is_none());
+    /// ```
+    pub fn set_put_metadata<T: std::convert::Into<std::boxed::Box<crate::model::PutMetadata>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.transformation = std::option::Option::Some(
+            crate::model::bucket_operation::Transformation::PutMetadata(v.into()),
+        );
+        self
+    }
+
+    /// The value of [transformation][crate::model::BucketOperation::transformation]
+    /// if it holds a `RewriteObject`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn rewrite_object(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::RewriteObject>> {
+        #[allow(unreachable_patterns)]
+        self.transformation.as_ref().and_then(|v| match v {
+            crate::model::bucket_operation::Transformation::RewriteObject(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [transformation][crate::model::BucketOperation::transformation]
+    /// to hold a `RewriteObject`.
+    ///
+    /// Note that all the setters affecting `transformation` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storagebatchoperations_v1::model::BucketOperation;
+    /// use google_cloud_storagebatchoperations_v1::model::RewriteObject;
+    /// let x = BucketOperation::new().set_rewrite_object(RewriteObject::default()/* use setters */);
+    /// assert!(x.rewrite_object().is_some());
+    /// assert!(x.put_object_hold().is_none());
+    /// assert!(x.delete_object().is_none());
+    /// assert!(x.put_metadata().is_none());
+    /// ```
+    pub fn set_rewrite_object<
+        T: std::convert::Into<std::boxed::Box<crate::model::RewriteObject>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.transformation = std::option::Option::Some(
+            crate::model::bucket_operation::Transformation::RewriteObject(v.into()),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for BucketOperation {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.storagebatchoperations.v1.BucketOperation"
+    }
+}
+
+/// Defines additional types related to [BucketOperation].
+pub mod bucket_operation {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Describes state of the BucketOperation.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
+        /// Default value. This value is unused.
+        Unspecified,
+        /// Created but not yet started.
+        Queued,
+        /// In progress.
+        Running,
+        /// Completed successfully.
+        Succeeded,
+        /// Cancelled by the user.
+        Canceled,
+        /// Terminated due to an unrecoverable failure.
+        Failed,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl State {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Queued => std::option::Option::Some(1),
+                Self::Running => std::option::Option::Some(2),
+                Self::Succeeded => std::option::Option::Some(3),
+                Self::Canceled => std::option::Option::Some(4),
+                Self::Failed => std::option::Option::Some(5),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Queued => std::option::Option::Some("QUEUED"),
+                Self::Running => std::option::Option::Some("RUNNING"),
+                Self::Succeeded => std::option::Option::Some("SUCCEEDED"),
+                Self::Canceled => std::option::Option::Some("CANCELED"),
+                Self::Failed => std::option::Option::Some("FAILED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Queued,
+                2 => Self::Running,
+                3 => Self::Succeeded,
+                4 => Self::Canceled,
+                5 => Self::Failed,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "QUEUED" => Self::Queued,
+                "RUNNING" => Self::Running,
+                "SUCCEEDED" => Self::Succeeded,
+                "CANCELED" => Self::Canceled,
+                "FAILED" => Self::Failed,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Queued => serializer.serialize_i32(1),
+                Self::Running => serializer.serialize_i32(2),
+                Self::Succeeded => serializer.serialize_i32(3),
+                Self::Canceled => serializer.serialize_i32(4),
+                Self::Failed => serializer.serialize_i32(5),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.storagebatchoperations.v1.BucketOperation.State",
+            ))
+        }
+    }
+
+    /// Specifies objects to be transformed in the BucketOperation.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum ObjectConfiguration {
+        /// Specifies objects matching a prefix set.
+        PrefixList(std::boxed::Box<crate::model::PrefixList>),
+        /// Specifies objects in a manifest file.
+        Manifest(std::boxed::Box<crate::model::Manifest>),
+    }
+
+    /// Action to be performed on the objects.
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Transformation {

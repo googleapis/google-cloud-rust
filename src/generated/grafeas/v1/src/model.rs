@@ -865,6 +865,9 @@ pub struct BaseImage {
     /// The number of layers that the base image is composed of.
     pub layer_count: i32,
 
+    /// The registry in which the base image is from.
+    pub registry: std::string::String,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -906,6 +909,18 @@ impl BaseImage {
     /// ```
     pub fn set_layer_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.layer_count = v.into();
+        self
+    }
+
+    /// Sets the value of [registry][crate::model::BaseImage::registry].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_grafeas_v1::model::BaseImage;
+    /// let x = BaseImage::new().set_registry("example");
+    /// ```
+    pub fn set_registry<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.registry = v.into();
         self
     }
 }
@@ -17746,6 +17761,9 @@ pub struct VulnerabilityNote {
     /// The full description of the v2 CVSS for this vulnerability.
     pub cvss_v2: std::option::Option<crate::model::Cvss>,
 
+    /// The time this advisory was published by the source.
+    pub advisory_publish_time: std::option::Option<wkt::Timestamp>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -17938,6 +17956,39 @@ impl VulnerabilityNote {
         T: std::convert::Into<crate::model::Cvss>,
     {
         self.cvss_v2 = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [advisory_publish_time][crate::model::VulnerabilityNote::advisory_publish_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_grafeas_v1::model::VulnerabilityNote;
+    /// use wkt::Timestamp;
+    /// let x = VulnerabilityNote::new().set_advisory_publish_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_advisory_publish_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.advisory_publish_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [advisory_publish_time][crate::model::VulnerabilityNote::advisory_publish_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_grafeas_v1::model::VulnerabilityNote;
+    /// use wkt::Timestamp;
+    /// let x = VulnerabilityNote::new().set_or_clear_advisory_publish_time(Some(Timestamp::default()/* use setters */));
+    /// let x = VulnerabilityNote::new().set_or_clear_advisory_publish_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_advisory_publish_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.advisory_publish_time = v.map(|x| x.into());
         self
     }
 }

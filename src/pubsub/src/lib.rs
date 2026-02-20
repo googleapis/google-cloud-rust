@@ -154,14 +154,16 @@ pub mod model_ext {
 /// // Create a subscriber client.
 /// let client = Subscriber::builder().build().await?;
 ///
-/// // Start a streaming pull session to receive messages from a subscription.
-/// let mut session = client
+/// // Start a message stream from a subscription.
+/// let mut stream = client
 ///     .streaming_pull("projects/my-project/subscriptions/my-subscription")
 ///     .start();
 ///
-/// // Receive messages from the session and acknowledge.
-/// while let Some((m, h)) = session.next().await.transpose()? {
+/// // Receive messages from the stream.
+/// while let Some((m, h)) = stream.next().await.transpose()? {
 ///     println!("Received message m={m:?}");
+///
+///     // Acknowledge the message.
 ///     h.ack();
 /// }
 /// # Ok(()) }

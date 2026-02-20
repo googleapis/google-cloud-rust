@@ -1014,6 +1014,9 @@ impl serde::ser::Serialize for super::StreamingRecognitionFeatures {
         if self.voice_activity_timeout.is_some() {
             state.serialize_entry("voiceActivityTimeout", &self.voice_activity_timeout)?;
         }
+        if !wkt::internal::is_default(&self.endpointing_sensitivity) {
+            state.serialize_entry("endpointingSensitivity", &self.endpointing_sensitivity)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;

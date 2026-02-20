@@ -37,5 +37,8 @@ pub enum PublishError {
     /// The publisher is shutdown and is no longer running.
     #[error("publisher is shutdown")]
     ShutdownError(()),
-    // TODO(#4650): Return an error when message size > batch byte threshold.
+
+    /// The publish message size exceeds the batch configured byte threshold.
+    #[error("message size exceeded configured byte threshold")]
+    ExceededByteThresholdError(()),
 }

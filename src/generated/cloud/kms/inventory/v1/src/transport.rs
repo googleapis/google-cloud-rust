@@ -145,6 +145,7 @@ impl super::stub::KeyTrackingService for KeyTrackingService {
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
+                let builder = builder.query(&[("fallbackScope", &req.fallback_scope)]);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET)))
             })
@@ -214,6 +215,26 @@ impl super::stub::KeyTrackingService for KeyTrackingService {
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::GET)))
             })
+            .or_else(|| {
+                let path = format!(
+                    "/v1/{}/protectedResources:search",
+                    try_match(
+                        Some(&req).map(|m| &m.scope).map(|s| s.as_str()),
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard]
+                    )?,
+                );
+
+                let builder = self.inner.builder(Method::GET, path);
+                let builder = builder.query(&[("cryptoKey", &req.crypto_key)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                let builder = req
+                    .resource_types
+                    .iter()
+                    .fold(builder, |builder, p| builder.query(&[("resourceTypes", p)]));
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, Method::GET)))
+            })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
                 {
@@ -223,6 +244,16 @@ impl super::stub::KeyTrackingService for KeyTrackingService {
                         &[Segment::Literal("organizations/"), Segment::SingleWildcard],
                         "scope",
                         "organizations/*",
+                    );
+                    paths.push(builder.build());
+                }
+                {
+                    let builder = PathMismatchBuilder::default();
+                    let builder = builder.maybe_add(
+                        Some(&req).map(|m| &m.scope).map(|s| s.as_str()),
+                        &[Segment::Literal("projects/"), Segment::SingleWildcard],
+                        "scope",
+                        "projects/*",
                     );
                     paths.push(builder.build());
                 }

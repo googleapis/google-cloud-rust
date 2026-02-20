@@ -291,6 +291,12 @@ pub mod key_tracking_service {
             self.0.request.name = v.into();
             self
         }
+
+        /// Sets the value of [fallback_scope][crate::model::GetProtectedResourcesSummaryRequest::fallback_scope].
+        pub fn set_fallback_scope<T: Into<crate::model::FallbackScope>>(mut self, v: T) -> Self {
+            self.0.request.fallback_scope = v.into();
+            self
+        }
     }
 
     #[doc(hidden)]

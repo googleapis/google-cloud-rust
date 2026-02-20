@@ -3701,6 +3701,7 @@ impl<'de> serde::de::Deserialize<'de> for super::StreamingRecognitionFeatures {
             __enable_voice_activity_events,
             __interim_results,
             __voice_activity_timeout,
+            __endpointing_sensitivity,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -3731,6 +3732,8 @@ impl<'de> serde::de::Deserialize<'de> for super::StreamingRecognitionFeatures {
                             "interim_results" => Ok(__FieldTag::__interim_results),
                             "voiceActivityTimeout" => Ok(__FieldTag::__voice_activity_timeout),
                             "voice_activity_timeout" => Ok(__FieldTag::__voice_activity_timeout),
+                            "endpointingSensitivity" => Ok(__FieldTag::__endpointing_sensitivity),
+                            "endpointing_sensitivity" => Ok(__FieldTag::__endpointing_sensitivity),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -3785,6 +3788,14 @@ impl<'de> serde::de::Deserialize<'de> for super::StreamingRecognitionFeatures {
                             result.voice_activity_timeout = map.next_value::<std::option::Option<
                                 crate::model::streaming_recognition_features::VoiceActivityTimeout,
                             >>()?;
+                        }
+                        __FieldTag::__endpointing_sensitivity => {
+                            if !fields.insert(__FieldTag::__endpointing_sensitivity) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for endpointing_sensitivity",
+                                ));
+                            }
+                            result.endpointing_sensitivity = map.next_value::<std::option::Option<crate::model::streaming_recognition_features::EndpointingSensitivity>>()?.unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

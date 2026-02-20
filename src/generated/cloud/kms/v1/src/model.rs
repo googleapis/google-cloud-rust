@@ -585,7 +585,8 @@ impl wkt::message::Message for UpdateAutokeyConfigRequest {
 #[non_exhaustive]
 pub struct GetAutokeyConfigRequest {
     /// Required. Name of the [AutokeyConfig][google.cloud.kms.v1.AutokeyConfig]
-    /// resource, e.g. `folders/{FOLDER_NUMBER}/autokeyConfig`.
+    /// resource, e.g. `folders/{FOLDER_NUMBER}/autokeyConfig` or
+    /// `projects/{PROJECT_NUMBER}/autokeyConfig`.
     ///
     /// [google.cloud.kms.v1.AutokeyConfig]: crate::model::AutokeyConfig
     pub name: std::string::String,
@@ -622,7 +623,8 @@ impl wkt::message::Message for GetAutokeyConfigRequest {
 #[non_exhaustive]
 pub struct AutokeyConfig {
     /// Identifier. Name of the [AutokeyConfig][google.cloud.kms.v1.AutokeyConfig]
-    /// resource, e.g. `folders/{FOLDER_NUMBER}/autokeyConfig`.
+    /// resource, e.g. `folders/{FOLDER_NUMBER}/autokeyConfig` or
+    /// `projects/{PROJECT_NUMBER}/autokeyConfig`.
     ///
     /// [google.cloud.kms.v1.AutokeyConfig]: crate::model::AutokeyConfig
     pub name: std::string::String,
@@ -652,6 +654,11 @@ pub struct AutokeyConfig {
     /// an up-to-date value before proceeding. The request will be rejected with an
     /// ABORTED error on a mismatched etag.
     pub etag: std::string::String,
+
+    /// Optional. KeyProjectResolutionMode for the AutokeyConfig.
+    /// Valid values are `DEDICATED_KEY_PROJECT`, `RESOURCE_PROJECT`, or
+    /// `DISABLED`.
+    pub key_project_resolution_mode: crate::model::autokey_config::KeyProjectResolutionMode,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -714,6 +721,26 @@ impl AutokeyConfig {
         self.etag = v.into();
         self
     }
+
+    /// Sets the value of [key_project_resolution_mode][crate::model::AutokeyConfig::key_project_resolution_mode].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::AutokeyConfig;
+    /// use google_cloud_kms_v1::model::autokey_config::KeyProjectResolutionMode;
+    /// let x0 = AutokeyConfig::new().set_key_project_resolution_mode(KeyProjectResolutionMode::DedicatedKeyProject);
+    /// let x1 = AutokeyConfig::new().set_key_project_resolution_mode(KeyProjectResolutionMode::ResourceProject);
+    /// let x2 = AutokeyConfig::new().set_key_project_resolution_mode(KeyProjectResolutionMode::Disabled);
+    /// ```
+    pub fn set_key_project_resolution_mode<
+        T: std::convert::Into<crate::model::autokey_config::KeyProjectResolutionMode>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.key_project_resolution_mode = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for AutokeyConfig {
@@ -755,6 +782,9 @@ pub mod autokey_config {
         /// The AutokeyConfig is not yet initialized or has been reset to its default
         /// uninitialized state.
         Uninitialized,
+        /// The service account lacks the necessary permissions in the key project to
+        /// configure Autokey.
+        KeyProjectPermissionDenied,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [State::value] or
@@ -781,6 +811,7 @@ pub mod autokey_config {
                 Self::Active => std::option::Option::Some(1),
                 Self::KeyProjectDeleted => std::option::Option::Some(2),
                 Self::Uninitialized => std::option::Option::Some(3),
+                Self::KeyProjectPermissionDenied => std::option::Option::Some(4),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -795,6 +826,9 @@ pub mod autokey_config {
                 Self::Active => std::option::Option::Some("ACTIVE"),
                 Self::KeyProjectDeleted => std::option::Option::Some("KEY_PROJECT_DELETED"),
                 Self::Uninitialized => std::option::Option::Some("UNINITIALIZED"),
+                Self::KeyProjectPermissionDenied => {
+                    std::option::Option::Some("KEY_PROJECT_PERMISSION_DENIED")
+                }
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -820,6 +854,7 @@ pub mod autokey_config {
                 1 => Self::Active,
                 2 => Self::KeyProjectDeleted,
                 3 => Self::Uninitialized,
+                4 => Self::KeyProjectPermissionDenied,
                 _ => Self::UnknownValue(state::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -835,6 +870,7 @@ pub mod autokey_config {
                 "ACTIVE" => Self::Active,
                 "KEY_PROJECT_DELETED" => Self::KeyProjectDeleted,
                 "UNINITIALIZED" => Self::Uninitialized,
+                "KEY_PROJECT_PERMISSION_DENIED" => Self::KeyProjectPermissionDenied,
                 _ => Self::UnknownValue(state::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -852,6 +888,7 @@ pub mod autokey_config {
                 Self::Active => serializer.serialize_i32(1),
                 Self::KeyProjectDeleted => serializer.serialize_i32(2),
                 Self::Uninitialized => serializer.serialize_i32(3),
+                Self::KeyProjectPermissionDenied => serializer.serialize_i32(4),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -865,6 +902,168 @@ pub mod autokey_config {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
                 ".google.cloud.kms.v1.AutokeyConfig.State",
             ))
+        }
+    }
+
+    /// Defines the resolution mode enum for the key project.
+    /// The
+    /// [KeyProjectResolutionMode][google.cloud.kms.v1.AutokeyConfig.KeyProjectResolutionMode]
+    /// determines the mechanism by which
+    /// [AutokeyConfig][google.cloud.kms.v1.AutokeyConfig] identifies a
+    /// [key_project][google.cloud.kms.v1.AutokeyConfig.key_project] at its
+    /// specific configuration node. This parameter also determines if Autokey can
+    /// be used within this project or folder.
+    ///
+    /// [google.cloud.kms.v1.AutokeyConfig]: crate::model::AutokeyConfig
+    /// [google.cloud.kms.v1.AutokeyConfig.KeyProjectResolutionMode]: crate::model::autokey_config::KeyProjectResolutionMode
+    /// [google.cloud.kms.v1.AutokeyConfig.key_project]: crate::model::AutokeyConfig::key_project
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum KeyProjectResolutionMode {
+        /// Default value. KeyProjectResolutionMode when not specified will act as
+        /// `DEDICATED_KEY_PROJECT`.
+        Unspecified,
+        /// Keys are created in a dedicated project specified by `key_project`.
+        DedicatedKeyProject,
+        /// Keys are created in the same project as the resource requesting the key.
+        /// The `key_project` must not be set when this mode is used.
+        ResourceProject,
+        /// Disables the AutokeyConfig. When this mode is set, any AutokeyConfig
+        /// from higher levels in the resource hierarchy are ignored for this
+        /// resource and its descendants. This setting can be overridden
+        /// by a more specific configuration at a lower level. For example,
+        /// if Autokey is disabled on a folder, it can be re-enabled on a sub-folder
+        /// or project within that folder by setting a different mode (e.g.,
+        /// DEDICATED_KEY_PROJECT or RESOURCE_PROJECT).
+        Disabled,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [KeyProjectResolutionMode::value] or
+        /// [KeyProjectResolutionMode::name].
+        UnknownValue(key_project_resolution_mode::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod key_project_resolution_mode {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl KeyProjectResolutionMode {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::DedicatedKeyProject => std::option::Option::Some(1),
+                Self::ResourceProject => std::option::Option::Some(2),
+                Self::Disabled => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => {
+                    std::option::Option::Some("KEY_PROJECT_RESOLUTION_MODE_UNSPECIFIED")
+                }
+                Self::DedicatedKeyProject => std::option::Option::Some("DEDICATED_KEY_PROJECT"),
+                Self::ResourceProject => std::option::Option::Some("RESOURCE_PROJECT"),
+                Self::Disabled => std::option::Option::Some("DISABLED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for KeyProjectResolutionMode {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for KeyProjectResolutionMode {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for KeyProjectResolutionMode {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::DedicatedKeyProject,
+                2 => Self::ResourceProject,
+                3 => Self::Disabled,
+                _ => Self::UnknownValue(key_project_resolution_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for KeyProjectResolutionMode {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "KEY_PROJECT_RESOLUTION_MODE_UNSPECIFIED" => Self::Unspecified,
+                "DEDICATED_KEY_PROJECT" => Self::DedicatedKeyProject,
+                "RESOURCE_PROJECT" => Self::ResourceProject,
+                "DISABLED" => Self::Disabled,
+                _ => Self::UnknownValue(key_project_resolution_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for KeyProjectResolutionMode {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::DedicatedKeyProject => serializer.serialize_i32(1),
+                Self::ResourceProject => serializer.serialize_i32(2),
+                Self::Disabled => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for KeyProjectResolutionMode {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(
+                wkt::internal::EnumVisitor::<KeyProjectResolutionMode>::new(
+                    ".google.cloud.kms.v1.AutokeyConfig.KeyProjectResolutionMode",
+                ),
+            )
         }
     }
 }
@@ -8002,11 +8201,32 @@ pub mod crypto_key_version {
         /// datatracker.ietf.org/doc/draft-connolly-cfrg-xwing-kem/.
         KemXwing,
         /// The post-quantum Module-Lattice-Based Digital Signature Algorithm, at
+        /// security level 1. Randomized version.
+        PqSignMlDsa44,
+        /// The post-quantum Module-Lattice-Based Digital Signature Algorithm, at
         /// security level 3. Randomized version.
         PqSignMlDsa65,
+        /// The post-quantum Module-Lattice-Based Digital Signature Algorithm, at
+        /// security level 5. Randomized version.
+        PqSignMlDsa87,
         /// The post-quantum stateless hash-based digital signature algorithm, at
         /// security level 1. Randomized version.
         PqSignSlhDsaSha2128S,
+        /// The post-quantum stateless hash-based digital signature algorithm, at
+        /// security level 1. Randomized pre-hash version supporting SHA256 digests.
+        PqSignHashSlhDsaSha2128SSha256,
+        /// The post-quantum Module-Lattice-Based Digital Signature Algorithm, at
+        /// security level 1. Randomized version supporting externally-computed
+        /// message representatives.
+        PqSignMlDsa44ExternalMu,
+        /// The post-quantum Module-Lattice-Based Digital Signature Algorithm, at
+        /// security level 3. Randomized version supporting externally-computed
+        /// message representatives.
+        PqSignMlDsa65ExternalMu,
+        /// The post-quantum Module-Lattice-Based Digital Signature Algorithm, at
+        /// security level 5. Randomized version supporting externally-computed
+        /// message representatives.
+        PqSignMlDsa87ExternalMu,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [CryptoKeyVersionAlgorithm::value] or
@@ -8068,8 +8288,14 @@ pub mod crypto_key_version {
                 Self::MlKem768 => std::option::Option::Some(47),
                 Self::MlKem1024 => std::option::Option::Some(48),
                 Self::KemXwing => std::option::Option::Some(63),
+                Self::PqSignMlDsa44 => std::option::Option::Some(68),
                 Self::PqSignMlDsa65 => std::option::Option::Some(56),
+                Self::PqSignMlDsa87 => std::option::Option::Some(69),
                 Self::PqSignSlhDsaSha2128S => std::option::Option::Some(57),
+                Self::PqSignHashSlhDsaSha2128SSha256 => std::option::Option::Some(60),
+                Self::PqSignMlDsa44ExternalMu => std::option::Option::Some(70),
+                Self::PqSignMlDsa65ExternalMu => std::option::Option::Some(67),
+                Self::PqSignMlDsa87ExternalMu => std::option::Option::Some(71),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -8149,9 +8375,23 @@ pub mod crypto_key_version {
                 Self::MlKem768 => std::option::Option::Some("ML_KEM_768"),
                 Self::MlKem1024 => std::option::Option::Some("ML_KEM_1024"),
                 Self::KemXwing => std::option::Option::Some("KEM_XWING"),
+                Self::PqSignMlDsa44 => std::option::Option::Some("PQ_SIGN_ML_DSA_44"),
                 Self::PqSignMlDsa65 => std::option::Option::Some("PQ_SIGN_ML_DSA_65"),
+                Self::PqSignMlDsa87 => std::option::Option::Some("PQ_SIGN_ML_DSA_87"),
                 Self::PqSignSlhDsaSha2128S => {
                     std::option::Option::Some("PQ_SIGN_SLH_DSA_SHA2_128S")
+                }
+                Self::PqSignHashSlhDsaSha2128SSha256 => {
+                    std::option::Option::Some("PQ_SIGN_HASH_SLH_DSA_SHA2_128S_SHA256")
+                }
+                Self::PqSignMlDsa44ExternalMu => {
+                    std::option::Option::Some("PQ_SIGN_ML_DSA_44_EXTERNAL_MU")
+                }
+                Self::PqSignMlDsa65ExternalMu => {
+                    std::option::Option::Some("PQ_SIGN_ML_DSA_65_EXTERNAL_MU")
+                }
+                Self::PqSignMlDsa87ExternalMu => {
+                    std::option::Option::Some("PQ_SIGN_ML_DSA_87_EXTERNAL_MU")
                 }
                 Self::UnknownValue(u) => u.0.name(),
             }
@@ -8214,7 +8454,13 @@ pub mod crypto_key_version {
                 48 => Self::MlKem1024,
                 56 => Self::PqSignMlDsa65,
                 57 => Self::PqSignSlhDsaSha2128S,
+                60 => Self::PqSignHashSlhDsaSha2128SSha256,
                 63 => Self::KemXwing,
+                67 => Self::PqSignMlDsa65ExternalMu,
+                68 => Self::PqSignMlDsa44,
+                69 => Self::PqSignMlDsa87,
+                70 => Self::PqSignMlDsa44ExternalMu,
+                71 => Self::PqSignMlDsa87ExternalMu,
                 _ => Self::UnknownValue(crypto_key_version_algorithm::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -8265,8 +8511,14 @@ pub mod crypto_key_version {
                 "ML_KEM_768" => Self::MlKem768,
                 "ML_KEM_1024" => Self::MlKem1024,
                 "KEM_XWING" => Self::KemXwing,
+                "PQ_SIGN_ML_DSA_44" => Self::PqSignMlDsa44,
                 "PQ_SIGN_ML_DSA_65" => Self::PqSignMlDsa65,
+                "PQ_SIGN_ML_DSA_87" => Self::PqSignMlDsa87,
                 "PQ_SIGN_SLH_DSA_SHA2_128S" => Self::PqSignSlhDsaSha2128S,
+                "PQ_SIGN_HASH_SLH_DSA_SHA2_128S_SHA256" => Self::PqSignHashSlhDsaSha2128SSha256,
+                "PQ_SIGN_ML_DSA_44_EXTERNAL_MU" => Self::PqSignMlDsa44ExternalMu,
+                "PQ_SIGN_ML_DSA_65_EXTERNAL_MU" => Self::PqSignMlDsa65ExternalMu,
+                "PQ_SIGN_ML_DSA_87_EXTERNAL_MU" => Self::PqSignMlDsa87ExternalMu,
                 _ => Self::UnknownValue(crypto_key_version_algorithm::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -8319,8 +8571,14 @@ pub mod crypto_key_version {
                 Self::MlKem768 => serializer.serialize_i32(47),
                 Self::MlKem1024 => serializer.serialize_i32(48),
                 Self::KemXwing => serializer.serialize_i32(63),
+                Self::PqSignMlDsa44 => serializer.serialize_i32(68),
                 Self::PqSignMlDsa65 => serializer.serialize_i32(56),
+                Self::PqSignMlDsa87 => serializer.serialize_i32(69),
                 Self::PqSignSlhDsaSha2128S => serializer.serialize_i32(57),
+                Self::PqSignHashSlhDsaSha2128SSha256 => serializer.serialize_i32(60),
+                Self::PqSignMlDsa44ExternalMu => serializer.serialize_i32(70),
+                Self::PqSignMlDsa65ExternalMu => serializer.serialize_i32(67),
+                Self::PqSignMlDsa87ExternalMu => serializer.serialize_i32(71),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -9361,8 +9619,7 @@ pub struct ImportJob {
     /// operations are performed. Currently, this field is only populated for keys
     /// stored in HSM_SINGLE_TENANT. Note, this list is non-exhaustive and may
     /// apply to additional [ProtectionLevels][google.cloud.kms.v1.ProtectionLevel]
-    /// in the future.
-    /// Supported resources:
+    /// in the future. Supported resources:
     ///
     /// * `"projects/*/locations/*/singleTenantHsmInstances/*"`
     ///

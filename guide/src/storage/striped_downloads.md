@@ -1,4 +1,4 @@
-<!-- 
+<!--
 Copyright 2025 Google LLC
 
 Licensed under the Apache License, Version 2.0 (the "License");
@@ -122,14 +122,8 @@ futures:
 
 Once they complete, the file is downloaded.
 
-Now you should complete writing the `write_stripe()` function. First, duplicate
-the write object and prepare to write starting at the desired offset:
-
-```rust,ignore,noplayground
-{{#rustdoc_include ../../samples/tests/storage/striped.rs:write-stripe-seek}}
-```
-
-Start a download from Cloud Storage:
+Now you should complete writing the `write_stripe()` function. First, start a
+download from Cloud Storage:
 
 ```rust,ignore,noplayground
 {{#rustdoc_include ../../samples/tests/storage/striped.rs:write-stripe-reader}}
@@ -150,7 +144,11 @@ get inconsistent reads:
 {{#rustdoc_include ../../samples/tests/storage/striped.rs:write-stripe-reader-generation}}
 ```
 
-Then you read the data and write it to the local file:
+Then you read the data and write it to the local file. This example uses the
+Unix specific `write_all_at` to write the chunk with a specific cursor offset in
+a thread-safe way. On Windows use `seek_write` from
+`std::os::windows::fs::FileExt` instead. To not block within the future, we run
+the closure on a dedicated thread:
 
 ```rust,ignore,noplayground
 {{#rustdoc_include ../../samples/tests/storage/striped.rs:write-stripe-loop}}

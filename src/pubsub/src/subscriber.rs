@@ -14,9 +14,7 @@
 
 pub mod handler;
 
-/// Defines the return interface for
-/// [Subscriber::streaming_pull][crate::client::Subscriber::streaming_pull].
-pub mod session;
+pub use message_stream::MessageStream;
 
 pub(super) mod builder;
 pub(super) mod client;
@@ -25,6 +23,7 @@ mod keepalive;
 mod lease_loop;
 mod lease_state;
 mod leaser;
+mod message_stream;
 mod retry_policy;
 mod stream;
 mod stub;
