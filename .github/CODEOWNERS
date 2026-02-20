@@ -13,4 +13,4 @@
 # limitations under the License.
 
 *           @googleapis/cloud-sdk-rust-team
-/src/auth/  @googleapis/cloud-sdk-rust-team @googleapis/googleapis-auth
+/src/auth/  @googleapis/cloud-sdk-rust-team @googleapis/cloud-sdk-auth-team
