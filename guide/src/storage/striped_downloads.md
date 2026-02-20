@@ -144,11 +144,10 @@ get inconsistent reads:
 {{#rustdoc_include ../../samples/tests/storage/striped.rs:write-stripe-reader-generation}}
 ```
 
-Then you read the data and write it to the local file. This example uses the
-Unix specific `write_all_at` to write the chunk with a specific cursor offset in
-a thread-safe way. On Windows use `seek_write` from
-`std::os::windows::fs::FileExt` instead. To not block within the future, we run
-the closure on a dedicated thread:
+Then you read the data and write it to the local file. This example uses
+`write_all_at` on Unix, and `seek_write` on Windows, as Rust lacks a portable
+function to atomically write at an specific offset. Both these functions are
+blocking, so we need to run them on a dedicated thread:
 
 ```rust,ignore,noplayground
 {{#rustdoc_include ../../samples/tests/storage/striped.rs:write-stripe-loop}}
