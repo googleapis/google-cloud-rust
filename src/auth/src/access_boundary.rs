@@ -121,7 +121,7 @@ impl AccessBoundary {
     }
 }
 
-/// A decorator for [crate::credentials::CredentialsProvider] with access boundary information.
+/// A decorator for [crate::credentials::AccessTokenCredentialsProvider] with access boundary information.
 #[derive(Clone, Debug)]
 pub(crate) struct CredentialsWithAccessBoundary<T>
 where
@@ -158,7 +158,7 @@ where
     }
 }
 
-/// Decorates [Credentials] with access boundary information.
+/// Decorates Credentials and AccessTokenCredentials with access boundary information.
 impl<T> CredentialsProvider for CredentialsWithAccessBoundary<T>
 where
     T: dynamic::AccessTokenCredentialsProvider + 'static,
@@ -166,7 +166,7 @@ where
     async fn headers(&self, extensions: Extensions) -> Result<CacheableResource<HeaderMap>> {
         let cached_headers = self.credentials.headers(extensions).await?;
 
-        // TODO: cache our own entity tag for access boundaries
+        // TODO(#4186): cache our own entity tag for access boundaries and avoid extra computations
         let (entity_tag, mut headers) = match cached_headers {
             CacheableResource::New { entity_tag, data } => (entity_tag, data),
             CacheableResource::NotModified => return Ok(CacheableResource::NotModified),
@@ -373,7 +373,8 @@ pub(crate) fn external_account_lookup_url(audience: &str) -> Option<String> {
 #[cfg(test)]
 pub(crate) mod tests {
     use super::*;
-    use crate::credentials::{AccessToken, AccessTokenCredentials, EntityTag};
+    use crate::credentials::tests::{get_access_boundary_from_headers, get_token_from_headers};
+    use crate::credentials::{AccessToken, EntityTag};
     use http::header::{AUTHORIZATION, HeaderValue};
     use http::{Extensions, HeaderMap};
     use httptest::{Expectation, Server, matchers::*, responders::*};
@@ -450,8 +451,9 @@ pub(crate) mod tests {
     }
 
     #[tokio::test]
-    #[parallel]
+    #[serial]
     async fn test_fetch_access_boundary_success() -> TestResult {
+        let _env = ScopedEnv::set(REGIONAL_ACCESS_BOUNDARIES_ENV_VAR, "true");
         let server = Server::run();
         server.expect(
             Expectation::matching(request::method_path("GET", "/allowedLocations")).respond_with(
@@ -465,7 +467,7 @@ pub(crate) mod tests {
         );
 
         let mut mock = MockCredentials::new();
-        mock.expect_headers().return_once(|_extensions| {
+        mock.expect_headers().returning(|_extensions| {
             let headers = HeaderMap::from_iter([(
                 AUTHORIZATION,
                 HeaderValue::from_static("Bearer test-token"),
@@ -477,8 +479,20 @@ pub(crate) mod tests {
         });
         let url = server.url("/allowedLocations").to_string();
 
-        let result = fetch_access_boundary(&mock, &url).await?;
-        assert_eq!(result.as_deref(), Some("0x123"), "{result:?}");
+        let creds = CredentialsWithAccessBoundary::new(mock, Some(url));
+
+        // wait for the background task to fetch the access boundary.
+        tokio::time::sleep(std::time::Duration::from_secs(1)).await;
+
+        let cached_headers = creds.headers(Extensions::new()).await?;
+        let token = get_token_from_headers(cached_headers.clone());
+        assert!(token.is_some(), "{token:?}");
+        let access_boundary = get_access_boundary_from_headers(cached_headers);
+        assert_eq!(
+            access_boundary.as_deref(),
+            Some("0x123"),
+            "{access_boundary:?}"
+        );
 
         Ok(())
     }
@@ -561,7 +575,7 @@ pub(crate) mod tests {
 
     #[tokio::test]
     #[serial]
-    async fn test_access_boundary_new_disabled() {
+    async fn test_access_boundary_new_disabled() -> TestResult {
         let _env = ScopedEnv::remove(REGIONAL_ACCESS_BOUNDARIES_ENV_VAR);
 
         let mut mock = MockCredentials::new();
@@ -575,10 +589,16 @@ pub(crate) mod tests {
                 data: headers,
             })
         });
+
         let creds = CredentialsWithAccessBoundary::new(mock, None);
 
-        let val = creds.access_boundary.header_value();
-        assert!(val.is_none(), "{val:?}");
+        let cached_headers = creds.headers(Extensions::new()).await?;
+        let token = get_token_from_headers(cached_headers.clone());
+        assert!(token.is_some(), "{token:?}");
+        let access_boundary = get_access_boundary_from_headers(cached_headers);
+        assert!(access_boundary.is_none(), "{access_boundary:?}");
+
+        Ok(())
     }
 
     #[tokio::test]
