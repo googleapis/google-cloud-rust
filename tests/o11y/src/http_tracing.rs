@@ -135,7 +135,6 @@ pub async fn to_otlp() -> anyhow::Result<()> {
     Ok(())
 }
 
-#[cfg(google_cloud_unstable_tracing)]
 async fn setup_echo_client() -> (
     google_cloud_test_utils::test_layer::TestLayerGuard,
     httptest::Server,

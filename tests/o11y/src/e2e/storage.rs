@@ -1,0 +1,141 @@
+// Copyright 2026 Google LLC
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     https://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+use crate::e2e::wait_for_trace;
+use google_cloud_storage::client::Storage;
+use google_cloud_storage::model_ext::ReadRange;
+use google_cloud_test_utils::runtime_config::project_id;
+use opentelemetry::trace::TraceContextExt;
+use std::collections::BTreeSet;
+use tracing_opentelemetry::OpenTelemetrySpanExt;
+
+const ROOT_SPAN_NAME: &str = "e2e-storage-test";
+
+pub async fn run() -> anyhow::Result<()> {
+    let project_id = project_id()?;
+    // Create a trace with a number of interesting spans from the
+    // `google-cloud-storage` client.
+    let trace_id = send_trace(&project_id).await?;
+    let trace = wait_for_trace(&project_id, &trace_id).await?;
+
+    // Verify the expected spans appear in the trace:
+    let span_names = trace
+        .spans
+        .iter()
+        .map(|s| s.name.as_str())
+        .collect::<BTreeSet<_>>();
+    let required = BTreeSet::from_iter([
+        ROOT_SPAN_NAME,
+        "list_buckets",
+        "create_bucket",
+        "get_bucket",
+        "list_objects",
+        "delete_object",
+        "list_anywhere_caches",
+        "delete_bucket",
+        "google_cloud_storage::client::Storage::read_object",
+        "google_cloud_storage::client::Storage::write_object",
+        "google_cloud_storage::client::Storage::open_object",
+    ]);
+    let missing = required.difference(&span_names).collect::<Vec<_>>();
+    // Sometimes a few traces are not delivered and are reported as "missing":
+    //   https://github.com/user-attachments/assets/7a534f6c-930e-4f97-b840-2ed01de2095e
+    assert!(missing.len() <= 2, "missing={missing:?}\n\n{trace:?}",);
+
+    Ok(())
+}
+
+async fn send_trace(project_id: &str) -> anyhow::Result<String> {
+    // 1. Setup Telemetry (Real Google Cloud Destination)
+    let provider = crate::e2e::set_up_otel_provider(project_id).await?;
+
+    // 2. Generate Trace
+    // Start a root span
+    let root_span = tracing::info_span!("e2e_root", { "otel.name" } = ROOT_SPAN_NAME);
+    let trace_id = root_span
+        .context()
+        .span()
+        .span_context()
+        .trace_id()
+        .to_string();
+    {
+        let _enter = root_span.entered();
+        let _ = client_library_operations().await;
+    }
+
+    println!(
+        "View generated trace in Console: https://console.cloud.google.com/traces/explorer;traceId={}?project={}",
+        trace_id, project_id
+    );
+
+    // 4. Force flush to ensure spans are sent.
+    provider.force_flush()?;
+    Ok(trace_id)
+}
+
+// Run some StorageControl and Storage operations.
+async fn client_library_operations() -> anyhow::Result<()> {
+    let (control, bucket) = storage_samples::create_test_bucket().await?;
+    let _ = storage_data_operations(&bucket.name).await;
+    if let Err(e) = storage_samples::cleanup_bucket(control, bucket.name.clone()).await {
+        tracing::error!("error cleaning up test bucket {}: {e:?}", bucket.name);
+    };
+    Ok(())
+}
+
+async fn storage_data_operations(bucket_name: &str) -> anyhow::Result<()> {
+    let client = Storage::builder().with_tracing().build().await?;
+
+    const CONTENTS: &str = "the quick brown fox jumps over the lazy dog";
+    let body = (0..100)
+        .map(|i| format!("{i:08} {CONTENTS:1000}"))
+        .collect::<Vec<_>>()
+        .join("\n");
+    tracing::info!("uploading small object with send_buffered");
+    let _ = client
+        .write_object(bucket_name, "unused.txt", body.clone())
+        .set_content_type("text/plain")
+        .set_content_language("en")
+        .set_storage_class("STANDARD")
+        .with_resumable_upload_threshold(0_usize)
+        .send_buffered()
+        .await?;
+    tracing::info!("uploading small object with send_unbuffered");
+    let insert = client
+        .write_object(bucket_name, "quick.txt", body.clone())
+        .set_metadata([("verify-metadata-works", "yes")])
+        .set_content_type("text/plain")
+        .set_content_language("en")
+        .set_storage_class("STANDARD")
+        .send_unbuffered()
+        .await?;
+    {
+        tracing::info!("reading small object");
+        let mut response = client.read_object(bucket_name, &insert.name).send().await?;
+        while response.next().await.transpose()?.is_some() {}
+    }
+    {
+        tracing::info!("opening small object");
+        let descriptor = client
+            .open_object(&insert.bucket, &insert.name)
+            .send()
+            .await?;
+        tracing::info!("reading from open object");
+        let mut response = descriptor.read_range(ReadRange::head(16)).await;
+        while response.next().await.transpose()?.is_some() {}
+    }
+    tracing::info!("all Storage operations done");
+
+    Ok(())
+}

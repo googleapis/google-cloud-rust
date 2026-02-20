@@ -18,4 +18,9 @@ mod telemetry {
     async fn showcase() -> anyhow::Result<()> {
         integration_tests_o11y::e2e::showcase::run().await
     }
+
+    #[tokio::test(flavor = "multi_thread")]
+    async fn storage() -> anyhow::Result<()> {
+        integration_tests_o11y::e2e::storage::run().await
+    }
 }

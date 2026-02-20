@@ -234,7 +234,7 @@ mod tests {
     async fn test_percent_encoding_object_name(want: &str) -> Result {
         let inner = test_inner_client(test_builder()).await;
         let options = inner.options.clone();
-        let stub = crate::storage::transport::Storage::new(inner.clone());
+        let stub = crate::storage::transport::Storage::new_test(inner.clone());
         let builder = WriteObject::new(stub, "projects/_/buckets/bucket", want, "hello", options);
         let request = perform_upload(inner, builder)
             .start_resumable_upload_request()
