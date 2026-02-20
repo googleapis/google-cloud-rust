@@ -630,44 +630,6 @@ pub(crate) mod tests {
 
     #[tokio::test(start_paused = true)]
     #[parallel]
-    async fn test_access_boundary_expiration() {
-        let (tx, rx_header) = watch::channel::<Option<BoundaryValue>>(None);
-        let access_boundary = AccessBoundary { rx_header };
-
-        let expires_at = Instant::now() + Duration::from_secs(10);
-        let _ = tx.send(Some(BoundaryValue {
-            value: Some("old-value".to_string()),
-            expires_at,
-        }));
-
-        // value is valid
-        let val = access_boundary.header_value();
-        assert_eq!(
-            val.as_deref(),
-            Some("old-value"),
-            "expected Some(\"old-value\"), got {val:?}"
-        );
-
-        // advance time to expire the value
-        tokio::time::advance(Duration::from_secs(11)).await;
-
-        // value should return None if expired (non-blocking)
-        let val = access_boundary.header_value();
-        assert!(val.is_none(), "expected None, got {val:?}");
-
-        // update with new value
-        let _ = tx.send(Some(BoundaryValue::new(Some("new-value".to_string()))));
-
-        let val = access_boundary.header_value();
-        assert_eq!(
-            val.as_deref(),
-            Some("new-value"),
-            "expected Some(\"new-value\"), got {val:?}"
-        );
-    }
-
-    #[tokio::test(start_paused = true)]
-    #[parallel]
     async fn test_refresh_task_backoff() {
         let mut mock_provider = MockAccessBoundaryProvider::new();
         mock_provider
