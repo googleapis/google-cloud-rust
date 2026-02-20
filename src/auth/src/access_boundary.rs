@@ -269,7 +269,7 @@ where
 
 pub(crate) fn service_account_lookup_url(email: &str) -> String {
     format!(
-        "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/{email}/allowedLocations",
+        "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/{email}/allowedLocations"
     )
 }
 
