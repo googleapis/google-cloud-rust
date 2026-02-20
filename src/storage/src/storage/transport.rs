@@ -68,12 +68,12 @@ impl Storage {
 
     async fn read_object_plain(
         &self,
-        req: ReadObjectRequest,
+        request: ReadObjectRequest,
         options: RequestOptions,
     ) -> Result<ReadObjectResponse> {
         let reader = Reader {
             inner: self.inner.clone(),
-            request: req,
+            request,
             options,
         };
         reader.response().await
@@ -82,7 +82,7 @@ impl Storage {
     #[tracing::instrument(name = "read_object", level = tracing::Level::DEBUG, ret, err(Debug))]
     async fn read_object_tracing(
         &self,
-        req: ReadObjectRequest,
+        request: ReadObjectRequest,
         options: RequestOptions,
     ) -> Result<ReadObjectResponse> {
         #[cfg(google_cloud_unstable_tracing)]
@@ -90,7 +90,7 @@ impl Storage {
             let span =
                 gaxi::client_request_span!("client::Storage", "read_object", &INSTRUMENTATION);
             let response = self
-                .read_object_plain(req, options)
+                .read_object_plain(request, options)
                 .instrument(span.clone())
                 .await
                 .record_in_span(&span)?;
@@ -99,28 +99,34 @@ impl Storage {
             Ok(response)
         }
         #[cfg(not(google_cloud_unstable_tracing))]
-        self.read_object_plain(req, options).await
+        self.read_object_plain(request, options).await
     }
 
     async fn write_object_buffered_plain<P>(
         &self,
         payload: P,
-        req: WriteObjectRequest,
+        request: WriteObjectRequest,
         options: RequestOptions,
     ) -> Result<Object>
     where
         P: StreamingSource + Send + Sync + 'static,
     {
-        PerformUpload::new(payload, self.inner.clone(), req.spec, req.params, options)
-            .send()
-            .await
+        PerformUpload::new(
+            payload,
+            self.inner.clone(),
+            request.spec,
+            request.params,
+            options,
+        )
+        .send()
+        .await
     }
 
     #[tracing::instrument(name = "write_object_buffered", level = tracing::Level::DEBUG, ret, err(Debug), skip(payload))]
     async fn write_object_buffered_tracing<P>(
         &self,
         payload: P,
-        req: WriteObjectRequest,
+        request: WriteObjectRequest,
         options: RequestOptions,
     ) -> Result<Object>
     where
@@ -130,35 +136,41 @@ impl Storage {
         {
             let span =
                 gaxi::client_request_span!("client::Storage", "write_object", &INSTRUMENTATION);
-            self.write_object_buffered_plain(payload, req, options)
+            self.write_object_buffered_plain(payload, request, options)
                 .instrument(span.clone())
                 .await
                 .record_in_span(&span)
         }
         #[cfg(not(google_cloud_unstable_tracing))]
-        self.write_object_buffered_plain(payload, req, options)
+        self.write_object_buffered_plain(payload, request, options)
             .await
     }
 
     async fn write_object_unbuffered_plain<P>(
         &self,
         payload: P,
-        req: WriteObjectRequest,
+        request: WriteObjectRequest,
         options: RequestOptions,
     ) -> Result<Object>
     where
         P: StreamingSource + Seek + Send + Sync + 'static,
     {
-        PerformUpload::new(payload, self.inner.clone(), req.spec, req.params, options)
-            .send_unbuffered()
-            .await
+        PerformUpload::new(
+            payload,
+            self.inner.clone(),
+            request.spec,
+            request.params,
+            options,
+        )
+        .send_unbuffered()
+        .await
     }
 
     #[tracing::instrument(name = "write_object_unbuffered", level = tracing::Level::DEBUG, ret, err(Debug), skip(payload))]
     async fn write_object_unbuffered_tracing<P>(
         &self,
         payload: P,
-        req: WriteObjectRequest,
+        request: WriteObjectRequest,
         options: RequestOptions,
     ) -> Result<Object>
     where
@@ -168,13 +180,13 @@ impl Storage {
         {
             let span =
                 gaxi::client_request_span!("client::Storage", "write_object", &INSTRUMENTATION);
-            self.write_object_unbuffered_plain(payload, req, options)
+            self.write_object_unbuffered_plain(payload, request, options)
                 .instrument(span.clone())
                 .await
                 .record_in_span(&span)
         }
         #[cfg(not(google_cloud_unstable_tracing))]
-        self.write_object_unbuffered_plain(payload, req, options)
+        self.write_object_unbuffered_plain(payload, request, options)
             .await
     }
 
@@ -320,7 +332,7 @@ mod tests {
         check_debug_log(&captured, "read_object");
 
         #[cfg(google_cloud_unstable_tracing)]
-        client_request_span(&captured, "read_object");
+        client_request_span(&captured, "read_object", "404");
 
         Ok(())
     }
@@ -357,7 +369,7 @@ mod tests {
         check_debug_log(&captured, "write_object_buffered");
 
         #[cfg(google_cloud_unstable_tracing)]
-        client_request_span(&captured, "write_object");
+        client_request_span(&captured, "write_object", "404");
 
         Ok(())
     }
@@ -394,8 +406,44 @@ mod tests {
         check_debug_log(&captured, "write_object_unbuffered");
 
         #[cfg(google_cloud_unstable_tracing)]
-        client_request_span(&captured, "write_object");
+        client_request_span(&captured, "write_object", "404");
 
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn open_object() -> anyhow::Result<()> {
+        use gaxi::grpc::tonic::Status as TonicStatus;
+        use google_cloud_gax::error::rpc::Code;
+        use storage_grpc_mock::{MockStorage, start};
+
+        let guard = TestLayer::initialize();
+
+        let mut mock = MockStorage::new();
+        mock.expect_bidi_read_object()
+            .return_once(|_| Err(TonicStatus::not_found("not here")));
+        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
+
+        let client = crate::client::Storage::builder()
+            .with_credentials(Anonymous::new().build())
+            .with_endpoint(endpoint.clone())
+            .with_tracing()
+            .build()
+            .await?;
+        let response = client
+            .open_object("projects/_/buckets/test-bucket", "test-object")
+            .send()
+            .await;
+        assert!(
+            matches!(response, Err(ref e) if e.status().is_some_and(|s| s.code == Code::NotFound)),
+            "{response:?}"
+        );
+
+        let captured = TestLayer::capture(&guard);
+        check_debug_log(&captured, "open_object");
+
+        #[cfg(google_cloud_unstable_tracing)]
+        client_request_span(&captured, "open_object", "NOT_FOUND");
         Ok(())
     }
 
@@ -407,21 +455,26 @@ mod tests {
             .unwrap_or_else(|| panic!("missing `{method}` span in capture: {captured:#?}"));
 
         let got = BTreeMap::from_iter(span.attributes.clone());
-        let want = ["self", "options", "req"];
+        let want = ["self", "options", "request"];
         let missing = want
             .iter()
             .filter(|k| !got.contains_key(**k))
             .collect::<Vec<_>>();
         assert!(
             missing.is_empty(),
-            "missing = {missing:?}\ngot  = {got:?}\nwant = {want:?}"
+            "missing = {missing:?}\ngot  = {:?}\nwant = {want:?}\nfull = {got:#?}",
+            got.keys().collect::<Vec<_>>(),
         );
     }
 
     #[cfg(google_cloud_unstable_tracing)]
     #[track_caller]
-    fn client_request_span(captured: &Vec<CapturedSpan>, method: &'static str) {
-        const EXPECTED_ATTRIBUTES: [(&str, &str); 10] = [
+    fn client_request_span(
+        captured: &Vec<CapturedSpan>,
+        method: &'static str,
+        error_type: &'static str,
+    ) {
+        const EXPECTED_ATTRIBUTES: [(&str, &str); 9] = [
             (OTEL_KIND, OTEL_KIND_INTERNAL),
             (RPC_SYSTEM, RPC_SYSTEM_HTTP),
             (RPC_SERVICE, "storage"),
@@ -431,7 +484,6 @@ mod tests {
             (GCP_CLIENT_ARTIFACT, "google-cloud-storage"),
             (GCP_CLIENT_LANGUAGE, GCP_CLIENT_LANGUAGE_RUST),
             (OTEL_STATUS_CODE, "ERROR"),
-            (ERROR_TYPE, "404"),
         ];
         let span = captured
             .iter()
@@ -452,6 +504,7 @@ mod tests {
                             format!("google_cloud_storage::client::Storage::{method}").into(),
                         ),
                         (RPC_METHOD, method.into()),
+                        (ERROR_TYPE, error_type.into()),
                     ]
                     .map(|(k, v)| (k.to_string(), v)),
                 ),
