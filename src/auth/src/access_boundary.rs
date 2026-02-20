@@ -276,7 +276,7 @@ pub(crate) fn service_account_lookup_url(email: &str) -> String {
 #[cfg(test)]
 pub(crate) mod tests {
     use super::*;
-    use crate::credentials::tests::get_access_boundary_from_headers;
+    use crate::credentials::tests::{get_access_boundary_from_headers, get_token_from_headers};
     use crate::credentials::{AccessToken, EntityTag};
     use http::header::{AUTHORIZATION, HeaderValue};
     use http::{Extensions, HeaderMap};
@@ -357,6 +357,8 @@ pub(crate) mod tests {
         tokio::time::sleep(std::time::Duration::from_secs(1)).await;
 
         let cached_headers = creds.headers(Extensions::new()).await?;
+        let token = get_token_from_headers(cached_headers.clone());
+        assert!(token.is_some(), "{token:?}");
         let access_boundary = get_access_boundary_from_headers(cached_headers);
         assert_eq!(
             access_boundary.as_deref(),
@@ -462,6 +464,8 @@ pub(crate) mod tests {
         let creds = CredentialsWithAccessBoundary::new(mock, "http://localhost".to_string());
 
         let cached_headers = creds.headers(Extensions::new()).await?;
+        let token = get_token_from_headers(cached_headers.clone());
+        assert!(token.is_some(), "{token:?}");
         let access_boundary = get_access_boundary_from_headers(cached_headers);
         assert!(access_boundary.is_none(), "{access_boundary:?}");
 
