@@ -620,7 +620,7 @@ mod tests {
     #[tokio::test]
     async fn test_clone() {
         let inner = test_inner_client(test_builder()).await;
-        let stub = crate::storage::transport::Storage::new(inner.clone());
+        let stub = crate::storage::transport::Storage::new_test(inner.clone());
         let options = {
             let mut o = RequestOptions::new();
             o.set_resumable_upload_threshold(12345_usize);
@@ -956,7 +956,7 @@ mod tests {
     #[tokio::test]
     async fn read_object() -> Result {
         let inner = test_inner_client(test_builder()).await;
-        let stub = crate::storage::transport::Storage::new(inner.clone());
+        let stub = crate::storage::transport::Storage::new_test(inner.clone());
         let builder = ReadObject::new(
             stub,
             "projects/_/buckets/bucket",
@@ -977,7 +977,7 @@ mod tests {
     async fn read_object_error_credentials() -> Result {
         let inner =
             test_inner_client(test_builder().with_credentials(error_credentials(false))).await;
-        let stub = crate::storage::transport::Storage::new(inner.clone());
+        let stub = crate::storage::transport::Storage::new_test(inner.clone());
         let builder = ReadObject::new(
             stub,
             "projects/_/buckets/bucket",
@@ -994,7 +994,7 @@ mod tests {
     #[tokio::test]
     async fn read_object_bad_bucket() -> Result {
         let inner = test_inner_client(test_builder()).await;
-        let stub = crate::storage::transport::Storage::new(inner.clone());
+        let stub = crate::storage::transport::Storage::new_test(inner.clone());
         let builder = ReadObject::new(stub, "malformed", "object", inner.options.clone());
         let _ = http_request_builder(inner, builder)
             .await
@@ -1005,7 +1005,7 @@ mod tests {
     #[tokio::test]
     async fn read_object_query_params() -> Result {
         let inner = test_inner_client(test_builder()).await;
-        let stub = crate::storage::transport::Storage::new(inner.clone());
+        let stub = crate::storage::transport::Storage::new_test(inner.clone());
         let builder = ReadObject::new(
             stub,
             "projects/_/buckets/bucket",
@@ -1045,7 +1045,7 @@ mod tests {
     async fn read_object_default_headers() -> Result {
         // The API takes the unencoded byte array.
         let inner = test_inner_client(test_builder()).await;
-        let stub = crate::storage::transport::Storage::new(inner.clone());
+        let stub = crate::storage::transport::Storage::new_test(inner.clone());
         let builder = ReadObject::new(
             stub,
             "projects/_/buckets/bucket",
@@ -1076,7 +1076,7 @@ mod tests {
     async fn read_object_automatic_decompression_headers() -> Result {
         // The API takes the unencoded byte array.
         let inner = test_inner_client(test_builder()).await;
-        let stub = crate::storage::transport::Storage::new(inner.clone());
+        let stub = crate::storage::transport::Storage::new_test(inner.clone());
         let builder = ReadObject::new(
             stub,
             "projects/_/buckets/bucket",
@@ -1104,7 +1104,7 @@ mod tests {
 
         // The API takes the unencoded byte array.
         let inner = test_inner_client(test_builder()).await;
-        let stub = crate::storage::transport::Storage::new(inner.clone());
+        let stub = crate::storage::transport::Storage::new_test(inner.clone());
         let builder = ReadObject::new(
             stub,
             "projects/_/buckets/bucket",
@@ -1144,7 +1144,7 @@ mod tests {
     #[tokio::test]
     async fn range_header(input: ReadRange, want: Option<&http::HeaderValue>) -> Result {
         let inner = test_inner_client(test_builder()).await;
-        let stub = crate::storage::transport::Storage::new(inner.clone());
+        let stub = crate::storage::transport::Storage::new_test(inner.clone());
         let builder = ReadObject::new(
             stub,
             "projects/_/buckets/bucket",
@@ -1179,7 +1179,7 @@ mod tests {
     #[tokio::test]
     async fn test_percent_encoding_object_name(name: &str, want: &str) -> Result {
         let inner = test_inner_client(test_builder()).await;
-        let stub = crate::storage::transport::Storage::new(inner.clone());
+        let stub = crate::storage::transport::Storage::new_test(inner.clone());
         let builder = ReadObject::new(
             stub,
             "projects/_/buckets/bucket",

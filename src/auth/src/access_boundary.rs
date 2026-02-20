@@ -96,7 +96,7 @@ impl AccessBoundary {
     }
 
     #[cfg(test)]
-    // only used for testing
+    // only used for testing main
     pub(crate) fn new_with_mock_provider<T>(provider: T) -> Self
     where
         T: AccessBoundaryProvider + 'static,
@@ -385,6 +385,7 @@ pub(crate) mod tests {
 
     type TestResult = anyhow::Result<()>;
 
+    // Used by tests in other modules.
     mockall::mock! {
         #[derive(Debug)]
         Credentials {}

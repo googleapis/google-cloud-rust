@@ -344,17 +344,16 @@ impl Builder {
         self,
     ) -> BuildResult<CredentialsWithAccessBoundary<ServiceAccountCredentials<TokenCache>>> {
         let iam_endpoint = self.iam_endpoint_override.clone();
-        let service_account_key =
-            serde_json::from_value::<ServiceAccountKey>(self.service_account_key.clone())
-                .map_err(BuilderError::parsing)?;
-        let client_email = service_account_key.client_email.clone();
+        let quota_project_id = self.quota_project_id.clone();
+        let token_provider = self.build_token_provider()?;
+        let client_email = token_provider.service_account_key.client_email.clone();
         let access_boundary_url = crate::access_boundary::service_account_lookup_url(
             &client_email,
             iam_endpoint.as_deref(),
         );
         let creds = ServiceAccountCredentials {
-            quota_project_id: self.quota_project_id.clone(),
-            token_provider: TokenCache::new(self.build_token_provider()?),
+            quota_project_id,
+            token_provider: TokenCache::new(token_provider),
         };
 
         Ok(CredentialsWithAccessBoundary::new(
