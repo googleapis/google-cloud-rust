@@ -297,17 +297,7 @@ impl Builder {
     ///
     /// [creating service account keys]: https://cloud.google.com/iam/docs/keys-create-delete#creating
     pub fn build(self) -> BuildResult<Credentials> {
-        let iam_endpoint = self.iam_endpoint_override.clone();
-        let service_account_key =
-            serde_json::from_value::<ServiceAccountKey>(self.service_account_key.clone())
-                .map_err(BuilderError::parsing)?;
-        let client_email = service_account_key.client_email.clone();
-        let access_boundary_url = crate::access_boundary::service_account_lookup_url(
-            &client_email,
-            iam_endpoint.as_deref(),
-        );
-        let creds = self.build_access_token_credentials()?;
-        Ok(CredentialsWithAccessBoundary::new(creds.into(), access_boundary_url).into())
+        Ok(self.build_credentials()?.into())
     }
 
     /// Returns an [AccessTokenCredentials] instance with the configured settings.
@@ -347,12 +337,30 @@ impl Builder {
     ///
     /// [service account keys]: https://cloud.google.com/iam/docs/keys-create-delete#creating
     pub fn build_access_token_credentials(self) -> BuildResult<AccessTokenCredentials> {
-        Ok(AccessTokenCredentials {
-            inner: Arc::new(ServiceAccountCredentials {
-                quota_project_id: self.quota_project_id.clone(),
-                token_provider: TokenCache::new(self.build_token_provider()?),
-            }),
-        })
+        Ok(self.build_credentials()?.into())
+    }
+
+    fn build_credentials(
+        self,
+    ) -> BuildResult<CredentialsWithAccessBoundary<ServiceAccountCredentials<TokenCache>>> {
+        let iam_endpoint = self.iam_endpoint_override.clone();
+        let service_account_key =
+            serde_json::from_value::<ServiceAccountKey>(self.service_account_key.clone())
+                .map_err(BuilderError::parsing)?;
+        let client_email = service_account_key.client_email.clone();
+        let access_boundary_url = crate::access_boundary::service_account_lookup_url(
+            &client_email,
+            iam_endpoint.as_deref(),
+        );
+        let creds = ServiceAccountCredentials {
+            quota_project_id: self.quota_project_id.clone(),
+            token_provider: TokenCache::new(self.build_token_provider()?),
+        };
+
+        Ok(CredentialsWithAccessBoundary::new(
+            creds,
+            Some(access_boundary_url),
+        ))
     }
 
     /// Returns a [crate::signer::Signer] instance with the configured settings.

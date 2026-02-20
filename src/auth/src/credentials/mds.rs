@@ -270,10 +270,7 @@ impl Builder {
 
     /// Returns a [Credentials] instance with the configured settings.
     pub fn build(self) -> BuildResult<Credentials> {
-        let mds_client = MDSClient::new(self.endpoint.clone());
-        let creds = self.build_access_token_credentials()?;
-
-        Ok(CredentialsWithAccessBoundary::new_for_mds(creds.into(), mds_client).into())
+        Ok(self.build_credentials()?.into())
     }
 
     /// Returns an [AccessTokenCredentials] instance with the configured settings.
@@ -293,13 +290,18 @@ impl Builder {
     /// # });
     /// ```
     pub fn build_access_token_credentials(self) -> BuildResult<AccessTokenCredentials> {
+        Ok(self.build_credentials()?.into())
+    }
+
+    fn build_credentials(
+        self,
+    ) -> BuildResult<CredentialsWithAccessBoundary<MDSCredentials<TokenCache>>> {
+        let mds_client = MDSClient::new(self.endpoint.clone());
         let mdsc = MDSCredentials {
             quota_project_id: self.quota_project_id.clone(),
             token_provider: TokenCache::new(self.build_token_provider()),
         };
-        Ok(AccessTokenCredentials {
-            inner: Arc::new(mdsc),
-        })
+        Ok(CredentialsWithAccessBoundary::new_for_mds(mdsc, mds_client))
     }
 
     /// Returns a [crate::signer::Signer] instance with the configured settings.

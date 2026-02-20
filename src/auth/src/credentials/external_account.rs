@@ -330,7 +330,7 @@ impl ExternalAccountConfig {
         self,
         quota_project_id: Option<String>,
         retry_builder: RetryTokenProviderBuilder,
-    ) -> AccessTokenCredentials {
+    ) -> ExternalAccountCredentials<TokenCache> {
         let config = self.clone();
         match self.credential_source {
             CredentialSource::Url(source) => {
@@ -356,7 +356,7 @@ impl ExternalAccountConfig {
         config: ExternalAccountConfig,
         quota_project_id: Option<String>,
         retry_builder: RetryTokenProviderBuilder,
-    ) -> AccessTokenCredentials
+    ) -> ExternalAccountCredentials<TokenCache>
     where
         T: dynamic::SubjectTokenProvider + 'static,
     {
@@ -366,11 +366,9 @@ impl ExternalAccountConfig {
         };
         let token_provider_with_retry = retry_builder.build(token_provider);
         let cache = TokenCache::new(token_provider_with_retry);
-        AccessTokenCredentials {
-            inner: Arc::new(ExternalAccountCredentials {
-                token_provider: cache,
-                quota_project_id,
-            }),
+        ExternalAccountCredentials {
+            token_provider: cache,
+            quota_project_id,
         }
     }
 }
@@ -661,13 +659,7 @@ impl Builder {
     ///
     /// [external_account_credentials]: https://google.aip.dev/auth/4117#configuration-file-generation-and-usage
     pub fn build(self) -> BuildResult<Credentials> {
-        let config = self.build_config()?;
-        let access_boundary_url = external_account_lookup_url(&config.audience);
-        let creds = self.build_access_token_credentials()?;
-        match access_boundary_url {
-            Some(url) => Ok(CredentialsWithAccessBoundary::new(creds.into(), url).into()),
-            None => Ok(creds.into()),
-        }
+        Ok(self.build_credentials()?.into())
     }
 
     /// Returns an [AccessTokenCredentials] instance with the configured settings.
@@ -684,8 +676,19 @@ impl Builder {
     ///
     /// [external_account_credentials]: https://google.aip.dev/auth/4117#configuration-file-generation-and-usage
     pub fn build_access_token_credentials(self) -> BuildResult<AccessTokenCredentials> {
+        Ok(self.build_credentials()?.into())
+    }
+
+    fn build_credentials(
+        self,
+    ) -> BuildResult<CredentialsWithAccessBoundary<ExternalAccountCredentials<TokenCache>>> {
         let config = self.build_config()?;
-        Ok(config.make_credentials(self.quota_project_id, self.retry_builder))
+        let access_boundary_url = external_account_lookup_url(&config.audience);
+        let creds = config.make_credentials(self.quota_project_id, self.retry_builder);
+        Ok(CredentialsWithAccessBoundary::new(
+            creds,
+            access_boundary_url,
+        ))
     }
 }
 
@@ -1253,9 +1256,10 @@ impl ProgrammaticBuilder {
     /// `audience` or `subject_token_type`) have not been set.
     pub fn build(self) -> BuildResult<Credentials> {
         let (config, quota_project_id, retry_builder) = self.build_components()?;
-        Ok(config
-            .make_credentials(quota_project_id, retry_builder)
-            .into())
+        let creds = config.make_credentials(quota_project_id, retry_builder);
+        Ok(Credentials {
+            inner: Arc::new(creds),
+        })
     }
 
     /// Consumes the builder and returns its configured components.

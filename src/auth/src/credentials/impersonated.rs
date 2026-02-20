@@ -427,15 +427,7 @@ impl Builder {
     ///
     /// [application-default credentials]: https://cloud.google.com/docs/authentication/application-default-credentials
     pub fn build(self) -> BuildResult<Credentials> {
-        let service_account_impersonation_url = self.resolve_impersonation_url()?;
-        let client_email = extract_client_email(&service_account_impersonation_url)?;
-        let access_boundary_url = crate::access_boundary::service_account_lookup_url(
-            &client_email,
-            self.iam_endpoint_override.as_deref(),
-        );
-        let creds = self.build_access_token_credentials()?;
-
-        Ok(CredentialsWithAccessBoundary::new(creds.into(), access_boundary_url).into())
+        Ok(self.build_credentials()?.into())
     }
 
     #[cfg(test)]
@@ -486,13 +478,29 @@ impl Builder {
     ///
     /// [application-default credentials]: https://cloud.google.com/docs/authentication/application-default-credentials
     pub fn build_access_token_credentials(self) -> BuildResult<AccessTokenCredentials> {
+        Ok(self.build_credentials()?.into())
+    }
+
+    fn build_credentials(
+        self,
+    ) -> BuildResult<CredentialsWithAccessBoundary<ImpersonatedServiceAccount<TokenCache>>> {
+        let service_account_impersonation_url = self.resolve_impersonation_url()?;
+        let client_email = extract_client_email(&service_account_impersonation_url)?;
+        let iam_endpoint_override = self.iam_endpoint_override.clone();
         let (token_provider, quota_project_id) = self.build_components()?;
-        Ok(AccessTokenCredentials {
-            inner: Arc::new(ImpersonatedServiceAccount {
-                token_provider: TokenCache::new(token_provider),
-                quota_project_id,
-            }),
-        })
+        let access_boundary_url = crate::access_boundary::service_account_lookup_url(
+            &client_email,
+            iam_endpoint_override.as_deref(),
+        );
+        let creds = ImpersonatedServiceAccount {
+            token_provider: TokenCache::new(token_provider),
+            quota_project_id,
+        };
+
+        Ok(CredentialsWithAccessBoundary::new(
+            creds,
+            Some(access_boundary_url),
+        ))
     }
 
     /// Returns a [crate::signer::Signer] instance with the configured settings.
