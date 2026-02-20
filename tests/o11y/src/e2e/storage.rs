@@ -96,9 +96,13 @@ async fn storage_data_operations(bucket_name: &str) -> anyhow::Result<()> {
     let client = Storage::builder().with_tracing().build().await?;
 
     const CONTENTS: &str = "the quick brown fox jumps over the lazy dog";
+    let body = (0..100)
+        .map(|i| format!("{i:08} {CONTENTS:1000}"))
+        .collect::<Vec<_>>()
+        .join("\n");
     tracing::info!("uploading small object with send_buffered");
     let _ = client
-        .write_object(bucket_name, "unused.txt", CONTENTS)
+        .write_object(bucket_name, "unused.txt", body.clone())
         .set_content_type("text/plain")
         .set_content_language("en")
         .set_storage_class("STANDARD")
@@ -107,7 +111,7 @@ async fn storage_data_operations(bucket_name: &str) -> anyhow::Result<()> {
         .await?;
     tracing::info!("uploading small object with send_unbuffered");
     let insert = client
-        .write_object(bucket_name, "quick.txt", CONTENTS)
+        .write_object(bucket_name, "quick.txt", body.clone())
         .set_metadata([("verify-metadata-works", "yes")])
         .set_content_type("text/plain")
         .set_content_language("en")

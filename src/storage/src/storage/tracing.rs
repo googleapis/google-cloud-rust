@@ -38,6 +38,15 @@ impl DynamicReadObjectResponse for TracingResponse<Box<dyn DynamicReadObjectResp
 
     async fn next(&mut self) -> Option<Result<bytes::Bytes>> {
         use ::tracing::Instrument as _;
-        self.inner.next().instrument(self.span.clone()).await
+        let result = self.inner.next().instrument(self.span.clone()).await;
+        let r = result.as_ref();
+        let eof = r.is_none();
+        let err = r.is_some_and(|e| e.is_err());
+        let cnt = r
+            .and_then(|e| e.as_ref().ok())
+            .map(|b| b.len())
+            .unwrap_or(0_usize);
+        ::tracing::event!(parent: &self.span, tracing::Level::INFO, eof = eof, err = err, cnt = cnt);
+        result
     }
 }

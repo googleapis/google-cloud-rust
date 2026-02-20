@@ -337,6 +337,54 @@ mod tests {
         Ok(())
     }
 
+    #[cfg(google_cloud_unstable_tracing)]
+    #[tokio::test]
+    async fn read_object_success() -> anyhow::Result<()> {
+        let guard = TestLayer::initialize();
+
+        let body = (0..100_000)
+            .map(|i| format!("{i:08} {:1000}", ""))
+            .collect::<Vec<_>>()
+            .join("\n");
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path("GET", "/storage/v1/b/test-bucket/o/test-object"),
+                request::query(url_decoded(contains(("alt", "media")))),
+            ])
+            .respond_with(
+                status_code(200)
+                    .body(body.clone())
+                    .append_header("x-goog-generation", 123456),
+            ),
+        );
+
+        let client = crate::client::Storage::builder()
+            .with_endpoint(format!("http://{}", server.addr()))
+            .with_credentials(Anonymous::new().build())
+            .with_tracing()
+            .build()
+            .await?;
+        let mut got = Vec::new();
+        let mut response = client
+            .read_object("projects/_/buckets/test-bucket", "test-object")
+            .send()
+            .await?;
+        while let Some(b) = response.next().await.transpose()? {
+            got.push(b);
+        }
+
+        let captured = TestLayer::capture(&guard);
+        let span = captured
+            .iter()
+            .find(|s| s.name == "client_request")
+            .unwrap_or_else(|| panic!("missing `client_request` span in capture: {captured:#?}"));
+        // The span counts one more event: the EOF
+        assert_eq!(span.events, got.len() + 1, "{span:?}");
+
+        Ok(())
+    }
+
     #[tokio::test]
     async fn write_object_buffered() -> anyhow::Result<()> {
         let guard = TestLayer::initialize();
