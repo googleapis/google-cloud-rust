@@ -211,13 +211,11 @@ impl Storage {
         {
             let span =
                 gaxi::client_request_span!("client::Storage", "open_object", &INSTRUMENTATION);
-            let (descriptor, responses) = self
-                .open_object_plain(request, options)
+            // TODO(#3178) - wrap descriptor and responses with tracing decorators.
+            self.open_object_plain(request, options)
                 .instrument(span.clone())
                 .await
-                .record_in_span(&span)?;
-            // TODO(#3178) - wrap descriptor and responses with tracing decorators.
-            Ok((descriptor, responses))
+                .record_in_span(&span)
         }
         #[cfg(not(google_cloud_unstable_tracing))]
         self.open_object_plain(request, options).await
@@ -370,6 +368,8 @@ mod tests {
             .read_object("projects/_/buckets/test-bucket", "test-object")
             .send()
             .await?;
+        let object = response.object();
+        assert_eq!(object.generation, 123456, "{object:?}");
         while let Some(b) = response.next().await.transpose()? {
             got.push(b);
         }
