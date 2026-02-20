@@ -48,6 +48,7 @@ _internal-http-client = [
   "dep:http",
   "dep:http-body-util",
   "dep:hyper",
+  "dep:lazy_static",
   "dep:opentelemetry-semantic-conventions",
   "dep:reqwest",
   "dep:serde",
@@ -103,6 +104,7 @@ http                               = { workspace = true, optional = true }
 http-body                          = { workspace = true, optional = true }
 http-body-util                     = { workspace = true, optional = true }
 hyper                              = { workspace = true, optional = true }
+lazy_static                        = { workspace = true, optional = true }
 opentelemetry-semantic-conventions = { workspace = true, optional = true }
 percent-encoding                   = { workspace = true, optional = true }
 pin-project                        = { workspace = true, optional = true }
