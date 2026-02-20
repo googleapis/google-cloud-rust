@@ -27,10 +27,10 @@ use std::sync::Arc;
 /// # use google_cloud_pubsub::client::Subscriber;
 /// # async fn sample() -> anyhow::Result<()> {
 /// let client = Subscriber::builder().build().await?;
-/// let mut session = client
+/// let mut stream = client
 ///     .streaming_pull("projects/my-project/subscriptions/my-subscription")
 ///     .start();
-/// while let Some((m, h)) = session.next().await.transpose()? {
+/// while let Some((m, h)) = stream.next().await.transpose()? {
 ///     println!("Received message m={m:?}");
 ///     h.ack();
 /// }
@@ -41,10 +41,10 @@ use std::sync::Arc;
 ///
 /// If [ordered delivery] is enabled on the subscription, the subscriber yields
 /// messages to the application in order on each call to
-/// [`Session::next()`][next]. Messages for a given ordering key are only
-/// delivered by one `Session` at a time.
+/// [`MessageStream::next()`][next]. Messages for a given ordering key are only
+/// delivered by one `MessageStream` at a time.
 ///
-/// [next]: crate::subscriber::session::Session::next
+/// [next]: crate::subscriber::MessageStream::next
 /// [ordered delivery]: https://docs.cloud.google.com/pubsub/docs/ordering
 ///
 /// # Exactly-once Delivery
@@ -129,10 +129,10 @@ impl Subscriber {
     /// ```
     /// # use google_cloud_pubsub::client::Subscriber;
     /// # async fn sample(client: Subscriber) -> anyhow::Result<()> {
-    /// let mut session = client
+    /// let mut stream = client
     ///     .streaming_pull("projects/my-project/subscriptions/my-subscription")
     ///     .start();
-    /// while let Some((m, h)) = session.next().await.transpose()? {
+    /// while let Some((m, h)) = stream.next().await.transpose()? {
     ///     println!("Received message m={m:?}");
     ///     h.ack();
     /// }

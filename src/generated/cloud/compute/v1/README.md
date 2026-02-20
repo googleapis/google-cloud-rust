@@ -4,7 +4,7 @@
 
 Creates and runs virtual machines on Google Cloud Platform.
 
-This client library was generated from the "20260206" revision of the API.
+This client library was generated from the "20260213" revision of the API.
 
 The client library types and functions are stable and not expected to change.
 Please note that Google Cloud services do change from time to time. The client
@@ -78,6 +78,7 @@ The main types to work with this crate are the clients:
 - [RegionCommitments]: enabled by the `region-commitments` feature.
 - [RegionDiskTypes]: enabled by the `region-disk-types` feature.
 - [RegionDisks]: enabled by the `region-disks` feature.
+- [RegionHealthAggregationPolicies]: enabled by the `region-health-aggregation-policies` feature.
 - [RegionHealthCheckServices]: enabled by the `region-health-check-services` feature.
 - [RegionHealthChecks]: enabled by the `region-health-checks` feature.
 - [RegionInstanceGroupManagers]: enabled by the `region-instance-group-managers` feature.
@@ -207,6 +208,7 @@ The main types to work with this crate are the clients:
 [RegionCommitments]: https://docs.rs/google-cloud-compute-v1/2.2.0/google_cloud_compute_v1/client/struct.RegionCommitments.html
 [RegionDiskTypes]: https://docs.rs/google-cloud-compute-v1/2.2.0/google_cloud_compute_v1/client/struct.RegionDiskTypes.html
 [RegionDisks]: https://docs.rs/google-cloud-compute-v1/2.2.0/google_cloud_compute_v1/client/struct.RegionDisks.html
+[RegionHealthAggregationPolicies]: https://docs.rs/google-cloud-compute-v1/2.2.0/google_cloud_compute_v1/client/struct.RegionHealthAggregationPolicies.html
 [RegionHealthCheckServices]: https://docs.rs/google-cloud-compute-v1/2.2.0/google_cloud_compute_v1/client/struct.RegionHealthCheckServices.html
 [RegionHealthChecks]: https://docs.rs/google-cloud-compute-v1/2.2.0/google_cloud_compute_v1/client/struct.RegionHealthChecks.html
 [RegionInstanceGroupManagers]: https://docs.rs/google-cloud-compute-v1/2.2.0/google_cloud_compute_v1/client/struct.RegionInstanceGroupManagers.html

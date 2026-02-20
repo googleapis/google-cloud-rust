@@ -77,6 +77,10 @@ pub struct AutoscalingPolicy {
     /// associated with an autoscaling policy.
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
+    /// Optional. The type of the clusters for which this autoscaling policy is to
+    /// be configured.
+    pub cluster_type: crate::model::autoscaling_policy::ClusterType,
+
     /// Autoscaling algorithm for policy.
     pub algorithm: std::option::Option<crate::model::autoscaling_policy::Algorithm>,
 
@@ -199,6 +203,25 @@ impl AutoscalingPolicy {
         self
     }
 
+    /// Sets the value of [cluster_type][crate::model::AutoscalingPolicy::cluster_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataproc_v1::model::AutoscalingPolicy;
+    /// use google_cloud_dataproc_v1::model::autoscaling_policy::ClusterType;
+    /// let x0 = AutoscalingPolicy::new().set_cluster_type(ClusterType::Standard);
+    /// let x1 = AutoscalingPolicy::new().set_cluster_type(ClusterType::ZeroScale);
+    /// ```
+    pub fn set_cluster_type<
+        T: std::convert::Into<crate::model::autoscaling_policy::ClusterType>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.cluster_type = v.into();
+        self
+    }
+
     /// Sets the value of [algorithm][crate::model::AutoscalingPolicy::algorithm].
     ///
     /// Note that all the setters affecting `algorithm` are mutually
@@ -272,6 +295,140 @@ impl wkt::message::Message for AutoscalingPolicy {
 pub mod autoscaling_policy {
     #[allow(unused_imports)]
     use super::*;
+
+    /// The type of the clusters for which this autoscaling policy is to be
+    /// configured.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum ClusterType {
+        /// Not set.
+        Unspecified,
+        /// Standard dataproc cluster with a minimum of two primary workers.
+        Standard,
+        /// Clusters that can use only secondary workers and be scaled down to zero
+        /// secondary worker nodes.
+        ZeroScale,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [ClusterType::value] or
+        /// [ClusterType::name].
+        UnknownValue(cluster_type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod cluster_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl ClusterType {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Standard => std::option::Option::Some(1),
+                Self::ZeroScale => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("CLUSTER_TYPE_UNSPECIFIED"),
+                Self::Standard => std::option::Option::Some("STANDARD"),
+                Self::ZeroScale => std::option::Option::Some("ZERO_SCALE"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for ClusterType {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for ClusterType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for ClusterType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Standard,
+                2 => Self::ZeroScale,
+                _ => Self::UnknownValue(cluster_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for ClusterType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "CLUSTER_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "STANDARD" => Self::Standard,
+                "ZERO_SCALE" => Self::ZeroScale,
+                _ => Self::UnknownValue(cluster_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for ClusterType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Standard => serializer.serialize_i32(1),
+                Self::ZeroScale => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for ClusterType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<ClusterType>::new(
+                ".google.cloud.dataproc.v1.AutoscalingPolicy.ClusterType",
+            ))
+        }
+    }
 
     /// Autoscaling algorithm for policy.
     #[derive(Clone, Debug, PartialEq)]
@@ -3069,6 +3226,9 @@ impl wkt::message::Message for Cluster {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ClusterConfig {
+    /// Optional. The type of the cluster.
+    pub cluster_type: crate::model::cluster_config::ClusterType,
+
     /// Optional. The cluster tier.
     pub cluster_tier: crate::model::cluster_config::ClusterTier,
 
@@ -3165,6 +3325,24 @@ pub struct ClusterConfig {
 impl ClusterConfig {
     pub fn new() -> Self {
         std::default::Default::default()
+    }
+
+    /// Sets the value of [cluster_type][crate::model::ClusterConfig::cluster_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dataproc_v1::model::ClusterConfig;
+    /// use google_cloud_dataproc_v1::model::cluster_config::ClusterType;
+    /// let x0 = ClusterConfig::new().set_cluster_type(ClusterType::Standard);
+    /// let x1 = ClusterConfig::new().set_cluster_type(ClusterType::SingleNode);
+    /// let x2 = ClusterConfig::new().set_cluster_type(ClusterType::ZeroScale);
+    /// ```
+    pub fn set_cluster_type<T: std::convert::Into<crate::model::cluster_config::ClusterType>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.cluster_type = v.into();
+        self
     }
 
     /// Sets the value of [cluster_tier][crate::model::ClusterConfig::cluster_tier].
@@ -3659,6 +3837,146 @@ impl wkt::message::Message for ClusterConfig {
 pub mod cluster_config {
     #[allow(unused_imports)]
     use super::*;
+
+    /// The type of the cluster.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum ClusterType {
+        /// Not set.
+        Unspecified,
+        /// Standard dataproc cluster with a minimum of two primary workers.
+        Standard,
+        /// <https://cloud.google.com/dataproc/docs/concepts/configuring-clusters/single-node-clusters>
+        SingleNode,
+        /// Clusters that can use only secondary workers and be scaled down to zero
+        /// secondary worker nodes.
+        ZeroScale,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [ClusterType::value] or
+        /// [ClusterType::name].
+        UnknownValue(cluster_type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod cluster_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl ClusterType {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Standard => std::option::Option::Some(1),
+                Self::SingleNode => std::option::Option::Some(2),
+                Self::ZeroScale => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("CLUSTER_TYPE_UNSPECIFIED"),
+                Self::Standard => std::option::Option::Some("STANDARD"),
+                Self::SingleNode => std::option::Option::Some("SINGLE_NODE"),
+                Self::ZeroScale => std::option::Option::Some("ZERO_SCALE"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for ClusterType {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for ClusterType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for ClusterType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Standard,
+                2 => Self::SingleNode,
+                3 => Self::ZeroScale,
+                _ => Self::UnknownValue(cluster_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for ClusterType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "CLUSTER_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "STANDARD" => Self::Standard,
+                "SINGLE_NODE" => Self::SingleNode,
+                "ZERO_SCALE" => Self::ZeroScale,
+                _ => Self::UnknownValue(cluster_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for ClusterType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Standard => serializer.serialize_i32(1),
+                Self::SingleNode => serializer.serialize_i32(2),
+                Self::ZeroScale => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for ClusterType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<ClusterType>::new(
+                ".google.cloud.dataproc.v1.ClusterConfig.ClusterType",
+            ))
+        }
+    }
 
     /// The cluster tier.
     ///

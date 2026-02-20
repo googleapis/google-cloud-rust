@@ -232,6 +232,13 @@ impl Autokey {
     }
 
     /// Lists information about the supported locations for this service.
+    /// This method can be called in two ways:
+    ///
+    /// * **List all public locations:** Use the path `GET /v1/locations`.
+    /// * **List project-visible locations:** Use the path
+    ///   `GET /v1/projects/{project_id}/locations`. This may include public
+    ///   locations as well as private or other locations specifically visible
+    ///   to the project.
     ///
     /// # Example
     /// ```
@@ -382,13 +389,15 @@ impl Autokey {
 /// # Service Description
 ///
 /// Provides interfaces for managing [Cloud KMS
-/// Autokey](https://cloud.google.com/kms/help/autokey) folder-level
-/// configurations. A configuration is inherited by all descendent projects. A
-/// configuration at one folder overrides any other configurations in its
-/// ancestry. Setting a configuration on a folder is a prerequisite for Cloud KMS
-/// Autokey, so that users working in a descendant project can request
-/// provisioned [CryptoKeys][google.cloud.kms.v1.CryptoKey], ready for Customer
-/// Managed Encryption Key (CMEK) use, on-demand.
+/// Autokey](https://cloud.google.com/kms/help/autokey) folder-level or
+/// project-level configurations. A configuration is inherited by all descendent
+/// folders and projects. A configuration at a folder or project overrides any
+/// other configurations in its ancestry. Setting a configuration on a folder is
+/// a prerequisite for Cloud KMS Autokey, so that users working in a descendant
+/// project can request provisioned [CryptoKeys][google.cloud.kms.v1.CryptoKey],
+/// ready for Customer Managed Encryption Key (CMEK) use, on-demand when using
+/// the dedicated key project mode. This is not required when using the delegated
+/// key management mode for same-project keys.
 ///
 /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
 ///
@@ -479,8 +488,8 @@ impl AutokeyAdmin {
             .map(super::tracing::AutokeyAdmin::new)
     }
 
-    /// Updates the [AutokeyConfig][google.cloud.kms.v1.AutokeyConfig] for a
-    /// folder. The caller must have both `cloudkms.autokeyConfigs.update`
+    /// Updates the [AutokeyConfig][google.cloud.kms.v1.AutokeyConfig] for a folder
+    /// or a project. The caller must have both `cloudkms.autokeyConfigs.update`
     /// permission on the parent folder and `cloudkms.cryptoKeys.setIamPolicy`
     /// permission on the provided key project. A
     /// [KeyHandle][google.cloud.kms.v1.KeyHandle] creation in the folder's
@@ -515,8 +524,8 @@ impl AutokeyAdmin {
         super::builder::autokey_admin::UpdateAutokeyConfig::new(self.inner.clone())
     }
 
-    /// Returns the [AutokeyConfig][google.cloud.kms.v1.AutokeyConfig] for a
-    /// folder.
+    /// Returns the [AutokeyConfig][google.cloud.kms.v1.AutokeyConfig] for a folder
+    /// or project.
     ///
     /// [google.cloud.kms.v1.AutokeyConfig]: crate::model::AutokeyConfig
     ///
@@ -561,6 +570,13 @@ impl AutokeyAdmin {
     }
 
     /// Lists information about the supported locations for this service.
+    /// This method can be called in two ways:
+    ///
+    /// * **List all public locations:** Use the path `GET /v1/locations`.
+    /// * **List project-visible locations:** Use the path
+    ///   `GET /v1/projects/{project_id}/locations`. This may include public
+    ///   locations as well as private or other locations specifically visible
+    ///   to the project.
     ///
     /// # Example
     /// ```
@@ -988,6 +1004,13 @@ impl EkmService {
     }
 
     /// Lists information about the supported locations for this service.
+    /// This method can be called in two ways:
+    ///
+    /// * **List all public locations:** Use the path `GET /v1/locations`.
+    /// * **List project-visible locations:** Use the path
+    ///   `GET /v1/projects/{project_id}/locations`. This may include public
+    ///   locations as well as private or other locations specifically visible
+    ///   to the project.
     ///
     /// # Example
     /// ```
@@ -1538,6 +1561,13 @@ impl HsmManagement {
     }
 
     /// Lists information about the supported locations for this service.
+    /// This method can be called in two ways:
+    ///
+    /// * **List all public locations:** Use the path `GET /v1/locations`.
+    /// * **List project-visible locations:** Use the path
+    ///   `GET /v1/projects/{project_id}/locations`. This may include public
+    ///   locations as well as private or other locations specifically visible
+    ///   to the project.
     ///
     /// # Example
     /// ```
@@ -2784,6 +2814,13 @@ impl KeyManagementService {
     }
 
     /// Lists information about the supported locations for this service.
+    /// This method can be called in two ways:
+    ///
+    /// * **List all public locations:** Use the path `GET /v1/locations`.
+    /// * **List project-visible locations:** Use the path
+    ///   `GET /v1/projects/{project_id}/locations`. This may include public
+    ///   locations as well as private or other locations specifically visible
+    ///   to the project.
     ///
     /// # Example
     /// ```

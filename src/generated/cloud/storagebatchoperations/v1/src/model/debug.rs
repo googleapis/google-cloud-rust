@@ -87,6 +87,7 @@ impl std::fmt::Debug for super::DeleteJobRequest {
         let mut debug_struct = f.debug_struct("DeleteJobRequest");
         debug_struct.field("name", &self.name);
         debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("force", &self.force);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -97,6 +98,45 @@ impl std::fmt::Debug for super::DeleteJobRequest {
 impl std::fmt::Debug for super::CancelJobResponse {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CancelJobResponse");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ListBucketOperationsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListBucketOperationsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ListBucketOperationsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListBucketOperationsResponse");
+        debug_struct.field("bucket_operations", &self.bucket_operations);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GetBucketOperationRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetBucketOperationRequest");
+        debug_struct.field("name", &self.name);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -133,7 +173,28 @@ impl std::fmt::Debug for super::Job {
         debug_struct.field("error_summaries", &self.error_summaries);
         debug_struct.field("state", &self.state);
         debug_struct.field("dry_run", &self.dry_run);
+        debug_struct.field("is_multi_bucket_job", &self.is_multi_bucket_job);
         debug_struct.field("source", &self.source);
+        debug_struct.field("transformation", &self.transformation);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::BucketOperation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BucketOperation");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("bucket_name", &self.bucket_name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("start_time", &self.start_time);
+        debug_struct.field("complete_time", &self.complete_time);
+        debug_struct.field("counters", &self.counters);
+        debug_struct.field("error_summaries", &self.error_summaries);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("object_configuration", &self.object_configuration);
         debug_struct.field("transformation", &self.transformation);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);

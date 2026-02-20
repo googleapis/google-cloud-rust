@@ -157,6 +157,8 @@ region-commitments = []
 region-disk-types = []
 # Enables `client::RegionDisks` and all the types it depends on.
 region-disks = []
+# Enables `client::RegionHealthAggregationPolicies` and all the types it depends on.
+region-health-aggregation-policies = []
 # Enables `client::RegionHealthCheckServices` and all the types it depends on.
 region-health-check-services = []
 # Enables `client::RegionHealthChecks` and all the types it depends on.

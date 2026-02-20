@@ -450,6 +450,12 @@ pub mod storage_batch_operations {
             self.0.request.request_id = v.into();
             self
         }
+
+        /// Sets the value of [force][crate::model::DeleteJobRequest::force].
+        pub fn set_force<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.force = v.into();
+            self
+        }
     }
 
     #[doc(hidden)]
@@ -522,6 +528,192 @@ pub mod storage_batch_operations {
 
     #[doc(hidden)]
     impl crate::RequestBuilder for CancelJob {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [StorageBatchOperations::list_bucket_operations][crate::client::StorageBatchOperations::list_bucket_operations] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::builder::storage_batch_operations::ListBucketOperations;
+    /// # async fn sample() -> google_cloud_storagebatchoperations_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> ListBucketOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ListBucketOperations(RequestBuilder<crate::model::ListBucketOperationsRequest>);
+
+    impl ListBucketOperations {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageBatchOperations>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::ListBucketOperationsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::ListBucketOperationsResponse> {
+            (*self.0.stub)
+                .list_bucket_operations(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListBucketOperationsResponse,
+            crate::Error,
+        > {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListBucketOperationsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [parent][crate::model::ListBucketOperationsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [filter][crate::model::ListBucketOperationsRequest::filter].
+        pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.filter = v.into();
+            self
+        }
+
+        /// Sets the value of [page_size][crate::model::ListBucketOperationsRequest::page_size].
+        pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.page_size = v.into();
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::ListBucketOperationsRequest::page_token].
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.page_token = v.into();
+            self
+        }
+
+        /// Sets the value of [order_by][crate::model::ListBucketOperationsRequest::order_by].
+        pub fn set_order_by<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.order_by = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for ListBucketOperations {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [StorageBatchOperations::get_bucket_operation][crate::client::StorageBatchOperations::get_bucket_operation] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::builder::storage_batch_operations::GetBucketOperation;
+    /// # async fn sample() -> google_cloud_storagebatchoperations_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> GetBucketOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct GetBucketOperation(RequestBuilder<crate::model::GetBucketOperationRequest>);
+
+    impl GetBucketOperation {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageBatchOperations>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::GetBucketOperationRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::BucketOperation> {
+            (*self.0.stub)
+                .get_bucket_operation(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::GetBucketOperationRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for GetBucketOperation {
         fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }

@@ -778,6 +778,7 @@ impl<'de> serde::de::Deserialize<'de> for super::AutokeyConfig {
             __key_project,
             __state,
             __etag,
+            __key_project_resolution_mode,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -803,6 +804,12 @@ impl<'de> serde::de::Deserialize<'de> for super::AutokeyConfig {
                             "key_project" => Ok(__FieldTag::__key_project),
                             "state" => Ok(__FieldTag::__state),
                             "etag" => Ok(__FieldTag::__etag),
+                            "keyProjectResolutionMode" => {
+                                Ok(__FieldTag::__key_project_resolution_mode)
+                            }
+                            "key_project_resolution_mode" => {
+                                Ok(__FieldTag::__key_project_resolution_mode)
+                            }
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -864,6 +871,18 @@ impl<'de> serde::de::Deserialize<'de> for super::AutokeyConfig {
                             }
                             result.etag = map
                                 .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__key_project_resolution_mode => {
+                            if !fields.insert(__FieldTag::__key_project_resolution_mode) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for key_project_resolution_mode",
+                                ));
+                            }
+                            result.key_project_resolution_mode = map
+                                .next_value::<std::option::Option<
+                                    crate::model::autokey_config::KeyProjectResolutionMode,
+                                >>()?
                                 .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {

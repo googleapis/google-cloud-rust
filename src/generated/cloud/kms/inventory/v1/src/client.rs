@@ -250,11 +250,18 @@ impl KeyTrackingService {
     }
 
     /// Returns aggregate information about the resources protected by the given
-    /// Cloud KMS [CryptoKey][google.cloud.kms.v1.CryptoKey]. Only resources within
-    /// the same Cloud organization as the key will be returned. The project that
-    /// holds the key must be part of an organization in order for this call to
-    /// succeed.
+    /// Cloud KMS [CryptoKey][google.cloud.kms.v1.CryptoKey]. By default,
+    /// summary of resources within the same Cloud organization as the key will be
+    /// returned, which requires the KMS organization service account to be
+    /// configured(refer
+    /// <https://docs.cloud.google.com/kms/docs/view-key-usage#required-roles>).
+    /// If the KMS organization service account is not configured or key's project
+    /// is not part of an organization, set
+    /// [fallback_scope][google.cloud.kms.inventory.v1.GetProtectedResourcesSummaryRequest.fallback_scope]
+    /// to `FALLBACK_SCOPE_PROJECT` to retrieve a summary of protected resources
+    /// within the key's project.
     ///
+    /// [google.cloud.kms.inventory.v1.GetProtectedResourcesSummaryRequest.fallback_scope]: crate::model::GetProtectedResourcesSummaryRequest::fallback_scope
     /// [google.cloud.kms.v1.CryptoKey]: google_cloud_kms_v1::model::CryptoKey
     ///
     /// # Example
@@ -278,7 +285,8 @@ impl KeyTrackingService {
     }
 
     /// Returns metadata about the resources protected by the given Cloud KMS
-    /// [CryptoKey][google.cloud.kms.v1.CryptoKey] in the given Cloud organization.
+    /// [CryptoKey][google.cloud.kms.v1.CryptoKey] in the given Cloud
+    /// organization/project.
     ///
     /// [google.cloud.kms.v1.CryptoKey]: google_cloud_kms_v1::model::CryptoKey
     ///

@@ -1115,7 +1115,20 @@ impl std::fmt::Debug for super::Backend {
         debug_struct.field("max_rate_per_endpoint", &self.max_rate_per_endpoint);
         debug_struct.field("max_rate_per_instance", &self.max_rate_per_instance);
         debug_struct.field("max_utilization", &self.max_utilization);
+        debug_struct.field("orchestration_info", &self.orchestration_info);
         debug_struct.field("preference", &self.preference);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(feature = "backend-services", feature = "region-backend-services",))]
+impl std::fmt::Debug for super::BackendBackendOrchestrationInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BackendBackendOrchestrationInfo");
+        debug_struct.field("resource_uri", &self.resource_uri);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1351,6 +1364,7 @@ impl std::fmt::Debug for super::BackendService {
             "network_pass_through_lb_traffic_policy",
             &self.network_pass_through_lb_traffic_policy,
         );
+        debug_struct.field("orchestration_info", &self.orchestration_info);
         debug_struct.field("outlier_detection", &self.outlier_detection);
         debug_struct.field("params", &self.params);
         debug_struct.field("port", &self.port);
@@ -1779,6 +1793,18 @@ impl std::fmt::Debug for super::BackendServiceNetworkPassThroughLbTrafficPolicyZ
 }
 
 #[cfg(any(feature = "backend-services", feature = "region-backend-services",))]
+impl std::fmt::Debug for super::BackendServiceOrchestrationInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BackendServiceOrchestrationInfo");
+        debug_struct.field("resource_uri", &self.resource_uri);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(feature = "backend-services", feature = "region-backend-services",))]
 impl std::fmt::Debug for super::BackendServiceParams {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BackendServiceParams");
@@ -2148,6 +2174,7 @@ impl std::fmt::Debug for super::BulkInsertInstanceResourcePerInstanceProperties 
     feature = "region-backend-services",
     feature = "region-commitments",
     feature = "region-disks",
+    feature = "region-health-aggregation-policies",
     feature = "region-health-check-services",
     feature = "region-health-checks",
     feature = "region-instance-group-managers",
@@ -3408,6 +3435,7 @@ impl std::fmt::Debug for super::Duration {
     feature = "region-backend-services",
     feature = "region-commitments",
     feature = "region-disks",
+    feature = "region-health-aggregation-policies",
     feature = "region-health-check-services",
     feature = "region-health-checks",
     feature = "region-instance-group-managers",
@@ -3588,6 +3616,7 @@ impl std::fmt::Debug for super::ExternalVpnGateway {
         debug_struct.field("label_fingerprint", &self.label_fingerprint);
         debug_struct.field("labels", &self.labels);
         debug_struct.field("name", &self.name);
+        debug_struct.field("params", &self.params);
         debug_struct.field("redundancy_type", &self.redundancy_type);
         debug_struct.field("self_link", &self.self_link);
         if !self._unknown_fields.is_empty() {
@@ -3649,6 +3678,18 @@ impl std::fmt::Debug for super::external_vpn_gateway_list::warning::Data {
         let mut debug_struct = f.debug_struct("Data");
         debug_struct.field("key", &self.key);
         debug_struct.field("value", &self.value);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "external-vpn-gateways")]
+impl std::fmt::Debug for super::ExternalVpnGatewayParams {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExternalVpnGatewayParams");
+        debug_struct.field("resource_manager_tags", &self.resource_manager_tags);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -5065,6 +5106,161 @@ impl std::fmt::Debug for super::HTTPSHealthCheck {
     }
 }
 
+#[cfg(feature = "region-health-aggregation-policies")]
+impl std::fmt::Debug for super::HealthAggregationPoliciesScopedList {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("HealthAggregationPoliciesScopedList");
+        debug_struct.field(
+            "health_aggregation_policies",
+            &self.health_aggregation_policies,
+        );
+        debug_struct.field("warning", &self.warning);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-health-aggregation-policies")]
+impl std::fmt::Debug for super::health_aggregation_policies_scoped_list::Warning {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Warning");
+        debug_struct.field("code", &self.code);
+        debug_struct.field("data", &self.data);
+        debug_struct.field("message", &self.message);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-health-aggregation-policies")]
+impl std::fmt::Debug for super::health_aggregation_policies_scoped_list::warning::Data {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Data");
+        debug_struct.field("key", &self.key);
+        debug_struct.field("value", &self.value);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-health-aggregation-policies")]
+impl std::fmt::Debug for super::HealthAggregationPolicy {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("HealthAggregationPolicy");
+        debug_struct.field("creation_timestamp", &self.creation_timestamp);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("fingerprint", &self.fingerprint);
+        debug_struct.field("healthy_percent_threshold", &self.healthy_percent_threshold);
+        debug_struct.field("id", &self.id);
+        debug_struct.field("kind", &self.kind);
+        debug_struct.field("min_healthy_threshold", &self.min_healthy_threshold);
+        debug_struct.field("name", &self.name);
+        debug_struct.field("policy_type", &self.policy_type);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("self_link", &self.self_link);
+        debug_struct.field("self_link_with_id", &self.self_link_with_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-health-aggregation-policies")]
+impl std::fmt::Debug for super::HealthAggregationPolicyAggregatedList {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("HealthAggregationPolicyAggregatedList");
+        debug_struct.field("id", &self.id);
+        debug_struct.field("items", &self.items);
+        debug_struct.field("kind", &self.kind);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("self_link", &self.self_link);
+        debug_struct.field("unreachables", &self.unreachables);
+        debug_struct.field("warning", &self.warning);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-health-aggregation-policies")]
+impl std::fmt::Debug for super::health_aggregation_policy_aggregated_list::Warning {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Warning");
+        debug_struct.field("code", &self.code);
+        debug_struct.field("data", &self.data);
+        debug_struct.field("message", &self.message);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-health-aggregation-policies")]
+impl std::fmt::Debug for super::health_aggregation_policy_aggregated_list::warning::Data {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Data");
+        debug_struct.field("key", &self.key);
+        debug_struct.field("value", &self.value);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-health-aggregation-policies")]
+impl std::fmt::Debug for super::HealthAggregationPolicyList {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("HealthAggregationPolicyList");
+        debug_struct.field("id", &self.id);
+        debug_struct.field("items", &self.items);
+        debug_struct.field("kind", &self.kind);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("self_link", &self.self_link);
+        debug_struct.field("warning", &self.warning);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-health-aggregation-policies")]
+impl std::fmt::Debug for super::health_aggregation_policy_list::Warning {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Warning");
+        debug_struct.field("code", &self.code);
+        debug_struct.field("data", &self.data);
+        debug_struct.field("message", &self.message);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-health-aggregation-policies")]
+impl std::fmt::Debug for super::health_aggregation_policy_list::warning::Data {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Data");
+        debug_struct.field("key", &self.key);
+        debug_struct.field("value", &self.value);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 #[cfg(any(feature = "health-checks", feature = "region-health-checks",))]
 impl std::fmt::Debug for super::HealthCheck {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -5440,6 +5636,7 @@ impl std::fmt::Debug for super::HealthStatusForNetworkEndpoint {
     feature = "region-backend-services",
     feature = "region-commitments",
     feature = "region-disks",
+    feature = "region-health-aggregation-policies",
     feature = "region-health-check-services",
     feature = "region-health-checks",
     feature = "region-instance-group-managers",
@@ -5550,6 +5747,7 @@ impl std::fmt::Debug for super::Help {
     feature = "region-backend-services",
     feature = "region-commitments",
     feature = "region-disks",
+    feature = "region-health-aggregation-policies",
     feature = "region-health-check-services",
     feature = "region-health-checks",
     feature = "region-instance-group-managers",
@@ -7920,6 +8118,7 @@ impl std::fmt::Debug for super::InstancesAddResourcePoliciesRequest {
     feature = "region-backend-services",
     feature = "region-commitments",
     feature = "region-disks",
+    feature = "region-health-aggregation-policies",
     feature = "region-health-check-services",
     feature = "region-health-checks",
     feature = "region-instance-group-managers",
@@ -10100,6 +10299,7 @@ impl std::fmt::Debug for super::LocalDisk {
     feature = "region-backend-services",
     feature = "region-commitments",
     feature = "region-disks",
+    feature = "region-health-aggregation-policies",
     feature = "region-health-check-services",
     feature = "region-health-checks",
     feature = "region-instance-group-managers",
@@ -10165,6 +10365,7 @@ impl std::fmt::Debug for super::LocationPolicy {
         let mut debug_struct = f.debug_struct("LocationPolicy");
         debug_struct.field("locations", &self.locations);
         debug_struct.field("target_shape", &self.target_shape);
+        debug_struct.field("zones", &self.zones);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -10190,6 +10391,18 @@ impl std::fmt::Debug for super::LocationPolicyLocationConstraints {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("LocationPolicyLocationConstraints");
         debug_struct.field("max_count", &self.max_count);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(feature = "instances", feature = "region-instances",))]
+impl std::fmt::Debug for super::LocationPolicyZoneConfiguration {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LocationPolicyZoneConfiguration");
+        debug_struct.field("zone", &self.zone);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -12745,6 +12958,7 @@ impl std::fmt::Debug for super::notification_endpoint_list::warning::Data {
     feature = "region-backend-services",
     feature = "region-commitments",
     feature = "region-disks",
+    feature = "region-health-aggregation-policies",
     feature = "region-health-check-services",
     feature = "region-health-checks",
     feature = "region-instance-group-managers",
@@ -12886,6 +13100,7 @@ impl std::fmt::Debug for super::Operation {
     feature = "region-backend-services",
     feature = "region-commitments",
     feature = "region-disks",
+    feature = "region-health-aggregation-policies",
     feature = "region-health-check-services",
     feature = "region-health-checks",
     feature = "region-instance-group-managers",
@@ -12996,6 +13211,7 @@ impl std::fmt::Debug for super::operation::Error {
     feature = "region-backend-services",
     feature = "region-commitments",
     feature = "region-disks",
+    feature = "region-health-aggregation-policies",
     feature = "region-health-check-services",
     feature = "region-health-checks",
     feature = "region-instance-group-managers",
@@ -13109,6 +13325,7 @@ impl std::fmt::Debug for super::operation::error::Errors {
     feature = "region-backend-services",
     feature = "region-commitments",
     feature = "region-disks",
+    feature = "region-health-aggregation-policies",
     feature = "region-health-check-services",
     feature = "region-health-checks",
     feature = "region-instance-group-managers",
@@ -13222,6 +13439,7 @@ impl std::fmt::Debug for super::operation::error::errors::ErrorDetails {
     feature = "region-backend-services",
     feature = "region-commitments",
     feature = "region-disks",
+    feature = "region-health-aggregation-policies",
     feature = "region-health-check-services",
     feature = "region-health-checks",
     feature = "region-instance-group-managers",
@@ -13334,6 +13552,7 @@ impl std::fmt::Debug for super::operation::Warnings {
     feature = "region-backend-services",
     feature = "region-commitments",
     feature = "region-disks",
+    feature = "region-health-aggregation-policies",
     feature = "region-health-check-services",
     feature = "region-health-checks",
     feature = "region-instance-group-managers",
@@ -14598,6 +14817,7 @@ impl std::fmt::Debug for super::Quota {
     feature = "region-backend-services",
     feature = "region-commitments",
     feature = "region-disks",
+    feature = "region-health-aggregation-policies",
     feature = "region-health-check-services",
     feature = "region-health-checks",
     feature = "region-instance-group-managers",
@@ -15494,6 +15714,7 @@ impl std::fmt::Debug for super::Reservation {
         debug_struct.field("kind", &self.kind);
         debug_struct.field("linked_commitments", &self.linked_commitments);
         debug_struct.field("name", &self.name);
+        debug_struct.field("params", &self.params);
         debug_struct.field("protection_tier", &self.protection_tier);
         debug_struct.field(
             "reservation_sharing_policy",
@@ -15781,6 +16002,18 @@ impl std::fmt::Debug for super::reservation_list::warning::Data {
         let mut debug_struct = f.debug_struct("Data");
         debug_struct.field("key", &self.key);
         debug_struct.field("value", &self.value);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(feature = "region-commitments", feature = "reservations",))]
+impl std::fmt::Debug for super::ReservationParams {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ReservationParams");
+        debug_struct.field("resource_manager_tags", &self.resource_manager_tags);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -16554,6 +16787,10 @@ impl std::fmt::Debug for super::ResourceStatusEffectiveInstanceMetadata {
         debug_struct.field(
             "enable_oslogin_metadata_value",
             &self.enable_oslogin_metadata_value,
+        );
+        debug_struct.field(
+            "gce_container_declaration_metadata_value",
+            &self.gce_container_declaration_metadata_value,
         );
         debug_struct.field(
             "serial_port_enable_metadata_value",
@@ -18682,6 +18919,7 @@ impl std::fmt::Debug for super::service_attachments_scoped_list::warning::Data {
     feature = "region-backend-services",
     feature = "region-commitments",
     feature = "region-disks",
+    feature = "region-health-aggregation-policies",
     feature = "region-health-check-services",
     feature = "region-health-checks",
     feature = "region-instance-group-managers",
@@ -18793,6 +19031,7 @@ impl std::fmt::Debug for super::SetCommonInstanceMetadataOperationMetadata {
     feature = "region-backend-services",
     feature = "region-commitments",
     feature = "region-disks",
+    feature = "region-health-aggregation-policies",
     feature = "region-health-check-services",
     feature = "region-health-checks",
     feature = "region-instance-group-managers",
@@ -19688,6 +19927,7 @@ impl std::fmt::Debug for super::StatefulPolicyPreservedStateNetworkIp {
     feature = "region-backend-services",
     feature = "region-commitments",
     feature = "region-disks",
+    feature = "region-health-aggregation-policies",
     feature = "region-health-check-services",
     feature = "region-health-checks",
     feature = "region-instance-group-managers",
@@ -21717,6 +21957,7 @@ impl std::fmt::Debug for super::TargetVpnGateway {
         debug_struct.field("labels", &self.labels);
         debug_struct.field("name", &self.name);
         debug_struct.field("network", &self.network);
+        debug_struct.field("params", &self.params);
         debug_struct.field("region", &self.region);
         debug_struct.field("self_link", &self.self_link);
         debug_struct.field("status", &self.status);
@@ -21810,6 +22051,18 @@ impl std::fmt::Debug for super::target_vpn_gateway_list::warning::Data {
         let mut debug_struct = f.debug_struct("Data");
         debug_struct.field("key", &self.key);
         debug_struct.field("value", &self.value);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "target-vpn-gateways")]
+impl std::fmt::Debug for super::TargetVpnGatewayParams {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TargetVpnGatewayParams");
+        debug_struct.field("resource_manager_tags", &self.resource_manager_tags);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -21915,6 +22168,7 @@ impl std::fmt::Debug for super::TestFailure {
     feature = "region-autoscalers",
     feature = "region-backend-services",
     feature = "region-disks",
+    feature = "region-health-aggregation-policies",
     feature = "region-health-check-services",
     feature = "region-health-checks",
     feature = "region-instance-groups",
@@ -21980,6 +22234,7 @@ impl std::fmt::Debug for super::TestPermissionsRequest {
     feature = "region-autoscalers",
     feature = "region-backend-services",
     feature = "region-disks",
+    feature = "region-health-aggregation-policies",
     feature = "region-health-check-services",
     feature = "region-health-checks",
     feature = "region-instance-groups",
@@ -22514,6 +22769,7 @@ impl std::fmt::Debug for super::VpnGateway {
         debug_struct.field("labels", &self.labels);
         debug_struct.field("name", &self.name);
         debug_struct.field("network", &self.network);
+        debug_struct.field("params", &self.params);
         debug_struct.field("region", &self.region);
         debug_struct.field("self_link", &self.self_link);
         debug_struct.field("stack_type", &self.stack_type);
@@ -22607,6 +22863,18 @@ impl std::fmt::Debug for super::vpn_gateway_list::warning::Data {
         let mut debug_struct = f.debug_struct("Data");
         debug_struct.field("key", &self.key);
         debug_struct.field("value", &self.value);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "vpn-gateways")]
+impl std::fmt::Debug for super::VpnGatewayParams {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("VpnGatewayParams");
+        debug_struct.field("resource_manager_tags", &self.resource_manager_tags);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -22750,6 +23018,7 @@ impl std::fmt::Debug for super::VpnTunnel {
         debug_struct.field("labels", &self.labels);
         debug_struct.field("local_traffic_selector", &self.local_traffic_selector);
         debug_struct.field("name", &self.name);
+        debug_struct.field("params", &self.params);
         debug_struct.field("peer_external_gateway", &self.peer_external_gateway);
         debug_struct.field(
             "peer_external_gateway_interface",
@@ -22869,6 +23138,18 @@ impl std::fmt::Debug for super::vpn_tunnel_list::warning::Data {
         let mut debug_struct = f.debug_struct("Data");
         debug_struct.field("key", &self.key);
         debug_struct.field("value", &self.value);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "vpn-tunnels")]
+impl std::fmt::Debug for super::VpnTunnelParams {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("VpnTunnelParams");
+        debug_struct.field("resource_manager_tags", &self.resource_manager_tags);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -31759,6 +32040,118 @@ impl std::fmt::Debug for super::region_disks::UpdateRequest {
     }
 }
 
+#[cfg(feature = "region-health-aggregation-policies")]
+impl std::fmt::Debug for super::region_health_aggregation_policies::AggregatedListRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AggregatedListRequest");
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("include_all_scopes", &self.include_all_scopes);
+        debug_struct.field("max_results", &self.max_results);
+        debug_struct.field("order_by", &self.order_by);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("return_partial_success", &self.return_partial_success);
+        debug_struct.field("service_project_number", &self.service_project_number);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-health-aggregation-policies")]
+impl std::fmt::Debug for super::region_health_aggregation_policies::DeleteRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteRequest");
+        debug_struct.field("health_aggregation_policy", &self.health_aggregation_policy);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("request_id", &self.request_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-health-aggregation-policies")]
+impl std::fmt::Debug for super::region_health_aggregation_policies::GetRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetRequest");
+        debug_struct.field("health_aggregation_policy", &self.health_aggregation_policy);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("region", &self.region);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-health-aggregation-policies")]
+impl std::fmt::Debug for super::region_health_aggregation_policies::InsertRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InsertRequest");
+        debug_struct.field("project", &self.project);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-health-aggregation-policies")]
+impl std::fmt::Debug for super::region_health_aggregation_policies::ListRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListRequest");
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("max_results", &self.max_results);
+        debug_struct.field("order_by", &self.order_by);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("return_partial_success", &self.return_partial_success);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-health-aggregation-policies")]
+impl std::fmt::Debug for super::region_health_aggregation_policies::PatchRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PatchRequest");
+        debug_struct.field("health_aggregation_policy", &self.health_aggregation_policy);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-health-aggregation-policies")]
+impl std::fmt::Debug for super::region_health_aggregation_policies::TestIamPermissionsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TestIamPermissionsRequest");
+        debug_struct.field("project", &self.project);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("resource", &self.resource);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 #[cfg(feature = "region-health-check-services")]
 impl std::fmt::Debug for super::region_health_check_services::DeleteRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -33110,6 +33503,7 @@ impl std::fmt::Debug for super::region_operations::DeleteRequest {
     feature = "region-backend-services",
     feature = "region-commitments",
     feature = "region-disks",
+    feature = "region-health-aggregation-policies",
     feature = "region-health-check-services",
     feature = "region-health-checks",
     feature = "region-instance-group-managers",

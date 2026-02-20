@@ -76,6 +76,7 @@
     feature = "region-commitments",
     feature = "region-disk-types",
     feature = "region-disks",
+    feature = "region-health-aggregation-policies",
     feature = "region-health-check-services",
     feature = "region-health-checks",
     feature = "region-instance-group-managers",
@@ -7719,6 +7720,118 @@ where
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Operation>> {
         self.inner.update(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get_operation(
+        &self,
+        req: crate::model::region_operations::GetRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
+        self.inner.get_operation(req, options).await
+    }
+
+    fn get_polling_error_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
+        self.inner.get_polling_error_policy(options)
+    }
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
+        self.inner.get_polling_backoff_policy(options)
+    }
+}
+
+/// Implements a [RegionHealthAggregationPolicies](super::stub::RegionHealthAggregationPolicies) decorator for logging and tracing.
+#[cfg(feature = "region-health-aggregation-policies")]
+#[derive(Clone, Debug)]
+pub struct RegionHealthAggregationPolicies<T>
+where
+    T: super::stub::RegionHealthAggregationPolicies + std::fmt::Debug + Send + Sync,
+{
+    inner: T,
+}
+
+#[cfg(feature = "region-health-aggregation-policies")]
+impl<T> RegionHealthAggregationPolicies<T>
+where
+    T: super::stub::RegionHealthAggregationPolicies + std::fmt::Debug + Send + Sync,
+{
+    pub fn new(inner: T) -> Self {
+        Self { inner }
+    }
+}
+
+#[cfg(feature = "region-health-aggregation-policies")]
+impl<T> super::stub::RegionHealthAggregationPolicies for RegionHealthAggregationPolicies<T>
+where
+    T: super::stub::RegionHealthAggregationPolicies + std::fmt::Debug + Send + Sync,
+{
+    #[tracing::instrument(ret)]
+    async fn aggregated_list(
+        &self,
+        req: crate::model::region_health_aggregation_policies::AggregatedListRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::HealthAggregationPolicyAggregatedList>> {
+        self.inner.aggregated_list(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn delete(
+        &self,
+        req: crate::model::region_health_aggregation_policies::DeleteRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
+        self.inner.delete(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get(
+        &self,
+        req: crate::model::region_health_aggregation_policies::GetRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::HealthAggregationPolicy>> {
+        self.inner.get(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn insert(
+        &self,
+        req: crate::model::region_health_aggregation_policies::InsertRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
+        self.inner.insert(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn list(
+        &self,
+        req: crate::model::region_health_aggregation_policies::ListRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::HealthAggregationPolicyList>> {
+        self.inner.list(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn patch(
+        &self,
+        req: crate::model::region_health_aggregation_policies::PatchRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Operation>> {
+        self.inner.patch(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn test_iam_permissions(
+        &self,
+        req: crate::model::region_health_aggregation_policies::TestIamPermissionsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::TestPermissionsResponse>> {
+        self.inner.test_iam_permissions(req, options).await
     }
 
     #[tracing::instrument(ret)]

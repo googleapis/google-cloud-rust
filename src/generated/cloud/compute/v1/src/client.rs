@@ -1471,7 +1471,7 @@ impl Disks {
 
     /// Updates the specified disk with the data included in the request.
     /// The update is performed only on selected fields included as part
-    /// of update-mask. Only the following fields can be modified: user_license.
+    /// of update-mask.
     pub fn update(&self) -> super::builder::disks::Update {
         super::builder::disks::Update::new(self.inner.clone())
     }
@@ -10586,8 +10586,7 @@ impl RegionDisks {
     }
 
     /// Update the specified disk with the data included in the request. Update is
-    /// performed only on selected fields included as part of update-mask. Only the
-    /// following fields can be modified: user_license.
+    /// performed only on selected fields included as part of update-mask.
     pub fn update(&self) -> super::builder::region_disks::Update {
         super::builder::region_disks::Update::new(self.inner.clone())
     }
@@ -10595,6 +10594,172 @@ impl RegionDisks {
     /// Retrieves the specified region-specific Operations resource.
     pub fn get_operation(&self) -> super::builder::region_disks::GetOperation {
         super::builder::region_disks::GetOperation::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the Google Compute Engine API.
+///
+/// # Example
+/// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
+/// # use google_cloud_compute_v1::client::RegionHealthAggregationPolicies;
+/// let client = RegionHealthAggregationPolicies::builder().build().await?;
+/// // use `client` to make requests to the Google Compute Engine API.
+/// # Ok(()) }
+/// ```
+///
+/// # Service Description
+///
+/// Service for the `regionHealthAggregationPolicies` resource.
+///
+/// # Configuration
+///
+/// To configure `RegionHealthAggregationPolicies` use the `with_*` methods in the type returned
+/// by [builder()][RegionHealthAggregationPolicies::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://compute.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::region_health_aggregation_policies::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::region_health_aggregation_policies::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `RegionHealthAggregationPolicies` holds a connection pool internally, it is advised to
+/// create one and the reuse it.  You do not need to wrap `RegionHealthAggregationPolicies` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[cfg(feature = "region-health-aggregation-policies")]
+#[cfg_attr(docsrs, doc(cfg(feature = "region-health-aggregation-policies")))]
+#[derive(Clone, Debug)]
+pub struct RegionHealthAggregationPolicies {
+    inner: std::sync::Arc<dyn super::stub::dynamic::RegionHealthAggregationPolicies>,
+}
+
+#[cfg(feature = "region-health-aggregation-policies")]
+impl RegionHealthAggregationPolicies {
+    /// Returns a builder for [RegionHealthAggregationPolicies].
+    ///
+    /// ```
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
+    /// # use google_cloud_compute_v1::client::RegionHealthAggregationPolicies;
+    /// let client = RegionHealthAggregationPolicies::builder().build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn builder() -> super::builder::region_health_aggregation_policies::ClientBuilder {
+        crate::new_client_builder(
+            super::builder::region_health_aggregation_policies::client::Factory,
+        )
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: T) -> Self
+    where
+        T: super::stub::RegionHealthAggregationPolicies + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<
+        std::sync::Arc<dyn super::stub::dynamic::RegionHealthAggregationPolicies>,
+    > {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::RegionHealthAggregationPolicies> {
+        super::transport::RegionHealthAggregationPolicies::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::RegionHealthAggregationPolicies> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::RegionHealthAggregationPolicies::new)
+    }
+
+    /// Retrieves the list of all HealthAggregationPolicy resources,
+    /// regional and global, available to the specified project.
+    ///
+    /// To prevent failure, it is recommended that you set the
+    /// `returnPartialSuccess` parameter to `true`.
+    pub fn aggregated_list(
+        &self,
+    ) -> super::builder::region_health_aggregation_policies::AggregatedList {
+        super::builder::region_health_aggregation_policies::AggregatedList::new(self.inner.clone())
+    }
+
+    /// Deletes the specified HealthAggregationPolicy in the given region.
+    pub fn delete(&self) -> super::builder::region_health_aggregation_policies::Delete {
+        super::builder::region_health_aggregation_policies::Delete::new(self.inner.clone())
+    }
+
+    /// Returns the specified HealthAggregationPolicy resource in the given region.
+    pub fn get(&self) -> super::builder::region_health_aggregation_policies::Get {
+        super::builder::region_health_aggregation_policies::Get::new(self.inner.clone())
+    }
+
+    /// Create a HealthAggregationPolicy in the specified project in the given
+    /// region using the parameters that are included in the request.
+    pub fn insert(&self) -> super::builder::region_health_aggregation_policies::Insert {
+        super::builder::region_health_aggregation_policies::Insert::new(self.inner.clone())
+    }
+
+    /// Lists the HealthAggregationPolicies for a project in the given region.
+    pub fn list(&self) -> super::builder::region_health_aggregation_policies::List {
+        super::builder::region_health_aggregation_policies::List::new(self.inner.clone())
+    }
+
+    /// Updates the specified regional HealthAggregationPolicy
+    /// resource with the data included in the request. This method supportsPATCH
+    /// semantics and uses theJSON merge
+    /// patch format and processing rules.
+    pub fn patch(&self) -> super::builder::region_health_aggregation_policies::Patch {
+        super::builder::region_health_aggregation_policies::Patch::new(self.inner.clone())
+    }
+
+    /// Returns permissions that a caller has on the specified resource.
+    pub fn test_iam_permissions(
+        &self,
+    ) -> super::builder::region_health_aggregation_policies::TestIamPermissions {
+        super::builder::region_health_aggregation_policies::TestIamPermissions::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Retrieves the specified region-specific Operations resource.
+    pub fn get_operation(
+        &self,
+    ) -> super::builder::region_health_aggregation_policies::GetOperation {
+        super::builder::region_health_aggregation_policies::GetOperation::new(self.inner.clone())
     }
 }
 

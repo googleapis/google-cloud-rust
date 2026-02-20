@@ -16,7 +16,7 @@
 
 //! Google Cloud Client Libraries for Rust - Google Compute Engine API
 //!
-//! This client library was generated from the "20260206" revision of the API.
+//! This client library was generated from the "20260213" revision of the API.
 //!
 //! This crate contains traits, types, and functions to interact with Google Compute Engine API
 //! Most applications will use the structs defined in the [client] module.
@@ -91,6 +91,7 @@
 //! * [RegionCommitments](client/struct.RegionCommitments.html)
 //! * [RegionDiskTypes](client/struct.RegionDiskTypes.html)
 //! * [RegionDisks](client/struct.RegionDisks.html)
+//! * [RegionHealthAggregationPolicies](client/struct.RegionHealthAggregationPolicies.html)
 //! * [RegionHealthCheckServices](client/struct.RegionHealthCheckServices.html)
 //! * [RegionHealthChecks](client/struct.RegionHealthChecks.html)
 //! * [RegionInstanceGroupManagers](client/struct.RegionInstanceGroupManagers.html)
@@ -245,6 +246,7 @@ pub(crate) mod transport;
     feature = "region-commitments",
     feature = "region-disk-types",
     feature = "region-disks",
+    feature = "region-health-aggregation-policies",
     feature = "region-health-check-services",
     feature = "region-health-checks",
     feature = "region-instance-group-managers",
@@ -361,6 +363,7 @@ const DEFAULT_HOST: &str = "https://compute.googleapis.com/";
     feature = "region-commitments",
     feature = "region-disk-types",
     feature = "region-disks",
+    feature = "region-health-aggregation-policies",
     feature = "region-health-check-services",
     feature = "region-health-checks",
     feature = "region-instance-group-managers",

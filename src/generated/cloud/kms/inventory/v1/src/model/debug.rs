@@ -46,6 +46,7 @@ impl std::fmt::Debug for super::GetProtectedResourcesSummaryRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetProtectedResourcesSummaryRequest");
         debug_struct.field("name", &self.name);
+        debug_struct.field("fallback_scope", &self.fallback_scope);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -62,6 +63,7 @@ impl std::fmt::Debug for super::ProtectedResourcesSummary {
         debug_struct.field("resource_types", &self.resource_types);
         debug_struct.field("cloud_products", &self.cloud_products);
         debug_struct.field("locations", &self.locations);
+        debug_struct.field("warnings", &self.warnings);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -109,6 +111,18 @@ impl std::fmt::Debug for super::ProtectedResource {
         debug_struct.field("crypto_key_version", &self.crypto_key_version);
         debug_struct.field("crypto_key_versions", &self.crypto_key_versions);
         debug_struct.field("create_time", &self.create_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::Warning {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Warning");
+        debug_struct.field("warning_code", &self.warning_code);
+        debug_struct.field("display_message", &self.display_message);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

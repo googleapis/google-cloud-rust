@@ -47,6 +47,18 @@ pub trait StorageBatchOperations: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::CancelJobResponse>>;
 
+    async fn list_bucket_operations(
+        &self,
+        req: crate::model::ListBucketOperationsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListBucketOperationsResponse>>;
+
+    async fn get_bucket_operation(
+        &self,
+        req: crate::model::GetBucketOperationRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::BucketOperation>>;
+
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
@@ -140,6 +152,24 @@ impl<T: super::StorageBatchOperations> StorageBatchOperations for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<crate::model::CancelJobResponse>> {
         T::cancel_job(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_bucket_operations(
+        &self,
+        req: crate::model::ListBucketOperationsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListBucketOperationsResponse>> {
+        T::list_bucket_operations(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_bucket_operation(
+        &self,
+        req: crate::model::GetBucketOperationRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::BucketOperation>> {
+        T::get_bucket_operation(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
