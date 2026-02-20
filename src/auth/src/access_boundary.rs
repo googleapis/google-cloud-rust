@@ -344,6 +344,7 @@ pub(crate) mod tests {
 
     type TestResult = anyhow::Result<()>;
 
+    // Used by tests in other modules.
     mockall::mock! {
         #[derive(Debug)]
         Credentials {}
