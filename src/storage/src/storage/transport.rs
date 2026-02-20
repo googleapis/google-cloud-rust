@@ -277,15 +277,14 @@ impl super::stub::Storage for Storage {
 
 #[cfg(test)]
 mod tests {
-    use gaxi::observability::attributes::keys::*;
     #[cfg(google_cloud_unstable_tracing)]
     use gaxi::observability::attributes::{
-        GCP_CLIENT_LANGUAGE_RUST, OTEL_KIND_INTERNAL, RPC_SYSTEM_HTTP,
+        GCP_CLIENT_LANGUAGE_RUST, OTEL_KIND_INTERNAL, RPC_SYSTEM_HTTP, keys::*,
     };
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
-    use google_cloud_test_utils::test_layer::TestLayer;
     #[cfg(google_cloud_unstable_tracing)]
-    use google_cloud_test_utils::test_layer::{AttributeValue, CapturedSpan};
+    use google_cloud_test_utils::test_layer::AttributeValue;
+    use google_cloud_test_utils::test_layer::{CapturedSpan, TestLayer};
     use httptest::{Expectation, Server, matchers::*, responders::status_code};
     use std::collections::BTreeMap;
 

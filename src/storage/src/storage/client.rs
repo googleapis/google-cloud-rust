@@ -690,7 +690,6 @@ impl ClientBuilder {
     /// log events to the console.
     ///
     /// [Enable logging]: https://docs.cloud.google.com/rust/enable-logging
-    #[cfg(google_cloud_unstable_tracing)]
     pub fn with_tracing(mut self) -> Self {
         self.config.tracing = true;
         self
