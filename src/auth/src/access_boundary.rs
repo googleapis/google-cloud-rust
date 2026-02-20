@@ -106,7 +106,7 @@ impl AccessBoundary {
     }
 }
 
-/// A decorator for [crate::credentials::CredentialsProvider] with access boundary information.
+/// A decorator for [crate::credentials::AccessTokenCredentialsProvider] with access boundary information.
 #[derive(Clone, Debug)]
 pub(crate) struct CredentialsWithAccessBoundary<T>
 where
@@ -133,7 +133,7 @@ where
     }
 }
 
-/// Decorates [Credentials] with access boundary information.
+/// Decorates Credentials and AccessTokenCredentials with access boundary information.
 impl<T> CredentialsProvider for CredentialsWithAccessBoundary<T>
 where
     T: dynamic::AccessTokenCredentialsProvider + 'static,
@@ -268,7 +268,9 @@ where
 }
 
 pub(crate) fn service_account_lookup_url(email: &str) -> String {
-    format!("https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/{email}/allowedLocations",)
+    format!(
+        "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/{email}/allowedLocations",
+    )
 }
 
 #[cfg(test)]
