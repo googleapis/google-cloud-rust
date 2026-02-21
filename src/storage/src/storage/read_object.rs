@@ -26,6 +26,7 @@ use crate::storage::request_options::RequestOptions;
 use gaxi::attempt_info::AttemptInfo;
 use gaxi::http::HttpRequestBuilder;
 use gaxi::http::reqwest::{HeaderValue, Method, Response};
+use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt, ResourceName};
 
 /// The request builder for [Storage::read_object][crate::client::Storage::read_object] calls.
 ///
@@ -427,8 +428,9 @@ impl Reader {
         let backoff = self.options.backoff_policy.clone();
         let mut count = 0;
         let inner = async move |_| {
+            let current = count;
             count += 1;
-            self.read_attempt(count).await
+            self.read_attempt(current).await
         };
 
         google_cloud_gax::retry_loop_internal::retry_loop(
@@ -444,7 +446,14 @@ impl Reader {
 
     async fn read_attempt(&self, attempt_count: u32) -> Result<Response> {
         let builder = self.http_request_builder().await?;
-        let options = self.options.gax();
+        let options = self
+            .options
+            .gax()
+            .insert_extension(PathTemplate("/storage/v1/b/{bucket}/o/{object}"))
+            .insert_extension(ResourceName(format!(
+                "//storage.googleapis.com/{}",
+                self.request.bucket
+            )));
         let response = builder
             .send(options, AttemptInfo::new(attempt_count))
             .await?;

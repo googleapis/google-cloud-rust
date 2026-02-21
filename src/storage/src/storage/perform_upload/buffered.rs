@@ -24,6 +24,7 @@ use crate::storage::checksum::details::{
 use gaxi::attempt_info::AttemptInfo;
 use gaxi::http::HttpRequestBuilder;
 use gaxi::http::reqwest::{HeaderValue, Method};
+use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt, ResourceName};
 use progress::InProgressUpload;
 use std::sync::Arc;
 use tokio::sync::Mutex;
@@ -57,11 +58,15 @@ where
         let throttler = self.options.retry_throttler.clone();
         let retry = Arc::new(ContinueOn308::new(self.options.retry_policy.clone()));
         let backoff = self.options.backoff_policy.clone();
+        let mut count = 0;
+        let inner = async move |_| {
+            let previous = count;
+            count += 1;
+            self.buffered_resumable_attempt(&mut progress, &mut url, previous)
+                .await
+        };
         google_cloud_gax::retry_loop_internal::retry_loop(
-            async move |_| {
-                self.buffered_resumable_attempt(&mut progress, &mut url)
-                    .await
-            },
+            inner,
             async |duration| tokio::time::sleep(duration).await,
             true,
             throttler,
@@ -77,11 +82,12 @@ where
         &self,
         progress: &mut InProgressUpload,
         url: &mut Option<String>,
+        attempt_count: u32,
     ) -> Result<Object> {
         let upload_url = if let Some(u) = url.as_deref() {
             u
         } else {
-            let u = self.start_resumable_upload_attempt().await?;
+            let u = self.start_resumable_upload_attempt(attempt_count).await?;
             url.insert(u).as_str()
         };
 
@@ -99,10 +105,16 @@ where
             progress
                 .next_buffer(&mut *self.payload.lock().await)
                 .await?;
+            let options = self
+                .options
+                .gax()
+                .insert_extension(PathTemplate("/upload/storage/v1/b/{bucket}/o"))
+                .insert_extension(ResourceName(format!(
+                    "//storage.googleapis.com/{}",
+                    self.resource().bucket
+                )));
             let builder = self.partial_upload_request(upload_url, progress).await?;
-            let response = builder
-                .send(self.options.gax(), AttemptInfo::new(count))
-                .await?;
+            let response = builder.send(options, AttemptInfo::new(count)).await?;
             count += 1;
             match super::query_resumable_upload_handle_response(response).await {
                 Err(e) => {
