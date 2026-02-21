@@ -12,13 +12,16 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+pub mod metrics;
+
 use super::auth::CloudTelemetryAuthInterceptor;
 use google_cloud_auth::credentials::{Builder, Credentials};
+use opentelemetry_otlp::tonic_types::transport::ClientTlsConfig;
 use opentelemetry_otlp::{WithExportConfig, WithTonicConfig};
 use opentelemetry_sdk::trace::{SdkTracerProvider, TraceError};
-use tonic::transport::ClientTlsConfig;
 
 const GCP_OTLP_DOMAIN_NAME: &str = "telemetry.googleapis.com";
+const GCP_OTLP_ENDPOINT: &str = "https://telemetry.googleapis.com";
 const OTEL_KEY_GCP_PROJECT_ID: &str = "gcp.project_id";
 const OTEL_KEY_SERVICE_NAME: &str = "service.name";
 
@@ -216,13 +219,14 @@ mod tests {
         // Force flush to ensure spans are sent
         let _ = provider.force_flush();
 
-        let requests = mock_collector.requests.lock().unwrap();
-        assert!(
-            !requests.is_empty(),
-            "mock collector should have received requests"
-        );
+        let (metadata, _extensions, request) = mock_collector
+            .traces
+            .lock()
+            .expect("never poisoned")
+            .pop()
+            .expect("mock collector should have received requests")
+            .into_parts();
 
-        let request = &requests[0];
         let resource_spans = &request.resource_spans;
         assert!(!resource_spans.is_empty(), "{request:?}");
         let scope_spans = &resource_spans[0].scope_spans;
@@ -231,19 +235,17 @@ mod tests {
         assert!(!spans.is_empty(), "{request:?}");
         assert_eq!(spans[0].name, "test-span");
 
-        let headers = mock_collector.headers.lock().unwrap();
-        let last_headers = headers.last().unwrap();
+        let headers = metadata.into_headers();
         assert_eq!(
-            last_headers.get("x-goog-user-project").unwrap(),
-            "test-project"
+            headers.get("x-goog-user-project").map(|v| v.as_bytes()),
+            Some("test-project".as_bytes()),
+            "{headers:?}"
         );
         assert!(
-            last_headers
+            headers
                 .get("authorization")
-                .unwrap()
-                .to_str()
-                .unwrap()
-                .starts_with("Bearer ")
+                .is_some_and(|v| v.as_bytes().starts_with(b"Bearer")),
+            "{headers:?}"
         );
     }
 }

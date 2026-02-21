@@ -82,17 +82,14 @@ pub async fn to_otlp() -> anyhow::Result<()> {
     let _ = provider.force_flush();
 
     // 8. Verify Spans
-    let requests = mock_collector.requests.lock().unwrap();
-    assert!(
-        !requests.is_empty(),
-        "Should have received at least one OTLP request"
-    );
+    let (_metadata, _, request) = mock_collector
+        .traces
+        .lock()
+        .expect("never poisoned")
+        .pop()
+        .expect("should have received at least one trace request")
+        .into_parts();
 
-    let request = &requests[0];
-    assert!(
-        !request.resource_spans.is_empty(),
-        "Should have received at least one resource span"
-    );
     let scope_spans = &request.resource_spans[0].scope_spans;
     assert!(
         !scope_spans.is_empty(),

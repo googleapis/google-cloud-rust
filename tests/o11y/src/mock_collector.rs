@@ -12,31 +12,45 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use opentelemetry_proto::tonic::collector::metrics::v1::{
+    ExportMetricsServiceRequest as MetricsRequest, ExportMetricsServiceResponse,
+    metrics_service_server::{MetricsService, MetricsServiceServer},
+};
 use opentelemetry_proto::tonic::collector::trace::v1::{
-    ExportTraceServiceRequest, ExportTraceServiceResponse,
+    ExportTraceServiceRequest as TraceRequest, ExportTraceServiceResponse,
     trace_service_server::{TraceService, TraceServiceServer},
 };
-use std::sync::{Arc, Mutex};
 use tonic::{Request, Response, Status};
+
+use std::sync::{Arc, Mutex};
 
 #[derive(Default, Clone)]
 pub struct MockCollector {
-    pub requests: Arc<Mutex<Vec<ExportTraceServiceRequest>>>,
-    pub headers: Arc<Mutex<Vec<http::HeaderMap>>>,
+    pub traces: Arc<Mutex<Vec<tonic::Request<TraceRequest>>>>,
+    pub metrics: Arc<Mutex<Vec<tonic::Request<MetricsRequest>>>>,
 }
 
 #[tonic::async_trait]
 impl TraceService for MockCollector {
     async fn export(
         &self,
-        request: Request<ExportTraceServiceRequest>,
+        request: Request<TraceRequest>,
     ) -> Result<Response<ExportTraceServiceResponse>, Status> {
-        self.headers
-            .lock()
-            .unwrap()
-            .push(request.metadata().clone().into_headers());
-        self.requests.lock().unwrap().push(request.into_inner());
+        self.traces.lock().unwrap().push(request);
         Ok(Response::new(ExportTraceServiceResponse {
+            partial_success: None,
+        }))
+    }
+}
+
+#[tonic::async_trait]
+impl MetricsService for MockCollector {
+    async fn export(
+        &self,
+        request: Request<MetricsRequest>,
+    ) -> Result<Response<ExportMetricsServiceResponse>, Status> {
+        self.metrics.lock().unwrap().push(request);
+        Ok(Response::new(ExportMetricsServiceResponse {
             partial_success: None,
         }))
     }
@@ -48,10 +62,11 @@ impl MockCollector {
         let addr = listener.local_addr().unwrap();
         let endpoint = format!("http://{}", addr);
 
-        let server_collector = self.clone();
+        let this = self.clone();
         tokio::spawn(async move {
             tonic::transport::Server::builder()
-                .add_service(TraceServiceServer::new(server_collector))
+                .add_service(TraceServiceServer::new(this.clone()))
+                .add_service(MetricsServiceServer::new(this.clone()))
                 .serve_with_incoming(tokio_stream::wrappers::TcpListenerStream::new(listener))
                 .await
                 .unwrap()
