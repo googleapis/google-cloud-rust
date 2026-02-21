@@ -131,6 +131,7 @@ mod tests {
     use super::*;
     use crate::http::reqwest::{HeaderMap, HeaderValue, Method};
     use crate::options::ClientConfig;
+    use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
 
     #[tokio::test]
     async fn query() -> anyhow::Result<()> {
@@ -152,12 +153,20 @@ mod tests {
 
     #[tokio::test]
     async fn headers() -> anyhow::Result<()> {
-        let client = ReqwestClient::new(ClientConfig::default(), "http://example.com").await?;
+        let mut config = ClientConfig::default();
+        config.cred = Some(Anonymous::default().build());
+        let client = ReqwestClient::new(config, "http://example.com").await?;
+
         let request = client
             .http_builder(Method::GET, "/some/path")
             .build_for_tests()
             .await?;
-        assert!(request.headers().is_empty(), "{request:?}");
+        let want = {
+            let mut hm = HeaderMap::new();
+            hm.insert("host", HeaderValue::from_static("example.com"));
+            hm
+        };
+        assert_eq!(request.headers(), &want, "{request:?}");
         let request = client
             .http_builder(Method::GET, "/some/path")
             .header("x-goog-a", "a")
@@ -168,6 +177,7 @@ mod tests {
             let mut hm = HeaderMap::new();
             hm.insert("x-goog-a", HeaderValue::from_static("a"));
             hm.insert("x-goog-b", HeaderValue::from_static("b"));
+            hm.insert("host", HeaderValue::from_static("example.com"));
             hm
         };
         assert_eq!(request.headers(), &want, "{request:?}");
