@@ -26,7 +26,7 @@ use std::time::Duration;
 
 /// A builder for plain HTTP requests.
 ///
-/// This builder is returned by [ReqwestClient::http_builder] and [RequestClient::http_builder_with_url].
+/// This builder is returned by [ReqwestClient::http_builder] and [ReqwestClient::http_builder_with_url].
 ///
 /// # Example
 /// ```
