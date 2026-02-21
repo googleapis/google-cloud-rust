@@ -408,6 +408,12 @@ pub async fn run_object_examples(buckets: &mut Vec<String>) -> anyhow::Result<()
     )
     .await?;
 
+    tracing::info!("running open_object_read_full_object example");
+    let downloaded_file = tempfile::NamedTempFile::new()?;
+    let downloaded_file_name = downloaded_file.path().to_str().unwrap();
+    objects::open_object_read_full_object::sample(&client, &id, object_name, downloaded_file_name)
+        .await?;
+
     tracing::info!("running file_upload_from_memory example");
     objects::file_upload_from_memory::sample(&client, &id).await?;
     tracing::info!("running file_download_into_memory example");
