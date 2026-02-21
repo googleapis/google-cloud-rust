@@ -125,3 +125,73 @@ impl HttpRequestBuilder {
             .await
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::http::reqwest::{HeaderMap, HeaderValue, Method};
+    use crate::options::ClientConfig;
+
+    #[tokio::test]
+    async fn query() -> anyhow::Result<()> {
+        let client = ReqwestClient::new(ClientConfig::default(), "http://example.com").await?;
+        let request = client
+            .http_builder(Method::GET, "/some/path")
+            .build_for_tests()
+            .await?;
+        assert!(request.url().query().is_none(), "{request:?}");
+        let request = client
+            .http_builder(Method::GET, "/some/path")
+            .query("a", "b")
+            .query("c", 123)
+            .build_for_tests()
+            .await?;
+        assert_eq!(request.url().query(), Some("a=b&c=123"), "{request:?}");
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn headers() -> anyhow::Result<()> {
+        let client = ReqwestClient::new(ClientConfig::default(), "http://example.com").await?;
+        let request = client
+            .http_builder(Method::GET, "/some/path")
+            .build_for_tests()
+            .await?;
+        assert!(request.headers().is_empty(), "{request:?}");
+        let request = client
+            .http_builder(Method::GET, "/some/path")
+            .header("x-goog-a", "a")
+            .header("x-goog-b", "b")
+            .build_for_tests()
+            .await?;
+        let want = {
+            let mut hm = HeaderMap::new();
+            hm.insert("x-goog-a", HeaderValue::from_static("a"));
+            hm.insert("x-goog-b", HeaderValue::from_static("b"));
+            hm
+        };
+        assert_eq!(request.headers(), &want, "{request:?}");
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn body() -> anyhow::Result<()> {
+        let client = ReqwestClient::new(ClientConfig::default(), "http://example.com").await?;
+        let request = client
+            .http_builder(Method::POST, "/some/path")
+            .build_for_tests()
+            .await?;
+        assert!(request.body().is_none(), "{request:?}");
+        let request = client
+            .http_builder(Method::GET, "/some/path")
+            .body("hello world")
+            .build_for_tests()
+            .await?;
+        assert_eq!(
+            request.body().and_then(|b| b.as_bytes()),
+            Some("hello world".as_bytes()),
+            "{request:?}"
+        );
+        Ok(())
+    }
+}
