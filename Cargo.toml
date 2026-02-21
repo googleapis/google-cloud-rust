@@ -367,9 +367,10 @@ humantime             = { default-features = false, version = "2" }
 hyper                 = { default-features = false, version = "1.6" }
 jsonwebtoken          = { default-features = false, version = "10.2" }
 lazy_static           = { default-features = false, version = "1.2" }
-opentelemetry         = { default-features = false, version = "0.31", features = ["trace"] }
-opentelemetry-proto   = { default-features = false, version = "0.31", features = ["gen-tonic", "trace"] }
-opentelemetry_sdk     = { default-features = false, version = "0.31", features = ["rt-tokio", "trace"] }
+opentelemetry         = { default-features = false, version = "0.31" }
+opentelemetry-proto   = { default-features = false, version = "0.31" }
+opentelemetry_sdk     = { default-features = false, version = "0.31" }
+opentelemetry-otlp    = { default-features = false, version = "0.31" }
 parse-size            = { default-features = false, version = "1.1" }
 percent-encoding      = { default-features = false, version = "2.3" }
 pin-project           = { default-features = false, version = "1.0.11" }
@@ -394,15 +395,7 @@ tracing-subscriber    = { default-features = false, version = "0.3.22" }
 url                   = { default-features = false, version = "2.4" }
 uuid                  = { default-features = false, version = "1", features = ["v4"] }
 
-opentelemetry-otlp = { default-features = false, version = "0.31", features = [
-  "grpc-tonic",
-  "tls",
-  "tls-roots",
-  "trace",
-] }
-opentelemetry-semantic-conventions = { default-features = false, version = "0.31.0", features = [
-  "semconv_experimental",
-] }
+opentelemetry-semantic-conventions = { default-features = false, version = "0.31.0" }
 
 # WARNING: When this changes to 0.2 we need to bump the google-cloud-gax-internal major version.
 http-body-util = { default-features = false, version = "0.1.3" }
