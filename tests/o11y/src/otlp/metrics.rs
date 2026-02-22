@@ -27,7 +27,7 @@
 //! global::set_meter_provider(provider.clone());
 //! // Use the provider.
 //! let meter = opentelemetry::global::meter("my-component");
-//! let counter = meter.u64_counter("my_counter").builder();
+//! let counter = meter.u64_counter("my_counter").build();
 //! counter.add(1, &[KeyValue::new("my.key", "my.value")]);
 //! # Ok(()) }
 //! ```
@@ -233,8 +233,8 @@ mod tests {
         want.sort_by(|a, b| a.0.cmp(b.0));
         let attributes = want.map(|(k, v)| KeyValue::new(k, v));
         let meter = provider.meter("test-meter");
-        let histo = meter.u64_counter(NAME).build();
-        histo.add(123, &attributes);
+        let counter = meter.u64_counter(NAME).build();
+        counter.add(123, &attributes);
 
         // 4. Force flush to ensure the metrics are sent.
         provider.force_flush()?;
