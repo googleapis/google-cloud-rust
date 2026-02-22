@@ -17,12 +17,13 @@
 //! # Examples
 //! ```
 //! use integration_tests_o11y::otlp::trace::Builder;
-//! use opentelemetry_sdk::trace::SdkTraceProvider;
-//!
+//! use opentelemetry_sdk::trace::SdkTracerProvider;
 //! # async fn example() -> anyhow::Result<()> {
-//! let provider: SdkTraceProvider = Builder::new("my-project", "my-service")
+//! let provider: SdkTracerProvider = Builder::new("my-project", "my-service")
 //!     .build()
 //!     .await?;
+//! // Make the provider available to the libraries and application.
+//! opentelemetry::global::set_tracer_provider(provider.clone());
 //! # Ok(()) }
 //! ```
 
@@ -50,10 +51,10 @@ const GCP_OTLP_DOMAIN_NAME: &str = "telemetry.googleapis.com";
 ///
 /// # Examples
 /// ```
-/// use integration_tests_o11y::otlp::CloudTelemetryTracerProviderBuilder;
-///
+/// use opentelemetry_sdk::trace::SdkTracerProvider;
 /// # async fn example() -> anyhow::Result<()> {
-/// let provider = CloudTelemetryTracerProviderBuilder::new("my-project", "my-service")
+/// # use integration_tests_o11y::otlp::trace::Builder;
+/// let provider: SdkTracerProvider  = Builder::new("my-project", "my-service")
 ///     .build()
 ///     .await?;
 /// # Ok(())
