@@ -296,7 +296,7 @@ mod tests {
             "{got:?}\n{resource:?}"
         );
 
-        // 8. Find the counter data point value and verify it has the expoected
+        // 8. Find the counter data point value and verify it has the expected
         //    attributes.
         let point = rm
             .scope_metrics
