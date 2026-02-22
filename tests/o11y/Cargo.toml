@@ -42,9 +42,9 @@ google-cloud-trace-v1         = { workspace = true, features = ["default"] }
 http.workspace                = true
 httptest.workspace            = true
 opentelemetry                 = { workspace = true, features = ["metrics", "trace"] }
-opentelemetry_sdk             = { workspace = true, features = ["rt-tokio", "metrics", "trace"] }
+opentelemetry_sdk             = { workspace = true, features = ["metrics", "rt-tokio", "trace"] }
 opentelemetry-proto           = { workspace = true, features = ["gen-tonic", "metrics", "trace"] }
-thiserror.workspace = true
+thiserror.workspace           = true
 tokio                         = { workspace = true, features = ["test-util", "time"] }
 tokio-stream                  = { workspace = true, features = ["net"] }
 tonic                         = { workspace = true, features = ["codegen", "router", "server", "transport"] }
