@@ -88,10 +88,16 @@ macro_rules! client_request_span {
 /// # panic!()
 /// }
 /// ```
-pub trait ResultExt {
+pub trait ResultExt: sealed::ResultExt {
     fn record_in_span(self, span: &Span) -> Self;
 }
 
+/// Seals the [ResultExt] trait so only this crate can implement it.
+mod sealed {
+    pub trait ResultExt {}
+}
+
+impl<T> sealed::ResultExt for std::result::Result<T, Error> {}
 impl<T> ResultExt for std::result::Result<T, Error> {
     fn record_in_span(self, span: &Span) -> Self {
         match &self {
