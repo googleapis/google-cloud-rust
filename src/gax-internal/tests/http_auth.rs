@@ -12,58 +12,24 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+mod mock_credentials;
+
 #[cfg(all(test, feature = "_internal-http-client"))]
 mod tests {
-    use google_cloud_auth::credentials::{
-        CacheableResource, Credentials, CredentialsProvider, EntityTag,
-    };
+    use super::mock_credentials::{MockCredentials, mock_credentials};
+    use google_cloud_auth::credentials::Credentials;
     use google_cloud_auth::errors::CredentialsError;
     use google_cloud_gax::backoff_policy::BackoffPolicy;
     use google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder;
     use google_cloud_gax::options::RequestOptions;
     use google_cloud_gax::retry_policy::{Aip194Strict, RetryPolicyExt};
-    use http::header::{HeaderName, HeaderValue};
-    use http::{Extensions, HeaderMap};
     use serde_json::json;
     use std::error::Error as _;
 
-    type AuthResult<T> = std::result::Result<T, CredentialsError>;
-    type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;
-
-    mockall::mock! {
-        #[derive(Debug)]
-        Credentials {}
-
-        impl CredentialsProvider for Credentials {
-            async fn headers(&self, extensions: Extensions) -> AuthResult<CacheableResource<HeaderMap>>;
-            async fn universe_domain(&self) -> Option<String>;
-        }
-    }
-
-    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-    async fn test_auth_headers() -> Result<()> {
+    #[tokio::test]
+    async fn auth_headers_simple() -> anyhow::Result<()> {
         let (endpoint, _server) = echo_server::start().await?;
-
-        // We use mock credentials instead of fake credentials, because
-        // 1. we can test that multiple headers are included in the request
-        // 2. it gives us extra confidence that our interfaces are called
-        let mut mock = MockCredentials::new();
-        let header = HeaderMap::from_iter([
-            (
-                HeaderName::from_static("auth-key-1"),
-                HeaderValue::from_static("auth-value-1"),
-            ),
-            (
-                HeaderName::from_static("auth-key-2"),
-                HeaderValue::from_static("auth-value-2"),
-            ),
-        ]);
-        mock.expect_headers().return_once(|_extensions| {
-            Ok(CacheableResource::New {
-                entity_tag: EntityTag::default(),
-                data: header,
-            })
-        });
+        let mock = mock_credentials();
 
         let client = echo_server::builder(endpoint)
             .with_credentials(Credentials::from(mock))
@@ -88,7 +54,7 @@ mod tests {
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-    async fn auth_error_retryable() -> Result<()> {
+    async fn auth_error_retryable() -> anyhow::Result<()> {
         let (endpoint, _server) = echo_server::start().await?;
         let retry_count = 3;
         let mut mock = MockCredentials::new();
@@ -120,14 +86,12 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-    #[test_case::test_case(Err(CredentialsError::from_msg(
-        false,
-        "mock non-retryable error",
-    )); "on_error_response")]
-    async fn auth_error_non_retryable(
-        headers_response: AuthResult<CacheableResource<HeaderMap>>,
-    ) -> Result<()> {
+    #[tokio::test]
+    async fn auth_error_non_retryable() -> anyhow::Result<()> {
+        let headers_response = Err(CredentialsError::from_msg(
+            false,
+            "mock non-retryable error",
+        ));
         let (endpoint, _server) = echo_server::start().await?;
         let mut mock = MockCredentials::new();
         mock.expect_headers()
