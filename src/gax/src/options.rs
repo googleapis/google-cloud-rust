@@ -236,11 +236,6 @@ pub mod internal {
         fn insert_extension<T>(self, value: T) -> Self
         where
             T: Clone + Send + Sync + 'static;
-
-        /// Clears an extension value.
-        fn remove_extension<T>(&mut self) -> Option<T>
-        where
-            T: Clone + Send + Sync + 'static;
     }
 
     impl sealed::OptionsExt for RequestOptions {}
@@ -258,13 +253,6 @@ pub mod internal {
         {
             let _ = self.extensions.insert(value);
             self
-        }
-
-        fn remove_extension<T>(&mut self) -> Option<T>
-        where
-            T: Clone + Send + Sync + 'static,
-        {
-            self.extensions.remove::<T>()
         }
     }
 
@@ -422,6 +410,26 @@ mod tests {
         assert_eq!(opts.idempotent(), Some(false));
         let opts = set_default_idempotency(opts, true);
         assert_eq!(opts.idempotent(), Some(false));
+    }
+
+    #[test]
+    fn request_options_ext() {
+        #[derive(Debug, Clone, PartialEq)]
+        struct TestA(&'static str);
+        #[derive(Debug, Clone, PartialEq)]
+        struct TestB(u32);
+
+        let opts = RequestOptions::default();
+        assert!(opts.get_extension::<TestA>().is_none(), "{opts:?}");
+        assert!(opts.get_extension::<TestB>().is_none(), "{opts:?}");
+        let opts = opts.insert_extension(TestA("1"));
+        assert_eq!(opts.get_extension::<TestA>(), Some(&TestA("1")), "{opts:?}");
+        assert!(opts.get_extension::<TestB>().is_none(), "{opts:?}");
+        let opts = opts
+            .insert_extension(TestA("2"))
+            .insert_extension(TestB(42));
+        assert_eq!(opts.get_extension::<TestA>(), Some(&TestA("2")), "{opts:?}");
+        assert_eq!(opts.get_extension::<TestB>(), Some(&TestB(42)), "{opts:?}");
     }
 
     #[test]
