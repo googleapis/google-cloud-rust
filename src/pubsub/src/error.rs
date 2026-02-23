@@ -13,30 +13,35 @@
 // limitations under the License.
 
 //! Custom errors for the Cloud Pub/Sub clients.
-//!
-//! The Pub/Sub clients define additional error types. These are often returned
-//! as the `source()` of an [Error][crate::Error].
 
 /// Represents an error that can occur when publishing a message.
 #[derive(thiserror::Error, Debug)]
 #[non_exhaustive]
 pub enum PublishError {
-    /// Publish operation failed sending the RPC.
+    /// The underlying RPC call failed.
+    ///
+    /// The inner error is wrapped in an [`Arc`](std::sync::Arc) to allow this error to be cloned
+    /// and returned for each message in the batch.
     #[error("the publish operation was interrupted by an error: {0}")]
-    SendError(#[source] std::sync::Arc<crate::Error>),
+    Rpc(#[source] std::sync::Arc<crate::Error>),
 
-    /// Publish is paused for the ordering key.
+    /// Publishing is paused because a previous message with the same ordering key failed.
     ///
-    /// A previous message with this ordering key has failed to send. To prevent messages from
-    /// being sent out of order, the `Publisher` paused messages for this ordering key.
+    /// To prevent messages from being sent out of order, the [`Publisher`](crate::client::Publisher)
+    /// paused messages for the ordering key.
     ///
-    /// To resume publishing messages with this ordering key, call `Publisher::resume_publish(...)`.
-    #[error("the ordering key was paused")]
-    OrderingKeyPaused(()),
+    /// To resume publishing, call [`Publisher::resume_publish`](crate::client::Publisher::resume_publish).
+    #[error("publishing is paused for the ordering key")]
+    OrderingKeyPaused,
 
-    /// The publisher is shutdown and is no longer running.
-    #[error("publisher is shutdown")]
-    ShutdownError(()),
+    /// The operation failed because the [`Publisher`](crate::client::Publisher) has
+    /// been shut down.
+    ///
+    /// This may occur when the runtime has dropped the background tasks that handle
+    /// message publishing. It is possible that the message was successfully published
+    /// before shutdown.
+    #[error("the publisher has shut down")]
+    Shutdown,
 
     /// The publish message size exceeds the batch configured byte threshold.
     #[error("message size exceeded configured byte threshold")]

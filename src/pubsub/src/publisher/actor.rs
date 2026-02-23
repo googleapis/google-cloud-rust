@@ -384,7 +384,7 @@ impl SequentialBatchActor {
                     Some(ToBatchActor::Publish(msg)) => {
                         let _ = msg
                             .tx
-                            .send(Err(crate::error::PublishError::OrderingKeyPaused(())));
+                            .send(Err(crate::error::PublishError::OrderingKeyPaused));
                     }
                     Some(ToBatchActor::Flush(tx)) => {
                         // There should be no pending messages and messages in the pending batch as
@@ -506,7 +506,7 @@ impl SequentialBatchActor {
             // The user may have dropped the handle, so it is ok if this fails.
             let _ = publish
                 .tx
-                .send(Err(crate::error::PublishError::OrderingKeyPaused(())));
+                .send(Err(crate::error::PublishError::OrderingKeyPaused));
         }
     }
 
@@ -687,7 +687,7 @@ mod tests {
             for v in publish_rxs {
                 let res = v.await;
                 assert!(
-                    matches!(res, Ok(Err(PublishError::OrderingKeyPaused(())))),
+                    matches!(res, Ok(Err(PublishError::OrderingKeyPaused))),
                     "{res:?}"
                 );
             }

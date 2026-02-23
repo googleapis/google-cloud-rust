@@ -119,7 +119,7 @@ impl Batch {
                 let e = Arc::new(e);
                 for tx in txs {
                     // The user may have dropped the handle, so it is ok if this fails.
-                    let _ = tx.send(Err(PublishError::SendError(e.clone())));
+                    let _ = tx.send(Err(PublishError::Rpc(e.clone())));
                 }
                 Err(crate::Error::io(e))
             }
