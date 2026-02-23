@@ -14,7 +14,7 @@
 
 use super::Anonymous;
 use crate::mock_collector::MockCollector;
-use crate::otlp::CloudTelemetryTracerProviderBuilder;
+use crate::otlp::trace::Builder as TracerProviderBuilder;
 use google_cloud_showcase_v1beta1::client::Echo;
 use google_cloud_test_utils::test_layer::{AttributeValue, TestLayer};
 use httptest::{Expectation, Server, matchers::*, responders::status_code};
@@ -44,7 +44,7 @@ pub async fn to_otlp() -> anyhow::Result<()> {
     let otlp_endpoint = mock_collector.start().await;
 
     // 2. Configure OTel Provider
-    let provider = CloudTelemetryTracerProviderBuilder::new("test-project", "integration-tests")
+    let provider = TracerProviderBuilder::new("test-project", "integration-tests")
         .with_endpoint(otlp_endpoint)
         .with_credentials(Anonymous::new().build())
         .build()

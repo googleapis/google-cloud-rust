@@ -91,6 +91,7 @@
 //! [Service Account]: https://cloud.google.com/iam/docs/service-account-overview
 //! [Service Account Token Creator Role]: https://cloud.google.com/docs/authentication/use-service-account-impersonation#required-roles
 
+use crate::access_boundary::CredentialsWithAccessBoundary;
 use crate::build_errors::Error as BuilderError;
 use crate::constants::DEFAULT_SCOPE;
 use crate::credentials::dynamic::{AccessTokenCredentialsProvider, CredentialsProvider};
@@ -426,7 +427,7 @@ impl Builder {
     ///
     /// [application-default credentials]: https://cloud.google.com/docs/authentication/application-default-credentials
     pub fn build(self) -> BuildResult<Credentials> {
-        Ok(self.build_access_token_credentials()?.into())
+        Ok(self.build_credentials()?.into())
     }
 
     #[cfg(test)]
@@ -477,13 +478,29 @@ impl Builder {
     ///
     /// [application-default credentials]: https://cloud.google.com/docs/authentication/application-default-credentials
     pub fn build_access_token_credentials(self) -> BuildResult<AccessTokenCredentials> {
+        Ok(self.build_credentials()?.into())
+    }
+
+    fn build_credentials(
+        self,
+    ) -> BuildResult<CredentialsWithAccessBoundary<ImpersonatedServiceAccount<TokenCache>>> {
+        let service_account_impersonation_url = self.resolve_impersonation_url()?;
+        let client_email = extract_client_email(&service_account_impersonation_url)?;
+        let iam_endpoint_override = self.iam_endpoint_override.clone();
         let (token_provider, quota_project_id) = self.build_components()?;
-        Ok(AccessTokenCredentials {
-            inner: Arc::new(ImpersonatedServiceAccount {
-                token_provider: TokenCache::new(token_provider),
-                quota_project_id,
-            }),
-        })
+        let access_boundary_url = crate::access_boundary::service_account_lookup_url(
+            &client_email,
+            iam_endpoint_override.as_deref(),
+        );
+        let creds = ImpersonatedServiceAccount {
+            token_provider: TokenCache::new(token_provider),
+            quota_project_id,
+        };
+
+        Ok(CredentialsWithAccessBoundary::new(
+            creds,
+            access_boundary_url,
+        ))
     }
 
     /// Returns a [crate::signer::Signer] instance with the configured settings.
@@ -850,8 +867,11 @@ struct GenerateAccessTokenResponse {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::access_boundary::REGIONAL_ACCESS_BOUNDARIES_ENV_VAR;
     use crate::credentials::service_account::ServiceAccountKey;
-    use crate::credentials::tests::PKCS8_PK;
+    use crate::credentials::tests::{
+        PKCS8_PK, get_access_boundary_from_headers, get_token_from_headers,
+    };
     use crate::credentials::tests::{
         find_source_error, get_mock_auth_retry_policy, get_mock_backoff_policy,
         get_mock_retry_throttler,
@@ -859,9 +879,10 @@ mod tests {
     use crate::errors::CredentialsError;
     use httptest::cycle;
     use httptest::{Expectation, Server, matchers::*, responders::*};
+    use scoped_env::ScopedEnv;
     use serde_json::Value;
     use serde_json::json;
-    use serial_test::parallel;
+    use serial_test::{parallel, serial};
 
     type TestResult = anyhow::Result<()>;
 
@@ -2278,6 +2299,101 @@ mod tests {
             "error: {}",
             error
         );
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    #[serial]
+    async fn e2e_access_boundary() -> TestResult {
+        let _env = ScopedEnv::set(REGIONAL_ACCESS_BOUNDARIES_ENV_VAR, "true");
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(request::method_path("POST", "/token"))
+                .times(2..)
+                .respond_with(json_encoded(json!({
+                    "access_token": "test-user-account-token",
+                    "expires_in": 3600,
+                    "token_type": "Bearer",
+                }))),
+        );
+        let expire_time = (OffsetDateTime::now_utc() + time::Duration::hours(1))
+            .format(&time::format_description::well_known::Rfc3339)
+            .unwrap();
+        server.expect(
+            Expectation::matching(request::method_path(
+                "POST",
+                "/v1/projects/-/serviceAccounts/test-principal:generateAccessToken",
+            ))
+            .times(2)
+            .respond_with(json_encoded(json!({
+                "accessToken": "test-impersonated-token",
+                "expireTime": expire_time
+            }))),
+        );
+
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path(
+                    "GET",
+                    "/v1/projects/-/serviceAccounts/test-principal/allowedLocations"
+                ),
+                request::headers(contains((
+                    "authorization",
+                    "Bearer test-impersonated-token"
+                ))),
+            ])
+            .times(2)
+            .respond_with(json_encoded(json!({
+                "locations": ["us-central1", "us-east1"],
+                "encodedLocations": "0x1234"
+            }))),
+        );
+        let impersonation_url = server
+            .url("/v1/projects/-/serviceAccounts/test-principal:generateAccessToken")
+            .to_string();
+
+        // Test builder from source credentials
+        let user_credential = json!({
+            "type": "authorized_user",
+            "client_id": "test-client-id",
+            "client_secret": "test-client-secret",
+            "refresh_token": "test-refresh-token",
+            "token_uri": server.url("/token").to_string()
+        });
+        let source_credential =
+            crate::credentials::user_account::Builder::new(user_credential.clone()).build()?;
+        let mut builder_from_source = Builder::from_source_credentials(source_credential)
+            .with_target_principal("test-principal");
+        builder_from_source.service_account_impersonation_url = Some(impersonation_url.clone());
+
+        // Test builder from JSON
+        let impersonated_credential = json!({
+            "type": "impersonated_service_account",
+            "service_account_impersonation_url": impersonation_url,
+            "source_credentials": user_credential,
+        });
+        let builder_from_json = Builder::new(impersonated_credential);
+
+        for builder in [builder_from_source, builder_from_json] {
+            let iam_endpoint = server.url("").to_string().trim_end_matches('/').to_string();
+            let creds = builder
+                .maybe_iam_endpoint_override(Some(iam_endpoint))
+                .build()?;
+
+            // let the access boundary background thread update
+            tokio::time::sleep(tokio::time::Duration::from_secs(1)).await;
+
+            let headers = creds.headers(Extensions::new()).await?;
+            let token = get_token_from_headers(headers.clone());
+            let access_boundary = get_access_boundary_from_headers(headers);
+            assert!(token.is_some(), "should have some token: {token:?}");
+            assert_eq!(
+                access_boundary.as_deref(),
+                Some("0x1234"),
+                "should be 0x1234 but found: {access_boundary:?}"
+            );
+        }
 
         Ok(())
     }

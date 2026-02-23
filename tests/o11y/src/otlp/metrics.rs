@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-//! Types related to exporting OpenTelemetry metrics to Google Cloud Monitoring.
+//! This module contains types to export OpenTelemetry metrics to Google Cloud Monitoring.
 //!
 //! # Example
 //! ```
@@ -33,6 +33,7 @@
 //! ```
 
 use super::{OTEL_KEY_GCP_PROJECT_ID, OTEL_KEY_SERVICE_NAME};
+use crate::auth::CloudTelemetryAuthInterceptor;
 use google_cloud_auth::credentials::{Builder as AdcBuilder, Credentials};
 use opentelemetry_otlp::tonic_types::transport::ClientTlsConfig;
 use opentelemetry_otlp::{ExporterBuildError, WithExportConfig, WithTonicConfig};
@@ -121,7 +122,7 @@ impl Builder {
             Some(c) => c,
             None => AdcBuilder::default().build().map_err(Error::credentials)?,
         };
-        let interceptor = super::CloudTelemetryAuthInterceptor::new(credentials).await;
+        let interceptor = CloudTelemetryAuthInterceptor::new(credentials).await;
 
         let exporter_builder = {
             let builder = opentelemetry_otlp::MetricExporter::builder()
