@@ -19,8 +19,8 @@ pub(crate) mod batch;
 pub(crate) mod builder;
 pub(crate) mod client_builder;
 pub(crate) mod constants;
-pub(crate) mod implementation;
 pub(crate) mod future;
+pub(crate) mod implementation;
 pub(crate) mod options;
 pub(crate) mod retry_policy;
 
