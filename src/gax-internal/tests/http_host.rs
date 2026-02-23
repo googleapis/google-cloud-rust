@@ -16,6 +16,7 @@
 mod tests {
     use google_cloud_auth::credentials::{Credentials, anonymous::Builder as Anonymous};
     use google_cloud_gax::options::*;
+    use google_cloud_gax_internal::attempt_info::AttemptInfo;
     use google_cloud_gax_internal::http::ReqwestClient;
     use serde_json::json;
     use std::str::FromStr;
@@ -64,7 +65,10 @@ mod tests {
             "https://test.googleapis.com",
         )?;
         let options = RequestOptions::default();
-        let response = builder.body("{}").send(options, None, 0).await?;
+        let response = builder
+            .body("{}")
+            .send(options, AttemptInfo::new(0))
+            .await?;
         let response = response.json::<serde_json::Value>().await?;
         let got = get_header_value(&response, "host");
         assert_eq!(got.as_deref(), Some("test.googleapis.com"), "{response:?}");

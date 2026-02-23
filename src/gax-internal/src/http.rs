@@ -25,6 +25,7 @@ pub mod http_request_builder;
 pub mod reqwest;
 
 use crate::as_inner::as_inner;
+use crate::attempt_info::AttemptInfo;
 #[cfg(google_cloud_unstable_tracing)]
 use crate::observability::{
     create_http_attempt_span, record_http_response_attributes, record_intermediate_client_request,
@@ -240,11 +241,12 @@ impl ReqwestClient {
         &self,
         mut builder: reqwest::RequestBuilder,
         options: RequestOptions,
-        remaining_time: Option<Duration>,
-        _attempt_count: u32,
+        attempt_info: AttemptInfo,
     ) -> Result<reqwest::Response> {
         builder = self.configure_builder(builder, &options)?;
-        let request = self.request(builder, &options, remaining_time).await?;
+        let request = self
+            .request(builder, &options, attempt_info.remaining_time)
+            .await?;
         self.inner.execute(request).await.map_err(map_send_error)
     }
 

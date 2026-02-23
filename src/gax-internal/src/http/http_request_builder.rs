@@ -22,7 +22,7 @@
 use super::reqwest::{Body, Request, RequestBuilder, Response};
 use super::reqwest::{HeaderName, HeaderValue};
 use super::{RequestOptions, ReqwestClient, Result};
-use std::time::Duration;
+use crate::attempt_info::AttemptInfo;
 
 /// A builder for plain HTTP requests.
 ///
@@ -83,11 +83,10 @@ impl HttpRequestBuilder {
     pub async fn send(
         self,
         options: RequestOptions,
-        remaining_time: Option<Duration>,
-        attempt_count: u32,
+        attempt_info: AttemptInfo,
     ) -> Result<Response> {
         self.client
-            .execute_http(self.builder, options, remaining_time, attempt_count)
+            .execute_http(self.builder, options, attempt_info)
             .await
     }
 

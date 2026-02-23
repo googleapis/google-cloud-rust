@@ -21,6 +21,7 @@ mod tests {
     use super::mock_credentials::mock_credentials;
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
     use google_cloud_gax::options::RequestOptions;
+    use google_cloud_gax_internal::attempt_info::AttemptInfo;
     use google_cloud_gax_internal::http::ReqwestClient;
     use google_cloud_gax_internal::http::reqwest::{HeaderValue, Method};
     use google_cloud_gax_internal::options::ClientConfig;
@@ -57,7 +58,9 @@ mod tests {
             &server.url_str("/upload"),
             "https://test.googleapis.com",
         )?;
-        let response = builder.send(RequestOptions::default(), None, 0).await?;
+        let response = builder
+            .send(RequestOptions::default(), AttemptInfo::new(0))
+            .await?;
         assert_eq!(response.status(), StatusCode::PERMANENT_REDIRECT);
         assert_eq!(
             response.headers().get("location"),
@@ -65,7 +68,9 @@ mod tests {
         );
 
         let builder = client.http_builder(Method::GET, "storage/v1/b/my-bucket/o/my-object");
-        let response = builder.send(RequestOptions::default(), None, 0).await?;
+        let response = builder
+            .send(RequestOptions::default(), AttemptInfo::new(0))
+            .await?;
         assert_eq!(response.status(), StatusCode::NOT_FOUND);
         Ok(())
     }
@@ -84,7 +89,7 @@ mod tests {
             .await?;
         let builder = client.http_builder(Method::GET, "/echo");
         let response = builder
-            .send(options, None, 0)
+            .send(options, AttemptInfo::new(0))
             .await?
             .json::<Value>()
             .await?;
@@ -107,7 +112,7 @@ mod tests {
         let builder =
             client.http_builder_with_url(Method::GET, &format!("{endpoint}/echo"), &endpoint)?;
         let response = builder
-            .send(options, None, 0)
+            .send(options, AttemptInfo::new(0))
             .await?
             .json::<Value>()
             .await?;
