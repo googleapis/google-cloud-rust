@@ -72,7 +72,7 @@ impl Publisher {
     /// let message_id = publisher.publish(Message::new().set_data("Hello, World")).await?;
     /// # Ok(()) }
     /// ```
-    pub fn publish(&self, msg: crate::model::Message) -> crate::model_ext::PublishFuture {
+    pub fn publish(&self, msg: crate::model::Message) -> crate::publisher::PublishFuture {
         let (tx, rx) = tokio::sync::oneshot::channel();
 
         // If this fails, the Dispatcher is gone, which indicates it has been dropped,
@@ -85,7 +85,7 @@ impl Publisher {
         {
             // `tx` is dropped here if the send errors.
         }
-        crate::model_ext::PublishFuture { rx }
+        crate::publisher::PublishFuture { rx }
     }
 
     /// Flushes all outstanding messages.
@@ -100,7 +100,7 @@ impl Publisher {
     ///
     /// After flush()` returns, the final result of each individual publish
     /// operation (i.e., a success with a message ID or a terminal error) will
-    /// be available on its corresponding [PublishFuture](crate::model_ext::PublishFuture).
+    /// be available on its corresponding [PublishFuture](crate::publisher::PublishFuture).
     ///
     /// Messages published after `flush()` is called will be buffered for a
     /// subsequent batch and are not included in this flush operation.
