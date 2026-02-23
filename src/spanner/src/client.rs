@@ -25,7 +25,8 @@ use std::sync::Arc;
 ///     .execute_query(Statement::builder().sql("select 'Hello World!' as greeting"))
 ///     .await?;
 ///
-/// while let Some(row) = results.next().await? {
+/// while let Some(row) = results.next().await {
+///     let row = row?;
 ///     let greeting: Option<String> = row.get("greeting");
 ///     println!("Greeting from Spanner: {:?}", greeting);
 /// }
@@ -76,7 +77,7 @@ impl Spanner {
         &self,
         request: crate::model::CreateSessionRequest,
         options: crate::RequestOptions,
-    ) -> Result<crate::model::Session, crate::Error> {
+    ) -> crate::Result<crate::model::Session> {
         self.inner
             .create_session()
             .with_request(request)
@@ -89,7 +90,7 @@ impl Spanner {
         &self,
         request: crate::model::ExecuteSqlRequest,
         options: crate::RequestOptions,
-    ) -> Result<crate::model::ResultSet, crate::Error> {
+    ) -> crate::Result<crate::model::ResultSet> {
         self.inner.execute_sql().with_request(request).with_options(options).send().await
     }
 
@@ -97,7 +98,7 @@ impl Spanner {
         &self,
         request: crate::model::ExecuteBatchDmlRequest,
         options: crate::RequestOptions,
-    ) -> Result<crate::model::ExecuteBatchDmlResponse, crate::Error> {
+    ) -> crate::Result<crate::model::ExecuteBatchDmlResponse> {
         self.inner
             .execute_batch_dml()
             .with_request(request)
@@ -114,7 +115,7 @@ impl Spanner {
         &self,
         request: crate::model::ReadRequest,
         options: crate::RequestOptions,
-    ) -> Result<crate::model::ResultSet, crate::Error> {
+    ) -> crate::Result<crate::model::ResultSet> {
         self.inner.read().with_request(request).with_options(options).send().await
     }
 
@@ -122,7 +123,7 @@ impl Spanner {
         &self,
         request: crate::model::BeginTransactionRequest,
         options: crate::RequestOptions,
-    ) -> Result<crate::model::Transaction, crate::Error> {
+    ) -> crate::Result<crate::model::Transaction> {
         self.inner
             .begin_transaction()
             .with_request(request)
@@ -135,7 +136,7 @@ impl Spanner {
         &self,
         request: crate::model::CommitRequest,
         options: crate::RequestOptions,
-    ) -> Result<crate::model::CommitResponse, crate::Error> {
+    ) -> crate::Result<crate::model::CommitResponse> {
         self.inner.commit().with_request(request).with_options(options).send().await
     }
 
@@ -143,7 +144,7 @@ impl Spanner {
         &self,
         request: crate::model::RollbackRequest,
         options: crate::RequestOptions,
-    ) -> Result<(), crate::Error> {
+    ) -> crate::Result<()> {
         self.inner.rollback().with_request(request).with_options(options).send().await
     }
 
@@ -172,7 +173,7 @@ impl Spanner {
     pub async fn database_client(
         &self,
         database: impl Into<String>,
-    ) -> Result<crate::database_client::DatabaseClient, crate::Error> {
+    ) -> crate::Result<crate::database_client::DatabaseClient> {
         let mut request = crate::model::CreateSessionRequest::new();
         request.database = database.into();
 
@@ -431,9 +432,8 @@ mod tests {
 
         let chunk2 = stream
             .next_message()
-            .await
-            .expect("Stream shouldn't return error");
-        assert!(chunk2.is_none(), "Stream should be exhausted");
+            .await;
+        assert!(chunk2.is_none());
     }
 
     #[tokio::test]
@@ -508,8 +508,7 @@ mod tests {
 
         let chunk3 = stream
             .next_message()
-            .await
-            .expect("Stream shouldn't return error");
+            .await;
         assert!(chunk3.is_none(), "Stream should be exhausted");
     }
 
@@ -618,8 +617,7 @@ mod tests {
 
         let chunk3 = stream
             .next_message()
-            .await
-            .expect("Stream shouldn't return error");
+            .await;
         assert!(chunk3.is_none(), "Stream should be exhausted");
     }
 

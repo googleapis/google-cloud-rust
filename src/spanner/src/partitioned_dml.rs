@@ -28,7 +28,7 @@ impl PartitionedDmlTransactionBuilder {
         self
     }
 
-    pub async fn build(self) -> Result<PartitionedDmlTransaction, crate::Error> {
+    pub async fn build(self) -> crate::Result<PartitionedDmlTransaction> {
         let mut request = crate::model::BeginTransactionRequest::new();
         request.session = self.session.name.clone();
         request.options = Some(self.options);
@@ -56,7 +56,7 @@ pub struct PartitionedDmlTransaction {
 }
 
 impl PartitionedDmlTransaction {
-    pub async fn execute(self, statement: impl Into<Statement>) -> Result<i64, crate::Error> {
+    pub async fn execute(self, statement: impl Into<Statement>) -> crate::Result<i64> {
         let statement: Statement = statement.into();
         let (mut request, options) = statement.build_request(self.session.name.clone());
         request.transaction = Some(self.tx_selector);

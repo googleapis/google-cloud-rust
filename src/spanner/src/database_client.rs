@@ -51,7 +51,8 @@ impl DatabaseClient {
     ///     .execute_query("SELECT 1 AS MyCol")
     ///     .await?;
     ///
-    /// while let Some(row) = rs.next().await? {
+    /// while let Some(row) = rs.next().await {
+    ///     let row = row?;
     ///     // Access data by column index
     ///     let val: i64 = row.get(0);
     ///     
@@ -85,11 +86,11 @@ impl DatabaseClient {
     /// let mut rs2 = tx.execute_query("SELECT * FROM MyTable2").await?;
     ///
     /// // Read result sets
-    /// while let Some(row) = rs1.next().await? {
-    ///     let val: i64 = row.get("MyTable1Col");
+    /// while let Some(row) = rs1.next().await {
+    ///     let val: i64 = row?.get("MyTable1Col");
     /// }
-    /// while let Some(row) = rs2.next().await? {
-    ///     let val: i64 = row.get("MyTable2Col");
+    /// while let Some(row) = rs2.next().await {
+    ///     let val: i64 = row?.get("MyTable2Col");
     /// }
     /// # Ok(()) }
     /// ```
@@ -114,11 +115,11 @@ impl DatabaseClient {
     /// #    .database_client("projects/my-project/instances/my-instance/databases/my-database")
     /// #    .await?;
     /// let (row_count, commit_response) = database_client.read_write_transaction().build().await?.run(|tx| {
-    ///     Box::pin(async move {
+    ///     async move {
     ///         // 1. Read
     ///         let mut rs = tx.execute_query("SELECT SingerId FROM Singers WHERE FirstName = 'Alice'").await?;
-    ///         let row = match rs.next().await? {
-    ///             Some(row) => row,
+    ///         let row = match rs.next().await {
+    ///             Some(row) => row?,
     ///             None => return Ok(0),
     ///         };
     ///         let singer_id: i64 = row.get("SingerId");
@@ -130,7 +131,7 @@ impl DatabaseClient {
     ///         ).await?;
     ///
     ///         Ok(rows_updated)
-    ///     })
+    ///     }
     /// }).await?;
     /// # Ok(()) }
     /// ```

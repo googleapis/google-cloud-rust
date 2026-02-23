@@ -29,7 +29,7 @@ pub struct ReadWriteTransactionBuilder {
 }
 
 impl ReadWriteTransactionBuilder {
-    pub(crate) async fn build_transaction(self) -> Result<ReadWriteTransaction, crate::Error> {
+    pub(crate) async fn build_transaction(self) -> crate::Result<ReadWriteTransaction> {
         let transaction = self.multi_use_transaction_builder.build().await?;
         Ok(ReadWriteTransaction {
             transaction,
@@ -79,7 +79,7 @@ impl ReadWriteTransactionBuilder {
         self
     }
 
-    pub async fn build(self) -> Result<TransactionRunner, crate::Error> {
+    pub async fn build(self) -> crate::Result<TransactionRunner> {
         Ok(TransactionRunner { builder: self })
     }
 }
@@ -89,13 +89,14 @@ pub struct TransactionRunner {
 }
 
 impl TransactionRunner {
-    pub async fn run<F, T>(&mut self, mut f: F) -> Result<(T, crate::model::CommitResponse), crate::Error>
+    pub async fn run<F, Fut, T>(&mut self, mut f: F) -> crate::Result<(T, crate::model::CommitResponse)>
     where
-        F: for<'a> FnMut(&'a mut ReadWriteTransaction) -> std::pin::Pin<Box<dyn std::future::Future<Output = Result<T, crate::Error>> + Send + 'a>>,
+        F: FnMut(Arc<ReadWriteTransaction>) -> Fut,
+        Fut: std::future::Future<Output = crate::Result<T>> + Send,
     {
         loop {
-            let mut tx = self.builder.clone().build_transaction().await?;
-            let res = f(&mut tx).await;
+            let tx = Arc::new(self.builder.clone().build_transaction().await?);
+            let res = f(tx.clone()).await;
             return match res {
                 Ok(val) => {
                     match tx.commit().await {
@@ -131,18 +132,18 @@ impl ReadWriteTransaction {
     pub async fn execute_query(
         &self,
         statement: impl Into<crate::statement::Statement>,
-    ) -> Result<crate::result_set::ResultSet, crate::Error> {
+    ) -> crate::Result<crate::result_set::ResultSet> {
         self.transaction.execute_query(statement).await
     }
 
     pub async fn execute_update(
         &self,
         statement: impl Into<crate::statement::Statement>,
-    ) -> Result<i64, crate::Error> {
+    ) -> crate::Result<i64> {
         let statement = statement.into();
         let (mut request, options) = statement.build_request(self.transaction.context.session.name.clone());
         request.seqno = self.transaction.context.seqno.fetch_add(1, Ordering::SeqCst);
-        let (tx_selector, _) = self
+        let (tx_selector, _, _) = self
             .transaction
             .context
             .resolve_transaction_selector()
@@ -165,7 +166,7 @@ impl ReadWriteTransaction {
             })?)
     }
 
-    pub(crate) async fn commit(&self) -> Result<crate::model::CommitResponse, crate::Error> {
+    pub(crate) async fn commit(&self) -> crate::Result<crate::model::CommitResponse> {
         self.transition_state(TransactionState::Committed)?;
 
         if !self.transaction.is_begun() {
@@ -179,7 +180,7 @@ impl ReadWriteTransaction {
         self.transaction.context.client.commit(request, crate::RequestOptions::default()).await
     }
 
-    pub(crate) async fn rollback(&self) -> Result<(), crate::Error> {
+    pub(crate) async fn rollback(&self) -> crate::Result<()> {
         self.transition_state(TransactionState::RolledBack)?;
 
         if !self.transaction.is_begun() {
@@ -192,7 +193,7 @@ impl ReadWriteTransaction {
         self.transaction.context.client.rollback(request, crate::RequestOptions::default()).await
     }
 
-    fn transition_state(&self, target: TransactionState) -> Result<(), crate::Error> {
+    fn transition_state(&self, target: TransactionState) -> crate::Result<()> {
         let current = self.state.compare_exchange(
             TransactionState::Initialized as u8,
             target as u8,
@@ -318,11 +319,15 @@ mod tests {
             .await
             .expect("Failed to build transaction");
 
-        let res = runner.run(|tx| Box::pin(async move {
+        let res = runner.run(|tx| async move {
             let mut rs = tx.execute_query("SELECT 1").await?;
-            let row = rs.next().await?;
-            Ok(row)
-        })).await.expect("Failed to run transaction");
+            let row = rs.next().await;
+            if let Some(res) = row {
+                Ok(Some(res?))
+            } else {
+                Ok(None)
+            }
+        }).await.expect("Failed to run transaction");
         
         let (row, _) = res;
         assert!(row.is_none());
@@ -372,14 +377,14 @@ mod tests {
             .await
             .expect("Failed to build transaction");
 
-        let res = runner.run(|tx| Box::pin(async move {
+        let res = runner.run(|tx| async move {
             let mut rs = tx.execute_query("SELECT 1").await?;
             // We must read the result set to ensure the transaction ID is extracted from metadata
             let _ = rs.next().await;
             // Determine result based on whether commit will succeed or fail is managed by mock
             // We just return Ok to trigger commit
             Ok(())
-        })).await.expect("Failed to run transaction");
+        }).await.expect("Failed to run transaction");
 
         assert_eq!(res.0, ());
     }
@@ -410,7 +415,7 @@ mod tests {
         {
             let mut runner = db_client.read_write_transaction().build().await.expect("Failed to build runner");
             // Empty transaction should commit without RPC
-            let _ = runner.run(|_tx| Box::pin(async move { Ok(()) })).await.expect("Failed to run empty transaction");
+            let _ = runner.run(|_tx| async move { Ok(()) }).await.expect("Failed to run empty transaction");
         }
 
         // Case 2: Double commit
@@ -478,11 +483,11 @@ mod tests {
             .await
             .expect("Failed to build runner");
 
-        runner.run(|tx| Box::pin(async move {
+        runner.run(|tx| async move {
             let mut rs = tx.execute_query("SELECT 1").await?;
             let _ = rs.next().await;
             Ok(())
-        })).await.expect("Failed to run transaction");
+        }).await.expect("Failed to run transaction");
     }
 
     #[tokio::test]
@@ -542,10 +547,10 @@ mod tests {
         let db_client = spanner.database_client("projects/test-project/instances/test-instance/databases/test-db").await.expect("Failed to create DatabaseClient");
         
          let mut tx = db_client.read_write_transaction().build().await.unwrap();
-        let result: Result<(i64, crate::model::CommitResponse), crate::Error> = tx.run(|tx| Box::pin(async move {
+        let result: crate::Result<(i64, crate::model::CommitResponse)> = tx.run(|tx| async move {
             let count = tx.execute_update("UPDATE Users SET Name = 'Alice' WHERE Id = 1").await?;
             Ok(count)
-        })).await;
+        }).await;
 
         assert_eq!(result.unwrap().0, 1);
     }

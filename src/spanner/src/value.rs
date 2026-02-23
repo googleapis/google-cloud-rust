@@ -3,280 +3,358 @@ use serde_json::Value as JsonValue;
 use crate::google::spanner::v1::{Type as SpannerType, TypeCode};
 use base64::prelude::BASE64_STANDARD;
 use base64::Engine;
-use gaxi::grpc::tonic::Status;
 use bigdecimal::BigDecimal;
 use std::str::FromStr;
 use std::time::SystemTime;
 
+use google_cloud_gax::error::rpc::{Code, Status};
+
 /// A trait for converting a Spanner [`Value`] into a Rust type.
 pub trait FromValue<'a>: Sized {
-    fn from_value(value: &'a SpannerValue, type_: &'a SpannerType) -> Result<Self, Status>;
+    fn from_value(value: &'a SpannerValue, type_: &'a SpannerType) -> crate::Result<Self>;
 }
 
 impl<'a, T> FromValue<'a> for Option<T>
 where
     T: FromValue<'a>,
 {
-    fn from_value(value: &'a SpannerValue, type_: &'a SpannerType) -> Result<Self, Status> {
+    fn from_value(value: &'a SpannerValue, type_: &'a SpannerType) -> crate::Result<Self> {
         match value.kind {
             Some(prost_types::value::Kind::NullValue(_)) => Ok(None),
-            None => Err(Status::internal("unexpected missing value kind")),
+            None => Err(crate::Error::service(
+                Status::default()
+                    .set_code(Code::Internal)
+                    .set_message("unexpected missing value kind"),
+            )),
             _ => T::from_value(value, type_).map(Some),
         }
     }
 }
 
 impl<'a> FromValue<'a> for &'a SpannerValue {
-    fn from_value(value: &'a SpannerValue, _type: &'a SpannerType) -> Result<Self, Status> {
+    fn from_value(value: &'a SpannerValue, _type: &'a SpannerType) -> crate::Result<Self> {
         Ok(value)
     }
 }
 
 impl<'a> FromValue<'a> for String {
-    fn from_value(value: &'a SpannerValue, _type: &'a SpannerType) -> Result<Self, Status> {
+    fn from_value(value: &'a SpannerValue, _type: &'a SpannerType) -> crate::Result<Self> {
         match &value.kind {
             Some(prost_types::value::Kind::StringValue(s)) => Ok(s.clone()),
-            Some(prost_types::value::Kind::NullValue(_)) => Err(Status::internal(
-                "got null for non-optional String field",
+            Some(prost_types::value::Kind::NullValue(_)) => Err(crate::Error::service(
+                Status::default()
+                    .set_code(Code::Internal)
+                    .set_message("got null for non-optional String field"),
             )),
-            _ => Err(Status::invalid_argument(format!(
-                "expected String, got {:?}",
-                value
-            ))),
+            _ => Err(crate::Error::service(
+                Status::default()
+                    .set_code(Code::InvalidArgument)
+                    .set_message(format!("expected String, got {:?}", value)),
+            )),
         }
     }
 }
 
 impl<'a> FromValue<'a> for &'a str {
-    fn from_value(value: &'a SpannerValue, _type: &'a SpannerType) -> Result<Self, Status> {
+    fn from_value(value: &'a SpannerValue, _type: &'a SpannerType) -> crate::Result<Self> {
         match &value.kind {
             Some(prost_types::value::Kind::StringValue(s)) => Ok(s.as_str()),
-            Some(prost_types::value::Kind::NullValue(_)) => Err(Status::internal(
-                "got null for non-optional &str field",
+            Some(prost_types::value::Kind::NullValue(_)) => Err(crate::Error::service(
+                Status::default()
+                    .set_code(Code::Internal)
+                    .set_message("got null for non-optional &str field"),
             )),
-            _ => Err(Status::invalid_argument(format!(
-                "expected String, got {:?}",
-                value
-            ))),
+            _ => Err(crate::Error::service(
+                Status::default()
+                    .set_code(Code::InvalidArgument)
+                    .set_message(format!("expected String, got {:?}", value)),
+            )),
         }
     }
 }
 
 impl<'a> FromValue<'a> for i64 {
-    fn from_value(value: &'a SpannerValue, _type: &'a SpannerType) -> Result<Self, Status> {
+    fn from_value(value: &'a SpannerValue, _type: &'a SpannerType) -> crate::Result<Self> {
         match &value.kind {
-            Some(prost_types::value::Kind::StringValue(s)) => s
-                .parse()
-                .map_err(|e| Status::invalid_argument(format!("invalid int64: {}", e))),
-            Some(prost_types::value::Kind::NullValue(_)) => Err(Status::internal(
-                "got null for non-optional i64 field",
+            Some(prost_types::value::Kind::StringValue(s)) => s.parse().map_err(|e| {
+                crate::Error::service(
+                    Status::default()
+                        .set_code(Code::InvalidArgument)
+                        .set_message(format!("invalid int64: {}", e)),
+                )
+            }),
+            Some(prost_types::value::Kind::NullValue(_)) => Err(crate::Error::service(
+                Status::default()
+                    .set_code(Code::Internal)
+                    .set_message("got null for non-optional i64 field"),
             )),
-            _ => Err(Status::invalid_argument(format!(
-                "expected String (int64), got {:?}",
-                value
-            ))),
+            _ => Err(crate::Error::service(
+                Status::default()
+                    .set_code(Code::InvalidArgument)
+                    .set_message(format!("expected String (int64), got {:?}", value)),
+            )),
         }
     }
 }
 
 impl<'a> FromValue<'a> for i32 {
-    fn from_value(value: &'a SpannerValue, _type: &'a SpannerType) -> Result<Self, Status> {
+    fn from_value(value: &'a SpannerValue, _type: &'a SpannerType) -> crate::Result<Self> {
         match &value.kind {
-            Some(prost_types::value::Kind::StringValue(s)) => s
-                .parse()
-                .map_err(|e| Status::invalid_argument(format!("invalid int32: {}", e))),
-            Some(prost_types::value::Kind::NullValue(_)) => Err(Status::internal(
-                "got null for non-optional i32 field",
+            Some(prost_types::value::Kind::StringValue(s)) => s.parse().map_err(|e| {
+                crate::Error::service(
+                    Status::default()
+                        .set_code(Code::InvalidArgument)
+                        .set_message(format!("invalid int32: {}", e)),
+                )
+            }),
+            Some(prost_types::value::Kind::NullValue(_)) => Err(crate::Error::service(
+                Status::default()
+                    .set_code(Code::Internal)
+                    .set_message("got null for non-optional i32 field"),
             )),
-            _ => Err(Status::invalid_argument(format!(
-                "expected String (int32), got {:?}",
-                value
-            ))),
+            _ => Err(crate::Error::service(
+                Status::default()
+                    .set_code(Code::InvalidArgument)
+                    .set_message(format!("expected String (int32), got {:?}", value)),
+            )),
         }
     }
 }
 
 impl<'a> FromValue<'a> for BigDecimal {
-    fn from_value(value: &'a SpannerValue, type_: &'a SpannerType) -> Result<Self, Status> {
+    fn from_value(value: &'a SpannerValue, type_: &'a SpannerType) -> crate::Result<Self> {
         if type_.code != TypeCode::Numeric as i32 {
-            return Err(Status::invalid_argument(format!(
-                "expected NUMERIC type code, got {:?}",
-                type_.code
-            )));
+            return Err(crate::Error::service(
+                Status::default()
+                    .set_code(Code::InvalidArgument)
+                    .set_message(format!("expected NUMERIC type code, got {:?}", type_.code)),
+            ));
         }
         match &value.kind {
-            Some(prost_types::value::Kind::StringValue(s)) => BigDecimal::from_str(s)
-                .map_err(|e| Status::invalid_argument(format!("invalid BigDecimal: {}", e))),
-            Some(prost_types::value::Kind::NullValue(_)) => Err(Status::internal(
-                "got null for non-optional BigDecimal field",
+            Some(prost_types::value::Kind::StringValue(s)) => BigDecimal::from_str(s).map_err(|e| {
+                crate::Error::service(
+                    Status::default()
+                        .set_code(Code::InvalidArgument)
+                        .set_message(format!("invalid BigDecimal: {}", e)),
+                )
+            }),
+            Some(prost_types::value::Kind::NullValue(_)) => Err(crate::Error::service(
+                Status::default()
+                    .set_code(Code::Internal)
+                    .set_message("got null for non-optional BigDecimal field"),
             )),
-            _ => Err(Status::invalid_argument(format!(
-                "expected String (BigDecimal), got {:?}",
-                value
-            ))),
+            _ => Err(crate::Error::service(
+                Status::default()
+                    .set_code(Code::InvalidArgument)
+                    .set_message(format!("expected String (BigDecimal), got {:?}", value)),
+            )),
         }
     }
 }
 
 impl<'a> FromValue<'a> for SystemTime {
-    fn from_value(value: &'a SpannerValue, type_: &'a SpannerType) -> Result<Self, Status> {
+    fn from_value(value: &'a SpannerValue, type_: &'a SpannerType) -> crate::Result<Self> {
         if type_.code != TypeCode::Timestamp as i32 {
-            return Err(Status::invalid_argument(format!(
-                "expected TIMESTAMP type code, got {:?}",
-                type_.code
-            )));
+            return Err(crate::Error::service(
+                Status::default()
+                    .set_code(Code::InvalidArgument)
+                    .set_message(format!("expected TIMESTAMP type code, got {:?}", type_.code)),
+            ));
         }
         match &value.kind {
             Some(prost_types::value::Kind::StringValue(s)) => {
-                let dt = chrono::DateTime::parse_from_rfc3339(s)
-                    .map_err(|e| Status::invalid_argument(format!("invalid TIMESTAMP: {}", e)))?;
+                let dt = chrono::DateTime::parse_from_rfc3339(s).map_err(|e| {
+                    crate::Error::service(
+                        Status::default()
+                            .set_code(Code::InvalidArgument)
+                            .set_message(format!("invalid TIMESTAMP: {}", e)),
+                    )
+                })?;
                 Ok(SystemTime::from(dt.with_timezone(&chrono::Utc)))
             }
-            Some(prost_types::value::Kind::NullValue(_)) => Err(Status::internal(
-                "got null for non-optional SystemTime field",
+            Some(prost_types::value::Kind::NullValue(_)) => Err(crate::Error::service(
+                Status::default()
+                    .set_code(Code::Internal)
+                    .set_message("got null for non-optional SystemTime field"),
             )),
-            _ => Err(Status::invalid_argument(format!(
-                "expected String (TIMESTAMP), got {:?}",
-                value
-            ))),
+            _ => Err(crate::Error::service(
+                Status::default()
+                    .set_code(Code::InvalidArgument)
+                    .set_message(format!("expected String (TIMESTAMP), got {:?}", value)),
+            )),
         }
     }
-
 }
 
 impl<'a> FromValue<'a> for chrono::DateTime<chrono::Utc> {
-    fn from_value(value: &'a SpannerValue, type_: &'a SpannerType) -> Result<Self, Status> {
+    fn from_value(value: &'a SpannerValue, type_: &'a SpannerType) -> crate::Result<Self> {
         if type_.code != TypeCode::Timestamp as i32 {
-            return Err(Status::invalid_argument(format!(
-                "expected TIMESTAMP type code, got {:?}",
-                type_.code
-            )));
+            return Err(crate::Error::service(
+                Status::default()
+                    .set_code(Code::InvalidArgument)
+                    .set_message(format!("expected TIMESTAMP type code, got {:?}", type_.code)),
+            ));
         }
         match &value.kind {
             Some(prost_types::value::Kind::StringValue(s)) => {
-                let dt = chrono::DateTime::parse_from_rfc3339(s)
-                    .map_err(|e| Status::invalid_argument(format!("invalid TIMESTAMP: {}", e)))?;
+                let dt = chrono::DateTime::parse_from_rfc3339(s).map_err(|e| {
+                    crate::Error::service(
+                        Status::default()
+                            .set_code(Code::InvalidArgument)
+                            .set_message(format!("invalid TIMESTAMP: {}", e)),
+                    )
+                })?;
                 Ok(dt.with_timezone(&chrono::Utc))
             }
-            Some(prost_types::value::Kind::NullValue(_)) => Err(Status::internal(
-                "got null for non-optional DateTime<Utc> field",
+            Some(prost_types::value::Kind::NullValue(_)) => Err(crate::Error::service(
+                Status::default()
+                    .set_code(Code::Internal)
+                    .set_message("got null for non-optional DateTime<Utc> field"),
             )),
-            _ => Err(Status::invalid_argument(format!(
-                "expected String (TIMESTAMP), got {:?}",
-                value
-            ))),
+            _ => Err(crate::Error::service(
+                Status::default()
+                    .set_code(Code::InvalidArgument)
+                    .set_message(format!("expected String (TIMESTAMP), got {:?}", value)),
+            )),
         }
     }
-
 }
 
 impl<'a> FromValue<'a> for chrono::NaiveDate {
-    fn from_value(value: &'a SpannerValue, type_: &'a SpannerType) -> Result<Self, Status> {
+    fn from_value(value: &'a SpannerValue, type_: &'a SpannerType) -> crate::Result<Self> {
         if type_.code != TypeCode::Date as i32 {
-            return Err(Status::invalid_argument(format!(
-                "expected DATE type code, got {:?}",
-                type_.code
-            )));
+            return Err(crate::Error::service(
+                Status::default()
+                    .set_code(Code::InvalidArgument)
+                    .set_message(format!("expected DATE type code, got {:?}", type_.code)),
+            ));
         }
         match &value.kind {
             Some(prost_types::value::Kind::StringValue(s)) => {
-                let date = chrono::NaiveDate::parse_from_str(s, "%Y-%m-%d")
-                    .map_err(|e| Status::invalid_argument(format!("invalid DATE: {}", e)))?;
+                let date = chrono::NaiveDate::parse_from_str(s, "%Y-%m-%d").map_err(|e| {
+                    crate::Error::service(
+                        Status::default()
+                            .set_code(Code::InvalidArgument)
+                            .set_message(format!("invalid DATE: {}", e)),
+                    )
+                })?;
                 Ok(date)
             }
-            Some(prost_types::value::Kind::NullValue(_)) => Err(Status::internal(
-                "got null for non-optional NaiveDate field",
+            Some(prost_types::value::Kind::NullValue(_)) => Err(crate::Error::service(
+                Status::default()
+                    .set_code(Code::Internal)
+                    .set_message("got null for non-optional NaiveDate field"),
             )),
-            _ => Err(Status::invalid_argument(format!(
-                "expected String (DATE), got {:?}",
-                value
-            ))),
+            _ => Err(crate::Error::service(
+                Status::default()
+                    .set_code(Code::InvalidArgument)
+                    .set_message(format!("expected String (DATE), got {:?}", value)),
+            )),
         }
     }
 }
 
 impl<'a> FromValue<'a> for bool {
-    fn from_value(value: &'a SpannerValue, _type: &'a SpannerType) -> Result<Self, Status> {
+    fn from_value(value: &'a SpannerValue, _type: &'a SpannerType) -> crate::Result<Self> {
         match &value.kind {
             Some(prost_types::value::Kind::BoolValue(b)) => Ok(*b),
-            Some(prost_types::value::Kind::NullValue(_)) => Err(Status::internal(
-                "got null for non-optional bool field",
+            Some(prost_types::value::Kind::NullValue(_)) => Err(crate::Error::service(
+                Status::default()
+                    .set_code(Code::Internal)
+                    .set_message("got null for non-optional bool field"),
             )),
-            _ => Err(Status::invalid_argument(format!(
-                "expected Bool, got {:?}",
-                value
-            ))),
+            _ => Err(crate::Error::service(
+                Status::default()
+                    .set_code(Code::InvalidArgument)
+                    .set_message(format!("expected Bool, got {:?}", value)),
+            )),
         }
     }
 }
 
 impl<'a> FromValue<'a> for f64 {
-    fn from_value(value: &'a SpannerValue, _type: &'a SpannerType) -> Result<Self, Status> {
+    fn from_value(value: &'a SpannerValue, _type: &'a SpannerType) -> crate::Result<Self> {
         match &value.kind {
             Some(prost_types::value::Kind::NumberValue(n)) => Ok(*n),
             Some(prost_types::value::Kind::StringValue(s)) => match s.as_str() {
                 "Infinity" => Ok(f64::INFINITY),
                 "-Infinity" => Ok(f64::NEG_INFINITY),
                 "NaN" => Ok(f64::NAN),
-                _ => Err(Status::invalid_argument(format!(
-                    "invalid f64 string: {}",
-                    s
-                ))),
+                _ => Err(crate::Error::service(
+                    Status::default()
+                        .set_code(Code::InvalidArgument)
+                        .set_message(format!("invalid f64 string: {}", s)),
+                )),
             },
-            Some(prost_types::value::Kind::NullValue(_)) => Err(Status::internal(
-                "got null for non-optional f64 field",
+            Some(prost_types::value::Kind::NullValue(_)) => Err(crate::Error::service(
+                Status::default()
+                    .set_code(Code::Internal)
+                    .set_message("got null for non-optional f64 field"),
             )),
-            _ => Err(Status::invalid_argument(format!(
-                "expected Number or String (f64), got {:?}",
-                value
-            ))),
+            _ => Err(crate::Error::service(
+                Status::default()
+                    .set_code(Code::InvalidArgument)
+                    .set_message(format!("expected Number or String (f64), got {:?}", value)),
+            )),
         }
     }
 }
 
 impl<'a> FromValue<'a> for f32 {
-    fn from_value(value: &'a SpannerValue, _type: &'a SpannerType) -> Result<Self, Status> {
+    fn from_value(value: &'a SpannerValue, _type: &'a SpannerType) -> crate::Result<Self> {
         match &value.kind {
             Some(prost_types::value::Kind::NumberValue(n)) => Ok(*n as f32),
             Some(prost_types::value::Kind::StringValue(s)) => match s.as_str() {
                 "Infinity" => Ok(f32::INFINITY),
                 "-Infinity" => Ok(f32::NEG_INFINITY),
                 "NaN" => Ok(f32::NAN),
-                _ => Err(Status::invalid_argument(format!(
-                    "invalid f32 string: {}",
-                    s
-                ))),
+                _ => Err(crate::Error::service(
+                    Status::default()
+                        .set_code(Code::InvalidArgument)
+                        .set_message(format!("invalid f32 string: {}", s)),
+                )),
             },
-            Some(prost_types::value::Kind::NullValue(_)) => Err(Status::internal(
-                "got null for non-optional f32 field",
+            Some(prost_types::value::Kind::NullValue(_)) => Err(crate::Error::service(
+                Status::default()
+                    .set_code(Code::Internal)
+                    .set_message("got null for non-optional f32 field"),
             )),
-            _ => Err(Status::invalid_argument(format!(
-                "expected Number or String (f32), got {:?}",
-                value
-            ))),
+            _ => Err(crate::Error::service(
+                Status::default()
+                    .set_code(Code::InvalidArgument)
+                    .set_message(format!("expected Number or String (f32), got {:?}", value)),
+            )),
         }
     }
 }
 
 impl<'a> FromValue<'a> for Vec<u8> {
-    fn from_value(value: &'a SpannerValue, type_: &'a SpannerType) -> Result<Self, Status> {
+    fn from_value(value: &'a SpannerValue, type_: &'a SpannerType) -> crate::Result<Self> {
         if type_.code != TypeCode::Bytes as i32 && type_.code != TypeCode::Proto as i32 {
-            return Err(Status::invalid_argument(format!(
-                "expected BYTES or PROTO type code, got {:?}",
-                type_.code
-            )));
+            return Err(crate::Error::service(
+                Status::default()
+                    .set_code(Code::InvalidArgument)
+                    .set_message(format!("expected BYTES or PROTO type code, got {:?}", type_.code)),
+            ));
         }
         match &value.kind {
-            Some(prost_types::value::Kind::StringValue(s)) => BASE64_STANDARD
-                .decode(s)
-                .map_err(|e| Status::invalid_argument(format!("invalid base64 string: {}", e))),
-            Some(prost_types::value::Kind::NullValue(_)) => Err(Status::internal(
-                "got null for non-optional Vec<u8> field",
+            Some(prost_types::value::Kind::StringValue(s)) => BASE64_STANDARD.decode(s).map_err(|e| {
+                crate::Error::service(
+                    Status::default()
+                        .set_code(Code::InvalidArgument)
+                        .set_message(format!("invalid base64 string: {}", e)),
+                )
+            }),
+            Some(prost_types::value::Kind::NullValue(_)) => Err(crate::Error::service(
+                Status::default()
+                    .set_code(Code::Internal)
+                    .set_message("got null for non-optional Vec<u8> field"),
             )),
-            _ => Err(Status::invalid_argument(format!(
-                "expected String (base64), got {:?}",
-                value
-            ))),
+            _ => Err(crate::Error::service(
+                Status::default()
+                    .set_code(Code::InvalidArgument)
+                    .set_message(format!("expected String (base64), got {:?}", value)),
+            )),
         }
     }
 }

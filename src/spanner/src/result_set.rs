@@ -8,6 +8,7 @@ use crate::row::Row;
 
 pub type TransactionCallback = Box<dyn FnOnce(Result<Vec<u8>, Status>) + Send + Sync>;
 
+
 /// A query result from Spanner.
 ///
 /// Use `ResultSet` to iterate over the rows of a query result.
@@ -19,7 +20,8 @@ pub type TransactionCallback = Box<dyn FnOnce(Result<Vec<u8>, Status>) + Send + 
 /// use google_cloud_spanner::result_set::ResultSet;
 ///
 /// async fn process_result_set(mut rs: ResultSet) -> Result<(), Box<dyn std::error::Error>> {
-///     while let Some(row) = rs.next().await? {
+///     while let Some(row) = rs.next().await {
+///         let row = row?;
 ///         // use try_get to handle potential errors safely
 ///         let id: i64 = row.try_get("id")?;
 ///         let name: Option<String> = row.try_get("name")?;
@@ -58,7 +60,10 @@ pub struct ResultSet {
     column_types: Arc<Vec<Type>>,
     chunked: bool,
     transaction_callback: Option<TransactionCallback>,
+    read_timestamp_out: Option<Arc<std::sync::OnceLock<chrono::DateTime<chrono::Utc>>>>,
 }
+
+
 
 impl ResultSet {
     pub(crate) fn new(stream: crate::client::stream::ServerStream) -> Self {
@@ -71,7 +76,10 @@ impl ResultSet {
             column_types: Arc::new(Vec::new()),
             chunked: false,
             transaction_callback: None,
+            read_timestamp_out: None,
         }
+
+
     }
 
     pub(crate) fn new_with_callback(
@@ -87,58 +95,50 @@ impl ResultSet {
             column_types: Arc::new(Vec::new()),
             chunked: false,
             transaction_callback: Some(callback),
+            read_timestamp_out: None,
         }
     }
+
+    pub(crate) fn with_read_timestamp(mut self, read_timestamp: Arc<std::sync::OnceLock<chrono::DateTime<chrono::Utc>>>) -> Self {
+        self.read_timestamp_out = Some(read_timestamp);
+        self
+    }
+
+
+
 
     /// Advances the stream to the next row.
     ///
     /// Returns:
-    /// * `Ok(Some(Row))` if a new row is available.
-    /// * `Ok(None)` if the stream has finished.
-    /// * `Err(crate::Error)` if an error occurred.
-    pub async fn next(&mut self) -> Result<Option<Row>, crate::Error> {
+    /// * `Some(Ok(Row))` if a new row is available.
+    /// * `None` if the stream has finished.
+    /// * `Some(Err(crate::Error))` if an error occurred.
+    pub async fn next(&mut self) -> Option<crate::Result<Row>> {
         // If we have rows already fully assembled from a previous stream chunk, return them.
         if let Some(row) = self.ready_rows.pop_front() {
-            return Ok(Some(row));
+            return Some(Ok(row));
         }
 
         loop {
             let prs = match self.stream.next_message().await {
-                Ok(Some(p)) => p,
-                Ok(None) => break,
-                Err(e) => {
+                Some(Ok(p)) => p,
+                None => break,
+                Some(Err(e)) => {
                     if let Some(cb) = self.transaction_callback.take() {
-                        cb(Err(e.clone()));
+                        let status = e.status().cloned().unwrap_or_else(|| google_cloud_gax::error::rpc::Status::default().set_message(e.to_string()));
+                        let tonic_status = Status::new(
+                            gaxi::grpc::tonic::Code::from(status.code as i32),
+                            status.message,
+                        );
+                        cb(Err(tonic_status));
                     }
-                    return Err(to_error(e));
+                    return Some(Err(e));
                 }
             };
 
             if self.metadata.is_none() {
                 if let Some(meta) = &prs.metadata {
-                    self.metadata = Some(meta.clone());
-                    if let Some(row_type) = &meta.row_type {
-                        let mut names = HashMap::new();
-                        let mut types = Vec::new();
-                        for (i, field) in row_type.fields.iter().enumerate() {
-                            names.insert(field.name.clone(), i);
-                            if let Some(t) = &field.r#type {
-                                types.push(t.clone());
-                            } else {
-                                types.push(Type::default());
-                            }
-                        }
-                        self.column_names = Arc::new(names);
-                        self.column_types = Arc::new(types);
-                    }
-
-                    if let Some(cb) = self.transaction_callback.take() {
-                        if let Some(tx) = &meta.transaction {
-                            cb(Ok(tx.id.to_vec()));
-                        } else {
-                            cb(Err(Status::internal("No transaction returned in metadata")));
-                        }
-                    }
+                    self.consume_metadata(meta);
                 }
             }
 
@@ -147,11 +147,12 @@ impl ResultSet {
             }
 
             let mut values_iter = prs.values.into_iter();
-
             if self.chunked {
                 if let Some(last_val) = self.row_values.last_mut() {
                     if let Some(first_new) = values_iter.next() {
-                        Self::merge_values(last_val, first_new).map_err(to_error)?;
+                         if let Err(e) = Self::merge_values(last_val, first_new).map_err(to_error) {
+                             return Some(Err(e));
+                         }
                     }
                 }
             }
@@ -187,7 +188,7 @@ impl ResultSet {
             self.chunked = prs.chunked_value;
 
             if let Some(row) = self.ready_rows.pop_front() {
-                return Ok(Some(row));
+                return Some(Ok(row));
             }
         }
 
@@ -201,7 +202,7 @@ impl ResultSet {
         if !self.row_values.is_empty() && !self.chunked {
             // we have lingering elements making up a full row
             let row: Vec<Value> = self.row_values.drain(..).collect();
-            return Ok(Some(Row {
+            return Some(Ok(Row {
                 raw_values: row,
                 column_names: self.column_names.clone(),
                 column_types: self.column_types.clone(),
@@ -209,10 +210,47 @@ impl ResultSet {
         }
 
         if self.chunked {
-            return Err(to_error(Status::internal("stream closed with pending chunked value")));
+            return Some(Err(to_error(Status::internal("stream closed with pending chunked value"))));
         }
 
-        Ok(None)
+        None
+    }
+
+    fn consume_metadata(&mut self, metadata: &ResultSetMetadata) {
+        self.metadata = Some(metadata.clone());
+        if let Some(row_type) = &metadata.row_type {
+            let mut names = HashMap::new();
+            let mut types = Vec::new();
+            for (i, field) in row_type.fields.iter().enumerate() {
+                names.insert(field.name.clone(), i);
+                if let Some(t) = &field.r#type {
+                    types.push(t.clone());
+                } else {
+                    types.push(Type::default());
+                }
+            }
+            self.column_names = Arc::new(names);
+            self.column_types = Arc::new(types);
+        }
+
+        if let Some(cb) = self.transaction_callback.take() {
+            if let Some(tx) = &metadata.transaction {
+                cb(Ok(tx.id.to_vec()));
+            } else {
+                cb(Err(Status::internal("No transaction returned in metadata")));
+            }
+        }
+
+        if let Some(out) = &self.read_timestamp_out {
+            if let Some(tx) = &metadata.transaction {
+                if let Some(ts) = &tx.read_timestamp {
+                    if let Some(dt) = chrono::DateTime::from_timestamp(ts.seconds, ts.nanos as u32) {
+                        let _ = out.set(dt);
+                    }
+                }
+
+            }
+        }
     }
 
     fn merge_values(target: &mut Value, source: Value) -> Result<(), Status> {
@@ -370,7 +408,7 @@ mod tests {
         }])
         .await;
 
-        let next = rs.next().await.unwrap();
+        let next = rs.next().await;
         assert!(next.is_none());
     }
 
@@ -395,7 +433,7 @@ mod tests {
         assert_eq!(row.raw_values[0], string_val("a"));
         assert_eq!(row.raw_values[1], string_val("b"));
 
-        assert!(rs.next().await.unwrap().is_none());
+        assert!(rs.next().await.is_none());
     }
 
     #[tokio::test]
@@ -421,8 +459,8 @@ mod tests {
         assert_eq!(row1.raw_values.len(), 2);
         let row2 = rs.next().await.unwrap().unwrap();
         assert_eq!(row2.raw_values.len(), 2);
-        assert!(rs.next().await.unwrap().is_none());
-        assert!(rs.next().await.unwrap().is_none());
+        assert!(rs.next().await.is_none());
+        assert!(rs.next().await.is_none());
     }
 
     #[tokio::test]
@@ -443,7 +481,7 @@ mod tests {
         assert_eq!(row1.raw_values.len(), 1);
         let row2 = rs.next().await.unwrap().unwrap();
         assert_eq!(row2.raw_values.len(), 1);
-        assert!(rs.next().await.unwrap().is_none());
+        assert!(rs.next().await.is_none());
     }
 
     #[tokio::test]
@@ -460,10 +498,10 @@ mod tests {
         }])
         .await;
 
-        assert!(rs.next().await.unwrap().is_some());
-        assert!(rs.next().await.unwrap().is_some());
-        assert!(rs.next().await.unwrap().is_some());
-        assert!(rs.next().await.unwrap().is_none());
+        assert!(rs.next().await.is_some());
+        assert!(rs.next().await.is_some());
+        assert!(rs.next().await.is_some());
+        assert!(rs.next().await.is_none());
     }
 
     #[tokio::test]
@@ -495,7 +533,7 @@ mod tests {
 
         let row = rs.next().await.unwrap().unwrap();
         assert_eq!(row.raw_values.len(), 2);
-        assert!(rs.next().await.unwrap().is_none());
+        assert!(rs.next().await.is_none());
     }
 
     #[tokio::test]
@@ -531,7 +569,7 @@ mod tests {
         } else {
             panic!("Expected StringValue");
         }
-        assert!(rs.next().await.unwrap().is_none());
+        assert!(rs.next().await.is_none());
     }
 
     #[tokio::test]
@@ -572,7 +610,7 @@ mod tests {
         } else {
             panic!("Expected ListValue");
         }
-        assert!(rs.next().await.unwrap().is_none());
+        assert!(rs.next().await.is_none());
     }
 
     #[tokio::test]
@@ -622,7 +660,7 @@ mod tests {
         } else {
             panic!("Expected ListValue");
         }
-        assert!(rs.next().await.unwrap().is_none());
+        assert!(rs.next().await.is_none());
     }
 
     #[tokio::test]
@@ -640,8 +678,8 @@ mod tests {
         .await;
 
         let result = rs.next().await;
-        assert!(result.is_err());
-        let err = result.unwrap_err();
+        assert!(result.is_some());
+        let err = result.unwrap().unwrap_err();
         assert_eq!(
             err.status().unwrap().code,
             google_cloud_gax::error::rpc::Code::Internal
@@ -690,7 +728,7 @@ mod tests {
         assert_eq!(row2.raw_values[0], string_val("abcdefghijklmnopqrstuvwxyz"));
         let row3 = rs.next().await.unwrap().unwrap();
         assert_eq!(row3.raw_values[0], string_val("after"));
-        assert!(rs.next().await.unwrap().is_none());
+        assert!(rs.next().await.is_none());
     }
 
     #[tokio::test]
@@ -741,7 +779,7 @@ mod tests {
         assert_eq!(row2.raw_values[0], string_val(base64_str));
         let row3 = rs.next().await.unwrap().unwrap();
         assert_eq!(row3.raw_values[0], string_val("YWZ0ZXI=")); // "after"
-        assert!(rs.next().await.unwrap().is_none());
+        assert!(rs.next().await.is_none());
     }
 
     #[tokio::test]
@@ -818,7 +856,7 @@ mod tests {
         let row3 = rs.next().await.unwrap().unwrap();
         assert_eq!(row3.raw_values[0], list_val(vec![bool_val(true)]));
 
-        assert!(rs.next().await.unwrap().is_none());
+        assert!(rs.next().await.is_none());
     }
 
     #[tokio::test]
@@ -890,7 +928,7 @@ mod tests {
         let row3 = rs.next().await.unwrap().unwrap();
         assert_eq!(row3.raw_values[0], list_val(vec![string_val("20")]));
 
-        assert!(rs.next().await.unwrap().is_none());
+        assert!(rs.next().await.is_none());
     }
 
     #[tokio::test]
@@ -967,7 +1005,7 @@ mod tests {
         let row3 = rs.next().await.unwrap().unwrap();
         assert_eq!(row3.raw_values[0], list_val(vec![float_val(20.0)]));
 
-        assert!(rs.next().await.unwrap().is_none());
+        assert!(rs.next().await.is_none());
     }
 
     #[tokio::test]
@@ -1039,7 +1077,7 @@ mod tests {
         let row3 = rs.next().await.unwrap().unwrap();
         assert_eq!(row3.raw_values[0], list_val(vec![string_val("after")]));
 
-        assert!(rs.next().await.unwrap().is_none());
+        assert!(rs.next().await.is_none());
     }
 
     #[tokio::test]
@@ -1139,6 +1177,6 @@ mod tests {
             list_val(vec![struct_val(Some("after"), Some(20))])
         );
 
-        assert!(rs.next().await.unwrap().is_none());
+        assert!(rs.next().await.is_none());
     }
 }

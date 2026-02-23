@@ -61,7 +61,7 @@ impl MultiUseTransaction {
     pub async fn execute_query(
         &self,
         statement: impl Into<crate::statement::Statement>,
-    ) -> Result<crate::result_set::ResultSet, crate::Error> {
+    ) -> crate::Result<crate::result_set::ResultSet> {
         let mut statement: crate::statement::Statement = statement.into();
         if let Some(tag) = &self.context.transaction_tag {
             let mut options = statement.request_options.unwrap_or_default();
@@ -119,37 +119,52 @@ impl MultiUseTransactionBuilder {
         self
     }
 
-    pub(crate) async fn build(self) -> Result<MultiUseTransaction, crate::Error> {
-        let tx_selector = if self.explicit_begin_transaction {
+    pub(crate) async fn build(self) -> crate::Result<MultiUseTransaction> {
+        let (tx_selector, read_timestamp) = if self.explicit_begin_transaction {
             let mut request = crate::model::BeginTransactionRequest::new();
             request.session = self.transaction_builder.session.name.clone();
             request.options = Some(self.transaction_builder.options.clone());
 
-                if let Some(tag) = &self.transaction_builder.transaction_tag {
-                    let mut options = request.request_options.unwrap_or_default();
-                    options.transaction_tag = tag.clone();
-                    request.request_options = Some(options);
-                }
-                
-                let response = self.transaction_builder.client.begin_transaction(request, crate::RequestOptions::default()).await?;
-                TxSelector::Static(crate::model::transaction_selector::Selector::Id(
-                response.id,
-            ))
+            if let Some(tag) = &self.transaction_builder.transaction_tag {
+                let mut options = request.request_options.unwrap_or_default();
+                options.transaction_tag = tag.clone();
+                request.request_options = Some(options);
+            }
+            
+            let response = self.transaction_builder.client.begin_transaction(request, crate::RequestOptions::default()).await?;
+            (
+                TxSelector::Static(crate::model::transaction_selector::Selector::Id(response.id)),
+                response.read_timestamp
+            )
         } else {
-            TxSelector::InlineBegin(Arc::new(std::sync::Mutex::new(InlineBeginState::NotBegun(
-                self.transaction_builder.options.clone(),
-            ))))
+            (
+                TxSelector::InlineBegin(Arc::new(std::sync::Mutex::new(InlineBeginState::NotBegun(
+                    self.transaction_builder.options.clone(),
+                )))),
+                None
+            )
         };
 
+        let context = ReadContext::new(
+            self.transaction_builder.client,
+            self.transaction_builder.session,
+            tx_selector,
+            self.transaction_builder.transaction_tag,
+        );
+
+        if let Some(ts) = read_timestamp {
+             if let Some(dt) = chrono::DateTime::from_timestamp(ts.seconds(), ts.nanos() as u32) {
+                 let _ = context.read_timestamp.set(dt);
+             }
+        }
+
+
+
         Ok(MultiUseTransaction {
-            context: ReadContext::new(
-                self.transaction_builder.client,
-                self.transaction_builder.session,
-                tx_selector,
-                self.transaction_builder.transaction_tag,
-            ),
+            context
         })
     }
+
 }
 
 pub struct SingleUseReadOnlyTransactionBuilder {
@@ -229,7 +244,7 @@ impl SingleUseReadOnlyTransaction {
     pub async fn execute_query(
         &self,
         statement: impl Into<crate::statement::Statement>,
-    ) -> Result<crate::result_set::ResultSet, crate::Error> {
+    ) -> crate::Result<crate::result_set::ResultSet> {
         self.context.execute_query(statement).await
     }
 }
@@ -258,6 +273,7 @@ pub(crate) struct ReadContext {
     pub(crate) transaction_selector: TxSelector,
     pub(crate) transaction_tag: Option<String>,
     pub(crate) seqno: AtomicI64,
+    pub(crate) read_timestamp: Arc<std::sync::OnceLock<chrono::DateTime<chrono::Utc>>>,
 }
 
 impl ReadContext {
@@ -273,25 +289,43 @@ impl ReadContext {
             transaction_selector,
             transaction_tag,
             seqno: AtomicI64::new(1),
+            read_timestamp: Arc::new(std::sync::OnceLock::new()),
         }
+    }
+
+    pub fn read_timestamp(&self) -> Option<chrono::DateTime<chrono::Utc>> {
+        self.read_timestamp.get().copied()
     }
 
     pub async fn execute_query(
         &self,
         statement: impl Into<crate::statement::Statement>,
-    ) -> Result<crate::result_set::ResultSet, crate::Error> {
+    ) -> crate::Result<crate::result_set::ResultSet> {
         let statement = statement.into();
         let (mut request, options) = statement.build_request(self.session.name.clone());
         request.seqno = self.seqno.fetch_add(1, Ordering::SeqCst);
 
-        let (tx_selector, callback) = self.resolve_transaction_selector().await?;
+        // TODO: Fix a potential deadlock when the following happens:
+        //       1. execute_query is called on a multi-use transaction, but the caller does not call ResultSet::next()
+        //       2. execute_query is again called on the same transaction. This now blocks, as the first call to
+        //          execute_query included a BeginTransaction option, but the transaction ID will only be set once
+        //          ResultSet::next is called on the first ResultSet.
+        let (tx_selector, callback, read_timestamp) = self.resolve_transaction_selector().await?;
         request.transaction = Some(tx_selector);
         let stream = self.client.execute_streaming_sql(request, options).send().await?;
-        if let Some(cb) = callback {
-            Ok(crate::result_set::ResultSet::new_with_callback(stream, cb))
+        
+        let mut rs = if let Some(cb) = callback {
+            crate::result_set::ResultSet::new_with_callback(stream, cb)
         } else {
-            Ok(crate::result_set::ResultSet::new(stream))
+            crate::result_set::ResultSet::new(stream)
+        };
+
+        if let Some(rt) = read_timestamp {
+            rs = rs.with_read_timestamp(rt);
         }
+        Ok(rs)
+
+
     }
 
     pub(crate) async fn resolve_transaction_selector(
@@ -300,6 +334,7 @@ impl ReadContext {
         (
             crate::model::TransactionSelector,
             Option<crate::result_set::TransactionCallback>,
+            Option<Arc<std::sync::OnceLock<chrono::DateTime<chrono::Utc>>>>,
         ),
         crate::Error,
     > {
@@ -307,7 +342,12 @@ impl ReadContext {
             TxSelector::Static(selector) => {
                 let mut tx_selector = crate::model::TransactionSelector::new();
                 tx_selector.selector = Some(selector.clone());
-                return Ok((tx_selector, None));
+                let rt = match selector {
+                    crate::model::transaction_selector::Selector::SingleUse(_) => Some(self.read_timestamp.clone()),
+                    crate::model::transaction_selector::Selector::Begin(_) => Some(self.read_timestamp.clone()),
+                    _ => None,
+                };
+                return Ok((tx_selector, None, rt));
             }
             TxSelector::InlineBegin(state_mutex) => state_mutex.clone(),
         };
@@ -343,7 +383,7 @@ impl ReadContext {
             let mut tx_selector = crate::model::TransactionSelector::new();
             tx_selector.selector =
                 Some(crate::model::transaction_selector::Selector::Id(id.into()));
-            return Ok((tx_selector, None));
+            return Ok((tx_selector, None, None));
         }
 
         if let Some(rx) = rx {
@@ -357,7 +397,7 @@ impl ReadContext {
             let mut tx_selector = crate::model::TransactionSelector::new();
             tx_selector.selector =
                 Some(crate::model::transaction_selector::Selector::Id(id.into()));
-            return Ok((tx_selector, None));
+            return Ok((tx_selector, None, None));
         }
 
         if let Some(options) = options {
@@ -390,7 +430,8 @@ impl ReadContext {
                     }
                 });
 
-            return Ok((tx_selector, Some(callback)));
+
+            return Ok((tx_selector, Some(callback), Some(self.read_timestamp.clone())));
         }
 
         unreachable!()
@@ -531,7 +572,7 @@ mod tests {
             .await
             .expect("Failed to call execute_query");
 
-        let row1 = rs.next().await.expect("Failed to get next row");
+        let row1 = rs.next().await;
         assert!(row1.is_none());
     }
 
@@ -805,7 +846,7 @@ mod tests {
             .await
             .expect("Failed to call execute_query");
 
-        let row1 = rs.next().await.expect("Failed to get next row");
+        let row1 = rs.next().await;
         assert!(row1.is_none());
     }
 
@@ -850,7 +891,7 @@ mod tests {
             .await
             .expect("Failed to call execute_query");
 
-        let row1 = rs.next().await.expect("Failed to get next row");
+        let row1 = rs.next().await;
         assert!(row1.is_none());
     }
 
@@ -902,7 +943,7 @@ mod tests {
             .await
             .expect("Failed to call execute_query");
 
-        let row1 = rs.next().await.expect("Failed to get next row");
+        let row1 = rs.next().await;
         assert!(row1.is_none());
     }
 
@@ -947,7 +988,7 @@ mod tests {
             .await
             .expect("Failed to call execute_query");
 
-        let row1 = rs.next().await.expect("Failed to get next row");
+        let row1 = rs.next().await;
         assert!(row1.is_none());
     }
 
@@ -992,7 +1033,7 @@ mod tests {
             .await
             .expect("Failed to call execute_query");
 
-        let row1 = rs.next().await.expect("Failed to get next row");
+        let row1 = rs.next().await;
         assert!(row1.is_none());
     }
 

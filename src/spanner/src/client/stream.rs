@@ -14,7 +14,6 @@
 
 use crate::google::spanner::v1::BatchWriteResponse;
 use crate::google::spanner::v1::PartialResultSet;
-use gaxi::grpc::tonic::Result as TonicResult;
 use gaxi::grpc::tonic::Streaming;
 
 /// Representation for the `ExecuteStreamingSql` RPC stream.
@@ -30,10 +29,18 @@ impl ServerStream {
 
     /// Fetches the next `PartialResultSet` from the stream.
     ///
-    /// Returns `Ok(Some(PartialResultSet))` when a message is successfully received,
-    /// `Ok(None)` when the stream concludes naturally, or `Err(_)` on RPC errors.
-    pub async fn next_message(&mut self) -> TonicResult<Option<PartialResultSet>> {
-        self.inner.message().await
+    /// Returns `Some(Ok(PartialResultSet))` when a message is successfully received,
+    /// `None` when the stream concludes naturally, or `Some(Err(_))` on RPC errors.
+    pub async fn next_message(&mut self) -> Option<crate::Result<PartialResultSet>> {
+        self.inner
+            .message()
+            .await
+            .map_err(|e| crate::Error::service(
+                google_cloud_gax::error::rpc::Status::default()
+                    .set_code(e.code() as i32)
+                    .set_message(e.message())
+            ))
+            .transpose()
     }
 }
 
@@ -50,9 +57,17 @@ impl BatchWriteStream {
 
     /// Fetches the next `BatchWriteResponse` from the stream.
     ///
-    /// Returns `Ok(Some(BatchWriteResponse))` when a message is successfully received,
-    /// `Ok(None)` when the stream concludes naturally, or `Err(_)` on RPC errors.
-    pub async fn next_message(&mut self) -> TonicResult<Option<BatchWriteResponse>> {
-        self.inner.message().await
+    /// Returns `Some(Ok(BatchWriteResponse))` when a message is successfully received,
+    /// `None` when the stream concludes naturally, or `Some(Err(_))` on RPC errors.
+    pub async fn next_message(&mut self) -> Option<crate::Result<BatchWriteResponse>> {
+        self.inner
+            .message()
+            .await
+            .map_err(|e| crate::Error::service(
+                google_cloud_gax::error::rpc::Status::default()
+                    .set_code(e.code() as i32)
+                    .set_message(e.message())
+            ))
+            .transpose()
     }
 }

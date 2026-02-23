@@ -32,7 +32,7 @@ impl ReadOnlyTransactionBuilder {
         self
     }
 
-    pub async fn build(self) -> Result<ReadOnlyTransaction, crate::Error> {
+    pub async fn build(self) -> crate::Result<ReadOnlyTransaction> {
         let transaction = self.multi_use_transaction_builder.build().await?;
         Ok(ReadOnlyTransaction { transaction })
     }
@@ -46,7 +46,7 @@ impl ReadOnlyTransaction {
     pub async fn execute_query(
         &self,
         statement: impl Into<crate::statement::Statement>,
-    ) -> Result<crate::result_set::ResultSet, crate::Error> {
+    ) -> crate::Result<crate::result_set::ResultSet> {
         self.transaction.execute_query(statement).await
     }
 }
@@ -130,9 +130,14 @@ mod tests {
             Ok(gaxi::grpc::tonic::Response::new(
                 spanner_grpc_mock::google::spanner::v1::Transaction {
                     id: vec![5, 6, 7, 8],
-                    read_timestamp: None,
+                    read_timestamp: Some(prost_types::Timestamp {
+                        seconds: 100,
+                        nanos: 0,
+                    }),
+
                     precommit_token: None,
                 },
+
             ))
         });
 
@@ -165,9 +170,14 @@ mod tests {
             .await
             .expect("Failed to call execute_query");
 
-        let row1 = rs.next().await.expect("Failed to get next row");
+        let row1 = rs.next().await;
         assert!(row1.is_none());
+        
+        let ts = tx.transaction.context.read_timestamp();
+        assert!(ts.is_some());
+        assert_eq!(ts.unwrap().timestamp(), 100);
     }
+
     #[tokio::test]
     async fn test_multi_use_execute_query() {
         let mut mock = create_mock_with_session();
@@ -194,9 +204,14 @@ mod tests {
                         transaction: if is_first_request {
                             Some(spanner_grpc_mock::google::spanner::v1::Transaction {
                                 id: vec![1, 2, 3, 4],
-                                read_timestamp: None,
+                                read_timestamp: Some(prost_types::Timestamp {
+                                    seconds: 200,
+                                    nanos: 0,
+                                }),
+
                                 precommit_token: None,
                             })
+
                         } else {
                             None
                         },
@@ -230,7 +245,7 @@ mod tests {
             .await
             .expect("Failed to call execute_query");
 
-        let row1 = rs1.next().await.expect("Failed to get next row");
+        let row1 = rs1.next().await;
         assert!(row1.is_none());
 
         // The second execution uses `Id([1, 2, 3, 4])` from the resolved mutex state
@@ -239,7 +254,12 @@ mod tests {
             .await
             .expect("Failed to call execute_query");
 
-        let row2 = rs2.next().await.expect("Failed to get next row");
+        let row2 = rs2.next().await;
         assert!(row2.is_none());
+
+        let ts = tx.transaction.context.read_timestamp();
+        assert!(ts.is_some());
+        assert_eq!(ts.unwrap().timestamp(), 200);
     }
+
 }

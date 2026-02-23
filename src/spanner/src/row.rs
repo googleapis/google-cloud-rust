@@ -1,6 +1,5 @@
 use crate::google::spanner::v1::Type;
 use crate::value::FromValue;
-use gaxi::grpc::tonic::Status;
 use prost_types::Value;
 use std::collections::HashMap;
 use std::sync::Arc;
@@ -70,26 +69,38 @@ impl Row {
     /// # Returns
     ///
     /// * `Ok(T)` if the value was successfully retrieved and converted to type `T`.
-    /// * `Err(Status)` if:
+    /// * `Err(Error)` if:
     ///     * The column name or index is invalid.
     ///     * The column value is incompatible with type `T`.
-    pub fn try_get<'a, T: FromValue<'a>, I: ColumnIndex>(&'a self, index: I) -> Result<T, Status> {
+    pub fn try_get<'a, T: FromValue<'a>, I: ColumnIndex>(&'a self, index: I) -> crate::Result<T> {
         let idx = index.index(self).ok_or_else(|| {
-            Status::invalid_argument(format!("could not find column with index: {:?}", index))
+            crate::Error::service(
+                google_cloud_gax::error::rpc::Status::default()
+                    .set_code(google_cloud_gax::error::rpc::Code::InvalidArgument)
+                    .set_message(format!("could not find column with index: {:?}", index)),
+            )
         })?;
         let value = self.raw_values.get(idx).ok_or_else(|| {
-            Status::invalid_argument(format!(
-                "column index out of range: {:?} (expected < {})",
-                idx,
-                self.raw_values.len()
-            ))
+            crate::Error::service(
+                google_cloud_gax::error::rpc::Status::default()
+                    .set_code(google_cloud_gax::error::rpc::Code::InvalidArgument)
+                    .set_message(format!(
+                        "column index out of range: {:?} (expected < {})",
+                        idx,
+                        self.raw_values.len()
+                    )),
+            )
         })?;
         let type_ = self.column_types.get(idx).ok_or_else(|| {
-            Status::invalid_argument(format!(
-                "column type out of range: {:?} (expected < {})",
-                idx,
-                self.column_types.len()
-            ))
+            crate::Error::service(
+                google_cloud_gax::error::rpc::Status::default()
+                    .set_code(google_cloud_gax::error::rpc::Code::InvalidArgument)
+                    .set_message(format!(
+                        "column type out of range: {:?} (expected < {})",
+                        idx,
+                        self.column_types.len()
+                    )),
+            )
         })?;
         T::from_value(value, type_)
     }
