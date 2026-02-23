@@ -20,11 +20,11 @@ pub(crate) mod builder;
 pub(crate) mod client_builder;
 pub(crate) mod constants;
 pub(crate) mod implementation;
-pub(crate) mod model_ext;
+pub(crate) mod future;
 pub(crate) mod options;
 pub(crate) mod retry_policy;
 
-pub use model_ext::PublishFuture;
+pub use future::PublishFuture;
 
 /// Contains clients for publishing messages.
 pub mod client {
