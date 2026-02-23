@@ -296,12 +296,17 @@ impl Builder {
     fn build_credentials(
         self,
     ) -> BuildResult<CredentialsWithAccessBoundary<MDSCredentials<TokenCache>>> {
+        let iam_endpoint = self.iam_endpoint_override.clone();
         let mds_client = MDSClient::new(self.endpoint.clone());
         let mdsc = MDSCredentials {
             quota_project_id: self.quota_project_id.clone(),
             token_provider: TokenCache::new(self.build_token_provider()),
         };
-        Ok(CredentialsWithAccessBoundary::new_for_mds(mdsc, mds_client))
+        Ok(CredentialsWithAccessBoundary::new_for_mds(
+            mdsc,
+            mds_client,
+            iam_endpoint,
+        ))
     }
 
     /// Returns a [crate::signer::Signer] instance with the configured settings.
@@ -442,8 +447,10 @@ impl TokenProvider for MDSAccessTokenProvider {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::access_boundary::REGIONAL_ACCESS_BOUNDARIES_ENV_VAR;
     use crate::credentials::DEFAULT_UNIVERSE_DOMAIN;
     use crate::credentials::QUOTA_PROJECT_KEY;
+    use crate::credentials::tests::get_access_boundary_from_headers;
     use crate::credentials::tests::{
         find_source_error, get_headers_from_cache, get_mock_auth_retry_policy,
         get_mock_backoff_policy, get_mock_retry_throttler, get_token_from_headers,
@@ -454,6 +461,7 @@ mod tests {
     use crate::mds::client::MDSTokenResponse;
     use crate::mds::{GCE_METADATA_HOST_ENV_VAR, MDS_DEFAULT_URI, METADATA_ROOT};
     use crate::token::tests::MockTokenProvider;
+    use base64::{Engine, prelude::BASE64_STANDARD};
     use http::HeaderValue;
     use http::header::AUTHORIZATION;
     use httptest::cycle;
@@ -462,6 +470,7 @@ mod tests {
     use httptest::{Expectation, Server};
     use reqwest::StatusCode;
     use scoped_env::ScopedEnv;
+    use serde_json::json;
     use serial_test::{parallel, serial};
     use std::error::Error;
     use std::time::Duration;
@@ -1049,9 +1058,6 @@ mod tests {
     #[tokio::test]
     #[parallel]
     async fn get_mds_signer() -> TestResult {
-        use base64::{Engine, prelude::BASE64_STANDARD};
-        use serde_json::json;
-
         let server = Server::run();
         server.expect(
             Expectation::matching(all_of![request::path(format!("{MDS_DEFAULT_URI}/token")),])
@@ -1090,6 +1096,61 @@ mod tests {
 
         let signature = signer.sign(b"test").await?;
         assert_eq!(signature.as_ref(), b"signed_blob");
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    #[serial]
+    async fn e2e_access_boundary() -> TestResult {
+        let _env = ScopedEnv::set(REGIONAL_ACCESS_BOUNDARIES_ENV_VAR, "true");
+
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(all_of![request::path(format!("{MDS_DEFAULT_URI}/token")),])
+                .respond_with(json_encoded(MDSTokenResponse {
+                    access_token: "test-access-token".to_string(),
+                    expires_in: None,
+                    token_type: "Bearer".to_string(),
+                })),
+        );
+        server.expect(
+            Expectation::matching(all_of![request::path(format!("{MDS_DEFAULT_URI}/email")),])
+                .respond_with(status_code(200).body("test-client-email")),
+        );
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path(
+                    "GET",
+                    "/v1/projects/-/serviceAccounts/test-client-email/allowedLocations"
+                ),
+                request::headers(contains(("authorization", "Bearer test-access-token"))),
+            ])
+            .respond_with(json_encoded(json!({
+                "locations": ["us-central1", "us-east1"],
+                "encodedLocations": "0x1234"
+            }))),
+        );
+
+        let endpoint = server.url("").to_string().trim_end_matches('/').to_string();
+
+        let creds = Builder::default()
+            .with_endpoint(&endpoint)
+            .maybe_iam_endpoint_override(Some(endpoint))
+            .build()?;
+
+        // let the access boundary background thread update
+        tokio::time::sleep(tokio::time::Duration::from_secs(1)).await;
+
+        let headers = creds.headers(Extensions::new()).await?;
+        let token = get_token_from_headers(headers.clone());
+        let access_boundary = get_access_boundary_from_headers(headers);
+        assert!(token.is_some(), "should have some token: {token:?}");
+        assert_eq!(
+            access_boundary.as_deref(),
+            Some("0x1234"),
+            "should be 0x1234 but found: {access_boundary:?}"
+        );
 
         Ok(())
     }

@@ -23,7 +23,7 @@ use http::{Extensions, HeaderMap, HeaderValue};
 use reqwest::Client;
 use std::clone::Clone;
 use std::fmt::Debug;
-use std::sync::Arc;
+use std::sync::{Arc, OnceLock};
 use tokio::sync::watch;
 use tokio::time::{Duration, Instant, sleep};
 
@@ -67,36 +67,21 @@ impl BoundaryValue {
 }
 
 impl AccessBoundary {
-    fn new<T>(credentials: Arc<T>, url: Option<String>) -> Self
+    fn new<T>(provider: T) -> Self
     where
-        T: dynamic::AccessTokenCredentialsProvider + 'static,
+        T: AccessBoundaryProvider + 'static,
     {
         let (tx_header, rx_header) = watch::channel(None);
 
         if Self::is_enabled() {
-            if let Some(url) = url {
-                let provider = IAMAccessBoundaryProvider { credentials, url };
-                tokio::spawn(refresh_task(provider, tx_header));
-            }
+            tokio::spawn(refresh_task(provider, tx_header));
         }
 
-        Self { rx_header }
-    }
-
-    fn new_for_mds<T>(credentials: Arc<T>, mds_client: MDSClient) -> Self
-    where
-        T: dynamic::AccessTokenCredentialsProvider + 'static,
-    {
-        let (tx_header, rx_header) = watch::channel(None);
-
-        if Self::is_enabled() {
-            tokio::spawn(refresh_task_mds(credentials, mds_client, tx_header));
-        }
         Self { rx_header }
     }
 
     #[cfg(test)]
-    // only used for testing main
+    // only used for testing
     pub(crate) fn new_with_mock_provider<T>(provider: T) -> Self
     where
         T: AccessBoundaryProvider + 'static,
@@ -137,20 +122,30 @@ where
 {
     pub(crate) fn new(credentials: T, access_boundary_url: Option<String>) -> Self {
         let credentials = Arc::new(credentials);
-        let access_boundary = Arc::new(AccessBoundary::new(
-            credentials.clone(),
-            access_boundary_url,
-        ));
+        let provider = IAMAccessBoundaryProvider {
+            credentials: credentials.clone(),
+            url: access_boundary_url,
+        };
+        let access_boundary = Arc::new(AccessBoundary::new(provider));
         Self {
             credentials,
             access_boundary,
         }
     }
 
-    pub(crate) fn new_for_mds(credentials: T, mds_client: MDSClient) -> Self {
+    pub(crate) fn new_for_mds(
+        credentials: T,
+        mds_client: MDSClient,
+        iam_endpoint_override: Option<String>,
+    ) -> Self {
         let credentials = Arc::new(credentials);
-        let access_boundary =
-            Arc::new(AccessBoundary::new_for_mds(credentials.clone(), mds_client));
+        let provider = MDSAccessBoundaryProvider {
+            credentials: credentials.clone(),
+            mds_client,
+            iam_endpoint_override,
+            url: OnceLock::new(),
+        };
+        let access_boundary = Arc::new(AccessBoundary::new(provider));
         Self {
             credentials,
             access_boundary,
@@ -213,7 +208,7 @@ where
     T: dynamic::AccessTokenCredentialsProvider + 'static,
 {
     credentials: Arc<T>,
-    url: String,
+    url: Option<String>,
 }
 
 #[async_trait::async_trait]
@@ -222,7 +217,43 @@ where
     T: dynamic::AccessTokenCredentialsProvider + 'static,
 {
     async fn fetch_access_boundary(&self) -> Result<Option<String>> {
-        fetch_access_boundary(self.credentials.as_ref(), &self.url).await
+        match self.url.as_ref() {
+            Some(url) => fetch_access_boundary(self.credentials.as_ref(), url).await,
+            None => Ok(None), // No URL means no access boundary
+        }
+    }
+}
+
+// Extends default IAM implementation to use Metadata Service
+#[derive(Debug)]
+struct MDSAccessBoundaryProvider<T>
+where
+    T: dynamic::AccessTokenCredentialsProvider + 'static,
+{
+    credentials: Arc<T>,
+    mds_client: MDSClient,
+    iam_endpoint_override: Option<String>,
+    url: OnceLock<String>,
+}
+
+#[async_trait::async_trait]
+impl<T> AccessBoundaryProvider for MDSAccessBoundaryProvider<T>
+where
+    T: dynamic::AccessTokenCredentialsProvider + 'static,
+{
+    async fn fetch_access_boundary(&self) -> Result<Option<String>> {
+        if self.url.get().is_none() {
+            let email = self.mds_client.email().await?;
+
+            // Ignore error if we can't set the client email.
+            // Might be due to multiple tasks trying to set value
+            let url = service_account_lookup_url(&email, self.iam_endpoint_override.as_deref());
+            let _ = self.url.set(url);
+        }
+
+        let url = self.url.get().unwrap().to_string();
+
+        fetch_access_boundary(self.credentials.as_ref(), &url).await
     }
 }
 
@@ -280,50 +311,14 @@ where
     T: AccessBoundaryProvider,
 {
     loop {
-        fetch_and_update(&provider, &tx_header).await;
-    }
-}
-
-async fn refresh_task_mds<T>(
-    credentials: Arc<T>,
-    mds_client: MDSClient,
-    tx_header: watch::Sender<Option<BoundaryValue>>,
-) where
-    T: dynamic::AccessTokenCredentialsProvider + 'static,
-{
-    let mut provider = IAMAccessBoundaryProvider {
-        credentials,
-        url: String::new(),
-    };
-
-    loop {
-        if provider.url.is_empty() {
-            let res = mds_client.email().await;
-            match res {
-                Ok(email) => {
-                    provider.url = service_account_lookup_url(&email, None);
-                }
-                Err(_e) => {
-                    sleep(COOLDOWN_INTERVAL).await;
-                    continue;
-                }
+        match provider.fetch_access_boundary().await {
+            Ok(val) => {
+                let _ = tx_header.send(Some(BoundaryValue::new(val)));
+                sleep(DEFAULT_TTL - REFRESH_SLACK).await
             }
-        }
-        fetch_and_update(&provider, &tx_header).await;
-    }
-}
-
-async fn fetch_and_update<T>(provider: &T, tx_header: &watch::Sender<Option<BoundaryValue>>)
-where
-    T: AccessBoundaryProvider,
-{
-    match provider.fetch_access_boundary().await {
-        Ok(val) => {
-            let _ = tx_header.send(Some(BoundaryValue::new(val)));
-            sleep(DEFAULT_TTL - REFRESH_SLACK).await
-        }
-        Err(_e) => {
-            sleep(COOLDOWN_INTERVAL).await;
+            Err(_e) => {
+                sleep(COOLDOWN_INTERVAL).await;
+            }
         }
     }
 }
@@ -333,7 +328,7 @@ pub(crate) fn service_account_lookup_url(
     iam_endpoint_override: Option<&str>,
 ) -> String {
     let iam_endpoint = iam_endpoint_override.unwrap_or("https://iamcredentials.googleapis.com");
-    format!("{iam_endpoint}/v1/projects/-/serviceAccounts/{email}/allowedLocations",)
+    format!("{iam_endpoint}/v1/projects/-/serviceAccounts/{email}/allowedLocations")
 }
 
 pub(crate) fn external_account_lookup_url(audience: &str) -> Option<String> {
@@ -375,6 +370,7 @@ pub(crate) mod tests {
     use super::*;
     use crate::credentials::tests::{get_access_boundary_from_headers, get_token_from_headers};
     use crate::credentials::{AccessToken, EntityTag};
+    use crate::mds::MDS_DEFAULT_URI;
     use http::header::{AUTHORIZATION, HeaderValue};
     use http::{Extensions, HeaderMap};
     use httptest::{Expectation, Server, matchers::*, responders::*};
@@ -481,6 +477,60 @@ pub(crate) mod tests {
         let url = server.url("/allowedLocations").to_string();
 
         let creds = CredentialsWithAccessBoundary::new(mock, Some(url));
+
+        // wait for the background task to fetch the access boundary.
+        tokio::time::sleep(std::time::Duration::from_secs(1)).await;
+
+        let cached_headers = creds.headers(Extensions::new()).await?;
+        let token = get_token_from_headers(cached_headers.clone());
+        assert!(token.is_some(), "{token:?}");
+        let access_boundary = get_access_boundary_from_headers(cached_headers);
+        assert_eq!(
+            access_boundary.as_deref(),
+            Some("0x123"),
+            "{access_boundary:?}"
+        );
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    #[serial]
+    async fn test_fetch_access_boundary_mds_success() -> TestResult {
+        let _env = ScopedEnv::set(REGIONAL_ACCESS_BOUNDARIES_ENV_VAR, "true");
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(request::method_path(
+                "GET",
+                "/v1/projects/-/serviceAccounts/some-client-email/allowedLocations",
+            ))
+            .respond_with(json_encoded(json!(
+                {
+                    "encodedLocations": "0x123",
+                    "locations": ["us-east1"]
+                }
+            ))),
+        );
+        server.expect(
+            Expectation::matching(all_of![request::path(format!("{MDS_DEFAULT_URI}/email")),])
+                .respond_with(status_code(200).body("some-client-email")),
+        );
+
+        let mut mock = MockCredentials::new();
+        mock.expect_headers().returning(|_extensions| {
+            let headers = HeaderMap::from_iter([(
+                AUTHORIZATION,
+                HeaderValue::from_static("Bearer test-token"),
+            )]);
+            Ok(CacheableResource::New {
+                entity_tag: EntityTag::default(),
+                data: headers,
+            })
+        });
+        let endpoint = server.url("").to_string().trim_end_matches('/').to_string();
+        let mds_client = MDSClient::new(Some(endpoint.clone()));
+
+        let creds = CredentialsWithAccessBoundary::new_for_mds(mock, mds_client, Some(endpoint));
 
         // wait for the background task to fetch the access boundary.
         tokio::time::sleep(std::time::Duration::from_secs(1)).await;

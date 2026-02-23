@@ -367,9 +367,10 @@ humantime             = { default-features = false, version = "2" }
 hyper                 = { default-features = false, version = "1.6" }
 jsonwebtoken          = { default-features = false, version = "10.2" }
 lazy_static           = { default-features = false, version = "1.2" }
-opentelemetry         = { default-features = false, version = "0.31", features = ["trace"] }
-opentelemetry-proto   = { default-features = false, version = "0.31", features = ["gen-tonic", "trace"] }
-opentelemetry_sdk     = { default-features = false, version = "0.31", features = ["rt-tokio", "trace"] }
+opentelemetry         = { default-features = false, version = "0.31" }
+opentelemetry-proto   = { default-features = false, version = "0.31" }
+opentelemetry_sdk     = { default-features = false, version = "0.31" }
+opentelemetry-otlp    = { default-features = false, version = "0.31" }
 parse-size            = { default-features = false, version = "1.1" }
 percent-encoding      = { default-features = false, version = "2.3" }
 pin-project           = { default-features = false, version = "1.0.11" }
@@ -385,7 +386,7 @@ sha2                  = { default-features = false, version = "0.10.6" }
 thiserror             = { default-features = false, version = "2.0.12" }
 time                  = { default-features = false, version = "0.3.45" }
 tokio                 = { default-features = false, version = "1.45.1" }
-tokio-metrics         = { default-features = false, version = "0.4.7" }
+tokio-metrics         = { default-features = false, version = "0.4.8" }
 tokio-util            = { default-features = false, version = "0.7.9" }
 toml_edit             = { default-features = false, version = "0.25" }
 tracing-log           = { default-features = false, version = "0.2" }
@@ -394,15 +395,7 @@ tracing-subscriber    = { default-features = false, version = "0.3.22" }
 url                   = { default-features = false, version = "2.4" }
 uuid                  = { default-features = false, version = "1", features = ["v4"] }
 
-opentelemetry-otlp = { default-features = false, version = "0.31", features = [
-  "grpc-tonic",
-  "tls",
-  "tls-roots",
-  "trace",
-] }
-opentelemetry-semantic-conventions = { default-features = false, version = "0.31.0", features = [
-  "semconv_experimental",
-] }
+opentelemetry-semantic-conventions = { default-features = false, version = "0.31.0" }
 
 # WARNING: When this changes to 0.2 we need to bump the google-cloud-gax-internal major version.
 http-body-util = { default-features = false, version = "0.1.3" }
@@ -415,7 +408,7 @@ reqwest = { default-features = false, version = "0.13.2" }
 # WARNING: When any of these change to 0.15 we need to bump the google-cloud-gax-internal major version.
 tonic             = { default-features = false, version = "0.14.4", features = ["tls-native-roots"] }
 tonic-prost       = { default-features = false, version = "0.14.4" }
-tonic-prost-build = { default-features = false, version = "0.14.4" }
+tonic-prost-build = { default-features = false, version = "0.14.5" }
 # WARNING: When this changes to 0.6 we need to bump the google-cloud-gax-internal major version.
 tower = { default-features = false, version = "0.5.2", features = ["util"] }
 # WARNING: When this changes to 0.2 we need to bump the google-cloud-gax-internal major version.
