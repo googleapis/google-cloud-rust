@@ -33,6 +33,7 @@ use crate::attempt_info::AttemptInfo;
 /// # use google_cloud_gax_internal::http::ReqwestClient;
 /// use google_cloud_gax_internal::http::reqwest::Method;
 /// use google_cloud_gax::options::RequestOptions;
+/// use google_cloud_gax_internal::attempt_info::AttemptInfo;
 /// async fn sample(client: &ReqwestClient, options: RequestOptions) -> anyhow::Result<()> {
 ///     let builder = client.http_builder_with_url(
 ///         Method::GET,
@@ -41,7 +42,7 @@ use crate::attempt_info::AttemptInfo;
 ///     )?
 ///     .query("alt", "media")
 ///     .header("x-goog-api-client", "client/1.2.3");
-///     let response = builder.send(options, None, 0).await?;
+///     let response = builder.send(options, AttemptInfo::new(0)).await?;
 ///     println!("status={:?}", response.status());
 ///     Ok(())
 /// }
@@ -63,13 +64,14 @@ impl HttpRequestBuilder {
     /// ```
     /// # use google_cloud_gax_internal::http::ReqwestClient;
     /// use google_cloud_gax_internal::http::reqwest::Method;
+    /// use google_cloud_gax_internal::attempt_info::AttemptInfo;
     /// use google_cloud_gax::options::RequestOptions;
     /// async fn sample(client: &ReqwestClient, options: RequestOptions) -> anyhow::Result<()> {
     ///     let mut err = Vec::new();
     ///     for count in (0..3) {
     ///         let builder = client.http_builder(Method::GET, "storage/v1/b/my-bucket/o/my-object")
     ///             .query("alt", "media");
-    ///         let result = builder.send(options.clone(), None, count).await;
+    ///         let result = builder.send(options.clone(), AttemptInfo::new(count)).await;
     ///         if result.is_ok() {
     ///             println!("success! {result:?}");
     ///             return Ok(())
