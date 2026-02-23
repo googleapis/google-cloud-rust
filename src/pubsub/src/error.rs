@@ -20,8 +20,8 @@
 pub enum PublishError {
     /// The underlying RPC call failed.
     ///
-    /// The inner error is wrapped in an [`Arc`](std::sync::Arc) to allow this error to be cloned
-    /// and returned for each message in the batch.
+    /// The inner error is wrapped in an [`Arc`](std::sync::Arc) because the same error
+    /// may affect multiple [`publish()`](crate::client::Publisher::publish) calls.
     #[error("the publish operation was interrupted by an error: {0}")]
     Rpc(#[source] std::sync::Arc<crate::Error>),
 
@@ -37,9 +37,9 @@ pub enum PublishError {
     /// The operation failed because the [`Publisher`](crate::client::Publisher) has
     /// been shut down.
     ///
-    /// This may occur when the runtime has dropped the background tasks that handle
-    /// message publishing. It is possible that the message was successfully published
-    /// before shutdown.
+    /// Typically this can happen when the application is shutting down. Some background
+    /// tasks in the client library may be terminated before they can send all the
+    /// pending messages.
     #[error("the publisher has shut down")]
     Shutdown,
 
