@@ -262,7 +262,9 @@ pub mod internal {
     #[derive(Debug, Clone, Default, PartialEq)]
     pub struct ResourceName(pub String);
 
-    // TODO(#4772) - stop using these functions and use `TracingExtension` directly
+    // Cannot remove this function, as that would break any client libraries
+    // that are released and use this function.
+    #[deprecated]
     pub fn set_path_template(
         options: RequestOptions,
         path_template: &'static str,
@@ -270,23 +272,11 @@ pub mod internal {
         options.insert_extension(PathTemplate(path_template))
     }
 
-    // TODO(#4772) - stop using these functions and use `TracingExtension` directly
+    // Cannot remove this function, as that would break any client libraries
+    // that are released and use this function.
+    #[deprecated]
     pub fn get_path_template(options: &RequestOptions) -> Option<&'static str> {
         options.get_extension::<PathTemplate>().map(|e| e.0)
-    }
-
-    // TODO(#4772) - stop using these functions and use `TracingExtension` directly
-    #[cfg(google_cloud_unstable_tracing)]
-    pub fn get_resource_name(options: &RequestOptions) -> Option<&str> {
-        options
-            .get_extension::<ResourceName>()
-            .map(|e| e.0.as_str())
-    }
-
-    // TODO(#4772) - stop using these functions and use `TracingExtension` directly
-    #[cfg(google_cloud_unstable_tracing)]
-    pub fn set_resource_name(options: RequestOptions, resource_name: String) -> RequestOptions {
-        options.insert_extension(ResourceName(resource_name))
     }
 }
 
@@ -430,15 +420,6 @@ mod tests {
             .insert_extension(TestB(42));
         assert_eq!(opts.get_extension::<TestA>(), Some(&TestA("2")), "{opts:?}");
         assert_eq!(opts.get_extension::<TestB>(), Some(&TestB(42)), "{opts:?}");
-    }
-
-    #[test]
-    #[cfg(google_cloud_unstable_tracing)]
-    fn request_options_resource_name() {
-        let opts = RequestOptions::default();
-        assert_eq!(get_resource_name(&opts), None);
-        let opts = set_resource_name(opts, "test".to_string());
-        assert_eq!(get_resource_name(&opts), Some("test"));
     }
 
     #[test]
