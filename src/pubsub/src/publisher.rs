@@ -24,6 +24,8 @@ pub(crate) mod model_ext;
 pub(crate) mod options;
 pub(crate) mod retry_policy;
 
+pub use model_ext::PublishFuture;
+
 /// Contains clients for publishing messages.
 pub mod client {
     pub use super::base_publisher::BasePublisher;

@@ -106,11 +106,6 @@ pub mod model {
     pub(crate) use crate::generated::gapic_dataplane::model::*;
 }
 
-/// Extends [model] with types that improve type safety and/or ergonomics.
-pub mod model_ext {
-    pub use crate::publisher::model_ext::*;
-}
-
 /// Clients to interact with Google Cloud Pub/Sub.
 ///
 /// This module contains the primary entry points for the library, including
