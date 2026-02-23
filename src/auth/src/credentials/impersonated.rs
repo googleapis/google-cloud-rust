@@ -2305,7 +2305,7 @@ mod tests {
 
     #[tokio::test]
     #[serial]
-    async fn test_access_boundary() -> TestResult {
+    async fn e2e_access_boundary() -> TestResult {
         let _env = ScopedEnv::set(REGIONAL_ACCESS_BOUNDARIES_ENV_VAR, "true");
         let server = Server::run();
         server.expect(
