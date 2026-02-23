@@ -222,7 +222,7 @@ mod tests {
     #[track_caller]
     fn assert_publish_err(got_err: crate::error::PublishError) {
         assert!(
-            matches!(got_err, crate::error::PublishError::SendError(_)),
+            matches!(got_err, crate::error::PublishError::Rpc(_)),
             "{got_err:?}"
         );
         let source = got_err
@@ -272,7 +272,7 @@ mod tests {
                     )
                     .await;
                 assert!(
-                    matches!(got_err, Err(crate::error::PublishError::OrderingKeyPaused(()))),
+                    matches!(got_err, Err(crate::error::PublishError::OrderingKeyPaused)),
                     "{got_err:?}"
                 );
             )+
@@ -367,7 +367,7 @@ mod tests {
         let handle = publisher.publish(Message::new().set_data("paused").set_ordering_key(key));
         let got_err = handle.await.unwrap_err();
         assert!(
-            matches!(got_err, crate::error::PublishError::OrderingKeyPaused(())),
+            matches!(got_err, crate::error::PublishError::OrderingKeyPaused),
             "{got_err:?}"
         );
         // Validate that the pending handle is published.
@@ -1047,7 +1047,7 @@ mod tests {
         // Assert that the pending message error is caused by the Publisher being paused.
         got_err = msg_1_handle.await.unwrap_err();
         assert!(
-            matches!(got_err, crate::error::PublishError::OrderingKeyPaused(())),
+            matches!(got_err, crate::error::PublishError::OrderingKeyPaused),
             "{got_err:?}"
         );
 

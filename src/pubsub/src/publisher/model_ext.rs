@@ -56,7 +56,7 @@ impl Future for PublishFuture {
         // which can happen when the Dispatcher is dropped.
         match result {
             Ok(result) => Poll::Ready(result),
-            Err(_) => Poll::Ready(Err(crate::error::PublishError::ShutdownError(()))),
+            Err(_) => Poll::Ready(Err(crate::error::PublishError::Shutdown)),
         }
     }
 }
@@ -79,10 +79,10 @@ mod tests {
     async fn resolve_publish_future_error() -> anyhow::Result<()> {
         let (tx, rx) = oneshot::channel();
         let fut = PublishFuture { rx };
-        let _ = tx.send(Err(crate::error::PublishError::OrderingKeyPaused(())));
+        let _ = tx.send(Err(crate::error::PublishError::OrderingKeyPaused));
         let res = fut.await;
         assert!(
-            matches!(res, Err(crate::error::PublishError::OrderingKeyPaused(()))),
+            matches!(res, Err(crate::error::PublishError::OrderingKeyPaused)),
             "{res:?}"
         );
 
@@ -96,7 +96,7 @@ mod tests {
         drop(tx);
         let res = fut.await;
         assert!(
-            matches!(res, Err(crate::error::PublishError::ShutdownError(()))),
+            matches!(res, Err(crate::error::PublishError::Shutdown)),
             "{res:?}"
         );
 
