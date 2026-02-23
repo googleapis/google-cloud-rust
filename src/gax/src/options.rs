@@ -269,48 +269,36 @@ pub mod internal {
     }
 
     #[derive(Debug, Clone, Default, PartialEq)]
-    pub struct TracingExtension {
-        pub path_template: &'static str,
-        pub resource_name: String,
-    }
+    pub struct PathTemplate(pub &'static str);
+
+    #[derive(Debug, Clone, Default, PartialEq)]
+    pub struct ResourceName(pub String);
 
     // TODO(#4772) - stop using these functions and use `TracingExtension` directly
     pub fn set_path_template(
         options: RequestOptions,
         path_template: &'static str,
     ) -> RequestOptions {
-        let mut current = options
-            .get_extension::<TracingExtension>()
-            .cloned()
-            .unwrap_or_default();
-        current.path_template = path_template;
-        options.insert_extension(current)
+        options.insert_extension(PathTemplate(path_template))
     }
 
     // TODO(#4772) - stop using these functions and use `TracingExtension` directly
     pub fn get_path_template(options: &RequestOptions) -> Option<&'static str> {
-        options
-            .get_extension::<TracingExtension>()
-            .map(|e| e.path_template)
+        options.get_extension::<PathTemplate>().map(|e| e.0)
     }
 
     // TODO(#4772) - stop using these functions and use `TracingExtension` directly
     #[cfg(google_cloud_unstable_tracing)]
     pub fn get_resource_name(options: &RequestOptions) -> Option<&str> {
         options
-            .get_extension::<TracingExtension>()
-            .map(|e| e.resource_name.as_str())
+            .get_extension::<ResourceName>()
+            .map(|e| e.0.as_str())
     }
 
     // TODO(#4772) - stop using these functions and use `TracingExtension` directly
     #[cfg(google_cloud_unstable_tracing)]
     pub fn set_resource_name(options: RequestOptions, resource_name: String) -> RequestOptions {
-        let mut current = options
-            .get_extension::<TracingExtension>()
-            .cloned()
-            .unwrap_or_default();
-        current.resource_name = resource_name;
-        options.insert_extension(current)
+        options.insert_extension(ResourceName(resource_name))
     }
 }
 
