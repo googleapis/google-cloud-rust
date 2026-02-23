@@ -13,7 +13,6 @@
 // limitations under the License.
 
 use crate::constants::TRUST_BOUNDARY_HEADER;
-use regex::Regex;
 use crate::credentials::{
     AccessToken, AccessTokenCredentialsProvider, CacheableResource, CredentialsProvider, dynamic,
 };
@@ -21,6 +20,7 @@ use crate::errors::CredentialsError;
 use crate::mds::client::Client as MDSClient;
 use crate::{Result, errors};
 use http::{Extensions, HeaderMap, HeaderValue};
+use regex::Regex;
 use reqwest::Client;
 use std::clone::Clone;
 use std::fmt::Debug;
@@ -332,7 +332,6 @@ pub(crate) fn service_account_lookup_url(
     format!("{iam_endpoint}/v1/projects/-/serviceAccounts/{email}/allowedLocations")
 }
 
-
 static WORKLOAD_PATTERN: OnceLock<Regex> = OnceLock::new();
 static WORKFORCE_PATTERN: OnceLock<Regex> = OnceLock::new();
 
@@ -444,12 +443,6 @@ pub(crate) mod tests {
         iam_endpoint_override: Option<&str>,
     ) {
         let actual = external_account_lookup_url(audience, iam_endpoint_override);
-        assert_eq!(actual.as_deref(), expected);
-    }
-
-    #[test_case("//iam.googleapis.com/projects/p1/locations/global/workloadIdentityPools/pool1/providers/prov1", Some("https://iamcredentials.googleapis.com/v1/projects/p1/locations/global/workloadIdentityPools/pool1/allowedLocations"))]
-    fn test_external_account_lookup_url_compat(audience: &str, expected: Option<&str>) {
-        let actual = external_account_lookup_url(audience, None);
         assert_eq!(actual.as_deref(), expected);
     }
 

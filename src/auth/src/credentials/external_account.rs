@@ -687,7 +687,7 @@ impl Builder {
 
         let access_boundary_url =
             external_account_lookup_url(&config.audience, self.iam_endpoint_override.as_deref());
-        
+
         let creds = config.make_credentials(self.quota_project_id, self.retry_builder);
 
         Ok(CredentialsWithAccessBoundary::new(
@@ -2224,12 +2224,11 @@ mod tests {
         );
 
         server.expect(
-            Expectation::matching(all_of![request::method_path("GET", iam_path.clone()),]).respond_with(
-                json_encoded(json!({
+            Expectation::matching(all_of![request::method_path("GET", iam_path.clone()),])
+                .respond_with(json_encoded(json!({
                     "locations": ["us-central1"],
                     "encodedLocations": "0x1234"
-                })),
-            ),
+                }))),
         );
 
         let contents = json!({

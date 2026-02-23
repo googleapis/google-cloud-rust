@@ -499,7 +499,7 @@ impl Builder {
 
         Ok(CredentialsWithAccessBoundary::new(
             creds,
-            access_boundary_url,
+            Some(access_boundary_url),
         ))
     }
 
