@@ -555,22 +555,6 @@ impl Builder {
         })
     }
 
-    fn resolve_impersonation_url(&self) -> BuildResult<String> {
-        match self.source.clone() {
-            BuilderSource::FromJson(json) => {
-                let config = config_from_json(json)?;
-                Ok(config.service_account_impersonation_url)
-            }
-            BuilderSource::FromCredentials(_) => {
-                self.service_account_impersonation_url.clone().ok_or_else(|| {
-                    BuilderError::parsing(
-                        "`service_account_impersonation_url` is required when building from source credentials",
-                    )
-                })
-            }
-        }
-    }
-
     fn build_components(
         self,
     ) -> BuildResult<(
@@ -604,6 +588,22 @@ impl Builder {
         };
         let token_provider = self.retry_builder.build(token_provider);
         Ok((token_provider, quota_project_id))
+    }
+
+    fn resolve_impersonation_url(&self) -> BuildResult<String> {
+        match self.source.clone() {
+            BuilderSource::FromJson(json) => {
+                let config = config_from_json(json)?;
+                Ok(config.service_account_impersonation_url)
+            }
+            BuilderSource::FromCredentials(_) => {
+                self.service_account_impersonation_url.clone().ok_or_else(|| {
+                    BuilderError::parsing(
+                        "`service_account_impersonation_url` is required when building from source credentials",
+                    )
+                })
+            }
+        }
     }
 }
 
