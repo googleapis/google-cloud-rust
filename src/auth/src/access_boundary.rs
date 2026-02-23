@@ -13,6 +13,7 @@
 // limitations under the License.
 
 use crate::constants::TRUST_BOUNDARY_HEADER;
+use regex::Regex;
 use crate::credentials::{
     AccessToken, AccessTokenCredentialsProvider, CacheableResource, CredentialsProvider, dynamic,
 };
@@ -120,7 +121,7 @@ impl<T> CredentialsWithAccessBoundary<T>
 where
     T: dynamic::AccessTokenCredentialsProvider + 'static,
 {
-    pub(crate) fn new(credentials: T, access_boundary_url: String) -> Self {
+    pub(crate) fn new(credentials: T, access_boundary_url: Option<String>) -> Self {
         let credentials = Arc::new(credentials);
         let provider = IAMAccessBoundaryProvider {
             credentials: credentials.clone(),
@@ -208,7 +209,7 @@ where
     T: dynamic::AccessTokenCredentialsProvider + 'static,
 {
     credentials: Arc<T>,
-    url: String,
+    url: Option<String>,
 }
 
 #[async_trait::async_trait]
@@ -217,7 +218,10 @@ where
     T: dynamic::AccessTokenCredentialsProvider + 'static,
 {
     async fn fetch_access_boundary(&self) -> Result<Option<String>> {
-        fetch_access_boundary(self.credentials.as_ref(), &self.url).await
+        match self.url.as_ref() {
+            Some(url) => fetch_access_boundary(self.credentials.as_ref(), url).await,
+            None => Ok(None), // No URL means no access boundary
+        }
     }
 }
 
@@ -328,6 +332,45 @@ pub(crate) fn service_account_lookup_url(
     format!("{iam_endpoint}/v1/projects/-/serviceAccounts/{email}/allowedLocations")
 }
 
+
+static WORKLOAD_PATTERN: OnceLock<Regex> = OnceLock::new();
+static WORKFORCE_PATTERN: OnceLock<Regex> = OnceLock::new();
+
+fn get_workload_regex() -> &'static Regex {
+    WORKLOAD_PATTERN.get_or_init(|| {
+        Regex::new(r"^(?://iam\.googleapis\.com/|https://iam\.googleapis\.com/|/)?projects/(?P<project>[^/]+)/locations/global/workloadIdentityPools/(?P<pool>[^/]+)/providers/(?P<provider>[^/]+)$").unwrap()
+    })
+}
+
+fn get_workforce_regex() -> &'static Regex {
+    WORKFORCE_PATTERN.get_or_init(|| {
+        Regex::new(r"^(?://iam\.googleapis\.com/|https://iam\.googleapis\.com/|/)?locations/global/workforcePools/(?P<pool>[^/]+)/providers/(?P<provider>[^/]+)$").unwrap()
+    })
+}
+
+pub(crate) fn external_account_lookup_url(
+    audience: &str,
+    iam_endpoint_override: Option<&str>,
+) -> Option<String> {
+    let iam_endpoint = iam_endpoint_override.unwrap_or("https://iamcredentials.googleapis.com");
+
+    if let Some(caps) = get_workload_regex().captures(audience) {
+        return Some(format!(
+            "{}/v1/projects/{}/locations/global/workloadIdentityPools/{}/allowedLocations",
+            iam_endpoint, &caps["project"], &caps["pool"]
+        ));
+    }
+
+    if let Some(caps) = get_workforce_regex().captures(audience) {
+        return Some(format!(
+            "{}/v1/locations/global/workforcePools/{}/allowedLocations",
+            iam_endpoint, &caps["pool"]
+        ));
+    }
+
+    None
+}
+
 #[cfg(test)]
 pub(crate) mod tests {
     use super::*;
@@ -379,6 +422,37 @@ pub(crate) mod tests {
         );
     }
 
+    #[test_case("//iam.googleapis.com/projects/p1/locations/global/workloadIdentityPools/pool1/providers/prov1", Some("https://iamcredentials.googleapis.com/v1/projects/p1/locations/global/workloadIdentityPools/pool1/allowedLocations"), None; "workload_full_prefix")]
+    #[test_case("https://iam.googleapis.com/projects/p1/locations/global/workloadIdentityPools/pool1/providers/prov1", Some("https://iamcredentials.googleapis.com/v1/projects/p1/locations/global/workloadIdentityPools/pool1/allowedLocations"), None; "workload_https_prefix")]
+    #[test_case("/projects/p1/locations/global/workloadIdentityPools/pool1/providers/prov1", Some("https://iamcredentials.googleapis.com/v1/projects/p1/locations/global/workloadIdentityPools/pool1/allowedLocations"), None; "workload_slash_prefix")]
+    #[test_case("projects/p1/locations/global/workloadIdentityPools/pool1/providers/prov1", Some("https://iamcredentials.googleapis.com/v1/projects/p1/locations/global/workloadIdentityPools/pool1/allowedLocations"), None; "workload_no_prefix")]
+    #[test_case("//iam.googleapis.com/locations/global/workforcePools/pool1/providers/prov1", Some("https://iamcredentials.googleapis.com/v1/locations/global/workforcePools/pool1/allowedLocations"), None; "workforce_full_prefix")]
+    #[test_case("https://iam.googleapis.com/locations/global/workforcePools/pool1/providers/prov1", Some("https://iamcredentials.googleapis.com/v1/locations/global/workforcePools/pool1/allowedLocations"), None; "workforce_https_prefix")]
+    #[test_case("/locations/global/workforcePools/pool1/providers/prov1", Some("https://iamcredentials.googleapis.com/v1/locations/global/workforcePools/pool1/allowedLocations"), None; "workforce_slash_prefix")]
+    #[test_case("locations/global/workforcePools/pool1/providers/prov1", Some("https://iamcredentials.googleapis.com/v1/locations/global/workforcePools/pool1/allowedLocations"), None; "workforce_no_prefix")]
+    #[test_case("projects/p1/locations/global/workloadIdentityPools/pool1/providers/prov1/", None, None; "trailing_slash_fails")]
+    #[test_case("projects/p1/locations/global/workloadIdentityPools/pool1/providers/prov1/extra", None, None; "extra_parts_fails")]
+    #[test_case("projects/p1/locations/global/workloadIdentityPools/pool1", None, None; "missing_parts_fails")]
+    #[test_case("projects/p1/locations/global/workforcePools/pool1/providers/prov1", None, None; "workforce_in_workload_format_fails")]
+    #[test_case("locations/global/workloadIdentityPools/pool1/providers/prov1", None, None; "workload_in_workforce_format_fails")]
+    #[test_case("invalid", None, None; "invalid_string_fails")]
+    #[test_case("//iam.googleapis.com/projects/p1/locations/global/workloadIdentityPools/pool1/providers/prov1", Some("http://localhost:8080/v1/projects/p1/locations/global/workloadIdentityPools/pool1/allowedLocations"), Some("http://localhost:8080"); "with_endpoint_override")]
+    #[parallel]
+    fn test_external_account_lookup_url(
+        audience: &str,
+        expected: Option<&str>,
+        iam_endpoint_override: Option<&str>,
+    ) {
+        let actual = external_account_lookup_url(audience, iam_endpoint_override);
+        assert_eq!(actual.as_deref(), expected);
+    }
+
+    #[test_case("//iam.googleapis.com/projects/p1/locations/global/workloadIdentityPools/pool1/providers/prov1", Some("https://iamcredentials.googleapis.com/v1/projects/p1/locations/global/workloadIdentityPools/pool1/allowedLocations"))]
+    fn test_external_account_lookup_url_compat(audience: &str, expected: Option<&str>) {
+        let actual = external_account_lookup_url(audience, None);
+        assert_eq!(actual.as_deref(), expected);
+    }
+
     #[tokio::test]
     #[serial]
     async fn test_fetch_access_boundary_success() -> TestResult {
@@ -408,7 +482,7 @@ pub(crate) mod tests {
         });
         let url = server.url("/allowedLocations").to_string();
 
-        let creds = CredentialsWithAccessBoundary::new(mock, url);
+        let creds = CredentialsWithAccessBoundary::new(mock, Some(url));
 
         // wait for the background task to fetch the access boundary.
         tokio::time::sleep(std::time::Duration::from_secs(1)).await;
@@ -572,7 +646,7 @@ pub(crate) mod tests {
                 data: headers,
             })
         });
-        let creds = CredentialsWithAccessBoundary::new(mock, "http://localhost".to_string());
+        let creds = CredentialsWithAccessBoundary::new(mock, None);
 
         let cached_headers = creds.headers(Extensions::new()).await?;
         let token = get_token_from_headers(cached_headers.clone());
