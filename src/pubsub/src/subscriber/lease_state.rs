@@ -40,8 +40,8 @@ pub(super) struct LeaseOptions {
 impl Default for LeaseOptions {
     fn default() -> Self {
         LeaseOptions {
-            flush_period: Duration::from_secs(1),
-            flush_start: Duration::from_secs(1),
+            flush_period: Duration::from_millis(100),
+            flush_start: Duration::from_millis(100),
             extend_period: Duration::from_secs(3),
             extend_start: Duration::from_millis(500),
             max_lease_extension: Duration::from_secs(600),
