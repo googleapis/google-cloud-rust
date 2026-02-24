@@ -12,38 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-//! This module contains types to export OpenTelemetry metrics to Google Cloud Monitoring.
-//!
-//! # Example
-//! ```
-//! use integration_tests_o11y::otlp::metrics::Builder;
-//! use opentelemetry_sdk::metrics::SdkMeterProvider;
-//! use opentelemetry::{global, KeyValue};
-//! # async fn example() -> anyhow::Result<()> {
-//! let provider: SdkMeterProvider = Builder::new("my-project", "my-service")
-//!     .build()
-//!     .await?;
-//! // Make the provider available to the libraries and application.
-//! global::set_meter_provider(provider.clone());
-//! // Use the provider.
-//! let meter = opentelemetry::global::meter("my-component");
-//! let counter = meter.u64_counter("my_counter").build();
-//! counter.add(1, &[KeyValue::new("my.key", "my.value")]);
-//! # Ok(()) }
-//! ```
-
-use super::Error;
-use super::Uri;
-use super::{OTEL_KEY_GCP_PROJECT_ID, OTEL_KEY_SERVICE_NAME};
 use crate::auth::CloudTelemetryAuthInterceptor;
+use crate::otlp::Error;
+use crate::otlp::Uri;
+use crate::otlp::{GCP_OTLP_ENDPOINT, OTEL_KEY_GCP_PROJECT_ID, OTEL_KEY_SERVICE_NAME};
 use google_cloud_auth::credentials::{Builder as AdcBuilder, Credentials};
-use opentelemetry::KeyValue;
 use opentelemetry_otlp::tonic_types::transport::ClientTlsConfig;
 use opentelemetry_otlp::{WithExportConfig, WithTonicConfig};
-use opentelemetry_sdk::metrics::{
-    Aggregation, Instrument, InstrumentKind, SdkMeterProvider, Stream,
-};
-use opentelemetry_sdk::resource::ResourceDetector;
+use opentelemetry_sdk::logs::SdkLoggerProvider;
 
 /// Creates a `SdkMeterProvider` optimized for Google Cloud Monitoring.
 ///
@@ -76,7 +52,6 @@ pub struct Builder {
     service_name: String,
     credentials: Option<Credentials>,
     endpoint: Uri,
-    detector: Option<Box<dyn ResourceDetector>>,
 }
 
 impl Builder {
@@ -92,13 +67,12 @@ impl Builder {
         P: Into<String>,
         S: Into<String>,
     {
-        let uri = http::Uri::from_static(super::GCP_OTLP_ENDPOINT);
+        let uri = http::Uri::from_static(GCP_OTLP_ENDPOINT);
         Self {
             project_id: project_id.into(),
             service_name: service_name.into(),
             credentials: None,
             endpoint: uri,
-            detector: None,
         }
     }
 
@@ -116,23 +90,13 @@ impl Builder {
         self
     }
 
-    /// Sets the resource detector.
-    pub fn with_detector<D>(mut self, detector: D) -> Self
-    where
-        D: ResourceDetector + 'static,
-    {
-        self.detector = Some(Box::new(detector));
-        self
-    }
-
     /// Builds and initializes the `SdkTracerProvider`.
-    pub async fn build(self) -> Result<SdkMeterProvider, Error> {
+    pub async fn build(self) -> Result<SdkLoggerProvider, Error> {
         let resource = opentelemetry_sdk::Resource::builder()
             .with_attributes(vec![
-                KeyValue::new(OTEL_KEY_GCP_PROJECT_ID, self.project_id),
-                KeyValue::new(OTEL_KEY_SERVICE_NAME, self.service_name),
+                opentelemetry::KeyValue::new(OTEL_KEY_GCP_PROJECT_ID, self.project_id),
+                opentelemetry::KeyValue::new(OTEL_KEY_SERVICE_NAME, self.service_name),
             ])
-            .with_detectors(&Vec::from_iter(self.detector.into_iter()))
             .build();
         let credentials = match self.credentials {
             Some(c) => c,
@@ -141,7 +105,7 @@ impl Builder {
         let interceptor = CloudTelemetryAuthInterceptor::new(credentials).await;
 
         let exporter_builder = {
-            let builder = opentelemetry_otlp::MetricExporter::builder()
+            let builder = opentelemetry_otlp::LogExporter::builder()
                 .with_tonic()
                 .with_endpoint(self.endpoint.to_string())
                 .with_interceptor(interceptor);
@@ -166,69 +130,24 @@ impl Builder {
         };
 
         let exporter = exporter_builder.build().map_err(Error::create_exporter)?;
-        let view = move |ins: &Instrument| {
-            let name = if Self::name_missing_prefix(ins.name()) {
-                format!("workload.googleapis.com/{}", ins.name())
-            } else {
-                ins.name().to_string()
-            };
-            let builder = Stream::builder().with_name(name);
-            let builder = if ins.kind() != InstrumentKind::Histogram {
-                builder
-            } else {
-                builder.with_aggregation(Aggregation::Base2ExponentialHistogram {
-                    max_size: 32,
-                    max_scale: 20,
-                    record_min_max: true,
-                })
-            };
-            builder.build().expect("stream should be valid").into()
-        };
-        let provider = SdkMeterProvider::builder()
-            .with_periodic_exporter(exporter)
+        let provider = SdkLoggerProvider::builder()
+            .with_batch_exporter(exporter)
             .with_resource(resource)
-            .with_view(view)
             .build();
 
         Ok(provider)
-    }
-
-    /// Returns true if the metric name needs a `workload.googleapis.com` prefix.
-    ///
-    /// Google Cloud Monitoring only accepts metric names in these formats:
-    ///     custom.googleapis.com/{name}
-    ///     workload.googleapis.com/{name}
-    ///     project/{projectId}/metricDescriptors/custom.googleapis.com/{name}
-    ///     project/{projectId}/metricDescriptors/workload.googleapis.com/{name}
-    fn name_missing_prefix(name: &str) -> bool {
-        const W: &str = "workload.googleapis.com";
-        const C: &str = "custom.googleapis.com";
-        const P: &str = "projects";
-        const D: &str = "metricDescriptors";
-        let mut s = name.split('/');
-        !matches!(
-            (s.next(), s.next(), s.next(), s.next(), s.next()),
-            (Some(P), Some(_), Some(D), Some(W), Some(_))
-                | (Some(P), Some(_), Some(D), Some(C), Some(_))
-                | (Some(W), Some(_), _, _, _)
-                | (Some(C), Some(_), _, _, _)
-        )
     }
 }
 
 #[cfg(test)]
 mod tests {
-    use super::super::tests::TestTokenProvider;
     use super::*;
     use crate::mock_collector::MockCollector;
-    use opentelemetry::KeyValue;
-    use opentelemetry::metrics::MeterProvider;
+    use crate::otlp::tests::TestTokenProvider;
+    use opentelemetry::logs::{AnyValue, LogRecord, Logger, LoggerProvider};
     use opentelemetry_proto::tonic::common::v1::any_value;
-    use opentelemetry_proto::tonic::metrics::v1::metric::Data;
-    use opentelemetry_proto::tonic::metrics::v1::number_data_point::Value;
     use std::collections::BTreeMap;
     use std::str::FromStr;
-    use test_case::test_case;
 
     /// Tests that the provider sends authenticated results to a mock
     /// collector.
@@ -252,7 +171,7 @@ mod tests {
 
         // 3. Create a counter and record a value, later we will verify the
         //    request includes this counter.
-        const NAME: &str = "gcp.client.request.counter";
+        const NAME: &str = "experimental-gcp.client.request.error";
         let mut want = [
             ("gcp.client.service", "storage"),
             ("gcp.client.version", "1.2.3"),
@@ -265,17 +184,21 @@ mod tests {
             ),
         ];
         want.sort_by(|a, b| a.0.cmp(b.0));
-        let attributes = want.map(|(k, v)| KeyValue::new(k, v));
-        let meter = provider.meter("test-meter");
-        let counter = meter.u64_counter(NAME).build();
-        counter.add(123, &attributes);
+        let want = want;
+        let logger = provider.logger("test-logger");
+        let mut record = logger.create_log_record();
+        record.set_event_name(NAME);
+        record.set_body(AnyValue::from("good bye cruel world"));
+        record.add_attributes(want);
+        record.set_severity_number(opentelemetry::logs::Severity::Info);
+        logger.emit(record);
 
         // 4. Force flush to ensure the metrics are sent.
         provider.force_flush()?;
 
         // 5. Read any requests received by the mock collector.
-        let (metadata, _extensions, request) = mock_collector
-            .metrics
+        let (metadata, _extensions, mut request) = mock_collector
+            .logs
             .lock()
             .expect("never poisoned")
             .pop()
@@ -298,14 +221,17 @@ mod tests {
 
         // 7. Verify there is a single resource and it includes the expected
         //    attributes.
-        let rm = match &request.resource_metrics[..] {
-            [rm] => rm,
-            _ => panic!("expected exactly one resource, got {request:#?}"),
-        };
+        let rm = request
+            .resource_logs
+            .pop()
+            .expect("there should be at least one resource");
+        assert!(
+            request.resource_logs.is_empty(),
+            "unexpected resource {request:?}"
+        );
         let resource = rm
             .resource
-            .as_ref()
-            .expect("the resource metrics should have a resource: {rm:?}");
+            .expect("the resource logs should have a resource: {rm:?}");
         let got = resource
             .attributes
             .iter()
@@ -327,28 +253,19 @@ mod tests {
             "{got:?}\n{resource:?}"
         );
 
-        // 8. Find the counter data point value and verify it has the expected
-        //    attributes.
-        let point = rm
-            .scope_metrics
+        // 8. Find the log record value and verify it has the expected attributes.
+        let record = rm
+            .scope_logs
             .iter()
             // All the metrics for a single scope are grouped in a vector.
-            .flat_map(|m| m.metrics.iter())
-            .filter(|m| m.name.ends_with(NAME))
-            // Then all the data points for each metric.
-            .filter_map(|m| m.data.as_ref())
-            // We only want the counters.
-            .filter_map(|d| if let Data::Sum(h) = d { Some(h) } else { None })
-            // There may be multiple data points for each counter, find the
-            // one we want.
-            .flat_map(|s| s.data_points.iter())
-            .find(|point| point.value == Some(Value::AsInt(123_i64)))
+            .flat_map(|m| m.log_records.iter())
+            .find(|m| m.event_name == NAME)
             .unwrap_or_else(|| {
-                panic!("cannot find data point for metric {NAME} in captured request: {request:#?}")
+                panic!("cannot find log record {NAME} in captured request: {request:?}")
             });
         // Sort the expectations so the errors are easier to grok.
         let got = BTreeMap::from_iter(
-            point
+            record
                 .attributes
                 .iter()
                 // The "value" is wrapped in a `Option<>` remove the entries where the value is `None`:
@@ -371,21 +288,5 @@ mod tests {
         );
 
         Ok(())
-    }
-
-    #[test_case("plain", true)]
-    #[test_case("custom.googleapis.com/plain", false)]
-    #[test_case("workload.googleapis.com/plain", false)]
-    #[test_case("workload.googleapis.com/with/complex/name", false)]
-    #[test_case("projects/p/metricDescriptors/custom.googleapis.com/plain", false)]
-    #[test_case("projects/p/metricDescriptors/workload.googleapis.com/plain", false)]
-    #[test_case("projects/p/metricDescriptors/workload.googleapis.com/a/b/c", false)]
-    #[test_case("projects/p/custom.googleapis.com/plain", true)]
-    #[test_case("projects/p/workload.googleapis.com/plain", true)]
-    #[test_case("projects/p/D/custom.googleapis.com/plain", true)]
-    #[test_case("projects/p/D/workload.googleapis.com/plain", true)]
-    fn prefix(name: &str, want: bool) {
-        let got = Builder::name_missing_prefix(name);
-        assert_eq!(got, want, "{name}");
     }
 }
