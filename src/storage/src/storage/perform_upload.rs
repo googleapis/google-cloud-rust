@@ -20,7 +20,9 @@ use crate::storage::info::X_GOOG_API_CLIENT_HEADER;
 use crate::storage::v1;
 use crate::streaming_source::{IterSource, Seek, SizeHint, StreamingSource};
 use crate::{Error, Result};
-use gaxi::http::reqwest::{HeaderMap, HeaderValue, Method, RequestBuilder, Response, StatusCode};
+use gaxi::attempt_info::AttemptInfo;
+use gaxi::http::HttpRequestBuilder;
+use gaxi::http::reqwest::{HeaderMap, HeaderValue, Method, Response, StatusCode};
 use std::sync::Arc;
 use tokio::sync::Mutex;
 
@@ -69,11 +71,15 @@ impl<S> PerformUpload<S> {
 
     async fn start_resumable_upload_attempt(&self) -> Result<String> {
         let builder = self.start_resumable_upload_request().await?;
-        let response = builder.send().await.map_err(Error::io)?;
+        let options = self.options.gax();
+        let response = builder
+            .send(options, AttemptInfo::new(0))
+            .await
+            .map_err(Error::io)?;
         self::handle_start_resumable_upload_response(response).await
     }
 
-    async fn start_resumable_upload_request(&self) -> Result<RequestBuilder> {
+    async fn start_resumable_upload_request(&self) -> Result<HttpRequestBuilder> {
         let bucket = &self.resource().bucket;
         let bucket_id = bucket.strip_prefix("projects/_/buckets/").ok_or_else(|| {
             Error::binding(format!(
@@ -84,9 +90,9 @@ impl<S> PerformUpload<S> {
         let builder = self
             .inner
             .client
-            .builder(Method::POST, format!("/upload/storage/v1/b/{bucket_id}/o"))
-            .query(&[("uploadType", "resumable")])
-            .query(&[("name", object)])
+            .http_builder(Method::POST, &format!("/upload/storage/v1/b/{bucket_id}/o"))
+            .query("uploadType", "resumable")
+            .query("name", object)
             .header("content-type", "application/json")
             .header(
                 "x-goog-api-client",
@@ -95,19 +101,20 @@ impl<S> PerformUpload<S> {
 
         let builder = self.apply_preconditions(builder);
         let builder = apply_customer_supplied_encryption_headers(builder, &self.params);
-        let builder = self.inner.apply_auth_headers(builder).await?;
-        let builder = builder.json(&v1::insert_body(self.resource()));
+        let builder = builder.body(v1::insert_body(self.resource()).to_string());
         Ok(builder)
     }
 
     async fn query_resumable_upload_attempt(
         &self,
         upload_url: &str,
+        attempt_count: u32,
     ) -> Result<ResumableUploadStatus> {
+        let options = self.options.gax();
         let builder = self
             .inner
             .client
-            .builder_with_url(Method::PUT, upload_url)
+            .http_builder_with_url(Method::PUT, upload_url, crate::storage::DEFAULT_HOST)?
             .header("content-type", "application/octet-stream")
             .header("Content-Range", "bytes */*")
             .header("content-length", 0)
@@ -115,32 +122,34 @@ impl<S> PerformUpload<S> {
                 "x-goog-api-client",
                 HeaderValue::from_static(&X_GOOG_API_CLIENT_HEADER),
             );
-        let builder = self.inner.apply_auth_headers(builder).await?;
-        let response = builder.send().await.map_err(Error::io)?;
+        let response = builder
+            .send(options, AttemptInfo::new(attempt_count))
+            .await
+            .map_err(Error::io)?;
         self::query_resumable_upload_handle_response(response).await
     }
 
-    fn apply_preconditions(&self, builder: RequestBuilder) -> RequestBuilder {
+    fn apply_preconditions(&self, builder: HttpRequestBuilder) -> HttpRequestBuilder {
         let builder = self
             .spec
             .if_generation_match
             .iter()
-            .fold(builder, |b, v| b.query(&[("ifGenerationMatch", v)]));
+            .fold(builder, |b, v| b.query("ifGenerationMatch", v));
         let builder = self
             .spec
             .if_generation_not_match
             .iter()
-            .fold(builder, |b, v| b.query(&[("ifGenerationNotMatch", v)]));
+            .fold(builder, |b, v| b.query("ifGenerationNotMatch", v));
         let builder = self
             .spec
             .if_metageneration_match
             .iter()
-            .fold(builder, |b, v| b.query(&[("ifMetagenerationMatch", v)]));
+            .fold(builder, |b, v| b.query("ifMetagenerationMatch", v));
         let builder = self
             .spec
             .if_metageneration_not_match
             .iter()
-            .fold(builder, |b, v| b.query(&[("ifMetagenerationNotMatch", v)]));
+            .fold(builder, |b, v| b.query("ifMetagenerationNotMatch", v));
 
         [
             ("kmsKeyName", self.resource().kms_key.as_str()),
@@ -149,7 +158,7 @@ impl<S> PerformUpload<S> {
         .into_iter()
         .fold(
             builder,
-            |b, (k, v)| if v.is_empty() { b } else { b.query(&[(k, v)]) },
+            |b, (k, v)| if v.is_empty() { b } else { b.query(k, v) },
         )
     }
 }

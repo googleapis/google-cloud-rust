@@ -246,7 +246,8 @@ async fn upload_object_bytes() -> Result {
     let request = perform_upload(inner, builder)
         .single_shot_builder(SizeHint::with_exact(PAYLOAD.len() as u64))
         .await?
-        .build()?;
+        .build_for_tests()
+        .await?;
 
     assert_eq!(request.method(), Method::POST);
     assert_eq!(
@@ -274,7 +275,8 @@ async fn upload_object_metadata() -> Result {
     let request = perform_upload(inner, builder)
         .single_shot_builder(SizeHint::new())
         .await?
-        .build()?;
+        .build_for_tests()
+        .await?;
 
     assert_eq!(request.method(), Method::POST);
     assert_eq!(
@@ -303,7 +305,8 @@ async fn upload_object_stream() -> Result {
     let request = perform_upload(inner, builder)
         .single_shot_builder(SizeHint::new())
         .await?
-        .build()?;
+        .build_for_tests()
+        .await?;
 
     assert_eq!(request.method(), Method::POST);
     assert_eq!(
@@ -329,6 +332,8 @@ async fn upload_object_error_credentials() -> Result {
     );
     let _ = perform_upload(inner, builder)
         .single_shot_builder(SizeHint::new())
+        .await?
+        .build_for_tests()
         .await
         .inspect_err(|e| assert!(e.is_authentication()))
         .expect_err("invalid credentials should err");
@@ -367,7 +372,8 @@ async fn upload_object_headers() -> Result {
     let request = perform_upload(inner, builder)
         .single_shot_builder(SizeHint::new())
         .await?
-        .build()?;
+        .build_for_tests()
+        .await?;
 
     assert_eq!(request.method(), Method::POST);
     assert_eq!(

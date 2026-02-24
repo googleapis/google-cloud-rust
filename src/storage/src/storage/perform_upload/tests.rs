@@ -66,7 +66,8 @@ async fn start_resumable_upload() -> Result {
     let mut request = perform_upload(inner, builder)
         .start_resumable_upload_request()
         .await?
-        .build()?;
+        .build_for_tests()
+        .await?;
 
     assert_eq!(request.method(), Method::POST);
     assert_eq!(
@@ -99,7 +100,8 @@ async fn start_resumable_upload_headers() -> Result {
     let request = perform_upload(inner, builder)
         .start_resumable_upload_request()
         .await?
-        .build()?;
+        .build_for_tests()
+        .await?;
 
     assert_eq!(request.method(), Method::POST);
     assert_eq!(
@@ -171,7 +173,8 @@ async fn start_resumable_upload_metadata_in_request() -> Result {
     let mut request = perform_upload(inner, builder)
         .start_resumable_upload_request()
         .await?
-        .build()?;
+        .build_for_tests()
+        .await?;
 
     assert_eq!(request.method(), Method::POST);
     let want_pairs: BTreeMap<String, String> = [
@@ -233,6 +236,8 @@ async fn start_resumable_upload_credentials() -> Result {
     );
     let _ = perform_upload(inner, builder)
         .start_resumable_upload_request()
+        .await?
+        .build_for_tests()
         .await
         .inspect_err(|e| assert!(e.is_authentication()))
         .expect_err("invalid credentials should err");
