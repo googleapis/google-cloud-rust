@@ -17,11 +17,15 @@ use std::pin::Pin;
 use std::task::{Context, Poll, ready};
 use tokio::sync::oneshot;
 
-/// A [`Future`] representing an in-flight publish operation.
+/// A [`Future`] representing the result of publishing a single message.
 ///
-/// This is returned by [`Publisher::publish`](crate::client::Publisher::publish).
-/// Awaiting this future returns the server-assigned message ID on success, or an
-/// error if the publish failed.
+/// [`Publisher::publish`](crate::client::Publisher::publish) does not send the
+/// message to the service immediately. Instead, the publisher buffers messages
+/// and sends them in batches.
+///
+/// Awaiting this future returns the server-assigned message ID for the specific
+/// message on success. A failure indicates that the batch containing the
+/// message failed to publish.
 ///
 /// # Example
 ///
@@ -45,9 +49,10 @@ pub struct PublishFuture {
 }
 
 impl Future for PublishFuture {
-    /// The result of the publish operation.
+    /// The result of a publish operation for a single message.
+    ///
     /// - `Ok(String)`: The server-assigned message ID.
-    /// - `Err(Arc<Error>)`: An error indicating the publish failed.
+    /// - [`Err(PublishError)`](crate::error::PublishError): An error occurred while publishing the message.
     type Output = std::result::Result<String, crate::error::PublishError>;
 
     fn poll(mut self: Pin<&mut Self>, cx: &mut Context<'_>) -> Poll<Self::Output> {
@@ -56,7 +61,7 @@ impl Future for PublishFuture {
         // which can happen when the Dispatcher is dropped.
         match result {
             Ok(result) => Poll::Ready(result),
-            Err(_) => Poll::Ready(Err(crate::error::PublishError::ShutdownError(()))),
+            Err(_) => Poll::Ready(Err(crate::error::PublishError::Shutdown)),
         }
     }
 }
@@ -79,10 +84,10 @@ mod tests {
     async fn resolve_publish_future_error() -> anyhow::Result<()> {
         let (tx, rx) = oneshot::channel();
         let fut = PublishFuture { rx };
-        let _ = tx.send(Err(crate::error::PublishError::OrderingKeyPaused(())));
+        let _ = tx.send(Err(crate::error::PublishError::OrderingKeyPaused));
         let res = fut.await;
         assert!(
-            matches!(res, Err(crate::error::PublishError::OrderingKeyPaused(()))),
+            matches!(res, Err(crate::error::PublishError::OrderingKeyPaused)),
             "{res:?}"
         );
 
@@ -96,7 +101,7 @@ mod tests {
         drop(tx);
         let res = fut.await;
         assert!(
-            matches!(res, Err(crate::error::PublishError::ShutdownError(()))),
+            matches!(res, Err(crate::error::PublishError::Shutdown)),
             "{res:?}"
         );
 

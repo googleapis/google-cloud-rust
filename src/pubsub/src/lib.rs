@@ -23,18 +23,16 @@
 //! [Pub/Sub]. Most applications will use the structs defined in the
 //! [client] module.
 //!
-//! For administrative operations:
-//! * [TopicAdmin][client::TopicAdmin]
-//! * [SubscriptionAdmin][client::SubscriptionAdmin]
-//! * [SchemaService][client::SchemaService]
-//!
 //! For publishing messages:
-//! * [BasePublisher][publisher::client::BasePublisher] and [Publisher][client::Publisher]
+//! * [Publisher][client::Publisher]
 //!
 //! For receiving messages:
 //! * [Subscriber][client::Subscriber]
 //!
-//! Receiving messages is not yet supported by this crate.
+//! For administrative operations:
+//! * [TopicAdmin][client::TopicAdmin]
+//! * [SubscriptionAdmin][client::SubscriptionAdmin]
+//! * [SchemaService][client::SchemaService]
 //!
 //! **NOTE:** This crate used to contain a different implementation, with a
 //! different surface. [@yoshidan](https://github.com/yoshidan) generously
@@ -104,11 +102,6 @@ pub mod model {
     pub use crate::generated::gapic::model::*;
     pub use crate::generated::gapic_dataplane::model::PubsubMessage as Message;
     pub(crate) use crate::generated::gapic_dataplane::model::*;
-}
-
-/// Extends [model] with types that improve type safety and/or ergonomics.
-pub mod model_ext {
-    pub use crate::publisher::model_ext::*;
 }
 
 /// Clients to interact with Google Cloud Pub/Sub.

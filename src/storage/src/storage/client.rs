@@ -13,7 +13,6 @@
 // limitations under the License.
 
 use super::request_options::RequestOptions;
-use crate::Error;
 use crate::builder::storage::ReadObject;
 use crate::builder::storage::WriteObject;
 use crate::read_resume_policy::ReadResumePolicy;
@@ -22,11 +21,10 @@ use crate::storage::common_options::CommonOptions;
 use crate::streaming_source::Payload;
 use base64::Engine;
 use base64::prelude::BASE64_STANDARD;
-use gaxi::http::reqwest::RequestBuilder;
+use gaxi::http::HttpRequestBuilder;
 use gaxi::options::{ClientConfig, Credentials};
-use google_cloud_auth::credentials::{Builder as CredentialsBuilder, CacheableResource};
+use google_cloud_auth::credentials::Builder as CredentialsBuilder;
 use google_cloud_gax::client_builder::{Error as BuilderError, Result as BuilderResult};
-use http::Extensions;
 use std::sync::Arc;
 
 /// Implements a client for the Cloud Storage API.
@@ -102,7 +100,6 @@ where
 #[derive(Clone, Debug)]
 pub(crate) struct StorageInner {
     pub client: gaxi::http::ReqwestClient,
-    pub cred: Credentials,
     pub options: RequestOptions,
     pub grpc: gaxi::grpc::Client,
 }
@@ -302,13 +299,11 @@ impl StorageInner {
     /// Builds a client assuming `config.cred` and `config.endpoint` are initialized, panics otherwise.
     pub(self) fn new(
         client: gaxi::http::ReqwestClient,
-        cred: Credentials,
         options: RequestOptions,
         grpc: gaxi::grpc::Client,
     ) -> Self {
         Self {
             client,
-            cred,
             options,
             grpc,
         }
@@ -317,42 +312,16 @@ impl StorageInner {
     pub(self) async fn from_parts(builder: ClientBuilder) -> BuilderResult<Self> {
         let (mut config, options) = builder.into_parts()?;
         config.disable_automatic_decompression = true;
-        let cred = config
-            .cred
-            .clone()
-            .expect("into_parts() assigns default credentials");
+        config.disable_follow_redirects = true;
 
         let client = gaxi::http::ReqwestClient::new(config.clone(), super::DEFAULT_HOST).await?;
 
         let inner = StorageInner::new(
             client,
-            cred,
             options,
             gaxi::grpc::Client::new(config, super::DEFAULT_HOST).await?,
         );
         Ok(inner)
-    }
-
-    // Helper method to apply authentication headers to the request builder.
-    pub async fn apply_auth_headers(
-        &self,
-        builder: RequestBuilder,
-    ) -> crate::Result<RequestBuilder> {
-        let cached_auth_headers = self
-            .cred
-            .headers(Extensions::new())
-            .await
-            .map_err(Error::authentication)?;
-
-        let auth_headers = match cached_auth_headers {
-            CacheableResource::New { data, .. } => data,
-            CacheableResource::NotModified => {
-                unreachable!("headers are not cached");
-            }
-        };
-
-        let builder = builder.headers(auth_headers);
-        Ok(builder)
     }
 }
 
@@ -775,9 +744,9 @@ pub(crate) fn enc(value: &str) -> String {
 }
 
 pub(crate) fn apply_customer_supplied_encryption_headers(
-    builder: RequestBuilder,
+    builder: HttpRequestBuilder,
     common_object_request_params: &Option<crate::model::CommonObjectRequestParams>,
-) -> RequestBuilder {
+) -> HttpRequestBuilder {
     common_object_request_params.iter().fold(builder, |b, v| {
         b.header(
             "x-goog-encryption-algorithm",
