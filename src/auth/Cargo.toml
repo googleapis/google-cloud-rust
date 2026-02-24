@@ -37,6 +37,7 @@ rustc_version.workspace = true
 async-trait.workspace = true
 base64.workspace      = true
 bytes.workspace       = true
+chrono                = { workspace = true, features = ["clock"] }
 http.workspace        = true
 reqwest               = { workspace = true, features = ["form", "json", "query", "rustls-no-provider"] }
 rustls                = { workspace = true, features = ["logging", "std", "tls12"] }
@@ -46,6 +47,10 @@ serde_json.workspace  = true
 thiserror.workspace   = true
 time                  = { workspace = true, features = ["serde"] }
 tokio                 = { workspace = true, features = ["fs", "process"] }
+hmac.workspace        = true
+hex                   = { workspace = true, features = ["std"] }
+url.workspace         = true
+sha2.workspace        = true
 jsonwebtoken          = { workspace = true, optional = true }
 # We do not use this directly, but without it the minimal-versions build breaks.
 # See: https://github.com/Keats/jsonwebtoken/pull/481
