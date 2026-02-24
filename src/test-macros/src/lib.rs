@@ -13,8 +13,8 @@
 // limitations under the License.
 
 use proc_macro::TokenStream;
-use syn::{parse_macro_input, ItemFn};
 use quote::quote;
+use syn::{ItemFn, parse_macro_input};
 
 /// A shorthand for tests that should fail on background panics.
 ///
