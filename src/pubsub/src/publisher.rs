@@ -12,22 +12,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-pub(crate) mod actor;
-pub(crate) mod backoff_policy;
-pub(crate) mod base_publisher;
-pub(crate) mod batch;
-pub(crate) mod builder;
-pub(crate) mod client_builder;
-pub(crate) mod constants;
-pub(crate) mod future;
-pub(crate) mod implementation;
-pub(crate) mod options;
-pub(crate) mod retry_policy;
-
 pub use future::PublishFuture;
+/// Request and client builders for the [Publisher][crate::client::Publisher] client.
+pub mod builder;
+/// Clients to publish messages.
+pub mod client;
 
-/// Contains clients for publishing messages.
-pub mod client {
-    pub use super::base_publisher::BasePublisher;
-    pub use super::implementation::Publisher;
-}
+mod actor;
+mod backoff_policy;
+mod base_publisher;
+mod batch;
+mod client_builder;
+mod constants;
+mod future;
+mod options;
+mod retry_policy;

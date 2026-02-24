@@ -18,6 +18,8 @@ use std::sync::Arc;
 
 const MIB: i64 = 1024 * 1024;
 
+pub use super::client_builder::ClientBuilder;
+
 /// Builder for the `client::Subscriber::streaming_pull` method.
 pub struct StreamingPull {
     pub(super) inner: Arc<Transport>,

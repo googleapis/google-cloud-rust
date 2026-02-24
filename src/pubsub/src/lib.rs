@@ -80,7 +80,7 @@ pub(crate) use google_cloud_gax::response::Response;
 pub mod builder {
     /// Request and client builders for the [Publisher][crate::client::Publisher] client.
     pub mod publisher {
-        pub use crate::publisher::base_publisher::BasePublisherBuilder;
+        pub use crate::publisher::builder::BasePublisherBuilder;
         pub use crate::publisher::builder::PublisherBuilder;
         pub use crate::publisher::builder::PublisherPartialBuilder;
     }
@@ -88,8 +88,8 @@ pub mod builder {
     pub use crate::generated::gapic::builder::schema_service;
     /// Request and client builders for the [Subscriber][crate::client::Subscriber] client.
     pub mod subscriber {
+        pub use crate::subscriber::builder::ClientBuilder;
         pub use crate::subscriber::builder::StreamingPull;
-        pub use crate::subscriber::client_builder::ClientBuilder;
     }
     /// Request and client builders for the [SubscriptionAdmin][crate::client::SubscriptionAdmin] client.
     pub use crate::generated::gapic::builder::subscription_admin;
@@ -164,7 +164,7 @@ pub mod model {
 /// ```
 pub mod client {
     pub use crate::generated::gapic::client::*;
-    pub use crate::publisher::implementation::Publisher;
+    pub use crate::publisher::client::Publisher;
     pub use crate::subscriber::client::Subscriber;
 }
 

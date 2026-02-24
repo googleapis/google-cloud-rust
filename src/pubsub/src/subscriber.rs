@@ -15,11 +15,12 @@
 pub mod handler;
 
 pub use message_stream::MessageStream;
-
+/// Request and client builders for the [Subscriber][crate::client::Subscriber] client.
+pub mod builder;
+/// Clients to receive messages.
 pub mod client;
 
-pub(super) mod builder;
-pub(super) mod client_builder;
+mod client_builder;
 mod keepalive;
 mod lease_loop;
 mod lease_state;
