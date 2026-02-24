@@ -49,9 +49,7 @@ pub struct RequestOptions {
     retry_throttler: Option<SharedRetryThrottler>,
     polling_error_policy: Option<Arc<dyn PollingErrorPolicy>>,
     polling_backoff_policy: Option<Arc<dyn PollingBackoffPolicy>>,
-    path_template: Option<&'static str>,
-    #[cfg(google_cloud_unstable_tracing)]
-    resource_name: Option<String>,
+    extensions: http::Extensions,
 }
 
 impl RequestOptions {
@@ -156,28 +154,6 @@ impl RequestOptions {
     pub fn set_polling_backoff_policy<V: Into<PollingBackoffPolicyArg>>(&mut self, v: V) {
         self.polling_backoff_policy = Some(v.into().0);
     }
-
-    /// Get the current path template, if any.
-    pub(crate) fn path_template(&self) -> Option<&'static str> {
-        self.path_template
-    }
-
-    /// Sets the path template for the request URL.
-    pub(crate) fn set_path_template(&mut self, v: &'static str) {
-        self.path_template = Some(v);
-    }
-
-    /// Get the current resource name, if any.
-    #[cfg(google_cloud_unstable_tracing)]
-    pub(crate) fn resource_name(&self) -> Option<&str> {
-        self.resource_name.as_deref()
-    }
-
-    /// Sets the resource name for the request.
-    #[cfg(google_cloud_unstable_tracing)]
-    pub(crate) fn set_resource_name(&mut self, v: String) {
-        self.resource_name = Some(v);
-    }
 }
 
 /// Implementations of this trait provide setters to configure request options.
@@ -237,27 +213,80 @@ pub mod internal {
         options
     }
 
+    mod sealed {
+        pub trait OptionsExt {}
+    }
+
+    /// Access the `RequestOption` extensions.
+    ///
+    /// The client library internals can use this trait to attach extension
+    /// values to the request options. Possibly passing (nearly) arbitrary types
+    /// between layers.
+    ///
+    /// This is useful when (for example) the tracing layer wants to pass
+    /// information to the HTTP or gRPC client, without having to change all the
+    /// intermediate types, which may include public interfaces.
+    pub trait RequestOptionsExt: sealed::OptionsExt {
+        /// Gets an extension value.
+        fn get_extension<T>(&self) -> Option<&T>
+        where
+            T: Send + Sync + 'static;
+
+        /// Sets an extension value.
+        fn insert_extension<T>(self, value: T) -> Self
+        where
+            T: Clone + Send + Sync + 'static;
+    }
+
+    impl sealed::OptionsExt for RequestOptions {}
+    impl RequestOptionsExt for RequestOptions {
+        fn get_extension<T>(&self) -> Option<&T>
+        where
+            T: Send + Sync + 'static,
+        {
+            self.extensions.get::<T>()
+        }
+
+        fn insert_extension<T>(mut self, value: T) -> Self
+        where
+            T: Clone + Send + Sync + 'static,
+        {
+            let _ = self.extensions.insert(value);
+            self
+        }
+    }
+
+    #[derive(Debug, Clone, Default, PartialEq)]
+    pub struct PathTemplate(pub &'static str);
+
+    #[derive(Debug, Clone, Default, PartialEq)]
+    pub struct ResourceName(pub String);
+
+    // TODO(#4772) - stop using these functions and use `TracingExtension` directly
     pub fn set_path_template(
-        mut options: RequestOptions,
+        options: RequestOptions,
         path_template: &'static str,
     ) -> RequestOptions {
-        options.set_path_template(path_template);
-        options
+        options.insert_extension(PathTemplate(path_template))
     }
 
+    // TODO(#4772) - stop using these functions and use `TracingExtension` directly
     pub fn get_path_template(options: &RequestOptions) -> Option<&'static str> {
-        options.path_template()
+        options.get_extension::<PathTemplate>().map(|e| e.0)
     }
 
-    #[cfg(google_cloud_unstable_tracing)]
-    pub fn set_resource_name(mut options: RequestOptions, resource_name: String) -> RequestOptions {
-        options.set_resource_name(resource_name);
-        options
-    }
-
+    // TODO(#4772) - stop using these functions and use `TracingExtension` directly
     #[cfg(google_cloud_unstable_tracing)]
     pub fn get_resource_name(options: &RequestOptions) -> Option<&str> {
-        options.resource_name()
+        options
+            .get_extension::<ResourceName>()
+            .map(|e| e.0.as_str())
+    }
+
+    // TODO(#4772) - stop using these functions and use `TracingExtension` directly
+    #[cfg(google_cloud_unstable_tracing)]
+    pub fn set_resource_name(options: RequestOptions, resource_name: String) -> RequestOptions {
+        options.insert_extension(ResourceName(resource_name))
     }
 }
 
@@ -315,8 +344,9 @@ mod tests {
     use crate::polling_error_policy;
     use crate::retry_policy::LimitedAttemptCount;
     use crate::retry_throttler::AdaptiveThrottler;
+    use static_assertions::{assert_impl_all, assert_not_impl_all};
+    use std::panic::{RefUnwindSafe, UnwindSafe};
     use std::time::Duration;
-    type Result = std::result::Result<(), Box<dyn std::error::Error>>;
 
     #[derive(Debug, Default)]
     struct TestBuilder {
@@ -326,6 +356,12 @@ mod tests {
         fn request_options(&mut self) -> &mut RequestOptions {
             &mut self.request_options
         }
+    }
+
+    #[test]
+    fn traits() {
+        assert_impl_all!(RequestOptions: Clone, Send, Sync, Unpin, std::fmt::Debug);
+        assert_not_impl_all!(RequestOptions: RefUnwindSafe, UnwindSafe);
     }
 
     #[test]
@@ -361,9 +397,6 @@ mod tests {
 
         opts.set_polling_backoff_policy(ExponentialBackoffBuilder::new().clamp());
         assert!(opts.polling_backoff_policy().is_some(), "{opts:?}");
-
-        opts.set_path_template("test");
-        assert_eq!(opts.path_template(), Some("test"));
     }
 
     #[test]
@@ -380,24 +413,36 @@ mod tests {
     }
 
     #[test]
-    fn request_options_path_template() {
+    fn request_options_ext() {
+        #[derive(Debug, Clone, PartialEq)]
+        struct TestA(&'static str);
+        #[derive(Debug, Clone, PartialEq)]
+        struct TestB(u32);
+
         let opts = RequestOptions::default();
-        assert_eq!(opts.path_template(), None);
-        let opts = set_path_template(opts, "test");
-        assert_eq!(opts.path_template(), Some("test"));
+        assert!(opts.get_extension::<TestA>().is_none(), "{opts:?}");
+        assert!(opts.get_extension::<TestB>().is_none(), "{opts:?}");
+        let opts = opts.insert_extension(TestA("1"));
+        assert_eq!(opts.get_extension::<TestA>(), Some(&TestA("1")), "{opts:?}");
+        assert!(opts.get_extension::<TestB>().is_none(), "{opts:?}");
+        let opts = opts
+            .insert_extension(TestA("2"))
+            .insert_extension(TestB(42));
+        assert_eq!(opts.get_extension::<TestA>(), Some(&TestA("2")), "{opts:?}");
+        assert_eq!(opts.get_extension::<TestB>(), Some(&TestB(42)), "{opts:?}");
     }
 
     #[test]
     #[cfg(google_cloud_unstable_tracing)]
     fn request_options_resource_name() {
         let opts = RequestOptions::default();
-        assert_eq!(opts.resource_name(), None);
+        assert_eq!(get_resource_name(&opts), None);
         let opts = set_resource_name(opts, "test".to_string());
-        assert_eq!(opts.resource_name(), Some("test"));
+        assert_eq!(get_resource_name(&opts), Some("test"));
     }
 
     #[test]
-    fn request_options_builder() -> Result {
+    fn request_options_builder() -> anyhow::Result<()> {
         let mut builder = TestBuilder::default();
         assert_eq!(builder.request_options().user_agent(), &None);
         assert_eq!(builder.request_options().attempt_timeout(), &None);
