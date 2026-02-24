@@ -297,7 +297,9 @@ impl AwsSourcedCredentials {
                 .map_err(|e| errors::from_http_error(e, MSG))?;
 
             if !response.status().is_success() {
-                return Err(errors::from_http_response(response, "failed to resolve IMDSv2 token").await);
+                return Err(
+                    errors::from_http_response(response, "failed to resolve IMDSv2 token").await,
+                );
             }
 
             let token = response
@@ -330,7 +332,9 @@ impl AwsSourcedCredentials {
                 .await
                 .map_err(|e| errors::from_http_error(e, MSG))?;
             if !response.status().is_success() {
-                return Err(errors::from_http_response(response, "could not resolve AWS region").await);
+                return Err(
+                    errors::from_http_response(response, "could not resolve AWS region").await,
+                );
             }
             let zone = response
                 .text()
@@ -364,7 +368,11 @@ impl AwsSourcedCredentials {
                 .await
                 .map_err(|e| errors::from_http_error(e, MSG))?;
             if !response.status().is_success() {
-                return Err(errors::from_http_response(response, "could not resolve AWS role name").await);
+                return Err(errors::from_http_response(
+                    response,
+                    "could not resolve AWS role name",
+                )
+                .await);
             }
             let role_name = response
                 .text()
@@ -398,7 +406,11 @@ impl AwsSourcedCredentials {
                 .await
                 .map_err(|e| errors::from_http_error(e, MSG))?;
             if !response.status().is_success() {
-                return Err(errors::from_http_response(response, "could not resolve AWS credentials").await);
+                return Err(errors::from_http_response(
+                    response,
+                    "could not resolve AWS credentials",
+                )
+                .await);
             }
             let creds = response
                 .json()
@@ -677,7 +689,10 @@ mod tests {
         let val: serde_json::Value = serde_json::from_str(&decoded_json)?;
 
         assert_eq!(val["method"], "POST", "{val:?}");
-        assert_eq!(val["url"], "https://sts.us-east-1.amazonaws.com/", "{val:?}");
+        assert_eq!(
+            val["url"], "https://sts.us-east-1.amazonaws.com/",
+            "{val:?}"
+        );
 
         let headers = val["headers"]
             .as_array()
@@ -733,7 +748,10 @@ mod tests {
             .collect();
         let val: serde_json::Value = serde_json::from_str(&decoded_json)?;
 
-        assert_eq!(val["url"], "https://sts.us-west-2.amazonaws.com/", "{val:?}");
+        assert_eq!(
+            val["url"], "https://sts.us-west-2.amazonaws.com/",
+            "{val:?}"
+        );
 
         let headers = val["headers"]
             .as_array()
