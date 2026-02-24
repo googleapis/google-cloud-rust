@@ -12,12 +12,43 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+pub mod logs;
 pub mod metrics;
 pub mod trace;
+
+pub use http::Uri;
 
 const GCP_OTLP_ENDPOINT: &str = "https://telemetry.googleapis.com";
 const OTEL_KEY_GCP_PROJECT_ID: &str = "gcp.project_id";
 const OTEL_KEY_SERVICE_NAME: &str = "service.name";
+
+type BoxedError = Box<dyn std::error::Error + Send + Sync + 'static>;
+
+#[derive(Debug, thiserror::Error)]
+#[non_exhaustive]
+pub enum Error {
+    #[error("cannot initialize default credentials: {0}")]
+    DefaultCredentials(#[source] BoxedError),
+    #[error("the URI is invalid: {0}")]
+    InvalidUri(Uri),
+    #[error("cannot create exporter: {0}")]
+    CreateExporter(#[source] BoxedError),
+}
+
+impl Error {
+    fn credentials(source: google_cloud_auth::build_errors::Error) -> Self {
+        Self::DefaultCredentials(Box::new(source))
+    }
+    fn invalid_uri(uri: Uri) -> Self {
+        Self::InvalidUri(uri)
+    }
+    fn create_exporter<E>(source: E) -> Self
+    where
+        E: Into<BoxedError>,
+    {
+        Self::CreateExporter(source.into())
+    }
+}
 
 #[cfg(test)]
 mod tests {

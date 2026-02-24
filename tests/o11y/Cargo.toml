@@ -41,9 +41,9 @@ storage-samples               = { workspace = true }
 google-cloud-trace-v1         = { workspace = true, features = ["default"] }
 http.workspace                = true
 httptest.workspace            = true
-opentelemetry                 = { workspace = true, features = ["metrics", "trace"] }
-opentelemetry_sdk             = { workspace = true, features = ["metrics", "rt-tokio", "trace"] }
-opentelemetry-proto           = { workspace = true, features = ["gen-tonic", "metrics", "trace"] }
+opentelemetry                 = { workspace = true, features = ["logs", "metrics", "trace"] }
+opentelemetry_sdk             = { workspace = true, features = ["logs", "metrics", "rt-tokio", "trace"] }
+opentelemetry-proto           = { workspace = true, features = ["gen-tonic", "logs", "metrics", "trace"] }
 thiserror.workspace           = true
 tokio                         = { workspace = true, features = ["test-util", "time"] }
 tokio-stream                  = { workspace = true, features = ["net"] }
@@ -55,7 +55,7 @@ tracing-opentelemetry         = { workspace = true }
 # Separate for cleaner formatting.
 [dependencies.opentelemetry-otlp]
 workspace = true
-features  = ["grpc-tonic", "metrics", "tls", "tls-roots", "trace"]
+features  = ["grpc-tonic", "logs", "metrics", "tls", "tls-roots", "trace"]
 
 [dev-dependencies]
 opentelemetry_sdk = { workspace = true, features = ["testing"] }
