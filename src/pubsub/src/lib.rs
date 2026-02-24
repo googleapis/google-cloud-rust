@@ -150,8 +150,8 @@ pub mod model {
 ///
 /// // Start a message stream from a subscription.
 /// let mut stream = client
-///     .streaming_pull("projects/my-project/subscriptions/my-subscription")
-///     .start();
+///     .stream("projects/my-project/subscriptions/my-subscription")
+///     .build();
 ///
 /// // Receive messages from the stream.
 /// while let Some((m, h)) = stream.next().await.transpose()? {

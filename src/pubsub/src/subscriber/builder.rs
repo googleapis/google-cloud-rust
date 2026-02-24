@@ -57,15 +57,15 @@ impl StreamingPull {
     /// # use google_cloud_pubsub::client::Subscriber;
     /// # async fn sample(client: Subscriber) -> anyhow::Result<()> {
     /// let mut stream = client
-    ///     .streaming_pull("projects/my-project/subscriptions/my-subscription")
-    ///     .start();
+    ///     .stream("projects/my-project/subscriptions/my-subscription")
+    ///     .build();
     /// while let Some((m, h)) = stream.next().await.transpose()? {
     ///     println!("Received message m={m:?}");
     ///     h.ack();
     /// }
     /// # Ok(()) }
     /// ```
-    pub fn start(self) -> MessageStream {
+    pub fn build(self) -> MessageStream {
         MessageStream::new(self)
     }
 
@@ -90,9 +90,9 @@ impl StreamingPull {
     /// # use google_cloud_pubsub::client::Subscriber;
     /// # async fn sample() -> anyhow::Result<()> {
     /// # let client = Subscriber::builder().build().await?;
-    /// let stream = client.streaming_pull("projects/my-project/subscriptions/my-subscription")
+    /// let stream = client.stream("projects/my-project/subscriptions/my-subscription")
     ///     .set_ack_deadline_seconds(20)
-    ///     .start();
+    ///     .build();
     /// # Ok(()) }
     /// ```
     pub fn set_ack_deadline_seconds<T: Into<i32>>(mut self, v: T) -> Self {
@@ -117,9 +117,9 @@ impl StreamingPull {
     /// # use google_cloud_pubsub::client::Subscriber;
     /// # async fn sample() -> anyhow::Result<()> {
     /// # let client = Subscriber::builder().build().await?;
-    /// let stream = client.streaming_pull("projects/my-project/subscriptions/my-subscription")
+    /// let stream = client.stream("projects/my-project/subscriptions/my-subscription")
     ///     .set_max_outstanding_messages(2000)
-    ///     .start();
+    ///     .build();
     /// # Ok(()) }
     /// ```
     pub fn set_max_outstanding_messages<T: Into<i64>>(mut self, v: T) -> Self {
@@ -145,9 +145,9 @@ impl StreamingPull {
     /// # async fn sample() -> anyhow::Result<()> {
     /// # let client = Subscriber::builder().build().await?;
     /// const MIB: i64 = 1024 * 1024;
-    /// let stream = client.streaming_pull("projects/my-project/subscriptions/my-subscription")
+    /// let stream = client.stream("projects/my-project/subscriptions/my-subscription")
     ///     .set_max_outstanding_bytes(200 * MIB)
-    ///     .start();
+    ///     .build();
     /// # Ok(()) }
     /// ```
     pub fn set_max_outstanding_bytes<T: Into<i64>>(mut self, v: T) -> Self {

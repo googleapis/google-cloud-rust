@@ -28,8 +28,8 @@ use std::sync::Arc;
 /// # async fn sample() -> anyhow::Result<()> {
 /// let client = Subscriber::builder().build().await?;
 /// let mut stream = client
-///     .streaming_pull("projects/my-project/subscriptions/my-subscription")
-///     .start();
+///     .stream("projects/my-project/subscriptions/my-subscription")
+///     .build();
 /// while let Some((m, h)) = stream.next().await.transpose()? {
 ///     println!("Received message m={m:?}");
 ///     h.ack();
@@ -130,8 +130,8 @@ impl Subscriber {
     /// # use google_cloud_pubsub::client::Subscriber;
     /// # async fn sample(client: Subscriber) -> anyhow::Result<()> {
     /// let mut stream = client
-    ///     .streaming_pull("projects/my-project/subscriptions/my-subscription")
-    ///     .start();
+    ///     .stream("projects/my-project/subscriptions/my-subscription")
+    ///     .build();
     /// while let Some((m, h)) = stream.next().await.transpose()? {
     ///     println!("Received message m={m:?}");
     ///     h.ack();
@@ -140,7 +140,7 @@ impl Subscriber {
     /// ```
     ///
     /// [subscription]: https://docs.cloud.google.com/pubsub/docs/subscription-overview
-    pub fn streaming_pull<T>(&self, subscription: T) -> StreamingPull
+    pub fn stream<T>(&self, subscription: T) -> StreamingPull
     where
         T: Into<String>,
     {
@@ -189,8 +189,8 @@ mod tests {
             .build()
             .await?;
         let err = client
-            .streaming_pull("projects/p/subscriptions/s")
-            .start()
+            .stream("projects/p/subscriptions/s")
+            .build()
             .next()
             .await
             .expect("stream should not be empty")
@@ -228,7 +228,7 @@ mod tests {
             .await?;
         assert_eq!(client.grpc_subchannel_count, 8);
 
-        let builder = client.streaming_pull("projects/p/subscriptions/s");
+        let builder = client.stream("projects/p/subscriptions/s");
         assert_eq!(builder.grpc_subchannel_count, 8);
 
         Ok(())

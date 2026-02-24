@@ -41,8 +41,8 @@ use tokio::time::Instant;
 /// # use google_cloud_pubsub::client::Subscriber;
 /// # async fn sample(client: Subscriber) -> anyhow::Result<()> {
 /// let mut stream = client
-///     .streaming_pull("projects/my-project/subscriptions/my-subscription")
-///     .start();
+///     .stream("projects/my-project/subscriptions/my-subscription")
+///     .build();
 /// while let Some((m, h)) = stream.next().await.transpose()? {
 ///     println!("Received message m={m:?}");
 ///     h.ack();
@@ -333,7 +333,7 @@ mod tests {
             .return_once(|_| Err(TonicStatus::failed_precondition("fail")));
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
-        let mut stream = client.streaming_pull("projects/p/subscriptions/s").start();
+        let mut stream = client.stream("projects/p/subscriptions/s").build();
         let err = stream
             .next()
             .await
@@ -377,11 +377,11 @@ mod tests {
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
         let _ = client
-            .streaming_pull("projects/p/subscriptions/s")
+            .stream("projects/p/subscriptions/s")
             .set_ack_deadline_seconds(20)
             .set_max_outstanding_messages(2000)
             .set_max_outstanding_bytes(200 * MIB)
-            .start()
+            .build()
             .next()
             .await;
 
@@ -422,7 +422,7 @@ mod tests {
         });
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
-        let mut stream = client.streaming_pull("projects/p/subscriptions/s").start();
+        let mut stream = client.stream("projects/p/subscriptions/s").build();
 
         response_tx.send(Ok(test_response(1..2))).await?;
         response_tx.send(Ok(test_response(2..4))).await?;
@@ -479,7 +479,7 @@ mod tests {
         });
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
-        let mut stream = client.streaming_pull("projects/p/subscriptions/s").start();
+        let mut stream = client.stream("projects/p/subscriptions/s").build();
 
         response_tx.send(Ok(test_response(0..30))).await?;
         drop(response_tx);
@@ -559,7 +559,7 @@ mod tests {
             .return_once(|_| Ok(TonicResponse::from(response_rx)));
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
-        let mut stream = client.streaming_pull("projects/p/subscriptions/s").start();
+        let mut stream = client.stream("projects/p/subscriptions/s").build();
         let (m, Handler::AtLeastOnce(h)) = stream
             .next()
             .await
@@ -586,7 +586,7 @@ mod tests {
             .return_once(|_| Ok(TonicResponse::from(response_rx)));
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
-        let mut stream = client.streaming_pull("projects/p/subscriptions/s").start();
+        let mut stream = client.stream("projects/p/subscriptions/s").build();
 
         for i in 1..7 {
             response_tx.send(Ok(test_response(i..i + 1))).await?;
@@ -612,7 +612,7 @@ mod tests {
             .return_once(|_| Ok(TonicResponse::from(response_rx)));
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
-        let mut stream = client.streaming_pull("projects/p/subscriptions/s").start();
+        let mut stream = client.stream("projects/p/subscriptions/s").build();
 
         response_tx.send(Ok(test_response(1..2))).await?;
         // See if we can handle an empty range
@@ -659,7 +659,7 @@ mod tests {
         });
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
-        let mut stream = client.streaming_pull("projects/p/subscriptions/s").start();
+        let mut stream = client.stream("projects/p/subscriptions/s").build();
 
         response_tx.send(Ok(test_response(1..4))).await?;
         // See if we can handle an empty range
@@ -704,7 +704,7 @@ mod tests {
             .return_once(|_| Ok(TonicResponse::from(response_rx)));
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
-        let mut stream = client.streaming_pull("projects/p/subscriptions/s").start();
+        let mut stream = client.stream("projects/p/subscriptions/s").build();
 
         response_tx.send(Ok(test_response(1..4))).await?;
         response_tx
@@ -761,7 +761,7 @@ mod tests {
 
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
-        let mut stream = client.streaming_pull("projects/p/subscriptions/s").start();
+        let mut stream = client.stream("projects/p/subscriptions/s").build();
         response_tx.send(Ok(test_response(1..4))).await?;
         let _ = stream.next().await;
 
@@ -823,20 +823,12 @@ mod tests {
         // Make two requests with the same client. The requests should have the
         // same client ID.
         let c1 = test_client(endpoint.clone()).await?;
-        let _ = c1
-            .streaming_pull("projects/p/subscriptions/s")
-            .start()
-            .next()
-            .await;
+        let _ = c1.stream("projects/p/subscriptions/s").build().next().await;
         let req1 = recover_writes_rx
             .recv()
             .await
             .expect("should receive a request")?;
-        let _ = c1
-            .streaming_pull("projects/p/subscriptions/s")
-            .start()
-            .next()
-            .await;
+        let _ = c1.stream("projects/p/subscriptions/s").build().next().await;
         let req2 = recover_writes_rx
             .recv()
             .await
@@ -846,11 +838,7 @@ mod tests {
         // Make a third request with a different client. This request should
         // have a different client ID.
         let c2 = test_client(endpoint).await?;
-        let _ = c2
-            .streaming_pull("projects/p/subscriptions/s")
-            .start()
-            .next()
-            .await;
+        let _ = c2.stream("projects/p/subscriptions/s").build().next().await;
         let req3 = recover_writes_rx
             .recv()
             .await
@@ -872,7 +860,7 @@ mod tests {
 
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
-        let mut stream = client.streaming_pull("projects/p/subscriptions/s").start();
+        let mut stream = client.stream("projects/p/subscriptions/s").build();
 
         let _ = tokio::time::timeout(TEST_TIMEOUT, stream.next())
             .await
@@ -904,7 +892,7 @@ mod tests {
             .return_once(|_| Err(TonicStatus::failed_precondition("fail")));
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
-        let mut stream = client.streaming_pull("projects/p/subscriptions/s").start();
+        let mut stream = client.stream("projects/p/subscriptions/s").build();
         let err = stream
             .next()
             .await
@@ -960,7 +948,7 @@ mod tests {
         });
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
-        let mut stream = client.streaming_pull("projects/p/subscriptions/s").start();
+        let mut stream = client.stream("projects/p/subscriptions/s").build();
 
         response_tx_1.send(Ok(test_response(0..10))).await?;
         response_tx_1.send(Ok(test_response(10..20))).await?;
@@ -1032,7 +1020,7 @@ mod tests {
         });
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
-        let mut stream = client.streaming_pull("projects/p/subscriptions/s").start();
+        let mut stream = client.stream("projects/p/subscriptions/s").build();
 
         response_tx.send(Ok(test_response(0..10))).await?;
         response_tx.send(Ok(test_response(10..20))).await?;
@@ -1095,8 +1083,8 @@ mod tests {
         let client = test_client(endpoint).await?;
 
         let _ = client
-            .streaming_pull("projects/p/subscriptions/s")
-            .start()
+            .stream("projects/p/subscriptions/s")
+            .build()
             .next()
             .await;
 
@@ -1124,8 +1112,8 @@ mod tests {
         let client = test_client(endpoint).await?;
 
         let stream = client
-            .streaming_pull("projects/p/subscriptions/s")
-            .start()
+            .stream("projects/p/subscriptions/s")
+            .build()
             .into_stream();
 
         response_tx.send(Ok(test_response(1..3))).await?;
