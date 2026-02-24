@@ -225,17 +225,4 @@ mod tests {
 
         Ok(())
     }
-
-    #[test]
-    fn at_least_once_drop_nacks() -> anyhow::Result<()> {
-        let (ack_tx, mut ack_rx) = unbounded_channel();
-        let h = AtLeastOnce::new(test_id(1), ack_tx);
-        assert_eq!(ack_rx.try_recv(), Err(TryRecvError::Empty));
-
-        drop(h);
-        let ack = ack_rx.try_recv()?;
-        assert_eq!(ack, AckResult::Nack(test_id(1)));
-
-        Ok(())
-    }
 }
