@@ -167,6 +167,76 @@ impl Drop for AtLeastOnce {
     }
 }
 
+#[cfg(test)] // TODO(#3964): implementation in progress...
+/// A handler for exactly-once delivery.
+#[derive(Debug)]
+pub struct ExactlyOnce {
+    inner: Option<ExactlyOnceImpl>,
+}
+
+#[cfg(test)] // TODO(#3964): implementation in progress...
+impl ExactlyOnce {
+    pub(super) fn new(
+        ack_id: String,
+        ack_tx: UnboundedSender<AckResult>,
+        // TODO(#3964): support confirmed acks
+    ) -> Self {
+        Self {
+            inner: Some(ExactlyOnceImpl {
+                ack_id,
+                ack_tx,
+                // TODO(#3964): support confirmed acks
+            }),
+        }
+    }
+
+    /// Acknowledge the message associated with this handler.
+    ///
+    /// Note that the acknowledgement is best effort. The message may still be
+    /// redelivered to this client, or another client.
+    pub fn ack(mut self) {
+        if let Some(inner) = self.inner.take() {
+            inner.ack();
+        }
+    }
+
+    // TODO(#3964): add confirmed_ack()
+}
+
+#[cfg(test)] // TODO(#3964): implementation in progress...
+impl Drop for ExactlyOnce {
+    /// Rejects the message associated with this handler.
+    ///
+    /// The message will be removed from this `Subscriber`'s lease management.
+    /// The service will redeliver this message, possibly to another client.
+    fn drop(&mut self) {
+        if let Some(inner) = self.inner.take() {
+            inner.nack();
+        }
+    }
+}
+
+#[cfg(test)] // TODO(#3964): implementation in progress...
+#[derive(Debug)]
+struct ExactlyOnceImpl {
+    pub(super) ack_id: String,
+    pub(super) ack_tx: UnboundedSender<AckResult>,
+    // TODO(#3964): support confirmed acks
+}
+
+#[cfg(test)] // TODO(#3964): implementation in progress...
+impl ExactlyOnceImpl {
+    pub fn ack(self) {
+        let _ = self.ack_tx.send(AckResult::Ack(self.ack_id));
+    }
+
+    pub fn nack(self) {
+        let _ = self.ack_tx.send(AckResult::Nack(self.ack_id));
+    }
+
+    // TODO(#3964): add confirmed_ack()
+}
+
 #[cfg(test)]
 mod tests {
     use super::super::lease_state::tests::test_id;
@@ -217,6 +287,32 @@ mod tests {
     fn at_least_once_nack() -> anyhow::Result<()> {
         let (ack_tx, mut ack_rx) = unbounded_channel();
         let h = AtLeastOnce::new(test_id(1), ack_tx);
+        assert_eq!(ack_rx.try_recv(), Err(TryRecvError::Empty));
+
+        drop(h);
+        let ack = ack_rx.try_recv()?;
+        assert_eq!(ack, AckResult::Nack(test_id(1)));
+
+        Ok(())
+    }
+
+    #[test]
+    fn exactly_once_ack() -> anyhow::Result<()> {
+        let (ack_tx, mut ack_rx) = unbounded_channel();
+        let h = ExactlyOnce::new(test_id(1), ack_tx);
+        assert_eq!(ack_rx.try_recv(), Err(TryRecvError::Empty));
+
+        h.ack();
+        let ack = ack_rx.try_recv()?;
+        assert_eq!(ack, AckResult::Ack(test_id(1)));
+
+        Ok(())
+    }
+
+    #[test]
+    fn exactly_once_nack() -> anyhow::Result<()> {
+        let (ack_tx, mut ack_rx) = unbounded_channel();
+        let h = ExactlyOnce::new(test_id(1), ack_tx);
         assert_eq!(ack_rx.try_recv(), Err(TryRecvError::Empty));
 
         drop(h);
