@@ -49,7 +49,10 @@ impl Default for LeaseOptions {
     }
 }
 
-pub(super) type NewMessage = (String, LeaseInfo);
+pub(super) struct NewMessage {
+    pub(super) ack_id: String,
+    pub(super) lease_info: LeaseInfo,
+}
 
 #[derive(Debug)]
 #[cfg_attr(test, derive(PartialEq))]

@@ -33,7 +33,7 @@ impl LeaseLoop {
     where
         L: Leaser + Clone + Send + 'static,
     {
-        let (message_tx, mut message_rx) = unbounded_channel();
+        let (message_tx, mut message_rx) = unbounded_channel::<NewMessage>();
         let (ack_tx, mut ack_rx) = unbounded_channel();
         let mut state = LeaseState::new(leaser, options);
 
@@ -50,7 +50,7 @@ impl LeaseLoop {
                     message = message_rx.recv() => {
                         match message {
                             None => break shutdown(state, ack_rx).await,
-                            Some((ack_id, info)) => state.add(ack_id, info),
+                            Some(m) => state.add(m.ack_id, m.lease_info),
                         }
                     },
                     ack_id = ack_rx.recv() => {
@@ -96,6 +96,13 @@ mod tests {
     use tokio::sync::Mutex;
     use tokio::time::{Duration, Instant};
 
+    fn test_message(id: i32) -> NewMessage {
+        NewMessage {
+            ack_id: test_id(i),
+            lease_info: test_info(),
+        }
+    }
+
     #[tokio::test(start_paused = true)]
     async fn flush_acks_nacks_on_interval() -> anyhow::Result<()> {
         const FLUSH_PERIOD: Duration = Duration::from_secs(1);
@@ -116,7 +123,7 @@ mod tests {
 
         // Seed the lease loop with some messages
         for i in 0..30 {
-            lease_loop.message_tx.send((test_id(i), test_info()))?;
+            lease_loop.message_tx.send(test_message(i))?;
         }
 
         // Ack 10 messages
@@ -215,7 +222,7 @@ mod tests {
 
         // Seed the lease loop with some messages
         for i in 0..30 {
-            lease_loop.message_tx.send((test_id(i), test_info()))?;
+            lease_loop.message_tx.send(test_message(i))?;
         }
 
         // Confirm initial state
@@ -269,7 +276,7 @@ mod tests {
 
         // Seed the lease loop with some messages
         for i in 0..30 {
-            lease_loop.message_tx.send((test_id(i), test_info()))?;
+            lease_loop.message_tx.send(test_message(i))?;
         }
 
         // Ack 10 messages
@@ -312,7 +319,7 @@ mod tests {
 
         // Seed the lease loop with some messages
         for i in 0..30 {
-            lease_loop.message_tx.send((test_id(i), test_info()))?;
+            lease_loop.message_tx.send(test_message(i))?;
         }
 
         // Ack 10 messages
@@ -356,7 +363,7 @@ mod tests {
             tokio::task::yield_now().await;
 
             // Seed the lease loop with a message
-            lease_loop.message_tx.send((test_id(1), test_info()))?;
+            lease_loop.message_tx.send(test_message(1))?;
             // Immediately ack the message
             lease_loop.ack_tx.send(AckResult::Ack(test_id(1)))?;
 

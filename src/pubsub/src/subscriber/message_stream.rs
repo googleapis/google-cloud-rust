@@ -242,8 +242,11 @@ impl MessageStream {
                 // message.
                 continue;
             };
-            let info = LeaseInfo::AtLeastOnce(Instant::now());
-            let _ = self.message_tx.send((rm.ack_id.clone(), info));
+            let lease_info = LeaseInfo::AtLeastOnce(Instant::now());
+            let _ = self.message_tx.send(NewMessage {
+                ack_id: rm.ack_id.clone(),
+                lease_info,
+            });
             let message = match message.cnv().map_err(Error::deser) {
                 Ok(message) => message,
                 Err(e) => return Some(Err(e)),
