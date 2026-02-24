@@ -98,7 +98,7 @@ mod tests {
 
     fn test_message(id: i32) -> NewMessage {
         NewMessage {
-            ack_id: test_id(i),
+            ack_id: test_id(id),
             lease_info: test_info(),
         }
     }
