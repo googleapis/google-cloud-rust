@@ -16,10 +16,8 @@ use crate::observability::attributes::keys::*;
 use crate::observability::attributes::*;
 use crate::observability::errors::ErrorType;
 use crate::options::InstrumentationClientInfo;
-use google_cloud_gax::options::{
-    RequestOptions,
-    internal::{get_path_template, get_resource_name},
-};
+use google_cloud_gax::options::RequestOptions;
+use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt, ResourceName};
 use opentelemetry_semantic_conventions::{attribute as otel_attr, trace as otel_trace};
 use std::collections::HashSet;
 use tracing::{Span, field};
@@ -49,12 +47,13 @@ pub(crate) fn create_http_attempt_span(
     let url = cleanup_url(request.url());
     let method = request.method();
 
-    let url_template = get_path_template(options);
-    let resource_name = get_resource_name(options);
-    let otel_name = url_template.map_or_else(
-        || method.to_string(),
-        |template| format!("{} {}", method, template),
-    );
+    let resource_name = options
+        .get_extension::<ResourceName>()
+        .map(|e| e.0.as_str());
+    let url_template = options.get_extension::<PathTemplate>().map(|e| e.0);
+    let otel_name = url_template
+        .map(|template| format!("{method} {template}"))
+        .unwrap_or_else(|| method.to_string());
 
     let http_request_resend_count = if prior_attempt_count > 0 {
         Some(prior_attempt_count as i64)
@@ -244,7 +243,7 @@ mod tests {
         rpc::{Code, Status, StatusDetails},
     };
     use google_cloud_gax::options::RequestOptions;
-    use google_cloud_gax::options::internal::{set_path_template, set_resource_name};
+    use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt, ResourceName};
     use google_cloud_test_utils::test_layer::{AttributeValue, TestLayer, TestLayerGuard};
     use http::Method;
     use opentelemetry_semantic_conventions::{attribute as otel_attr, trace as otel_trace};
@@ -274,9 +273,11 @@ mod tests {
         let guard = TestLayer::initialize();
         let request =
             reqwest::Request::new(Method::GET, "https://example.com/test".parse().unwrap());
-        let options = set_path_template(RequestOptions::default(), "/test");
-        let options =
-            set_resource_name(options, "//example.com/projects/p/resources/r".to_string());
+        let options = RequestOptions::default()
+            .insert_extension(PathTemplate("/test"))
+            .insert_extension(ResourceName(
+                "//example.com/projects/p/resources/r".to_string(),
+            ));
         let _span = create_http_attempt_span(&request, &options, Some(&TEST_INFO), 1);
 
         let want: BTreeMap<String, AttributeValue> = [
@@ -357,9 +358,11 @@ mod tests {
     fn cleanup_url_query(input: &str, want: Vec<&str>) -> anyhow::Result<()> {
         let guard = TestLayer::initialize();
         let request = reqwest::Request::new(Method::GET, input.parse()?);
-        let options = set_path_template(RequestOptions::default(), "/test");
-        let options =
-            set_resource_name(options, "//example.com/projects/p/resources/r".to_string());
+        let options = RequestOptions::default()
+            .insert_extension(PathTemplate("/test"))
+            .insert_extension(ResourceName(
+                "//example.com/projects/p/resources/r".to_string(),
+            ));
         let _span = create_http_attempt_span(&request, &options, Some(&TEST_INFO), 1);
 
         let captured = TestLayer::capture(&guard);
