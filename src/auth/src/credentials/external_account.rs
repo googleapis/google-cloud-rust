@@ -2252,7 +2252,7 @@ mod tests {
             .build()?;
 
         // wait for the access boundary background thread to update
-        tokio::time::sleep(tokio::time::Duration::from_millis(300)).await;
+        tokio::time::sleep(tokio::time::Duration::from_secs(1)).await;
         tokio::task::yield_now().await;
 
         let headers = creds.headers(Extensions::new()).await?;
