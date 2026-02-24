@@ -49,13 +49,30 @@ impl Default for LeaseOptions {
     }
 }
 
+pub(super) type NewMessage = (String, LeaseInfo);
+
+#[derive(Debug)]
+#[cfg_attr(test, derive(PartialEq))]
+pub(super) enum LeaseInfo {
+    AtLeastOnce(Instant),
+    // TODO(#3964) - support exactly once delivery
+}
+
+impl LeaseInfo {
+    fn receive_time(&self) -> Instant {
+        match self {
+            LeaseInfo::AtLeastOnce(t) => *t,
+        }
+    }
+}
+
 #[derive(Debug)]
 pub(super) struct LeaseState<L>
 where
     L: Leaser + Clone,
 {
     // A map of ack IDs to the time they were first received.
-    under_lease: HashMap<String, Instant>,
+    under_lease: HashMap<String, LeaseInfo>,
     to_ack: Vec<String>,
     to_nack: Vec<String>,
     // TODO(#3964) - support exactly once acks
@@ -119,8 +136,8 @@ where
     }
 
     /// Accept a new ack ID under lease management
-    pub(super) fn add(&mut self, ack_id: String) {
-        self.under_lease.insert(ack_id, Instant::now());
+    pub(super) fn add(&mut self, ack_id: String, info: LeaseInfo) {
+        self.under_lease.insert(ack_id, info);
     }
 
     /// Process an ack from the application
@@ -162,11 +179,11 @@ where
         let now = Instant::now();
         let mut batches = Vec::new();
         let mut batch = Vec::new();
-        self.under_lease.retain(|ack_id, receive_time| {
+        self.under_lease.retain(|ack_id, info| {
             // Note that using `HashMap::retain` allows us to iterate over the
             // map and conditionally drop elements in one pass.
 
-            if *receive_time + self.max_lease_extension < now {
+            if info.receive_time() + self.max_lease_extension < now {
                 // Drop messages that have been held for too long.
                 false
             } else {
@@ -206,6 +223,7 @@ where
     }
 }
 
+#[cfg(test)]
 impl<L> PartialEq for LeaseState<L>
 where
     L: Leaser + Clone,
@@ -247,7 +265,7 @@ pub(super) mod tests {
         LeaseState {
             under_lease: under_lease
                 .into_iter()
-                .map(|s| (s.to_string(), Instant::now()))
+                .map(|s| (s.to_string(), test_info()))
                 .collect(),
             to_ack: to_ack.into_iter().map(|s| s.to_string()).collect(),
             to_nack: to_nack.into_iter().map(|s| s.to_string()).collect(),
@@ -272,19 +290,23 @@ pub(super) mod tests {
         s
     }
 
+    pub(in super::super) fn test_info() -> LeaseInfo {
+        LeaseInfo::AtLeastOnce(Instant::now())
+    }
+
     #[tokio::test(start_paused = true)]
     async fn basic_add_ack_nack() {
         let mock = MockLeaser::new();
         let mut state = LeaseState::new(Arc::new(mock), LeaseOptions::default());
         assert_eq!(state, make_state([], [], []));
 
-        state.add("1".to_string());
+        state.add("1".to_string(), test_info());
         assert_eq!(state, make_state(["1"], [], []));
 
-        state.add("2".to_string());
+        state.add("2".to_string(), test_info());
         assert_eq!(state, make_state(["1", "2"], [], []));
 
-        state.add("3".to_string());
+        state.add("3".to_string(), test_info());
         assert_eq!(state, make_state(["1", "2", "3"], [], []));
 
         state.ack("1".to_string());
@@ -293,7 +315,7 @@ pub(super) mod tests {
         state.nack("2".to_string());
         assert_eq!(state, make_state(["3"], ["1"], ["2"]));
 
-        state.add("4".to_string());
+        state.add("4".to_string(), test_info());
         assert_eq!(state, make_state(["3", "4"], ["1"], ["2"]));
 
         state.ack("4".to_string());
@@ -328,7 +350,7 @@ pub(super) mod tests {
 
         let mut state = LeaseState::new(Arc::new(mock), LeaseOptions::default());
         for i in 0..100 {
-            state.add(test_id(i));
+            state.add(test_id(i), test_info());
         }
         for i in 0..10 {
             state.ack(test_id(i));
@@ -339,7 +361,7 @@ pub(super) mod tests {
         let expected = LeaseState {
             under_lease: test_ids(20..100)
                 .into_iter()
-                .map(|s| (s, Instant::now()))
+                .map(|s| (s, test_info()))
                 .collect(),
             to_ack: test_ids(0..10),
             to_nack: test_ids(10..20),
@@ -354,7 +376,7 @@ pub(super) mod tests {
         let expected = LeaseState {
             under_lease: test_ids(20..100)
                 .into_iter()
-                .map(|s| (s, Instant::now()))
+                .map(|s| (s, test_info()))
                 .collect(),
             to_ack: Vec::new(),
             to_nack: Vec::new(),
@@ -395,13 +417,13 @@ pub(super) mod tests {
 
         // Accept 10 messages. These are now under lease management.
         for i in 0..10 {
-            state.add(test_id(i));
+            state.add(test_id(i), test_info());
         }
         state.extend().await;
 
         // Accept another 10 messages. These are now under lease management.
         for i in 10..20 {
-            state.add(test_id(i));
+            state.add(test_id(i), test_info());
         }
         state.extend().await;
 
@@ -432,7 +454,7 @@ pub(super) mod tests {
 
         let mut state = LeaseState::new(Arc::new(mock), LeaseOptions::default());
         for i in 0..30 {
-            state.add(test_id(i));
+            state.add(test_id(i), test_info());
         }
         for i in 0..10 {
             state.ack(test_id(i));
@@ -525,7 +547,7 @@ pub(super) mod tests {
         let mut state = LeaseState::new(Arc::new(mock), options);
 
         for i in 0..ACK_IDS_PER_RPC {
-            state.add(test_id(i));
+            state.add(test_id(i), test_info());
             state.ack(test_id(i));
         }
         // With 2500 pending acks, the batch is full. We should flush it now.
@@ -536,7 +558,7 @@ pub(super) mod tests {
         // With 1000 pending acks, the batch is not full. The next event should
         // occur on the interval timer.
         for i in ACK_IDS_PER_RPC..ACK_IDS_PER_RPC + 1000 {
-            state.add(test_id(i));
+            state.add(test_id(i), test_info());
             state.ack(test_id(i));
         }
         assert_eq!(state.next_event().await, LeaseEvent::Flush);
@@ -564,7 +586,7 @@ pub(super) mod tests {
         let mut state = LeaseState::new(Arc::new(mock), options);
 
         for i in 0..ACK_IDS_PER_RPC {
-            state.add(test_id(i));
+            state.add(test_id(i), test_info());
             state.nack(test_id(i));
         }
         // With 2500 pending nacks, the batch is full. We should flush it now.
@@ -575,7 +597,7 @@ pub(super) mod tests {
         // With 1000 pending nacks, the batch is not full. The next event should
         // occur on the interval timer.
         for i in ACK_IDS_PER_RPC..ACK_IDS_PER_RPC + 1000 {
-            state.add(test_id(i));
+            state.add(test_id(i), test_info());
             state.nack(test_id(i));
         }
         assert_eq!(state.next_event().await, LeaseEvent::Flush);
@@ -600,10 +622,10 @@ pub(super) mod tests {
 
         let over_half_full = ACK_IDS_PER_RPC / 2 + 100;
         for i in 0..over_half_full {
-            state.add(test_id(i));
+            state.add(test_id(i), test_info());
             state.ack(test_id(i));
 
-            state.add(test_id(over_half_full + i));
+            state.add(test_id(over_half_full + i), test_info());
             state.nack(test_id(over_half_full + i));
         }
 
@@ -633,7 +655,7 @@ pub(super) mod tests {
 
         let mut want = HashSet::new();
         for i in 0..NUM_BATCHES * ACK_IDS_PER_RPC {
-            state.add(test_id(i));
+            state.add(test_id(i), test_info());
 
             // All ack IDs should be extended.
             want.insert(test_id(i));
@@ -686,13 +708,13 @@ pub(super) mod tests {
 
         // Add 10 messages under lease management
         for i in 0..10 {
-            state.add(test_id(i));
+            state.add(test_id(i), test_info());
         }
 
         // Add 10 more messages under lease management, a little later.
         tokio::time::advance(DELTA * 2).await;
         for i in 10..20 {
-            state.add(test_id(i));
+            state.add(test_id(i), test_info());
         }
         state.extend().await;
 

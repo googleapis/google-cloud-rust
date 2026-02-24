@@ -15,7 +15,7 @@
 use super::builder::StreamingPull;
 use super::handler::{AckResult, AtLeastOnce, Handler};
 use super::lease_loop::LeaseLoop;
-use super::lease_state::LeaseOptions;
+use super::lease_state::{LeaseInfo, LeaseOptions, NewMessage};
 use super::leaser::DefaultLeaser;
 use super::retry_policy::StreamRetryPolicy;
 use super::stream::Stream;
@@ -30,6 +30,7 @@ use google_cloud_gax::retry_result::RetryResult;
 use std::collections::VecDeque;
 use std::sync::Arc;
 use tokio::sync::mpsc::UnboundedSender;
+use tokio::time::Instant;
 
 /// Represents an open subscribe stream.
 ///
@@ -77,7 +78,7 @@ pub struct MessageStream {
 
     /// A sender for sending new messages from the stream into the lease
     /// management task.
-    message_tx: UnboundedSender<String>,
+    message_tx: UnboundedSender<NewMessage>,
 
     /// A sender for forwarding acks/nacks from the application to the lease
     /// management task. Each `Handler` holds a clone of this.
@@ -241,7 +242,8 @@ impl MessageStream {
                 // message.
                 continue;
             };
-            let _ = self.message_tx.send(rm.ack_id.clone());
+            let info = LeaseInfo::AtLeastOnce(Instant::now());
+            let _ = self.message_tx.send((rm.ack_id.clone(), info));
             let message = match message.cnv().map_err(Error::deser) {
                 Ok(message) => message,
                 Err(e) => return Some(Err(e)),
