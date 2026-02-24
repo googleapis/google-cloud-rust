@@ -13,7 +13,7 @@
 # limitations under the License.
 
 [package]
-description       = "Proc macros for google-cloud-rust crates"
+description       = "Proc macros to test google-cloud-rust crates"
 name              = "google-cloud-test-macros"
 publish           = false
 version           = "0.0.0"
