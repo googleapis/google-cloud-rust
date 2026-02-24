@@ -104,10 +104,11 @@ pub mod model {
     pub(crate) use crate::generated::gapic_dataplane::model::*;
 }
 
-/// Clients to interact with Google Cloud Pub/Sub.
+/// Clients to interact with Cloud Pub/Sub.
 ///
 /// This module contains the primary entry points for the library, including
-/// clients for publishing messages and managing topics and subscriptions.
+/// clients for publishing and receiving messages, as well as managing topics,
+/// subscriptions, and schemas.
 ///
 /// # Example: Publishing Messages
 ///
