@@ -166,6 +166,7 @@ mod tests {
         generated::gapic_dataplane::client::Publisher as GapicPublisher,
         model::{Message, PublishResponse},
     };
+    use google_cloud_test_macros::tokio_test_no_panics;
     use mockall::Sequence;
     use rand::{RngExt, distr::Alphanumeric};
     use std::error::Error;
@@ -543,16 +544,8 @@ mod tests {
         Ok(())
     }
 
-    #[cfg_attr(
-        tokio_unstable,
-        tokio::test(
-            start_paused = true,
-            flavor = "current_thread",
-            unhandled_panic = "shutdown_runtime"
-        )
-    )]
-    #[cfg_attr(not(tokio_unstable), tokio::test(start_paused = true))]
-    // User's should be able to drop handles and the messages will still send.
+    #[tokio_test_no_panics(start_paused = true)]
+    // Users should be able to drop handles and the messages will still send.
     async fn dropping_handles_does_not_prevent_publishing() -> anyhow::Result<()> {
         let mut mock = MockGapicPublisher::new();
         mock.expect_publish()
@@ -599,11 +592,7 @@ mod tests {
         Ok(())
     }
 
-    #[cfg_attr(
-        tokio_unstable,
-        tokio::test(flavor = "current_thread", unhandled_panic = "shutdown_runtime")
-    )]
-    #[cfg_attr(not(tokio_unstable), tokio::test)]
+    #[tokio_test_no_panics]
     async fn batch_sends_on_message_count_threshold_success() -> anyhow::Result<()> {
         // Make sure all messages in a batch receive the correct message ID.
         let mut mock = MockGapicPublisher::new();
