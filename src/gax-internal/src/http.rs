@@ -70,6 +70,7 @@ pub struct ReqwestClient {
     polling_error_policy: Arc<dyn PollingErrorPolicy>,
     polling_backoff_policy: Arc<dyn PollingBackoffPolicy>,
     instrumentation: Option<&'static crate::options::InstrumentationClientInfo>,
+    user_agent: Option<String>,
     _tracing_enabled: bool,
 }
 
@@ -119,6 +120,7 @@ impl ReqwestClient {
                 .polling_backoff_policy
                 .unwrap_or_else(|| Arc::new(ExponentialBackoff::default())),
             instrumentation: None,
+            user_agent: config.user_agent,
             _tracing_enabled: tracing_enabled,
         })
     }
@@ -291,7 +293,11 @@ impl ReqwestClient {
         mut builder: reqwest::RequestBuilder,
         options: &RequestOptions,
     ) -> Result<reqwest::RequestBuilder> {
-        if let Some(user_agent) = options.user_agent() {
+        let user_agent = options
+            .user_agent()
+            .as_deref()
+            .or(self.user_agent.as_deref());
+        if let Some(user_agent) = user_agent {
             builder = builder.header(
                 ::reqwest::header::USER_AGENT,
                 reqwest::HeaderValue::from_str(user_agent).map_err(Error::ser)?,
@@ -886,6 +892,96 @@ mod tests {
             }
         );
         assert_eq!(result.err().unwrap().http_status_code(), Some(308));
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_configure_builder_user_agent_none() -> TestResult {
+        let mut config = ClientConfig::default();
+        config.cred = Some(Anonymous::new().build());
+        let client = ReqwestClient::new(config, "https://test.googleapis.com").await?;
+        let builder = client.builder(Method::GET, "foo".to_string());
+        let options = RequestOptions::default();
+
+        let builder = client.configure_builder(builder, &options)?;
+
+        let request = builder.build().unwrap();
+        assert!(
+            !request
+                .headers()
+                .contains_key(::reqwest::header::USER_AGENT)
+        );
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_configure_builder_user_agent_client_only() -> TestResult {
+        let client_agent = "client-agent/1.0.0";
+        let mut config = ClientConfig::default();
+        config.cred = Some(Anonymous::new().build());
+        config.user_agent = Some(client_agent.to_string());
+        let client = ReqwestClient::new(config, "https://test.googleapis.com").await?;
+        let builder = client.builder(Method::GET, "foo".to_string());
+        let options = RequestOptions::default();
+
+        let builder = client.configure_builder(builder, &options)?;
+
+        let request = builder.build().unwrap();
+        assert_eq!(
+            request
+                .headers()
+                .get(::reqwest::header::USER_AGENT)
+                .unwrap(),
+            client_agent
+        );
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_configure_builder_user_agent_request_only() -> TestResult {
+        let request_agent = "request-agent/1.0.0";
+        let mut config = ClientConfig::default();
+        config.cred = Some(Anonymous::new().build());
+        let client = ReqwestClient::new(config, "https://test.googleapis.com").await?;
+        let builder = client.builder(Method::GET, "foo".to_string());
+        let mut options = RequestOptions::default();
+        options.set_user_agent(request_agent.to_string());
+
+        let builder = client.configure_builder(builder, &options)?;
+
+        let request = builder.build().unwrap();
+        assert_eq!(
+            request
+                .headers()
+                .get(::reqwest::header::USER_AGENT)
+                .unwrap(),
+            request_agent
+        );
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_configure_builder_user_agent_override() -> TestResult {
+        let client_agent = "client-agent/1.0.0";
+        let request_agent = "request-agent/1.0.0";
+        let mut config = ClientConfig::default();
+        config.cred = Some(Anonymous::new().build());
+        config.user_agent = Some(client_agent.to_string());
+        let client = ReqwestClient::new(config, "https://test.googleapis.com").await?;
+        let builder = client.builder(Method::GET, "foo".to_string());
+        let mut options = RequestOptions::default();
+        options.set_user_agent(request_agent.to_string());
+
+        let builder = client.configure_builder(builder, &options)?;
+
+        let request = builder.build().unwrap();
+        assert_eq!(
+            request
+                .headers()
+                .get(::reqwest::header::USER_AGENT)
+                .unwrap(),
+            request_agent
+        );
         Ok(())
     }
 }

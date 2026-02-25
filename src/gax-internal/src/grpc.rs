@@ -69,6 +69,7 @@ pub struct Client {
     retry_throttler: SharedRetryThrottler,
     polling_error_policy: Arc<dyn PollingErrorPolicy>,
     polling_backoff_policy: Arc<dyn PollingBackoffPolicy>,
+    user_agent: Option<String>,
 }
 
 impl Client {
@@ -136,6 +137,7 @@ impl Client {
             polling_backoff_policy: config
                 .polling_backoff_policy
                 .unwrap_or_else(|| Arc::new(ExponentialBackoff::default())),
+            user_agent: config.user_agent,
         })
     }
 
@@ -153,7 +155,9 @@ impl Client {
         Request: prost::Message + Clone + 'static,
         Response: prost::Message + Default + 'static,
     {
-        let headers = Self::make_headers(api_client_header, request_params, &options).await?;
+        let headers = self
+            .make_headers(api_client_header, request_params, &options)
+            .await?;
         self.retry_loop::<Request, Response>(extensions, path, request, options, headers)
             .await
     }
@@ -203,7 +207,9 @@ impl Client {
         Response: prost::Message + Default + 'static,
     {
         use ::tonic::IntoStreamingRequest;
-        let headers = Self::make_headers(api_client_header, request_params, &options).await?;
+        let headers = self
+            .make_headers(api_client_header, request_params, &options)
+            .await?;
         let headers = self.add_auth_headers(headers).await?;
         let metadata = tonic::MetadataMap::from_headers(headers);
         let request = ::tonic::Request::from_parts(metadata, extensions, request);
@@ -412,12 +418,17 @@ impl Client {
     }
 
     async fn make_headers(
+        &self,
         api_client_header: &'static str,
         request_params: &str,
         options: &RequestOptions,
     ) -> Result<http::header::HeaderMap> {
         let mut headers = HeaderMap::new();
-        if let Some(user_agent) = options.user_agent() {
+        let user_agent = options
+            .user_agent()
+            .as_deref()
+            .or(self.user_agent.as_deref());
+        if let Some(user_agent) = user_agent {
             headers.append(
                 http::header::USER_AGENT,
                 http::header::HeaderValue::from_str(user_agent).map_err(Error::ser)?,
@@ -498,12 +509,84 @@ where
 }
 
 #[cfg(test)]
-#[cfg(google_cloud_unstable_tracing)]
 mod tests {
     use super::Client;
+    #[cfg(google_cloud_unstable_tracing)]
     use crate::options::InstrumentationClientInfo;
+    use google_cloud_gax::options::RequestOptions;
+
+    #[tokio::test]
+    async fn test_make_headers_user_agent_none() {
+        let config = crate::options::ClientConfig::default();
+        let client = Client::new(config, "http://example.com").await.unwrap();
+        let options = RequestOptions::default();
+
+        let headers = client
+            .make_headers("api_header", "", &options)
+            .await
+            .unwrap();
+
+        assert!(headers.get(http::header::USER_AGENT).is_none());
+    }
+
+    #[tokio::test]
+    async fn test_make_headers_user_agent_client_only() {
+        let client_agent = "client-agent/1.0.0";
+        let mut config = crate::options::ClientConfig::default();
+        config.user_agent = Some(client_agent.to_string());
+        let client = Client::new(config, "http://example.com").await.unwrap();
+        let options = RequestOptions::default();
+
+        let headers = client
+            .make_headers("api_header", "", &options)
+            .await
+            .unwrap();
+
+        assert_eq!(headers.get(http::header::USER_AGENT).unwrap(), client_agent);
+    }
+
+    #[tokio::test]
+    async fn test_make_headers_user_agent_request_only() {
+        let request_agent = "request-agent/1.0.0";
+        let config = crate::options::ClientConfig::default();
+        let client = Client::new(config, "http://example.com").await.unwrap();
+        let mut options = RequestOptions::default();
+        options.set_user_agent(request_agent);
+
+        let headers = client
+            .make_headers("api_header", "", &options)
+            .await
+            .unwrap();
+
+        assert_eq!(
+            headers.get(http::header::USER_AGENT).unwrap(),
+            request_agent
+        );
+    }
+
+    #[tokio::test]
+    async fn test_make_headers_user_agent_override() {
+        let client_agent = "client-agent/1.0.0";
+        let request_agent = "request-agent/1.0.0";
+        let mut config = crate::options::ClientConfig::default();
+        config.user_agent = Some(client_agent.to_string());
+        let client = Client::new(config, "http://example.com").await.unwrap();
+        let mut options = RequestOptions::default();
+        options.set_user_agent(request_agent);
+
+        let headers = client
+            .make_headers("api_header", "", &options)
+            .await
+            .unwrap();
+
+        assert_eq!(
+            headers.get(http::header::USER_AGENT).unwrap(),
+            request_agent
+        );
+    }
 
     #[tokio::test(flavor = "multi_thread")]
+    #[cfg(google_cloud_unstable_tracing)]
     async fn test_new_with_instrumentation() {
         let config = crate::options::ClientConfig::default();
         static TEST_INFO: InstrumentationClientInfo = InstrumentationClientInfo {
