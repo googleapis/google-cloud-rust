@@ -13,7 +13,7 @@
 // limitations under the License.
 
 use super::builder::StreamingPull;
-use super::handler::{AckResult, AtLeastOnce, Handler};
+use super::handler::{Action, AtLeastOnce, Handler};
 use super::lease_loop::LeaseLoop;
 use super::lease_state::{LeaseInfo, LeaseOptions, NewMessage};
 use super::leaser::DefaultLeaser;
@@ -82,7 +82,7 @@ pub struct MessageStream {
 
     /// A sender for forwarding acks/nacks from the application to the lease
     /// management task. Each `Handler` holds a clone of this.
-    ack_tx: UnboundedSender<AckResult>,
+    ack_tx: UnboundedSender<Action>,
 
     /// A handle on the lease loop task.
     ///
