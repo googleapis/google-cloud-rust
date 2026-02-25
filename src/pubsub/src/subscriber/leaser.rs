@@ -12,18 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#[cfg(test)] // TODO(#3964): implementation in progress...
 use super::handler::AckResult;
 use super::retry_policy::at_least_once_options;
 use super::stub::Stub;
 use crate::RequestOptions;
-#[cfg(test)] // TODO(#3964): implementation in progress...
 use crate::error::AckError;
 use crate::model::{AcknowledgeRequest, ModifyAckDeadlineRequest};
-#[cfg(test)] // TODO(#3964): implementation in progress...
 use std::collections::HashMap;
 use std::sync::Arc;
-#[cfg(test)] // TODO(#3964): implementation in progress...
 use tokio::sync::mpsc::UnboundedSender;
 
 /// A trait representing leaser actions.
@@ -38,7 +34,6 @@ pub(super) trait Leaser {
     /// Extend lease deadlines for a batch of messages.
     async fn extend(&self, ack_ids: Vec<String>);
 
-    #[cfg(test)] // TODO(#3964): implementation in progress...
     /// Acknowledge a batch of messages with exactly-once semantics.
     ///
     /// This method handles retries. Results are reported via the channel, as
@@ -54,7 +49,6 @@ pub(super) trait Leaser {
     );
 }
 
-#[cfg(test)] // TODO(#3964): implementation in progress...
 /// A map of exactly-once ack IDs to their final result.
 pub(super) type ConfirmedAcks = HashMap<String, AckResult>;
 
@@ -137,7 +131,6 @@ where
             .await;
     }
 
-    #[cfg(test)] // TODO(#3964): implementation in progress...
     async fn confirmed_ack(
         &self,
         ack_ids: Vec<String>,

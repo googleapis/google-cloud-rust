@@ -51,7 +51,6 @@ pub enum PublishError {
     ExceededByteThresholdError(()),
 }
 
-#[cfg(test)] // TODO(#3964): implementation in progress...
 /// Represents an error that can occur when acknowledging a message.
 #[derive(thiserror::Error, Debug)]
 #[non_exhaustive]
