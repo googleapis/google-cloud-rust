@@ -53,13 +53,13 @@ following rules:
 1. **Faster iteration:** When making small changes verify the code in the
    `samples/` crate compiles and is formatted. Skip linting and tests:
    - Run `cargo fmt -p user-guide-samples`
-   - Run `cargo check -p user-guide-samples`
+   - Run `cargo check --all-features -p user-guide-samples`
 1. **Test the Samples:** Always verify that the code in the `samples/` crate
    compiles, passes linting, and formatting checks.
    - Run `cargo fmt -p user-guide-samples`
-   - Run `cargo check -p user-guide-samples`
-   - Run `cargo clippy -p user-guide-samples`
-   - Run `cargo test -p user-guide-samples`
+   - Run `cargo check --all-features -p user-guide-samples`
+   - Run `cargo clippy --all-features -p user-guide-samples`
+   - Run `cargo test --all-features -p user-guide-samples`
 1. **Formatting the Markdown:** use mdformat to format the `*.md` files.
    - If needed create a virtual environment with `python3 -m venv .venv`
    - If needed install `mdformat` using `source .venv/bin/activate` and then
