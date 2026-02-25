@@ -116,31 +116,31 @@ mod driver {
     #[tokio::test(flavor = "multi_thread")]
     async fn pagination_iterate_pages() -> user_guide_samples::Result<()> {
         let project_id = std::env::var("GOOGLE_CLOUD_PROJECT").unwrap();
-        user_guide_samples::pagination::paginator_iterate_pages(&project_id).await
+        user_guide_samples::pagination::paginator_iterate_pages::sample(&project_id).await
     }
 
     #[tokio::test(flavor = "multi_thread")]
     async fn pagination_iterate_items() -> user_guide_samples::Result<()> {
         let project_id = std::env::var("GOOGLE_CLOUD_PROJECT").unwrap();
-        user_guide_samples::pagination::paginator_iterate_items(&project_id).await
+        user_guide_samples::pagination::paginator_iterate_items::sample(&project_id).await
     }
 
     #[tokio::test(flavor = "multi_thread")]
     async fn pagination_stream_pages() -> user_guide_samples::Result<()> {
         let project_id = std::env::var("GOOGLE_CLOUD_PROJECT").unwrap();
-        user_guide_samples::pagination::paginator_stream_pages(&project_id).await
+        user_guide_samples::pagination::paginator_stream_pages::sample(&project_id).await
     }
 
     #[tokio::test(flavor = "multi_thread")]
     async fn pagination_stream_items() -> user_guide_samples::Result<()> {
         let project_id = std::env::var("GOOGLE_CLOUD_PROJECT").unwrap();
-        user_guide_samples::pagination::paginator_stream_items(&project_id).await
+        user_guide_samples::pagination::paginator_stream_items::sample(&project_id).await
     }
 
     #[tokio::test(flavor = "multi_thread")]
     async fn pagination_page_token() -> user_guide_samples::Result<()> {
         let project_id = std::env::var("GOOGLE_CLOUD_PROJECT").unwrap();
-        user_guide_samples::pagination::pagination_page_token(&project_id).await
+        user_guide_samples::pagination::pagination_page_token::sample(&project_id).await
     }
 
     #[tokio::test(flavor = "multi_thread")]
