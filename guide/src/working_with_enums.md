@@ -39,7 +39,7 @@ enumeration in any other client library.
 ## Dependencies
 
 As it is usual with Rust, you must declare the dependency in your `Cargo.toml`
-file. We use:
+file. You can use:
 
 ```shell
 cargo add google-cloud-secretmanager-v1 serde_json
@@ -71,8 +71,8 @@ The same principle applies to unknown integer values:
 ## Preparing for upgrades
 
 As previously mentioned, the Rust enumerations in the client libraries may gain
-new variants in future releases. To avoid breaking applications we mark these
-enumerations as `#[non_exhaustive]`.
+new variants in future releases. To avoid breaking applications, these
+enumerations are marked as `#[non_exhaustive]`.
 
 If you use a match expression for non-exhaustive enumerations then you must
 include the [wildcard pattern] in your match. This will prevent compilation

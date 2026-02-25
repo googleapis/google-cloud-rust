@@ -86,7 +86,7 @@ enable the `unstable-streams` feature in the `google_cloud_gax` crate:
 cargo add google-cloud-gax --features unstable-stream
 ```
 
-The name of this feature is intended to convey that we consider these APIs
+The name of this feature is intended to convey that these APIs are considered
 unstable, because they are! You should only use them if you are prepared to deal
 with any breaks that result from incompatible changes to the
 [`futures::Stream`][future-stub] trait.

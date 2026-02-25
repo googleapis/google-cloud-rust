@@ -54,8 +54,8 @@ of the generic `T`, with the appropriate constraints.
 
 This section of the guide will show you how to mock `read_object` requests.
 
-Let's say you have an application function which downloads an object and counts
-how many newlines it contains.
+Assume you have an application function which downloads an object and counts how
+many newlines it contains.
 
 ```rust,ignore,noplayground
 {{#rustdoc_include ../../samples/tests/storage/mocking.rs:count-newlines}}
@@ -93,7 +93,7 @@ function.
 
 This section of the guide will show you how to mock `write_object` requests.
 
-Let's say you have an application function which uploads an object from memory.
+Assume you have an application function which uploads an object from memory.
 
 ```rust,ignore,noplayground
 {{#rustdoc_include ../../samples/tests/storage/mocking.rs:upload}}
@@ -153,11 +153,11 @@ The `Storage` client has complex types in its interfaces.
 - `write_object` accepts a generic payload.
 - `read_object` returns a stream-like thing.
 
-Thus, if we wanted to use the same dynamic dispatch approach for the `Storage`
-client, we would have to end up boxing all generics / trait `impl`s. Each box is
+Thus, if one wanted to use the same dynamic dispatch approach for the `Storage`
+client, it would be necessary to box all generics / trait `impl`s. Each box is
 an extra heap allocation, plus the dynamic dispatch.
 
-Because we want the `Storage` client to be as performant as possible, we decided
+Because the `Storage` client should be as performant as possible, it was decided
 it was preferable to template the client on a non-`dyn`-compatible, concrete
 implementation of the stub trait.
 

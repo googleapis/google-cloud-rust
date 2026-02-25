@@ -53,7 +53,7 @@ For complete setup instructions for the Rust libraries, see
 ## Dependencies
 
 As it is usual with Rust, you must declare the dependency in your `Cargo.toml`
-file. We use:
+file. You can use:
 
 ```shell
 cargo add google-cloud-storage google-cloud-lro
@@ -99,9 +99,9 @@ Review the
 
 ## Configuring the polling frequency for a specific request
 
-As described in the previous section. We need a type implementing the
-[PollingBackoffPolicy] trait to configure the polling frequency. We will also
-use [ExponentialBackoff] in this example:
+As described in the previous section, you need a type implementing the
+[PollingBackoffPolicy] trait to configure the polling frequency. This example
+also uses [ExponentialBackoff]:
 
 ```rust,ignore
 {{#include ../samples/tests/storage/polling_policies.rs:rpc-backoff-use}}
@@ -136,7 +136,7 @@ Review the
 
 ## Configuring the retryable polling errors for all requests in a client
 
-To configure the retryable errors we need to use a type implementing the
+To configure the retryable errors, you need to use a type implementing the
 [PollingErrorPolicy] trait. The client libraries provide a number of them, a
 conservative choice is [Aip194Strict]:
 
@@ -180,7 +180,7 @@ Review the
 
 ## Configuring the retryable polling errors for a specific request
 
-To configure the retryable errors we need to use a type implementing the
+To configure the retryable errors, you need to use a type implementing the
 [PollingErrorPolicy] trait. The client libraries provide a number of them, a
 conservative choice is [Aip194Strict]:
 

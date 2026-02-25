@@ -77,8 +77,8 @@ The client to perform operations on object data is called `Storage`:
 {{#rustdoc_include ../samples/tests/storage/quickstart.rs:client}}
 ```
 
-In this case we will create an object called `hello.txt`, with the traditional
-greeting for a programming tutorial:
+In this case, create an object called `hello.txt`, with the traditional greeting
+for a programming tutorial:
 
 ```rust,ignore,noplayground
 {{#rustdoc_include ../samples/tests/storage/quickstart.rs:upload}}
@@ -94,8 +94,8 @@ To download the contents of an object use `read_object()`:
 
 ### Cleanup
 
-Finally we remove the object and bucket to cleanup all the resources used in
-this guide:
+Finally, remove the object and bucket to cleanup all the resources used in this
+guide:
 
 ```rust,ignore,noplayground
 {{#rustdoc_include ../samples/tests/storage/quickstart.rs:cleanup}}

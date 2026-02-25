@@ -28,12 +28,12 @@ In this guide you'll initialize a client and then use the client to make a
 simple RPC. For this tutorial, you'll use the [Secret Manager API]. The same
 structure applies to any other service in Google Cloud.
 
-We recommend that you follow one of the Secret Manager getting started guides,
-such as how to [Create a secret], before attempting to use the client library.
-These guides cover service specific concepts in more detail, and provide
-detailed guidance on project prerequisites.
+It is recommended that you follow one of the Secret Manager getting started
+guides, such as how to [Create a secret], before attempting to use the client
+library. These guides cover service specific concepts in more detail, and
+provide detailed guidance on project prerequisites.
 
-We also recommend that you follow the instructions in the
+It is also recommended that you follow the instructions in the
 [Authenticate for using client libraries] guide. This guide will show you how to
 log in to configure the [Application Default Credentials] used in this guide.
 

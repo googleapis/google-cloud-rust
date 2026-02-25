@@ -96,9 +96,9 @@ includes the object size and the current generation:
 {{#rustdoc_include ../../samples/tests/storage/striped.rs:get-metadata}}
 ```
 
-We will split the download of each stripe to a separate function. You will see
-the details of this function in a moment, for now just note that it is `async`,
-so it returns a `Future`:
+Split the download of each stripe to a separate function. You will see the
+details of this function in a moment, for now just note that it is `async`, so
+it returns a `Future`:
 
 ```rust,ignore,noplayground
 {{#rustdoc_include ../../samples/tests/storage/striped.rs:write-stripe-function}}
@@ -147,7 +147,7 @@ get inconsistent reads:
 Then you read the data and write it to the local file. This example uses
 `write_all_at` on Unix, and `seek_write` on Windows, as Rust lacks a portable
 function to atomically write at an specific offset. Both these functions are
-blocking, so we need to run them on a dedicated thread:
+blocking, so you need to run them on a dedicated thread:
 
 ```rust,ignore,noplayground
 {{#rustdoc_include ../../samples/tests/storage/striped.rs:write-stripe-loop}}

@@ -42,7 +42,8 @@ cargo add google-cloud-storage
 First, create a client.
 
 The service recommends an [overall timeout] of at least 30 seconds. In this
-example, we use a `RetryPolicy` that does not set any timeout on the operation.
+example, this guide uses a `RetryPolicy` that does not set any timeout on the
+operation.
 
 ```rust,ignore,noplayground
 {{#rustdoc_include ../../samples/tests/storage/rewrite_object.rs:client}}
@@ -50,13 +51,13 @@ example, we use a `RetryPolicy` that does not set any timeout on the operation.
 
 ### Prepare builder
 
-Next we prepare the request builder.
+Next, prepare the request builder.
 
 ```rust,ignore,noplayground
 {{#rustdoc_include ../../samples/tests/storage/rewrite_object.rs:builder}}
 ```
 
-Optionally, we can limit the maximum amount of bytes written per call, before
+Optionally, you can limit the maximum amount of bytes written per call, before
 the service responds with a progress report. Setting this option is an
 alternative to increasing the attempt timeout.
 
@@ -71,7 +72,7 @@ larger value.
 Rewriting an object allows you to copy its data to a different bucket, copy its
 data to a different object in the same bucket, change its encryption key, and/or
 change its [storage class]. The rewrite loop is identical for all these
-transformations. We will change the storage class to illustrate the code.
+transformations. This example changes the storage class to illustrate the code.
 
 ```rust,ignore,noplayground
 {{#rustdoc_include ../../samples/tests/storage/rewrite_object.rs:change-storage-class}}
@@ -97,13 +98,12 @@ it is done.
 
 If you need more control over the rewrite loop, you can execute it manually.
 
-First, we introduce a helper function to perform one iteration of the rewrite
-loop.
+First, introduce a helper function to perform one iteration of the rewrite loop.
 
-We send the request and process the response. We log the progress made.
+Send the request and process the response. Log the progress made.
 
-If the operation is `done`, we return the object metadata, otherwise we return
-the rewrite token.
+If the operation is `done`, return the object metadata, otherwise return the
+rewrite token.
 
 ```rust,ignore,noplayground
 {{#rustdoc_include ../../samples/tests/storage/rewrite_object.rs:make-one-request}}
@@ -111,14 +111,14 @@ the rewrite token.
 
 ### Execute rewrite loop
 
-Now we are ready to perform the rewrite loop until the operation is done.
+Now perform the rewrite loop until the operation is done.
 
 ```rust,ignore,noplayground
 {{#rustdoc_include ../../samples/tests/storage/rewrite_object.rs:loop}}
 ```
 
-Note how if the operation is incomplete, we supply the rewrite token returned by
-the server to the next request.
+Note how if the operation is incomplete, you must supply the rewrite token
+returned by the server to the next request.
 
 ```rust,ignore,noplayground
 {{#rustdoc_include ../../samples/tests/storage/rewrite_object.rs:set-rewrite-token}}
@@ -135,7 +135,7 @@ Putting all these steps together you get:
 {{#rustdoc_include ../../samples/tests/storage/rewrite_object.rs:all}}
 ```
 
-We should see output similar to:
+You should see output similar to:
 
 ```norust
 PROGRESS: total_bytes_rewritten=1048576; object_size=3145728
