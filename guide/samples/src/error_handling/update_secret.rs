@@ -15,7 +15,7 @@
 use crate::error_handling::create_secret::create_secret;
 use crate::error_handling::update_attempt::update_attempt;
 
-// ANCHOR: update-secret
+// [START update_secret] ANCHOR: update-secret
 use google_cloud_gax::error::Error;
 use google_cloud_gax::error::rpc::Code;
 use google_cloud_secretmanager_v1::client::SecretManagerService;
@@ -26,38 +26,38 @@ pub async fn update_secret(
     secret_id: &str,
     data: Vec<u8>,
 ) -> anyhow::Result<SecretVersion> {
-    // ANCHOR: update-secret-client
+    // [START update_secret_client] ANCHOR: update-secret-client
     let client = SecretManagerService::builder().build().await?;
-    // ANCHOR_END: update-secret-client
+    // [END update_secret_client] ANCHOR_END: update-secret-client
 
-    // ANCHOR: update-secret-initial-attempt
+    // [START update_secret_initial_attempt] ANCHOR: update-secret-initial-attempt
     match update_attempt(&client, project_id, secret_id, data.clone()).await {
-        // ANCHOR_END: update-secret-initial-attempt
-        // ANCHOR: update-secret-success
+        // [END update_secret_initial_attempt] ANCHOR_END: update-secret-initial-attempt
+        // [START update_secret_success] ANCHOR: update-secret-success
         Ok(version) => {
             println!("new version is {}", version.name);
             Ok(version)
         }
-        // ANCHOR_END: update-secret-success
-        // ANCHOR: update-secret-svc-error
+        // [END update_secret_success] ANCHOR_END: update-secret-success
+        // [START update_secret_svc_error] ANCHOR: update-secret-svc-error
         Err(e) => {
             if let Some(status) = e.downcast_ref::<Error>().and_then(|e| e.status()) {
-                // ANCHOR_END: update-secret-svc-error
-                // ANCHOR: update-secret-not-found
+                // [END update_secret_svc_error] ANCHOR_END: update-secret-svc-error
+                // [START update_secret_not_found] ANCHOR: update-secret-not-found
                 if status.code == Code::NotFound {
-                    // ANCHOR_END: update-secret-not-found
-                    // ANCHOR: update-secret-create
+                    // [END update_secret_not_found] ANCHOR_END: update-secret-not-found
+                    // [START update_secret_create] ANCHOR: update-secret-create
                     let _ = create_secret(&client, project_id, secret_id).await?;
-                    // ANCHOR_END: update-secret-create
-                    // ANCHOR: update-secret-try-again
+                    // [END update_secret_create] ANCHOR_END: update-secret-create
+                    // [START update_secret_try_again] ANCHOR: update-secret-try-again
                     let version = update_attempt(&client, project_id, secret_id, data).await?;
                     println!("new version is {}", version.name);
                     return Ok(version);
-                    // ANCHOR_END: update-secret-try-again
+                    // [END update_secret_try_again] ANCHOR_END: update-secret-try-again
                 }
             }
             Err(e)
         }
     }
 }
-// ANCHOR_END: update-secret
+// [END update_secret] ANCHOR_END: update-secret
