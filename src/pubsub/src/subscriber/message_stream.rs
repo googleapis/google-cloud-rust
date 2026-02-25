@@ -286,6 +286,7 @@ mod tests {
     use super::*;
     use gaxi::grpc::tonic::{Response as TonicResponse, Status as TonicStatus};
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
+    use google_cloud_test_macros::tokio_test_no_panics;
     use pubsub_grpc_mock::google::pubsub::v1;
     use pubsub_grpc_mock::{MockSubscriber, start};
     use tokio::sync::mpsc::{channel, unbounded_channel};
@@ -326,7 +327,7 @@ mod tests {
             .await?)
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn error_starting_stream() -> anyhow::Result<()> {
         let mut mock = MockSubscriber::new();
         mock.expect_streaming_pull()
@@ -350,7 +351,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn initial_request() -> anyhow::Result<()> {
         const MIB: i64 = 1024 * 1024;
 
@@ -406,7 +407,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test(start_paused = true)]
+    #[tokio_test_no_panics(start_paused = true)]
     async fn basic_success() -> anyhow::Result<()> {
         let (response_tx, response_rx) = channel(10);
         let (ack_tx, mut ack_rx) = unbounded_channel();
@@ -450,7 +451,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test(start_paused = true)]
+    #[tokio_test_no_panics(start_paused = true)]
     async fn basic_lease_management() -> anyhow::Result<()> {
         let (response_tx, response_rx) = channel(10);
         let (ack_tx, mut ack_rx) = unbounded_channel();
@@ -542,7 +543,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test(start_paused = true)]
+    #[tokio_test_no_panics(start_paused = true)]
     async fn delayed_responses() -> anyhow::Result<()> {
         // In this test, we verify the case where an application asks for a
         // message, but a response is not immediately available on the stream.
@@ -573,7 +574,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn serves_messages_immediately() -> anyhow::Result<()> {
         // This test verifies we do not do something crazy like draining the
         // stream (which would never end) before serving messages to the
@@ -603,7 +604,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn handles_empty_response() -> anyhow::Result<()> {
         let (response_tx, response_rx) = channel(10);
 
@@ -632,7 +633,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test(start_paused = true)]
+    #[tokio_test_no_panics(start_paused = true)]
     async fn handles_missing_message_field() -> anyhow::Result<()> {
         let (response_tx, response_rx) = channel(10);
         let (extend_tx, mut extend_rx) = unbounded_channel();
@@ -695,7 +696,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn permanent_error_midstream() -> anyhow::Result<()> {
         let (response_tx, response_rx) = channel(10);
 
@@ -734,7 +735,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test(start_paused = true)]
+    #[tokio_test_no_panics(start_paused = true)]
     async fn keepalives() -> anyhow::Result<()> {
         // We use this channel to surface writes (requests) from outside our
         // mock expectation.
@@ -791,7 +792,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn client_id() -> anyhow::Result<()> {
         // We use this channel to surface writes (requests) from outside our
         // mock expectation.
@@ -860,7 +861,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test(start_paused = true)]
+    #[tokio_test_no_panics(start_paused = true)]
     async fn no_immediate_message() -> anyhow::Result<()> {
         const TEST_TIMEOUT: Duration = Duration::from_secs(42);
 
@@ -881,7 +882,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test(start_paused = true)]
+    #[tokio_test_no_panics(start_paused = true)]
     async fn retry_transient_when_starting_stream() -> anyhow::Result<()> {
         // The policy should retry forever. Our default retry policies have an
         // attempt limit of 10. So we arbitrarily pick a number greater than 10
@@ -931,7 +932,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test(start_paused = true)]
+    #[tokio_test_no_panics(start_paused = true)]
     async fn resume_midstream_success() -> anyhow::Result<()> {
         let (response_tx_1, response_rx_1) = channel(10);
         let (response_tx_2, response_rx_2) = channel(10);
@@ -1002,7 +1003,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test(start_paused = true)]
+    #[tokio_test_no_panics(start_paused = true)]
     async fn resume_midstream_hits_permanent_error() -> anyhow::Result<()> {
         let (response_tx, response_rx) = channel(10);
         let (ack_tx, mut ack_rx) = unbounded_channel();
@@ -1076,7 +1077,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn routing_header() -> anyhow::Result<()> {
         let mut mock = MockSubscriber::new();
 
@@ -1104,7 +1105,7 @@ mod tests {
     }
 
     #[cfg(feature = "unstable-stream")]
-    #[tokio::test(start_paused = true)]
+    #[tokio_test_no_panics(start_paused = true)]
     async fn into_stream() -> anyhow::Result<()> {
         use futures::TryStreamExt;
         let (response_tx, response_rx) = channel(10);

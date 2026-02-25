@@ -92,6 +92,7 @@ mod tests {
     use super::super::lease_state::tests::{sorted, test_id, test_ids, test_info};
     use super::super::leaser::tests::MockLeaser;
     use super::*;
+    use google_cloud_test_macros::tokio_test_no_panics;
     use std::sync::Arc;
     use tokio::sync::Mutex;
     use tokio::time::{Duration, Instant};
@@ -103,7 +104,7 @@ mod tests {
         }
     }
 
-    #[tokio::test(start_paused = true)]
+    #[tokio_test_no_panics(start_paused = true)]
     async fn flush_acks_nacks_on_interval() -> anyhow::Result<()> {
         const FLUSH_PERIOD: Duration = Duration::from_secs(1);
         const FLUSH_START: Duration = Duration::from_millis(200);
@@ -202,7 +203,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test(start_paused = true)]
+    #[tokio_test_no_panics(start_paused = true)]
     async fn deadline_interval() -> anyhow::Result<()> {
         const EXTEND_PERIOD: Duration = Duration::from_secs(1);
         const EXTEND_START: Duration = Duration::from_millis(200);
@@ -266,7 +267,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test(start_paused = true)]
+    #[tokio_test_no_panics(start_paused = true)]
     async fn drop_does_not_wait_for_pending_operations() -> anyhow::Result<()> {
         let start = Instant::now();
         let mock = MockLeaser::new();
@@ -293,7 +294,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test(start_paused = true)]
+    #[tokio_test_no_panics(start_paused = true)]
     async fn close_waits_for_flush() -> anyhow::Result<()> {
         const EXPECTED_SLEEP: Duration = Duration::from_millis(100);
 
@@ -338,7 +339,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test(start_paused = true)]
+    #[tokio_test_no_panics(start_paused = true)]
     async fn no_add_and_ack_race() -> anyhow::Result<()> {
         // This test validates the use of `biased` in the select statement.
         //
