@@ -72,14 +72,14 @@ sample, see [`update_secret`](#update_secret).
 First make an attempt to create a new secret version:
 
 ```rust,ignore
-{{#include ../samples/src/error_handling.rs:update-secret-initial-attempt}}
+{{#include ../samples/src/error_handling/update_secret.rs:update-secret-initial-attempt}}
 ```
 
 If [`update_attempt`](#update_attempt) succeeds, you can just print the
 successful result and return:
 
 ```rust,ignore
-{{#include ../samples/src/error_handling.rs:update-secret-success}}
+{{#include ../samples/src/error_handling/update_secret.rs:update-secret-success}}
 ```
 
 The request may have failed for many reasons: because the connection dropped
@@ -90,27 +90,27 @@ The retry policies can deal with most of these errors. Here we are interested
 only in errors returned by the service:
 
 ```rust,ignore
-{{#include ../samples/src/error_handling.rs:update-secret-svc-error}}
+{{#include ../samples/src/error_handling/update_secret.rs:update-secret-svc-error}}
 ```
 
 and then only in errors that correspond to a missing secret:
 
 ```rust,ignore
-{{#include ../samples/src/error_handling.rs:update-secret-not-found}}
+{{#include ../samples/src/error_handling/update_secret.rs:update-secret-not-found}}
 ```
 
 If this is a "not found" error, you can try to create the secret. This simply
 returns on failure:
 
 ```rust,ignore
-{{#include ../samples/src/error_handling.rs:update-secret-create}}
+{{#include ../samples/src/error_handling/update_secret.rs:update-secret-create}}
 ```
 
 Assuming [`create_secret`](#create_secret) is successful, you can try to add the
 secret version again, this time just returning an error if anything fails:
 
 ```rust,ignore
-{{#include ../samples/src/error_handling.rs:update-secret-try-again}}
+{{#include ../samples/src/error_handling/update_secret.rs:update-secret-try-again}}
 ```
 
 ## What's next
@@ -127,19 +127,19 @@ ______________________________________________________________________
 ### `update_secret`
 
 ```rust,ignore
-{{#include ../samples/src/error_handling.rs:update-secret}}
+{{#include ../samples/src/error_handling/update_secret.rs:update-secret}}
 ```
 
 ### `update_attempt`
 
 ```rust,ignore
-{{#include ../samples/src/error_handling.rs:update-attempt}}
+{{#include ../samples/src/error_handling/update_attempt.rs:update-attempt}}
 ```
 
 ### `create_secret`
 
 ```rust,ignore
-{{#include ../samples/src/error_handling.rs:create-secret}}
+{{#include ../samples/src/error_handling/create_secret.rs:create-secret}}
 ```
 
 [configuring retry policies]: /configuring_retry_policies.md
