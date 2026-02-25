@@ -40,6 +40,16 @@ following rules:
    - Prefer simple code.
    - Use idiomatic code.
    - Use well-known crates like `anyhow` to simplify the code.
+   - Put all `use` declarations *before* the function signature, not inside the
+     function body.
+   - Prefer direct imports of symbols (e.g.,
+     `use google_cloud_secretmanager_v1::client::SecretManagerService;`) instead
+     of using module aliases (e.g.,
+     `use google_cloud_secretmanager_v1 as secret_manager;`).
+   - Break down large sample files with multiple examples into a directory
+     containing separate module files for each function/example.
+   - When creating new files, ensure the copyright boilerplate uses the current
+     year.
 1. **Faster iteration:** When making small changes verify the code in the
    `samples/` crate compiles and is formatted. Skip linting and tests:
    - Run `cargo fmt -p user-guide-samples`
