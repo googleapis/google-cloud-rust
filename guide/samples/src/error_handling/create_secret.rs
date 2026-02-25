@@ -12,21 +12,20 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use google_cloud_gax as gax;
-use google_cloud_secretmanager_v1 as sm;
-
 // ANCHOR: create-secret
+use google_cloud_gax::options::RequestOptionsBuilder;
+use google_cloud_gax::retry_policy::AlwaysRetry;
+use google_cloud_gax::retry_policy::RetryPolicyExt;
+use google_cloud_secretmanager_v1::client::SecretManagerService;
+use google_cloud_secretmanager_v1::model::{Replication, Secret, replication};
+use std::time::Duration;
+
 pub async fn create_secret(
-    client: &sm::client::SecretManagerService,
+    client: &SecretManagerService,
     project_id: &str,
     secret_id: &str,
-) -> gax::Result<sm::model::Secret> {
-    use google_cloud_gax::options::RequestOptionsBuilder;
-    use google_cloud_gax::retry_policy::AlwaysRetry;
-    use google_cloud_gax::retry_policy::RetryPolicyExt;
-    use std::time::Duration;
-
-    client
+) -> anyhow::Result<Secret> {
+    let secret = client
         .create_secret()
         .set_parent(format!("projects/{project_id}"))
         .with_retry_policy(
@@ -36,15 +35,14 @@ pub async fn create_secret(
         )
         .set_secret_id(secret_id)
         .set_secret(
-            sm::model::Secret::new()
-                .set_replication(sm::model::Replication::new().set_replication(
-                    sm::model::replication::Replication::Automatic(
-                        sm::model::replication::Automatic::new().into(),
-                    ),
+            Secret::new()
+                .set_replication(Replication::new().set_replication(
+                    replication::Replication::Automatic(replication::Automatic::new().into()),
                 ))
                 .set_labels([("integration-test", "true")]),
         )
         .send()
-        .await
+        .await?;
+    Ok(secret)
 }
 // ANCHOR_END: create-secret
