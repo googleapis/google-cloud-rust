@@ -22,7 +22,7 @@ pub async fn text_prompt(project_id: &str) -> anyhow::Result<()> {
     // [END rust_text_prompt_client] ANCHOR_END: text-prompt-client
 
     // [START rust_text_prompt_model] ANCHOR: text-prompt-model
-    const MODEL: &str = "gemini-2.0-flash-001";
+    const MODEL: &str = "gemini-2.5-flash";
     let model = format!("projects/{project_id}/locations/global/publishers/google/models/{MODEL}");
     // [END rust_text_prompt_model] ANCHOR_END: text-prompt-model
 
