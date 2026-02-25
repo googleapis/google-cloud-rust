@@ -25,7 +25,7 @@ following rules:
    - Example: `{{#include ../samples/src/my_example.rs:my-anchor}}`
 1. **Use Anchors:** Use `// ANCHOR: my-anchor` and `// ANCHOR_END: my-anchor`
    comments inside the Rust files in `guide/samples/` to define the exact lines
-   that should be included in the Markdown.
+   that should be included in the Markdown. Note that some files use two styles of anchors: the `ANCHOR: ${name}` style used by mdBook (with a matching `ANCHOR_END: ${name}`) and also `[START ${name}]` and `[END ${name}]` anchors. When present, preserve both types of anchors. (For example, the `endpoint/default.rs` file has both types of anchors).
 1. **Make code readable for users:** the audience of this guide are users of the
    project.
    - Prefer simple code.
