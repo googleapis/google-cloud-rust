@@ -1,4 +1,4 @@
-// Copyright 2025 Google LLC
+// Copyright 2026 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -19,14 +19,14 @@ use std::error::Error as _;
 pub async fn binding_fail() -> anyhow::Result<()> {
     let client = SecretManagerService::builder().build().await?;
 
-    // ANCHOR: inspect
-    // ANCHOR: request
+    // [START rust_inspect] ANCHOR: inspect
+    // [START rust_request] ANCHOR: request
     let secret = client
         .get_secret()
         //.set_name("projects/my-project/secrets/my-secret")
         .send()
         .await;
-    // ANCHOR_END: request
+    // [END rust_request] ANCHOR_END: request
 
     let e = secret.unwrap_err();
     assert!(e.is_binding(), "{e:?}");
@@ -35,7 +35,7 @@ pub async fn binding_fail() -> anyhow::Result<()> {
         .source()
         .and_then(|e| e.downcast_ref::<BindingError>())
         .expect("should be a BindingError");
-    // ANCHOR_END: inspect
+    // [END rust_inspect] ANCHOR_END: inspect
 
     Ok(())
 }
