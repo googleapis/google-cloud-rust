@@ -12,14 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use google_cloud_secretmanager_v1::model;
-use google_cloud_wkt;
-
 // ANCHOR: update-field
-pub async fn update_field(project_id: &str) -> anyhow::Result<()> {
-    use google_cloud_secretmanager_v1::client::SecretManagerService;
-    use std::collections::HashMap;
+use google_cloud_secretmanager_v1::client::SecretManagerService;
+use google_cloud_secretmanager_v1::model::replication::Automatic;
+use google_cloud_secretmanager_v1::model::{Replication, Secret};
+use google_cloud_wkt::FieldMask;
+use std::collections::HashMap;
 
+pub async fn update_field(project_id: &str) -> anyhow::Result<()> {
     // ANCHOR: create
     let client = SecretManagerService::builder().build().await?;
 
@@ -27,9 +27,9 @@ pub async fn update_field(project_id: &str) -> anyhow::Result<()> {
         .create_secret()
         .set_parent(format!("projects/{project_id}"))
         .set_secret_id("your-secret")
-        .set_secret(model::Secret::new().set_replication(
-            model::Replication::new().set_automatic(model::replication::Automatic::new()),
-        ))
+        .set_secret(
+            Secret::new().set_replication(Replication::new().set_automatic(Automatic::new())),
+        )
         .send()
         .await?;
     println!("CREATE = {secret:?}");
@@ -44,16 +44,14 @@ pub async fn update_field(project_id: &str) -> anyhow::Result<()> {
     let update = client
         .update_secret()
         .set_secret(
-            model::Secret::new()
+            Secret::new()
                 .set_name(&secret.name)
                 .set_etag(secret.etag)
                 .set_labels(tag(secret.labels, "your-label"))
                 .set_annotations(tag(secret.annotations, "your-annotations")),
         )
         // ANCHOR: set-update-mask
-        .set_update_mask(
-            google_cloud_wkt::FieldMask::default().set_paths(["annotations", "labels"]),
-        )
+        .set_update_mask(FieldMask::default().set_paths(["annotations", "labels"]))
         // ANCHOR_END: set-update-mask
         .send()
         .await?;
