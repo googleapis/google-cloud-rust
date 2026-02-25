@@ -12,20 +12,20 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use google_cloud_gax as gax;
-use google_cloud_secretmanager_v1 as sm;
-
 use crate::error_handling::create_secret::create_secret;
 use crate::error_handling::update_attempt::update_attempt;
 
 // ANCHOR: update-secret
+use google_cloud_secretmanager_v1::client::SecretManagerService;
+use google_cloud_secretmanager_v1::model::SecretVersion;
+
 pub async fn update_secret(
     project_id: &str,
     secret_id: &str,
     data: Vec<u8>,
-) -> crate::Result<sm::model::SecretVersion> {
+) -> anyhow::Result<SecretVersion> {
     // ANCHOR: update-secret-client
-    let client = sm::client::SecretManagerService::builder().build().await?;
+    let client = SecretManagerService::builder().build().await?;
     // ANCHOR_END: update-secret-client
 
     // ANCHOR: update-secret-initial-attempt
@@ -39,10 +39,13 @@ pub async fn update_secret(
         // ANCHOR_END: update-secret-success
         // ANCHOR: update-secret-svc-error
         Err(e) => {
-            if let Some(status) = e.status() {
+            if let Some(status) = e
+                .downcast_ref::<google_cloud_gax::error::Error>()
+                .and_then(|e| e.status())
+            {
                 // ANCHOR_END: update-secret-svc-error
                 // ANCHOR: update-secret-not-found
-                use gax::error::rpc::Code;
+                use google_cloud_gax::error::rpc::Code;
                 if status.code == Code::NotFound {
                     // ANCHOR_END: update-secret-not-found
                     // ANCHOR: update-secret-create
@@ -55,7 +58,7 @@ pub async fn update_secret(
                     // ANCHOR_END: update-secret-try-again
                 }
             }
-            Err(e.into())
+            Err(e)
         }
     }
 }

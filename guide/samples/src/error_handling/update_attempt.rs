@@ -12,26 +12,27 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use google_cloud_gax as gax;
-use google_cloud_secretmanager_v1 as sm;
-
 // ANCHOR: update-attempt
+use google_cloud_secretmanager_v1::client::SecretManagerService;
+use google_cloud_secretmanager_v1::model::{SecretPayload, SecretVersion};
+
 pub(crate) async fn update_attempt(
-    client: &sm::client::SecretManagerService,
+    client: &SecretManagerService,
     project_id: &str,
     secret_id: &str,
     data: Vec<u8>,
-) -> gax::Result<sm::model::SecretVersion> {
+) -> anyhow::Result<SecretVersion> {
     let checksum = crc32c::crc32c(&data) as i64;
-    client
+    let version = client
         .add_secret_version()
         .set_parent(format!("projects/{project_id}/secrets/{secret_id}"))
         .set_payload(
-            sm::model::SecretPayload::new()
+            SecretPayload::new()
                 .set_data(data)
                 .set_data_crc32c(checksum),
         )
         .send()
-        .await
+        .await?;
+    Ok(version)
 }
 // ANCHOR_END: update-attempt
