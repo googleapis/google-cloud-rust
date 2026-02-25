@@ -131,7 +131,7 @@ token to resume paginating from a specific page.
 
 The standard [Google API List] method follows the pagination guideline defined
 by [AIP-158]. Each call to a `List` method for a resource returns a page of
-resource items (e.g. secrets) along with a next-page token that can be passed to
+resource items (e.g. secrets) along with a next-page token that you can pass to
 the `List` method to retrieve the next page.
 
 The Google Cloud Client Libraries for Rust provide an adapter to convert the

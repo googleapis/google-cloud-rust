@@ -17,7 +17,7 @@ limitations under the License.
 # How to write tests using the Storage client
 
 The Google Cloud Client Libraries for Rust provide a way to stub out the real
-client implementations, so a mock can be injected for testing.
+client implementations, so you can inject a mock for testing.
 
 Applications can use mocks to write controlled, reliable unit tests that do not
 involve network calls, and do not incur billing.
@@ -124,8 +124,8 @@ corresponding `write_object_unbuffered()`.
 {{#rustdoc_include ../../samples/tests/storage/mocking.rs:expect-unbuffered}}
 ```
 
-Generics in `mockall::mock!` are treated as different functions. You need to
-provide the exact payload type, so the compiler knows which function to use.
+`mockall::mock!` treats generics as different functions. You need to provide the
+exact payload type, so the compiler knows which function to use.
 
 ```rust,ignore,noplayground
 {{#rustdoc_include ../../samples/tests/storage/mocking.rs:explicit-payload-type}}

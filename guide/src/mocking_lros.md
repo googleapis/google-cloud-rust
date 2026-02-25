@@ -182,8 +182,8 @@ an error.
 {{#rustdoc_include ../samples/tests/mocking_lros_error.rs:expectation-initial}}
 ```
 
-For manual polling, an error starting an LRO is returned via the completed
-branch. This ends the polling loop.
+For manual polling, the completed branch returns an error starting an LRO. This
+ends the polling loop.
 
 ```rust,ignore,noplayground
 {{#rustdoc_include ../samples/tests/mocking_lros_error.rs:completed-branch}}
@@ -205,8 +205,8 @@ Set expectations to return the `Operation` from `get_operation` as before.
 {{#rustdoc_include ../samples/tests/mocking_lros_error.rs:expectation-final}}
 ```
 
-An LRO ending in an error will be returned via the completed branch. This ends
-the polling loop.
+The `PollingResult::Completed` branch returns an LRO ending in an error. This
+ends the polling loop.
 
 ```rust,ignore,noplayground
 {{#rustdoc_include ../samples/tests/mocking_lros_error.rs:completed-branch}}
@@ -225,8 +225,7 @@ by returning an error from the `get_operation` expectation.
 {{#rustdoc_include ../samples/tests/mocking_lros_error.rs:expectation-polling-error}}
 ```
 
-An LRO ending with a polling error will be returned via the polling error
-branch.
+The polling error branch returns an LRO ending with a polling error.
 
 ```rust,ignore,noplayground
 {{#rustdoc_include ../samples/tests/mocking_lros_error.rs:polling-error-branch}}

@@ -18,9 +18,9 @@ limitations under the License.
 
 Some Google Cloud services include additional error details when requests fail.
 To help with any troubleshooting, the Google Cloud client libraries for Rust
-always include these details when errors are formatted using
-`std::fmt::Display`. Some applications may want to examine these details and
-change their behavior based on their contents.
+always include these details when formatting errors using `std::fmt::Display`.
+Some applications may want to examine these details and change their behavior
+based on their contents.
 
 This guide shows you how to examine the error details returned by Google Cloud
 services.

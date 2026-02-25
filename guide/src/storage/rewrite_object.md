@@ -124,7 +124,7 @@ returned by the server to the next request.
 {{#rustdoc_include ../../samples/tests/storage/rewrite_object.rs:set-rewrite-token}}
 ```
 
-Also note that the rewrite token can be used to continue the operation from
+Also note that you can use the rewrite token to continue the operation from
 another process. Rewrite tokens are valid for up to one week.
 
 ## Full program

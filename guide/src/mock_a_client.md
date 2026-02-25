@@ -17,7 +17,7 @@ limitations under the License.
 # How to write tests using a client
 
 The Google Cloud Client Libraries for Rust provide a way to stub out the real
-client implementations, so a mock can be injected for testing.
+client implementations, so you can inject a mock for testing.
 
 Applications can use mocks to write controlled, reliable unit tests that do not
 involve network calls, and do not incur billing.
@@ -75,8 +75,8 @@ previously defined struct.
 {{#include ../samples/tests/mocking.rs:mock_new}}
 ```
 
-Next, set expectations on the mock. Expect `GetRecognizer` to be called, with a
-particular name.
+Next, set expectations on the mock. Expect the code to call `GetRecognizer` with
+a particular name.
 
 If that happens, simulate a successful response from the service.
 

@@ -83,7 +83,7 @@ The `set_etag` method lets you set an [etag] on the secret, which prevents
 overwriting concurrent updates.
 
 Having set labels and annotations on the updated secret, you pass a field mask
-to `set_update_mask` specifying the field paths to be updated:
+to `set_update_mask` to specify the field paths to update:
 
 ```rust,ignore
 {{#include ../samples/src/update_resource.rs:set-update-mask}}

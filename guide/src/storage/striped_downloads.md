@@ -66,7 +66,7 @@ Using the storage client, you create a 1MiB object:
 
 Then you use the storage control client to concatenate 32 copies of this object
 into a larger object. This operation does not require transferring any object
-data to the client, it is performed by the service:
+data to the client; the service performs it:
 
 ```rust,ignore,noplayground
 {{#rustdoc_include ../../samples/tests/storage/striped.rs:compose-32}}
@@ -162,10 +162,10 @@ blocking, so you need to run them on a dedicated thread:
 The performance of these downloads depends on:
 
 - The I/O subsystem: if your local storage is not fast enough the downloads will
-  be throttled by the writes to disk.
+  the writes to disk will throttle the downloads.
 - The configuration of your VM: if you do not have enough CPUs, the downloads
-  will be throttled on trying to decrypt the on data, as Cloud Storage and the
-  client library always encrypt the data in transit.
+  trying to decrypt the on data will throttle the downloads, as Cloud Storage
+  and the client library always encrypt the data in transit.
 - The location of the bucket and the particular object: the bucket may store all
   of the objects (or some objects) in a region different from your VM's
   location. In this case, you may be throttled by the wide-area network
