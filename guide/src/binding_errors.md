@@ -47,7 +47,7 @@ the resource. Specifically, the `name` field on a [`GetSecretRequest`] was
 required but not set.
 
 ```rust,ignore
-{{#include ../samples/src/binding_errors.rs:request}}
+{{#include ../samples/src/binding_errors/binding_fail.rs:request}}
 ```
 
 ## How to fix it
@@ -61,13 +61,13 @@ one of the templates shown in the error message:
 Either allows the client library to make a request to the server:
 
 ```rust,ignore
-{{#include ../samples/src/binding_errors.rs:request-success-1}}
+{{#include ../samples/src/binding_errors/binding_success.rs:request-success-1}}
 ```
 
 or
 
 ```rust,ignore
-{{#include ../samples/src/binding_errors.rs:request-success-2}}
+{{#include ../samples/src/binding_errors/binding_success.rs:request-success-2}}
 ```
 
 ## Interpreting templates
@@ -121,7 +121,7 @@ If you need to inspect the error programmatically, you can do so by checking
 that it is a binding error, then downcasting it to a `BindingError`.
 
 ```rust,ignore
-{{#include ../samples/src/binding_errors.rs:inspect}}
+{{#include ../samples/src/binding_errors/binding_fail.rs:inspect}}
 ```
 
 [uri]: https://clouddocs.f5.com/api/irules/HTTP__uri.html
