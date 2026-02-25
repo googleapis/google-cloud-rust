@@ -50,7 +50,7 @@ impl std::default::Default for BatchingOptions {
     fn default() -> Self {
         Self {
             message_count_threshold: 100_u32,
-            byte_threshold: 1000_u32,
+            byte_threshold: 1_000_000_u32, // 1 MB
             delay_threshold: std::time::Duration::from_millis(10),
         }
     }
