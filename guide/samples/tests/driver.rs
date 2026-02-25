@@ -175,7 +175,12 @@ mod driver {
             &secret_id,
         )
         .await?;
-        user_guide_samples::retry_policies::request_retry(&client, &project_id, &secret_id).await
+        user_guide_samples::retry_policies::request_retry::request_retry(
+            &client,
+            &project_id,
+            &secret_id,
+        )
+        .await
     }
 
     #[tokio::test]
