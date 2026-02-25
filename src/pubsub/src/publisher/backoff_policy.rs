@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-//! Defines the backoff policies for the Google Cloud Pub/Sub Publisher.
+//! Defines the backoff policies for the Cloud Pub/Sub Publisher.
 use google_cloud_gax::backoff_policy::BackoffPolicy;
 use google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder;
 use std::time::Duration;

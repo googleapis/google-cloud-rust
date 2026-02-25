@@ -30,6 +30,9 @@ pub mod api_header;
 #[cfg(feature = "_internal-common")]
 pub mod as_inner;
 
+#[cfg(feature = "_internal-http-client")]
+pub mod attempt_info;
+
 #[cfg(feature = "_internal-common")]
 pub mod path_parameter;
 

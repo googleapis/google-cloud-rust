@@ -15,7 +15,8 @@
 #[cfg(all(test, feature = "_internal-grpc-client", google_cloud_unstable_tracing))]
 mod tests {
     use google_cloud_auth::credentials::{Credentials, anonymous::Builder as Anonymous};
-    use google_cloud_gax::options::{RequestOptions, internal::set_resource_name};
+    use google_cloud_gax::options::RequestOptions;
+    use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
     use google_cloud_gax::retry_policy::Aip194Strict;
     use google_cloud_gax_internal::grpc;
     use google_cloud_test_utils::test_layer::TestLayer;
@@ -652,8 +653,9 @@ mod tests {
         config.cred = Some(test_credentials());
         let client = grpc::Client::new(config, &endpoint).await?;
 
-        let options = RequestOptions::default();
-        let options = set_resource_name(options, "projects/p/locations/l/resources/r".into());
+        let options = RequestOptions::default().insert_extension(ResourceName(
+            "projects/p/locations/l/resources/r".to_string(),
+        ));
 
         let extensions = {
             let mut e = tonic::Extensions::new();

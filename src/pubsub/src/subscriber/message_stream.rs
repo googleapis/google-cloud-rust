@@ -15,7 +15,7 @@
 use super::builder::StreamingPull;
 use super::handler::{AckResult, AtLeastOnce, Handler};
 use super::lease_loop::LeaseLoop;
-use super::lease_state::LeaseOptions;
+use super::lease_state::{LeaseInfo, LeaseOptions, NewMessage};
 use super::leaser::DefaultLeaser;
 use super::retry_policy::StreamRetryPolicy;
 use super::stream::Stream;
@@ -30,6 +30,7 @@ use google_cloud_gax::retry_result::RetryResult;
 use std::collections::VecDeque;
 use std::sync::Arc;
 use tokio::sync::mpsc::UnboundedSender;
+use tokio::time::Instant;
 
 /// Represents an open subscribe stream.
 ///
@@ -40,8 +41,8 @@ use tokio::sync::mpsc::UnboundedSender;
 /// # use google_cloud_pubsub::client::Subscriber;
 /// # async fn sample(client: Subscriber) -> anyhow::Result<()> {
 /// let mut stream = client
-///     .streaming_pull("projects/my-project/subscriptions/my-subscription")
-///     .start();
+///     .stream("projects/my-project/subscriptions/my-subscription")
+///     .build();
 /// while let Some((m, h)) = stream.next().await.transpose()? {
 ///     println!("Received message m={m:?}");
 ///     h.ack();
@@ -77,7 +78,7 @@ pub struct MessageStream {
 
     /// A sender for sending new messages from the stream into the lease
     /// management task.
-    message_tx: UnboundedSender<String>,
+    message_tx: UnboundedSender<NewMessage>,
 
     /// A sender for forwarding acks/nacks from the application to the lease
     /// management task. Each `Handler` holds a clone of this.
@@ -241,7 +242,11 @@ impl MessageStream {
                 // message.
                 continue;
             };
-            let _ = self.message_tx.send(rm.ack_id.clone());
+            let lease_info = LeaseInfo::AtLeastOnce(Instant::now());
+            let _ = self.message_tx.send(NewMessage {
+                ack_id: rm.ack_id.clone(),
+                lease_info,
+            });
             let message = match message.cnv().map_err(Error::deser) {
                 Ok(message) => message,
                 Err(e) => return Some(Err(e)),
@@ -281,6 +286,7 @@ mod tests {
     use super::*;
     use gaxi::grpc::tonic::{Response as TonicResponse, Status as TonicStatus};
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
+    use google_cloud_test_macros::tokio_test_no_panics;
     use pubsub_grpc_mock::google::pubsub::v1;
     use pubsub_grpc_mock::{MockSubscriber, start};
     use tokio::sync::mpsc::{channel, unbounded_channel};
@@ -321,14 +327,14 @@ mod tests {
             .await?)
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn error_starting_stream() -> anyhow::Result<()> {
         let mut mock = MockSubscriber::new();
         mock.expect_streaming_pull()
             .return_once(|_| Err(TonicStatus::failed_precondition("fail")));
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
-        let mut stream = client.streaming_pull("projects/p/subscriptions/s").start();
+        let mut stream = client.stream("projects/p/subscriptions/s").build();
         let err = stream
             .next()
             .await
@@ -345,7 +351,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn initial_request() -> anyhow::Result<()> {
         const MIB: i64 = 1024 * 1024;
 
@@ -372,11 +378,11 @@ mod tests {
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
         let _ = client
-            .streaming_pull("projects/p/subscriptions/s")
+            .stream("projects/p/subscriptions/s")
             .set_ack_deadline_seconds(20)
             .set_max_outstanding_messages(2000)
             .set_max_outstanding_bytes(200 * MIB)
-            .start()
+            .build()
             .next()
             .await;
 
@@ -401,7 +407,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test(start_paused = true)]
+    #[tokio_test_no_panics(start_paused = true)]
     async fn basic_success() -> anyhow::Result<()> {
         let (response_tx, response_rx) = channel(10);
         let (ack_tx, mut ack_rx) = unbounded_channel();
@@ -417,7 +423,7 @@ mod tests {
         });
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
-        let mut stream = client.streaming_pull("projects/p/subscriptions/s").start();
+        let mut stream = client.stream("projects/p/subscriptions/s").build();
 
         response_tx.send(Ok(test_response(1..2))).await?;
         response_tx.send(Ok(test_response(2..4))).await?;
@@ -445,7 +451,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test(start_paused = true)]
+    #[tokio_test_no_panics(start_paused = true)]
     async fn basic_lease_management() -> anyhow::Result<()> {
         let (response_tx, response_rx) = channel(10);
         let (ack_tx, mut ack_rx) = unbounded_channel();
@@ -474,7 +480,7 @@ mod tests {
         });
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
-        let mut stream = client.streaming_pull("projects/p/subscriptions/s").start();
+        let mut stream = client.stream("projects/p/subscriptions/s").build();
 
         response_tx.send(Ok(test_response(0..30))).await?;
         drop(response_tx);
@@ -537,7 +543,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test(start_paused = true)]
+    #[tokio_test_no_panics(start_paused = true)]
     async fn delayed_responses() -> anyhow::Result<()> {
         // In this test, we verify the case where an application asks for a
         // message, but a response is not immediately available on the stream.
@@ -554,7 +560,7 @@ mod tests {
             .return_once(|_| Ok(TonicResponse::from(response_rx)));
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
-        let mut stream = client.streaming_pull("projects/p/subscriptions/s").start();
+        let mut stream = client.stream("projects/p/subscriptions/s").build();
         let (m, Handler::AtLeastOnce(h)) = stream
             .next()
             .await
@@ -568,7 +574,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn serves_messages_immediately() -> anyhow::Result<()> {
         // This test verifies we do not do something crazy like draining the
         // stream (which would never end) before serving messages to the
@@ -581,7 +587,7 @@ mod tests {
             .return_once(|_| Ok(TonicResponse::from(response_rx)));
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
-        let mut stream = client.streaming_pull("projects/p/subscriptions/s").start();
+        let mut stream = client.stream("projects/p/subscriptions/s").build();
 
         for i in 1..7 {
             response_tx.send(Ok(test_response(i..i + 1))).await?;
@@ -598,7 +604,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn handles_empty_response() -> anyhow::Result<()> {
         let (response_tx, response_rx) = channel(10);
 
@@ -607,7 +613,7 @@ mod tests {
             .return_once(|_| Ok(TonicResponse::from(response_rx)));
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
-        let mut stream = client.streaming_pull("projects/p/subscriptions/s").start();
+        let mut stream = client.stream("projects/p/subscriptions/s").build();
 
         response_tx.send(Ok(test_response(1..2))).await?;
         // See if we can handle an empty range
@@ -627,7 +633,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test(start_paused = true)]
+    #[tokio_test_no_panics(start_paused = true)]
     async fn handles_missing_message_field() -> anyhow::Result<()> {
         let (response_tx, response_rx) = channel(10);
         let (extend_tx, mut extend_rx) = unbounded_channel();
@@ -654,7 +660,7 @@ mod tests {
         });
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
-        let mut stream = client.streaming_pull("projects/p/subscriptions/s").start();
+        let mut stream = client.stream("projects/p/subscriptions/s").build();
 
         response_tx.send(Ok(test_response(1..4))).await?;
         // See if we can handle an empty range
@@ -690,7 +696,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn permanent_error_midstream() -> anyhow::Result<()> {
         let (response_tx, response_rx) = channel(10);
 
@@ -699,7 +705,7 @@ mod tests {
             .return_once(|_| Ok(TonicResponse::from(response_rx)));
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
-        let mut stream = client.streaming_pull("projects/p/subscriptions/s").start();
+        let mut stream = client.stream("projects/p/subscriptions/s").build();
 
         response_tx.send(Ok(test_response(1..4))).await?;
         response_tx
@@ -729,7 +735,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test(start_paused = true)]
+    #[tokio_test_no_panics(start_paused = true)]
     async fn keepalives() -> anyhow::Result<()> {
         // We use this channel to surface writes (requests) from outside our
         // mock expectation.
@@ -756,7 +762,7 @@ mod tests {
 
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
-        let mut stream = client.streaming_pull("projects/p/subscriptions/s").start();
+        let mut stream = client.stream("projects/p/subscriptions/s").build();
         response_tx.send(Ok(test_response(1..4))).await?;
         let _ = stream.next().await;
 
@@ -786,7 +792,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn client_id() -> anyhow::Result<()> {
         // We use this channel to surface writes (requests) from outside our
         // mock expectation.
@@ -818,20 +824,12 @@ mod tests {
         // Make two requests with the same client. The requests should have the
         // same client ID.
         let c1 = test_client(endpoint.clone()).await?;
-        let _ = c1
-            .streaming_pull("projects/p/subscriptions/s")
-            .start()
-            .next()
-            .await;
+        let _ = c1.stream("projects/p/subscriptions/s").build().next().await;
         let req1 = recover_writes_rx
             .recv()
             .await
             .expect("should receive a request")?;
-        let _ = c1
-            .streaming_pull("projects/p/subscriptions/s")
-            .start()
-            .next()
-            .await;
+        let _ = c1.stream("projects/p/subscriptions/s").build().next().await;
         let req2 = recover_writes_rx
             .recv()
             .await
@@ -841,11 +839,7 @@ mod tests {
         // Make a third request with a different client. This request should
         // have a different client ID.
         let c2 = test_client(endpoint).await?;
-        let _ = c2
-            .streaming_pull("projects/p/subscriptions/s")
-            .start()
-            .next()
-            .await;
+        let _ = c2.stream("projects/p/subscriptions/s").build().next().await;
         let req3 = recover_writes_rx
             .recv()
             .await
@@ -855,7 +849,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test(start_paused = true)]
+    #[tokio_test_no_panics(start_paused = true)]
     async fn no_immediate_message() -> anyhow::Result<()> {
         const TEST_TIMEOUT: Duration = Duration::from_secs(42);
 
@@ -867,7 +861,7 @@ mod tests {
 
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
-        let mut stream = client.streaming_pull("projects/p/subscriptions/s").start();
+        let mut stream = client.stream("projects/p/subscriptions/s").build();
 
         let _ = tokio::time::timeout(TEST_TIMEOUT, stream.next())
             .await
@@ -876,7 +870,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test(start_paused = true)]
+    #[tokio_test_no_panics(start_paused = true)]
     async fn retry_transient_when_starting_stream() -> anyhow::Result<()> {
         // The policy should retry forever. Our default retry policies have an
         // attempt limit of 10. So we arbitrarily pick a number greater than 10
@@ -899,7 +893,7 @@ mod tests {
             .return_once(|_| Err(TonicStatus::failed_precondition("fail")));
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
-        let mut stream = client.streaming_pull("projects/p/subscriptions/s").start();
+        let mut stream = client.stream("projects/p/subscriptions/s").build();
         let err = stream
             .next()
             .await
@@ -926,7 +920,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test(start_paused = true)]
+    #[tokio_test_no_panics(start_paused = true)]
     async fn resume_midstream_success() -> anyhow::Result<()> {
         let (response_tx_1, response_rx_1) = channel(10);
         let (response_tx_2, response_rx_2) = channel(10);
@@ -955,7 +949,7 @@ mod tests {
         });
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
-        let mut stream = client.streaming_pull("projects/p/subscriptions/s").start();
+        let mut stream = client.stream("projects/p/subscriptions/s").build();
 
         response_tx_1.send(Ok(test_response(0..10))).await?;
         response_tx_1.send(Ok(test_response(10..20))).await?;
@@ -997,7 +991,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test(start_paused = true)]
+    #[tokio_test_no_panics(start_paused = true)]
     async fn resume_midstream_hits_permanent_error() -> anyhow::Result<()> {
         let (response_tx, response_rx) = channel(10);
         let (ack_tx, mut ack_rx) = unbounded_channel();
@@ -1027,7 +1021,7 @@ mod tests {
         });
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
-        let mut stream = client.streaming_pull("projects/p/subscriptions/s").start();
+        let mut stream = client.stream("projects/p/subscriptions/s").build();
 
         response_tx.send(Ok(test_response(0..10))).await?;
         response_tx.send(Ok(test_response(10..20))).await?;
@@ -1071,7 +1065,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn routing_header() -> anyhow::Result<()> {
         let mut mock = MockSubscriber::new();
 
@@ -1090,8 +1084,8 @@ mod tests {
         let client = test_client(endpoint).await?;
 
         let _ = client
-            .streaming_pull("projects/p/subscriptions/s")
-            .start()
+            .stream("projects/p/subscriptions/s")
+            .build()
             .next()
             .await;
 
@@ -1099,7 +1093,7 @@ mod tests {
     }
 
     #[cfg(feature = "unstable-stream")]
-    #[tokio::test(start_paused = true)]
+    #[tokio_test_no_panics(start_paused = true)]
     async fn into_stream() -> anyhow::Result<()> {
         use futures::TryStreamExt;
         let (response_tx, response_rx) = channel(10);
@@ -1119,8 +1113,8 @@ mod tests {
         let client = test_client(endpoint).await?;
 
         let stream = client
-            .streaming_pull("projects/p/subscriptions/s")
-            .start()
+            .stream("projects/p/subscriptions/s")
+            .build()
             .into_stream();
 
         response_tx.send(Ok(test_response(1..3))).await?;

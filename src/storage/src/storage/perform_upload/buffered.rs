@@ -21,10 +21,9 @@ use crate::error::WriteError;
 use crate::storage::checksum::details::{
     Checksum, update as checksum_update, validate as checksum_validate,
 };
-use gaxi::http::{
-    map_send_error,
-    reqwest::{HeaderValue, Method, RequestBuilder},
-};
+use gaxi::attempt_info::AttemptInfo;
+use gaxi::http::HttpRequestBuilder;
+use gaxi::http::reqwest::{HeaderValue, Method};
 use progress::InProgressUpload;
 use std::sync::Arc;
 use tokio::sync::Mutex;
@@ -87,7 +86,7 @@ where
         };
 
         if progress.needs_query() {
-            match self.query_resumable_upload_attempt(upload_url).await? {
+            match self.query_resumable_upload_attempt(upload_url, 0).await? {
                 ResumableUploadStatus::Finalized(object) => return Ok(*object),
                 ResumableUploadStatus::Partial(persisted_size) => {
                     progress.handle_partial(persisted_size)?;
@@ -95,12 +94,16 @@ where
             };
         }
 
+        let mut count = 0;
         loop {
             progress
                 .next_buffer(&mut *self.payload.lock().await)
                 .await?;
             let builder = self.partial_upload_request(upload_url, progress).await?;
-            let response = builder.send().await.map_err(map_send_error)?;
+            let response = builder
+                .send(self.options.gax(), AttemptInfo::new(count))
+                .await?;
+            count += 1;
             match super::query_resumable_upload_handle_response(response).await {
                 Err(e) => {
                     progress.handle_error();
@@ -120,12 +123,12 @@ where
         &self,
         upload_url: &str,
         progress: &mut InProgressUpload,
-    ) -> Result<RequestBuilder> {
+    ) -> Result<HttpRequestBuilder> {
         let range = progress.range_header();
         let builder = self
             .inner
             .client
-            .builder_with_url(Method::PUT, upload_url)
+            .http_builder_with_url(Method::PUT, upload_url, crate::storage::DEFAULT_HOST)?
             .header("content-type", "application/octet-stream")
             .header("Content-Range", range)
             .header(
@@ -134,7 +137,6 @@ where
             );
 
         let builder = apply_customer_supplied_encryption_headers(builder, &self.params);
-        let builder = self.inner.apply_auth_headers(builder).await?;
         Ok(builder.body(progress.put_body()))
     }
 
@@ -239,7 +241,8 @@ mod tests {
         let request = perform_upload(inner, builder)
             .start_resumable_upload_request()
             .await?
-            .build()?;
+            .build_for_tests()
+            .await?;
 
         let got = request
             .url()

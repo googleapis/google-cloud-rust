@@ -74,8 +74,10 @@ impl super::stub::Compliance for Compliance {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -134,8 +136,10 @@ impl super::stub::Compliance for Compliance {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -206,8 +210,10 @@ impl super::stub::Compliance for Compliance {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -292,8 +298,10 @@ impl super::stub::Compliance for Compliance {
             google_cloud_gax::error::Error::binding(BindingError { paths })
         })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -410,8 +418,10 @@ impl super::stub::Compliance for Compliance {
             google_cloud_gax::error::Error::binding(BindingError { paths })
         })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -521,8 +531,10 @@ impl super::stub::Compliance for Compliance {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -561,8 +573,10 @@ impl super::stub::Compliance for Compliance {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -601,8 +615,10 @@ impl super::stub::Compliance for Compliance {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -642,8 +658,10 @@ impl super::stub::Compliance for Compliance {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -695,8 +713,10 @@ impl super::stub::Compliance for Compliance {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -752,8 +772,10 @@ impl super::stub::Compliance for Compliance {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -816,8 +838,10 @@ impl super::stub::Compliance for Compliance {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -952,17 +976,15 @@ impl super::stub::Compliance for Compliance {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
-        #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or(Some(&req.resource));
-            if let Some(rn) = resource_name {
-                let full_resource_name = format!("//localhost:7469/{}", rn);
-                google_cloud_gax::options::internal::set_resource_name(options, full_resource_name)
-            } else {
-                options
-            }
+            use google_cloud_gax::options::internal::ResourceName;
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            let options = Option::<&String>::None
+                .or(Some(&req.resource))
+                .map(|v| ResourceName(format!("//localhost:7469/{v}")))
+                .into_iter()
+                .fold(options, |options, v| options.insert_extension(v));
+            options.insert_extension(PathTemplate(_path_template))
         };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
@@ -1146,17 +1168,15 @@ impl super::stub::Compliance for Compliance {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
-        #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or(Some(&req.resource));
-            if let Some(rn) = resource_name {
-                let full_resource_name = format!("//localhost:7469/{}", rn);
-                google_cloud_gax::options::internal::set_resource_name(options, full_resource_name)
-            } else {
-                options
-            }
+            use google_cloud_gax::options::internal::ResourceName;
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            let options = Option::<&String>::None
+                .or(Some(&req.resource))
+                .map(|v| ResourceName(format!("//localhost:7469/{v}")))
+                .into_iter()
+                .fold(options, |options, v| options.insert_extension(v));
+            options.insert_extension(PathTemplate(_path_template))
         };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
@@ -1292,17 +1312,15 @@ impl super::stub::Compliance for Compliance {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
-        #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or(Some(&req.resource));
-            if let Some(rn) = resource_name {
-                let full_resource_name = format!("//localhost:7469/{}", rn);
-                google_cloud_gax::options::internal::set_resource_name(options, full_resource_name)
-            } else {
-                options
-            }
+            use google_cloud_gax::options::internal::ResourceName;
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            let options = Option::<&String>::None
+                .or(Some(&req.resource))
+                .map(|v| ResourceName(format!("//localhost:7469/{v}")))
+                .into_iter()
+                .fold(options, |options, v| options.insert_extension(v));
+            options.insert_extension(PathTemplate(_path_template))
         };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
@@ -1348,8 +1366,10 @@ impl super::stub::Compliance for Compliance {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1408,8 +1428,10 @@ impl super::stub::Compliance for Compliance {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1468,8 +1490,10 @@ impl super::stub::Compliance for Compliance {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1534,8 +1558,10 @@ impl super::stub::Compliance for Compliance {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1610,8 +1636,10 @@ impl super::stub::Echo for Echo {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1653,8 +1681,10 @@ impl super::stub::Echo for Echo {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1696,8 +1726,10 @@ impl super::stub::Echo for Echo {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1739,8 +1771,10 @@ impl super::stub::Echo for Echo {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1782,8 +1816,10 @@ impl super::stub::Echo for Echo {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1825,8 +1861,10 @@ impl super::stub::Echo for Echo {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1868,8 +1906,10 @@ impl super::stub::Echo for Echo {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1911,8 +1951,10 @@ impl super::stub::Echo for Echo {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1971,8 +2013,10 @@ impl super::stub::Echo for Echo {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2035,8 +2079,10 @@ impl super::stub::Echo for Echo {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2171,17 +2217,15 @@ impl super::stub::Echo for Echo {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
-        #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or(Some(&req.resource));
-            if let Some(rn) = resource_name {
-                let full_resource_name = format!("//localhost:7469/{}", rn);
-                google_cloud_gax::options::internal::set_resource_name(options, full_resource_name)
-            } else {
-                options
-            }
+            use google_cloud_gax::options::internal::ResourceName;
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            let options = Option::<&String>::None
+                .or(Some(&req.resource))
+                .map(|v| ResourceName(format!("//localhost:7469/{v}")))
+                .into_iter()
+                .fold(options, |options, v| options.insert_extension(v));
+            options.insert_extension(PathTemplate(_path_template))
         };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
@@ -2365,17 +2409,15 @@ impl super::stub::Echo for Echo {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
-        #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or(Some(&req.resource));
-            if let Some(rn) = resource_name {
-                let full_resource_name = format!("//localhost:7469/{}", rn);
-                google_cloud_gax::options::internal::set_resource_name(options, full_resource_name)
-            } else {
-                options
-            }
+            use google_cloud_gax::options::internal::ResourceName;
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            let options = Option::<&String>::None
+                .or(Some(&req.resource))
+                .map(|v| ResourceName(format!("//localhost:7469/{v}")))
+                .into_iter()
+                .fold(options, |options, v| options.insert_extension(v));
+            options.insert_extension(PathTemplate(_path_template))
         };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
@@ -2511,17 +2553,15 @@ impl super::stub::Echo for Echo {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
-        #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or(Some(&req.resource));
-            if let Some(rn) = resource_name {
-                let full_resource_name = format!("//localhost:7469/{}", rn);
-                google_cloud_gax::options::internal::set_resource_name(options, full_resource_name)
-            } else {
-                options
-            }
+            use google_cloud_gax::options::internal::ResourceName;
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            let options = Option::<&String>::None
+                .or(Some(&req.resource))
+                .map(|v| ResourceName(format!("//localhost:7469/{v}")))
+                .into_iter()
+                .fold(options, |options, v| options.insert_extension(v));
+            options.insert_extension(PathTemplate(_path_template))
         };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
@@ -2567,8 +2607,10 @@ impl super::stub::Echo for Echo {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2627,8 +2669,10 @@ impl super::stub::Echo for Echo {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2687,8 +2731,10 @@ impl super::stub::Echo for Echo {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2753,8 +2799,10 @@ impl super::stub::Echo for Echo {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2844,8 +2892,10 @@ impl super::stub::Identity for Identity {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2898,17 +2948,15 @@ impl super::stub::Identity for Identity {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
-        #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or(Some(&req.name));
-            if let Some(rn) = resource_name {
-                let full_resource_name = format!("//localhost:7469/{}", rn);
-                google_cloud_gax::options::internal::set_resource_name(options, full_resource_name)
-            } else {
-                options
-            }
+            use google_cloud_gax::options::internal::ResourceName;
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            let options = Option::<&String>::None
+                .or(Some(&req.name))
+                .map(|v| ResourceName(format!("//localhost:7469/{v}")))
+                .into_iter()
+                .fold(options, |options, v| options.insert_extension(v));
+            options.insert_extension(PathTemplate(_path_template))
         };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
@@ -2980,8 +3028,10 @@ impl super::stub::Identity for Identity {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3034,17 +3084,15 @@ impl super::stub::Identity for Identity {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
-        #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or(Some(&req.name));
-            if let Some(rn) = resource_name {
-                let full_resource_name = format!("//localhost:7469/{}", rn);
-                google_cloud_gax::options::internal::set_resource_name(options, full_resource_name)
-            } else {
-                options
-            }
+            use google_cloud_gax::options::internal::ResourceName;
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            let options = Option::<&String>::None
+                .or(Some(&req.name))
+                .map(|v| ResourceName(format!("//localhost:7469/{v}")))
+                .into_iter()
+                .fold(options, |options, v| options.insert_extension(v));
+            options.insert_extension(PathTemplate(_path_template))
         };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
@@ -3092,8 +3140,10 @@ impl super::stub::Identity for Identity {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3149,8 +3199,10 @@ impl super::stub::Identity for Identity {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3213,8 +3265,10 @@ impl super::stub::Identity for Identity {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3349,17 +3403,15 @@ impl super::stub::Identity for Identity {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
-        #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or(Some(&req.resource));
-            if let Some(rn) = resource_name {
-                let full_resource_name = format!("//localhost:7469/{}", rn);
-                google_cloud_gax::options::internal::set_resource_name(options, full_resource_name)
-            } else {
-                options
-            }
+            use google_cloud_gax::options::internal::ResourceName;
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            let options = Option::<&String>::None
+                .or(Some(&req.resource))
+                .map(|v| ResourceName(format!("//localhost:7469/{v}")))
+                .into_iter()
+                .fold(options, |options, v| options.insert_extension(v));
+            options.insert_extension(PathTemplate(_path_template))
         };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
@@ -3543,17 +3595,15 @@ impl super::stub::Identity for Identity {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
-        #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or(Some(&req.resource));
-            if let Some(rn) = resource_name {
-                let full_resource_name = format!("//localhost:7469/{}", rn);
-                google_cloud_gax::options::internal::set_resource_name(options, full_resource_name)
-            } else {
-                options
-            }
+            use google_cloud_gax::options::internal::ResourceName;
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            let options = Option::<&String>::None
+                .or(Some(&req.resource))
+                .map(|v| ResourceName(format!("//localhost:7469/{v}")))
+                .into_iter()
+                .fold(options, |options, v| options.insert_extension(v));
+            options.insert_extension(PathTemplate(_path_template))
         };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
@@ -3689,17 +3739,15 @@ impl super::stub::Identity for Identity {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
-        #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or(Some(&req.resource));
-            if let Some(rn) = resource_name {
-                let full_resource_name = format!("//localhost:7469/{}", rn);
-                google_cloud_gax::options::internal::set_resource_name(options, full_resource_name)
-            } else {
-                options
-            }
+            use google_cloud_gax::options::internal::ResourceName;
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            let options = Option::<&String>::None
+                .or(Some(&req.resource))
+                .map(|v| ResourceName(format!("//localhost:7469/{v}")))
+                .into_iter()
+                .fold(options, |options, v| options.insert_extension(v));
+            options.insert_extension(PathTemplate(_path_template))
         };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
@@ -3745,8 +3793,10 @@ impl super::stub::Identity for Identity {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3805,8 +3855,10 @@ impl super::stub::Identity for Identity {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3865,8 +3917,10 @@ impl super::stub::Identity for Identity {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3931,8 +3985,10 @@ impl super::stub::Identity for Identity {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4008,8 +4064,10 @@ impl super::stub::Messaging for Messaging {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4062,17 +4120,15 @@ impl super::stub::Messaging for Messaging {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
-        #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or(Some(&req.name));
-            if let Some(rn) = resource_name {
-                let full_resource_name = format!("//localhost:7469/{}", rn);
-                google_cloud_gax::options::internal::set_resource_name(options, full_resource_name)
-            } else {
-                options
-            }
+            use google_cloud_gax::options::internal::ResourceName;
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            let options = Option::<&String>::None
+                .or(Some(&req.name))
+                .map(|v| ResourceName(format!("//localhost:7469/{v}")))
+                .into_iter()
+                .fold(options, |options, v| options.insert_extension(v));
+            options.insert_extension(PathTemplate(_path_template))
         };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
@@ -4144,8 +4200,10 @@ impl super::stub::Messaging for Messaging {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4198,17 +4256,15 @@ impl super::stub::Messaging for Messaging {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
-        #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or(Some(&req.name));
-            if let Some(rn) = resource_name {
-                let full_resource_name = format!("//localhost:7469/{}", rn);
-                google_cloud_gax::options::internal::set_resource_name(options, full_resource_name)
-            } else {
-                options
-            }
+            use google_cloud_gax::options::internal::ResourceName;
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            let options = Option::<&String>::None
+                .or(Some(&req.name))
+                .map(|v| ResourceName(format!("//localhost:7469/{v}")))
+                .into_iter()
+                .fold(options, |options, v| options.insert_extension(v));
+            options.insert_extension(PathTemplate(_path_template))
         };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
@@ -4256,8 +4312,10 @@ impl super::stub::Messaging for Messaging {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4342,19 +4400,16 @@ impl super::stub::Messaging for Messaging {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
-        #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None
+            use google_cloud_gax::options::internal::ResourceName;
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            let options = Option::<&String>::None
                 .or(Some(&req.parent))
-                .or(req.blurb.as_ref().map(|s| &s.user));
-            if let Some(rn) = resource_name {
-                let full_resource_name = format!("//localhost:7469/{}", rn);
-                google_cloud_gax::options::internal::set_resource_name(options, full_resource_name)
-            } else {
-                options
-            }
+                .or(req.blurb.as_ref().map(|s| &s.user))
+                .map(|v| ResourceName(format!("//localhost:7469/{v}")))
+                .into_iter()
+                .fold(options, |options, v| options.insert_extension(v));
+            options.insert_extension(PathTemplate(_path_template))
         };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
@@ -4452,17 +4507,15 @@ impl super::stub::Messaging for Messaging {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
-        #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or(Some(&req.name));
-            if let Some(rn) = resource_name {
-                let full_resource_name = format!("//localhost:7469/{}", rn);
-                google_cloud_gax::options::internal::set_resource_name(options, full_resource_name)
-            } else {
-                options
-            }
+            use google_cloud_gax::options::internal::ResourceName;
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            let options = Option::<&String>::None
+                .or(Some(&req.name))
+                .map(|v| ResourceName(format!("//localhost:7469/{v}")))
+                .into_iter()
+                .fold(options, |options, v| options.insert_extension(v));
+            options.insert_extension(PathTemplate(_path_template))
         };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
@@ -4596,17 +4649,15 @@ impl super::stub::Messaging for Messaging {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
-        #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or(req.blurb.as_ref().map(|s| &s.user));
-            if let Some(rn) = resource_name {
-                let full_resource_name = format!("//localhost:7469/{}", rn);
-                google_cloud_gax::options::internal::set_resource_name(options, full_resource_name)
-            } else {
-                options
-            }
+            use google_cloud_gax::options::internal::ResourceName;
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            let options = Option::<&String>::None
+                .or(req.blurb.as_ref().map(|s| &s.user))
+                .map(|v| ResourceName(format!("//localhost:7469/{v}")))
+                .into_iter()
+                .fold(options, |options, v| options.insert_extension(v));
+            options.insert_extension(PathTemplate(_path_template))
         };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
@@ -4704,17 +4755,15 @@ impl super::stub::Messaging for Messaging {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
-        #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or(Some(&req.name));
-            if let Some(rn) = resource_name {
-                let full_resource_name = format!("//localhost:7469/{}", rn);
-                google_cloud_gax::options::internal::set_resource_name(options, full_resource_name)
-            } else {
-                options
-            }
+            use google_cloud_gax::options::internal::ResourceName;
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            let options = Option::<&String>::None
+                .or(Some(&req.name))
+                .map(|v| ResourceName(format!("//localhost:7469/{v}")))
+                .into_iter()
+                .fold(options, |options, v| options.insert_extension(v));
+            options.insert_extension(PathTemplate(_path_template))
         };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
@@ -4810,17 +4859,15 @@ impl super::stub::Messaging for Messaging {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
-        #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or(Some(&req.parent));
-            if let Some(rn) = resource_name {
-                let full_resource_name = format!("//localhost:7469/{}", rn);
-                google_cloud_gax::options::internal::set_resource_name(options, full_resource_name)
-            } else {
-                options
-            }
+            use google_cloud_gax::options::internal::ResourceName;
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            let options = Option::<&String>::None
+                .or(Some(&req.parent))
+                .map(|v| ResourceName(format!("//localhost:7469/{v}")))
+                .into_iter()
+                .fold(options, |options, v| options.insert_extension(v));
+            options.insert_extension(PathTemplate(_path_template))
         };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
@@ -4909,17 +4956,15 @@ impl super::stub::Messaging for Messaging {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
-        #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or(Some(&req.parent));
-            if let Some(rn) = resource_name {
-                let full_resource_name = format!("//localhost:7469/{}", rn);
-                google_cloud_gax::options::internal::set_resource_name(options, full_resource_name)
-            } else {
-                options
-            }
+            use google_cloud_gax::options::internal::ResourceName;
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            let options = Option::<&String>::None
+                .or(Some(&req.parent))
+                .map(|v| ResourceName(format!("//localhost:7469/{v}")))
+                .into_iter()
+                .fold(options, |options, v| options.insert_extension(v));
+            options.insert_extension(PathTemplate(_path_template))
         };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
@@ -4976,8 +5021,10 @@ impl super::stub::Messaging for Messaging {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5040,8 +5087,10 @@ impl super::stub::Messaging for Messaging {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5176,17 +5225,15 @@ impl super::stub::Messaging for Messaging {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
-        #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or(Some(&req.resource));
-            if let Some(rn) = resource_name {
-                let full_resource_name = format!("//localhost:7469/{}", rn);
-                google_cloud_gax::options::internal::set_resource_name(options, full_resource_name)
-            } else {
-                options
-            }
+            use google_cloud_gax::options::internal::ResourceName;
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            let options = Option::<&String>::None
+                .or(Some(&req.resource))
+                .map(|v| ResourceName(format!("//localhost:7469/{v}")))
+                .into_iter()
+                .fold(options, |options, v| options.insert_extension(v));
+            options.insert_extension(PathTemplate(_path_template))
         };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
@@ -5370,17 +5417,15 @@ impl super::stub::Messaging for Messaging {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
-        #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or(Some(&req.resource));
-            if let Some(rn) = resource_name {
-                let full_resource_name = format!("//localhost:7469/{}", rn);
-                google_cloud_gax::options::internal::set_resource_name(options, full_resource_name)
-            } else {
-                options
-            }
+            use google_cloud_gax::options::internal::ResourceName;
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            let options = Option::<&String>::None
+                .or(Some(&req.resource))
+                .map(|v| ResourceName(format!("//localhost:7469/{v}")))
+                .into_iter()
+                .fold(options, |options, v| options.insert_extension(v));
+            options.insert_extension(PathTemplate(_path_template))
         };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
@@ -5516,17 +5561,15 @@ impl super::stub::Messaging for Messaging {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
-        #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or(Some(&req.resource));
-            if let Some(rn) = resource_name {
-                let full_resource_name = format!("//localhost:7469/{}", rn);
-                google_cloud_gax::options::internal::set_resource_name(options, full_resource_name)
-            } else {
-                options
-            }
+            use google_cloud_gax::options::internal::ResourceName;
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            let options = Option::<&String>::None
+                .or(Some(&req.resource))
+                .map(|v| ResourceName(format!("//localhost:7469/{v}")))
+                .into_iter()
+                .fold(options, |options, v| options.insert_extension(v));
+            options.insert_extension(PathTemplate(_path_template))
         };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
@@ -5572,8 +5615,10 @@ impl super::stub::Messaging for Messaging {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5632,8 +5677,10 @@ impl super::stub::Messaging for Messaging {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5692,8 +5739,10 @@ impl super::stub::Messaging for Messaging {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5758,8 +5807,10 @@ impl super::stub::Messaging for Messaging {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5849,8 +5900,10 @@ impl super::stub::SequenceService for SequenceService {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5889,8 +5942,10 @@ impl super::stub::SequenceService for SequenceService {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5951,17 +6006,15 @@ impl super::stub::SequenceService for SequenceService {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
-        #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or(Some(&req.name));
-            if let Some(rn) = resource_name {
-                let full_resource_name = format!("//localhost:7469/{}", rn);
-                google_cloud_gax::options::internal::set_resource_name(options, full_resource_name)
-            } else {
-                options
-            }
+            use google_cloud_gax::options::internal::ResourceName;
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            let options = Option::<&String>::None
+                .or(Some(&req.name))
+                .map(|v| ResourceName(format!("//localhost:7469/{v}")))
+                .into_iter()
+                .fold(options, |options, v| options.insert_extension(v));
+            options.insert_extension(PathTemplate(_path_template))
         };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
@@ -6023,17 +6076,15 @@ impl super::stub::SequenceService for SequenceService {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
-        #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or(Some(&req.name));
-            if let Some(rn) = resource_name {
-                let full_resource_name = format!("//localhost:7469/{}", rn);
-                google_cloud_gax::options::internal::set_resource_name(options, full_resource_name)
-            } else {
-                options
-            }
+            use google_cloud_gax::options::internal::ResourceName;
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            let options = Option::<&String>::None
+                .or(Some(&req.name))
+                .map(|v| ResourceName(format!("//localhost:7469/{v}")))
+                .into_iter()
+                .fold(options, |options, v| options.insert_extension(v));
+            options.insert_extension(PathTemplate(_path_template))
         };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
@@ -6087,17 +6138,15 @@ impl super::stub::SequenceService for SequenceService {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
-        #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or(Some(&req.name));
-            if let Some(rn) = resource_name {
-                let full_resource_name = format!("//localhost:7469/{}", rn);
-                google_cloud_gax::options::internal::set_resource_name(options, full_resource_name)
-            } else {
-                options
-            }
+            use google_cloud_gax::options::internal::ResourceName;
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            let options = Option::<&String>::None
+                .or(Some(&req.name))
+                .map(|v| ResourceName(format!("//localhost:7469/{v}")))
+                .into_iter()
+                .fold(options, |options, v| options.insert_extension(v));
+            options.insert_extension(PathTemplate(_path_template))
         };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
@@ -6160,8 +6209,10 @@ impl super::stub::SequenceService for SequenceService {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6224,8 +6275,10 @@ impl super::stub::SequenceService for SequenceService {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6360,17 +6413,15 @@ impl super::stub::SequenceService for SequenceService {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
-        #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or(Some(&req.resource));
-            if let Some(rn) = resource_name {
-                let full_resource_name = format!("//localhost:7469/{}", rn);
-                google_cloud_gax::options::internal::set_resource_name(options, full_resource_name)
-            } else {
-                options
-            }
+            use google_cloud_gax::options::internal::ResourceName;
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            let options = Option::<&String>::None
+                .or(Some(&req.resource))
+                .map(|v| ResourceName(format!("//localhost:7469/{v}")))
+                .into_iter()
+                .fold(options, |options, v| options.insert_extension(v));
+            options.insert_extension(PathTemplate(_path_template))
         };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
@@ -6554,17 +6605,15 @@ impl super::stub::SequenceService for SequenceService {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
-        #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or(Some(&req.resource));
-            if let Some(rn) = resource_name {
-                let full_resource_name = format!("//localhost:7469/{}", rn);
-                google_cloud_gax::options::internal::set_resource_name(options, full_resource_name)
-            } else {
-                options
-            }
+            use google_cloud_gax::options::internal::ResourceName;
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            let options = Option::<&String>::None
+                .or(Some(&req.resource))
+                .map(|v| ResourceName(format!("//localhost:7469/{v}")))
+                .into_iter()
+                .fold(options, |options, v| options.insert_extension(v));
+            options.insert_extension(PathTemplate(_path_template))
         };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
@@ -6700,17 +6749,15 @@ impl super::stub::SequenceService for SequenceService {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
-        #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or(Some(&req.resource));
-            if let Some(rn) = resource_name {
-                let full_resource_name = format!("//localhost:7469/{}", rn);
-                google_cloud_gax::options::internal::set_resource_name(options, full_resource_name)
-            } else {
-                options
-            }
+            use google_cloud_gax::options::internal::ResourceName;
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            let options = Option::<&String>::None
+                .or(Some(&req.resource))
+                .map(|v| ResourceName(format!("//localhost:7469/{v}")))
+                .into_iter()
+                .fold(options, |options, v| options.insert_extension(v));
+            options.insert_extension(PathTemplate(_path_template))
         };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
@@ -6756,8 +6803,10 @@ impl super::stub::SequenceService for SequenceService {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6816,8 +6865,10 @@ impl super::stub::SequenceService for SequenceService {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6876,8 +6927,10 @@ impl super::stub::SequenceService for SequenceService {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6942,8 +6995,10 @@ impl super::stub::SequenceService for SequenceService {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -7019,8 +7074,10 @@ impl super::stub::Testing for Testing {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -7073,17 +7130,15 @@ impl super::stub::Testing for Testing {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
-        #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or(Some(&req.name));
-            if let Some(rn) = resource_name {
-                let full_resource_name = format!("//localhost:7469/{}", rn);
-                google_cloud_gax::options::internal::set_resource_name(options, full_resource_name)
-            } else {
-                options
-            }
+            use google_cloud_gax::options::internal::ResourceName;
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            let options = Option::<&String>::None
+                .or(Some(&req.name))
+                .map(|v| ResourceName(format!("//localhost:7469/{v}")))
+                .into_iter()
+                .fold(options, |options, v| options.insert_extension(v));
+            options.insert_extension(PathTemplate(_path_template))
         };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
@@ -7125,8 +7180,10 @@ impl super::stub::Testing for Testing {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -7179,17 +7236,15 @@ impl super::stub::Testing for Testing {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
-        #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or(Some(&req.name));
-            if let Some(rn) = resource_name {
-                let full_resource_name = format!("//localhost:7469/{}", rn);
-                google_cloud_gax::options::internal::set_resource_name(options, full_resource_name)
-            } else {
-                options
-            }
+            use google_cloud_gax::options::internal::ResourceName;
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            let options = Option::<&String>::None
+                .or(Some(&req.name))
+                .map(|v| ResourceName(format!("//localhost:7469/{v}")))
+                .into_iter()
+                .fold(options, |options, v| options.insert_extension(v));
+            options.insert_extension(PathTemplate(_path_template))
         };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
@@ -7249,17 +7304,15 @@ impl super::stub::Testing for Testing {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
-        #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or(Some(&req.name));
-            if let Some(rn) = resource_name {
-                let full_resource_name = format!("//localhost:7469/{}", rn);
-                google_cloud_gax::options::internal::set_resource_name(options, full_resource_name)
-            } else {
-                options
-            }
+            use google_cloud_gax::options::internal::ResourceName;
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            let options = Option::<&String>::None
+                .or(Some(&req.name))
+                .map(|v| ResourceName(format!("//localhost:7469/{v}")))
+                .into_iter()
+                .fold(options, |options, v| options.insert_extension(v));
+            options.insert_extension(PathTemplate(_path_template))
         };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
@@ -7315,17 +7368,15 @@ impl super::stub::Testing for Testing {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
-        #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or(Some(&req.parent));
-            if let Some(rn) = resource_name {
-                let full_resource_name = format!("//localhost:7469/{}", rn);
-                google_cloud_gax::options::internal::set_resource_name(options, full_resource_name)
-            } else {
-                options
-            }
+            use google_cloud_gax::options::internal::ResourceName;
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            let options = Option::<&String>::None
+                .or(Some(&req.parent))
+                .map(|v| ResourceName(format!("//localhost:7469/{v}")))
+                .into_iter()
+                .fold(options, |options, v| options.insert_extension(v));
+            options.insert_extension(PathTemplate(_path_template))
         };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
@@ -7389,17 +7440,15 @@ impl super::stub::Testing for Testing {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
-        #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or(Some(&req.name));
-            if let Some(rn) = resource_name {
-                let full_resource_name = format!("//localhost:7469/{}", rn);
-                google_cloud_gax::options::internal::set_resource_name(options, full_resource_name)
-            } else {
-                options
-            }
+            use google_cloud_gax::options::internal::ResourceName;
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            let options = Option::<&String>::None
+                .or(Some(&req.name))
+                .map(|v| ResourceName(format!("//localhost:7469/{v}")))
+                .into_iter()
+                .fold(options, |options, v| options.insert_extension(v));
+            options.insert_extension(PathTemplate(_path_template))
         };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
@@ -7474,17 +7523,15 @@ impl super::stub::Testing for Testing {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
-        #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or(Some(&req.name));
-            if let Some(rn) = resource_name {
-                let full_resource_name = format!("//localhost:7469/{}", rn);
-                google_cloud_gax::options::internal::set_resource_name(options, full_resource_name)
-            } else {
-                options
-            }
+            use google_cloud_gax::options::internal::ResourceName;
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            let options = Option::<&String>::None
+                .or(Some(&req.name))
+                .map(|v| ResourceName(format!("//localhost:7469/{v}")))
+                .into_iter()
+                .fold(options, |options, v| options.insert_extension(v));
+            options.insert_extension(PathTemplate(_path_template))
         };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
@@ -7541,8 +7588,10 @@ impl super::stub::Testing for Testing {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -7605,8 +7654,10 @@ impl super::stub::Testing for Testing {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -7741,17 +7792,15 @@ impl super::stub::Testing for Testing {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
-        #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or(Some(&req.resource));
-            if let Some(rn) = resource_name {
-                let full_resource_name = format!("//localhost:7469/{}", rn);
-                google_cloud_gax::options::internal::set_resource_name(options, full_resource_name)
-            } else {
-                options
-            }
+            use google_cloud_gax::options::internal::ResourceName;
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            let options = Option::<&String>::None
+                .or(Some(&req.resource))
+                .map(|v| ResourceName(format!("//localhost:7469/{v}")))
+                .into_iter()
+                .fold(options, |options, v| options.insert_extension(v));
+            options.insert_extension(PathTemplate(_path_template))
         };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
@@ -7935,17 +7984,15 @@ impl super::stub::Testing for Testing {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
-        #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or(Some(&req.resource));
-            if let Some(rn) = resource_name {
-                let full_resource_name = format!("//localhost:7469/{}", rn);
-                google_cloud_gax::options::internal::set_resource_name(options, full_resource_name)
-            } else {
-                options
-            }
+            use google_cloud_gax::options::internal::ResourceName;
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            let options = Option::<&String>::None
+                .or(Some(&req.resource))
+                .map(|v| ResourceName(format!("//localhost:7469/{v}")))
+                .into_iter()
+                .fold(options, |options, v| options.insert_extension(v));
+            options.insert_extension(PathTemplate(_path_template))
         };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
@@ -8081,17 +8128,15 @@ impl super::stub::Testing for Testing {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
-        #[cfg(google_cloud_unstable_tracing)]
         let options = {
-            let resource_name = Option::<&String>::None.or(Some(&req.resource));
-            if let Some(rn) = resource_name {
-                let full_resource_name = format!("//localhost:7469/{}", rn);
-                google_cloud_gax::options::internal::set_resource_name(options, full_resource_name)
-            } else {
-                options
-            }
+            use google_cloud_gax::options::internal::ResourceName;
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            let options = Option::<&String>::None
+                .or(Some(&req.resource))
+                .map(|v| ResourceName(format!("//localhost:7469/{v}")))
+                .into_iter()
+                .fold(options, |options, v| options.insert_extension(v));
+            options.insert_extension(PathTemplate(_path_template))
         };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
@@ -8137,8 +8182,10 @@ impl super::stub::Testing for Testing {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -8197,8 +8244,10 @@ impl super::stub::Testing for Testing {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -8257,8 +8306,10 @@ impl super::stub::Testing for Testing {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -8323,8 +8374,10 @@ impl super::stub::Testing for Testing {
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
         #[cfg(google_cloud_unstable_tracing)]
-        let options =
-            google_cloud_gax::options::internal::set_path_template(options, _path_template);
+        let options = {
+            use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
+            options.insert_extension(PathTemplate(_path_template))
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),

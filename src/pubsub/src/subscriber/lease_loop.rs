@@ -13,7 +13,7 @@
 // limitations under the License.
 
 use super::handler::AckResult;
-use super::lease_state::{LeaseEvent, LeaseOptions, LeaseState};
+use super::lease_state::{LeaseEvent, LeaseOptions, LeaseState, NewMessage};
 use super::leaser::Leaser;
 use tokio::sync::mpsc::{UnboundedReceiver, UnboundedSender, unbounded_channel};
 use tokio::task::JoinHandle;
@@ -23,7 +23,7 @@ pub(super) struct LeaseLoop {
     /// A handle to the task running the lease loop.
     pub(super) handle: JoinHandle<()>,
     /// For sending messages from the stream to the lease loop.
-    pub(super) message_tx: UnboundedSender<String>,
+    pub(super) message_tx: UnboundedSender<NewMessage>,
     /// For sending acks/nacks from the application to the lease loop.
     pub(super) ack_tx: UnboundedSender<AckResult>,
 }
@@ -33,7 +33,7 @@ impl LeaseLoop {
     where
         L: Leaser + Clone + Send + 'static,
     {
-        let (message_tx, mut message_rx) = unbounded_channel();
+        let (message_tx, mut message_rx) = unbounded_channel::<NewMessage>();
         let (ack_tx, mut ack_rx) = unbounded_channel();
         let mut state = LeaseState::new(leaser, options);
 
@@ -50,7 +50,7 @@ impl LeaseLoop {
                     message = message_rx.recv() => {
                         match message {
                             None => break shutdown(state, ack_rx).await,
-                            Some(ack_id) => state.add(ack_id),
+                            Some(m) => state.add(m.ack_id, m.lease_info),
                         }
                     },
                     ack_id = ack_rx.recv() => {
@@ -89,14 +89,22 @@ where
 
 #[cfg(test)]
 mod tests {
-    use super::super::lease_state::tests::{sorted, test_id, test_ids};
+    use super::super::lease_state::tests::{sorted, test_id, test_ids, test_info};
     use super::super::leaser::tests::MockLeaser;
     use super::*;
+    use google_cloud_test_macros::tokio_test_no_panics;
     use std::sync::Arc;
     use tokio::sync::Mutex;
     use tokio::time::{Duration, Instant};
 
-    #[tokio::test(start_paused = true)]
+    fn test_message(id: i32) -> NewMessage {
+        NewMessage {
+            ack_id: test_id(id),
+            lease_info: test_info(),
+        }
+    }
+
+    #[tokio_test_no_panics(start_paused = true)]
     async fn flush_acks_nacks_on_interval() -> anyhow::Result<()> {
         const FLUSH_PERIOD: Duration = Duration::from_secs(1);
         const FLUSH_START: Duration = Duration::from_millis(200);
@@ -116,7 +124,7 @@ mod tests {
 
         // Seed the lease loop with some messages
         for i in 0..30 {
-            lease_loop.message_tx.send(test_id(i))?;
+            lease_loop.message_tx.send(test_message(i))?;
         }
 
         // Ack 10 messages
@@ -195,7 +203,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test(start_paused = true)]
+    #[tokio_test_no_panics(start_paused = true)]
     async fn deadline_interval() -> anyhow::Result<()> {
         const EXTEND_PERIOD: Duration = Duration::from_secs(1);
         const EXTEND_START: Duration = Duration::from_millis(200);
@@ -215,7 +223,7 @@ mod tests {
 
         // Seed the lease loop with some messages
         for i in 0..30 {
-            lease_loop.message_tx.send(test_id(i))?;
+            lease_loop.message_tx.send(test_message(i))?;
         }
 
         // Confirm initial state
@@ -259,7 +267,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test(start_paused = true)]
+    #[tokio_test_no_panics(start_paused = true)]
     async fn drop_does_not_wait_for_pending_operations() -> anyhow::Result<()> {
         let start = Instant::now();
         let mock = MockLeaser::new();
@@ -269,7 +277,7 @@ mod tests {
 
         // Seed the lease loop with some messages
         for i in 0..30 {
-            lease_loop.message_tx.send(test_id(i))?;
+            lease_loop.message_tx.send(test_message(i))?;
         }
 
         // Ack 10 messages
@@ -286,7 +294,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test(start_paused = true)]
+    #[tokio_test_no_panics(start_paused = true)]
     async fn close_waits_for_flush() -> anyhow::Result<()> {
         const EXPECTED_SLEEP: Duration = Duration::from_millis(100);
 
@@ -312,7 +320,7 @@ mod tests {
 
         // Seed the lease loop with some messages
         for i in 0..30 {
-            lease_loop.message_tx.send(test_id(i))?;
+            lease_loop.message_tx.send(test_message(i))?;
         }
 
         // Ack 10 messages
@@ -331,7 +339,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test(start_paused = true)]
+    #[tokio_test_no_panics(start_paused = true)]
     async fn no_add_and_ack_race() -> anyhow::Result<()> {
         // This test validates the use of `biased` in the select statement.
         //
@@ -356,7 +364,7 @@ mod tests {
             tokio::task::yield_now().await;
 
             // Seed the lease loop with a message
-            lease_loop.message_tx.send(test_id(1))?;
+            lease_loop.message_tx.send(test_message(1))?;
             // Immediately ack the message
             lease_loop.ack_tx.send(AckResult::Ack(test_id(1)))?;
 

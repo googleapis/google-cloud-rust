@@ -49,9 +49,10 @@ pub(super) fn spawn(
 #[cfg(test)]
 mod tests {
     use super::*;
+    use google_cloud_test_macros::tokio_test_no_panics;
     use tokio::sync::mpsc::channel;
 
-    #[tokio::test(start_paused = true)]
+    #[tokio_test_no_panics(start_paused = true)]
     async fn keepalive_interval() {
         let start = Instant::now();
         let (request_tx, mut request_rx) = channel(1);
@@ -74,7 +75,7 @@ mod tests {
         assert_eq!(start.elapsed(), KEEPALIVE_PERIOD * 3);
     }
 
-    #[tokio::test(start_paused = true)]
+    #[tokio_test_no_panics(start_paused = true)]
     async fn shutdown_immediately() -> anyhow::Result<()> {
         let start = Instant::now();
         let (request_tx, mut request_rx) = channel(1);

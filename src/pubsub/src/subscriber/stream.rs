@@ -162,6 +162,7 @@ mod tests {
     use google_cloud_gax::backoff_policy::BackoffPolicy;
     use google_cloud_gax::error::rpc::{Code, Status};
     use google_cloud_gax::retry_state::RetryState;
+    use google_cloud_test_macros::tokio_test_no_panics;
 
     mockall::mock! {
         #[derive(Debug)]
@@ -212,7 +213,7 @@ mod tests {
         StreamingPullRequest::default()
     }
 
-    #[tokio::test(start_paused = true)]
+    #[tokio_test_no_panics(start_paused = true)]
     async fn success() -> anyhow::Result<()> {
         let (response_tx, response_rx) = mpsc::channel(10);
 
@@ -236,7 +237,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test(start_paused = true)]
+    #[tokio_test_no_panics(start_paused = true)]
     async fn keepalives() -> anyhow::Result<()> {
         let (response_tx, response_rx) = mpsc::channel(10);
         // We use this channel to surface writes (requests) from outside our
@@ -281,7 +282,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn error() -> anyhow::Result<()> {
         let mut mock = MockStub::new();
         mock.expect_streaming_pull()
@@ -297,7 +298,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn retry_then_success() -> anyhow::Result<()> {
         let mut seq = mockall::Sequence::new();
         let mut mock_stub = MockStub::new();
@@ -344,7 +345,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics]
     async fn retry_then_permanent_failure() -> anyhow::Result<()> {
         let mut seq = mockall::Sequence::new();
         let mut mock_stub = MockStub::new();

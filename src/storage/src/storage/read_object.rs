@@ -23,10 +23,9 @@ use crate::read_object::ReadObjectResponse;
 use crate::read_resume_policy::ReadResumePolicy;
 use crate::storage::checksum::details::Md5;
 use crate::storage::request_options::RequestOptions;
-use gaxi::http::{
-    map_send_error,
-    reqwest::{HeaderValue, Method, RequestBuilder, Response},
-};
+use gaxi::attempt_info::AttemptInfo;
+use gaxi::http::HttpRequestBuilder;
+use gaxi::http::reqwest::{HeaderValue, Method, Response};
 
 /// The request builder for [Storage::read_object][crate::client::Storage::read_object] calls.
 ///
@@ -426,9 +425,14 @@ impl Reader {
         let throttler = self.options.retry_throttler.clone();
         let retry = self.options.retry_policy.clone();
         let backoff = self.options.backoff_policy.clone();
+        let mut count = 0;
+        let inner = async move |_| {
+            count += 1;
+            self.read_attempt(count).await
+        };
 
         google_cloud_gax::retry_loop_internal::retry_loop(
-            async move |_| self.read_attempt().await,
+            inner,
             async |duration| tokio::time::sleep(duration).await,
             true,
             throttler,
@@ -438,16 +442,19 @@ impl Reader {
         .await
     }
 
-    async fn read_attempt(&self) -> Result<Response> {
+    async fn read_attempt(&self, attempt_count: u32) -> Result<Response> {
         let builder = self.http_request_builder().await?;
-        let response = builder.send().await.map_err(map_send_error)?;
+        let options = self.options.gax();
+        let response = builder
+            .send(options, AttemptInfo::new(attempt_count))
+            .await?;
         if !response.status().is_success() {
             return gaxi::http::to_http_error(response).await;
         }
         Ok(response)
     }
 
-    async fn http_request_builder(&self) -> Result<RequestBuilder> {
+    async fn http_request_builder(&self) -> Result<HttpRequestBuilder> {
         // Collect the required bucket and object parameters.
         let bucket = &self.request.bucket;
         let bucket_id = bucket
@@ -464,11 +471,11 @@ impl Reader {
         let builder = self
             .inner
             .client
-            .builder(
+            .http_builder(
                 Method::GET,
-                format!("/storage/v1/b/{bucket_id}/o/{}", enc(object)),
+                &format!("/storage/v1/b/{bucket_id}/o/{}", enc(object)),
             )
-            .query(&[("alt", "media")])
+            .query("alt", "media")
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&self::info::X_GOOG_API_CLIENT_HEADER),
@@ -487,7 +494,7 @@ impl Reader {
 
         // Add the optional query parameters.
         let builder = if self.request.generation != 0 {
-            builder.query(&[("generation", self.request.generation)])
+            builder.query("generation", self.request.generation)
         } else {
             builder
         };
@@ -495,22 +502,22 @@ impl Reader {
             .request
             .if_generation_match
             .iter()
-            .fold(builder, |b, v| b.query(&[("ifGenerationMatch", v)]));
+            .fold(builder, |b, v| b.query("ifGenerationMatch", v));
         let builder = self
             .request
             .if_generation_not_match
             .iter()
-            .fold(builder, |b, v| b.query(&[("ifGenerationNotMatch", v)]));
+            .fold(builder, |b, v| b.query("ifGenerationNotMatch", v));
         let builder = self
             .request
             .if_metageneration_match
             .iter()
-            .fold(builder, |b, v| b.query(&[("ifMetagenerationMatch", v)]));
+            .fold(builder, |b, v| b.query("ifMetagenerationMatch", v));
         let builder = self
             .request
             .if_metageneration_not_match
             .iter()
-            .fold(builder, |b, v| b.query(&[("ifMetagenerationNotMatch", v)]));
+            .fold(builder, |b, v| b.query("ifMetagenerationNotMatch", v));
 
         let builder = apply_customer_supplied_encryption_headers(
             builder,
@@ -539,7 +546,7 @@ impl Reader {
             (o, l) => builder.header("range", format!("bytes={o}-{}", o + l - 1)),
         };
 
-        self.inner.apply_auth_headers(builder).await
+        Ok(builder)
     }
 
     fn is_gunzipped(response: &Response) -> bool {
@@ -608,7 +615,7 @@ mod tests {
     async fn http_request_builder(
         inner: Arc<StorageInner>,
         builder: ReadObject,
-    ) -> crate::Result<RequestBuilder> {
+    ) -> crate::Result<HttpRequestBuilder> {
         let reader = Reader {
             inner,
             request: builder.request,
@@ -963,7 +970,10 @@ mod tests {
             "object",
             inner.options.clone(),
         );
-        let request = http_request_builder(inner, builder).await?.build()?;
+        let request = http_request_builder(inner, builder)
+            .await?
+            .build_for_tests()
+            .await?;
 
         assert_eq!(request.method(), Method::GET);
         assert_eq!(
@@ -985,6 +995,8 @@ mod tests {
             inner.options.clone(),
         );
         let _ = http_request_builder(inner, builder)
+            .await?
+            .build_for_tests()
             .await
             .inspect_err(|e| assert!(e.is_authentication()))
             .expect_err("invalid credentials should err");
@@ -1017,7 +1029,10 @@ mod tests {
         .set_if_generation_not_match(20)
         .set_if_metageneration_match(30)
         .set_if_metageneration_not_match(40);
-        let request = http_request_builder(inner, builder).await?.build()?;
+        let request = http_request_builder(inner, builder)
+            .await?
+            .build_for_tests()
+            .await?;
 
         assert_eq!(request.method(), Method::GET);
         let want_pairs: HashMap<String, String> = [
@@ -1052,7 +1067,10 @@ mod tests {
             "object",
             inner.options.clone(),
         );
-        let request = http_request_builder(inner, builder).await?.build()?;
+        let request = http_request_builder(inner, builder)
+            .await?
+            .build_for_tests()
+            .await?;
 
         assert_eq!(request.method(), Method::GET);
         assert_eq!(
@@ -1084,7 +1102,10 @@ mod tests {
             inner.options.clone(),
         )
         .with_automatic_decompression(true);
-        let request = http_request_builder(inner, builder).await?.build()?;
+        let request = http_request_builder(inner, builder)
+            .await?
+            .build_for_tests()
+            .await?;
 
         assert_eq!(request.method(), Method::GET);
         assert_eq!(
@@ -1112,7 +1133,10 @@ mod tests {
             inner.options.clone(),
         )
         .set_key(KeyAes256::new(&key)?);
-        let request = http_request_builder(inner, builder).await?.build()?;
+        let request = http_request_builder(inner, builder)
+            .await?
+            .build_for_tests()
+            .await?;
 
         assert_eq!(request.method(), Method::GET);
         assert_eq!(
@@ -1152,7 +1176,10 @@ mod tests {
             inner.options.clone(),
         )
         .set_read_range(input.clone());
-        let request = http_request_builder(inner, builder).await?.build()?;
+        let request = http_request_builder(inner, builder)
+            .await?
+            .build_for_tests()
+            .await?;
 
         assert_eq!(request.method(), Method::GET);
         assert_eq!(
@@ -1186,7 +1213,10 @@ mod tests {
             name,
             inner.options.clone(),
         );
-        let request = http_request_builder(inner, builder).await?.build()?;
+        let request = http_request_builder(inner, builder)
+            .await?
+            .build_for_tests()
+            .await?;
         let got = request.url().path_segments().unwrap().next_back().unwrap();
         assert_eq!(got, want);
         Ok(())

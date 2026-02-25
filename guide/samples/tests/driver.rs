@@ -170,8 +170,12 @@ mod driver {
         // The sample will delete this secret. If that fails, the cleanup step
         // for the integration tests will garbage collect it in a couple of
         // days.
-        let _ = user_guide_samples::error_handling::create_secret(&client, &project_id, &secret_id)
-            .await?;
+        let _ = user_guide_samples::error_handling::create_secret::create_secret(
+            &client,
+            &project_id,
+            &secret_id,
+        )
+        .await?;
         user_guide_samples::retry_policies::request_retry(&client, &project_id, &secret_id).await
     }
 
@@ -200,9 +204,13 @@ mod driver {
         // The secret is immediately deleted. If that fails, the cleanup step
         // for the integration tests will garbage collect it in a couple of
         // days.
-        let _ = user_guide_samples::error_handling::create_secret(&client, &project_id, &secret_id)
-            .await?;
-        let version = user_guide_samples::error_handling::update_secret(
+        let _ = user_guide_samples::error_handling::create_secret::create_secret(
+            &client,
+            &project_id,
+            &secret_id,
+        )
+        .await?;
+        let version = user_guide_samples::error_handling::update_secret::update_secret(
             &project_id,
             &secret_id,
             "The quick brown fox jumps over the lazy dog".into(),
@@ -235,7 +243,7 @@ mod driver {
             .map(char::from)
             .collect();
 
-        let version = user_guide_samples::error_handling::update_secret(
+        let version = user_guide_samples::error_handling::update_secret::update_secret(
             &project_id,
             &secret_id,
             "The quick brown fox jumps over the lazy dog".into(),
@@ -271,13 +279,13 @@ mod driver {
 
     #[tokio::test]
     async fn binding_fail() -> user_guide_samples::Result<()> {
-        user_guide_samples::binding_errors::binding_fail().await?;
+        user_guide_samples::binding_errors::binding_fail::binding_fail().await?;
         Ok(())
     }
 
     #[tokio::test]
     async fn binding_success() -> user_guide_samples::Result<()> {
-        user_guide_samples::binding_errors::binding_success().await?;
+        user_guide_samples::binding_errors::binding_success::binding_success().await?;
         Ok(())
     }
 }

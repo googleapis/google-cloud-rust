@@ -21,7 +21,7 @@ pub async fn sample(project_id: &str, subscription_id: &str) -> anyhow::Result<(
     let subscription_name = format!("projects/{project_id}/subscriptions/{subscription_id}");
     let client = Subscriber::builder().build().await?;
 
-    let session = client.streaming_pull(subscription_name).start();
+    let session = client.stream(subscription_name).build();
 
     println!("listening for messages using streams...");
 

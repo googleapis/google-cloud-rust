@@ -284,16 +284,16 @@ impl Client {
         #[cfg(google_cloud_unstable_tracing)]
         {
             use crate::observability::grpc_tracing::{AttemptCount, ResourceName};
+            use google_cloud_gax::options::internal::{
+                RequestOptionsExt, ResourceName as GaxResourceName,
+            };
             request
                 .extensions_mut()
                 .insert(AttemptCount::new(prior_attempt_count));
-            if let Some(resource_name) =
-                google_cloud_gax::options::internal::get_resource_name(options)
-                    .map(|s| s.to_string())
-            {
+            if let Some(n) = options.get_extension::<GaxResourceName>() {
                 request
                     .extensions_mut()
-                    .insert(ResourceName::new(resource_name));
+                    .insert(ResourceName::new(n.0.to_string()));
             }
         }
         #[cfg(not(google_cloud_unstable_tracing))]

@@ -17,7 +17,7 @@ mod tests {
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
     use google_cloud_gax::Result;
     use google_cloud_gax::options::RequestOptions;
-    use google_cloud_gax::options::internal::set_path_template;
+    use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
     use google_cloud_gax::response::Response;
     use google_cloud_gax_internal::client_request_span;
     use google_cloud_gax_internal::http::{NoBody, ReqwestClient};
@@ -81,7 +81,7 @@ mod tests {
         let client = create_client(true, server_url.clone()).await;
         let guard = TestLayer::initialize();
 
-        let options = set_path_template(RequestOptions::default(), "/test");
+        let options = RequestOptions::default().insert_extension(PathTemplate("/test"));
         let request = client.builder(Method::GET, "/test".to_string());
         let _response: Result<Response<TestResponse>> =
             client.execute(request, None::<NoBody>, options).await;
@@ -165,7 +165,7 @@ mod tests {
         let client = create_client(true, server_url.clone()).await;
         let guard = TestLayer::initialize();
 
-        let options = set_path_template(RequestOptions::default(), "/error");
+        let options = RequestOptions::default().insert_extension(PathTemplate("/error"));
         let request = client.builder(Method::GET, "/error".to_string());
         let _response: Result<Response<TestResponse>> =
             client.execute(request, None::<NoBody>, options).await;
@@ -223,7 +223,7 @@ mod tests {
         let client = create_client(true, server_url.clone()).await;
         let guard = TestLayer::initialize();
 
-        let options = set_path_template(RequestOptions::default(), "/test");
+        let options = RequestOptions::default().insert_extension(PathTemplate("/test"));
         let request = client.builder(Method::POST, "/test".to_string());
         let body = serde_json::json!({"name": "test"});
         let _response: Result<Response<TestResponse>> =
@@ -297,7 +297,7 @@ mod tests {
         let client = create_client(true, server_url.clone()).await;
         let guard = TestLayer::initialize();
 
-        let options = set_path_template(RequestOptions::default(), "/error-info");
+        let options = RequestOptions::default().insert_extension(PathTemplate("/error-info"));
         let request = client.builder(Method::GET, "/error-info".to_string());
         let result: Result<Response<TestResponse>> =
             client.execute(request, None::<NoBody>, options).await;
@@ -363,7 +363,7 @@ mod tests {
         let client = create_client(true, server_url.clone()).await;
         let guard = TestLayer::initialize();
 
-        let options = set_path_template(RequestOptions::default(), "/test");
+        let options = RequestOptions::default().insert_extension(PathTemplate("/test"));
         let request = client.builder(Method::GET, "/test".to_string());
 
         // Create a parent span (T3) with the marker field
@@ -426,7 +426,7 @@ mod tests {
         let client = create_client(true, server_url.clone()).await;
         let guard = TestLayer::initialize();
 
-        let options = set_path_template(RequestOptions::default(), "/test");
+        let options = RequestOptions::default().insert_extension(PathTemplate("/test"));
         let request = client.builder(Method::GET, "/test".to_string());
 
         // Create a user span that happens to have the same fields, but NO marker
@@ -469,7 +469,7 @@ mod tests {
         let client = create_client(true, server_url.clone()).await;
         let guard = TestLayer::initialize();
 
-        let options = set_path_template(RequestOptions::default(), "/test");
+        let options = RequestOptions::default().insert_extension(PathTemplate("/test"));
         let request = client.builder(Method::GET, "/test".to_string());
 
         // 1. Create the T3 span using the helper

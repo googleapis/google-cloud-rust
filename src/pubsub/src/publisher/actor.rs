@@ -384,7 +384,7 @@ impl SequentialBatchActor {
                     Some(ToBatchActor::Publish(msg)) => {
                         let _ = msg
                             .tx
-                            .send(Err(crate::error::PublishError::OrderingKeyPaused(())));
+                            .send(Err(crate::error::PublishError::OrderingKeyPaused));
                     }
                     Some(ToBatchActor::Flush(tx)) => {
                         // There should be no pending messages and messages in the pending batch as
@@ -506,7 +506,7 @@ impl SequentialBatchActor {
             // The user may have dropped the handle, so it is ok if this fails.
             let _ = publish
                 .tx
-                .send(Err(crate::error::PublishError::OrderingKeyPaused(())));
+                .send(Err(crate::error::PublishError::OrderingKeyPaused));
         }
     }
 
@@ -536,6 +536,7 @@ mod tests {
         generated::gapic_dataplane::client::Publisher as GapicPublisher,
         model::{Message, PublishResponse},
     };
+    use google_cloud_test_macros::tokio_test_no_panics;
     use mockall::Sequence;
     use rand::{RngExt, distr::Alphanumeric};
     use std::collections::VecDeque;
@@ -687,7 +688,7 @@ mod tests {
             for v in publish_rxs {
                 let res = v.await;
                 assert!(
-                    matches!(res, Ok(Err(PublishError::OrderingKeyPaused(())))),
+                    matches!(res, Ok(Err(PublishError::OrderingKeyPaused))),
                     "{res:?}"
                 );
             }
@@ -720,15 +721,7 @@ mod tests {
         Ok(())
     }
 
-    #[cfg_attr(
-        tokio_unstable,
-        tokio::test(
-            start_paused = true,
-            flavor = "current_thread",
-            unhandled_panic = "shutdown_runtime"
-        )
-    )]
-    #[cfg_attr(not(tokio_unstable), tokio::test(start_paused = true))]
+    #[tokio_test_no_panics(start_paused = true)]
     async fn concurrent_actor_publish() -> anyhow::Result<()> {
         let mut mock = MockGapicPublisherWithFuture::new();
         mock.expect_publish()
@@ -764,15 +757,7 @@ mod tests {
         Ok(())
     }
 
-    #[cfg_attr(
-        tokio_unstable,
-        tokio::test(
-            start_paused = true,
-            flavor = "current_thread",
-            unhandled_panic = "shutdown_runtime"
-        )
-    )]
-    #[cfg_attr(not(tokio_unstable), tokio::test(start_paused = true))]
+    #[tokio_test_no_panics(start_paused = true)]
     async fn sequential_actor_publish() -> anyhow::Result<()> {
         let (msg_seq_tx, mut msg_seq_rx) = unbounded_channel::<Message>();
         let mut mock = MockGapicPublisherWithFuture::new();
@@ -813,15 +798,7 @@ mod tests {
         Ok(())
     }
 
-    #[cfg_attr(
-        tokio_unstable,
-        tokio::test(
-            start_paused = true,
-            flavor = "current_thread",
-            unhandled_panic = "shutdown_runtime"
-        )
-    )]
-    #[cfg_attr(not(tokio_unstable), tokio::test(start_paused = true))]
+    #[tokio_test_no_panics(start_paused = true)]
     async fn concurrent_actor_flush() -> anyhow::Result<()> {
         let mut mock = MockGapicPublisherWithFuture::new();
         mock.expect_publish()
@@ -865,15 +842,7 @@ mod tests {
         Ok(())
     }
 
-    #[cfg_attr(
-        tokio_unstable,
-        tokio::test(
-            start_paused = true,
-            flavor = "current_thread",
-            unhandled_panic = "shutdown_runtime"
-        )
-    )]
-    #[cfg_attr(not(tokio_unstable), tokio::test(start_paused = true))]
+    #[tokio_test_no_panics(start_paused = true)]
     async fn sequential_actor_flush() -> anyhow::Result<()> {
         let (msg_seq_tx, mut msg_seq_rx) = unbounded_channel::<Message>();
         let mut mock = MockGapicPublisherWithFuture::new();
@@ -939,15 +908,7 @@ mod tests {
         Ok(())
     }
 
-    #[cfg_attr(
-        tokio_unstable,
-        tokio::test(
-            start_paused = true,
-            flavor = "current_thread",
-            unhandled_panic = "shutdown_runtime"
-        )
-    )]
-    #[cfg_attr(not(tokio_unstable), tokio::test(start_paused = true))]
+    #[tokio_test_no_panics(start_paused = true)]
     async fn sequential_actor_resume() -> anyhow::Result<()> {
         let (msg_seq_tx, mut msg_seq_rx) = unbounded_channel::<Message>();
         let mut mock = MockGapicPublisherWithFuture::new();
@@ -1012,15 +973,7 @@ mod tests {
         Ok(())
     }
 
-    #[cfg_attr(
-        tokio_unstable,
-        tokio::test(
-            start_paused = true,
-            flavor = "current_thread",
-            unhandled_panic = "shutdown_runtime"
-        )
-    )]
-    #[cfg_attr(not(tokio_unstable), tokio::test(start_paused = true))]
+    #[tokio_test_no_panics(start_paused = true)]
     async fn concurrent_actor_batch_message_count_threshold() -> anyhow::Result<()> {
         let mut mock = MockGapicPublisher::new();
         mock.expect_publish()
@@ -1045,15 +998,7 @@ mod tests {
         Ok(())
     }
 
-    #[cfg_attr(
-        tokio_unstable,
-        tokio::test(
-            start_paused = true,
-            flavor = "current_thread",
-            unhandled_panic = "shutdown_runtime"
-        )
-    )]
-    #[cfg_attr(not(tokio_unstable), tokio::test(start_paused = true))]
+    #[tokio_test_no_panics(start_paused = true)]
     async fn sequential_actor_batch_message_count_threshold() -> anyhow::Result<()> {
         let mut mock = MockGapicPublisher::new();
         mock.expect_publish()
@@ -1077,15 +1022,7 @@ mod tests {
         Ok(())
     }
 
-    #[cfg_attr(
-        tokio_unstable,
-        tokio::test(
-            start_paused = true,
-            flavor = "current_thread",
-            unhandled_panic = "shutdown_runtime"
-        )
-    )]
-    #[cfg_attr(not(tokio_unstable), tokio::test(start_paused = true))]
+    #[tokio_test_no_panics(start_paused = true)]
     async fn concurrent_actor_byte_count_threshold() -> anyhow::Result<()> {
         let mut mock = MockGapicPublisher::new();
         mock.expect_publish()
@@ -1124,15 +1061,7 @@ mod tests {
         Ok(())
     }
 
-    #[cfg_attr(
-        tokio_unstable,
-        tokio::test(
-            start_paused = true,
-            flavor = "current_thread",
-            unhandled_panic = "shutdown_runtime"
-        )
-    )]
-    #[cfg_attr(not(tokio_unstable), tokio::test(start_paused = true))]
+    #[tokio_test_no_panics(start_paused = true)]
     async fn sequential_actor_byte_count_threshold() -> anyhow::Result<()> {
         let mut mock = MockGapicPublisher::new();
         mock.expect_publish()

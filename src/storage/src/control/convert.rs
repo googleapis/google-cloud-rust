@@ -115,6 +115,16 @@ mod tests {
         wkt::Any::from_msg(&md).unwrap()
     }
 
+    fn prost_empty() -> prost_types::Any {
+        let empty = gaxi::prost::Empty {};
+        prost_types::Any::from_msg(&empty).unwrap()
+    }
+
+    fn wkt_empty() -> wkt::Any {
+        let empty = wkt::Empty {};
+        wkt::Any::from_msg(&empty).unwrap()
+    }
+
     fn wkt_lro_with_metadata() -> google_cloud_longrunning::model::Operation {
         google_cloud_longrunning::model::Operation::new()
             .set_name("name")
@@ -226,6 +236,7 @@ mod tests {
     #[test_case(prost_types::Any::default(), wkt::Any::default(); "default Any")]
     #[test_case(prost_folder(), wkt_folder(); "Any with LRO response type")]
     #[test_case(prost_create_metadata(), wkt_create_metadata(); "Any with LRO metadata type")]
+    #[test_case(prost_empty(), wkt_empty(); "Any with Empty")]
     fn lro_any_roundtrip(prost: prost_types::Any, wkt: wkt::Any) -> anyhow::Result<()> {
         assert_eq!(prost, lro_any_to_prost(wkt.clone())?);
         assert_eq!(wkt, lro_any_from_prost(prost)?);

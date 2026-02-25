@@ -14,7 +14,7 @@
 
 [package]
 name        = "google-cloud-pubsub"
-version     = "0.32.3-preview"
+version     = "0.32.4-preview"
 description = "Google Cloud Client Libraries for Rust - Pub/Sub"
 # Inherit other attributes from the workspace.
 edition.workspace      = true
@@ -61,14 +61,15 @@ default-rustls-provider = ["gaxi/_default-rustls-provider"]
 unstable-stream         = []
 
 [dev-dependencies]
-anyhow.workspace     = true
-mockall.workspace    = true
-rand.workspace       = true
-test-case.workspace  = true
-tokio-test.workspace = true
-tokio.workspace      = true
-pubsub-grpc-mock     = { path = "grpc-mock" }
-google-cloud-pubsub  = { path = ".", features = ["default-rustls-provider"] }
+anyhow.workspace                   = true
+mockall.workspace                  = true
+rand.workspace                     = true
+test-case.workspace                = true
+tokio-test.workspace               = true
+tokio.workspace                    = true
+google-cloud-test-macros.workspace = true
+pubsub-grpc-mock                   = { path = "grpc-mock" }
+google-cloud-pubsub                = { path = ".", features = ["default-rustls-provider"] }
 
 [lints]
 workspace = true
