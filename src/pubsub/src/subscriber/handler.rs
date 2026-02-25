@@ -44,7 +44,7 @@ use tokio::sync::mpsc::UnboundedSender;
 
 /// The action an application does with a message.
 #[derive(Debug, PartialEq)]
-pub(super) enum AckResult {
+pub(super) enum Action {
     Ack(String),
     Nack(String),
     // TODO(#3964) - support exactly once acking
@@ -110,16 +110,16 @@ impl Handler {
 #[derive(Debug)]
 struct AtLeastOnceImpl {
     ack_id: String,
-    ack_tx: UnboundedSender<AckResult>,
+    ack_tx: UnboundedSender<Action>,
 }
 
 impl AtLeastOnceImpl {
     fn ack(self) {
-        let _ = self.ack_tx.send(AckResult::Ack(self.ack_id));
+        let _ = self.ack_tx.send(Action::Ack(self.ack_id));
     }
 
     fn nack(self) {
-        let _ = self.ack_tx.send(AckResult::Nack(self.ack_id));
+        let _ = self.ack_tx.send(Action::Nack(self.ack_id));
     }
 }
 
@@ -130,7 +130,7 @@ pub struct AtLeastOnce {
 }
 
 impl AtLeastOnce {
-    pub(super) fn new(ack_id: String, ack_tx: UnboundedSender<AckResult>) -> Self {
+    pub(super) fn new(ack_id: String, ack_tx: UnboundedSender<Action>) -> Self {
         Self {
             inner: Some(AtLeastOnceImpl { ack_id, ack_tx }),
         }
@@ -178,7 +178,7 @@ pub struct ExactlyOnce {
 impl ExactlyOnce {
     pub(super) fn new(
         ack_id: String,
-        ack_tx: UnboundedSender<AckResult>,
+        ack_tx: UnboundedSender<Action>,
         // TODO(#3964): support confirmed acks
     ) -> Self {
         Self {
@@ -220,18 +220,18 @@ impl Drop for ExactlyOnce {
 #[derive(Debug)]
 struct ExactlyOnceImpl {
     pub(super) ack_id: String,
-    pub(super) ack_tx: UnboundedSender<AckResult>,
+    pub(super) ack_tx: UnboundedSender<Action>,
     // TODO(#3964): support confirmed acks
 }
 
 #[cfg(test)] // TODO(#3964): implementation in progress...
 impl ExactlyOnceImpl {
     pub fn ack(self) {
-        let _ = self.ack_tx.send(AckResult::Ack(self.ack_id));
+        let _ = self.ack_tx.send(Action::Ack(self.ack_id));
     }
 
     pub fn nack(self) {
-        let _ = self.ack_tx.send(AckResult::Nack(self.ack_id));
+        let _ = self.ack_tx.send(Action::Nack(self.ack_id));
     }
 
     // TODO(#3964): add confirmed_ack()
@@ -252,7 +252,7 @@ mod tests {
 
         h.ack();
         let ack = ack_rx.try_recv()?;
-        assert_eq!(ack, AckResult::Ack(test_id(1)));
+        assert_eq!(ack, Action::Ack(test_id(1)));
 
         Ok(())
     }
@@ -265,7 +265,7 @@ mod tests {
 
         drop(h);
         let ack = ack_rx.try_recv()?;
-        assert_eq!(ack, AckResult::Nack(test_id(1)));
+        assert_eq!(ack, Action::Nack(test_id(1)));
 
         Ok(())
     }
@@ -278,7 +278,7 @@ mod tests {
 
         h.ack();
         let ack = ack_rx.try_recv()?;
-        assert_eq!(ack, AckResult::Ack(test_id(1)));
+        assert_eq!(ack, Action::Ack(test_id(1)));
 
         Ok(())
     }
@@ -291,7 +291,7 @@ mod tests {
 
         drop(h);
         let ack = ack_rx.try_recv()?;
-        assert_eq!(ack, AckResult::Nack(test_id(1)));
+        assert_eq!(ack, Action::Nack(test_id(1)));
 
         Ok(())
     }
@@ -304,7 +304,7 @@ mod tests {
 
         h.ack();
         let ack = ack_rx.try_recv()?;
-        assert_eq!(ack, AckResult::Ack(test_id(1)));
+        assert_eq!(ack, Action::Ack(test_id(1)));
 
         Ok(())
     }
@@ -317,7 +317,7 @@ mod tests {
 
         drop(h);
         let ack = ack_rx.try_recv()?;
-        assert_eq!(ack, AckResult::Nack(test_id(1)));
+        assert_eq!(ack, Action::Nack(test_id(1)));
 
         Ok(())
     }
