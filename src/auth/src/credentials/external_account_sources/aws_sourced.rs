@@ -1,4 +1,4 @@
-// Copyright 2025 Google LLC
+// Copyright 2026 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,14 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use chrono::Utc;
-use google_cloud_gax::error::CredentialsError;
-use hmac::{Hmac, Mac};
-use reqwest::Client;
-use serde::{Deserialize, Serialize};
-use sha2::{Digest, Sha256};
-use std::collections::BTreeMap;
-
 use crate::{
     Result,
     credentials::subject_token::{
@@ -27,6 +19,13 @@ use crate::{
     },
     errors,
 };
+use chrono::Utc;
+use google_cloud_gax::error::CredentialsError;
+use hmac::{Hmac, Mac};
+use reqwest::{Client, Response};
+use serde::{Deserialize, Serialize};
+use sha2::{Digest, Sha256};
+use std::collections::BTreeMap;
 
 const AWS_REGION: &str = "AWS_REGION";
 const AWS_DEFAULT_REGION: &str = "AWS_DEFAULT_REGION";
@@ -48,6 +47,8 @@ const AWS_STS_SERVICE: &str = "sts";
 
 const DEFAULT_REGIONAL_CRED_VERIFICATION_URL: &str =
     "https://sts.{region}.amazonaws.com?Action=GetCallerIdentity&Version=2011-06-15";
+
+const MSG: &str = "failed to fetch AWS credentials for subject token";
 
 /// Credential source for AWS workloads using Workload Identity Federation.
 ///
@@ -110,8 +111,6 @@ struct AwsHeader {
     key: String,
     value: String,
 }
-
-const MSG: &str = "failed to fetch AWS credentials for subject token";
 
 impl SubjectTokenProvider for AwsSourcedCredentials {
     type Error = CredentialsError;
@@ -266,7 +265,8 @@ fn get_signing_key(secret: &str, date: &str, region: &str, service: &str) -> Res
     hmac_sha256(&k_service, AWS4_REQUEST)
 }
 
-fn parse_region_from_zone(zone: &str) -> Option<String> {
+// Zone name "us-east-1d" -> Region "us-east-1"
+fn parse_region_from_zone(zone: &str) -> Option<&str> {
     let zone = zone.trim();
     if zone.is_empty() {
         return None;
@@ -279,11 +279,11 @@ fn parse_region_from_zone(zone: &str) -> Option<String> {
                 .last()
                 .is_some_and(|c| c.is_ascii_digit())
             {
-                return Some(potential_region.to_string());
+                return Some(potential_region);
             }
         }
     }
-    Some(zone.to_string())
+    Some(zone)
 }
 
 impl AwsSourcedCredentials {
@@ -312,6 +312,29 @@ impl AwsSourcedCredentials {
         Ok(None)
     }
 
+    async fn get_with_imdsv2_token(
+        &self,
+        client: &Client,
+        url: &str,
+        imdsv2_token: Option<&str>,
+        error_msg: &str,
+    ) -> Result<Response> {
+        let request = client.get(url);
+        let request = if let Some(token) = imdsv2_token {
+            request.header(IMDSV2_TOKEN_HEADER, token)
+        } else {
+            request
+        };
+        let response = request
+            .send()
+            .await
+            .map_err(|e| errors::from_http_error(e, MSG))?;
+        if !response.status().is_success() {
+            return Err(errors::from_http_response(response, error_msg).await);
+        }
+        Ok(response)
+    }
+
     async fn resolve_region(&self, client: &Client, imdsv2_token: Option<&str>) -> Result<String> {
         if let Ok(region) = std::env::var(AWS_REGION) {
             return Ok(region);
@@ -321,28 +344,16 @@ impl AwsSourcedCredentials {
         }
 
         if let Some(url) = &self.region_url {
-            let request = client.get(url);
-            let request = if let Some(token) = imdsv2_token {
-                request.header(IMDSV2_TOKEN_HEADER, token)
-            } else {
-                request
-            };
-            let response = request
-                .send()
-                .await
-                .map_err(|e| errors::from_http_error(e, MSG))?;
-            if !response.status().is_success() {
-                return Err(
-                    errors::from_http_response(response, "could not resolve AWS region").await,
-                );
-            }
+            let response = self
+                .get_with_imdsv2_token(client, url, imdsv2_token, "could not resolve AWS region")
+                .await?;
+
             let zone = response
                 .text()
                 .await
                 .map_err(|e| errors::from_http_error(e, "failed to read AWS region body"))?;
-            // Zone name "us-east-1d" -> Region "us-east-1"
             if let Some(region) = parse_region_from_zone(&zone) {
-                return Ok(region);
+                return Ok(region.to_string());
             }
         }
         Err(CredentialsError::from_msg(
@@ -356,24 +367,11 @@ impl AwsSourcedCredentials {
         client: &Client,
         imdsv2_token: Option<&str>,
     ) -> Result<String> {
-        if let Some(role_url) = &self.role_url {
-            let request = client.get(role_url);
-            let request = if let Some(token) = imdsv2_token {
-                request.header(IMDSV2_TOKEN_HEADER, token)
-            } else {
-                request
-            };
-            let response = request
-                .send()
-                .await
-                .map_err(|e| errors::from_http_error(e, MSG))?;
-            if !response.status().is_success() {
-                return Err(errors::from_http_response(
-                    response,
-                    "could not resolve AWS role name",
-                )
-                .await);
-            }
+        if let Some(url) = &self.role_url {
+            let response = self
+                .get_with_imdsv2_token(client, url, imdsv2_token, "could not resolve AWS role name")
+                .await?;
+
             let role_name = response
                 .text()
                 .await
@@ -393,25 +391,17 @@ impl AwsSourcedCredentials {
         role_name: &str,
         imdsv2_token: Option<&str>,
     ) -> Result<AwsSecurityCredentials> {
-        if let Some(role_url) = &self.role_url {
-            let role_url = format!("{}/{}", role_url.trim_end_matches('/'), role_name.trim());
-            let request = client.get(role_url);
-            let request = if let Some(token) = imdsv2_token {
-                request.header(IMDSV2_TOKEN_HEADER, token)
-            } else {
-                request
-            };
-            let response = request
-                .send()
-                .await
-                .map_err(|e| errors::from_http_error(e, MSG))?;
-            if !response.status().is_success() {
-                return Err(errors::from_http_response(
-                    response,
+        if let Some(url) = &self.role_url {
+            let role_url = format!("{}/{}", url.trim_end_matches('/'), role_name.trim());
+            let response = self
+                .get_with_imdsv2_token(
+                    client,
+                    &role_url,
+                    imdsv2_token,
                     "could not resolve AWS credentials",
                 )
-                .await);
-            }
+                .await?;
+
             let creds = response
                 .json()
                 .await
