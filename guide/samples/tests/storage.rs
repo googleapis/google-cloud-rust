@@ -36,7 +36,7 @@ pub mod storage {
         async fn quickstart() -> anyhow::Result<()> {
             let project_id = std::env::var("GOOGLE_CLOUD_PROJECT").unwrap();
             let bucket_id = random_bucket_id();
-            let result = super::quickstart::quickstart(&project_id, &bucket_id).await;
+            let result = super::quickstart::sample(&project_id, &bucket_id).await;
             if let Err(e) = super::cleanup_bucket(&bucket_id).await {
                 eprintln!("error cleaning up quickstart bucket {bucket_id}: {e:?}");
             }

@@ -98,13 +98,13 @@ mod driver {
     #[tokio::test(flavor = "multi_thread")]
     async fn gemini_text_prompt() -> anyhow::Result<()> {
         let project_id = std::env::var("GOOGLE_CLOUD_PROJECT").unwrap();
-        user_guide_samples::gemini::text_prompt::text_prompt(&project_id).await
+        user_guide_samples::gemini::text_prompt::sample(&project_id).await
     }
 
     #[tokio::test(flavor = "multi_thread")]
     async fn gemini_prompt_and_image() -> anyhow::Result<()> {
         let project_id = std::env::var("GOOGLE_CLOUD_PROJECT").unwrap();
-        user_guide_samples::gemini::prompt_and_image::prompt_and_image(&project_id).await
+        user_guide_samples::gemini::prompt_and_image::sample(&project_id).await
     }
 
     #[tokio::test(flavor = "multi_thread")]
@@ -147,13 +147,13 @@ mod driver {
     #[tokio::test(flavor = "multi_thread")]
     async fn retry_policies_client() -> user_guide_samples::Result<()> {
         let project_id = std::env::var("GOOGLE_CLOUD_PROJECT").unwrap();
-        user_guide_samples::retry_policies::client_retry::client_retry(&project_id).await
+        user_guide_samples::retry_policies::client_retry::sample(&project_id).await
     }
 
     #[tokio::test(flavor = "multi_thread")]
     async fn retry_policies_client_full() -> user_guide_samples::Result<()> {
         let project_id = std::env::var("GOOGLE_CLOUD_PROJECT").unwrap();
-        user_guide_samples::retry_policies::client_retry_full::client_retry_full(&project_id).await
+        user_guide_samples::retry_policies::client_retry_full::sample(&project_id).await
     }
 
     #[tokio::test(flavor = "multi_thread")]
@@ -175,12 +175,8 @@ mod driver {
             &secret_id,
         )
         .await?;
-        user_guide_samples::retry_policies::request_retry::request_retry(
-            &client,
-            &project_id,
-            &secret_id,
-        )
-        .await
+        user_guide_samples::retry_policies::request_retry::sample(&client, &project_id, &secret_id)
+            .await
     }
 
     #[tokio::test]
@@ -213,7 +209,7 @@ mod driver {
             &secret_id,
         )
         .await?;
-        let version = user_guide_samples::error_handling::update_secret::update_secret(
+        let version = user_guide_samples::error_handling::update_secret::sample(
             &project_id,
             &secret_id,
             "The quick brown fox jumps over the lazy dog".into(),
@@ -246,7 +242,7 @@ mod driver {
             .map(char::from)
             .collect();
 
-        let version = user_guide_samples::error_handling::update_secret::update_secret(
+        let version = user_guide_samples::error_handling::update_secret::sample(
             &project_id,
             &secret_id,
             "The quick brown fox jumps over the lazy dog".into(),
@@ -276,19 +272,19 @@ mod driver {
 
     #[tokio::test]
     async fn examine_error_details() -> user_guide_samples::Result<()> {
-        user_guide_samples::examine_error_details::examine_error_details().await?;
+        user_guide_samples::examine_error_details::sample().await?;
         Ok(())
     }
 
     #[tokio::test]
     async fn binding_fail() -> user_guide_samples::Result<()> {
-        user_guide_samples::binding_errors::binding_fail::binding_fail().await?;
+        user_guide_samples::binding_errors::binding_fail::sample().await?;
         Ok(())
     }
 
     #[tokio::test]
     async fn binding_success() -> user_guide_samples::Result<()> {
-        user_guide_samples::binding_errors::binding_success::binding_success().await?;
+        user_guide_samples::binding_errors::binding_success::sample().await?;
         Ok(())
     }
 }
