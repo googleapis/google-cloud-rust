@@ -19,14 +19,14 @@ use std::error::Error as _;
 pub async fn binding_fail() -> anyhow::Result<()> {
     let client = SecretManagerService::builder().build().await?;
 
-    // [START rust_inspect] ANCHOR: inspect
-    // [START rust_request] ANCHOR: request
+    // [START rust_binding_error_inspect] ANCHOR: inspect
+    // [START rust_binding_error_request] ANCHOR: request
     let secret = client
         .get_secret()
         //.set_name("projects/my-project/secrets/my-secret")
         .send()
         .await;
-    // [END rust_request] ANCHOR_END: request
+    // [END rust_binding_error_request] ANCHOR_END: request
 
     let e = secret.unwrap_err();
     assert!(e.is_binding(), "{e:?}");
@@ -35,7 +35,7 @@ pub async fn binding_fail() -> anyhow::Result<()> {
         .source()
         .and_then(|e| e.downcast_ref::<BindingError>())
         .expect("should be a BindingError");
-    // [END rust_inspect] ANCHOR_END: inspect
+    // [END rust_binding_error_inspect] ANCHOR_END: inspect
 
     Ok(())
 }
