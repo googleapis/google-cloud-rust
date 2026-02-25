@@ -244,7 +244,8 @@ pub async fn test(bucket_name: &str, destination: &str) -> anyhow::Result<()> {
         destination,
     )
     .await?;
-    #[cfg(feature = "run-large-downloads")]
+    // These only work on Linux because they use /dev/shm.
+    #[cfg(all(target_os = "linux", feature = "run-large-downloads"))]
     {
         let destination = "/dev/shm/output";
         download(

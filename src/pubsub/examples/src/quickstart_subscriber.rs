@@ -19,7 +19,7 @@ use std::time::{Duration, Instant};
 pub async fn sample(project_id: &str, subscription_id: &str) -> anyhow::Result<()> {
     let subscription_name = format!("projects/{project_id}/subscriptions/{subscription_id}");
     let client = Subscriber::builder().build().await?;
-    let mut session = client.streaming_pull(subscription_name).start();
+    let mut session = client.stream(subscription_name).build();
 
     println!("listening for messages...");
 

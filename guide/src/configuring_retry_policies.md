@@ -55,13 +55,13 @@ To make this the default policy for the service, set the policy during the
 client initialization:
 
 ```rust,ignore
-{{#include ../samples/src/retry_policies.rs:client-retry-client}}
+{{#include ../samples/src/retry_policies/client_retry.rs:client-retry-client}}
 ```
 
 Then use the service as usual:
 
 ```rust,ignore
-{{#include ../samples/src/retry_policies.rs:client-retry-request}}
+{{#include ../samples/src/retry_policies/client_retry.rs:client-retry-request}}
 ```
 
 See [below](#configuring-the-default-retry-policy-complete-code) for the
@@ -75,13 +75,13 @@ For example, you can limit *both* the number of attempts and the time spent in
 the retry loop using:
 
 ```rust,ignore
-{{#include ../samples/src/retry_policies.rs:client-retry-full-client}}
+{{#include ../samples/src/retry_policies/client_retry_full.rs:client-retry-full-client}}
 ```
 
 Requests work as usual too:
 
 ```rust,ignore
-{{#include ../samples/src/retry_policies.rs:client-retry-full-request}}
+{{#include ../samples/src/retry_policies/client_retry_full.rs:client-retry-full-request}}
 ```
 
 See [below](#configuring-the-default-retry-policy-with-limits-complete-code) for
@@ -98,7 +98,7 @@ But the client library assumes all delete operations are unsafe. The application
 can override the policy for one request:
 
 ```rust,ignore
-{{#include ../samples/src/retry_policies.rs:request-retry-request}}
+{{#include ../samples/src/retry_policies/request_retry.rs:request-retry-request}}
 ```
 
 See [below](#configuring-the-default-retry-policy-with-limits-complete-code) for
@@ -107,19 +107,19 @@ the complete code.
 ## Configuring the default retry policy: complete code
 
 ```rust,ignore
-{{#include ../samples/src/retry_policies.rs:client-retry}}
+{{#include ../samples/src/retry_policies/client_retry.rs:client-retry}}
 ```
 
 ## Configuring the default retry policy with limits: complete code
 
 ```rust,ignore
-{{#include ../samples/src/retry_policies.rs:client-retry-full}}
+{{#include ../samples/src/retry_policies/client_retry_full.rs:client-retry-full}}
 ```
 
 ## Override the retry policy for one request: complete code
 
 ```rust,ignore
-{{#include ../samples/src/retry_policies.rs:request-retry}}
+{{#include ../samples/src/retry_policies/request_retry.rs:request-retry}}
 ```
 
 [quickstart]: https://cloud.google.com/secret-manager/docs/quickstart

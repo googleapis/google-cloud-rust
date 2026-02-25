@@ -30,7 +30,7 @@ pub async fn roundtrip(topic_name: &str, subscription_name: &str) -> anyhow::Res
         .build()
         .await?;
     let subscriber = Subscriber::builder().build().await?;
-    let mut session = subscriber.streaming_pull(subscription_name).start();
+    let mut session = subscriber.stream(subscription_name).build();
 
     let subscribe = tokio::spawn(async move {
         let mut expected_indices = HashMap::new();

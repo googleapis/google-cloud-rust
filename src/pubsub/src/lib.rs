@@ -104,10 +104,11 @@ pub mod model {
     pub(crate) use crate::generated::gapic_dataplane::model::*;
 }
 
-/// Clients to interact with Google Cloud Pub/Sub.
+/// Clients to interact with Cloud Pub/Sub.
 ///
 /// This module contains the primary entry points for the library, including
-/// clients for publishing messages and managing topics and subscriptions.
+/// clients for publishing and receiving messages, as well as managing topics,
+/// subscriptions, and schemas.
 ///
 /// # Example: Publishing Messages
 ///
@@ -149,8 +150,8 @@ pub mod model {
 ///
 /// // Start a message stream from a subscription.
 /// let mut stream = client
-///     .streaming_pull("projects/my-project/subscriptions/my-subscription")
-///     .start();
+///     .stream("projects/my-project/subscriptions/my-subscription")
+///     .build();
 ///
 /// // Receive messages from the stream.
 /// while let Some((m, h)) = stream.next().await.transpose()? {

@@ -51,13 +51,13 @@ To help iterate the items in a list method, the APIs return an implementation of
 the `ItemPaginator` trait. Introduce it into scope via a `use` declaration:
 
 ```rust,ignore
-{{#include ../samples/src/pagination.rs:item-paginator-use}}
+{{#include ../samples/src/pagination/paginator_iterate_items.rs:item-paginator-use}}
 ```
 
 To iterate the items, use the `by_item` function.
 
 ```rust,ignore
-{{#include ../samples/src/pagination.rs:paginator-iterate-items}}
+{{#include ../samples/src/pagination/paginator_iterate_items.rs:paginator-iterate-items}}
 ```
 
 In rare cases, pages might contain extra information that you need access to. Or
@@ -67,13 +67,13 @@ can iterate over full pages instead of individual items.
 First introduce `Paginator` into scope via a `use` declaration:
 
 ```rust,ignore
-{{#include ../samples/src/pagination.rs:paginator-use}}
+{{#include ../samples/src/pagination/paginator_iterate_pages.rs:paginator-use}}
 ```
 
 Then iterate over the pages using `by_page`:
 
 ```rust,ignore
-{{#include ../samples/src/pagination.rs:paginator-iterate-pages}}
+{{#include ../samples/src/pagination/paginator_iterate_pages.rs:paginator-iterate-pages}}
 ```
 
 ### Working with `futures::Stream`
@@ -101,21 +101,21 @@ cargo add futures
 Add the required `use` declarations:
 
 ```rust,ignore
-{{#include ../samples/src/pagination.rs:paginator-stream-items-use}}
+{{#include ../samples/src/pagination/paginator_stream_items.rs:paginator-stream-items-use}}
 ```
 
 Then use the `into_stream` function to convert `ItemPaginator` into a
 `futures::Stream` of items.
 
 ```rust,ignore
-{{#include ../samples/src/pagination.rs:paginator-stream-items}}
+{{#include ../samples/src/pagination/paginator_stream_items.rs:paginator-stream-items}}
 ```
 
 Similarly, you can use the `into_stream` function to convert `Paginator` into a
 `futures::Stream` of pages.
 
 ```rust,ignore
-{{#include ../samples/src/pagination.rs:paginator-stream-pages}}
+{{#include ../samples/src/pagination/paginator_stream_pages.rs:paginator-stream-pages}}
 ```
 
 ## Resuming list methods by setting next page token
@@ -124,7 +124,7 @@ In some cases, such as an interrupted list operation, you can set the next page
 token to resume paginating from a specific page.
 
 ```rust,ignore
-{{#include ../samples/src/pagination.rs:paginator-page-token}}
+{{#include ../samples/src/pagination/pagination_page_token.rs:paginator-page-token}}
 ```
 
 ## Additional paginator technical details

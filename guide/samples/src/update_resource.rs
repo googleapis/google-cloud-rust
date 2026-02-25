@@ -12,30 +12,30 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use google_cloud_secretmanager_v1::model;
-use google_cloud_wkt;
+// [START rust_update_resource_field] ANCHOR: update-field
+use google_cloud_secretmanager_v1::client::SecretManagerService;
+use google_cloud_secretmanager_v1::model::replication::Automatic;
+use google_cloud_secretmanager_v1::model::{Replication, Secret};
+use google_cloud_wkt::FieldMask;
+use std::collections::HashMap;
 
-// ANCHOR: update-field
 pub async fn update_field(project_id: &str) -> anyhow::Result<()> {
-    use google_cloud_secretmanager_v1::client::SecretManagerService;
-    use std::collections::HashMap;
-
-    // ANCHOR: create
+    // [START rust_update_resource_create] ANCHOR: create
     let client = SecretManagerService::builder().build().await?;
 
     let secret = client
         .create_secret()
         .set_parent(format!("projects/{project_id}"))
         .set_secret_id("your-secret")
-        .set_secret(model::Secret::new().set_replication(
-            model::Replication::new().set_automatic(model::replication::Automatic::new()),
-        ))
+        .set_secret(
+            Secret::new().set_replication(Replication::new().set_automatic(Automatic::new())),
+        )
         .send()
         .await?;
     println!("CREATE = {secret:?}");
-    // ANCHOR_END: create
+    // [END rust_update_resource_create] ANCHOR_END: create
 
-    // ANCHOR: update
+    // [START rust_update_resource_update] ANCHOR: update
     let tag = |mut labels: HashMap<_, _>, msg: &str| {
         labels.insert("updated".to_string(), msg.to_string());
         labels
@@ -44,22 +44,20 @@ pub async fn update_field(project_id: &str) -> anyhow::Result<()> {
     let update = client
         .update_secret()
         .set_secret(
-            model::Secret::new()
+            Secret::new()
                 .set_name(&secret.name)
                 .set_etag(secret.etag)
                 .set_labels(tag(secret.labels, "your-label"))
                 .set_annotations(tag(secret.annotations, "your-annotations")),
         )
-        // ANCHOR: set-update-mask
-        .set_update_mask(
-            google_cloud_wkt::FieldMask::default().set_paths(["annotations", "labels"]),
-        )
-        // ANCHOR_END: set-update-mask
+        // [START rust_update_resource_set_update_mask] ANCHOR: set-update-mask
+        .set_update_mask(FieldMask::default().set_paths(["annotations", "labels"]))
+        // [END rust_update_resource_set_update_mask] ANCHOR_END: set-update-mask
         .send()
         .await?;
     println!("UPDATE = {update:?}");
-    // ANCHOR_END: update
+    // [END rust_update_resource_update] ANCHOR_END: update
 
     Ok(())
 }
-// ANCHOR_END: update-field
+// [END rust_update_resource_field] ANCHOR_END: update-field
