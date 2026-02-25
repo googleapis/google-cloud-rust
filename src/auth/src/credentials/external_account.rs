@@ -2249,11 +2249,10 @@ mod tests {
 
         let creds = Builder::new(contents)
             .maybe_iam_endpoint_override(Some(iam_endpoint))
-            .build()?;
+            .build_credentials()?;
 
         // wait for the access boundary background thread to update
-        tokio::time::sleep(tokio::time::Duration::from_secs(1)).await;
-        tokio::task::yield_now().await;
+        creds.wait_for_boundary().await;
 
         let headers = creds.headers(Extensions::new()).await?;
         let token = get_token_from_headers(headers.clone());

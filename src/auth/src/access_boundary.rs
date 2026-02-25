@@ -152,6 +152,15 @@ where
             access_boundary,
         }
     }
+
+    #[cfg(test)]
+    pub(crate) async fn wait_for_boundary(&self) {
+        let mut rx = self.access_boundary.rx_header.clone();
+        if rx.borrow().is_some() {
+            return;
+        }
+        let _ = rx.changed().await;
+    }
 }
 
 /// Decorates Credentials and AccessTokenCredentials with access boundary information.
@@ -478,7 +487,7 @@ pub(crate) mod tests {
         let creds = CredentialsWithAccessBoundary::new(mock, Some(url));
 
         // wait for the background task to fetch the access boundary.
-        tokio::time::sleep(std::time::Duration::from_secs(1)).await;
+        creds.wait_for_boundary().await;
 
         let cached_headers = creds.headers(Extensions::new()).await?;
         let token = get_token_from_headers(cached_headers.clone());
@@ -532,7 +541,7 @@ pub(crate) mod tests {
         let creds = CredentialsWithAccessBoundary::new_for_mds(mock, mds_client, Some(endpoint));
 
         // wait for the background task to fetch the access boundary.
-        tokio::time::sleep(std::time::Duration::from_secs(1)).await;
+        creds.wait_for_boundary().await;
 
         let cached_headers = creds.headers(Extensions::new()).await?;
         let token = get_token_from_headers(cached_headers.clone());
