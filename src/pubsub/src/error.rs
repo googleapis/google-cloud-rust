@@ -14,16 +14,19 @@
 
 //! Custom errors for the Cloud Pub/Sub clients.
 
+use crate::Error;
+use std::sync::Arc;
+
 /// Represents an error that can occur when publishing a message.
 #[derive(thiserror::Error, Debug)]
 #[non_exhaustive]
 pub enum PublishError {
-    /// The underlying RPC call failed.
+    /// The underlying RPC failed.
     ///
-    /// The inner error is wrapped in an [`Arc`](std::sync::Arc) because the same error
-    /// may affect multiple [`publish()`](crate::client::Publisher::publish) calls.
+    /// The inner error is wrapped in an [`Arc`] because the same error may
+    /// affect multiple [`publish()`](crate::client::Publisher::publish) calls.
     #[error("the publish operation was interrupted by an error: {0}")]
-    Rpc(#[source] std::sync::Arc<crate::Error>),
+    Rpc(#[source] Arc<Error>),
 
     /// Publishing is paused because a previous message with the same ordering key failed.
     ///
@@ -46,4 +49,61 @@ pub enum PublishError {
     /// The publish message size exceeds the batch configured byte threshold.
     #[error("message size exceeded configured byte threshold")]
     ExceededByteThresholdError(()),
+}
+
+#[cfg(test)] // TODO(#3964): implementation in progress...
+/// Represents an error that can occur when acknowledging a message.
+#[derive(thiserror::Error, Debug)]
+#[non_exhaustive]
+pub enum AckError {
+    /// The message expired before the client could attempt an acknowledgement.
+    ///
+    /// The message has not been acknowledged, and will be redelivered.
+    #[error(
+        "the message has already expired. It has not been acknowledged, and will be redelivered."
+    )]
+    MessageExpired,
+
+    /// The underlying RPC failed.
+    #[error("the acknowledgement failed{}. RPC error: {source}",
+        .details.as_ref().map(|m| format!(", with the server reporting: {m}")).unwrap_or_default())]
+    Rpc {
+        /// Extra details from the server on why the acknowledgement failed.
+        details: Option<String>,
+
+        /// The error returned by the service for the acknowledge request.
+        #[source]
+        source: Arc<Error>,
+    },
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use google_cloud_gax::error::rpc::{Code, Status};
+
+    #[test]
+    fn ack_error_rpc_with_details_debug() {
+        let e = AckError::Rpc {
+            details: Some("PERMANENT_FAILURE_INVALID_ACK_ID".to_string()),
+            source: Arc::new(Error::service(Status::default().set_code(Code::Unknown))),
+        };
+        let fmt = format!("{e}");
+        assert!(fmt.contains("acknowledgement failed, with the server reporting: PERMANENT_FAILURE_INVALID_ACK_ID."), "{fmt}");
+    }
+
+    #[test]
+    fn ack_error_rpc_without_details_debug() {
+        let e = AckError::Rpc {
+            details: None,
+            source: Arc::new(Error::service(
+                Status::default()
+                    .set_code(Code::FailedPrecondition)
+                    .set_message("inner fail"),
+            )),
+        };
+        let fmt = format!("{e}");
+        assert!(fmt.contains("acknowledgement failed."), "{fmt}");
+        assert!(fmt.contains("inner fail"), "{fmt}");
+    }
 }
