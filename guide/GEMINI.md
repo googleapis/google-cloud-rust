@@ -29,7 +29,12 @@ following rules:
    of anchors: the `ANCHOR: ${name}` style used by mdBook (with a matching
    `ANCHOR_END: ${name}`) and also `[START ${name}]` and `[END ${name}]`
    anchors. When present, preserve both types of anchors. (For example, the
-   `endpoint/default.rs` file has both types of anchors).
+   `endpoint/default.rs` file has both types of anchors). When adding the
+   `[START/END]` anchors:
+   - Use underscores to separate words instead of hyphens.
+   - Start the name with a `rust_` prefix (e.g., `[START rust_my_anchor]`).
+   - Put both anchor styles on the same line (e.g.,
+     `// [START rust_my_anchor] ANCHOR: my-anchor`).
 1. **Make code readable for users:** the audience of this guide are users of the
    project.
    - Prefer simple code.
