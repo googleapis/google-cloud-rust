@@ -56,13 +56,14 @@ pub enum PublishError {
 #[derive(thiserror::Error, Debug)]
 #[non_exhaustive]
 pub enum AckError {
-    /// The message expired before the client could attempt an acknowledgement.
+    /// The message's lease expired before the client could acknowledge it.
     ///
-    /// The message has not been acknowledged, and will be redelivered.
+    /// The message has not been acknowledged, and will be redelivered, maybe to
+    /// another client.
     #[error(
-        "the message has already expired. It has not been acknowledged, and will be redelivered."
+        "the message's lease has already expired. It was not acknowledged, and will be redelivered."
     )]
-    MessageExpired,
+    LeaseExpired,
 
     /// The underlying RPC failed.
     #[error("the acknowledgement failed{}. RPC error: {source}",
