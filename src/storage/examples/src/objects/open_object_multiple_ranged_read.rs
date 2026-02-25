@@ -15,41 +15,36 @@
 // [START storage_open_object_multiple_ranged_read]
 use google_cloud_storage::client::Storage;
 use google_cloud_storage::model_ext::ReadRange;
-use tokio::fs::File;
-use tokio::io::AsyncWriteExt; // Required for write_all
 
-pub async fn sample(
-    client: &Storage,
-    bucket: &str,
-    object: &str,
-    destination_file_name: &str,
-) -> anyhow::Result<()> {
+pub async fn sample(client: &Storage, bucket: &str, object: &str) -> anyhow::Result<()> {
     let bucket_name = format!("projects/_/buckets/{bucket}");
 
-    // 1. Open the connection and request the first 5 bytes.
+    // 1. Open the connection and read the first range.
     let (descriptor, mut reader) = client
         .open_object(bucket_name, object)
         .send_and_read(ReadRange::head(5))
         .await?;
 
-    let file_path = format!("{}_part1", destination_file_name);
-    let mut file = File::create(&file_path).await?;
+    let mut content = Vec::new();
     while let Some(data) = reader.next().await.transpose()? {
-        file.write_all(&data).await?;
+        content.extend_from_slice(&data);
     }
-    file.sync_all().await?;
-    println!("Downloaded the first 5 bytes of object {object} in bucket {bucket} to {file_path}.");
+    println!(
+        "Read first range from {object} in {bucket}. Content: {:?}",
+        String::from_utf8_lossy(&content)
+    );
 
-    // 2. Request the last 2 bytes using the existing `descriptor`.
-    let mut reader = descriptor.read_range(ReadRange::tail(2)).await;
+    // 2. Read another range.
+    let mut reader = descriptor.read_range(ReadRange::segment(5, 5)).await;
 
-    let file_path = format!("{}_part2", destination_file_name);
-    let mut file = File::create(&file_path).await?;
+    let mut content = Vec::new();
     while let Some(data) = reader.next().await.transpose()? {
-        file.write_all(&data).await?;
+        content.extend_from_slice(&data);
     }
-    file.sync_all().await?;
-    println!("Downloaded the last 2 bytes of object {object} in bucket {bucket} to {file_path}.");
+    println!(
+        "Read second range from {object} in {bucket}. Content: {:?}",
+        String::from_utf8_lossy(&content)
+    );
 
     println!("Metadata: {:?}", descriptor.object());
     Ok(())
