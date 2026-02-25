@@ -42,10 +42,10 @@ These guides are not intended as tutorials for each service or as extended
 guides on how to design Rust applications to work on Google Cloud. They are
 starting points to get you productive with the client libraries for Rust.
 
-It is recommended you read the service documentation at
-<https://cloud.google.com> to learn more about each service. If you need
-guidance on how to design your application for Google Cloud, the
-[Cloud Architecture Center] may have what you are looking for.
+We recommend you read the service documentation at <https://cloud.google.com> to
+learn more about each service. If you need guidance on how to design your
+application for Google Cloud, the [Cloud Architecture Center] may have what you
+are looking for.
 
 ## Reporting bugs
 

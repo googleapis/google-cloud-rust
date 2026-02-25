@@ -157,9 +157,9 @@ Thus, if one wanted to use the same dynamic dispatch approach for the `Storage`
 client, it would be necessary to box all generics / trait `impl`s. Each box is
 an extra heap allocation, plus the dynamic dispatch.
 
-Because the `Storage` client should be as performant as possible, it was decided
-it was preferable to template the client on a non-`dyn`-compatible, concrete
-implementation of the stub trait.
+Because the `Storage` client should be as performant as possible, the Rust SDK
+team decided it was preferable to template the client on a non-`dyn`-compatible,
+concrete implementation of the stub trait.
 
 ______________________________________________________________________
 

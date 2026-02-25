@@ -170,7 +170,7 @@ this section.
 
 ## Manually polling a long-running operation
 
-In general, it is recommended that you use the previous two approaches in your
+In general, we recommend that you use the previous two approaches in your
 application. Alternatively, you can manually poll a long-running operation, but
 this can be quite tedious, and it is easy to get the types wrong. If you do need
 to manually poll a long-running operation, this section walks you through the
