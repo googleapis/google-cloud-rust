@@ -1100,7 +1100,6 @@ mod tests {
         Ok(())
     }
 
-    #[ignore = "TODO(#4817) - restore this test once the flakiness is fixed"]
     #[tokio::test]
     #[serial]
     async fn e2e_access_boundary() -> TestResult {
