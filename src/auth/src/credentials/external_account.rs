@@ -108,6 +108,7 @@
 //! [Obtain short-lived tokens for Workforce Identity Federation]: https://cloud.google.com/iam/docs/workforce-obtaining-short-lived-credentials#use_configuration_files_for_sign-in
 
 use super::dynamic::CredentialsProvider;
+use super::external_account_sources::aws_sourced::AwsSourcedCredentials;
 use super::external_account_sources::executable_sourced::ExecutableSourcedCredentials;
 use super::external_account_sources::file_sourced::FileSourcedCredentials;
 use super::external_account_sources::url_sourced::UrlSourcedCredentials;
@@ -158,6 +159,13 @@ pub(crate) struct ExecutableConfig {
 #[serde(untagged)]
 enum CredentialSourceFile {
     // Most specific variants first for untagged enum
+    Aws {
+        environment_id: String,
+        region_url: Option<String>,
+        url: Option<String>,
+        regional_cred_verification_url: Option<String>,
+        imdsv2_session_token_url: Option<String>,
+    },
     Executable {
         executable: ExecutableConfig,
     },
@@ -170,7 +178,6 @@ enum CredentialSourceFile {
         file: String,
         format: Option<CredentialSourceFormat>,
     },
-    Aws,
 }
 
 static WORKFORCE_PATTERN: OnceLock<Regex> = OnceLock::new();
@@ -209,21 +216,24 @@ impl From<ExternalAccountFile> for ExternalAccountConfig {
             scope.push(DEFAULT_SCOPE.to_string());
         }
         Self {
-            audience: config.audience,
+            audience: config.audience.clone(),
             client_id: config.client_id,
             client_secret: config.client_secret,
             subject_token_type: config.subject_token_type,
             token_url: config.token_url,
             service_account_impersonation_url: config.service_account_impersonation_url,
-            credential_source: config.credential_source.into(),
+            credential_source: CredentialSource::from_file(
+                config.credential_source,
+                &config.audience,
+            ),
             scopes: scope,
             workforce_pool_user_project: config.workforce_pool_user_project,
         }
     }
 }
 
-impl From<CredentialSourceFile> for CredentialSource {
-    fn from(source: CredentialSourceFile) -> Self {
+impl CredentialSource {
+    fn from_file(source: CredentialSourceFile, audience: &str) -> Self {
         match source {
             CredentialSourceFile::Url {
                 url,
@@ -236,9 +246,19 @@ impl From<CredentialSourceFile> for CredentialSource {
             CredentialSourceFile::File { file, format } => {
                 Self::File(FileSourcedCredentials::new(file, format))
             }
-            CredentialSourceFile::Aws => {
-                unimplemented!("AWS sourced credential not supported yet")
-            }
+            CredentialSourceFile::Aws {
+                region_url,
+                url,
+                regional_cred_verification_url,
+                imdsv2_session_token_url,
+                ..
+            } => Self::Aws(AwsSourcedCredentials::new(
+                region_url,
+                url,
+                regional_cred_verification_url,
+                imdsv2_session_token_url,
+                audience.to_string(),
+            )),
         }
     }
 }
@@ -355,7 +375,7 @@ enum CredentialSource {
     Url(UrlSourcedCredentials),
     Executable(ExecutableSourcedCredentials),
     File(FileSourcedCredentials),
-    Aws,
+    Aws(AwsSourcedCredentials),
     Programmatic(ProgrammaticSourcedCredentials),
 }
 
@@ -379,8 +399,8 @@ impl ExternalAccountConfig {
             CredentialSource::File(source) => {
                 Self::make_credentials_from_source(source, config, quota_project_id, retry_builder)
             }
-            CredentialSource::Aws => {
-                unimplemented!("AWS sourced credential not supported yet")
+            CredentialSource::Aws(source) => {
+                Self::make_credentials_from_source(source, config, quota_project_id, retry_builder)
             }
         }
     }
@@ -2313,6 +2333,53 @@ mod tests {
             config.service_account_impersonation_url,
             Some("https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/test-sa@test-project.iam.gserviceaccount.com:generateAccessToken".to_string())
         );
+    }
+
+    #[tokio::test]
+    async fn test_aws_parsing() {
+        let contents = json!({
+            "audience": "audience",
+            "credential_source": {
+                "environment_id": "aws1",
+                "region_url": "http://169.254.169.254/latest/meta-data/placement/availability-zone",
+                "url": "http://169.254.169.254/latest/meta-data/iam/security-credentials/",
+                "regional_cred_verification_url": "https://sts.{region}.amazonaws.com?Action=GetCallerIdentity&Version=2011-06-15",
+                "imdsv2_session_token_url": "http://169.254.169.254/latest/api/token"
+            },
+            "subject_token_type": "urn:ietf:params:aws:token-type:aws4_request",
+            "token_url": "https://sts.googleapis.com/v1/token",
+            "type": "external_account"
+        });
+
+        let file: ExternalAccountFile =
+            serde_json::from_value(contents).expect("failed to parse AWS config");
+        let config: ExternalAccountConfig = file.into();
+
+        match config.credential_source {
+            CredentialSource::Aws(source) => {
+                assert_eq!(
+                    source.region_url,
+                    Some(
+                        "http://169.254.169.254/latest/meta-data/placement/availability-zone"
+                            .to_string()
+                    )
+                );
+                assert_eq!(
+                    source.regional_cred_verification_url,
+                    Some(
+                        "https://sts.{region}.amazonaws.com?Action=GetCallerIdentity&Version=2011-06-15"
+                            .to_string()
+                    )
+                );
+                assert_eq!(
+                    source.imdsv2_session_token_url,
+                    Some("http://169.254.169.254/latest/api/token".to_string())
+                );
+            }
+            _ => {
+                unreachable!("expected Aws sourced credential")
+            }
+        }
     }
 
     #[tokio::test]
