@@ -45,10 +45,6 @@ pub enum PublishError {
     /// pending messages.
     #[error("the publisher has shut down")]
     Shutdown,
-
-    /// The publish message size exceeds the batch configured byte threshold.
-    #[error("message size exceeded configured byte threshold")]
-    ExceededByteThresholdError(()),
 }
 
 #[cfg(test)] // TODO(#3964): implementation in progress...

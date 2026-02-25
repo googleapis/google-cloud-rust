@@ -76,10 +76,6 @@ impl Batch {
         self.size() + Self::message_size(&next.msg) as u32 <= self.batching_options.byte_threshold
     }
 
-    pub(crate) fn can_fit(&self, msg: &crate::model::Message) -> bool {
-        (self.initial_size + Self::message_size(msg) as u32) <= self.batching_options.byte_threshold
-    }
-
     /// Drains the batch and spawns a task to send the messages.
     ///
     /// This method mutably drains the messages from the current batch, leaving it

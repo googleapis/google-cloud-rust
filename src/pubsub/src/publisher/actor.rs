@@ -308,14 +308,6 @@ impl ConcurrentBatchActor {
         batch: &mut Batch,
         msg: BundledMessage,
     ) {
-        if !batch.can_fit(&msg.msg) {
-            let _ = msg
-                .tx
-                .send(Err(crate::error::PublishError::ExceededByteThresholdError(
-                    (),
-                )));
-            return;
-        }
         if !batch.can_add(&msg) {
             self.flush(inflight, batch);
         }
@@ -462,19 +454,6 @@ impl SequentialBatchActor {
     ) {
         let mut should_flush = false;
         while let Some(next) = self.pending_msgs.front() {
-            if !batch.can_fit(&next.msg) {
-                let _ = self
-                    .pending_msgs
-                    .pop_front()
-                    .expect("front should contain an element")
-                    .tx
-                    .send(Err(crate::error::PublishError::ExceededByteThresholdError(
-                        (),
-                    )));
-                self.pause();
-                should_flush = true;
-                break;
-            }
             if !batch.can_add(next) {
                 should_flush = true;
                 break;
