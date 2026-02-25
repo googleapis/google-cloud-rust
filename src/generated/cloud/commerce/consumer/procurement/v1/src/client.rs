@@ -121,11 +121,47 @@ impl LicenseManagementService {
     }
 
     /// Gets the license pool.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_commerce_consumer_procurement_v1::client::LicenseManagementService;
+    /// use google_cloud_commerce_consumer_procurement_v1::Result;
+    /// async fn sample(
+    ///    client: &LicenseManagementService
+    /// ) -> Result<()> {
+    ///     let response = client.get_license_pool()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_license_pool(&self) -> super::builder::license_management_service::GetLicensePool {
         super::builder::license_management_service::GetLicensePool::new(self.inner.clone())
     }
 
     /// Updates the license pool if one exists for this Order.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_commerce_consumer_procurement_v1::client::LicenseManagementService;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_commerce_consumer_procurement_v1::model::LicensePool;
+    /// use google_cloud_commerce_consumer_procurement_v1::Result;
+    /// async fn sample(
+    ///    client: &LicenseManagementService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_license_pool()
+    ///         .set_license_pool(
+    ///             LicensePool::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_license_pool(
         &self,
     ) -> super::builder::license_management_service::UpdateLicensePool {
@@ -133,16 +169,64 @@ impl LicenseManagementService {
     }
 
     /// Assigns a license to a user.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_commerce_consumer_procurement_v1::client::LicenseManagementService;
+    /// use google_cloud_commerce_consumer_procurement_v1::Result;
+    /// async fn sample(
+    ///    client: &LicenseManagementService
+    /// ) -> Result<()> {
+    ///     let response = client.assign()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn assign(&self) -> super::builder::license_management_service::Assign {
         super::builder::license_management_service::Assign::new(self.inner.clone())
     }
 
     /// Unassigns a license from a user.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_commerce_consumer_procurement_v1::client::LicenseManagementService;
+    /// use google_cloud_commerce_consumer_procurement_v1::Result;
+    /// async fn sample(
+    ///    client: &LicenseManagementService
+    /// ) -> Result<()> {
+    ///     let response = client.unassign()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn unassign(&self) -> super::builder::license_management_service::Unassign {
         super::builder::license_management_service::Unassign::new(self.inner.clone())
     }
 
     /// Enumerates all users assigned a license.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_commerce_consumer_procurement_v1::client::LicenseManagementService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_commerce_consumer_procurement_v1::Result;
+    /// async fn sample(
+    ///    client: &LicenseManagementService
+    /// ) -> Result<()> {
+    ///     let mut list = client.enumerate_licensed_users()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn enumerate_licensed_users(
         &self,
     ) -> super::builder::license_management_service::EnumerateLicensedUsers {
@@ -152,6 +236,21 @@ impl LicenseManagementService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_commerce_consumer_procurement_v1::client::LicenseManagementService;
+    /// use google_cloud_commerce_consumer_procurement_v1::Result;
+    /// async fn sample(
+    ///    client: &LicenseManagementService
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::license_management_service::GetOperation {
         super::builder::license_management_service::GetOperation::new(self.inner.clone())
     }
@@ -292,6 +391,22 @@ impl ConsumerProcurementService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_commerce_consumer_procurement_v1::client::ConsumerProcurementService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_commerce_consumer_procurement_v1::Result;
+    /// async fn sample(
+    ///    client: &ConsumerProcurementService
+    /// ) -> Result<()> {
+    ///     let response = client.place_order()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn place_order(&self) -> super::builder::consumer_procurement_service::PlaceOrder {
         super::builder::consumer_procurement_service::PlaceOrder::new(self.inner.clone())
     }
@@ -300,6 +415,21 @@ impl ConsumerProcurementService {
     /// [Order][google.cloud.commerce.consumer.procurement.v1.Order] resource.
     ///
     /// [google.cloud.commerce.consumer.procurement.v1.Order]: crate::model::Order
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_commerce_consumer_procurement_v1::client::ConsumerProcurementService;
+    /// use google_cloud_commerce_consumer_procurement_v1::Result;
+    /// async fn sample(
+    ///    client: &ConsumerProcurementService
+    /// ) -> Result<()> {
+    ///     let response = client.get_order()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_order(&self) -> super::builder::consumer_procurement_service::GetOrder {
         super::builder::consumer_procurement_service::GetOrder::new(self.inner.clone())
     }
@@ -309,6 +439,24 @@ impl ConsumerProcurementService {
     /// resource.
     ///
     /// [google.cloud.commerce.consumer.procurement.v1.Order]: crate::model::Order
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_commerce_consumer_procurement_v1::client::ConsumerProcurementService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_commerce_consumer_procurement_v1::Result;
+    /// async fn sample(
+    ///    client: &ConsumerProcurementService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_orders()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_orders(&self) -> super::builder::consumer_procurement_service::ListOrders {
         super::builder::consumer_procurement_service::ListOrders::new(self.inner.clone())
     }
@@ -327,6 +475,22 @@ impl ConsumerProcurementService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_commerce_consumer_procurement_v1::client::ConsumerProcurementService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_commerce_consumer_procurement_v1::Result;
+    /// async fn sample(
+    ///    client: &ConsumerProcurementService
+    /// ) -> Result<()> {
+    ///     let response = client.modify_order()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn modify_order(&self) -> super::builder::consumer_procurement_service::ModifyOrder {
         super::builder::consumer_procurement_service::ModifyOrder::new(self.inner.clone())
     }
@@ -346,6 +510,22 @@ impl ConsumerProcurementService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_commerce_consumer_procurement_v1::client::ConsumerProcurementService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_commerce_consumer_procurement_v1::Result;
+    /// async fn sample(
+    ///    client: &ConsumerProcurementService
+    /// ) -> Result<()> {
+    ///     let response = client.cancel_order()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_order(&self) -> super::builder::consumer_procurement_service::CancelOrder {
         super::builder::consumer_procurement_service::CancelOrder::new(self.inner.clone())
     }
@@ -353,6 +533,21 @@ impl ConsumerProcurementService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_commerce_consumer_procurement_v1::client::ConsumerProcurementService;
+    /// use google_cloud_commerce_consumer_procurement_v1::Result;
+    /// async fn sample(
+    ///    client: &ConsumerProcurementService
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::consumer_procurement_service::GetOperation {
         super::builder::consumer_procurement_service::GetOperation::new(self.inner.clone())
     }

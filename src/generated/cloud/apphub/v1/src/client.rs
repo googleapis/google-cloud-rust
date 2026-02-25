@@ -120,6 +120,21 @@ impl AppHub {
 
     /// Lists a service project attachment for a given service project. You can
     /// call this API from any project to find if it is attached to a host project.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apphub_v1::client::AppHub;
+    /// use google_cloud_apphub_v1::Result;
+    /// async fn sample(
+    ///    client: &AppHub
+    /// ) -> Result<()> {
+    ///     let response = client.lookup_service_project_attachment()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn lookup_service_project_attachment(
         &self,
     ) -> super::builder::app_hub::LookupServiceProjectAttachment {
@@ -127,6 +142,24 @@ impl AppHub {
     }
 
     /// Lists service projects attached to the host project.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apphub_v1::client::AppHub;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_apphub_v1::Result;
+    /// async fn sample(
+    ///    client: &AppHub, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_service_project_attachments()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_service_project_attachments(
         &self,
     ) -> super::builder::app_hub::ListServiceProjectAttachments {
@@ -144,6 +177,26 @@ impl AppHub {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apphub_v1::client::AppHub;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_apphub_v1::model::ServiceProjectAttachment;
+    /// use google_cloud_apphub_v1::Result;
+    /// async fn sample(
+    ///    client: &AppHub, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_service_project_attachment()
+    ///         .set_parent(parent)
+    ///         .set_service_project_attachment(
+    ///             ServiceProjectAttachment::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_service_project_attachment(
         &self,
     ) -> super::builder::app_hub::CreateServiceProjectAttachment {
@@ -151,6 +204,21 @@ impl AppHub {
     }
 
     /// Gets a service project attachment.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apphub_v1::client::AppHub;
+    /// use google_cloud_apphub_v1::Result;
+    /// async fn sample(
+    ///    client: &AppHub, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_service_project_attachment()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_service_project_attachment(
         &self,
     ) -> super::builder::app_hub::GetServiceProjectAttachment {
@@ -168,6 +236,21 @@ impl AppHub {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apphub_v1::client::AppHub;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_apphub_v1::Result;
+    /// async fn sample(
+    ///    client: &AppHub, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_service_project_attachment()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_service_project_attachment(
         &self,
     ) -> super::builder::app_hub::DeleteServiceProjectAttachment {
@@ -177,6 +260,21 @@ impl AppHub {
     /// Detaches a service project from a host project.
     /// You can call this API from any service project without needing access to
     /// the host project that it is attached to.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apphub_v1::client::AppHub;
+    /// use google_cloud_apphub_v1::Result;
+    /// async fn sample(
+    ///    client: &AppHub
+    /// ) -> Result<()> {
+    ///     let response = client.detach_service_project_attachment()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn detach_service_project_attachment(
         &self,
     ) -> super::builder::app_hub::DetachServiceProjectAttachment {
@@ -185,22 +283,88 @@ impl AppHub {
 
     /// Lists Discovered Services that can be added to an Application in a host
     /// project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apphub_v1::client::AppHub;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_apphub_v1::Result;
+    /// async fn sample(
+    ///    client: &AppHub, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_discovered_services()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_discovered_services(&self) -> super::builder::app_hub::ListDiscoveredServices {
         super::builder::app_hub::ListDiscoveredServices::new(self.inner.clone())
     }
 
     /// Gets a Discovered Service in a host project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apphub_v1::client::AppHub;
+    /// use google_cloud_apphub_v1::Result;
+    /// async fn sample(
+    ///    client: &AppHub, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_discovered_service()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_discovered_service(&self) -> super::builder::app_hub::GetDiscoveredService {
         super::builder::app_hub::GetDiscoveredService::new(self.inner.clone())
     }
 
     /// Lists a Discovered Service in a host project and location, with a
     /// given resource URI.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apphub_v1::client::AppHub;
+    /// use google_cloud_apphub_v1::Result;
+    /// async fn sample(
+    ///    client: &AppHub
+    /// ) -> Result<()> {
+    ///     let response = client.lookup_discovered_service()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn lookup_discovered_service(&self) -> super::builder::app_hub::LookupDiscoveredService {
         super::builder::app_hub::LookupDiscoveredService::new(self.inner.clone())
     }
 
     /// Lists Services in an Application.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apphub_v1::client::AppHub;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_apphub_v1::Result;
+    /// async fn sample(
+    ///    client: &AppHub, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_services()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_services(&self) -> super::builder::app_hub::ListServices {
         super::builder::app_hub::ListServices::new(self.inner.clone())
     }
@@ -216,11 +380,46 @@ impl AppHub {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apphub_v1::client::AppHub;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_apphub_v1::model::Service;
+    /// use google_cloud_apphub_v1::Result;
+    /// async fn sample(
+    ///    client: &AppHub, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_service()
+    ///         .set_parent(parent).set_service_id("service_id_value")
+    ///         .set_service(
+    ///             Service::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_service(&self) -> super::builder::app_hub::CreateService {
         super::builder::app_hub::CreateService::new(self.inner.clone())
     }
 
     /// Gets a Service in an Application.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apphub_v1::client::AppHub;
+    /// use google_cloud_apphub_v1::Result;
+    /// async fn sample(
+    ///    client: &AppHub, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_service()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_service(&self) -> super::builder::app_hub::GetService {
         super::builder::app_hub::GetService::new(self.inner.clone())
     }
@@ -236,6 +435,28 @@ impl AppHub {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apphub_v1::client::AppHub;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_apphub_v1::model::Service;
+    /// use google_cloud_apphub_v1::Result;
+    /// async fn sample(
+    ///    client: &AppHub, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_service()
+    ///         .set_service(
+    ///             Service::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_service(&self) -> super::builder::app_hub::UpdateService {
         super::builder::app_hub::UpdateService::new(self.inner.clone())
     }
@@ -251,28 +472,109 @@ impl AppHub {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apphub_v1::client::AppHub;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_apphub_v1::Result;
+    /// async fn sample(
+    ///    client: &AppHub, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_service()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_service(&self) -> super::builder::app_hub::DeleteService {
         super::builder::app_hub::DeleteService::new(self.inner.clone())
     }
 
     /// Lists Discovered Workloads that can be added to an Application in a host
     /// project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apphub_v1::client::AppHub;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_apphub_v1::Result;
+    /// async fn sample(
+    ///    client: &AppHub, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_discovered_workloads()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_discovered_workloads(&self) -> super::builder::app_hub::ListDiscoveredWorkloads {
         super::builder::app_hub::ListDiscoveredWorkloads::new(self.inner.clone())
     }
 
     /// Gets a Discovered Workload in a host project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apphub_v1::client::AppHub;
+    /// use google_cloud_apphub_v1::Result;
+    /// async fn sample(
+    ///    client: &AppHub, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_discovered_workload()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_discovered_workload(&self) -> super::builder::app_hub::GetDiscoveredWorkload {
         super::builder::app_hub::GetDiscoveredWorkload::new(self.inner.clone())
     }
 
     /// Lists a Discovered Workload in a host project and location, with a
     /// given resource URI.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apphub_v1::client::AppHub;
+    /// use google_cloud_apphub_v1::Result;
+    /// async fn sample(
+    ///    client: &AppHub
+    /// ) -> Result<()> {
+    ///     let response = client.lookup_discovered_workload()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn lookup_discovered_workload(&self) -> super::builder::app_hub::LookupDiscoveredWorkload {
         super::builder::app_hub::LookupDiscoveredWorkload::new(self.inner.clone())
     }
 
     /// Lists Workloads in an Application.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apphub_v1::client::AppHub;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_apphub_v1::Result;
+    /// async fn sample(
+    ///    client: &AppHub, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_workloads()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_workloads(&self) -> super::builder::app_hub::ListWorkloads {
         super::builder::app_hub::ListWorkloads::new(self.inner.clone())
     }
@@ -288,11 +590,46 @@ impl AppHub {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apphub_v1::client::AppHub;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_apphub_v1::model::Workload;
+    /// use google_cloud_apphub_v1::Result;
+    /// async fn sample(
+    ///    client: &AppHub, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_workload()
+    ///         .set_parent(parent).set_workload_id("workload_id_value")
+    ///         .set_workload(
+    ///             Workload::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_workload(&self) -> super::builder::app_hub::CreateWorkload {
         super::builder::app_hub::CreateWorkload::new(self.inner.clone())
     }
 
     /// Gets a Workload in an Application.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apphub_v1::client::AppHub;
+    /// use google_cloud_apphub_v1::Result;
+    /// async fn sample(
+    ///    client: &AppHub, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_workload()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_workload(&self) -> super::builder::app_hub::GetWorkload {
         super::builder::app_hub::GetWorkload::new(self.inner.clone())
     }
@@ -308,6 +645,28 @@ impl AppHub {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apphub_v1::client::AppHub;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_apphub_v1::model::Workload;
+    /// use google_cloud_apphub_v1::Result;
+    /// async fn sample(
+    ///    client: &AppHub, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_workload()
+    ///         .set_workload(
+    ///             Workload::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_workload(&self) -> super::builder::app_hub::UpdateWorkload {
         super::builder::app_hub::UpdateWorkload::new(self.inner.clone())
     }
@@ -323,11 +682,44 @@ impl AppHub {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apphub_v1::client::AppHub;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_apphub_v1::Result;
+    /// async fn sample(
+    ///    client: &AppHub, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_workload()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_workload(&self) -> super::builder::app_hub::DeleteWorkload {
         super::builder::app_hub::DeleteWorkload::new(self.inner.clone())
     }
 
     /// Lists Applications in a host project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apphub_v1::client::AppHub;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_apphub_v1::Result;
+    /// async fn sample(
+    ///    client: &AppHub, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_applications()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_applications(&self) -> super::builder::app_hub::ListApplications {
         super::builder::app_hub::ListApplications::new(self.inner.clone())
     }
@@ -343,11 +735,46 @@ impl AppHub {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apphub_v1::client::AppHub;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_apphub_v1::model::Application;
+    /// use google_cloud_apphub_v1::Result;
+    /// async fn sample(
+    ///    client: &AppHub, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_application()
+    ///         .set_parent(parent).set_application_id("application_id_value")
+    ///         .set_application(
+    ///             Application::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_application(&self) -> super::builder::app_hub::CreateApplication {
         super::builder::app_hub::CreateApplication::new(self.inner.clone())
     }
 
     /// Gets an Application in a host project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apphub_v1::client::AppHub;
+    /// use google_cloud_apphub_v1::Result;
+    /// async fn sample(
+    ///    client: &AppHub, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_application()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_application(&self) -> super::builder::app_hub::GetApplication {
         super::builder::app_hub::GetApplication::new(self.inner.clone())
     }
@@ -363,6 +790,28 @@ impl AppHub {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apphub_v1::client::AppHub;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_apphub_v1::model::Application;
+    /// use google_cloud_apphub_v1::Result;
+    /// async fn sample(
+    ///    client: &AppHub, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_application()
+    ///         .set_application(
+    ///             Application::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_application(&self) -> super::builder::app_hub::UpdateApplication {
         super::builder::app_hub::UpdateApplication::new(self.inner.clone())
     }
@@ -378,16 +827,64 @@ impl AppHub {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apphub_v1::client::AppHub;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_apphub_v1::Result;
+    /// async fn sample(
+    ///    client: &AppHub, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_application()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_application(&self) -> super::builder::app_hub::DeleteApplication {
         super::builder::app_hub::DeleteApplication::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apphub_v1::client::AppHub;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_apphub_v1::Result;
+    /// async fn sample(
+    ///    client: &AppHub
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::app_hub::ListLocations {
         super::builder::app_hub::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apphub_v1::client::AppHub;
+    /// use google_cloud_apphub_v1::Result;
+    /// async fn sample(
+    ///    client: &AppHub
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::app_hub::GetLocation {
         super::builder::app_hub::GetLocation::new(self.inner.clone())
     }
@@ -397,12 +894,42 @@ impl AppHub {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apphub_v1::client::AppHub;
+    /// use google_cloud_apphub_v1::Result;
+    /// async fn sample(
+    ///    client: &AppHub
+    /// ) -> Result<()> {
+    ///     let response = client.set_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::app_hub::SetIamPolicy {
         super::builder::app_hub::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apphub_v1::client::AppHub;
+    /// use google_cloud_apphub_v1::Result;
+    /// async fn sample(
+    ///    client: &AppHub
+    /// ) -> Result<()> {
+    ///     let response = client.get_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::app_hub::GetIamPolicy {
         super::builder::app_hub::GetIamPolicy::new(self.inner.clone())
     }
@@ -414,6 +941,21 @@ impl AppHub {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apphub_v1::client::AppHub;
+    /// use google_cloud_apphub_v1::Result;
+    /// async fn sample(
+    ///    client: &AppHub
+    /// ) -> Result<()> {
+    ///     let response = client.test_iam_permissions()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::app_hub::TestIamPermissions {
         super::builder::app_hub::TestIamPermissions::new(self.inner.clone())
     }
@@ -421,6 +963,24 @@ impl AppHub {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apphub_v1::client::AppHub;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_apphub_v1::Result;
+    /// async fn sample(
+    ///    client: &AppHub
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::app_hub::ListOperations {
         super::builder::app_hub::ListOperations::new(self.inner.clone())
     }
@@ -428,6 +988,21 @@ impl AppHub {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apphub_v1::client::AppHub;
+    /// use google_cloud_apphub_v1::Result;
+    /// async fn sample(
+    ///    client: &AppHub
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::app_hub::GetOperation {
         super::builder::app_hub::GetOperation::new(self.inner.clone())
     }
@@ -435,6 +1010,20 @@ impl AppHub {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apphub_v1::client::AppHub;
+    /// use google_cloud_apphub_v1::Result;
+    /// async fn sample(
+    ///    client: &AppHub
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::app_hub::DeleteOperation {
         super::builder::app_hub::DeleteOperation::new(self.inner.clone())
     }
@@ -442,6 +1031,20 @@ impl AppHub {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apphub_v1::client::AppHub;
+    /// use google_cloud_apphub_v1::Result;
+    /// async fn sample(
+    ///    client: &AppHub
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::app_hub::CancelOperation {
         super::builder::app_hub::CancelOperation::new(self.inner.clone())
     }

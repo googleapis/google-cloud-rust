@@ -2678,8 +2678,34 @@ impl serde::ser::Serialize for super::Backend {
             }
             state.serialize_entry("maxUtilization", &__With(&self.max_utilization))?;
         }
+        if self.orchestration_info.is_some() {
+            state.serialize_entry("orchestrationInfo", &self.orchestration_info)?;
+        }
         if self.preference.is_some() {
             state.serialize_entry("preference", &self.preference)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(feature = "backend-services", feature = "region-backend-services",))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::BackendBackendOrchestrationInfo {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.resource_uri.is_some() {
+            state.serialize_entry("resourceUri", &self.resource_uri)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -3332,6 +3358,9 @@ impl serde::ser::Serialize for super::BackendService {
                 "networkPassThroughLbTrafficPolicy",
                 &self.network_pass_through_lb_traffic_policy,
             )?;
+        }
+        if self.orchestration_info.is_some() {
+            state.serialize_entry("orchestrationInfo", &self.orchestration_info)?;
         }
         if self.outlier_detection.is_some() {
             state.serialize_entry("outlierDetection", &self.outlier_detection)?;
@@ -4351,6 +4380,29 @@ impl serde::ser::Serialize for super::BackendServiceNetworkPassThroughLbTrafficP
 
 #[cfg(any(feature = "backend-services", feature = "region-backend-services",))]
 #[doc(hidden)]
+impl serde::ser::Serialize for super::BackendServiceOrchestrationInfo {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.resource_uri.is_some() {
+            state.serialize_entry("resourceUri", &self.resource_uri)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(feature = "backend-services", feature = "region-backend-services",))]
+#[doc(hidden)]
 impl serde::ser::Serialize for super::BackendServiceParams {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -5253,6 +5305,7 @@ impl serde::ser::Serialize for super::BulkInsertInstanceResourcePerInstancePrope
     feature = "region-backend-services",
     feature = "region-commitments",
     feature = "region-disks",
+    feature = "region-health-aggregation-policies",
     feature = "region-health-check-services",
     feature = "region-health-checks",
     feature = "region-instance-group-managers",
@@ -8093,6 +8146,7 @@ impl serde::ser::Serialize for super::Duration {
     feature = "region-backend-services",
     feature = "region-commitments",
     feature = "region-disks",
+    feature = "region-health-aggregation-policies",
     feature = "region-health-check-services",
     feature = "region-health-checks",
     feature = "region-instance-group-managers",
@@ -8431,6 +8485,9 @@ impl serde::ser::Serialize for super::ExternalVpnGateway {
         if self.name.is_some() {
             state.serialize_entry("name", &self.name)?;
         }
+        if self.params.is_some() {
+            state.serialize_entry("params", &self.params)?;
+        }
         if self.redundancy_type.is_some() {
             state.serialize_entry("redundancyType", &self.redundancy_type)?;
         }
@@ -8572,6 +8629,29 @@ impl serde::ser::Serialize for super::external_vpn_gateway_list::warning::Data {
         }
         if self.value.is_some() {
             state.serialize_entry("value", &self.value)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "external-vpn-gateways")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ExternalVpnGatewayParams {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.resource_manager_tags.is_empty() {
+            state.serialize_entry("resourceManagerTags", &self.resource_manager_tags)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -11862,6 +11942,384 @@ impl serde::ser::Serialize for super::HTTPSHealthCheck {
     }
 }
 
+#[cfg(feature = "region-health-aggregation-policies")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::HealthAggregationPoliciesScopedList {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.health_aggregation_policies.is_empty() {
+            state.serialize_entry(
+                "healthAggregationPolicies",
+                &self.health_aggregation_policies,
+            )?;
+        }
+        if self.warning.is_some() {
+            state.serialize_entry("warning", &self.warning)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "region-health-aggregation-policies")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::health_aggregation_policies_scoped_list::Warning {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.code.is_some() {
+            state.serialize_entry("code", &self.code)?;
+        }
+        if !self.data.is_empty() {
+            state.serialize_entry("data", &self.data)?;
+        }
+        if self.message.is_some() {
+            state.serialize_entry("message", &self.message)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "region-health-aggregation-policies")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::health_aggregation_policies_scoped_list::warning::Data {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.key.is_some() {
+            state.serialize_entry("key", &self.key)?;
+        }
+        if self.value.is_some() {
+            state.serialize_entry("value", &self.value)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "region-health-aggregation-policies")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::HealthAggregationPolicy {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.creation_timestamp.is_some() {
+            state.serialize_entry("creationTimestamp", &self.creation_timestamp)?;
+        }
+        if self.description.is_some() {
+            state.serialize_entry("description", &self.description)?;
+        }
+        if self.fingerprint.is_some() {
+            struct __With<'a>(&'a std::option::Option<::bytes::Bytes>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<
+                        std::option::Option<
+                            serde_with::base64::Base64<serde_with::base64::UrlSafe>,
+                        >,
+                    >::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("fingerprint", &__With(&self.fingerprint))?;
+        }
+        if self.healthy_percent_threshold.is_some() {
+            struct __With<'a>(&'a std::option::Option<u32>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::U32>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry(
+                "healthyPercentThreshold",
+                &__With(&self.healthy_percent_threshold),
+            )?;
+        }
+        if self.id.is_some() {
+            struct __With<'a>(&'a std::option::Option<u64>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::U64>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("id", &__With(&self.id))?;
+        }
+        if self.kind.is_some() {
+            state.serialize_entry("kind", &self.kind)?;
+        }
+        if self.min_healthy_threshold.is_some() {
+            struct __With<'a>(&'a std::option::Option<u32>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::U32>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("minHealthyThreshold", &__With(&self.min_healthy_threshold))?;
+        }
+        if self.name.is_some() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if self.policy_type.is_some() {
+            state.serialize_entry("policyType", &self.policy_type)?;
+        }
+        if self.region.is_some() {
+            state.serialize_entry("region", &self.region)?;
+        }
+        if self.self_link.is_some() {
+            state.serialize_entry("selfLink", &self.self_link)?;
+        }
+        if self.self_link_with_id.is_some() {
+            state.serialize_entry("selfLinkWithId", &self.self_link_with_id)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "region-health-aggregation-policies")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::HealthAggregationPolicyAggregatedList {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.id.is_some() {
+            state.serialize_entry("id", &self.id)?;
+        }
+        if !self.items.is_empty() {
+            state.serialize_entry("items", &self.items)?;
+        }
+        if self.kind.is_some() {
+            state.serialize_entry("kind", &self.kind)?;
+        }
+        if self.next_page_token.is_some() {
+            state.serialize_entry("nextPageToken", &self.next_page_token)?;
+        }
+        if self.self_link.is_some() {
+            state.serialize_entry("selfLink", &self.self_link)?;
+        }
+        if !self.unreachables.is_empty() {
+            state.serialize_entry("unreachables", &self.unreachables)?;
+        }
+        if self.warning.is_some() {
+            state.serialize_entry("warning", &self.warning)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "region-health-aggregation-policies")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::health_aggregation_policy_aggregated_list::Warning {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.code.is_some() {
+            state.serialize_entry("code", &self.code)?;
+        }
+        if !self.data.is_empty() {
+            state.serialize_entry("data", &self.data)?;
+        }
+        if self.message.is_some() {
+            state.serialize_entry("message", &self.message)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "region-health-aggregation-policies")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::health_aggregation_policy_aggregated_list::warning::Data {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.key.is_some() {
+            state.serialize_entry("key", &self.key)?;
+        }
+        if self.value.is_some() {
+            state.serialize_entry("value", &self.value)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "region-health-aggregation-policies")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::HealthAggregationPolicyList {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.id.is_some() {
+            state.serialize_entry("id", &self.id)?;
+        }
+        if !self.items.is_empty() {
+            state.serialize_entry("items", &self.items)?;
+        }
+        if self.kind.is_some() {
+            state.serialize_entry("kind", &self.kind)?;
+        }
+        if self.next_page_token.is_some() {
+            state.serialize_entry("nextPageToken", &self.next_page_token)?;
+        }
+        if self.self_link.is_some() {
+            state.serialize_entry("selfLink", &self.self_link)?;
+        }
+        if self.warning.is_some() {
+            state.serialize_entry("warning", &self.warning)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "region-health-aggregation-policies")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::health_aggregation_policy_list::Warning {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.code.is_some() {
+            state.serialize_entry("code", &self.code)?;
+        }
+        if !self.data.is_empty() {
+            state.serialize_entry("data", &self.data)?;
+        }
+        if self.message.is_some() {
+            state.serialize_entry("message", &self.message)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "region-health-aggregation-policies")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::health_aggregation_policy_list::warning::Data {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.key.is_some() {
+            state.serialize_entry("key", &self.key)?;
+        }
+        if self.value.is_some() {
+            state.serialize_entry("value", &self.value)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 #[cfg(any(feature = "health-checks", feature = "region-health-checks",))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::HealthCheck {
@@ -12686,6 +13144,7 @@ impl serde::ser::Serialize for super::HealthStatusForNetworkEndpoint {
     feature = "region-backend-services",
     feature = "region-commitments",
     feature = "region-disks",
+    feature = "region-health-aggregation-policies",
     feature = "region-health-check-services",
     feature = "region-health-checks",
     feature = "region-instance-group-managers",
@@ -12807,6 +13266,7 @@ impl serde::ser::Serialize for super::Help {
     feature = "region-backend-services",
     feature = "region-commitments",
     feature = "region-disks",
+    feature = "region-health-aggregation-policies",
     feature = "region-health-check-services",
     feature = "region-health-checks",
     feature = "region-instance-group-managers",
@@ -18260,6 +18720,7 @@ impl serde::ser::Serialize for super::InstancesAddResourcePoliciesRequest {
     feature = "region-backend-services",
     feature = "region-commitments",
     feature = "region-disks",
+    feature = "region-health-aggregation-policies",
     feature = "region-health-check-services",
     feature = "region-health-checks",
     feature = "region-instance-group-managers",
@@ -23190,6 +23651,7 @@ impl serde::ser::Serialize for super::LocalDisk {
     feature = "region-backend-services",
     feature = "region-commitments",
     feature = "region-disks",
+    feature = "region-health-aggregation-policies",
     feature = "region-health-check-services",
     feature = "region-health-checks",
     feature = "region-instance-group-managers",
@@ -23279,6 +23741,9 @@ impl serde::ser::Serialize for super::LocationPolicy {
         if self.target_shape.is_some() {
             state.serialize_entry("targetShape", &self.target_shape)?;
         }
+        if !self.zones.is_empty() {
+            state.serialize_entry("zones", &self.zones)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -23338,6 +23803,29 @@ impl serde::ser::Serialize for super::LocationPolicyLocationConstraints {
                 }
             }
             state.serialize_entry("maxCount", &__With(&self.max_count))?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(feature = "instances", feature = "region-instances",))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::LocationPolicyZoneConfiguration {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.zone.is_some() {
+            state.serialize_entry("zone", &self.zone)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -29096,6 +29584,7 @@ impl serde::ser::Serialize for super::notification_endpoint_list::warning::Data 
     feature = "region-backend-services",
     feature = "region-commitments",
     feature = "region-disks",
+    feature = "region-health-aggregation-policies",
     feature = "region-health-check-services",
     feature = "region-health-checks",
     feature = "region-instance-group-managers",
@@ -29345,6 +29834,7 @@ impl serde::ser::Serialize for super::Operation {
     feature = "region-backend-services",
     feature = "region-commitments",
     feature = "region-disks",
+    feature = "region-health-aggregation-policies",
     feature = "region-health-check-services",
     feature = "region-health-checks",
     feature = "region-instance-group-managers",
@@ -29466,6 +29956,7 @@ impl serde::ser::Serialize for super::operation::Error {
     feature = "region-backend-services",
     feature = "region-commitments",
     feature = "region-disks",
+    feature = "region-health-aggregation-policies",
     feature = "region-health-check-services",
     feature = "region-health-checks",
     feature = "region-instance-group-managers",
@@ -29596,6 +30087,7 @@ impl serde::ser::Serialize for super::operation::error::Errors {
     feature = "region-backend-services",
     feature = "region-commitments",
     feature = "region-disks",
+    feature = "region-health-aggregation-policies",
     feature = "region-health-check-services",
     feature = "region-health-checks",
     feature = "region-instance-group-managers",
@@ -29726,6 +30218,7 @@ impl serde::ser::Serialize for super::operation::error::errors::ErrorDetails {
     feature = "region-backend-services",
     feature = "region-commitments",
     feature = "region-disks",
+    feature = "region-health-aggregation-policies",
     feature = "region-health-check-services",
     feature = "region-health-checks",
     feature = "region-instance-group-managers",
@@ -29853,6 +30346,7 @@ impl serde::ser::Serialize for super::operation::Warnings {
     feature = "region-backend-services",
     feature = "region-commitments",
     feature = "region-disks",
+    feature = "region-health-aggregation-policies",
     feature = "region-health-check-services",
     feature = "region-health-checks",
     feature = "region-instance-group-managers",
@@ -32650,6 +33144,7 @@ impl serde::ser::Serialize for super::Quota {
     feature = "region-backend-services",
     feature = "region-commitments",
     feature = "region-disks",
+    feature = "region-health-aggregation-policies",
     feature = "region-health-check-services",
     feature = "region-health-checks",
     feature = "region-instance-group-managers",
@@ -34541,6 +35036,9 @@ impl serde::ser::Serialize for super::Reservation {
         if self.name.is_some() {
             state.serialize_entry("name", &self.name)?;
         }
+        if self.params.is_some() {
+            state.serialize_entry("params", &self.params)?;
+        }
         if self.protection_tier.is_some() {
             state.serialize_entry("protectionTier", &self.protection_tier)?;
         }
@@ -35248,6 +35746,29 @@ impl serde::ser::Serialize for super::reservation_list::warning::Data {
         }
         if self.value.is_some() {
             state.serialize_entry("value", &self.value)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(feature = "region-commitments", feature = "reservations",))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ReservationParams {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.resource_manager_tags.is_empty() {
+            state.serialize_entry("resourceManagerTags", &self.resource_manager_tags)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -37027,6 +37548,12 @@ impl serde::ser::Serialize for super::ResourceStatusEffectiveInstanceMetadata {
             state.serialize_entry(
                 "enableOsloginMetadataValue",
                 &self.enable_oslogin_metadata_value,
+            )?;
+        }
+        if self.gce_container_declaration_metadata_value.is_some() {
+            state.serialize_entry(
+                "gceContainerDeclarationMetadataValue",
+                &self.gce_container_declaration_metadata_value,
             )?;
         }
         if self.serial_port_enable_metadata_value.is_some() {
@@ -41926,6 +42453,7 @@ impl serde::ser::Serialize for super::service_attachments_scoped_list::warning::
     feature = "region-backend-services",
     feature = "region-commitments",
     feature = "region-disks",
+    feature = "region-health-aggregation-policies",
     feature = "region-health-check-services",
     feature = "region-health-checks",
     feature = "region-instance-group-managers",
@@ -42050,6 +42578,7 @@ impl serde::ser::Serialize for super::SetCommonInstanceMetadataOperationMetadata
     feature = "region-backend-services",
     feature = "region-commitments",
     feature = "region-disks",
+    feature = "region-health-aggregation-policies",
     feature = "region-health-check-services",
     feature = "region-health-checks",
     feature = "region-instance-group-managers",
@@ -43885,6 +44414,7 @@ impl serde::ser::Serialize for super::StatefulPolicyPreservedStateNetworkIp {
     feature = "region-backend-services",
     feature = "region-commitments",
     feature = "region-disks",
+    feature = "region-health-aggregation-policies",
     feature = "region-health-check-services",
     feature = "region-health-checks",
     feature = "region-instance-group-managers",
@@ -48704,6 +49234,9 @@ impl serde::ser::Serialize for super::TargetVpnGateway {
         if self.network.is_some() {
             state.serialize_entry("network", &self.network)?;
         }
+        if self.params.is_some() {
+            state.serialize_entry("params", &self.params)?;
+        }
         if self.region.is_some() {
             state.serialize_entry("region", &self.region)?;
         }
@@ -48916,6 +49449,29 @@ impl serde::ser::Serialize for super::target_vpn_gateway_list::warning::Data {
 
 #[cfg(feature = "target-vpn-gateways")]
 #[doc(hidden)]
+impl serde::ser::Serialize for super::TargetVpnGatewayParams {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.resource_manager_tags.is_empty() {
+            state.serialize_entry("resourceManagerTags", &self.resource_manager_tags)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "target-vpn-gateways")]
+#[doc(hidden)]
 impl serde::ser::Serialize for super::TargetVpnGatewaysScopedList {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -49102,6 +49658,7 @@ impl serde::ser::Serialize for super::TestFailure {
     feature = "region-autoscalers",
     feature = "region-backend-services",
     feature = "region-disks",
+    feature = "region-health-aggregation-policies",
     feature = "region-health-check-services",
     feature = "region-health-checks",
     feature = "region-instance-groups",
@@ -49178,6 +49735,7 @@ impl serde::ser::Serialize for super::TestPermissionsRequest {
     feature = "region-autoscalers",
     feature = "region-backend-services",
     feature = "region-disks",
+    feature = "region-health-aggregation-policies",
     feature = "region-health-check-services",
     feature = "region-health-checks",
     feature = "region-instance-groups",
@@ -50424,6 +50982,9 @@ impl serde::ser::Serialize for super::VpnGateway {
         if self.network.is_some() {
             state.serialize_entry("network", &self.network)?;
         }
+        if self.params.is_some() {
+            state.serialize_entry("params", &self.params)?;
+        }
         if self.region.is_some() {
             state.serialize_entry("region", &self.region)?;
         }
@@ -50624,6 +51185,29 @@ impl serde::ser::Serialize for super::vpn_gateway_list::warning::Data {
         }
         if self.value.is_some() {
             state.serialize_entry("value", &self.value)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "vpn-gateways")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::VpnGatewayParams {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.resource_manager_tags.is_empty() {
+            state.serialize_entry("resourceManagerTags", &self.resource_manager_tags)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -50998,6 +51582,9 @@ impl serde::ser::Serialize for super::VpnTunnel {
         if self.name.is_some() {
             state.serialize_entry("name", &self.name)?;
         }
+        if self.params.is_some() {
+            state.serialize_entry("params", &self.params)?;
+        }
         if self.peer_external_gateway.is_some() {
             state.serialize_entry("peerExternalGateway", &self.peer_external_gateway)?;
         }
@@ -51279,6 +51866,29 @@ impl serde::ser::Serialize for super::vpn_tunnel_list::warning::Data {
         }
         if self.value.is_some() {
             state.serialize_entry("value", &self.value)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "vpn-tunnels")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::VpnTunnelParams {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.resource_manager_tags.is_empty() {
+            state.serialize_entry("resourceManagerTags", &self.resource_manager_tags)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

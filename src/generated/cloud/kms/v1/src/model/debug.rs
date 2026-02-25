@@ -120,6 +120,10 @@ impl std::fmt::Debug for super::AutokeyConfig {
         debug_struct.field("key_project", &self.key_project);
         debug_struct.field("state", &self.state);
         debug_struct.field("etag", &self.etag);
+        debug_struct.field(
+            "key_project_resolution_mode",
+            &self.key_project_resolution_mode,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

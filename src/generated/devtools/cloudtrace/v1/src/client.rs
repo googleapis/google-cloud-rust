@@ -123,11 +123,44 @@ impl TraceService {
     }
 
     /// Returns of a list of traces that match the specified filter conditions.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_trace_v1::client::TraceService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_trace_v1::Result;
+    /// async fn sample(
+    ///    client: &TraceService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_traces()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_traces(&self) -> super::builder::trace_service::ListTraces {
         super::builder::trace_service::ListTraces::new(self.inner.clone())
     }
 
     /// Gets a single trace by its ID.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_trace_v1::client::TraceService;
+    /// use google_cloud_trace_v1::Result;
+    /// async fn sample(
+    ///    client: &TraceService
+    /// ) -> Result<()> {
+    ///     let response = client.get_trace()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_trace(&self) -> super::builder::trace_service::GetTrace {
         super::builder::trace_service::GetTrace::new(self.inner.clone())
     }
@@ -137,6 +170,20 @@ impl TraceService {
     /// in the existing trace and its spans are overwritten by the provided values,
     /// and any new fields provided are merged with the existing trace data. If the
     /// ID does not match, a new trace is created.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_trace_v1::client::TraceService;
+    /// use google_cloud_trace_v1::Result;
+    /// async fn sample(
+    ///    client: &TraceService
+    /// ) -> Result<()> {
+    ///     client.patch_traces()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn patch_traces(&self) -> super::builder::trace_service::PatchTraces {
         super::builder::trace_service::PatchTraces::new(self.inner.clone())
     }

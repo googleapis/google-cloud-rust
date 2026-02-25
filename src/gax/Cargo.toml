@@ -18,7 +18,7 @@ name = "google-cloud-gax"
 #     version of all downstream dependencies. For details see:
 #         https://github.com/googleapis/google-cloud-rust/issues/3237
 #         https://github.com/googleapis/google-cloud-rust/issues/3265
-version     = "1.7.0"
+version     = "1.8.0"
 description = "Google Cloud Client Libraries for Rust"
 # Inherit other attributes from the workspace.
 authors.workspace      = true
@@ -56,6 +56,7 @@ anyhow.workspace      = true
 mockall.workspace     = true
 serde.workspace       = true
 serial_test.workspace = true
+static_assertions     = { workspace = true }
 test-case.workspace   = true
 tokio                 = { workspace = true, features = ["test-util"] }
 tokio-test.workspace  = true

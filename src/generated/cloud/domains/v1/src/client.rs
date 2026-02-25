@@ -123,12 +123,42 @@ impl Domains {
     /// Availability results from this method are approximate; call
     /// `RetrieveRegisterParameters` on a domain before registering to confirm
     /// availability.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_domains_v1::client::Domains;
+    /// use google_cloud_domains_v1::Result;
+    /// async fn sample(
+    ///    client: &Domains
+    /// ) -> Result<()> {
+    ///     let response = client.search_domains()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn search_domains(&self) -> super::builder::domains::SearchDomains {
         super::builder::domains::SearchDomains::new(self.inner.clone())
     }
 
     /// Gets parameters needed to register a new domain name, including price and
     /// up-to-date availability. Use the returned values to call `RegisterDomain`.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_domains_v1::client::Domains;
+    /// use google_cloud_domains_v1::Result;
+    /// async fn sample(
+    ///    client: &Domains
+    /// ) -> Result<()> {
+    ///     let response = client.retrieve_register_parameters()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn retrieve_register_parameters(
         &self,
     ) -> super::builder::domains::RetrieveRegisterParameters {
@@ -158,6 +188,22 @@ impl Domains {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_domains_v1::client::Domains;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_domains_v1::Result;
+    /// async fn sample(
+    ///    client: &Domains
+    /// ) -> Result<()> {
+    ///     let response = client.register_domain()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn register_domain(&self) -> super::builder::domains::RegisterDomain {
         super::builder::domains::RegisterDomain::new(self.inner.clone())
     }
@@ -167,6 +213,21 @@ impl Domains {
     /// Domains is not supported.
     ///
     /// Use the returned values to call `TransferDomain`.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_domains_v1::client::Domains;
+    /// use google_cloud_domains_v1::Result;
+    /// async fn sample(
+    ///    client: &Domains
+    /// ) -> Result<()> {
+    ///     let response = client.retrieve_transfer_parameters()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn retrieve_transfer_parameters(
         &self,
     ) -> super::builder::domains::RetrieveTransferParameters {
@@ -203,16 +264,65 @@ impl Domains {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_domains_v1::client::Domains;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_domains_v1::Result;
+    /// async fn sample(
+    ///    client: &Domains
+    /// ) -> Result<()> {
+    ///     let response = client.transfer_domain()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn transfer_domain(&self) -> super::builder::domains::TransferDomain {
         super::builder::domains::TransferDomain::new(self.inner.clone())
     }
 
     /// Lists the `Registration` resources in a project.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_domains_v1::client::Domains;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_domains_v1::Result;
+    /// async fn sample(
+    ///    client: &Domains, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_registrations()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_registrations(&self) -> super::builder::domains::ListRegistrations {
         super::builder::domains::ListRegistrations::new(self.inner.clone())
     }
 
     /// Gets the details of a `Registration` resource.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_domains_v1::client::Domains;
+    /// use google_cloud_domains_v1::Result;
+    /// async fn sample(
+    ///    client: &Domains, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_registration()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_registration(&self) -> super::builder::domains::GetRegistration {
         super::builder::domains::GetRegistration::new(self.inner.clone())
     }
@@ -233,6 +343,28 @@ impl Domains {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_domains_v1::client::Domains;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_domains_v1::model::Registration;
+    /// use google_cloud_domains_v1::Result;
+    /// async fn sample(
+    ///    client: &Domains, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_registration()
+    ///         .set_registration(
+    ///             Registration::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_registration(&self) -> super::builder::domains::UpdateRegistration {
         super::builder::domains::UpdateRegistration::new(self.inner.clone())
     }
@@ -248,6 +380,22 @@ impl Domains {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_domains_v1::client::Domains;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_domains_v1::Result;
+    /// async fn sample(
+    ///    client: &Domains
+    /// ) -> Result<()> {
+    ///     let response = client.configure_management_settings()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn configure_management_settings(
         &self,
     ) -> super::builder::domains::ConfigureManagementSettings {
@@ -265,6 +413,22 @@ impl Domains {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_domains_v1::client::Domains;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_domains_v1::Result;
+    /// async fn sample(
+    ///    client: &Domains
+    /// ) -> Result<()> {
+    ///     let response = client.configure_dns_settings()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn configure_dns_settings(&self) -> super::builder::domains::ConfigureDnsSettings {
         super::builder::domains::ConfigureDnsSettings::new(self.inner.clone())
     }
@@ -281,6 +445,22 @@ impl Domains {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_domains_v1::client::Domains;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_domains_v1::Result;
+    /// async fn sample(
+    ///    client: &Domains
+    /// ) -> Result<()> {
+    ///     let response = client.configure_contact_settings()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn configure_contact_settings(&self) -> super::builder::domains::ConfigureContactSettings {
         super::builder::domains::ConfigureContactSettings::new(self.inner.clone())
     }
@@ -304,6 +484,22 @@ impl Domains {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_domains_v1::client::Domains;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_domains_v1::Result;
+    /// async fn sample(
+    ///    client: &Domains
+    /// ) -> Result<()> {
+    ///     let response = client.export_registration()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn export_registration(&self) -> super::builder::domains::ExportRegistration {
         super::builder::domains::ExportRegistration::new(self.inner.clone())
     }
@@ -337,6 +533,21 @@ impl Domains {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_domains_v1::client::Domains;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_domains_v1::Result;
+    /// async fn sample(
+    ///    client: &Domains, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_registration()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_registration(&self) -> super::builder::domains::DeleteRegistration {
         super::builder::domains::DeleteRegistration::new(self.inner.clone())
     }
@@ -346,6 +557,21 @@ impl Domains {
     ///
     /// You can call this method only after 60 days have elapsed since the initial
     /// domain registration.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_domains_v1::client::Domains;
+    /// use google_cloud_domains_v1::Result;
+    /// async fn sample(
+    ///    client: &Domains
+    /// ) -> Result<()> {
+    ///     let response = client.retrieve_authorization_code()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn retrieve_authorization_code(
         &self,
     ) -> super::builder::domains::RetrieveAuthorizationCode {
@@ -356,6 +582,21 @@ impl Domains {
     ///
     /// You can call this method only after 60 days have elapsed since the initial
     /// domain registration.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_domains_v1::client::Domains;
+    /// use google_cloud_domains_v1::Result;
+    /// async fn sample(
+    ///    client: &Domains
+    /// ) -> Result<()> {
+    ///     let response = client.reset_authorization_code()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn reset_authorization_code(&self) -> super::builder::domains::ResetAuthorizationCode {
         super::builder::domains::ResetAuthorizationCode::new(self.inner.clone())
     }
@@ -363,6 +604,24 @@ impl Domains {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_domains_v1::client::Domains;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_domains_v1::Result;
+    /// async fn sample(
+    ///    client: &Domains
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::domains::ListOperations {
         super::builder::domains::ListOperations::new(self.inner.clone())
     }
@@ -370,6 +629,21 @@ impl Domains {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_domains_v1::client::Domains;
+    /// use google_cloud_domains_v1::Result;
+    /// async fn sample(
+    ///    client: &Domains
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::domains::GetOperation {
         super::builder::domains::GetOperation::new(self.inner.clone())
     }

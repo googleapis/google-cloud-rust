@@ -119,11 +119,47 @@ impl Maintenance {
     }
 
     /// Retrieves the statistics of a specific maintenance.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_maintenance_api_v1::client::Maintenance;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_maintenance_api_v1::Result;
+    /// async fn sample(
+    ///    client: &Maintenance
+    /// ) -> Result<()> {
+    ///     let mut list = client.summarize_maintenances()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn summarize_maintenances(&self) -> super::builder::maintenance::SummarizeMaintenances {
         super::builder::maintenance::SummarizeMaintenances::new(self.inner.clone())
     }
 
     /// Retrieve a collection of resource maintenances.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_maintenance_api_v1::client::Maintenance;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_maintenance_api_v1::Result;
+    /// async fn sample(
+    ///    client: &Maintenance, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_resource_maintenances()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_resource_maintenances(
         &self,
     ) -> super::builder::maintenance::ListResourceMaintenances {
@@ -131,16 +167,64 @@ impl Maintenance {
     }
 
     /// Retrieve a single resource maintenance.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_maintenance_api_v1::client::Maintenance;
+    /// use google_cloud_maintenance_api_v1::Result;
+    /// async fn sample(
+    ///    client: &Maintenance, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_resource_maintenance()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_resource_maintenance(&self) -> super::builder::maintenance::GetResourceMaintenance {
         super::builder::maintenance::GetResourceMaintenance::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_maintenance_api_v1::client::Maintenance;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_maintenance_api_v1::Result;
+    /// async fn sample(
+    ///    client: &Maintenance
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::maintenance::ListLocations {
         super::builder::maintenance::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_maintenance_api_v1::client::Maintenance;
+    /// use google_cloud_maintenance_api_v1::Result;
+    /// async fn sample(
+    ///    client: &Maintenance
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::maintenance::GetLocation {
         super::builder::maintenance::GetLocation::new(self.inner.clone())
     }

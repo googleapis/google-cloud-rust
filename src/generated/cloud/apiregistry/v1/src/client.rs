@@ -121,31 +121,130 @@ impl CloudApiRegistry {
     }
 
     /// Gets a single McpServer.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apiregistry_v1::client::CloudApiRegistry;
+    /// use google_cloud_apiregistry_v1::Result;
+    /// async fn sample(
+    ///    client: &CloudApiRegistry, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_mcp_server()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_mcp_server(&self) -> super::builder::cloud_api_registry::GetMcpServer {
         super::builder::cloud_api_registry::GetMcpServer::new(self.inner.clone())
     }
 
     /// Lists McpServers in a given Project.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apiregistry_v1::client::CloudApiRegistry;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_apiregistry_v1::Result;
+    /// async fn sample(
+    ///    client: &CloudApiRegistry, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_mcp_servers()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_mcp_servers(&self) -> super::builder::cloud_api_registry::ListMcpServers {
         super::builder::cloud_api_registry::ListMcpServers::new(self.inner.clone())
     }
 
     /// Gets a single McpTool.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apiregistry_v1::client::CloudApiRegistry;
+    /// use google_cloud_apiregistry_v1::Result;
+    /// async fn sample(
+    ///    client: &CloudApiRegistry, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_mcp_tool()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_mcp_tool(&self) -> super::builder::cloud_api_registry::GetMcpTool {
         super::builder::cloud_api_registry::GetMcpTool::new(self.inner.clone())
     }
 
     /// Lists McpTools in a given McpServer.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apiregistry_v1::client::CloudApiRegistry;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_apiregistry_v1::Result;
+    /// async fn sample(
+    ///    client: &CloudApiRegistry, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_mcp_tools()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_mcp_tools(&self) -> super::builder::cloud_api_registry::ListMcpTools {
         super::builder::cloud_api_registry::ListMcpTools::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apiregistry_v1::client::CloudApiRegistry;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_apiregistry_v1::Result;
+    /// async fn sample(
+    ///    client: &CloudApiRegistry
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::cloud_api_registry::ListLocations {
         super::builder::cloud_api_registry::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apiregistry_v1::client::CloudApiRegistry;
+    /// use google_cloud_apiregistry_v1::Result;
+    /// async fn sample(
+    ///    client: &CloudApiRegistry
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::cloud_api_registry::GetLocation {
         super::builder::cloud_api_registry::GetLocation::new(self.inner.clone())
     }

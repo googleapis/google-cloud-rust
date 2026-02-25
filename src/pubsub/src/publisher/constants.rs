@@ -19,5 +19,3 @@ pub(crate) const MAX_DELAY: Duration = Duration::from_secs(60 * 60 * 24); // 1 d
 // Client libraries are expected to enforce these limits on batch siziing.
 pub(crate) const MAX_MESSAGES: u32 = 1000;
 pub(crate) const MAX_BYTES: u32 = 1e7 as u32; // 10MB
-pub(crate) const BATCH_ACTOR_SEND_ERROR_MSG: &str =
-    "batch actors should not close the receiver from the Dispatcher";

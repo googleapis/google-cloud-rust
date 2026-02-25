@@ -55,7 +55,7 @@ pub(crate) fn perform_upload<T>(
 async fn start_resumable_upload() -> Result {
     let inner = test_inner_client(test_builder()).await;
     let options = inner.options.clone();
-    let stub = crate::storage::transport::Storage::new(inner.clone());
+    let stub = crate::storage::transport::Storage::new_test(inner.clone());
     let builder = WriteObject::new(
         stub,
         "projects/_/buckets/bucket",
@@ -66,7 +66,8 @@ async fn start_resumable_upload() -> Result {
     let mut request = perform_upload(inner, builder)
         .start_resumable_upload_request()
         .await?
-        .build()?;
+        .build_for_tests()
+        .await?;
 
     assert_eq!(request.method(), Method::POST);
     assert_eq!(
@@ -87,7 +88,7 @@ async fn start_resumable_upload_headers() -> Result {
 
     let inner = test_inner_client(test_builder()).await;
     let options = inner.options.clone();
-    let stub = crate::storage::transport::Storage::new(inner.clone());
+    let stub = crate::storage::transport::Storage::new_test(inner.clone());
     let builder = WriteObject::new(
         stub,
         "projects/_/buckets/bucket",
@@ -99,7 +100,8 @@ async fn start_resumable_upload_headers() -> Result {
     let request = perform_upload(inner, builder)
         .start_resumable_upload_request()
         .await?
-        .build()?;
+        .build_for_tests()
+        .await?;
 
     assert_eq!(request.method(), Method::POST);
     assert_eq!(
@@ -126,7 +128,7 @@ async fn start_resumable_upload_headers() -> Result {
 async fn start_resumable_upload_bad_bucket() -> Result {
     let inner = test_inner_client(test_builder()).await;
     let options = inner.options.clone();
-    let stub = crate::storage::transport::Storage::new(inner.clone());
+    let stub = crate::storage::transport::Storage::new_test(inner.clone());
     let builder = WriteObject::new(stub, "malformed", "object", "hello", options);
     let _ = perform_upload(inner, builder)
         .start_resumable_upload_request()
@@ -140,7 +142,7 @@ async fn start_resumable_upload_metadata_in_request() -> Result {
     use crate::model::ObjectAccessControl;
     let inner = test_inner_client(test_builder()).await;
     let options = inner.options.clone();
-    let stub = crate::storage::transport::Storage::new(inner.clone());
+    let stub = crate::storage::transport::Storage::new_test(inner.clone());
     let builder = WriteObject::new(stub, "projects/_/buckets/bucket", "object", "", options)
         .set_if_generation_match(10)
         .set_if_generation_not_match(20)
@@ -171,7 +173,8 @@ async fn start_resumable_upload_metadata_in_request() -> Result {
     let mut request = perform_upload(inner, builder)
         .start_resumable_upload_request()
         .await?
-        .build()?;
+        .build_for_tests()
+        .await?;
 
     assert_eq!(request.method(), Method::POST);
     let want_pairs: BTreeMap<String, String> = [
@@ -223,7 +226,7 @@ async fn start_resumable_upload_metadata_in_request() -> Result {
 async fn start_resumable_upload_credentials() -> Result {
     let inner = test_inner_client(test_builder().with_credentials(error_credentials(false))).await;
     let options = inner.options.clone();
-    let stub = crate::storage::transport::Storage::new(inner.clone());
+    let stub = crate::storage::transport::Storage::new_test(inner.clone());
     let builder = WriteObject::new(
         stub,
         "projects/_/buckets/bucket",
@@ -233,6 +236,8 @@ async fn start_resumable_upload_credentials() -> Result {
     );
     let _ = perform_upload(inner, builder)
         .start_resumable_upload_request()
+        .await?
+        .build_for_tests()
         .await
         .inspect_err(|e| assert!(e.is_authentication()))
         .expect_err("invalid credentials should err");

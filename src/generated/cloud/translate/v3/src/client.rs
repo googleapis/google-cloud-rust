@@ -120,21 +120,81 @@ impl TranslationService {
     }
 
     /// Translates input text and returns translated text.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::client::TranslationService;
+    /// use google_cloud_translation_v3::Result;
+    /// async fn sample(
+    ///    client: &TranslationService
+    /// ) -> Result<()> {
+    ///     let response = client.translate_text()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn translate_text(&self) -> super::builder::translation_service::TranslateText {
         super::builder::translation_service::TranslateText::new(self.inner.clone())
     }
 
     /// Romanize input text written in non-Latin scripts to Latin text.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::client::TranslationService;
+    /// use google_cloud_translation_v3::Result;
+    /// async fn sample(
+    ///    client: &TranslationService
+    /// ) -> Result<()> {
+    ///     let response = client.romanize_text()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn romanize_text(&self) -> super::builder::translation_service::RomanizeText {
         super::builder::translation_service::RomanizeText::new(self.inner.clone())
     }
 
     /// Detects the language of text within a request.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::client::TranslationService;
+    /// use google_cloud_translation_v3::Result;
+    /// async fn sample(
+    ///    client: &TranslationService
+    /// ) -> Result<()> {
+    ///     let response = client.detect_language()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn detect_language(&self) -> super::builder::translation_service::DetectLanguage {
         super::builder::translation_service::DetectLanguage::new(self.inner.clone())
     }
 
     /// Returns a list of supported languages for translation.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::client::TranslationService;
+    /// use google_cloud_translation_v3::Result;
+    /// async fn sample(
+    ///    client: &TranslationService
+    /// ) -> Result<()> {
+    ///     let response = client.get_supported_languages()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_supported_languages(
         &self,
     ) -> super::builder::translation_service::GetSupportedLanguages {
@@ -142,6 +202,21 @@ impl TranslationService {
     }
 
     /// Translates documents in synchronous mode.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::client::TranslationService;
+    /// use google_cloud_translation_v3::Result;
+    /// async fn sample(
+    ///    client: &TranslationService
+    /// ) -> Result<()> {
+    ///     let response = client.translate_document()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn translate_document(&self) -> super::builder::translation_service::TranslateDocument {
         super::builder::translation_service::TranslateDocument::new(self.inner.clone())
     }
@@ -163,6 +238,22 @@ impl TranslationService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::client::TranslationService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_translation_v3::Result;
+    /// async fn sample(
+    ///    client: &TranslationService
+    /// ) -> Result<()> {
+    ///     let response = client.batch_translate_text()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn batch_translate_text(&self) -> super::builder::translation_service::BatchTranslateText {
         super::builder::translation_service::BatchTranslateText::new(self.inner.clone())
     }
@@ -184,6 +275,22 @@ impl TranslationService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::client::TranslationService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_translation_v3::Result;
+    /// async fn sample(
+    ///    client: &TranslationService
+    /// ) -> Result<()> {
+    ///     let response = client.batch_translate_document()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn batch_translate_document(
         &self,
     ) -> super::builder::translation_service::BatchTranslateDocument {
@@ -202,6 +309,26 @@ impl TranslationService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::client::TranslationService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_translation_v3::model::Glossary;
+    /// use google_cloud_translation_v3::Result;
+    /// async fn sample(
+    ///    client: &TranslationService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_glossary()
+    ///         .set_parent(parent)
+    ///         .set_glossary(
+    ///             Glossary::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_glossary(&self) -> super::builder::translation_service::CreateGlossary {
         super::builder::translation_service::CreateGlossary::new(self.inner.clone())
     }
@@ -218,18 +345,73 @@ impl TranslationService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::client::TranslationService;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_translation_v3::model::Glossary;
+    /// use google_cloud_translation_v3::Result;
+    /// async fn sample(
+    ///    client: &TranslationService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_glossary()
+    ///         .set_glossary(
+    ///             Glossary::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_glossary(&self) -> super::builder::translation_service::UpdateGlossary {
         super::builder::translation_service::UpdateGlossary::new(self.inner.clone())
     }
 
     /// Lists glossaries in a project. Returns NOT_FOUND, if the project doesn't
     /// exist.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::client::TranslationService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_translation_v3::Result;
+    /// async fn sample(
+    ///    client: &TranslationService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_glossaries()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_glossaries(&self) -> super::builder::translation_service::ListGlossaries {
         super::builder::translation_service::ListGlossaries::new(self.inner.clone())
     }
 
     /// Gets a glossary. Returns NOT_FOUND, if the glossary doesn't
     /// exist.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::client::TranslationService;
+    /// use google_cloud_translation_v3::Result;
+    /// async fn sample(
+    ///    client: &TranslationService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_glossary()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_glossary(&self) -> super::builder::translation_service::GetGlossary {
         super::builder::translation_service::GetGlossary::new(self.inner.clone())
     }
@@ -247,16 +429,65 @@ impl TranslationService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::client::TranslationService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_translation_v3::Result;
+    /// async fn sample(
+    ///    client: &TranslationService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.delete_glossary()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_glossary(&self) -> super::builder::translation_service::DeleteGlossary {
         super::builder::translation_service::DeleteGlossary::new(self.inner.clone())
     }
 
     /// Gets a single glossary entry by the given id.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::client::TranslationService;
+    /// use google_cloud_translation_v3::Result;
+    /// async fn sample(
+    ///    client: &TranslationService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_glossary_entry()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_glossary_entry(&self) -> super::builder::translation_service::GetGlossaryEntry {
         super::builder::translation_service::GetGlossaryEntry::new(self.inner.clone())
     }
 
     /// List the entries for the glossary.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::client::TranslationService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_translation_v3::Result;
+    /// async fn sample(
+    ///    client: &TranslationService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_glossary_entries()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_glossary_entries(
         &self,
     ) -> super::builder::translation_service::ListGlossaryEntries {
@@ -264,6 +495,25 @@ impl TranslationService {
     }
 
     /// Creates a glossary entry.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::client::TranslationService;
+    /// use google_cloud_translation_v3::model::GlossaryEntry;
+    /// use google_cloud_translation_v3::Result;
+    /// async fn sample(
+    ///    client: &TranslationService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_glossary_entry()
+    ///         .set_parent(parent)
+    ///         .set_glossary_entry(
+    ///             GlossaryEntry::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_glossary_entry(
         &self,
     ) -> super::builder::translation_service::CreateGlossaryEntry {
@@ -271,6 +521,24 @@ impl TranslationService {
     }
 
     /// Updates a glossary entry.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::client::TranslationService;
+    /// use google_cloud_translation_v3::model::GlossaryEntry;
+    /// use google_cloud_translation_v3::Result;
+    /// async fn sample(
+    ///    client: &TranslationService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_glossary_entry()
+    ///         .set_glossary_entry(
+    ///             GlossaryEntry::new().set_name(name)/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_glossary_entry(
         &self,
     ) -> super::builder::translation_service::UpdateGlossaryEntry {
@@ -278,6 +546,20 @@ impl TranslationService {
     }
 
     /// Deletes a single entry from the glossary
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::client::TranslationService;
+    /// use google_cloud_translation_v3::Result;
+    /// async fn sample(
+    ///    client: &TranslationService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_glossary_entry()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_glossary_entry(
         &self,
     ) -> super::builder::translation_service::DeleteGlossaryEntry {
@@ -295,16 +577,69 @@ impl TranslationService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::client::TranslationService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_translation_v3::model::Dataset;
+    /// use google_cloud_translation_v3::Result;
+    /// async fn sample(
+    ///    client: &TranslationService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_dataset()
+    ///         .set_parent(parent)
+    ///         .set_dataset(
+    ///             Dataset::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_dataset(&self) -> super::builder::translation_service::CreateDataset {
         super::builder::translation_service::CreateDataset::new(self.inner.clone())
     }
 
     /// Gets a Dataset.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::client::TranslationService;
+    /// use google_cloud_translation_v3::Result;
+    /// async fn sample(
+    ///    client: &TranslationService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_dataset()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_dataset(&self) -> super::builder::translation_service::GetDataset {
         super::builder::translation_service::GetDataset::new(self.inner.clone())
     }
 
     /// Lists datasets.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::client::TranslationService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_translation_v3::Result;
+    /// async fn sample(
+    ///    client: &TranslationService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_datasets()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_datasets(&self) -> super::builder::translation_service::ListDatasets {
         super::builder::translation_service::ListDatasets::new(self.inner.clone())
     }
@@ -320,11 +655,45 @@ impl TranslationService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::client::TranslationService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_translation_v3::Result;
+    /// async fn sample(
+    ///    client: &TranslationService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_dataset()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_dataset(&self) -> super::builder::translation_service::DeleteDataset {
         super::builder::translation_service::DeleteDataset::new(self.inner.clone())
     }
 
     /// Creates an Adaptive MT dataset.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::client::TranslationService;
+    /// use google_cloud_translation_v3::model::AdaptiveMtDataset;
+    /// use google_cloud_translation_v3::Result;
+    /// async fn sample(
+    ///    client: &TranslationService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_adaptive_mt_dataset()
+    ///         .set_parent(parent)
+    ///         .set_adaptive_mt_dataset(
+    ///             AdaptiveMtDataset::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_adaptive_mt_dataset(
         &self,
     ) -> super::builder::translation_service::CreateAdaptiveMtDataset {
@@ -333,6 +702,20 @@ impl TranslationService {
 
     /// Deletes an Adaptive MT dataset, including all its entries and associated
     /// metadata.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::client::TranslationService;
+    /// use google_cloud_translation_v3::Result;
+    /// async fn sample(
+    ///    client: &TranslationService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_adaptive_mt_dataset()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_adaptive_mt_dataset(
         &self,
     ) -> super::builder::translation_service::DeleteAdaptiveMtDataset {
@@ -340,6 +723,21 @@ impl TranslationService {
     }
 
     /// Gets the Adaptive MT dataset.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::client::TranslationService;
+    /// use google_cloud_translation_v3::Result;
+    /// async fn sample(
+    ///    client: &TranslationService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_adaptive_mt_dataset()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_adaptive_mt_dataset(
         &self,
     ) -> super::builder::translation_service::GetAdaptiveMtDataset {
@@ -347,6 +745,24 @@ impl TranslationService {
     }
 
     /// Lists all Adaptive MT datasets for which the caller has read permission.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::client::TranslationService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_translation_v3::Result;
+    /// async fn sample(
+    ///    client: &TranslationService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_adaptive_mt_datasets()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_adaptive_mt_datasets(
         &self,
     ) -> super::builder::translation_service::ListAdaptiveMtDatasets {
@@ -354,6 +770,21 @@ impl TranslationService {
     }
 
     /// Translate text using Adaptive MT.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::client::TranslationService;
+    /// use google_cloud_translation_v3::Result;
+    /// async fn sample(
+    ///    client: &TranslationService
+    /// ) -> Result<()> {
+    ///     let response = client.adaptive_mt_translate()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn adaptive_mt_translate(
         &self,
     ) -> super::builder::translation_service::AdaptiveMtTranslate {
@@ -361,11 +792,40 @@ impl TranslationService {
     }
 
     /// Gets and AdaptiveMtFile
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::client::TranslationService;
+    /// use google_cloud_translation_v3::Result;
+    /// async fn sample(
+    ///    client: &TranslationService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_adaptive_mt_file()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_adaptive_mt_file(&self) -> super::builder::translation_service::GetAdaptiveMtFile {
         super::builder::translation_service::GetAdaptiveMtFile::new(self.inner.clone())
     }
 
     /// Deletes an AdaptiveMtFile along with its sentences.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::client::TranslationService;
+    /// use google_cloud_translation_v3::Result;
+    /// async fn sample(
+    ///    client: &TranslationService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_adaptive_mt_file()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_adaptive_mt_file(
         &self,
     ) -> super::builder::translation_service::DeleteAdaptiveMtFile {
@@ -374,6 +834,21 @@ impl TranslationService {
 
     /// Imports an AdaptiveMtFile and adds all of its sentences into the
     /// AdaptiveMtDataset.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::client::TranslationService;
+    /// use google_cloud_translation_v3::Result;
+    /// async fn sample(
+    ///    client: &TranslationService
+    /// ) -> Result<()> {
+    ///     let response = client.import_adaptive_mt_file()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn import_adaptive_mt_file(
         &self,
     ) -> super::builder::translation_service::ImportAdaptiveMtFile {
@@ -381,6 +856,24 @@ impl TranslationService {
     }
 
     /// Lists all AdaptiveMtFiles associated to an AdaptiveMtDataset.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::client::TranslationService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_translation_v3::Result;
+    /// async fn sample(
+    ///    client: &TranslationService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_adaptive_mt_files()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_adaptive_mt_files(
         &self,
     ) -> super::builder::translation_service::ListAdaptiveMtFiles {
@@ -388,6 +881,24 @@ impl TranslationService {
     }
 
     /// Lists all AdaptiveMtSentences under a given file/dataset.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::client::TranslationService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_translation_v3::Result;
+    /// async fn sample(
+    ///    client: &TranslationService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_adaptive_mt_sentences()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_adaptive_mt_sentences(
         &self,
     ) -> super::builder::translation_service::ListAdaptiveMtSentences {
@@ -405,6 +916,21 @@ impl TranslationService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::client::TranslationService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_translation_v3::Result;
+    /// async fn sample(
+    ///    client: &TranslationService
+    /// ) -> Result<()> {
+    ///     client.import_data()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn import_data(&self) -> super::builder::translation_service::ImportData {
         super::builder::translation_service::ImportData::new(self.inner.clone())
     }
@@ -420,11 +946,44 @@ impl TranslationService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::client::TranslationService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_translation_v3::Result;
+    /// async fn sample(
+    ///    client: &TranslationService
+    /// ) -> Result<()> {
+    ///     client.export_data()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn export_data(&self) -> super::builder::translation_service::ExportData {
         super::builder::translation_service::ExportData::new(self.inner.clone())
     }
 
     /// Lists sentence pairs in the dataset.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::client::TranslationService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_translation_v3::Result;
+    /// async fn sample(
+    ///    client: &TranslationService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_examples()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_examples(&self) -> super::builder::translation_service::ListExamples {
         super::builder::translation_service::ListExamples::new(self.inner.clone())
     }
@@ -440,16 +999,69 @@ impl TranslationService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::client::TranslationService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_translation_v3::model::Model;
+    /// use google_cloud_translation_v3::Result;
+    /// async fn sample(
+    ///    client: &TranslationService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_model()
+    ///         .set_parent(parent)
+    ///         .set_model(
+    ///             Model::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_model(&self) -> super::builder::translation_service::CreateModel {
         super::builder::translation_service::CreateModel::new(self.inner.clone())
     }
 
     /// Lists models.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::client::TranslationService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_translation_v3::Result;
+    /// async fn sample(
+    ///    client: &TranslationService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_models()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_models(&self) -> super::builder::translation_service::ListModels {
         super::builder::translation_service::ListModels::new(self.inner.clone())
     }
 
     /// Gets a model.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::client::TranslationService;
+    /// use google_cloud_translation_v3::Result;
+    /// async fn sample(
+    ///    client: &TranslationService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_model()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_model(&self) -> super::builder::translation_service::GetModel {
         super::builder::translation_service::GetModel::new(self.inner.clone())
     }
@@ -465,16 +1077,64 @@ impl TranslationService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::client::TranslationService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_translation_v3::Result;
+    /// async fn sample(
+    ///    client: &TranslationService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_model()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_model(&self) -> super::builder::translation_service::DeleteModel {
         super::builder::translation_service::DeleteModel::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::client::TranslationService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_translation_v3::Result;
+    /// async fn sample(
+    ///    client: &TranslationService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::translation_service::ListLocations {
         super::builder::translation_service::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::client::TranslationService;
+    /// use google_cloud_translation_v3::Result;
+    /// async fn sample(
+    ///    client: &TranslationService
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::translation_service::GetLocation {
         super::builder::translation_service::GetLocation::new(self.inner.clone())
     }
@@ -482,6 +1142,24 @@ impl TranslationService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::client::TranslationService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_translation_v3::Result;
+    /// async fn sample(
+    ///    client: &TranslationService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::translation_service::ListOperations {
         super::builder::translation_service::ListOperations::new(self.inner.clone())
     }
@@ -489,6 +1167,21 @@ impl TranslationService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::client::TranslationService;
+    /// use google_cloud_translation_v3::Result;
+    /// async fn sample(
+    ///    client: &TranslationService
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::translation_service::GetOperation {
         super::builder::translation_service::GetOperation::new(self.inner.clone())
     }
@@ -496,6 +1189,20 @@ impl TranslationService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::client::TranslationService;
+    /// use google_cloud_translation_v3::Result;
+    /// async fn sample(
+    ///    client: &TranslationService
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::translation_service::DeleteOperation {
         super::builder::translation_service::DeleteOperation::new(self.inner.clone())
     }
@@ -503,6 +1210,20 @@ impl TranslationService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::client::TranslationService;
+    /// use google_cloud_translation_v3::Result;
+    /// async fn sample(
+    ///    client: &TranslationService
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::translation_service::CancelOperation {
         super::builder::translation_service::CancelOperation::new(self.inner.clone())
     }
@@ -510,6 +1231,21 @@ impl TranslationService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_translation_v3::client::TranslationService;
+    /// use google_cloud_translation_v3::Result;
+    /// async fn sample(
+    ///    client: &TranslationService
+    /// ) -> Result<()> {
+    ///     let response = client.wait_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn wait_operation(&self) -> super::builder::translation_service::WaitOperation {
         super::builder::translation_service::WaitOperation::new(self.inner.clone())
     }

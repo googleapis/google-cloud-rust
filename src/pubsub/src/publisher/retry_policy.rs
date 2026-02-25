@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-//! Defines the retry policies for the Google Cloud Pub/Sub Publisher.
+//! Defines the retry policies for the Cloud Pub/Sub Publisher.
 //!
 //! The Pub/Sub service [recommends] retrying several transient error codes.
 //!

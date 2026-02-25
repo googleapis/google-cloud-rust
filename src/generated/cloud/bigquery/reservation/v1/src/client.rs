@@ -134,16 +134,68 @@ impl ReservationService {
     }
 
     /// Creates a new reservation resource.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_reservation_v1::client::ReservationService;
+    /// use google_cloud_bigquery_reservation_v1::model::Reservation;
+    /// use google_cloud_bigquery_reservation_v1::Result;
+    /// async fn sample(
+    ///    client: &ReservationService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_reservation()
+    ///         .set_parent(parent).set_reservation_id("reservation_id_value")
+    ///         .set_reservation(
+    ///             Reservation::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_reservation(&self) -> super::builder::reservation_service::CreateReservation {
         super::builder::reservation_service::CreateReservation::new(self.inner.clone())
     }
 
     /// Lists all the reservations for the project in the specified location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_reservation_v1::client::ReservationService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_bigquery_reservation_v1::Result;
+    /// async fn sample(
+    ///    client: &ReservationService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_reservations()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_reservations(&self) -> super::builder::reservation_service::ListReservations {
         super::builder::reservation_service::ListReservations::new(self.inner.clone())
     }
 
     /// Returns information about the reservation.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_reservation_v1::client::ReservationService;
+    /// use google_cloud_bigquery_reservation_v1::Result;
+    /// async fn sample(
+    ///    client: &ReservationService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_reservation()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_reservation(&self) -> super::builder::reservation_service::GetReservation {
         super::builder::reservation_service::GetReservation::new(self.inner.clone())
     }
@@ -151,11 +203,46 @@ impl ReservationService {
     /// Deletes a reservation.
     /// Returns `google.rpc.Code.FAILED_PRECONDITION` when reservation has
     /// assignments.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_reservation_v1::client::ReservationService;
+    /// use google_cloud_bigquery_reservation_v1::Result;
+    /// async fn sample(
+    ///    client: &ReservationService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_reservation()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_reservation(&self) -> super::builder::reservation_service::DeleteReservation {
         super::builder::reservation_service::DeleteReservation::new(self.inner.clone())
     }
 
     /// Updates an existing reservation resource.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_reservation_v1::client::ReservationService;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_bigquery_reservation_v1::model::Reservation;
+    /// use google_cloud_bigquery_reservation_v1::Result;
+    /// async fn sample(
+    ///    client: &ReservationService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_reservation()
+    ///         .set_reservation(
+    ///             Reservation::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_reservation(&self) -> super::builder::reservation_service::UpdateReservation {
         super::builder::reservation_service::UpdateReservation::new(self.inner.clone())
     }
@@ -165,11 +252,45 @@ impl ReservationService {
     /// new primary location for the reservation.
     /// Attempting to failover a reservation in the current primary location will
     /// fail with the error code `google.rpc.Code.FAILED_PRECONDITION`.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_reservation_v1::client::ReservationService;
+    /// use google_cloud_bigquery_reservation_v1::Result;
+    /// async fn sample(
+    ///    client: &ReservationService
+    /// ) -> Result<()> {
+    ///     let response = client.failover_reservation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn failover_reservation(&self) -> super::builder::reservation_service::FailoverReservation {
         super::builder::reservation_service::FailoverReservation::new(self.inner.clone())
     }
 
     /// Creates a new capacity commitment resource.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_reservation_v1::client::ReservationService;
+    /// use google_cloud_bigquery_reservation_v1::model::CapacityCommitment;
+    /// use google_cloud_bigquery_reservation_v1::Result;
+    /// async fn sample(
+    ///    client: &ReservationService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_capacity_commitment()
+    ///         .set_parent(parent)
+    ///         .set_capacity_commitment(
+    ///             CapacityCommitment::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_capacity_commitment(
         &self,
     ) -> super::builder::reservation_service::CreateCapacityCommitment {
@@ -177,6 +298,24 @@ impl ReservationService {
     }
 
     /// Lists all the capacity commitments for the admin project.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_reservation_v1::client::ReservationService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_bigquery_reservation_v1::Result;
+    /// async fn sample(
+    ///    client: &ReservationService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_capacity_commitments()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_capacity_commitments(
         &self,
     ) -> super::builder::reservation_service::ListCapacityCommitments {
@@ -184,6 +323,21 @@ impl ReservationService {
     }
 
     /// Returns information about the capacity commitment.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_reservation_v1::client::ReservationService;
+    /// use google_cloud_bigquery_reservation_v1::Result;
+    /// async fn sample(
+    ///    client: &ReservationService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_capacity_commitment()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_capacity_commitment(
         &self,
     ) -> super::builder::reservation_service::GetCapacityCommitment {
@@ -193,6 +347,20 @@ impl ReservationService {
     /// Deletes a capacity commitment. Attempting to delete capacity commitment
     /// before its commitment_end_time will fail with the error code
     /// `google.rpc.Code.FAILED_PRECONDITION`.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_reservation_v1::client::ReservationService;
+    /// use google_cloud_bigquery_reservation_v1::Result;
+    /// async fn sample(
+    ///    client: &ReservationService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_capacity_commitment()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_capacity_commitment(
         &self,
     ) -> super::builder::reservation_service::DeleteCapacityCommitment {
@@ -206,6 +374,27 @@ impl ReservationService {
     /// Plan can only be changed to a plan of a longer commitment period.
     /// Attempting to change to a plan with shorter commitment period will fail
     /// with the error code `google.rpc.Code.FAILED_PRECONDITION`.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_reservation_v1::client::ReservationService;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_bigquery_reservation_v1::model::CapacityCommitment;
+    /// use google_cloud_bigquery_reservation_v1::Result;
+    /// async fn sample(
+    ///    client: &ReservationService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_capacity_commitment()
+    ///         .set_capacity_commitment(
+    ///             CapacityCommitment::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_capacity_commitment(
         &self,
     ) -> super::builder::reservation_service::UpdateCapacityCommitment {
@@ -220,6 +409,21 @@ impl ReservationService {
     /// For example, in order to downgrade from 10000 slots to 8000, you might
     /// split a 10000 capacity commitment into commitments of 2000 and 8000. Then,
     /// you delete the first one after the commitment end time passes.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_reservation_v1::client::ReservationService;
+    /// use google_cloud_bigquery_reservation_v1::Result;
+    /// async fn sample(
+    ///    client: &ReservationService
+    /// ) -> Result<()> {
+    ///     let response = client.split_capacity_commitment()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn split_capacity_commitment(
         &self,
     ) -> super::builder::reservation_service::SplitCapacityCommitment {
@@ -233,6 +437,21 @@ impl ReservationService {
     ///
     /// Attempting to merge capacity commitments of different plan will fail
     /// with the error code `google.rpc.Code.FAILED_PRECONDITION`.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_reservation_v1::client::ReservationService;
+    /// use google_cloud_bigquery_reservation_v1::Result;
+    /// async fn sample(
+    ///    client: &ReservationService
+    /// ) -> Result<()> {
+    ///     let response = client.merge_capacity_commitments()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn merge_capacity_commitments(
         &self,
     ) -> super::builder::reservation_service::MergeCapacityCommitments {
@@ -274,6 +493,25 @@ impl ReservationService {
     ///
     /// Returns `google.rpc.Code.INVALID_ARGUMENT` when location of the assignment
     /// does not match location of the reservation.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_reservation_v1::client::ReservationService;
+    /// use google_cloud_bigquery_reservation_v1::model::Assignment;
+    /// use google_cloud_bigquery_reservation_v1::Result;
+    /// async fn sample(
+    ///    client: &ReservationService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_assignment()
+    ///         .set_parent(parent).set_assignment_id("assignment_id_value")
+    ///         .set_assignment(
+    ///             Assignment::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_assignment(&self) -> super::builder::reservation_service::CreateAssignment {
         super::builder::reservation_service::CreateAssignment::new(self.inner.clone())
     }
@@ -299,6 +537,24 @@ impl ReservationService {
     /// specified project and location will be listed.
     ///
     /// **Note** "-" cannot be used for projects nor locations.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_reservation_v1::client::ReservationService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_bigquery_reservation_v1::Result;
+    /// async fn sample(
+    ///    client: &ReservationService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_assignments()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_assignments(&self) -> super::builder::reservation_service::ListAssignments {
         super::builder::reservation_service::ListAssignments::new(self.inner.clone())
     }
@@ -318,6 +574,20 @@ impl ReservationService {
     /// affect the other assignment `<project1, res1>`. After said deletion,
     /// queries from `project1` will still use `res1` while queries from
     /// `project2` will switch to use on-demand mode.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_reservation_v1::client::ReservationService;
+    /// use google_cloud_bigquery_reservation_v1::Result;
+    /// async fn sample(
+    ///    client: &ReservationService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_assignment()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_assignment(&self) -> super::builder::reservation_service::DeleteAssignment {
         super::builder::reservation_service::DeleteAssignment::new(self.inner.clone())
     }
@@ -345,6 +615,24 @@ impl ReservationService {
     ///
     /// **Note** "-" cannot be used for projects
     /// nor locations.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_reservation_v1::client::ReservationService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_bigquery_reservation_v1::Result;
+    /// async fn sample(
+    ///    client: &ReservationService
+    /// ) -> Result<()> {
+    ///     let mut list = client.search_assignments()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     #[deprecated]
     pub fn search_assignments(&self) -> super::builder::reservation_service::SearchAssignments {
         super::builder::reservation_service::SearchAssignments::new(self.inner.clone())
@@ -370,6 +658,24 @@ impl ReservationService {
     /// 1. Hierarchy lookup (project->folder->organization) happens in this API.
     /// 1. Parent here is `projects/*/locations/*`, instead of
     ///    `projects/*/locations/*reservations/*`.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_reservation_v1::client::ReservationService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_bigquery_reservation_v1::Result;
+    /// async fn sample(
+    ///    client: &ReservationService
+    /// ) -> Result<()> {
+    ///     let mut list = client.search_all_assignments()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn search_all_assignments(
         &self,
     ) -> super::builder::reservation_service::SearchAllAssignments {
@@ -381,6 +687,21 @@ impl ReservationService {
     /// This differs from removing an existing assignment and recreating a new one
     /// by providing a transactional change that ensures an assignee always has an
     /// associated reservation.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_reservation_v1::client::ReservationService;
+    /// use google_cloud_bigquery_reservation_v1::Result;
+    /// async fn sample(
+    ///    client: &ReservationService
+    /// ) -> Result<()> {
+    ///     let response = client.move_assignment()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn move_assignment(&self) -> super::builder::reservation_service::MoveAssignment {
         super::builder::reservation_service::MoveAssignment::new(self.inner.clone())
     }
@@ -388,11 +709,47 @@ impl ReservationService {
     /// Updates an existing assignment.
     ///
     /// Only the `priority` field can be updated.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_reservation_v1::client::ReservationService;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_bigquery_reservation_v1::model::Assignment;
+    /// use google_cloud_bigquery_reservation_v1::Result;
+    /// async fn sample(
+    ///    client: &ReservationService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_assignment()
+    ///         .set_assignment(
+    ///             Assignment::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_assignment(&self) -> super::builder::reservation_service::UpdateAssignment {
         super::builder::reservation_service::UpdateAssignment::new(self.inner.clone())
     }
 
     /// Retrieves a BI reservation.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_reservation_v1::client::ReservationService;
+    /// use google_cloud_bigquery_reservation_v1::Result;
+    /// async fn sample(
+    ///    client: &ReservationService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_bi_reservation()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_bi_reservation(&self) -> super::builder::reservation_service::GetBiReservation {
         super::builder::reservation_service::GetBiReservation::new(self.inner.clone())
     }
@@ -405,6 +762,27 @@ impl ReservationService {
     /// In order to reserve BI capacity it needs to be updated to an amount
     /// greater than 0. In order to release BI capacity reservation size
     /// must be set to 0.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_reservation_v1::client::ReservationService;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_bigquery_reservation_v1::model::BiReservation;
+    /// use google_cloud_bigquery_reservation_v1::Result;
+    /// async fn sample(
+    ///    client: &ReservationService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_bi_reservation()
+    ///         .set_bi_reservation(
+    ///             BiReservation::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_bi_reservation(
         &self,
     ) -> super::builder::reservation_service::UpdateBiReservation {
@@ -427,6 +805,21 @@ impl ReservationService {
     ///
     /// - `bigqueryreservation.reservations.getIamPolicy` to get policies on
     ///   reservations.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_reservation_v1::client::ReservationService;
+    /// use google_cloud_bigquery_reservation_v1::Result;
+    /// async fn sample(
+    ///    client: &ReservationService
+    /// ) -> Result<()> {
+    ///     let response = client.get_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::reservation_service::GetIamPolicy {
         super::builder::reservation_service::GetIamPolicy::new(self.inner.clone())
     }
@@ -442,6 +835,21 @@ impl ReservationService {
     ///
     /// - `bigqueryreservation.reservations.setIamPolicy` to set policies on
     ///   reservations.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_reservation_v1::client::ReservationService;
+    /// use google_cloud_bigquery_reservation_v1::Result;
+    /// async fn sample(
+    ///    client: &ReservationService
+    /// ) -> Result<()> {
+    ///     let response = client.set_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::reservation_service::SetIamPolicy {
         super::builder::reservation_service::SetIamPolicy::new(self.inner.clone())
     }
@@ -454,11 +862,45 @@ impl ReservationService {
     /// - Reservations
     ///
     /// No Google IAM permissions are required to call this method.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_reservation_v1::client::ReservationService;
+    /// use google_cloud_bigquery_reservation_v1::Result;
+    /// async fn sample(
+    ///    client: &ReservationService
+    /// ) -> Result<()> {
+    ///     let response = client.test_iam_permissions()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::reservation_service::TestIamPermissions {
         super::builder::reservation_service::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Creates a new reservation group.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_reservation_v1::client::ReservationService;
+    /// use google_cloud_bigquery_reservation_v1::model::ReservationGroup;
+    /// use google_cloud_bigquery_reservation_v1::Result;
+    /// async fn sample(
+    ///    client: &ReservationService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_reservation_group()
+    ///         .set_parent(parent)
+    ///         .set_reservation_group(
+    ///             ReservationGroup::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_reservation_group(
         &self,
     ) -> super::builder::reservation_service::CreateReservationGroup {
@@ -466,6 +908,21 @@ impl ReservationService {
     }
 
     /// Returns information about the reservation group.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_reservation_v1::client::ReservationService;
+    /// use google_cloud_bigquery_reservation_v1::Result;
+    /// async fn sample(
+    ///    client: &ReservationService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_reservation_group()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_reservation_group(
         &self,
     ) -> super::builder::reservation_service::GetReservationGroup {
@@ -475,6 +932,20 @@ impl ReservationService {
     /// Deletes a reservation.
     /// Returns `google.rpc.Code.FAILED_PRECONDITION` when reservation has
     /// assignments.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_reservation_v1::client::ReservationService;
+    /// use google_cloud_bigquery_reservation_v1::Result;
+    /// async fn sample(
+    ///    client: &ReservationService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_reservation_group()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_reservation_group(
         &self,
     ) -> super::builder::reservation_service::DeleteReservationGroup {
@@ -482,6 +953,24 @@ impl ReservationService {
     }
 
     /// Lists all the reservation groups for the project in the specified location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_reservation_v1::client::ReservationService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_bigquery_reservation_v1::Result;
+    /// async fn sample(
+    ///    client: &ReservationService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_reservation_groups()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_reservation_groups(
         &self,
     ) -> super::builder::reservation_service::ListReservationGroups {

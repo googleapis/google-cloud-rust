@@ -235,7 +235,7 @@ async fn upload_object_bytes() -> Result {
     const PAYLOAD: &str = "hello";
     let inner = test_inner_client(test_builder()).await;
     let options = inner.options.clone();
-    let stub = crate::storage::transport::Storage::new(inner.clone());
+    let stub = crate::storage::transport::Storage::new_test(inner.clone());
     let builder = WriteObject::new(
         stub,
         "projects/_/buckets/bucket",
@@ -246,7 +246,8 @@ async fn upload_object_bytes() -> Result {
     let request = perform_upload(inner, builder)
         .single_shot_builder(SizeHint::with_exact(PAYLOAD.len() as u64))
         .await?
-        .build()?;
+        .build_for_tests()
+        .await?;
 
     assert_eq!(request.method(), Method::POST);
     assert_eq!(
@@ -262,7 +263,7 @@ async fn upload_object_bytes() -> Result {
 async fn upload_object_metadata() -> Result {
     let inner = test_inner_client(test_builder()).await;
     let options = inner.options.clone();
-    let stub = crate::storage::transport::Storage::new(inner.clone());
+    let stub = crate::storage::transport::Storage::new_test(inner.clone());
     let builder = WriteObject::new(
         stub,
         "projects/_/buckets/bucket",
@@ -274,7 +275,8 @@ async fn upload_object_metadata() -> Result {
     let request = perform_upload(inner, builder)
         .single_shot_builder(SizeHint::new())
         .await?
-        .build()?;
+        .build_for_tests()
+        .await?;
 
     assert_eq!(request.method(), Method::POST);
     assert_eq!(
@@ -298,12 +300,13 @@ async fn upload_object_stream() -> Result {
     );
     let inner = test_inner_client(test_builder()).await;
     let options = inner.options.clone();
-    let stub = crate::storage::transport::Storage::new(inner.clone());
+    let stub = crate::storage::transport::Storage::new_test(inner.clone());
     let builder = WriteObject::new(stub, "projects/_/buckets/bucket", "object", stream, options);
     let request = perform_upload(inner, builder)
         .single_shot_builder(SizeHint::new())
         .await?
-        .build()?;
+        .build_for_tests()
+        .await?;
 
     assert_eq!(request.method(), Method::POST);
     assert_eq!(
@@ -319,7 +322,7 @@ async fn upload_object_stream() -> Result {
 async fn upload_object_error_credentials() -> Result {
     let inner = test_inner_client(test_builder().with_credentials(error_credentials(false))).await;
     let options = inner.options.clone();
-    let stub = crate::storage::transport::Storage::new(inner.clone());
+    let stub = crate::storage::transport::Storage::new_test(inner.clone());
     let builder = WriteObject::new(
         stub,
         "projects/_/buckets/bucket",
@@ -329,6 +332,8 @@ async fn upload_object_error_credentials() -> Result {
     );
     let _ = perform_upload(inner, builder)
         .single_shot_builder(SizeHint::new())
+        .await?
+        .build_for_tests()
         .await
         .inspect_err(|e| assert!(e.is_authentication()))
         .expect_err("invalid credentials should err");
@@ -339,7 +344,7 @@ async fn upload_object_error_credentials() -> Result {
 async fn upload_object_bad_bucket() -> Result {
     let inner = test_inner_client(test_builder()).await;
     let options = inner.options.clone();
-    let stub = crate::storage::transport::Storage::new(inner.clone());
+    let stub = crate::storage::transport::Storage::new_test(inner.clone());
     let builder = WriteObject::new(stub, "malformed", "object", "hello", options);
     let _ = perform_upload(inner, builder)
         .single_shot_builder(SizeHint::new())
@@ -355,7 +360,7 @@ async fn upload_object_headers() -> Result {
 
     let inner = test_inner_client(test_builder()).await;
     let options = inner.options.clone();
-    let stub = crate::storage::transport::Storage::new(inner.clone());
+    let stub = crate::storage::transport::Storage::new_test(inner.clone());
     let builder = WriteObject::new(
         stub,
         "projects/_/buckets/bucket",
@@ -367,7 +372,8 @@ async fn upload_object_headers() -> Result {
     let request = perform_upload(inner, builder)
         .single_shot_builder(SizeHint::new())
         .await?
-        .build()?;
+        .build_for_tests()
+        .await?;
 
     assert_eq!(request.method(), Method::POST);
     assert_eq!(
@@ -446,7 +452,7 @@ async fn retry_transient_not_idempotent() -> Result {
     let inner =
         test_inner_client(test_builder().with_endpoint(format!("http://{}", server.addr()))).await;
     let options = inner.options.clone();
-    let stub = crate::storage::transport::Storage::new(inner);
+    let stub = crate::storage::transport::Storage::new_test(inner);
     let err = WriteObject::new(
         stub,
         "projects/_/buckets/bucket",
@@ -481,7 +487,7 @@ async fn retry_transient_override_idempotency() -> Result {
     let inner =
         test_inner_client(test_builder().with_endpoint(format!("http://{}", server.addr()))).await;
     let options = inner.options.clone();
-    let stub = crate::storage::transport::Storage::new(inner);
+    let stub = crate::storage::transport::Storage::new_test(inner);
     let got = WriteObject::new(
         stub,
         "projects/_/buckets/bucket",
@@ -517,7 +523,7 @@ async fn retry_transient_failures_then_success() -> Result {
     let inner =
         test_inner_client(test_builder().with_endpoint(format!("http://{}", server.addr()))).await;
     let options = inner.options.clone();
-    let stub = crate::storage::transport::Storage::new(inner);
+    let stub = crate::storage::transport::Storage::new_test(inner);
     let got = WriteObject::new(
         stub,
         "projects/_/buckets/test-bucket",
@@ -553,7 +559,7 @@ async fn retry_transient_failures_then_permanent() -> Result {
     let inner =
         test_inner_client(test_builder().with_endpoint(format!("http://{}", server.addr()))).await;
     let options = inner.options.clone();
-    let stub = crate::storage::transport::Storage::new(inner);
+    let stub = crate::storage::transport::Storage::new_test(inner);
     let err = WriteObject::new(
         stub,
         "projects/_/buckets/test-bucket",
@@ -589,7 +595,7 @@ async fn retry_transient_failures_exhausted() -> Result {
     let inner =
         test_inner_client(test_builder().with_endpoint(format!("http://{}", server.addr()))).await;
     let options = inner.options.clone();
-    let stub = crate::storage::transport::Storage::new(inner);
+    let stub = crate::storage::transport::Storage::new_test(inner);
     let err = WriteObject::new(
         stub,
         "projects/_/buckets/test-bucket",

@@ -123,6 +123,21 @@ impl AuditManager {
     /// workload and granting required permissions to the Service Agent. Please
     /// note that if enrollment request is made on the already enrolled workload
     /// then enrollment is executed overriding the existing set of destinations.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_auditmanager_v1::client::AuditManager;
+    /// use google_cloud_auditmanager_v1::Result;
+    /// async fn sample(
+    ///    client: &AuditManager
+    /// ) -> Result<()> {
+    ///     let response = client.enroll_resource()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn enroll_resource(&self) -> super::builder::audit_manager::EnrollResource {
         super::builder::audit_manager::EnrollResource::new(self.inner.clone())
     }
@@ -130,6 +145,21 @@ impl AuditManager {
     /// Generates a demo report highlighting different responsibilities
     /// (Google/Customer/ shared) required to be fulfilled for the customer's
     /// workload to be compliant with the given standard.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_auditmanager_v1::client::AuditManager;
+    /// use google_cloud_auditmanager_v1::Result;
+    /// async fn sample(
+    ///    client: &AuditManager
+    /// ) -> Result<()> {
+    ///     let response = client.generate_audit_scope_report()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn generate_audit_scope_report(
         &self,
     ) -> super::builder::audit_manager::GenerateAuditScopeReport {
@@ -148,21 +178,85 @@ impl AuditManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_auditmanager_v1::client::AuditManager;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_auditmanager_v1::Result;
+    /// async fn sample(
+    ///    client: &AuditManager
+    /// ) -> Result<()> {
+    ///     let response = client.generate_audit_report()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn generate_audit_report(&self) -> super::builder::audit_manager::GenerateAuditReport {
         super::builder::audit_manager::GenerateAuditReport::new(self.inner.clone())
     }
 
     /// Lists audit reports in the selected parent scope
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_auditmanager_v1::client::AuditManager;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_auditmanager_v1::Result;
+    /// async fn sample(
+    ///    client: &AuditManager, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_audit_reports()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_audit_reports(&self) -> super::builder::audit_manager::ListAuditReports {
         super::builder::audit_manager::ListAuditReports::new(self.inner.clone())
     }
 
     /// Get the overall audit report
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_auditmanager_v1::client::AuditManager;
+    /// use google_cloud_auditmanager_v1::Result;
+    /// async fn sample(
+    ///    client: &AuditManager, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_audit_report()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_audit_report(&self) -> super::builder::audit_manager::GetAuditReport {
         super::builder::audit_manager::GetAuditReport::new(self.inner.clone())
     }
 
     /// Get a resource along with its enrollment status.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_auditmanager_v1::client::AuditManager;
+    /// use google_cloud_auditmanager_v1::Result;
+    /// async fn sample(
+    ///    client: &AuditManager, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_resource_enrollment_status()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_resource_enrollment_status(
         &self,
     ) -> super::builder::audit_manager::GetResourceEnrollmentStatus {
@@ -170,6 +264,24 @@ impl AuditManager {
     }
 
     /// Fetches all resources under the parent along with their enrollment.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_auditmanager_v1::client::AuditManager;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_auditmanager_v1::Result;
+    /// async fn sample(
+    ///    client: &AuditManager, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_resource_enrollment_statuses()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_resource_enrollment_statuses(
         &self,
     ) -> super::builder::audit_manager::ListResourceEnrollmentStatuses {
@@ -177,6 +289,24 @@ impl AuditManager {
     }
 
     /// Gets controls needed to be implemented to be compliant to a standard.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_auditmanager_v1::client::AuditManager;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_auditmanager_v1::Result;
+    /// async fn sample(
+    ///    client: &AuditManager
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_controls()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_controls(&self) -> super::builder::audit_manager::ListControls {
         super::builder::audit_manager::ListControls::new(self.inner.clone())
     }
@@ -189,11 +319,44 @@ impl AuditManager {
     ///   `GET /v1/projects/{project_id}/locations`. This may include public
     ///   locations as well as private or other locations specifically visible
     ///   to the project.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_auditmanager_v1::client::AuditManager;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_auditmanager_v1::Result;
+    /// async fn sample(
+    ///    client: &AuditManager
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::audit_manager::ListLocations {
         super::builder::audit_manager::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_auditmanager_v1::client::AuditManager;
+    /// use google_cloud_auditmanager_v1::Result;
+    /// async fn sample(
+    ///    client: &AuditManager
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::audit_manager::GetLocation {
         super::builder::audit_manager::GetLocation::new(self.inner.clone())
     }
@@ -201,6 +364,24 @@ impl AuditManager {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_auditmanager_v1::client::AuditManager;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_auditmanager_v1::Result;
+    /// async fn sample(
+    ///    client: &AuditManager
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::audit_manager::ListOperations {
         super::builder::audit_manager::ListOperations::new(self.inner.clone())
     }
@@ -208,6 +389,21 @@ impl AuditManager {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_auditmanager_v1::client::AuditManager;
+    /// use google_cloud_auditmanager_v1::Result;
+    /// async fn sample(
+    ///    client: &AuditManager
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::audit_manager::GetOperation {
         super::builder::audit_manager::GetOperation::new(self.inner.clone())
     }
@@ -215,6 +411,20 @@ impl AuditManager {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_auditmanager_v1::client::AuditManager;
+    /// use google_cloud_auditmanager_v1::Result;
+    /// async fn sample(
+    ///    client: &AuditManager
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::audit_manager::DeleteOperation {
         super::builder::audit_manager::DeleteOperation::new(self.inner.clone())
     }
@@ -222,6 +432,20 @@ impl AuditManager {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_auditmanager_v1::client::AuditManager;
+    /// use google_cloud_auditmanager_v1::Result;
+    /// async fn sample(
+    ///    client: &AuditManager
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::audit_manager::CancelOperation {
         super::builder::audit_manager::CancelOperation::new(self.inner.clone())
     }

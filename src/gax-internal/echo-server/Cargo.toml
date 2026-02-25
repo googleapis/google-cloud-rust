@@ -21,6 +21,7 @@ edition.workspace = true
 license.workspace = true
 
 [dependencies]
+anyhow.workspace     = true
 axum                 = { workspace = true, features = ["http2", "json", "query", "tokio"] }
 bytes.workspace      = true
 serde_json.workspace = true

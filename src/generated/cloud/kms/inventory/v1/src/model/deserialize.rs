@@ -239,6 +239,7 @@ impl<'de> serde::de::Deserialize<'de> for super::GetProtectedResourcesSummaryReq
         #[derive(PartialEq, Eq, Hash)]
         enum __FieldTag {
             __name,
+            __fallback_scope,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -260,6 +261,8 @@ impl<'de> serde::de::Deserialize<'de> for super::GetProtectedResourcesSummaryReq
                         use std::string::ToString;
                         match value {
                             "name" => Ok(__FieldTag::__name),
+                            "fallbackScope" => Ok(__FieldTag::__fallback_scope),
+                            "fallback_scope" => Ok(__FieldTag::__fallback_scope),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -295,6 +298,16 @@ impl<'de> serde::de::Deserialize<'de> for super::GetProtectedResourcesSummaryReq
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
                         }
+                        __FieldTag::__fallback_scope => {
+                            if !fields.insert(__FieldTag::__fallback_scope) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for fallback_scope",
+                                ));
+                            }
+                            result.fallback_scope = map
+                                .next_value::<std::option::Option<crate::model::FallbackScope>>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -324,6 +337,7 @@ impl<'de> serde::de::Deserialize<'de> for super::ProtectedResourcesSummary {
             __resource_types,
             __cloud_products,
             __locations,
+            __warnings,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -354,6 +368,7 @@ impl<'de> serde::de::Deserialize<'de> for super::ProtectedResourcesSummary {
                             "cloudProducts" => Ok(__FieldTag::__cloud_products),
                             "cloud_products" => Ok(__FieldTag::__cloud_products),
                             "locations" => Ok(__FieldTag::__locations),
+                            "warnings" => Ok(__FieldTag::__warnings),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -523,6 +538,14 @@ impl<'de> serde::de::Deserialize<'de> for super::ProtectedResourcesSummary {
                                 }
                             }
                             result.locations = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__warnings => {
+                            if !fields.insert(__FieldTag::__warnings) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for warnings",
+                                ));
+                            }
+                            result.warnings = map.next_value::<std::option::Option<std::vec::Vec<crate::model::Warning>>>()?.unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -954,6 +977,98 @@ impl<'de> serde::de::Deserialize<'de> for super::ProtectedResource {
                             }
                             result.create_time =
                                 map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::Warning {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __warning_code,
+            __display_message,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for Warning")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "warningCode" => Ok(__FieldTag::__warning_code),
+                            "warning_code" => Ok(__FieldTag::__warning_code),
+                            "displayMessage" => Ok(__FieldTag::__display_message),
+                            "display_message" => Ok(__FieldTag::__display_message),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::Warning;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct Warning")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__warning_code => {
+                            if !fields.insert(__FieldTag::__warning_code) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for warning_code",
+                                ));
+                            }
+                            result.warning_code = map.next_value::<std::option::Option<crate::model::warning::WarningCode>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__display_message => {
+                            if !fields.insert(__FieldTag::__display_message) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for display_message",
+                                ));
+                            }
+                            result.display_message = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

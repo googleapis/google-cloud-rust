@@ -91,6 +91,7 @@
 //! [Service Account]: https://cloud.google.com/iam/docs/service-account-overview
 //! [Service Account Token Creator Role]: https://cloud.google.com/docs/authentication/use-service-account-impersonation#required-roles
 
+use crate::access_boundary::CredentialsWithAccessBoundary;
 use crate::build_errors::Error as BuilderError;
 use crate::constants::DEFAULT_SCOPE;
 use crate::credentials::dynamic::{AccessTokenCredentialsProvider, CredentialsProvider};
@@ -156,6 +157,7 @@ pub struct Builder {
     quota_project_id: Option<String>,
     lifetime: Option<Duration>,
     retry_builder: RetryTokenProviderBuilder,
+    iam_endpoint_override: Option<String>,
 }
 
 impl Builder {
@@ -175,6 +177,7 @@ impl Builder {
             quota_project_id: None,
             lifetime: None,
             retry_builder: RetryTokenProviderBuilder::default(),
+            iam_endpoint_override: None,
         }
     }
 
@@ -204,6 +207,7 @@ impl Builder {
             quota_project_id: None,
             lifetime: None,
             retry_builder: RetryTokenProviderBuilder::default(),
+            iam_endpoint_override: None,
         }
     }
 
@@ -423,7 +427,13 @@ impl Builder {
     ///
     /// [application-default credentials]: https://cloud.google.com/docs/authentication/application-default-credentials
     pub fn build(self) -> BuildResult<Credentials> {
-        Ok(self.build_access_token_credentials()?.into())
+        Ok(self.build_credentials()?.into())
+    }
+
+    #[cfg(test)]
+    fn maybe_iam_endpoint_override(mut self, iam_endpoint_override: Option<String>) -> Self {
+        self.iam_endpoint_override = iam_endpoint_override;
+        self
     }
 
     /// Returns an [AccessTokenCredentials] instance with the configured settings.
@@ -468,13 +478,29 @@ impl Builder {
     ///
     /// [application-default credentials]: https://cloud.google.com/docs/authentication/application-default-credentials
     pub fn build_access_token_credentials(self) -> BuildResult<AccessTokenCredentials> {
+        Ok(self.build_credentials()?.into())
+    }
+
+    fn build_credentials(
+        self,
+    ) -> BuildResult<CredentialsWithAccessBoundary<ImpersonatedServiceAccount<TokenCache>>> {
+        let service_account_impersonation_url = self.resolve_impersonation_url()?;
+        let client_email = extract_client_email(&service_account_impersonation_url)?;
+        let iam_endpoint_override = self.iam_endpoint_override.clone();
         let (token_provider, quota_project_id) = self.build_components()?;
-        Ok(AccessTokenCredentials {
-            inner: Arc::new(ImpersonatedServiceAccount {
-                token_provider: TokenCache::new(token_provider),
-                quota_project_id,
-            }),
-        })
+        let access_boundary_url = crate::access_boundary::service_account_lookup_url(
+            &client_email,
+            iam_endpoint_override.as_deref(),
+        );
+        let creds = ImpersonatedServiceAccount {
+            token_provider: TokenCache::new(token_provider),
+            quota_project_id,
+        };
+
+        Ok(CredentialsWithAccessBoundary::new(
+            creds,
+            access_boundary_url,
+        ))
     }
 
     /// Returns a [crate::signer::Signer] instance with the configured settings.
@@ -511,44 +537,22 @@ impl Builder {
     ///
     /// [IAM signBlob API]: https://cloud.google.com/iam/docs/reference/credentials/rest/v1/projects.serviceAccounts/signBlob
     pub fn build_signer(self) -> BuildResult<crate::signer::Signer> {
-        self.build_signer_with_iam_endpoint_override(None)
-    }
-
-    // only used for testing
-    fn build_signer_with_iam_endpoint_override(
-        self,
-        iam_endpoint: Option<String>,
-    ) -> BuildResult<crate::signer::Signer> {
+        let iam_endpoint = self.iam_endpoint_override.clone();
         let source = self.source.clone();
-        match source {
-            BuilderSource::FromJson(json) => {
-                let signer = build_signer_from_json(json.clone())?;
-                if let Some(signer) = signer {
-                    return Ok(signer);
-                }
-                let components = build_components_from_json(json)?;
-                let client_email =
-                    extract_client_email(&components.service_account_impersonation_url)?;
-                let creds = self.build()?;
-                let signer = crate::signer::iam::IamSigner::new(client_email, creds, iam_endpoint);
-                Ok(crate::signer::Signer {
-                    inner: Arc::new(signer),
-                })
-            }
-            BuilderSource::FromCredentials(source_credentials) => {
-                let components = build_components_from_credentials(
-                    source_credentials,
-                    self.service_account_impersonation_url.clone(),
-                )?;
-                let client_email =
-                    extract_client_email(&components.service_account_impersonation_url)?;
-                let creds = self.build()?;
-                let signer = crate::signer::iam::IamSigner::new(client_email, creds, iam_endpoint);
-                Ok(crate::signer::Signer {
-                    inner: Arc::new(signer),
-                })
+        if let BuilderSource::FromJson(json) = source {
+            // try to build service account signer from json
+            let signer = build_signer_from_json(json.clone())?;
+            if let Some(signer) = signer {
+                return Ok(signer);
             }
         }
+        let service_account_impersonation_url = self.resolve_impersonation_url()?;
+        let client_email = extract_client_email(&service_account_impersonation_url)?;
+        let creds = self.build()?;
+        let signer = crate::signer::iam::IamSigner::new(client_email, creds, iam_endpoint);
+        Ok(crate::signer::Signer {
+            inner: Arc::new(signer),
+        })
     }
 
     fn build_components(
@@ -585,6 +589,22 @@ impl Builder {
         let token_provider = self.retry_builder.build(token_provider);
         Ok((token_provider, quota_project_id))
     }
+
+    fn resolve_impersonation_url(&self) -> BuildResult<String> {
+        match self.source.clone() {
+            BuilderSource::FromJson(json) => {
+                let config = config_from_json(json)?;
+                Ok(config.service_account_impersonation_url)
+            }
+            BuilderSource::FromCredentials(_) => {
+                self.service_account_impersonation_url.clone().ok_or_else(|| {
+                    BuilderError::parsing(
+                        "`service_account_impersonation_url` is required when building from source credentials",
+                    )
+                })
+            }
+        }
+    }
 }
 
 pub(crate) struct ImpersonatedCredentialComponents {
@@ -595,11 +615,14 @@ pub(crate) struct ImpersonatedCredentialComponents {
     pub(crate) scopes: Option<Vec<String>>,
 }
 
+fn config_from_json(json: Value) -> BuildResult<ImpersonatedConfig> {
+    serde_json::from_value::<ImpersonatedConfig>(json).map_err(BuilderError::parsing)
+}
+
 pub(crate) fn build_components_from_json(
     json: Value,
 ) -> BuildResult<ImpersonatedCredentialComponents> {
-    let config =
-        serde_json::from_value::<ImpersonatedConfig>(json).map_err(BuilderError::parsing)?;
+    let config = config_from_json(json)?;
 
     let source_credential_type = extract_credential_type(&config.source_credentials)?;
     if source_credential_type == "impersonated_service_account" {
@@ -632,8 +655,7 @@ fn build_signer_from_json(json: Value) -> BuildResult<Option<crate::signer::Sign
     use crate::credentials::service_account::ServiceAccountKey;
     use crate::signer::service_account::ServiceAccountSigner;
 
-    let config =
-        serde_json::from_value::<ImpersonatedConfig>(json).map_err(BuilderError::parsing)?;
+    let config = config_from_json(json)?;
 
     let client_email = extract_client_email(&config.service_account_impersonation_url)?;
     let source_credential_type = extract_credential_type(&config.source_credentials)?;
@@ -845,6 +867,11 @@ struct GenerateAccessTokenResponse {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::access_boundary::REGIONAL_ACCESS_BOUNDARIES_ENV_VAR;
+    use crate::credentials::service_account::ServiceAccountKey;
+    use crate::credentials::tests::{
+        PKCS8_PK, get_access_boundary_from_headers, get_token_from_headers,
+    };
     use crate::credentials::tests::{
         find_source_error, get_mock_auth_retry_policy, get_mock_backoff_policy,
         get_mock_retry_throttler,
@@ -852,11 +879,15 @@ mod tests {
     use crate::errors::CredentialsError;
     use httptest::cycle;
     use httptest::{Expectation, Server, matchers::*, responders::*};
+    use scoped_env::ScopedEnv;
+    use serde_json::Value;
     use serde_json::json;
+    use serial_test::{parallel, serial};
 
     type TestResult = anyhow::Result<()>;
 
     #[tokio::test]
+    #[parallel]
     async fn test_generate_access_token_success() -> TestResult {
         let server = Server::run();
         let expire_time = (OffsetDateTime::now_utc() + time::Duration::hours(1))
@@ -894,6 +925,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[parallel]
     async fn test_generate_access_token_403() -> TestResult {
         let server = Server::run();
         server.expect(
@@ -926,6 +958,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[parallel]
     async fn test_generate_access_token_no_auth_header() -> TestResult {
         let server = Server::run();
         server.expect(
@@ -953,6 +986,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[parallel]
     async fn test_impersonated_service_account() -> TestResult {
         let server = Server::run();
         server.expect(
@@ -1011,6 +1045,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[parallel]
     async fn test_impersonated_service_account_default_scope() -> TestResult {
         let server = Server::run();
         server.expect(
@@ -1067,6 +1102,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[parallel]
     async fn test_impersonated_service_account_with_custom_lifetime() -> TestResult {
         let server = Server::run();
         server.expect(
@@ -1125,6 +1161,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[parallel]
     async fn test_with_delegates() -> TestResult {
         let server = Server::run();
         server.expect(
@@ -1184,6 +1221,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[parallel]
     async fn test_impersonated_service_account_fail() -> TestResult {
         let server = Server::run();
         server.expect(
@@ -1224,6 +1262,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[parallel]
     async fn debug_token_provider() {
         let source_credentials = crate::credentials::user_account::Builder::new(json!({
             "type": "authorized_user",
@@ -1303,6 +1342,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[parallel]
     async fn test_impersonated_service_account_source_fail() -> TestResult {
         #[derive(Debug)]
         struct MockSourceCredentialsFail;
@@ -1336,6 +1376,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[parallel]
     async fn test_missing_impersonation_url_fail() {
         let source_credentials = crate::credentials::user_account::Builder::new(json!({
             "type": "authorized_user",
@@ -1357,6 +1398,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[parallel]
     async fn test_nested_impersonated_credentials_fail() {
         let nested_impersonated = json!({
             "type": "impersonated_service_account",
@@ -1385,6 +1427,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[parallel]
     async fn test_malformed_impersonated_credentials_fail() {
         let malformed_impersonated = json!({
             "type": "impersonated_service_account",
@@ -1402,6 +1445,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[parallel]
     async fn test_invalid_source_credential_type_fail() {
         let invalid_source = json!({
             "type": "impersonated_service_account",
@@ -1418,6 +1462,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[parallel]
     async fn test_missing_expiry() -> TestResult {
         let server = Server::run();
         server.expect(
@@ -1459,6 +1504,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[parallel]
     async fn test_invalid_expiry_format() -> TestResult {
         let server = Server::run();
         server.expect(
@@ -1501,6 +1547,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[parallel]
     async fn token_provider_malformed_response_is_nonretryable() -> TestResult {
         let server = Server::run();
         server.expect(
@@ -1540,6 +1587,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[parallel]
     async fn token_provider_nonretryable_error() -> TestResult {
         let server = Server::run();
         server.expect(
@@ -1579,6 +1627,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[parallel]
     async fn credential_full_with_quota_project_from_builder() -> TestResult {
         let server = Server::run();
         server.expect(
@@ -1631,6 +1680,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[parallel]
     async fn access_token_credentials_success() -> TestResult {
         let server = Server::run();
         server.expect(
@@ -1676,6 +1726,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[parallel]
     async fn test_with_target_principal() {
         let source_credentials = crate::credentials::user_account::Builder::new(json!({
             "type": "authorized_user",
@@ -1698,6 +1749,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[parallel]
     async fn credential_full_with_quota_project_from_json() -> TestResult {
         let server = Server::run();
         server.expect(
@@ -1739,6 +1791,7 @@ mod tests {
         let creds = Builder::new(impersonated_credential).build()?;
 
         let headers = creds.headers(Extensions::new()).await?;
+        println!("headers: {:#?}", headers);
         match headers {
             CacheableResource::New { data, .. } => {
                 assert_eq!(
@@ -1753,6 +1806,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[parallel]
     async fn test_impersonated_does_not_propagate_settings_to_source() -> TestResult {
         let server = Server::run();
 
@@ -1824,6 +1878,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[parallel]
     async fn test_impersonated_metrics_header() -> TestResult {
         let server = Server::run();
         server.expect(
@@ -1877,6 +1932,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[parallel]
     async fn test_impersonated_retries_for_success() -> TestResult {
         let mut server = Server::run();
         // Source credential token endpoint
@@ -1941,6 +1997,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[parallel]
     async fn test_scopes_from_json() -> TestResult {
         let server = Server::run();
         server.expect(
@@ -1993,6 +2050,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[parallel]
     async fn test_with_scopes_overrides_json_scopes() -> TestResult {
         let server = Server::run();
         server.expect(
@@ -2047,6 +2105,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[parallel]
     async fn test_impersonated_does_not_retry_on_non_transient_failures() -> TestResult {
         let mut server = Server::run();
         // Source credential token endpoint
@@ -2095,6 +2154,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[parallel]
     async fn test_impersonated_remote_signer() -> TestResult {
         use base64::{Engine, prelude::BASE64_STANDARD};
 
@@ -2167,7 +2227,9 @@ mod tests {
 
         for builder in [builder_from_source, builder_from_json] {
             let iam_endpoint = server.url("").to_string().trim_end_matches('/').to_string();
-            let signer = builder.build_signer_with_iam_endpoint_override(Some(iam_endpoint))?;
+            let signer = builder
+                .maybe_iam_endpoint_override(Some(iam_endpoint))
+                .build_signer()?;
 
             let client_email = signer.client_email().await?;
             assert_eq!(client_email, "test-principal");
@@ -2180,11 +2242,8 @@ mod tests {
     }
 
     #[tokio::test]
+    #[parallel]
     async fn test_impersonated_sa_signer() -> TestResult {
-        use crate::credentials::service_account::ServiceAccountKey;
-        use crate::credentials::tests::PKCS8_PK;
-        use serde_json::Value;
-
         let service_account = json!({
             "type": "service_account",
             "client_email": "test-client-email",
@@ -2214,6 +2273,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[parallel]
     async fn test_impersonated_signer_with_invalid_email() -> TestResult {
         let impersonated_credential = json!({
             "type": "impersonated_service_account",
@@ -2239,6 +2299,101 @@ mod tests {
             "error: {}",
             error
         );
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    #[serial]
+    async fn e2e_access_boundary() -> TestResult {
+        let _env = ScopedEnv::set(REGIONAL_ACCESS_BOUNDARIES_ENV_VAR, "true");
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(request::method_path("POST", "/token"))
+                .times(2..)
+                .respond_with(json_encoded(json!({
+                    "access_token": "test-user-account-token",
+                    "expires_in": 3600,
+                    "token_type": "Bearer",
+                }))),
+        );
+        let expire_time = (OffsetDateTime::now_utc() + time::Duration::hours(1))
+            .format(&time::format_description::well_known::Rfc3339)
+            .unwrap();
+        server.expect(
+            Expectation::matching(request::method_path(
+                "POST",
+                "/v1/projects/-/serviceAccounts/test-principal:generateAccessToken",
+            ))
+            .times(2)
+            .respond_with(json_encoded(json!({
+                "accessToken": "test-impersonated-token",
+                "expireTime": expire_time
+            }))),
+        );
+
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path(
+                    "GET",
+                    "/v1/projects/-/serviceAccounts/test-principal/allowedLocations"
+                ),
+                request::headers(contains((
+                    "authorization",
+                    "Bearer test-impersonated-token"
+                ))),
+            ])
+            .times(2)
+            .respond_with(json_encoded(json!({
+                "locations": ["us-central1", "us-east1"],
+                "encodedLocations": "0x1234"
+            }))),
+        );
+        let impersonation_url = server
+            .url("/v1/projects/-/serviceAccounts/test-principal:generateAccessToken")
+            .to_string();
+
+        // Test builder from source credentials
+        let user_credential = json!({
+            "type": "authorized_user",
+            "client_id": "test-client-id",
+            "client_secret": "test-client-secret",
+            "refresh_token": "test-refresh-token",
+            "token_uri": server.url("/token").to_string()
+        });
+        let source_credential =
+            crate::credentials::user_account::Builder::new(user_credential.clone()).build()?;
+        let mut builder_from_source = Builder::from_source_credentials(source_credential)
+            .with_target_principal("test-principal");
+        builder_from_source.service_account_impersonation_url = Some(impersonation_url.clone());
+
+        // Test builder from JSON
+        let impersonated_credential = json!({
+            "type": "impersonated_service_account",
+            "service_account_impersonation_url": impersonation_url,
+            "source_credentials": user_credential,
+        });
+        let builder_from_json = Builder::new(impersonated_credential);
+
+        for builder in [builder_from_source, builder_from_json] {
+            let iam_endpoint = server.url("").to_string().trim_end_matches('/').to_string();
+            let creds = builder
+                .maybe_iam_endpoint_override(Some(iam_endpoint))
+                .build()?;
+
+            // let the access boundary background thread update
+            tokio::time::sleep(tokio::time::Duration::from_secs(1)).await;
+
+            let headers = creds.headers(Extensions::new()).await?;
+            let token = get_token_from_headers(headers.clone());
+            let access_boundary = get_access_boundary_from_headers(headers);
+            assert!(token.is_some(), "should have some token: {token:?}");
+            assert_eq!(
+                access_boundary.as_deref(),
+                Some("0x1234"),
+                "should be 0x1234 but found: {access_boundary:?}"
+            );
+        }
 
         Ok(())
     }

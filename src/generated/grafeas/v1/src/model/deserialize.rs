@@ -1102,6 +1102,7 @@ impl<'de> serde::de::Deserialize<'de> for super::BaseImage {
             __name,
             __repository,
             __layer_count,
+            __registry,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -1126,6 +1127,7 @@ impl<'de> serde::de::Deserialize<'de> for super::BaseImage {
                             "repository" => Ok(__FieldTag::__repository),
                             "layerCount" => Ok(__FieldTag::__layer_count),
                             "layer_count" => Ok(__FieldTag::__layer_count),
+                            "registry" => Ok(__FieldTag::__registry),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -1189,6 +1191,16 @@ impl<'de> serde::de::Deserialize<'de> for super::BaseImage {
                                 }
                             }
                             result.layer_count = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__registry => {
+                            if !fields.insert(__FieldTag::__registry) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for registry",
+                                ));
+                            }
+                            result.registry = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -14913,6 +14925,7 @@ impl<'de> serde::de::Deserialize<'de> for super::VulnerabilityNote {
             __source_update_time,
             __cvss_version,
             __cvss_v2,
+            __advisory_publish_time,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -14947,6 +14960,8 @@ impl<'de> serde::de::Deserialize<'de> for super::VulnerabilityNote {
                             "cvss_version" => Ok(__FieldTag::__cvss_version),
                             "cvssV2" => Ok(__FieldTag::__cvss_v2),
                             "cvss_v2" => Ok(__FieldTag::__cvss_v2),
+                            "advisoryPublishTime" => Ok(__FieldTag::__advisory_publish_time),
+                            "advisory_publish_time" => Ok(__FieldTag::__advisory_publish_time),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -15061,6 +15076,15 @@ impl<'de> serde::de::Deserialize<'de> for super::VulnerabilityNote {
                             }
                             result.cvss_v2 =
                                 map.next_value::<std::option::Option<crate::model::Cvss>>()?;
+                        }
+                        __FieldTag::__advisory_publish_time => {
+                            if !fields.insert(__FieldTag::__advisory_publish_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for advisory_publish_time",
+                                ));
+                            }
+                            result.advisory_publish_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

@@ -119,11 +119,44 @@ impl Workstations {
     }
 
     /// Returns the requested workstation cluster.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workstations_v1::client::Workstations;
+    /// use google_cloud_workstations_v1::Result;
+    /// async fn sample(
+    ///    client: &Workstations, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_workstation_cluster()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_workstation_cluster(&self) -> super::builder::workstations::GetWorkstationCluster {
         super::builder::workstations::GetWorkstationCluster::new(self.inner.clone())
     }
 
     /// Returns all workstation clusters in the specified location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workstations_v1::client::Workstations;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_workstations_v1::Result;
+    /// async fn sample(
+    ///    client: &Workstations, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_workstation_clusters()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_workstation_clusters(
         &self,
     ) -> super::builder::workstations::ListWorkstationClusters {
@@ -141,6 +174,26 @@ impl Workstations {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workstations_v1::client::Workstations;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_workstations_v1::model::WorkstationCluster;
+    /// use google_cloud_workstations_v1::Result;
+    /// async fn sample(
+    ///    client: &Workstations, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_workstation_cluster()
+    ///         .set_parent(parent)
+    ///         .set_workstation_cluster(
+    ///             WorkstationCluster::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_workstation_cluster(
         &self,
     ) -> super::builder::workstations::CreateWorkstationCluster {
@@ -158,6 +211,28 @@ impl Workstations {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workstations_v1::client::Workstations;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_workstations_v1::model::WorkstationCluster;
+    /// use google_cloud_workstations_v1::Result;
+    /// async fn sample(
+    ///    client: &Workstations, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_workstation_cluster()
+    ///         .set_workstation_cluster(
+    ///             WorkstationCluster::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_workstation_cluster(
         &self,
     ) -> super::builder::workstations::UpdateWorkstationCluster {
@@ -175,6 +250,22 @@ impl Workstations {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workstations_v1::client::Workstations;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_workstations_v1::Result;
+    /// async fn sample(
+    ///    client: &Workstations, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.delete_workstation_cluster()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_workstation_cluster(
         &self,
     ) -> super::builder::workstations::DeleteWorkstationCluster {
@@ -182,17 +273,68 @@ impl Workstations {
     }
 
     /// Returns the requested workstation configuration.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workstations_v1::client::Workstations;
+    /// use google_cloud_workstations_v1::Result;
+    /// async fn sample(
+    ///    client: &Workstations, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_workstation_config()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_workstation_config(&self) -> super::builder::workstations::GetWorkstationConfig {
         super::builder::workstations::GetWorkstationConfig::new(self.inner.clone())
     }
 
     /// Returns all workstation configurations in the specified cluster.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workstations_v1::client::Workstations;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_workstations_v1::Result;
+    /// async fn sample(
+    ///    client: &Workstations, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_workstation_configs()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_workstation_configs(&self) -> super::builder::workstations::ListWorkstationConfigs {
         super::builder::workstations::ListWorkstationConfigs::new(self.inner.clone())
     }
 
     /// Returns all workstation configurations in the specified cluster on which
     /// the caller has the "workstations.workstation.create" permission.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workstations_v1::client::Workstations;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_workstations_v1::Result;
+    /// async fn sample(
+    ///    client: &Workstations, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_usable_workstation_configs()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_usable_workstation_configs(
         &self,
     ) -> super::builder::workstations::ListUsableWorkstationConfigs {
@@ -210,6 +352,26 @@ impl Workstations {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workstations_v1::client::Workstations;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_workstations_v1::model::WorkstationConfig;
+    /// use google_cloud_workstations_v1::Result;
+    /// async fn sample(
+    ///    client: &Workstations, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_workstation_config()
+    ///         .set_parent(parent)
+    ///         .set_workstation_config(
+    ///             WorkstationConfig::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_workstation_config(
         &self,
     ) -> super::builder::workstations::CreateWorkstationConfig {
@@ -227,6 +389,28 @@ impl Workstations {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workstations_v1::client::Workstations;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_workstations_v1::model::WorkstationConfig;
+    /// use google_cloud_workstations_v1::Result;
+    /// async fn sample(
+    ///    client: &Workstations, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_workstation_config()
+    ///         .set_workstation_config(
+    ///             WorkstationConfig::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_workstation_config(
         &self,
     ) -> super::builder::workstations::UpdateWorkstationConfig {
@@ -244,6 +428,22 @@ impl Workstations {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workstations_v1::client::Workstations;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_workstations_v1::Result;
+    /// async fn sample(
+    ///    client: &Workstations, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.delete_workstation_config()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_workstation_config(
         &self,
     ) -> super::builder::workstations::DeleteWorkstationConfig {
@@ -251,17 +451,68 @@ impl Workstations {
     }
 
     /// Returns the requested workstation.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workstations_v1::client::Workstations;
+    /// use google_cloud_workstations_v1::Result;
+    /// async fn sample(
+    ///    client: &Workstations, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_workstation()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_workstation(&self) -> super::builder::workstations::GetWorkstation {
         super::builder::workstations::GetWorkstation::new(self.inner.clone())
     }
 
     /// Returns all Workstations using the specified workstation configuration.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workstations_v1::client::Workstations;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_workstations_v1::Result;
+    /// async fn sample(
+    ///    client: &Workstations, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_workstations()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_workstations(&self) -> super::builder::workstations::ListWorkstations {
         super::builder::workstations::ListWorkstations::new(self.inner.clone())
     }
 
     /// Returns all workstations using the specified workstation configuration
     /// on which the caller has the "workstations.workstations.use" permission.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workstations_v1::client::Workstations;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_workstations_v1::Result;
+    /// async fn sample(
+    ///    client: &Workstations, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_usable_workstations()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_usable_workstations(&self) -> super::builder::workstations::ListUsableWorkstations {
         super::builder::workstations::ListUsableWorkstations::new(self.inner.clone())
     }
@@ -277,6 +528,26 @@ impl Workstations {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workstations_v1::client::Workstations;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_workstations_v1::model::Workstation;
+    /// use google_cloud_workstations_v1::Result;
+    /// async fn sample(
+    ///    client: &Workstations, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_workstation()
+    ///         .set_parent(parent).set_workstation_id("workstation_id_value")
+    ///         .set_workstation(
+    ///             Workstation::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_workstation(&self) -> super::builder::workstations::CreateWorkstation {
         super::builder::workstations::CreateWorkstation::new(self.inner.clone())
     }
@@ -292,6 +563,28 @@ impl Workstations {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workstations_v1::client::Workstations;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_workstations_v1::model::Workstation;
+    /// use google_cloud_workstations_v1::Result;
+    /// async fn sample(
+    ///    client: &Workstations, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_workstation()
+    ///         .set_workstation(
+    ///             Workstation::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_workstation(&self) -> super::builder::workstations::UpdateWorkstation {
         super::builder::workstations::UpdateWorkstation::new(self.inner.clone())
     }
@@ -307,6 +600,22 @@ impl Workstations {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workstations_v1::client::Workstations;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_workstations_v1::Result;
+    /// async fn sample(
+    ///    client: &Workstations, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.delete_workstation()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_workstation(&self) -> super::builder::workstations::DeleteWorkstation {
         super::builder::workstations::DeleteWorkstation::new(self.inner.clone())
     }
@@ -322,6 +631,22 @@ impl Workstations {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workstations_v1::client::Workstations;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_workstations_v1::Result;
+    /// async fn sample(
+    ///    client: &Workstations
+    /// ) -> Result<()> {
+    ///     let response = client.start_workstation()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn start_workstation(&self) -> super::builder::workstations::StartWorkstation {
         super::builder::workstations::StartWorkstation::new(self.inner.clone())
     }
@@ -337,12 +662,43 @@ impl Workstations {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workstations_v1::client::Workstations;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_workstations_v1::Result;
+    /// async fn sample(
+    ///    client: &Workstations
+    /// ) -> Result<()> {
+    ///     let response = client.stop_workstation()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn stop_workstation(&self) -> super::builder::workstations::StopWorkstation {
         super::builder::workstations::StopWorkstation::new(self.inner.clone())
     }
 
     /// Returns a short-lived credential that can be used to send authenticated and
     /// authorized traffic to a workstation.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workstations_v1::client::Workstations;
+    /// use google_cloud_workstations_v1::Result;
+    /// async fn sample(
+    ///    client: &Workstations
+    /// ) -> Result<()> {
+    ///     let response = client.generate_access_token()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn generate_access_token(&self) -> super::builder::workstations::GenerateAccessToken {
         super::builder::workstations::GenerateAccessToken::new(self.inner.clone())
     }
@@ -352,12 +708,42 @@ impl Workstations {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workstations_v1::client::Workstations;
+    /// use google_cloud_workstations_v1::Result;
+    /// async fn sample(
+    ///    client: &Workstations
+    /// ) -> Result<()> {
+    ///     let response = client.set_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::workstations::SetIamPolicy {
         super::builder::workstations::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workstations_v1::client::Workstations;
+    /// use google_cloud_workstations_v1::Result;
+    /// async fn sample(
+    ///    client: &Workstations
+    /// ) -> Result<()> {
+    ///     let response = client.get_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::workstations::GetIamPolicy {
         super::builder::workstations::GetIamPolicy::new(self.inner.clone())
     }
@@ -369,6 +755,21 @@ impl Workstations {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workstations_v1::client::Workstations;
+    /// use google_cloud_workstations_v1::Result;
+    /// async fn sample(
+    ///    client: &Workstations
+    /// ) -> Result<()> {
+    ///     let response = client.test_iam_permissions()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::workstations::TestIamPermissions {
         super::builder::workstations::TestIamPermissions::new(self.inner.clone())
     }
@@ -376,6 +777,24 @@ impl Workstations {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workstations_v1::client::Workstations;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_workstations_v1::Result;
+    /// async fn sample(
+    ///    client: &Workstations
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::workstations::ListOperations {
         super::builder::workstations::ListOperations::new(self.inner.clone())
     }
@@ -383,6 +802,21 @@ impl Workstations {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workstations_v1::client::Workstations;
+    /// use google_cloud_workstations_v1::Result;
+    /// async fn sample(
+    ///    client: &Workstations
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::workstations::GetOperation {
         super::builder::workstations::GetOperation::new(self.inner.clone())
     }
@@ -390,6 +824,20 @@ impl Workstations {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workstations_v1::client::Workstations;
+    /// use google_cloud_workstations_v1::Result;
+    /// async fn sample(
+    ///    client: &Workstations
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::workstations::DeleteOperation {
         super::builder::workstations::DeleteOperation::new(self.inner.clone())
     }
@@ -397,6 +845,20 @@ impl Workstations {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workstations_v1::client::Workstations;
+    /// use google_cloud_workstations_v1::Result;
+    /// async fn sample(
+    ///    client: &Workstations
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::workstations::CancelOperation {
         super::builder::workstations::CancelOperation::new(self.inner.clone())
     }

@@ -121,6 +121,24 @@ impl CrossNetworkAutomationService {
     }
 
     /// Lists ServiceConnectionMaps in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::CrossNetworkAutomationService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &CrossNetworkAutomationService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_service_connection_maps()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_service_connection_maps(
         &self,
     ) -> super::builder::cross_network_automation_service::ListServiceConnectionMaps {
@@ -130,6 +148,21 @@ impl CrossNetworkAutomationService {
     }
 
     /// Gets details of a single ServiceConnectionMap.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::CrossNetworkAutomationService;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &CrossNetworkAutomationService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_service_connection_map()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_service_connection_map(
         &self,
     ) -> super::builder::cross_network_automation_service::GetServiceConnectionMap {
@@ -149,6 +182,26 @@ impl CrossNetworkAutomationService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::CrossNetworkAutomationService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_networkconnectivity_v1::model::ServiceConnectionMap;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &CrossNetworkAutomationService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_service_connection_map()
+    ///         .set_parent(parent)
+    ///         .set_service_connection_map(
+    ///             ServiceConnectionMap::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_service_connection_map(
         &self,
     ) -> super::builder::cross_network_automation_service::CreateServiceConnectionMap {
@@ -168,6 +221,28 @@ impl CrossNetworkAutomationService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::CrossNetworkAutomationService;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_networkconnectivity_v1::model::ServiceConnectionMap;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &CrossNetworkAutomationService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_service_connection_map()
+    ///         .set_service_connection_map(
+    ///             ServiceConnectionMap::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_service_connection_map(
         &self,
     ) -> super::builder::cross_network_automation_service::UpdateServiceConnectionMap {
@@ -187,6 +262,21 @@ impl CrossNetworkAutomationService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::CrossNetworkAutomationService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &CrossNetworkAutomationService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_service_connection_map()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_service_connection_map(
         &self,
     ) -> super::builder::cross_network_automation_service::DeleteServiceConnectionMap {
@@ -196,6 +286,24 @@ impl CrossNetworkAutomationService {
     }
 
     /// Lists ServiceConnectionPolicies in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::CrossNetworkAutomationService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &CrossNetworkAutomationService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_service_connection_policies()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_service_connection_policies(
         &self,
     ) -> super::builder::cross_network_automation_service::ListServiceConnectionPolicies {
@@ -205,6 +313,21 @@ impl CrossNetworkAutomationService {
     }
 
     /// Gets details of a single ServiceConnectionPolicy.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::CrossNetworkAutomationService;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &CrossNetworkAutomationService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_service_connection_policy()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_service_connection_policy(
         &self,
     ) -> super::builder::cross_network_automation_service::GetServiceConnectionPolicy {
@@ -224,6 +347,26 @@ impl CrossNetworkAutomationService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::CrossNetworkAutomationService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_networkconnectivity_v1::model::ServiceConnectionPolicy;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &CrossNetworkAutomationService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_service_connection_policy()
+    ///         .set_parent(parent)
+    ///         .set_service_connection_policy(
+    ///             ServiceConnectionPolicy::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_service_connection_policy(
         &self,
     ) -> super::builder::cross_network_automation_service::CreateServiceConnectionPolicy {
@@ -243,6 +386,28 @@ impl CrossNetworkAutomationService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::CrossNetworkAutomationService;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_networkconnectivity_v1::model::ServiceConnectionPolicy;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &CrossNetworkAutomationService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_service_connection_policy()
+    ///         .set_service_connection_policy(
+    ///             ServiceConnectionPolicy::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_service_connection_policy(
         &self,
     ) -> super::builder::cross_network_automation_service::UpdateServiceConnectionPolicy {
@@ -262,6 +427,21 @@ impl CrossNetworkAutomationService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::CrossNetworkAutomationService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &CrossNetworkAutomationService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_service_connection_policy()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_service_connection_policy(
         &self,
     ) -> super::builder::cross_network_automation_service::DeleteServiceConnectionPolicy {
@@ -271,6 +451,24 @@ impl CrossNetworkAutomationService {
     }
 
     /// Lists ServiceClasses in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::CrossNetworkAutomationService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &CrossNetworkAutomationService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_service_classes()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_service_classes(
         &self,
     ) -> super::builder::cross_network_automation_service::ListServiceClasses {
@@ -280,6 +478,21 @@ impl CrossNetworkAutomationService {
     }
 
     /// Gets details of a single ServiceClass.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::CrossNetworkAutomationService;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &CrossNetworkAutomationService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_service_class()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_service_class(
         &self,
     ) -> super::builder::cross_network_automation_service::GetServiceClass {
@@ -297,6 +510,28 @@ impl CrossNetworkAutomationService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::CrossNetworkAutomationService;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_networkconnectivity_v1::model::ServiceClass;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &CrossNetworkAutomationService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_service_class()
+    ///         .set_service_class(
+    ///             ServiceClass::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_service_class(
         &self,
     ) -> super::builder::cross_network_automation_service::UpdateServiceClass {
@@ -316,6 +551,21 @@ impl CrossNetworkAutomationService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::CrossNetworkAutomationService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &CrossNetworkAutomationService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_service_class()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_service_class(
         &self,
     ) -> super::builder::cross_network_automation_service::DeleteServiceClass {
@@ -325,6 +575,21 @@ impl CrossNetworkAutomationService {
     }
 
     /// Gets details of a single ServiceConnectionToken.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::CrossNetworkAutomationService;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &CrossNetworkAutomationService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_service_connection_token()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_service_connection_token(
         &self,
     ) -> super::builder::cross_network_automation_service::GetServiceConnectionToken {
@@ -334,6 +599,24 @@ impl CrossNetworkAutomationService {
     }
 
     /// Lists ServiceConnectionTokens in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::CrossNetworkAutomationService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &CrossNetworkAutomationService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_service_connection_tokens()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_service_connection_tokens(
         &self,
     ) -> super::builder::cross_network_automation_service::ListServiceConnectionTokens {
@@ -353,6 +636,26 @@ impl CrossNetworkAutomationService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::CrossNetworkAutomationService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_networkconnectivity_v1::model::ServiceConnectionToken;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &CrossNetworkAutomationService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_service_connection_token()
+    ///         .set_parent(parent)
+    ///         .set_service_connection_token(
+    ///             ServiceConnectionToken::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_service_connection_token(
         &self,
     ) -> super::builder::cross_network_automation_service::CreateServiceConnectionToken {
@@ -372,6 +675,21 @@ impl CrossNetworkAutomationService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::CrossNetworkAutomationService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &CrossNetworkAutomationService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_service_connection_token()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_service_connection_token(
         &self,
     ) -> super::builder::cross_network_automation_service::DeleteServiceConnectionToken {
@@ -381,6 +699,24 @@ impl CrossNetworkAutomationService {
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::CrossNetworkAutomationService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &CrossNetworkAutomationService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(
         &self,
     ) -> super::builder::cross_network_automation_service::ListLocations {
@@ -388,6 +724,21 @@ impl CrossNetworkAutomationService {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::CrossNetworkAutomationService;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &CrossNetworkAutomationService
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::cross_network_automation_service::GetLocation {
         super::builder::cross_network_automation_service::GetLocation::new(self.inner.clone())
     }
@@ -397,12 +748,42 @@ impl CrossNetworkAutomationService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::CrossNetworkAutomationService;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &CrossNetworkAutomationService
+    /// ) -> Result<()> {
+    ///     let response = client.set_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::cross_network_automation_service::SetIamPolicy {
         super::builder::cross_network_automation_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::CrossNetworkAutomationService;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &CrossNetworkAutomationService
+    /// ) -> Result<()> {
+    ///     let response = client.get_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::cross_network_automation_service::GetIamPolicy {
         super::builder::cross_network_automation_service::GetIamPolicy::new(self.inner.clone())
     }
@@ -414,6 +795,21 @@ impl CrossNetworkAutomationService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::CrossNetworkAutomationService;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &CrossNetworkAutomationService
+    /// ) -> Result<()> {
+    ///     let response = client.test_iam_permissions()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(
         &self,
     ) -> super::builder::cross_network_automation_service::TestIamPermissions {
@@ -425,6 +821,24 @@ impl CrossNetworkAutomationService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::CrossNetworkAutomationService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &CrossNetworkAutomationService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(
         &self,
     ) -> super::builder::cross_network_automation_service::ListOperations {
@@ -434,6 +848,21 @@ impl CrossNetworkAutomationService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::CrossNetworkAutomationService;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &CrossNetworkAutomationService
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::cross_network_automation_service::GetOperation {
         super::builder::cross_network_automation_service::GetOperation::new(self.inner.clone())
     }
@@ -441,6 +870,20 @@ impl CrossNetworkAutomationService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::CrossNetworkAutomationService;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &CrossNetworkAutomationService
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(
         &self,
     ) -> super::builder::cross_network_automation_service::DeleteOperation {
@@ -450,6 +893,20 @@ impl CrossNetworkAutomationService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::CrossNetworkAutomationService;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &CrossNetworkAutomationService
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(
         &self,
     ) -> super::builder::cross_network_automation_service::CancelOperation {
@@ -562,6 +1019,24 @@ impl DataTransferService {
 
     /// Lists the `MulticloudDataTransferConfig` resources in a specified project
     /// and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::DataTransferService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &DataTransferService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_multicloud_data_transfer_configs()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_multicloud_data_transfer_configs(
         &self,
     ) -> super::builder::data_transfer_service::ListMulticloudDataTransferConfigs {
@@ -571,6 +1046,21 @@ impl DataTransferService {
     }
 
     /// Gets the details of a `MulticloudDataTransferConfig` resource.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::DataTransferService;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &DataTransferService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_multicloud_data_transfer_config()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_multicloud_data_transfer_config(
         &self,
     ) -> super::builder::data_transfer_service::GetMulticloudDataTransferConfig {
@@ -591,6 +1081,26 @@ impl DataTransferService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::DataTransferService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_networkconnectivity_v1::model::MulticloudDataTransferConfig;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &DataTransferService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_multicloud_data_transfer_config()
+    ///         .set_parent(parent)
+    ///         .set_multicloud_data_transfer_config(
+    ///             MulticloudDataTransferConfig::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_multicloud_data_transfer_config(
         &self,
     ) -> super::builder::data_transfer_service::CreateMulticloudDataTransferConfig {
@@ -611,6 +1121,28 @@ impl DataTransferService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::DataTransferService;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_networkconnectivity_v1::model::MulticloudDataTransferConfig;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &DataTransferService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_multicloud_data_transfer_config()
+    ///         .set_multicloud_data_transfer_config(
+    ///             MulticloudDataTransferConfig::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_multicloud_data_transfer_config(
         &self,
     ) -> super::builder::data_transfer_service::UpdateMulticloudDataTransferConfig {
@@ -630,6 +1162,21 @@ impl DataTransferService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::DataTransferService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &DataTransferService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_multicloud_data_transfer_config()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_multicloud_data_transfer_config(
         &self,
     ) -> super::builder::data_transfer_service::DeleteMulticloudDataTransferConfig {
@@ -639,11 +1186,44 @@ impl DataTransferService {
     }
 
     /// Lists the `Destination` resources in a specified project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::DataTransferService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &DataTransferService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_destinations()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_destinations(&self) -> super::builder::data_transfer_service::ListDestinations {
         super::builder::data_transfer_service::ListDestinations::new(self.inner.clone())
     }
 
     /// Gets the details of a `Destination` resource.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::DataTransferService;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &DataTransferService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_destination()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_destination(&self) -> super::builder::data_transfer_service::GetDestination {
         super::builder::data_transfer_service::GetDestination::new(self.inner.clone())
     }
@@ -659,6 +1239,26 @@ impl DataTransferService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::DataTransferService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_networkconnectivity_v1::model::Destination;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &DataTransferService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_destination()
+    ///         .set_parent(parent).set_destination_id("destination_id_value")
+    ///         .set_destination(
+    ///             Destination::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_destination(&self) -> super::builder::data_transfer_service::CreateDestination {
         super::builder::data_transfer_service::CreateDestination::new(self.inner.clone())
     }
@@ -674,6 +1274,28 @@ impl DataTransferService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::DataTransferService;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_networkconnectivity_v1::model::Destination;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &DataTransferService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_destination()
+    ///         .set_destination(
+    ///             Destination::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_destination(&self) -> super::builder::data_transfer_service::UpdateDestination {
         super::builder::data_transfer_service::UpdateDestination::new(self.inner.clone())
     }
@@ -689,12 +1311,42 @@ impl DataTransferService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::DataTransferService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &DataTransferService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_destination()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_destination(&self) -> super::builder::data_transfer_service::DeleteDestination {
         super::builder::data_transfer_service::DeleteDestination::new(self.inner.clone())
     }
 
     /// Gets the details of a service that is supported for Data Transfer
     /// Essentials.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::DataTransferService;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &DataTransferService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_multicloud_data_transfer_supported_service()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_multicloud_data_transfer_supported_service(
         &self,
     ) -> super::builder::data_transfer_service::GetMulticloudDataTransferSupportedService {
@@ -705,6 +1357,24 @@ impl DataTransferService {
 
     /// Lists the services in the project for a region that are supported for
     /// Data Transfer Essentials.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::DataTransferService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &DataTransferService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_multicloud_data_transfer_supported_services()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_multicloud_data_transfer_supported_services(
         &self,
     ) -> super::builder::data_transfer_service::ListMulticloudDataTransferSupportedServices {
@@ -714,11 +1384,44 @@ impl DataTransferService {
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::DataTransferService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &DataTransferService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::data_transfer_service::ListLocations {
         super::builder::data_transfer_service::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::DataTransferService;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &DataTransferService
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::data_transfer_service::GetLocation {
         super::builder::data_transfer_service::GetLocation::new(self.inner.clone())
     }
@@ -728,12 +1431,42 @@ impl DataTransferService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::DataTransferService;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &DataTransferService
+    /// ) -> Result<()> {
+    ///     let response = client.set_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::data_transfer_service::SetIamPolicy {
         super::builder::data_transfer_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::DataTransferService;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &DataTransferService
+    /// ) -> Result<()> {
+    ///     let response = client.get_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::data_transfer_service::GetIamPolicy {
         super::builder::data_transfer_service::GetIamPolicy::new(self.inner.clone())
     }
@@ -745,6 +1478,21 @@ impl DataTransferService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::DataTransferService;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &DataTransferService
+    /// ) -> Result<()> {
+    ///     let response = client.test_iam_permissions()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(
         &self,
     ) -> super::builder::data_transfer_service::TestIamPermissions {
@@ -754,6 +1502,24 @@ impl DataTransferService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::DataTransferService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &DataTransferService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::data_transfer_service::ListOperations {
         super::builder::data_transfer_service::ListOperations::new(self.inner.clone())
     }
@@ -761,6 +1527,21 @@ impl DataTransferService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::DataTransferService;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &DataTransferService
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::data_transfer_service::GetOperation {
         super::builder::data_transfer_service::GetOperation::new(self.inner.clone())
     }
@@ -768,6 +1549,20 @@ impl DataTransferService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::DataTransferService;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &DataTransferService
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::data_transfer_service::DeleteOperation {
         super::builder::data_transfer_service::DeleteOperation::new(self.inner.clone())
     }
@@ -775,6 +1570,20 @@ impl DataTransferService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::DataTransferService;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &DataTransferService
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::data_transfer_service::CancelOperation {
         super::builder::data_transfer_service::CancelOperation::new(self.inner.clone())
     }
@@ -885,11 +1694,44 @@ impl HubService {
     }
 
     /// Lists the Network Connectivity Center hubs associated with a given project.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::HubService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &HubService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_hubs()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_hubs(&self) -> super::builder::hub_service::ListHubs {
         super::builder::hub_service::ListHubs::new(self.inner.clone())
     }
 
     /// Gets details about a Network Connectivity Center hub.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::HubService;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &HubService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_hub()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_hub(&self) -> super::builder::hub_service::GetHub {
         super::builder::hub_service::GetHub::new(self.inner.clone())
     }
@@ -905,6 +1747,26 @@ impl HubService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::HubService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_networkconnectivity_v1::model::Hub;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &HubService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_hub()
+    ///         .set_parent(parent).set_hub_id("hub_id_value")
+    ///         .set_hub(
+    ///             Hub::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_hub(&self) -> super::builder::hub_service::CreateHub {
         super::builder::hub_service::CreateHub::new(self.inner.clone())
     }
@@ -921,6 +1783,28 @@ impl HubService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::HubService;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_networkconnectivity_v1::model::Hub;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &HubService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_hub()
+    ///         .set_hub(
+    ///             Hub::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_hub(&self) -> super::builder::hub_service::UpdateHub {
         super::builder::hub_service::UpdateHub::new(self.inner.clone())
     }
@@ -936,6 +1820,21 @@ impl HubService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::HubService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &HubService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_hub()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_hub(&self) -> super::builder::hub_service::DeleteHub {
         super::builder::hub_service::DeleteHub::new(self.inner.clone())
     }
@@ -943,23 +1842,92 @@ impl HubService {
     /// Lists the Network Connectivity Center spokes associated with a
     /// specified hub and location. The list includes both spokes that are attached
     /// to the hub and spokes that have been proposed but not yet accepted.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::HubService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &HubService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_hub_spokes()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_hub_spokes(&self) -> super::builder::hub_service::ListHubSpokes {
         super::builder::hub_service::ListHubSpokes::new(self.inner.clone())
     }
 
     /// Query the Private Service Connect propagation status of a Network
     /// Connectivity Center hub.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::HubService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &HubService
+    /// ) -> Result<()> {
+    ///     let mut list = client.query_hub_status()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn query_hub_status(&self) -> super::builder::hub_service::QueryHubStatus {
         super::builder::hub_service::QueryHubStatus::new(self.inner.clone())
     }
 
     /// Lists the Network Connectivity Center spokes in a specified project and
     /// location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::HubService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &HubService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_spokes()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_spokes(&self) -> super::builder::hub_service::ListSpokes {
         super::builder::hub_service::ListSpokes::new(self.inner.clone())
     }
 
     /// Gets details about a Network Connectivity Center spoke.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::HubService;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &HubService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_spoke()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_spoke(&self) -> super::builder::hub_service::GetSpoke {
         super::builder::hub_service::GetSpoke::new(self.inner.clone())
     }
@@ -975,6 +1943,26 @@ impl HubService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::HubService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_networkconnectivity_v1::model::Spoke;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &HubService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_spoke()
+    ///         .set_parent(parent).set_spoke_id("spoke_id_value")
+    ///         .set_spoke(
+    ///             Spoke::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_spoke(&self) -> super::builder::hub_service::CreateSpoke {
         super::builder::hub_service::CreateSpoke::new(self.inner.clone())
     }
@@ -990,6 +1978,28 @@ impl HubService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::HubService;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_networkconnectivity_v1::model::Spoke;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &HubService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_spoke()
+    ///         .set_spoke(
+    ///             Spoke::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_spoke(&self) -> super::builder::hub_service::UpdateSpoke {
         super::builder::hub_service::UpdateSpoke::new(self.inner.clone())
     }
@@ -1008,6 +2018,22 @@ impl HubService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::HubService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &HubService
+    /// ) -> Result<()> {
+    ///     let response = client.reject_hub_spoke()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn reject_hub_spoke(&self) -> super::builder::hub_service::RejectHubSpoke {
         super::builder::hub_service::RejectHubSpoke::new(self.inner.clone())
     }
@@ -1024,6 +2050,22 @@ impl HubService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::HubService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &HubService
+    /// ) -> Result<()> {
+    ///     let response = client.accept_hub_spoke()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn accept_hub_spoke(&self) -> super::builder::hub_service::AcceptHubSpoke {
         super::builder::hub_service::AcceptHubSpoke::new(self.inner.clone())
     }
@@ -1039,6 +2081,22 @@ impl HubService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::HubService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &HubService
+    /// ) -> Result<()> {
+    ///     let response = client.accept_spoke_update()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn accept_spoke_update(&self) -> super::builder::hub_service::AcceptSpokeUpdate {
         super::builder::hub_service::AcceptSpokeUpdate::new(self.inner.clone())
     }
@@ -1054,6 +2112,22 @@ impl HubService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::HubService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &HubService
+    /// ) -> Result<()> {
+    ///     let response = client.reject_spoke_update()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn reject_spoke_update(&self) -> super::builder::hub_service::RejectSpokeUpdate {
         super::builder::hub_service::RejectSpokeUpdate::new(self.inner.clone())
     }
@@ -1069,36 +2143,150 @@ impl HubService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::HubService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &HubService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_spoke()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_spoke(&self) -> super::builder::hub_service::DeleteSpoke {
         super::builder::hub_service::DeleteSpoke::new(self.inner.clone())
     }
 
     /// Gets details about a Network Connectivity Center route table.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::HubService;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &HubService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_route_table()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_route_table(&self) -> super::builder::hub_service::GetRouteTable {
         super::builder::hub_service::GetRouteTable::new(self.inner.clone())
     }
 
     /// Gets details about the specified route.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::HubService;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &HubService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_route()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_route(&self) -> super::builder::hub_service::GetRoute {
         super::builder::hub_service::GetRoute::new(self.inner.clone())
     }
 
     /// Lists routes in a given route table.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::HubService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &HubService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_routes()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_routes(&self) -> super::builder::hub_service::ListRoutes {
         super::builder::hub_service::ListRoutes::new(self.inner.clone())
     }
 
     /// Lists route tables in a given hub.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::HubService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &HubService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_route_tables()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_route_tables(&self) -> super::builder::hub_service::ListRouteTables {
         super::builder::hub_service::ListRouteTables::new(self.inner.clone())
     }
 
     /// Gets details about a Network Connectivity Center group.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::HubService;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &HubService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_group()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_group(&self) -> super::builder::hub_service::GetGroup {
         super::builder::hub_service::GetGroup::new(self.inner.clone())
     }
 
     /// Lists groups in a given hub.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::HubService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &HubService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_groups()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_groups(&self) -> super::builder::hub_service::ListGroups {
         super::builder::hub_service::ListGroups::new(self.inner.clone())
     }
@@ -1114,16 +2302,71 @@ impl HubService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::HubService;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_networkconnectivity_v1::model::Group;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &HubService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_group()
+    ///         .set_group(
+    ///             Group::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_group(&self) -> super::builder::hub_service::UpdateGroup {
         super::builder::hub_service::UpdateGroup::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::HubService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &HubService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::hub_service::ListLocations {
         super::builder::hub_service::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::HubService;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &HubService
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::hub_service::GetLocation {
         super::builder::hub_service::GetLocation::new(self.inner.clone())
     }
@@ -1133,12 +2376,42 @@ impl HubService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::HubService;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &HubService
+    /// ) -> Result<()> {
+    ///     let response = client.set_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::hub_service::SetIamPolicy {
         super::builder::hub_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::HubService;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &HubService
+    /// ) -> Result<()> {
+    ///     let response = client.get_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::hub_service::GetIamPolicy {
         super::builder::hub_service::GetIamPolicy::new(self.inner.clone())
     }
@@ -1150,6 +2423,21 @@ impl HubService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::HubService;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &HubService
+    /// ) -> Result<()> {
+    ///     let response = client.test_iam_permissions()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::hub_service::TestIamPermissions {
         super::builder::hub_service::TestIamPermissions::new(self.inner.clone())
     }
@@ -1157,6 +2445,24 @@ impl HubService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::HubService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &HubService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::hub_service::ListOperations {
         super::builder::hub_service::ListOperations::new(self.inner.clone())
     }
@@ -1164,6 +2470,21 @@ impl HubService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::HubService;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &HubService
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::hub_service::GetOperation {
         super::builder::hub_service::GetOperation::new(self.inner.clone())
     }
@@ -1171,6 +2492,20 @@ impl HubService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::HubService;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &HubService
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::hub_service::DeleteOperation {
         super::builder::hub_service::DeleteOperation::new(self.inner.clone())
     }
@@ -1178,6 +2513,20 @@ impl HubService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::HubService;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &HubService
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::hub_service::CancelOperation {
         super::builder::hub_service::CancelOperation::new(self.inner.clone())
     }
@@ -1288,6 +2637,24 @@ impl InternalRangeService {
     }
 
     /// Lists internal ranges in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::InternalRangeService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &InternalRangeService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_internal_ranges()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_internal_ranges(
         &self,
     ) -> super::builder::internal_range_service::ListInternalRanges {
@@ -1295,6 +2662,21 @@ impl InternalRangeService {
     }
 
     /// Gets details of a single internal range.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::InternalRangeService;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &InternalRangeService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_internal_range()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_internal_range(&self) -> super::builder::internal_range_service::GetInternalRange {
         super::builder::internal_range_service::GetInternalRange::new(self.inner.clone())
     }
@@ -1310,6 +2692,26 @@ impl InternalRangeService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::InternalRangeService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_networkconnectivity_v1::model::InternalRange;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &InternalRangeService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_internal_range()
+    ///         .set_parent(parent)
+    ///         .set_internal_range(
+    ///             InternalRange::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_internal_range(
         &self,
     ) -> super::builder::internal_range_service::CreateInternalRange {
@@ -1327,6 +2729,28 @@ impl InternalRangeService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::InternalRangeService;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_networkconnectivity_v1::model::InternalRange;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &InternalRangeService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_internal_range()
+    ///         .set_internal_range(
+    ///             InternalRange::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_internal_range(
         &self,
     ) -> super::builder::internal_range_service::UpdateInternalRange {
@@ -1344,6 +2768,21 @@ impl InternalRangeService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::InternalRangeService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &InternalRangeService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_internal_range()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_internal_range(
         &self,
     ) -> super::builder::internal_range_service::DeleteInternalRange {
@@ -1351,11 +2790,44 @@ impl InternalRangeService {
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::InternalRangeService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &InternalRangeService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::internal_range_service::ListLocations {
         super::builder::internal_range_service::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::InternalRangeService;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &InternalRangeService
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::internal_range_service::GetLocation {
         super::builder::internal_range_service::GetLocation::new(self.inner.clone())
     }
@@ -1365,12 +2837,42 @@ impl InternalRangeService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::InternalRangeService;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &InternalRangeService
+    /// ) -> Result<()> {
+    ///     let response = client.set_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::internal_range_service::SetIamPolicy {
         super::builder::internal_range_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::InternalRangeService;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &InternalRangeService
+    /// ) -> Result<()> {
+    ///     let response = client.get_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::internal_range_service::GetIamPolicy {
         super::builder::internal_range_service::GetIamPolicy::new(self.inner.clone())
     }
@@ -1382,6 +2884,21 @@ impl InternalRangeService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::InternalRangeService;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &InternalRangeService
+    /// ) -> Result<()> {
+    ///     let response = client.test_iam_permissions()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(
         &self,
     ) -> super::builder::internal_range_service::TestIamPermissions {
@@ -1391,6 +2908,24 @@ impl InternalRangeService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::InternalRangeService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &InternalRangeService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::internal_range_service::ListOperations {
         super::builder::internal_range_service::ListOperations::new(self.inner.clone())
     }
@@ -1398,6 +2933,21 @@ impl InternalRangeService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::InternalRangeService;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &InternalRangeService
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::internal_range_service::GetOperation {
         super::builder::internal_range_service::GetOperation::new(self.inner.clone())
     }
@@ -1405,6 +2955,20 @@ impl InternalRangeService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::InternalRangeService;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &InternalRangeService
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::internal_range_service::DeleteOperation {
         super::builder::internal_range_service::DeleteOperation::new(self.inner.clone())
     }
@@ -1412,6 +2976,20 @@ impl InternalRangeService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::InternalRangeService;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &InternalRangeService
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::internal_range_service::CancelOperation {
         super::builder::internal_range_service::CancelOperation::new(self.inner.clone())
     }
@@ -1523,6 +3101,24 @@ impl PolicyBasedRoutingService {
     }
 
     /// Lists policy-based routes in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::PolicyBasedRoutingService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &PolicyBasedRoutingService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_policy_based_routes()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_policy_based_routes(
         &self,
     ) -> super::builder::policy_based_routing_service::ListPolicyBasedRoutes {
@@ -1530,6 +3126,21 @@ impl PolicyBasedRoutingService {
     }
 
     /// Gets details of a single policy-based route.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::PolicyBasedRoutingService;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &PolicyBasedRoutingService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_policy_based_route()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_policy_based_route(
         &self,
     ) -> super::builder::policy_based_routing_service::GetPolicyBasedRoute {
@@ -1547,6 +3158,26 @@ impl PolicyBasedRoutingService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::PolicyBasedRoutingService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_networkconnectivity_v1::model::PolicyBasedRoute;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &PolicyBasedRoutingService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_policy_based_route()
+    ///         .set_parent(parent)
+    ///         .set_policy_based_route(
+    ///             PolicyBasedRoute::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_policy_based_route(
         &self,
     ) -> super::builder::policy_based_routing_service::CreatePolicyBasedRoute {
@@ -1566,6 +3197,21 @@ impl PolicyBasedRoutingService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::PolicyBasedRoutingService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &PolicyBasedRoutingService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_policy_based_route()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_policy_based_route(
         &self,
     ) -> super::builder::policy_based_routing_service::DeletePolicyBasedRoute {
@@ -1575,11 +3221,44 @@ impl PolicyBasedRoutingService {
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::PolicyBasedRoutingService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &PolicyBasedRoutingService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::policy_based_routing_service::ListLocations {
         super::builder::policy_based_routing_service::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::PolicyBasedRoutingService;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &PolicyBasedRoutingService
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::policy_based_routing_service::GetLocation {
         super::builder::policy_based_routing_service::GetLocation::new(self.inner.clone())
     }
@@ -1589,12 +3268,42 @@ impl PolicyBasedRoutingService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::PolicyBasedRoutingService;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &PolicyBasedRoutingService
+    /// ) -> Result<()> {
+    ///     let response = client.set_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::policy_based_routing_service::SetIamPolicy {
         super::builder::policy_based_routing_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::PolicyBasedRoutingService;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &PolicyBasedRoutingService
+    /// ) -> Result<()> {
+    ///     let response = client.get_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::policy_based_routing_service::GetIamPolicy {
         super::builder::policy_based_routing_service::GetIamPolicy::new(self.inner.clone())
     }
@@ -1606,6 +3315,21 @@ impl PolicyBasedRoutingService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::PolicyBasedRoutingService;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &PolicyBasedRoutingService
+    /// ) -> Result<()> {
+    ///     let response = client.test_iam_permissions()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(
         &self,
     ) -> super::builder::policy_based_routing_service::TestIamPermissions {
@@ -1615,6 +3339,24 @@ impl PolicyBasedRoutingService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::PolicyBasedRoutingService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &PolicyBasedRoutingService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::policy_based_routing_service::ListOperations {
         super::builder::policy_based_routing_service::ListOperations::new(self.inner.clone())
     }
@@ -1622,6 +3364,21 @@ impl PolicyBasedRoutingService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::PolicyBasedRoutingService;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &PolicyBasedRoutingService
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::policy_based_routing_service::GetOperation {
         super::builder::policy_based_routing_service::GetOperation::new(self.inner.clone())
     }
@@ -1629,6 +3386,20 @@ impl PolicyBasedRoutingService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::PolicyBasedRoutingService;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &PolicyBasedRoutingService
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(
         &self,
     ) -> super::builder::policy_based_routing_service::DeleteOperation {
@@ -1638,6 +3409,20 @@ impl PolicyBasedRoutingService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkconnectivity_v1::client::PolicyBasedRoutingService;
+    /// use google_cloud_networkconnectivity_v1::Result;
+    /// async fn sample(
+    ///    client: &PolicyBasedRoutingService
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(
         &self,
     ) -> super::builder::policy_based_routing_service::CancelOperation {

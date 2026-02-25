@@ -120,11 +120,44 @@ impl EdgeContainer {
     }
 
     /// Lists Clusters in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgecontainer_v1::client::EdgeContainer;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_edgecontainer_v1::Result;
+    /// async fn sample(
+    ///    client: &EdgeContainer, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_clusters()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_clusters(&self) -> super::builder::edge_container::ListClusters {
         super::builder::edge_container::ListClusters::new(self.inner.clone())
     }
 
     /// Gets details of a single Cluster.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgecontainer_v1::client::EdgeContainer;
+    /// use google_cloud_edgecontainer_v1::Result;
+    /// async fn sample(
+    ///    client: &EdgeContainer, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_cluster()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_cluster(&self) -> super::builder::edge_container::GetCluster {
         super::builder::edge_container::GetCluster::new(self.inner.clone())
     }
@@ -140,6 +173,26 @@ impl EdgeContainer {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgecontainer_v1::client::EdgeContainer;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_edgecontainer_v1::model::Cluster;
+    /// use google_cloud_edgecontainer_v1::Result;
+    /// async fn sample(
+    ///    client: &EdgeContainer, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_cluster()
+    ///         .set_parent(parent).set_cluster_id("cluster_id_value")
+    ///         .set_cluster(
+    ///             Cluster::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_cluster(&self) -> super::builder::edge_container::CreateCluster {
         super::builder::edge_container::CreateCluster::new(self.inner.clone())
     }
@@ -155,6 +208,28 @@ impl EdgeContainer {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgecontainer_v1::client::EdgeContainer;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_edgecontainer_v1::model::Cluster;
+    /// use google_cloud_edgecontainer_v1::Result;
+    /// async fn sample(
+    ///    client: &EdgeContainer, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_cluster()
+    ///         .set_cluster(
+    ///             Cluster::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_cluster(&self) -> super::builder::edge_container::UpdateCluster {
         super::builder::edge_container::UpdateCluster::new(self.inner.clone())
     }
@@ -170,6 +245,22 @@ impl EdgeContainer {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgecontainer_v1::client::EdgeContainer;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_edgecontainer_v1::Result;
+    /// async fn sample(
+    ///    client: &EdgeContainer
+    /// ) -> Result<()> {
+    ///     let response = client.upgrade_cluster()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn upgrade_cluster(&self) -> super::builder::edge_container::UpgradeCluster {
         super::builder::edge_container::UpgradeCluster::new(self.inner.clone())
     }
@@ -185,16 +276,61 @@ impl EdgeContainer {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgecontainer_v1::client::EdgeContainer;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_edgecontainer_v1::Result;
+    /// async fn sample(
+    ///    client: &EdgeContainer, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_cluster()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_cluster(&self) -> super::builder::edge_container::DeleteCluster {
         super::builder::edge_container::DeleteCluster::new(self.inner.clone())
     }
 
     /// Generates an access token for a Cluster.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgecontainer_v1::client::EdgeContainer;
+    /// use google_cloud_edgecontainer_v1::Result;
+    /// async fn sample(
+    ///    client: &EdgeContainer
+    /// ) -> Result<()> {
+    ///     let response = client.generate_access_token()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn generate_access_token(&self) -> super::builder::edge_container::GenerateAccessToken {
         super::builder::edge_container::GenerateAccessToken::new(self.inner.clone())
     }
 
     /// Generates an offline credential for a Cluster.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgecontainer_v1::client::EdgeContainer;
+    /// use google_cloud_edgecontainer_v1::Result;
+    /// async fn sample(
+    ///    client: &EdgeContainer
+    /// ) -> Result<()> {
+    ///     let response = client.generate_offline_credential()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn generate_offline_credential(
         &self,
     ) -> super::builder::edge_container::GenerateOfflineCredential {
@@ -202,11 +338,44 @@ impl EdgeContainer {
     }
 
     /// Lists NodePools in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgecontainer_v1::client::EdgeContainer;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_edgecontainer_v1::Result;
+    /// async fn sample(
+    ///    client: &EdgeContainer, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_node_pools()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_node_pools(&self) -> super::builder::edge_container::ListNodePools {
         super::builder::edge_container::ListNodePools::new(self.inner.clone())
     }
 
     /// Gets details of a single NodePool.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgecontainer_v1::client::EdgeContainer;
+    /// use google_cloud_edgecontainer_v1::Result;
+    /// async fn sample(
+    ///    client: &EdgeContainer, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_node_pool()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_node_pool(&self) -> super::builder::edge_container::GetNodePool {
         super::builder::edge_container::GetNodePool::new(self.inner.clone())
     }
@@ -222,6 +391,26 @@ impl EdgeContainer {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgecontainer_v1::client::EdgeContainer;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_edgecontainer_v1::model::NodePool;
+    /// use google_cloud_edgecontainer_v1::Result;
+    /// async fn sample(
+    ///    client: &EdgeContainer, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_node_pool()
+    ///         .set_parent(parent)
+    ///         .set_node_pool(
+    ///             NodePool::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_node_pool(&self) -> super::builder::edge_container::CreateNodePool {
         super::builder::edge_container::CreateNodePool::new(self.inner.clone())
     }
@@ -237,6 +426,28 @@ impl EdgeContainer {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgecontainer_v1::client::EdgeContainer;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_edgecontainer_v1::model::NodePool;
+    /// use google_cloud_edgecontainer_v1::Result;
+    /// async fn sample(
+    ///    client: &EdgeContainer, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_node_pool()
+    ///         .set_node_pool(
+    ///             NodePool::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_node_pool(&self) -> super::builder::edge_container::UpdateNodePool {
         super::builder::edge_container::UpdateNodePool::new(self.inner.clone())
     }
@@ -252,26 +463,107 @@ impl EdgeContainer {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgecontainer_v1::client::EdgeContainer;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_edgecontainer_v1::Result;
+    /// async fn sample(
+    ///    client: &EdgeContainer, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_node_pool()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_node_pool(&self) -> super::builder::edge_container::DeleteNodePool {
         super::builder::edge_container::DeleteNodePool::new(self.inner.clone())
     }
 
     /// Lists Machines in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgecontainer_v1::client::EdgeContainer;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_edgecontainer_v1::Result;
+    /// async fn sample(
+    ///    client: &EdgeContainer, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_machines()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_machines(&self) -> super::builder::edge_container::ListMachines {
         super::builder::edge_container::ListMachines::new(self.inner.clone())
     }
 
     /// Gets details of a single Machine.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgecontainer_v1::client::EdgeContainer;
+    /// use google_cloud_edgecontainer_v1::Result;
+    /// async fn sample(
+    ///    client: &EdgeContainer, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_machine()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_machine(&self) -> super::builder::edge_container::GetMachine {
         super::builder::edge_container::GetMachine::new(self.inner.clone())
     }
 
     /// Lists VPN connections in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgecontainer_v1::client::EdgeContainer;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_edgecontainer_v1::Result;
+    /// async fn sample(
+    ///    client: &EdgeContainer, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_vpn_connections()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_vpn_connections(&self) -> super::builder::edge_container::ListVpnConnections {
         super::builder::edge_container::ListVpnConnections::new(self.inner.clone())
     }
 
     /// Gets details of a single VPN connection.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgecontainer_v1::client::EdgeContainer;
+    /// use google_cloud_edgecontainer_v1::Result;
+    /// async fn sample(
+    ///    client: &EdgeContainer, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_vpn_connection()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_vpn_connection(&self) -> super::builder::edge_container::GetVpnConnection {
         super::builder::edge_container::GetVpnConnection::new(self.inner.clone())
     }
@@ -287,6 +579,26 @@ impl EdgeContainer {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgecontainer_v1::client::EdgeContainer;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_edgecontainer_v1::model::VpnConnection;
+    /// use google_cloud_edgecontainer_v1::Result;
+    /// async fn sample(
+    ///    client: &EdgeContainer, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_vpn_connection()
+    ///         .set_parent(parent)
+    ///         .set_vpn_connection(
+    ///             VpnConnection::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_vpn_connection(&self) -> super::builder::edge_container::CreateVpnConnection {
         super::builder::edge_container::CreateVpnConnection::new(self.inner.clone())
     }
@@ -302,21 +614,84 @@ impl EdgeContainer {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgecontainer_v1::client::EdgeContainer;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_edgecontainer_v1::Result;
+    /// async fn sample(
+    ///    client: &EdgeContainer, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_vpn_connection()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_vpn_connection(&self) -> super::builder::edge_container::DeleteVpnConnection {
         super::builder::edge_container::DeleteVpnConnection::new(self.inner.clone())
     }
 
     /// Gets the server config.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgecontainer_v1::client::EdgeContainer;
+    /// use google_cloud_edgecontainer_v1::Result;
+    /// async fn sample(
+    ///    client: &EdgeContainer
+    /// ) -> Result<()> {
+    ///     let response = client.get_server_config()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_server_config(&self) -> super::builder::edge_container::GetServerConfig {
         super::builder::edge_container::GetServerConfig::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgecontainer_v1::client::EdgeContainer;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_edgecontainer_v1::Result;
+    /// async fn sample(
+    ///    client: &EdgeContainer
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::edge_container::ListLocations {
         super::builder::edge_container::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgecontainer_v1::client::EdgeContainer;
+    /// use google_cloud_edgecontainer_v1::Result;
+    /// async fn sample(
+    ///    client: &EdgeContainer
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::edge_container::GetLocation {
         super::builder::edge_container::GetLocation::new(self.inner.clone())
     }
@@ -324,6 +699,24 @@ impl EdgeContainer {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgecontainer_v1::client::EdgeContainer;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_edgecontainer_v1::Result;
+    /// async fn sample(
+    ///    client: &EdgeContainer
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::edge_container::ListOperations {
         super::builder::edge_container::ListOperations::new(self.inner.clone())
     }
@@ -331,6 +724,21 @@ impl EdgeContainer {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgecontainer_v1::client::EdgeContainer;
+    /// use google_cloud_edgecontainer_v1::Result;
+    /// async fn sample(
+    ///    client: &EdgeContainer
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::edge_container::GetOperation {
         super::builder::edge_container::GetOperation::new(self.inner.clone())
     }
@@ -338,6 +746,20 @@ impl EdgeContainer {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgecontainer_v1::client::EdgeContainer;
+    /// use google_cloud_edgecontainer_v1::Result;
+    /// async fn sample(
+    ///    client: &EdgeContainer
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::edge_container::DeleteOperation {
         super::builder::edge_container::DeleteOperation::new(self.inner.clone())
     }
@@ -345,6 +767,20 @@ impl EdgeContainer {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgecontainer_v1::client::EdgeContainer;
+    /// use google_cloud_edgecontainer_v1::Result;
+    /// async fn sample(
+    ///    client: &EdgeContainer
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::edge_container::CancelOperation {
         super::builder::edge_container::CancelOperation::new(self.inner.clone())
     }

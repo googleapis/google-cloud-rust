@@ -119,6 +119,24 @@ impl OracleDatabase {
     }
 
     /// Lists Exadata Infrastructures in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_cloud_exadata_infrastructures()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_cloud_exadata_infrastructures(
         &self,
     ) -> super::builder::oracle_database::ListCloudExadataInfrastructures {
@@ -126,6 +144,21 @@ impl OracleDatabase {
     }
 
     /// Gets details of a single Exadata Infrastructure.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_cloud_exadata_infrastructure()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_cloud_exadata_infrastructure(
         &self,
     ) -> super::builder::oracle_database::GetCloudExadataInfrastructure {
@@ -143,6 +176,26 @@ impl OracleDatabase {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_oracledatabase_v1::model::CloudExadataInfrastructure;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_cloud_exadata_infrastructure()
+    ///         .set_parent(parent)
+    ///         .set_cloud_exadata_infrastructure(
+    ///             CloudExadataInfrastructure::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_cloud_exadata_infrastructure(
         &self,
     ) -> super::builder::oracle_database::CreateCloudExadataInfrastructure {
@@ -160,6 +213,21 @@ impl OracleDatabase {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_cloud_exadata_infrastructure()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_cloud_exadata_infrastructure(
         &self,
     ) -> super::builder::oracle_database::DeleteCloudExadataInfrastructure {
@@ -167,11 +235,44 @@ impl OracleDatabase {
     }
 
     /// Lists the VM Clusters in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_cloud_vm_clusters()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_cloud_vm_clusters(&self) -> super::builder::oracle_database::ListCloudVmClusters {
         super::builder::oracle_database::ListCloudVmClusters::new(self.inner.clone())
     }
 
     /// Gets details of a single VM Cluster.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_cloud_vm_cluster()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_cloud_vm_cluster(&self) -> super::builder::oracle_database::GetCloudVmCluster {
         super::builder::oracle_database::GetCloudVmCluster::new(self.inner.clone())
     }
@@ -187,6 +288,26 @@ impl OracleDatabase {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_oracledatabase_v1::model::CloudVmCluster;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_cloud_vm_cluster()
+    ///         .set_parent(parent)
+    ///         .set_cloud_vm_cluster(
+    ///             CloudVmCluster::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_cloud_vm_cluster(&self) -> super::builder::oracle_database::CreateCloudVmCluster {
         super::builder::oracle_database::CreateCloudVmCluster::new(self.inner.clone())
     }
@@ -202,43 +323,184 @@ impl OracleDatabase {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_cloud_vm_cluster()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_cloud_vm_cluster(&self) -> super::builder::oracle_database::DeleteCloudVmCluster {
         super::builder::oracle_database::DeleteCloudVmCluster::new(self.inner.clone())
     }
 
     /// Lists the entitlements in a given project.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_entitlements()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_entitlements(&self) -> super::builder::oracle_database::ListEntitlements {
         super::builder::oracle_database::ListEntitlements::new(self.inner.clone())
     }
 
     /// Lists the database servers of an Exadata Infrastructure instance.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_db_servers()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_db_servers(&self) -> super::builder::oracle_database::ListDbServers {
         super::builder::oracle_database::ListDbServers::new(self.inner.clone())
     }
 
     /// Lists the database nodes of a VM Cluster.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_db_nodes()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_db_nodes(&self) -> super::builder::oracle_database::ListDbNodes {
         super::builder::oracle_database::ListDbNodes::new(self.inner.clone())
     }
 
     /// Lists all the valid Oracle Grid Infrastructure (GI) versions for the given
     /// project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_gi_versions()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_gi_versions(&self) -> super::builder::oracle_database::ListGiVersions {
         super::builder::oracle_database::ListGiVersions::new(self.inner.clone())
     }
 
     /// Lists all the valid minor versions for the given
     /// project, location, gi version and shape family.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_minor_versions()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_minor_versions(&self) -> super::builder::oracle_database::ListMinorVersions {
         super::builder::oracle_database::ListMinorVersions::new(self.inner.clone())
     }
 
     /// Lists the database system shapes available for the project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_db_system_shapes()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_db_system_shapes(&self) -> super::builder::oracle_database::ListDbSystemShapes {
         super::builder::oracle_database::ListDbSystemShapes::new(self.inner.clone())
     }
 
     /// Lists the Autonomous Databases in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_autonomous_databases()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_autonomous_databases(
         &self,
     ) -> super::builder::oracle_database::ListAutonomousDatabases {
@@ -246,6 +508,21 @@ impl OracleDatabase {
     }
 
     /// Gets the details of a single Autonomous Database.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_autonomous_database()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_autonomous_database(
         &self,
     ) -> super::builder::oracle_database::GetAutonomousDatabase {
@@ -263,6 +540,26 @@ impl OracleDatabase {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_oracledatabase_v1::model::AutonomousDatabase;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_autonomous_database()
+    ///         .set_parent(parent)
+    ///         .set_autonomous_database(
+    ///             AutonomousDatabase::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_autonomous_database(
         &self,
     ) -> super::builder::oracle_database::CreateAutonomousDatabase {
@@ -280,6 +577,28 @@ impl OracleDatabase {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_oracledatabase_v1::model::AutonomousDatabase;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_autonomous_database()
+    ///         .set_autonomous_database(
+    ///             AutonomousDatabase::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_autonomous_database(
         &self,
     ) -> super::builder::oracle_database::UpdateAutonomousDatabase {
@@ -297,6 +616,21 @@ impl OracleDatabase {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_autonomous_database()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_autonomous_database(
         &self,
     ) -> super::builder::oracle_database::DeleteAutonomousDatabase {
@@ -314,6 +648,22 @@ impl OracleDatabase {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase
+    /// ) -> Result<()> {
+    ///     let response = client.restore_autonomous_database()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn restore_autonomous_database(
         &self,
     ) -> super::builder::oracle_database::RestoreAutonomousDatabase {
@@ -321,6 +671,21 @@ impl OracleDatabase {
     }
 
     /// Generates a wallet for an Autonomous Database.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase
+    /// ) -> Result<()> {
+    ///     let response = client.generate_autonomous_database_wallet()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn generate_autonomous_database_wallet(
         &self,
     ) -> super::builder::oracle_database::GenerateAutonomousDatabaseWallet {
@@ -329,6 +694,24 @@ impl OracleDatabase {
 
     /// Lists all the available Autonomous Database versions for a project and
     /// location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_autonomous_db_versions()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_autonomous_db_versions(
         &self,
     ) -> super::builder::oracle_database::ListAutonomousDbVersions {
@@ -336,6 +719,24 @@ impl OracleDatabase {
     }
 
     /// Lists Autonomous Database Character Sets in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_autonomous_database_character_sets()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_autonomous_database_character_sets(
         &self,
     ) -> super::builder::oracle_database::ListAutonomousDatabaseCharacterSets {
@@ -345,6 +746,24 @@ impl OracleDatabase {
     }
 
     /// Lists the long-term and automatic backups of an Autonomous Database.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_autonomous_database_backups()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_autonomous_database_backups(
         &self,
     ) -> super::builder::oracle_database::ListAutonomousDatabaseBackups {
@@ -362,6 +781,22 @@ impl OracleDatabase {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase
+    /// ) -> Result<()> {
+    ///     let response = client.stop_autonomous_database()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn stop_autonomous_database(
         &self,
     ) -> super::builder::oracle_database::StopAutonomousDatabase {
@@ -379,6 +814,22 @@ impl OracleDatabase {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase
+    /// ) -> Result<()> {
+    ///     let response = client.start_autonomous_database()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn start_autonomous_database(
         &self,
     ) -> super::builder::oracle_database::StartAutonomousDatabase {
@@ -396,6 +847,22 @@ impl OracleDatabase {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase
+    /// ) -> Result<()> {
+    ///     let response = client.restart_autonomous_database()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn restart_autonomous_database(
         &self,
     ) -> super::builder::oracle_database::RestartAutonomousDatabase {
@@ -414,6 +881,22 @@ impl OracleDatabase {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase
+    /// ) -> Result<()> {
+    ///     let response = client.switchover_autonomous_database()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn switchover_autonomous_database(
         &self,
     ) -> super::builder::oracle_database::SwitchoverAutonomousDatabase {
@@ -432,6 +915,22 @@ impl OracleDatabase {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase
+    /// ) -> Result<()> {
+    ///     let response = client.failover_autonomous_database()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn failover_autonomous_database(
         &self,
     ) -> super::builder::oracle_database::FailoverAutonomousDatabase {
@@ -439,11 +938,44 @@ impl OracleDatabase {
     }
 
     /// Lists the ODB Networks in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_odb_networks()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_odb_networks(&self) -> super::builder::oracle_database::ListOdbNetworks {
         super::builder::oracle_database::ListOdbNetworks::new(self.inner.clone())
     }
 
     /// Gets details of a single ODB Network.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_odb_network()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_odb_network(&self) -> super::builder::oracle_database::GetOdbNetwork {
         super::builder::oracle_database::GetOdbNetwork::new(self.inner.clone())
     }
@@ -459,6 +991,26 @@ impl OracleDatabase {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_oracledatabase_v1::model::OdbNetwork;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_odb_network()
+    ///         .set_parent(parent)
+    ///         .set_odb_network(
+    ///             OdbNetwork::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_odb_network(&self) -> super::builder::oracle_database::CreateOdbNetwork {
         super::builder::oracle_database::CreateOdbNetwork::new(self.inner.clone())
     }
@@ -474,16 +1026,64 @@ impl OracleDatabase {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_odb_network()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_odb_network(&self) -> super::builder::oracle_database::DeleteOdbNetwork {
         super::builder::oracle_database::DeleteOdbNetwork::new(self.inner.clone())
     }
 
     /// Lists all the ODB Subnets in a given ODB Network.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_odb_subnets()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_odb_subnets(&self) -> super::builder::oracle_database::ListOdbSubnets {
         super::builder::oracle_database::ListOdbSubnets::new(self.inner.clone())
     }
 
     /// Gets details of a single ODB Subnet.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_odb_subnet()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_odb_subnet(&self) -> super::builder::oracle_database::GetOdbSubnet {
         super::builder::oracle_database::GetOdbSubnet::new(self.inner.clone())
     }
@@ -499,6 +1099,26 @@ impl OracleDatabase {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_oracledatabase_v1::model::OdbSubnet;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_odb_subnet()
+    ///         .set_parent(parent)
+    ///         .set_odb_subnet(
+    ///             OdbSubnet::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_odb_subnet(&self) -> super::builder::oracle_database::CreateOdbSubnet {
         super::builder::oracle_database::CreateOdbSubnet::new(self.inner.clone())
     }
@@ -514,17 +1134,65 @@ impl OracleDatabase {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_odb_subnet()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_odb_subnet(&self) -> super::builder::oracle_database::DeleteOdbSubnet {
         super::builder::oracle_database::DeleteOdbSubnet::new(self.inner.clone())
     }
 
     /// Lists all the Exadb (Exascale) VM Clusters for the given project and
     /// location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_exadb_vm_clusters()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_exadb_vm_clusters(&self) -> super::builder::oracle_database::ListExadbVmClusters {
         super::builder::oracle_database::ListExadbVmClusters::new(self.inner.clone())
     }
 
     /// Gets details of a single Exadb (Exascale) VM Cluster.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_exadb_vm_cluster()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_exadb_vm_cluster(&self) -> super::builder::oracle_database::GetExadbVmCluster {
         super::builder::oracle_database::GetExadbVmCluster::new(self.inner.clone())
     }
@@ -540,6 +1208,26 @@ impl OracleDatabase {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_oracledatabase_v1::model::ExadbVmCluster;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_exadb_vm_cluster()
+    ///         .set_parent(parent)
+    ///         .set_exadb_vm_cluster(
+    ///             ExadbVmCluster::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_exadb_vm_cluster(&self) -> super::builder::oracle_database::CreateExadbVmCluster {
         super::builder::oracle_database::CreateExadbVmCluster::new(self.inner.clone())
     }
@@ -555,6 +1243,21 @@ impl OracleDatabase {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_exadb_vm_cluster()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_exadb_vm_cluster(&self) -> super::builder::oracle_database::DeleteExadbVmCluster {
         super::builder::oracle_database::DeleteExadbVmCluster::new(self.inner.clone())
     }
@@ -571,6 +1274,28 @@ impl OracleDatabase {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_oracledatabase_v1::model::ExadbVmCluster;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_exadb_vm_cluster()
+    ///         .set_exadb_vm_cluster(
+    ///             ExadbVmCluster::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_exadb_vm_cluster(&self) -> super::builder::oracle_database::UpdateExadbVmCluster {
         super::builder::oracle_database::UpdateExadbVmCluster::new(self.inner.clone())
     }
@@ -586,6 +1311,22 @@ impl OracleDatabase {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase
+    /// ) -> Result<()> {
+    ///     let response = client.remove_virtual_machine_exadb_vm_cluster()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn remove_virtual_machine_exadb_vm_cluster(
         &self,
     ) -> super::builder::oracle_database::RemoveVirtualMachineExadbVmCluster {
@@ -594,6 +1335,24 @@ impl OracleDatabase {
 
     /// Lists all the ExascaleDB Storage Vaults for the given project and
     /// location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_exascale_db_storage_vaults()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_exascale_db_storage_vaults(
         &self,
     ) -> super::builder::oracle_database::ListExascaleDbStorageVaults {
@@ -601,6 +1360,21 @@ impl OracleDatabase {
     }
 
     /// Gets details of a single ExascaleDB Storage Vault.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_exascale_db_storage_vault()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_exascale_db_storage_vault(
         &self,
     ) -> super::builder::oracle_database::GetExascaleDbStorageVault {
@@ -618,6 +1392,26 @@ impl OracleDatabase {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_oracledatabase_v1::model::ExascaleDbStorageVault;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_exascale_db_storage_vault()
+    ///         .set_parent(parent)
+    ///         .set_exascale_db_storage_vault(
+    ///             ExascaleDbStorageVault::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_exascale_db_storage_vault(
         &self,
     ) -> super::builder::oracle_database::CreateExascaleDbStorageVault {
@@ -635,6 +1429,21 @@ impl OracleDatabase {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_exascale_db_storage_vault()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_exascale_db_storage_vault(
         &self,
     ) -> super::builder::oracle_database::DeleteExascaleDbStorageVault {
@@ -643,6 +1452,24 @@ impl OracleDatabase {
 
     /// Lists all the DbSystemInitialStorageSizes for the given project and
     /// location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_db_system_initial_storage_sizes()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_db_system_initial_storage_sizes(
         &self,
     ) -> super::builder::oracle_database::ListDbSystemInitialStorageSizes {
@@ -650,17 +1477,68 @@ impl OracleDatabase {
     }
 
     /// Lists all the Databases for the given project, location and DbSystem.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_databases()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_databases(&self) -> super::builder::oracle_database::ListDatabases {
         super::builder::oracle_database::ListDatabases::new(self.inner.clone())
     }
 
     /// Gets details of a single Database.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_database()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_database(&self) -> super::builder::oracle_database::GetDatabase {
         super::builder::oracle_database::GetDatabase::new(self.inner.clone())
     }
 
     /// Lists all the PluggableDatabases for the given project, location and
     /// Container Database.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_pluggable_databases()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_pluggable_databases(
         &self,
     ) -> super::builder::oracle_database::ListPluggableDatabases {
@@ -668,16 +1546,64 @@ impl OracleDatabase {
     }
 
     /// Gets details of a single PluggableDatabase.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_pluggable_database()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_pluggable_database(&self) -> super::builder::oracle_database::GetPluggableDatabase {
         super::builder::oracle_database::GetPluggableDatabase::new(self.inner.clone())
     }
 
     /// Lists all the DbSystems for the given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_db_systems()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_db_systems(&self) -> super::builder::oracle_database::ListDbSystems {
         super::builder::oracle_database::ListDbSystems::new(self.inner.clone())
     }
 
     /// Gets details of a single DbSystem.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_db_system()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_db_system(&self) -> super::builder::oracle_database::GetDbSystem {
         super::builder::oracle_database::GetDbSystem::new(self.inner.clone())
     }
@@ -693,6 +1619,26 @@ impl OracleDatabase {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_oracledatabase_v1::model::DbSystem;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_db_system()
+    ///         .set_parent(parent)
+    ///         .set_db_system(
+    ///             DbSystem::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_db_system(&self) -> super::builder::oracle_database::CreateDbSystem {
         super::builder::oracle_database::CreateDbSystem::new(self.inner.clone())
     }
@@ -708,16 +1654,67 @@ impl OracleDatabase {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_db_system()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_db_system(&self) -> super::builder::oracle_database::DeleteDbSystem {
         super::builder::oracle_database::DeleteDbSystem::new(self.inner.clone())
     }
 
     /// List DbVersions for the given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_db_versions()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_db_versions(&self) -> super::builder::oracle_database::ListDbVersions {
         super::builder::oracle_database::ListDbVersions::new(self.inner.clone())
     }
 
     /// List DatabaseCharacterSets for the given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_database_character_sets()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_database_character_sets(
         &self,
     ) -> super::builder::oracle_database::ListDatabaseCharacterSets {
@@ -725,11 +1722,44 @@ impl OracleDatabase {
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::oracle_database::ListLocations {
         super::builder::oracle_database::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::oracle_database::GetLocation {
         super::builder::oracle_database::GetLocation::new(self.inner.clone())
     }
@@ -737,6 +1767,24 @@ impl OracleDatabase {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::oracle_database::ListOperations {
         super::builder::oracle_database::ListOperations::new(self.inner.clone())
     }
@@ -744,6 +1792,21 @@ impl OracleDatabase {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::oracle_database::GetOperation {
         super::builder::oracle_database::GetOperation::new(self.inner.clone())
     }
@@ -751,6 +1814,20 @@ impl OracleDatabase {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::oracle_database::DeleteOperation {
         super::builder::oracle_database::DeleteOperation::new(self.inner.clone())
     }
@@ -758,6 +1835,20 @@ impl OracleDatabase {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// use google_cloud_oracledatabase_v1::Result;
+    /// async fn sample(
+    ///    client: &OracleDatabase
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::oracle_database::CancelOperation {
         super::builder::oracle_database::CancelOperation::new(self.inner.clone())
     }

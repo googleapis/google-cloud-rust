@@ -14,7 +14,7 @@
 
 use super::Anonymous;
 use crate::mock_collector::MockCollector;
-use crate::otlp::CloudTelemetryTracerProviderBuilder;
+use crate::otlp::trace::Builder as TracerProviderBuilder;
 use google_cloud_showcase_v1beta1::client::Echo;
 use google_cloud_test_utils::test_layer::{AttributeValue, TestLayer};
 use httptest::{Expectation, Server, matchers::*, responders::status_code};
@@ -44,7 +44,7 @@ pub async fn to_otlp() -> anyhow::Result<()> {
     let otlp_endpoint = mock_collector.start().await;
 
     // 2. Configure OTel Provider
-    let provider = CloudTelemetryTracerProviderBuilder::new("test-project", "integration-tests")
+    let provider = TracerProviderBuilder::new("test-project", "integration-tests")
         .with_endpoint(otlp_endpoint)
         .with_credentials(Anonymous::new().build())
         .build()
@@ -82,17 +82,14 @@ pub async fn to_otlp() -> anyhow::Result<()> {
     let _ = provider.force_flush();
 
     // 8. Verify Spans
-    let requests = mock_collector.requests.lock().unwrap();
-    assert!(
-        !requests.is_empty(),
-        "Should have received at least one OTLP request"
-    );
+    let (_metadata, _, request) = mock_collector
+        .traces
+        .lock()
+        .expect("never poisoned")
+        .pop()
+        .expect("should have received at least one trace request")
+        .into_parts();
 
-    let request = &requests[0];
-    assert!(
-        !request.resource_spans.is_empty(),
-        "Should have received at least one resource span"
-    );
     let scope_spans = &request.resource_spans[0].scope_spans;
     assert!(
         !scope_spans.is_empty(),
@@ -135,7 +132,6 @@ pub async fn to_otlp() -> anyhow::Result<()> {
     Ok(())
 }
 
-#[cfg(google_cloud_unstable_tracing)]
 async fn setup_echo_client() -> (
     google_cloud_test_utils::test_layer::TestLayerGuard,
     httptest::Server,
@@ -187,7 +183,7 @@ pub async fn success_testlayer() -> anyhow::Result<()> {
     );
 
     let t3_span = client_request_spans[0];
-    let expected_otel_name = "google-cloud-showcase-v1beta1::client::Echo::echo";
+    let expected_otel_name = "google_cloud_showcase_v1beta1::client::Echo::echo";
 
     // In general it is bad practice to use the "got" data in a comparison. We
     // care that the key exists, and we cannot hard-code the value because the
@@ -263,7 +259,7 @@ pub async fn parse_error() -> anyhow::Result<()> {
     );
 
     let t3_span = client_request_spans[0];
-    let expected_otel_name = "google-cloud-showcase-v1beta1::client::Echo::echo";
+    let expected_otel_name = "google_cloud_showcase_v1beta1::client::Echo::echo";
 
     // In general it is bad practice to use the "got" data in a comparison. We
     // care that the key exists, and we cannot hard-code the value because the
@@ -348,7 +344,7 @@ pub async fn api_error() -> anyhow::Result<()> {
     );
 
     let t3_span = client_request_spans[0];
-    let expected_otel_name = "google-cloud-showcase-v1beta1::client::Echo::echo";
+    let expected_otel_name = "google_cloud_showcase_v1beta1::client::Echo::echo";
 
     // In general it is bad practice to use the "got" data in a comparison. We
     // care that the key exists, and we cannot hard-code the value because the

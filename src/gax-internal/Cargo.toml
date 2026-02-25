@@ -14,7 +14,7 @@
 
 [package]
 name        = "google-cloud-gax-internal"
-version     = "0.7.9"
+version     = "0.7.10"
 description = "Google Cloud Client Libraries for Rust - Implementation Details"
 build       = "build.rs"
 # Inherit other attributes from the workspace.
@@ -48,6 +48,7 @@ _internal-http-client = [
   "dep:http",
   "dep:http-body-util",
   "dep:hyper",
+  "dep:lazy_static",
   "dep:opentelemetry-semantic-conventions",
   "dep:reqwest",
   "dep:serde",
@@ -103,7 +104,8 @@ http                               = { workspace = true, optional = true }
 http-body                          = { workspace = true, optional = true }
 http-body-util                     = { workspace = true, optional = true }
 hyper                              = { workspace = true, optional = true }
-opentelemetry-semantic-conventions = { workspace = true, optional = true }
+lazy_static                        = { workspace = true, optional = true }
+opentelemetry-semantic-conventions = { workspace = true, optional = true, features = ["semconv_experimental"] }
 percent-encoding                   = { workspace = true, optional = true }
 pin-project                        = { workspace = true, optional = true }
 prost                              = { workspace = true, optional = true }

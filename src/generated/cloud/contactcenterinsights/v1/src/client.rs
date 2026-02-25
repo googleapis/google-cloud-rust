@@ -122,6 +122,25 @@ impl ContactCenterInsights {
     /// Creates a conversation.
     /// Note that this method does not support audio transcription or redaction.
     /// Use `conversations.upload` instead.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
+    /// use google_cloud_contactcenterinsights_v1::model::Conversation;
+    /// use google_cloud_contactcenterinsights_v1::Result;
+    /// async fn sample(
+    ///    client: &ContactCenterInsights, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_conversation()
+    ///         .set_parent(parent).set_conversation_id("conversation_id_value")
+    ///         .set_conversation(
+    ///             Conversation::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_conversation(
         &self,
     ) -> super::builder::contact_center_insights::CreateConversation {
@@ -141,6 +160,22 @@ impl ContactCenterInsights {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_contactcenterinsights_v1::Result;
+    /// async fn sample(
+    ///    client: &ContactCenterInsights
+    /// ) -> Result<()> {
+    ///     let response = client.upload_conversation()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn upload_conversation(
         &self,
     ) -> super::builder::contact_center_insights::UploadConversation {
@@ -148,6 +183,27 @@ impl ContactCenterInsights {
     }
 
     /// Updates a conversation.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_contactcenterinsights_v1::model::Conversation;
+    /// use google_cloud_contactcenterinsights_v1::Result;
+    /// async fn sample(
+    ///    client: &ContactCenterInsights, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_conversation()
+    ///         .set_conversation(
+    ///             Conversation::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_conversation(
         &self,
     ) -> super::builder::contact_center_insights::UpdateConversation {
@@ -155,16 +211,63 @@ impl ContactCenterInsights {
     }
 
     /// Gets a conversation.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
+    /// use google_cloud_contactcenterinsights_v1::Result;
+    /// async fn sample(
+    ///    client: &ContactCenterInsights, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_conversation()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_conversation(&self) -> super::builder::contact_center_insights::GetConversation {
         super::builder::contact_center_insights::GetConversation::new(self.inner.clone())
     }
 
     /// Lists conversations.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_contactcenterinsights_v1::Result;
+    /// async fn sample(
+    ///    client: &ContactCenterInsights, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_conversations()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_conversations(&self) -> super::builder::contact_center_insights::ListConversations {
         super::builder::contact_center_insights::ListConversations::new(self.inner.clone())
     }
 
     /// Deletes a conversation.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
+    /// use google_cloud_contactcenterinsights_v1::Result;
+    /// async fn sample(
+    ///    client: &ContactCenterInsights, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_conversation()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_conversation(
         &self,
     ) -> super::builder::contact_center_insights::DeleteConversation {
@@ -183,21 +286,88 @@ impl ContactCenterInsights {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_contactcenterinsights_v1::model::Analysis;
+    /// use google_cloud_contactcenterinsights_v1::Result;
+    /// async fn sample(
+    ///    client: &ContactCenterInsights, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_analysis()
+    ///         .set_parent(parent)
+    ///         .set_analysis(
+    ///             Analysis::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_analysis(&self) -> super::builder::contact_center_insights::CreateAnalysis {
         super::builder::contact_center_insights::CreateAnalysis::new(self.inner.clone())
     }
 
     /// Gets an analysis.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
+    /// use google_cloud_contactcenterinsights_v1::Result;
+    /// async fn sample(
+    ///    client: &ContactCenterInsights, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_analysis()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_analysis(&self) -> super::builder::contact_center_insights::GetAnalysis {
         super::builder::contact_center_insights::GetAnalysis::new(self.inner.clone())
     }
 
     /// Lists analyses.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_contactcenterinsights_v1::Result;
+    /// async fn sample(
+    ///    client: &ContactCenterInsights, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_analyses()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_analyses(&self) -> super::builder::contact_center_insights::ListAnalyses {
         super::builder::contact_center_insights::ListAnalyses::new(self.inner.clone())
     }
 
     /// Deletes an analysis.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
+    /// use google_cloud_contactcenterinsights_v1::Result;
+    /// async fn sample(
+    ///    client: &ContactCenterInsights, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_analysis()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_analysis(&self) -> super::builder::contact_center_insights::DeleteAnalysis {
         super::builder::contact_center_insights::DeleteAnalysis::new(self.inner.clone())
     }
@@ -213,6 +383,22 @@ impl ContactCenterInsights {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_contactcenterinsights_v1::Result;
+    /// async fn sample(
+    ///    client: &ContactCenterInsights
+    /// ) -> Result<()> {
+    ///     let response = client.bulk_analyze_conversations()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn bulk_analyze_conversations(
         &self,
     ) -> super::builder::contact_center_insights::BulkAnalyzeConversations {
@@ -230,6 +416,22 @@ impl ContactCenterInsights {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_contactcenterinsights_v1::Result;
+    /// async fn sample(
+    ///    client: &ContactCenterInsights
+    /// ) -> Result<()> {
+    ///     let response = client.bulk_delete_conversations()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn bulk_delete_conversations(
         &self,
     ) -> super::builder::contact_center_insights::BulkDeleteConversations {
@@ -248,6 +450,22 @@ impl ContactCenterInsights {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_contactcenterinsights_v1::Result;
+    /// async fn sample(
+    ///    client: &ContactCenterInsights
+    /// ) -> Result<()> {
+    ///     let response = client.ingest_conversations()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn ingest_conversations(
         &self,
     ) -> super::builder::contact_center_insights::IngestConversations {
@@ -265,6 +483,22 @@ impl ContactCenterInsights {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_contactcenterinsights_v1::Result;
+    /// async fn sample(
+    ///    client: &ContactCenterInsights
+    /// ) -> Result<()> {
+    ///     let response = client.export_insights_data()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn export_insights_data(
         &self,
     ) -> super::builder::contact_center_insights::ExportInsightsData {
@@ -282,21 +516,92 @@ impl ContactCenterInsights {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_contactcenterinsights_v1::model::IssueModel;
+    /// use google_cloud_contactcenterinsights_v1::Result;
+    /// async fn sample(
+    ///    client: &ContactCenterInsights, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_issue_model()
+    ///         .set_parent(parent)
+    ///         .set_issue_model(
+    ///             IssueModel::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_issue_model(&self) -> super::builder::contact_center_insights::CreateIssueModel {
         super::builder::contact_center_insights::CreateIssueModel::new(self.inner.clone())
     }
 
     /// Updates an issue model.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_contactcenterinsights_v1::model::IssueModel;
+    /// use google_cloud_contactcenterinsights_v1::Result;
+    /// async fn sample(
+    ///    client: &ContactCenterInsights, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_issue_model()
+    ///         .set_issue_model(
+    ///             IssueModel::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_issue_model(&self) -> super::builder::contact_center_insights::UpdateIssueModel {
         super::builder::contact_center_insights::UpdateIssueModel::new(self.inner.clone())
     }
 
     /// Gets an issue model.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
+    /// use google_cloud_contactcenterinsights_v1::Result;
+    /// async fn sample(
+    ///    client: &ContactCenterInsights, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_issue_model()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_issue_model(&self) -> super::builder::contact_center_insights::GetIssueModel {
         super::builder::contact_center_insights::GetIssueModel::new(self.inner.clone())
     }
 
     /// Lists issue models.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
+    /// use google_cloud_contactcenterinsights_v1::Result;
+    /// async fn sample(
+    ///    client: &ContactCenterInsights
+    /// ) -> Result<()> {
+    ///     let response = client.list_issue_models()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_issue_models(&self) -> super::builder::contact_center_insights::ListIssueModels {
         super::builder::contact_center_insights::ListIssueModels::new(self.inner.clone())
     }
@@ -312,6 +617,21 @@ impl ContactCenterInsights {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_contactcenterinsights_v1::Result;
+    /// async fn sample(
+    ///    client: &ContactCenterInsights, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_issue_model()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_issue_model(&self) -> super::builder::contact_center_insights::DeleteIssueModel {
         super::builder::contact_center_insights::DeleteIssueModel::new(self.inner.clone())
     }
@@ -328,6 +648,22 @@ impl ContactCenterInsights {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_contactcenterinsights_v1::Result;
+    /// async fn sample(
+    ///    client: &ContactCenterInsights
+    /// ) -> Result<()> {
+    ///     let response = client.deploy_issue_model()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn deploy_issue_model(&self) -> super::builder::contact_center_insights::DeployIssueModel {
         super::builder::contact_center_insights::DeployIssueModel::new(self.inner.clone())
     }
@@ -344,6 +680,22 @@ impl ContactCenterInsights {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_contactcenterinsights_v1::Result;
+    /// async fn sample(
+    ///    client: &ContactCenterInsights
+    /// ) -> Result<()> {
+    ///     let response = client.undeploy_issue_model()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn undeploy_issue_model(
         &self,
     ) -> super::builder::contact_center_insights::UndeployIssueModel {
@@ -361,6 +713,22 @@ impl ContactCenterInsights {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_contactcenterinsights_v1::Result;
+    /// async fn sample(
+    ///    client: &ContactCenterInsights
+    /// ) -> Result<()> {
+    ///     let response = client.export_issue_model()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn export_issue_model(&self) -> super::builder::contact_center_insights::ExportIssueModel {
         super::builder::contact_center_insights::ExportIssueModel::new(self.inner.clone())
     }
@@ -376,31 +744,127 @@ impl ContactCenterInsights {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_contactcenterinsights_v1::Result;
+    /// async fn sample(
+    ///    client: &ContactCenterInsights
+    /// ) -> Result<()> {
+    ///     let response = client.import_issue_model()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn import_issue_model(&self) -> super::builder::contact_center_insights::ImportIssueModel {
         super::builder::contact_center_insights::ImportIssueModel::new(self.inner.clone())
     }
 
     /// Gets an issue.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
+    /// use google_cloud_contactcenterinsights_v1::Result;
+    /// async fn sample(
+    ///    client: &ContactCenterInsights, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_issue()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_issue(&self) -> super::builder::contact_center_insights::GetIssue {
         super::builder::contact_center_insights::GetIssue::new(self.inner.clone())
     }
 
     /// Lists issues.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
+    /// use google_cloud_contactcenterinsights_v1::Result;
+    /// async fn sample(
+    ///    client: &ContactCenterInsights
+    /// ) -> Result<()> {
+    ///     let response = client.list_issues()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_issues(&self) -> super::builder::contact_center_insights::ListIssues {
         super::builder::contact_center_insights::ListIssues::new(self.inner.clone())
     }
 
     /// Updates an issue.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_contactcenterinsights_v1::model::Issue;
+    /// use google_cloud_contactcenterinsights_v1::Result;
+    /// async fn sample(
+    ///    client: &ContactCenterInsights, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_issue()
+    ///         .set_issue(
+    ///             Issue::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_issue(&self) -> super::builder::contact_center_insights::UpdateIssue {
         super::builder::contact_center_insights::UpdateIssue::new(self.inner.clone())
     }
 
     /// Deletes an issue.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
+    /// use google_cloud_contactcenterinsights_v1::Result;
+    /// async fn sample(
+    ///    client: &ContactCenterInsights, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_issue()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_issue(&self) -> super::builder::contact_center_insights::DeleteIssue {
         super::builder::contact_center_insights::DeleteIssue::new(self.inner.clone())
     }
 
     /// Gets an issue model's statistics.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
+    /// use google_cloud_contactcenterinsights_v1::Result;
+    /// async fn sample(
+    ///    client: &ContactCenterInsights
+    /// ) -> Result<()> {
+    ///     let response = client.calculate_issue_model_stats()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn calculate_issue_model_stats(
         &self,
     ) -> super::builder::contact_center_insights::CalculateIssueModelStats {
@@ -408,6 +872,25 @@ impl ContactCenterInsights {
     }
 
     /// Creates a phrase matcher.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
+    /// use google_cloud_contactcenterinsights_v1::model::PhraseMatcher;
+    /// use google_cloud_contactcenterinsights_v1::Result;
+    /// async fn sample(
+    ///    client: &ContactCenterInsights, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_phrase_matcher()
+    ///         .set_parent(parent)
+    ///         .set_phrase_matcher(
+    ///             PhraseMatcher::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_phrase_matcher(
         &self,
     ) -> super::builder::contact_center_insights::CreatePhraseMatcher {
@@ -415,11 +898,44 @@ impl ContactCenterInsights {
     }
 
     /// Gets a phrase matcher.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
+    /// use google_cloud_contactcenterinsights_v1::Result;
+    /// async fn sample(
+    ///    client: &ContactCenterInsights, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_phrase_matcher()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_phrase_matcher(&self) -> super::builder::contact_center_insights::GetPhraseMatcher {
         super::builder::contact_center_insights::GetPhraseMatcher::new(self.inner.clone())
     }
 
     /// Lists phrase matchers.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_contactcenterinsights_v1::Result;
+    /// async fn sample(
+    ///    client: &ContactCenterInsights, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_phrase_matchers()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_phrase_matchers(
         &self,
     ) -> super::builder::contact_center_insights::ListPhraseMatchers {
@@ -427,6 +943,20 @@ impl ContactCenterInsights {
     }
 
     /// Deletes a phrase matcher.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
+    /// use google_cloud_contactcenterinsights_v1::Result;
+    /// async fn sample(
+    ///    client: &ContactCenterInsights, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_phrase_matcher()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_phrase_matcher(
         &self,
     ) -> super::builder::contact_center_insights::DeletePhraseMatcher {
@@ -434,6 +964,27 @@ impl ContactCenterInsights {
     }
 
     /// Updates a phrase matcher.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_contactcenterinsights_v1::model::PhraseMatcher;
+    /// use google_cloud_contactcenterinsights_v1::Result;
+    /// async fn sample(
+    ///    client: &ContactCenterInsights, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_phrase_matcher()
+    ///         .set_phrase_matcher(
+    ///             PhraseMatcher::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_phrase_matcher(
         &self,
     ) -> super::builder::contact_center_insights::UpdatePhraseMatcher {
@@ -441,21 +992,91 @@ impl ContactCenterInsights {
     }
 
     /// Gets conversation statistics.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
+    /// use google_cloud_contactcenterinsights_v1::Result;
+    /// async fn sample(
+    ///    client: &ContactCenterInsights
+    /// ) -> Result<()> {
+    ///     let response = client.calculate_stats()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn calculate_stats(&self) -> super::builder::contact_center_insights::CalculateStats {
         super::builder::contact_center_insights::CalculateStats::new(self.inner.clone())
     }
 
     /// Gets project-level settings.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
+    /// use google_cloud_contactcenterinsights_v1::Result;
+    /// async fn sample(
+    ///    client: &ContactCenterInsights, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_settings()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_settings(&self) -> super::builder::contact_center_insights::GetSettings {
         super::builder::contact_center_insights::GetSettings::new(self.inner.clone())
     }
 
     /// Updates project-level settings.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_contactcenterinsights_v1::model::Settings;
+    /// use google_cloud_contactcenterinsights_v1::Result;
+    /// async fn sample(
+    ///    client: &ContactCenterInsights, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_settings()
+    ///         .set_settings(
+    ///             Settings::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_settings(&self) -> super::builder::contact_center_insights::UpdateSettings {
         super::builder::contact_center_insights::UpdateSettings::new(self.inner.clone())
     }
 
     /// Creates a analysis rule.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
+    /// use google_cloud_contactcenterinsights_v1::model::AnalysisRule;
+    /// use google_cloud_contactcenterinsights_v1::Result;
+    /// async fn sample(
+    ///    client: &ContactCenterInsights, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_analysis_rule()
+    ///         .set_parent(parent)
+    ///         .set_analysis_rule(
+    ///             AnalysisRule::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_analysis_rule(
         &self,
     ) -> super::builder::contact_center_insights::CreateAnalysisRule {
@@ -463,11 +1084,44 @@ impl ContactCenterInsights {
     }
 
     /// Get a analysis rule.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
+    /// use google_cloud_contactcenterinsights_v1::Result;
+    /// async fn sample(
+    ///    client: &ContactCenterInsights, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_analysis_rule()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_analysis_rule(&self) -> super::builder::contact_center_insights::GetAnalysisRule {
         super::builder::contact_center_insights::GetAnalysisRule::new(self.inner.clone())
     }
 
     /// Lists analysis rules.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_contactcenterinsights_v1::Result;
+    /// async fn sample(
+    ///    client: &ContactCenterInsights, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_analysis_rules()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_analysis_rules(
         &self,
     ) -> super::builder::contact_center_insights::ListAnalysisRules {
@@ -475,6 +1129,27 @@ impl ContactCenterInsights {
     }
 
     /// Updates a analysis rule.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_contactcenterinsights_v1::model::AnalysisRule;
+    /// use google_cloud_contactcenterinsights_v1::Result;
+    /// async fn sample(
+    ///    client: &ContactCenterInsights, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_analysis_rule()
+    ///         .set_analysis_rule(
+    ///             AnalysisRule::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_analysis_rule(
         &self,
     ) -> super::builder::contact_center_insights::UpdateAnalysisRule {
@@ -482,6 +1157,20 @@ impl ContactCenterInsights {
     }
 
     /// Deletes a analysis rule.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
+    /// use google_cloud_contactcenterinsights_v1::Result;
+    /// async fn sample(
+    ///    client: &ContactCenterInsights, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_analysis_rule()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_analysis_rule(
         &self,
     ) -> super::builder::contact_center_insights::DeleteAnalysisRule {
@@ -489,6 +1178,21 @@ impl ContactCenterInsights {
     }
 
     /// Gets location-level encryption key specification.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
+    /// use google_cloud_contactcenterinsights_v1::Result;
+    /// async fn sample(
+    ///    client: &ContactCenterInsights, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_encryption_spec()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_encryption_spec(
         &self,
     ) -> super::builder::contact_center_insights::GetEncryptionSpec {
@@ -510,6 +1214,22 @@ impl ContactCenterInsights {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_contactcenterinsights_v1::Result;
+    /// async fn sample(
+    ///    client: &ContactCenterInsights
+    /// ) -> Result<()> {
+    ///     let response = client.initialize_encryption_spec()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn initialize_encryption_spec(
         &self,
     ) -> super::builder::contact_center_insights::InitializeEncryptionSpec {
@@ -517,26 +1237,113 @@ impl ContactCenterInsights {
     }
 
     /// Creates a view.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
+    /// use google_cloud_contactcenterinsights_v1::model::View;
+    /// use google_cloud_contactcenterinsights_v1::Result;
+    /// async fn sample(
+    ///    client: &ContactCenterInsights, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_view()
+    ///         .set_parent(parent)
+    ///         .set_view(
+    ///             View::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_view(&self) -> super::builder::contact_center_insights::CreateView {
         super::builder::contact_center_insights::CreateView::new(self.inner.clone())
     }
 
     /// Gets a view.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
+    /// use google_cloud_contactcenterinsights_v1::Result;
+    /// async fn sample(
+    ///    client: &ContactCenterInsights, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_view()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_view(&self) -> super::builder::contact_center_insights::GetView {
         super::builder::contact_center_insights::GetView::new(self.inner.clone())
     }
 
     /// Lists views.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_contactcenterinsights_v1::Result;
+    /// async fn sample(
+    ///    client: &ContactCenterInsights, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_views()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_views(&self) -> super::builder::contact_center_insights::ListViews {
         super::builder::contact_center_insights::ListViews::new(self.inner.clone())
     }
 
     /// Updates a view.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_contactcenterinsights_v1::model::View;
+    /// use google_cloud_contactcenterinsights_v1::Result;
+    /// async fn sample(
+    ///    client: &ContactCenterInsights, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_view()
+    ///         .set_view(
+    ///             View::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_view(&self) -> super::builder::contact_center_insights::UpdateView {
         super::builder::contact_center_insights::UpdateView::new(self.inner.clone())
     }
 
     /// Deletes a view.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
+    /// use google_cloud_contactcenterinsights_v1::Result;
+    /// async fn sample(
+    ///    client: &ContactCenterInsights, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_view()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_view(&self) -> super::builder::contact_center_insights::DeleteView {
         super::builder::contact_center_insights::DeleteView::new(self.inner.clone())
     }
@@ -552,36 +1359,158 @@ impl ContactCenterInsights {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_contactcenterinsights_v1::Result;
+    /// async fn sample(
+    ///    client: &ContactCenterInsights
+    /// ) -> Result<()> {
+    ///     let response = client.query_metrics()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn query_metrics(&self) -> super::builder::contact_center_insights::QueryMetrics {
         super::builder::contact_center_insights::QueryMetrics::new(self.inner.clone())
     }
 
     /// Create a QaQuestion.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
+    /// use google_cloud_contactcenterinsights_v1::model::QaQuestion;
+    /// use google_cloud_contactcenterinsights_v1::Result;
+    /// async fn sample(
+    ///    client: &ContactCenterInsights, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_qa_question()
+    ///         .set_parent(parent)
+    ///         .set_qa_question(
+    ///             QaQuestion::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_qa_question(&self) -> super::builder::contact_center_insights::CreateQaQuestion {
         super::builder::contact_center_insights::CreateQaQuestion::new(self.inner.clone())
     }
 
     /// Gets a QaQuestion.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
+    /// use google_cloud_contactcenterinsights_v1::Result;
+    /// async fn sample(
+    ///    client: &ContactCenterInsights, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_qa_question()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_qa_question(&self) -> super::builder::contact_center_insights::GetQaQuestion {
         super::builder::contact_center_insights::GetQaQuestion::new(self.inner.clone())
     }
 
     /// Updates a QaQuestion.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_contactcenterinsights_v1::model::QaQuestion;
+    /// use google_cloud_contactcenterinsights_v1::Result;
+    /// async fn sample(
+    ///    client: &ContactCenterInsights, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_qa_question()
+    ///         .set_qa_question(
+    ///             QaQuestion::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_qa_question(&self) -> super::builder::contact_center_insights::UpdateQaQuestion {
         super::builder::contact_center_insights::UpdateQaQuestion::new(self.inner.clone())
     }
 
     /// Deletes a QaQuestion.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
+    /// use google_cloud_contactcenterinsights_v1::Result;
+    /// async fn sample(
+    ///    client: &ContactCenterInsights, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_qa_question()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_qa_question(&self) -> super::builder::contact_center_insights::DeleteQaQuestion {
         super::builder::contact_center_insights::DeleteQaQuestion::new(self.inner.clone())
     }
 
     /// Lists QaQuestions.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_contactcenterinsights_v1::Result;
+    /// async fn sample(
+    ///    client: &ContactCenterInsights, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_qa_questions()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_qa_questions(&self) -> super::builder::contact_center_insights::ListQaQuestions {
         super::builder::contact_center_insights::ListQaQuestions::new(self.inner.clone())
     }
 
     /// Create a QaScorecard.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
+    /// use google_cloud_contactcenterinsights_v1::model::QaScorecard;
+    /// use google_cloud_contactcenterinsights_v1::Result;
+    /// async fn sample(
+    ///    client: &ContactCenterInsights, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_qa_scorecard()
+    ///         .set_parent(parent)
+    ///         .set_qa_scorecard(
+    ///             QaScorecard::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_qa_scorecard(
         &self,
     ) -> super::builder::contact_center_insights::CreateQaScorecard {
@@ -589,11 +1518,47 @@ impl ContactCenterInsights {
     }
 
     /// Gets a QaScorecard.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
+    /// use google_cloud_contactcenterinsights_v1::Result;
+    /// async fn sample(
+    ///    client: &ContactCenterInsights, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_qa_scorecard()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_qa_scorecard(&self) -> super::builder::contact_center_insights::GetQaScorecard {
         super::builder::contact_center_insights::GetQaScorecard::new(self.inner.clone())
     }
 
     /// Updates a QaScorecard.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_contactcenterinsights_v1::model::QaScorecard;
+    /// use google_cloud_contactcenterinsights_v1::Result;
+    /// async fn sample(
+    ///    client: &ContactCenterInsights, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_qa_scorecard()
+    ///         .set_qa_scorecard(
+    ///             QaScorecard::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_qa_scorecard(
         &self,
     ) -> super::builder::contact_center_insights::UpdateQaScorecard {
@@ -601,6 +1566,20 @@ impl ContactCenterInsights {
     }
 
     /// Deletes a QaScorecard.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
+    /// use google_cloud_contactcenterinsights_v1::Result;
+    /// async fn sample(
+    ///    client: &ContactCenterInsights, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_qa_scorecard()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_qa_scorecard(
         &self,
     ) -> super::builder::contact_center_insights::DeleteQaScorecard {
@@ -608,11 +1587,48 @@ impl ContactCenterInsights {
     }
 
     /// Lists QaScorecards.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_contactcenterinsights_v1::Result;
+    /// async fn sample(
+    ///    client: &ContactCenterInsights, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_qa_scorecards()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_qa_scorecards(&self) -> super::builder::contact_center_insights::ListQaScorecards {
         super::builder::contact_center_insights::ListQaScorecards::new(self.inner.clone())
     }
 
     /// Creates a QaScorecardRevision.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
+    /// use google_cloud_contactcenterinsights_v1::model::QaScorecardRevision;
+    /// use google_cloud_contactcenterinsights_v1::Result;
+    /// async fn sample(
+    ///    client: &ContactCenterInsights, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_qa_scorecard_revision()
+    ///         .set_parent(parent)
+    ///         .set_qa_scorecard_revision(
+    ///             QaScorecardRevision::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_qa_scorecard_revision(
         &self,
     ) -> super::builder::contact_center_insights::CreateQaScorecardRevision {
@@ -620,6 +1636,21 @@ impl ContactCenterInsights {
     }
 
     /// Gets a QaScorecardRevision.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
+    /// use google_cloud_contactcenterinsights_v1::Result;
+    /// async fn sample(
+    ///    client: &ContactCenterInsights, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_qa_scorecard_revision()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_qa_scorecard_revision(
         &self,
     ) -> super::builder::contact_center_insights::GetQaScorecardRevision {
@@ -637,6 +1668,22 @@ impl ContactCenterInsights {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_contactcenterinsights_v1::Result;
+    /// async fn sample(
+    ///    client: &ContactCenterInsights
+    /// ) -> Result<()> {
+    ///     let response = client.tune_qa_scorecard_revision()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn tune_qa_scorecard_revision(
         &self,
     ) -> super::builder::contact_center_insights::TuneQaScorecardRevision {
@@ -644,6 +1691,21 @@ impl ContactCenterInsights {
     }
 
     /// Deploy a QaScorecardRevision.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
+    /// use google_cloud_contactcenterinsights_v1::Result;
+    /// async fn sample(
+    ///    client: &ContactCenterInsights
+    /// ) -> Result<()> {
+    ///     let response = client.deploy_qa_scorecard_revision()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn deploy_qa_scorecard_revision(
         &self,
     ) -> super::builder::contact_center_insights::DeployQaScorecardRevision {
@@ -651,6 +1713,21 @@ impl ContactCenterInsights {
     }
 
     /// Undeploy a QaScorecardRevision.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
+    /// use google_cloud_contactcenterinsights_v1::Result;
+    /// async fn sample(
+    ///    client: &ContactCenterInsights
+    /// ) -> Result<()> {
+    ///     let response = client.undeploy_qa_scorecard_revision()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn undeploy_qa_scorecard_revision(
         &self,
     ) -> super::builder::contact_center_insights::UndeployQaScorecardRevision {
@@ -660,6 +1737,20 @@ impl ContactCenterInsights {
     }
 
     /// Deletes a QaScorecardRevision.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
+    /// use google_cloud_contactcenterinsights_v1::Result;
+    /// async fn sample(
+    ///    client: &ContactCenterInsights, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_qa_scorecard_revision()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_qa_scorecard_revision(
         &self,
     ) -> super::builder::contact_center_insights::DeleteQaScorecardRevision {
@@ -667,6 +1758,24 @@ impl ContactCenterInsights {
     }
 
     /// Lists all revisions under the parent QaScorecard.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_contactcenterinsights_v1::Result;
+    /// async fn sample(
+    ///    client: &ContactCenterInsights, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_qa_scorecard_revisions()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_qa_scorecard_revisions(
         &self,
     ) -> super::builder::contact_center_insights::ListQaScorecardRevisions {
@@ -674,6 +1783,25 @@ impl ContactCenterInsights {
     }
 
     /// Create feedback label.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
+    /// use google_cloud_contactcenterinsights_v1::model::FeedbackLabel;
+    /// use google_cloud_contactcenterinsights_v1::Result;
+    /// async fn sample(
+    ///    client: &ContactCenterInsights, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_feedback_label()
+    ///         .set_parent(parent)
+    ///         .set_feedback_label(
+    ///             FeedbackLabel::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_feedback_label(
         &self,
     ) -> super::builder::contact_center_insights::CreateFeedbackLabel {
@@ -681,6 +1809,24 @@ impl ContactCenterInsights {
     }
 
     /// List feedback labels.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_contactcenterinsights_v1::Result;
+    /// async fn sample(
+    ///    client: &ContactCenterInsights, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_feedback_labels()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_feedback_labels(
         &self,
     ) -> super::builder::contact_center_insights::ListFeedbackLabels {
@@ -688,11 +1834,47 @@ impl ContactCenterInsights {
     }
 
     /// Get feedback label.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
+    /// use google_cloud_contactcenterinsights_v1::Result;
+    /// async fn sample(
+    ///    client: &ContactCenterInsights, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_feedback_label()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_feedback_label(&self) -> super::builder::contact_center_insights::GetFeedbackLabel {
         super::builder::contact_center_insights::GetFeedbackLabel::new(self.inner.clone())
     }
 
     /// Update feedback label.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_contactcenterinsights_v1::model::FeedbackLabel;
+    /// use google_cloud_contactcenterinsights_v1::Result;
+    /// async fn sample(
+    ///    client: &ContactCenterInsights, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_feedback_label()
+    ///         .set_feedback_label(
+    ///             FeedbackLabel::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_feedback_label(
         &self,
     ) -> super::builder::contact_center_insights::UpdateFeedbackLabel {
@@ -700,6 +1882,20 @@ impl ContactCenterInsights {
     }
 
     /// Delete feedback label.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
+    /// use google_cloud_contactcenterinsights_v1::Result;
+    /// async fn sample(
+    ///    client: &ContactCenterInsights, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_feedback_label()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_feedback_label(
         &self,
     ) -> super::builder::contact_center_insights::DeleteFeedbackLabel {
@@ -707,6 +1903,24 @@ impl ContactCenterInsights {
     }
 
     /// List all feedback labels by project number.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_contactcenterinsights_v1::Result;
+    /// async fn sample(
+    ///    client: &ContactCenterInsights, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_all_feedback_labels()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_all_feedback_labels(
         &self,
     ) -> super::builder::contact_center_insights::ListAllFeedbackLabels {
@@ -724,6 +1938,22 @@ impl ContactCenterInsights {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_contactcenterinsights_v1::Result;
+    /// async fn sample(
+    ///    client: &ContactCenterInsights
+    /// ) -> Result<()> {
+    ///     let response = client.bulk_upload_feedback_labels()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn bulk_upload_feedback_labels(
         &self,
     ) -> super::builder::contact_center_insights::BulkUploadFeedbackLabels {
@@ -741,6 +1971,22 @@ impl ContactCenterInsights {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_contactcenterinsights_v1::Result;
+    /// async fn sample(
+    ///    client: &ContactCenterInsights
+    /// ) -> Result<()> {
+    ///     let response = client.bulk_download_feedback_labels()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn bulk_download_feedback_labels(
         &self,
     ) -> super::builder::contact_center_insights::BulkDownloadFeedbackLabels {
@@ -750,6 +1996,24 @@ impl ContactCenterInsights {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_contactcenterinsights_v1::Result;
+    /// async fn sample(
+    ///    client: &ContactCenterInsights
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::contact_center_insights::ListOperations {
         super::builder::contact_center_insights::ListOperations::new(self.inner.clone())
     }
@@ -757,6 +2021,21 @@ impl ContactCenterInsights {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
+    /// use google_cloud_contactcenterinsights_v1::Result;
+    /// async fn sample(
+    ///    client: &ContactCenterInsights
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::contact_center_insights::GetOperation {
         super::builder::contact_center_insights::GetOperation::new(self.inner.clone())
     }
@@ -764,6 +2043,20 @@ impl ContactCenterInsights {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
+    /// use google_cloud_contactcenterinsights_v1::Result;
+    /// async fn sample(
+    ///    client: &ContactCenterInsights
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::contact_center_insights::CancelOperation {
         super::builder::contact_center_insights::CancelOperation::new(self.inner.clone())
     }

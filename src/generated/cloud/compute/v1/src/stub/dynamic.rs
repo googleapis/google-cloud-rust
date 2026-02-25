@@ -10670,6 +10670,160 @@ impl<T: super::RegionDisks> RegionDisks for T {
     }
 }
 
+/// A dyn-compatible, crate-private version of [super::RegionHealthAggregationPolicies].
+#[cfg(feature = "region-health-aggregation-policies")]
+#[async_trait::async_trait]
+pub trait RegionHealthAggregationPolicies: std::fmt::Debug + Send + Sync {
+    async fn aggregated_list(
+        &self,
+        req: crate::model::region_health_aggregation_policies::AggregatedListRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::HealthAggregationPolicyAggregatedList>>;
+
+    async fn delete(
+        &self,
+        req: crate::model::region_health_aggregation_policies::DeleteRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>>;
+
+    async fn get(
+        &self,
+        req: crate::model::region_health_aggregation_policies::GetRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::HealthAggregationPolicy>>;
+
+    async fn insert(
+        &self,
+        req: crate::model::region_health_aggregation_policies::InsertRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>>;
+
+    async fn list(
+        &self,
+        req: crate::model::region_health_aggregation_policies::ListRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::HealthAggregationPolicyList>>;
+
+    async fn patch(
+        &self,
+        req: crate::model::region_health_aggregation_policies::PatchRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>>;
+
+    async fn test_iam_permissions(
+        &self,
+        req: crate::model::region_health_aggregation_policies::TestIamPermissionsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::TestPermissionsResponse>>;
+
+    async fn get_operation(
+        &self,
+        req: crate::model::region_operations::GetRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>>;
+
+    fn get_polling_error_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy>;
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy>;
+}
+
+/// All implementations of [super::RegionHealthAggregationPolicies] also implement [RegionHealthAggregationPolicies].
+#[cfg(feature = "region-health-aggregation-policies")]
+#[async_trait::async_trait]
+impl<T: super::RegionHealthAggregationPolicies> RegionHealthAggregationPolicies for T {
+    /// Forwards the call to the implementation provided by `T`.
+    async fn aggregated_list(
+        &self,
+        req: crate::model::region_health_aggregation_policies::AggregatedListRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::HealthAggregationPolicyAggregatedList>> {
+        T::aggregated_list(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete(
+        &self,
+        req: crate::model::region_health_aggregation_policies::DeleteRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>> {
+        T::delete(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get(
+        &self,
+        req: crate::model::region_health_aggregation_policies::GetRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::HealthAggregationPolicy>> {
+        T::get(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn insert(
+        &self,
+        req: crate::model::region_health_aggregation_policies::InsertRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>> {
+        T::insert(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list(
+        &self,
+        req: crate::model::region_health_aggregation_policies::ListRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::HealthAggregationPolicyList>> {
+        T::list(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn patch(
+        &self,
+        req: crate::model::region_health_aggregation_policies::PatchRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>> {
+        T::patch(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn test_iam_permissions(
+        &self,
+        req: crate::model::region_health_aggregation_policies::TestIamPermissionsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::TestPermissionsResponse>> {
+        T::test_iam_permissions(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_operation(
+        &self,
+        req: crate::model::region_operations::GetRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::Operation>> {
+        T::get_operation(self, req, options).await
+    }
+
+    fn get_polling_error_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
+        T::get_polling_error_policy(self, options)
+    }
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
+        T::get_polling_backoff_policy(self, options)
+    }
+}
+
 /// A dyn-compatible, crate-private version of [super::RegionHealthCheckServices].
 #[cfg(feature = "region-health-check-services")]
 #[async_trait::async_trait]

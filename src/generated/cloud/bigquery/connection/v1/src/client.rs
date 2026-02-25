@@ -120,27 +120,114 @@ impl ConnectionService {
     }
 
     /// Creates a new connection.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_connection_v1::client::ConnectionService;
+    /// use google_cloud_bigquery_connection_v1::model::Connection;
+    /// use google_cloud_bigquery_connection_v1::Result;
+    /// async fn sample(
+    ///    client: &ConnectionService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_connection()
+    ///         .set_parent(parent).set_connection_id("connection_id_value")
+    ///         .set_connection(
+    ///             Connection::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_connection(&self) -> super::builder::connection_service::CreateConnection {
         super::builder::connection_service::CreateConnection::new(self.inner.clone())
     }
 
     /// Returns specified connection.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_connection_v1::client::ConnectionService;
+    /// use google_cloud_bigquery_connection_v1::Result;
+    /// async fn sample(
+    ///    client: &ConnectionService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_connection()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_connection(&self) -> super::builder::connection_service::GetConnection {
         super::builder::connection_service::GetConnection::new(self.inner.clone())
     }
 
     /// Returns a list of connections in the given project.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_connection_v1::client::ConnectionService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_bigquery_connection_v1::Result;
+    /// async fn sample(
+    ///    client: &ConnectionService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_connections()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_connections(&self) -> super::builder::connection_service::ListConnections {
         super::builder::connection_service::ListConnections::new(self.inner.clone())
     }
 
     /// Updates the specified connection. For security reasons, also resets
     /// credential if connection properties are in the update field mask.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_connection_v1::client::ConnectionService;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_bigquery_connection_v1::model::Connection;
+    /// use google_cloud_bigquery_connection_v1::Result;
+    /// async fn sample(
+    ///    client: &ConnectionService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_connection()
+    ///         .set_connection(
+    ///             Connection::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_connection(&self) -> super::builder::connection_service::UpdateConnection {
         super::builder::connection_service::UpdateConnection::new(self.inner.clone())
     }
 
     /// Deletes connection and associated credential.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_connection_v1::client::ConnectionService;
+    /// use google_cloud_bigquery_connection_v1::Result;
+    /// async fn sample(
+    ///    client: &ConnectionService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_connection()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_connection(&self) -> super::builder::connection_service::DeleteConnection {
         super::builder::connection_service::DeleteConnection::new(self.inner.clone())
     }
@@ -148,6 +235,21 @@ impl ConnectionService {
     /// Gets the access control policy for a resource.
     /// Returns an empty policy if the resource exists and does not have a policy
     /// set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_connection_v1::client::ConnectionService;
+    /// use google_cloud_bigquery_connection_v1::Result;
+    /// async fn sample(
+    ///    client: &ConnectionService
+    /// ) -> Result<()> {
+    ///     let response = client.get_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::connection_service::GetIamPolicy {
         super::builder::connection_service::GetIamPolicy::new(self.inner.clone())
     }
@@ -156,6 +258,21 @@ impl ConnectionService {
     /// existing policy.
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED` errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_connection_v1::client::ConnectionService;
+    /// use google_cloud_bigquery_connection_v1::Result;
+    /// async fn sample(
+    ///    client: &ConnectionService
+    /// ) -> Result<()> {
+    ///     let response = client.set_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::connection_service::SetIamPolicy {
         super::builder::connection_service::SetIamPolicy::new(self.inner.clone())
     }
@@ -167,6 +284,21 @@ impl ConnectionService {
     /// Note: This operation is designed to be used for building permission-aware
     /// UIs and command-line tools, not for authorization checking. This operation
     /// may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_connection_v1::client::ConnectionService;
+    /// use google_cloud_bigquery_connection_v1::Result;
+    /// async fn sample(
+    ///    client: &ConnectionService
+    /// ) -> Result<()> {
+    ///     let response = client.test_iam_permissions()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::connection_service::TestIamPermissions {
         super::builder::connection_service::TestIamPermissions::new(self.inner.clone())
     }

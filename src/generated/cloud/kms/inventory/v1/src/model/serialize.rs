@@ -92,6 +92,9 @@ impl serde::ser::Serialize for super::GetProtectedResourcesSummaryRequest {
         if !self.name.is_empty() {
             state.serialize_entry("name", &self.name)?;
         }
+        if !wkt::internal::is_default(&self.fallback_scope) {
+            state.serialize_entry("fallbackScope", &self.fallback_scope)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -173,6 +176,9 @@ impl serde::ser::Serialize for super::ProtectedResourcesSummary {
                 }
             }
             state.serialize_entry("locations", &__With(&self.locations))?;
+        }
+        if !self.warnings.is_empty() {
+            state.serialize_entry("warnings", &self.warnings)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -290,6 +296,31 @@ impl serde::ser::Serialize for super::ProtectedResource {
         }
         if self.create_time.is_some() {
             state.serialize_entry("createTime", &self.create_time)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::Warning {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.warning_code) {
+            state.serialize_entry("warningCode", &self.warning_code)?;
+        }
+        if !self.display_message.is_empty() {
+            state.serialize_entry("displayMessage", &self.display_message)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

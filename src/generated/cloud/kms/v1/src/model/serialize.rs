@@ -248,6 +248,12 @@ impl serde::ser::Serialize for super::AutokeyConfig {
         if !self.etag.is_empty() {
             state.serialize_entry("etag", &self.etag)?;
         }
+        if !wkt::internal::is_default(&self.key_project_resolution_mode) {
+            state.serialize_entry(
+                "keyProjectResolutionMode",
+                &self.key_project_resolution_mode,
+            )?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;

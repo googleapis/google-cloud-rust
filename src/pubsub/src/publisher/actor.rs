@@ -15,7 +15,6 @@
 use super::options::BatchingOptions;
 use crate::generated::gapic_dataplane::client::Publisher as GapicPublisher;
 use crate::publisher::batch::Batch;
-use crate::publisher::constants;
 use std::collections::{HashMap, VecDeque};
 use tokio::sync::{mpsc, oneshot};
 use tokio::task::JoinSet;
@@ -106,11 +105,11 @@ impl Dispatcher {
                 // If needed, this can be moved into the batch actors such that each are running
                 // on a separate timer.
                 _ = &mut timer => {
-                    for (_, batch_actor) in batch_actors.iter_mut() {
+                    for (_, batch_actor) in batch_actors.iter() {
                         let (tx, _) = oneshot::channel();
-                        batch_actor
-                            .send(ToBatchActor::Flush(tx))
-                            .expect(constants::BATCH_ACTOR_SEND_ERROR_MSG);
+                        if batch_actor.send(ToBatchActor::Flush(tx)).is_err() {
+                            return; // Stop the dispatcher if a batch actor is dropped.
+                        }
                     }
                     timer.as_mut().reset(tokio::time::Instant::now() + delay);
                 }
@@ -149,17 +148,17 @@ impl Dispatcher {
                                     }
                                     tx
                                 });
-                            batch_actor
-                                .send(ToBatchActor::Publish(msg))
-                                .expect(constants::BATCH_ACTOR_SEND_ERROR_MSG);
+                            if batch_actor.send(ToBatchActor::Publish(msg)).is_err() {
+                                return; // Stop the dispatcher if a batch actor is dropped.
+                            }
                         },
                         Some(ToDispatcher::Flush(tx)) => {
                             let mut flush_set = JoinSet::new();
-                            for (_, batch_actor) in batch_actors.iter_mut() {
+                            for (_, batch_actor) in batch_actors.iter() {
                                 let (tx, rx) = oneshot::channel();
-                                batch_actor
-                                    .send(ToBatchActor::Flush(tx))
-                                    .expect(constants::BATCH_ACTOR_SEND_ERROR_MSG);
+                                if batch_actor.send(ToBatchActor::Flush(tx)).is_err() {
+                                    return; // Stop the dispatcher if a batch actor is dropped.
+                                }
                                 flush_set.spawn(rx);
                             }
                             // Wait on all the tasks that exist right now.
@@ -174,9 +173,9 @@ impl Dispatcher {
                             if let Some(batch_actor) = batch_actors.get_mut(&ordering_key) {
                                 // Send down the same tx for the BatchActors to directly signal completion
                                 // instead of spawning a new task.
-                                batch_actor
-                                    .send(ToBatchActor::ResumePublish())
-                                    .expect(constants::BATCH_ACTOR_SEND_ERROR_MSG);
+                                if batch_actor.send(ToBatchActor::ResumePublish()).is_err() {
+                                    return; // Stop the dispatcher if a batch actor is dropped.
+                                }
                             }
                         }
                         None => {
@@ -309,6 +308,14 @@ impl ConcurrentBatchActor {
         batch: &mut Batch,
         msg: BundledMessage,
     ) {
+        if !batch.can_fit(&msg.msg) {
+            let _ = msg
+                .tx
+                .send(Err(crate::error::PublishError::ExceededByteThresholdError(
+                    (),
+                )));
+            return;
+        }
         if !batch.can_add(&msg) {
             self.flush(inflight, batch);
         }
@@ -377,7 +384,7 @@ impl SequentialBatchActor {
                     Some(ToBatchActor::Publish(msg)) => {
                         let _ = msg
                             .tx
-                            .send(Err(crate::error::PublishError::OrderingKeyPaused(())));
+                            .send(Err(crate::error::PublishError::OrderingKeyPaused));
                     }
                     Some(ToBatchActor::Flush(tx)) => {
                         // There should be no pending messages and messages in the pending batch as
@@ -455,6 +462,19 @@ impl SequentialBatchActor {
     ) {
         let mut should_flush = false;
         while let Some(next) = self.pending_msgs.front() {
+            if !batch.can_fit(&next.msg) {
+                let _ = self
+                    .pending_msgs
+                    .pop_front()
+                    .expect("front should contain an element")
+                    .tx
+                    .send(Err(crate::error::PublishError::ExceededByteThresholdError(
+                        (),
+                    )));
+                self.pause();
+                should_flush = true;
+                break;
+            }
             if !batch.can_add(next) {
                 should_flush = true;
                 break;
@@ -486,7 +506,7 @@ impl SequentialBatchActor {
             // The user may have dropped the handle, so it is ok if this fails.
             let _ = publish
                 .tx
-                .send(Err(crate::error::PublishError::OrderingKeyPaused(())));
+                .send(Err(crate::error::PublishError::OrderingKeyPaused));
         }
     }
 
@@ -516,6 +536,7 @@ mod tests {
         generated::gapic_dataplane::client::Publisher as GapicPublisher,
         model::{Message, PublishResponse},
     };
+    use google_cloud_test_macros::tokio_test_no_panics;
     use mockall::Sequence;
     use rand::{RngExt, distr::Alphanumeric};
     use std::collections::VecDeque;
@@ -667,7 +688,7 @@ mod tests {
             for v in publish_rxs {
                 let res = v.await;
                 assert!(
-                    matches!(res, Ok(Err(PublishError::OrderingKeyPaused(())))),
+                    matches!(res, Ok(Err(PublishError::OrderingKeyPaused))),
                     "{res:?}"
                 );
             }
@@ -700,7 +721,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test(start_paused = true)]
+    #[tokio_test_no_panics(start_paused = true)]
     async fn concurrent_actor_publish() -> anyhow::Result<()> {
         let mut mock = MockGapicPublisherWithFuture::new();
         mock.expect_publish()
@@ -736,7 +757,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test(start_paused = true)]
+    #[tokio_test_no_panics(start_paused = true)]
     async fn sequential_actor_publish() -> anyhow::Result<()> {
         let (msg_seq_tx, mut msg_seq_rx) = unbounded_channel::<Message>();
         let mut mock = MockGapicPublisherWithFuture::new();
@@ -777,7 +798,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test(start_paused = true)]
+    #[tokio_test_no_panics(start_paused = true)]
     async fn concurrent_actor_flush() -> anyhow::Result<()> {
         let mut mock = MockGapicPublisherWithFuture::new();
         mock.expect_publish()
@@ -821,7 +842,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test(start_paused = true)]
+    #[tokio_test_no_panics(start_paused = true)]
     async fn sequential_actor_flush() -> anyhow::Result<()> {
         let (msg_seq_tx, mut msg_seq_rx) = unbounded_channel::<Message>();
         let mut mock = MockGapicPublisherWithFuture::new();
@@ -887,7 +908,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test(start_paused = true)]
+    #[tokio_test_no_panics(start_paused = true)]
     async fn sequential_actor_resume() -> anyhow::Result<()> {
         let (msg_seq_tx, mut msg_seq_rx) = unbounded_channel::<Message>();
         let mut mock = MockGapicPublisherWithFuture::new();
@@ -952,7 +973,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test(start_paused = true)]
+    #[tokio_test_no_panics(start_paused = true)]
     async fn concurrent_actor_batch_message_count_threshold() -> anyhow::Result<()> {
         let mut mock = MockGapicPublisher::new();
         mock.expect_publish()
@@ -977,7 +998,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test(start_paused = true)]
+    #[tokio_test_no_panics(start_paused = true)]
     async fn sequential_actor_batch_message_count_threshold() -> anyhow::Result<()> {
         let mut mock = MockGapicPublisher::new();
         mock.expect_publish()
@@ -1001,7 +1022,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test(start_paused = true)]
+    #[tokio_test_no_panics(start_paused = true)]
     async fn concurrent_actor_byte_count_threshold() -> anyhow::Result<()> {
         let mut mock = MockGapicPublisher::new();
         mock.expect_publish()
@@ -1040,7 +1061,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test(start_paused = true)]
+    #[tokio_test_no_panics(start_paused = true)]
     async fn sequential_actor_byte_count_threshold() -> anyhow::Result<()> {
         let mut mock = MockGapicPublisher::new();
         mock.expect_publish()

@@ -123,11 +123,44 @@ impl Locations {
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_location::client::Locations;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_location::Result;
+    /// async fn sample(
+    ///    client: &Locations
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::locations::ListLocations {
         super::builder::locations::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_location::client::Locations;
+    /// use google_cloud_location::Result;
+    /// async fn sample(
+    ///    client: &Locations
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::locations::GetLocation {
         super::builder::locations::GetLocation::new(self.inner.clone())
     }

@@ -1183,7 +1183,7 @@ mod tests {
         use crate::model::ObjectAccessControl;
         let inner = test_inner_client(test_builder()).await;
         let options = inner.options.clone();
-        let stub = crate::storage::transport::Storage::new(inner);
+        let stub = crate::storage::transport::Storage::new_test(inner);
         let key = KeyAes256::new(&[0x42; 32]).expect("hard-coded key is not an error");
         let mut builder =
             WriteObject::new(stub, "projects/_/buckets/bucket", "object", "", options)
@@ -1283,7 +1283,7 @@ mod tests {
         )
         .await;
         let options = inner.options.clone();
-        let stub = crate::storage::transport::Storage::new(inner);
+        let stub = crate::storage::transport::Storage::new_test(inner);
         let request = WriteObject::new(
             stub.clone(),
             "projects/_/buckets/bucket",

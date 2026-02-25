@@ -13,7 +13,6 @@
 // limitations under the License.
 
 use super::request_options::RequestOptions;
-use crate::Error;
 use crate::builder::storage::ReadObject;
 use crate::builder::storage::WriteObject;
 use crate::read_resume_policy::ReadResumePolicy;
@@ -22,11 +21,10 @@ use crate::storage::common_options::CommonOptions;
 use crate::streaming_source::Payload;
 use base64::Engine;
 use base64::prelude::BASE64_STANDARD;
-use gaxi::http::reqwest::RequestBuilder;
+use gaxi::http::HttpRequestBuilder;
 use gaxi::options::{ClientConfig, Credentials};
-use google_cloud_auth::credentials::{Builder as CredentialsBuilder, CacheableResource};
+use google_cloud_auth::credentials::Builder as CredentialsBuilder;
 use google_cloud_gax::client_builder::{Error as BuilderError, Result as BuilderResult};
-use http::Extensions;
 use std::sync::Arc;
 
 /// Implements a client for the Cloud Storage API.
@@ -102,7 +100,6 @@ where
 #[derive(Clone, Debug)]
 pub(crate) struct StorageInner {
     pub client: gaxi::http::ReqwestClient,
-    pub cred: Credentials,
     pub options: RequestOptions,
     pub grpc: gaxi::grpc::Client,
 }
@@ -290,9 +287,10 @@ where
 
 impl Storage {
     pub(crate) async fn new(builder: ClientBuilder) -> BuilderResult<Self> {
+        let tracing = builder.config.tracing;
         let inner = StorageInner::from_parts(builder).await?;
         let options = inner.options.clone();
-        let stub = crate::storage::transport::Storage::new(Arc::new(inner));
+        let stub = crate::storage::transport::Storage::new(Arc::new(inner), tracing);
         Ok(Self { stub, options })
     }
 }
@@ -301,13 +299,11 @@ impl StorageInner {
     /// Builds a client assuming `config.cred` and `config.endpoint` are initialized, panics otherwise.
     pub(self) fn new(
         client: gaxi::http::ReqwestClient,
-        cred: Credentials,
         options: RequestOptions,
         grpc: gaxi::grpc::Client,
     ) -> Self {
         Self {
             client,
-            cred,
             options,
             grpc,
         }
@@ -316,42 +312,16 @@ impl StorageInner {
     pub(self) async fn from_parts(builder: ClientBuilder) -> BuilderResult<Self> {
         let (mut config, options) = builder.into_parts()?;
         config.disable_automatic_decompression = true;
-        let cred = config
-            .cred
-            .clone()
-            .expect("into_parts() assigns default credentials");
+        config.disable_follow_redirects = true;
 
         let client = gaxi::http::ReqwestClient::new(config.clone(), super::DEFAULT_HOST).await?;
 
         let inner = StorageInner::new(
             client,
-            cred,
             options,
             gaxi::grpc::Client::new(config, super::DEFAULT_HOST).await?,
         );
         Ok(inner)
-    }
-
-    // Helper method to apply authentication headers to the request builder.
-    pub async fn apply_auth_headers(
-        &self,
-        builder: RequestBuilder,
-    ) -> crate::Result<RequestBuilder> {
-        let cached_auth_headers = self
-            .cred
-            .headers(Extensions::new())
-            .await
-            .map_err(Error::authentication)?;
-
-        let auth_headers = match cached_auth_headers {
-            CacheableResource::New { data, .. } => data,
-            CacheableResource::NotModified => {
-                unreachable!("headers are not cached");
-            }
-        };
-
-        let builder = builder.headers(auth_headers);
-        Ok(builder)
     }
 }
 
@@ -662,6 +632,50 @@ impl ClientBuilder {
         self
     }
 
+    /// Enable debug logs and traces using the [tracing] framework.
+    ///
+    /// <div class="warning">
+    ///
+    /// Traces at any level may contain sensitive data like bucket names, object
+    /// names, full URLs and error messages. Traces at the `INFO` level follow
+    /// [OpenTelemetry Semantic Conventions] with additional Storage attributes,
+    /// and are intended to be suitable for production monitoring. Traces at
+    /// the `DEBUG` level or lower are meant for detailed debugging and include
+    /// the full content of requests, responses, and the debug information for
+    /// the client.
+    ///
+    /// Review the contents of the traces and consult the [tracing]
+    /// framework documentation to set up filters and formatters to prevent
+    /// leaking sensitive information, depending on your intended use case.
+    ///
+    /// [OpenTelemetry Semantic Conventions]: https://opentelemetry.io/docs/concepts/semantic-conventions/
+    /// </div>
+    ///
+    /// # Example
+    /// ```
+    /// // In your `main` function enable a tracing subscriber, for example:
+    /// // tracing_subscriber::fmt::init();
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// let client = Storage::builder()
+    ///     .with_tracing()
+    ///     .build()
+    ///     .await?;
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// # More information
+    ///
+    /// The [Enable logging] guide shows you how to initialize a subscriber to
+    /// log events to the console.
+    ///
+    /// [Enable logging]: https://docs.cloud.google.com/rust/enable-logging
+    /// [tracing]: https://docs.rs/tracing
+    pub fn with_tracing(mut self) -> Self {
+        self.config.tracing = true;
+        self
+    }
+
     pub(crate) fn apply_default_credentials(&mut self) -> BuilderResult<()> {
         if self.config.cred.is_some() {
             return Ok(());
@@ -730,9 +744,9 @@ pub(crate) fn enc(value: &str) -> String {
 }
 
 pub(crate) fn apply_customer_supplied_encryption_headers(
-    builder: RequestBuilder,
+    builder: HttpRequestBuilder,
     common_object_request_params: &Option<crate::model::CommonObjectRequestParams>,
-) -> RequestBuilder {
+) -> HttpRequestBuilder {
     common_object_request_params.iter().fold(builder, |b, v| {
         b.header(
             "x-goog-encryption-algorithm",

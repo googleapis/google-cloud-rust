@@ -76,6 +76,10 @@ impl Batch {
         self.size() + Self::message_size(&next.msg) as u32 <= self.batching_options.byte_threshold
     }
 
+    pub(crate) fn can_fit(&self, msg: &crate::model::Message) -> bool {
+        (self.initial_size + Self::message_size(msg) as u32) <= self.batching_options.byte_threshold
+    }
+
     /// Drains the batch and spawns a task to send the messages.
     ///
     /// This method mutably drains the messages from the current batch, leaving it
@@ -115,7 +119,7 @@ impl Batch {
                 let e = Arc::new(e);
                 for tx in txs {
                     // The user may have dropped the handle, so it is ok if this fails.
-                    let _ = tx.send(Err(PublishError::SendError(e.clone())));
+                    let _ = tx.send(Err(PublishError::Rpc(e.clone())));
                 }
                 Err(crate::Error::io(e))
             }
@@ -140,6 +144,7 @@ mod tests {
         publisher::actor::BundledMessage,
         publisher::batch::{Batch, BatchingOptions},
     };
+    use google_cloud_test_macros::tokio_test_no_panics;
     use tokio::task::JoinSet;
 
     mockall::mock! {
@@ -150,7 +155,7 @@ mod tests {
         }
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics(start_paused = true)]
     async fn test_push_and_flush_batch() -> anyhow::Result<()> {
         let mut batch = Batch::new("topic".len() as u32, BatchingOptions::default());
         assert!(batch.is_empty());
@@ -175,11 +180,12 @@ mod tests {
         let mut inflight = JoinSet::new();
         batch.flush(client, "topic".to_string(), &mut inflight);
         assert_eq!(batch.len(), 0);
+        inflight.join_all().await;
 
         Ok(())
     }
 
-    #[tokio::test]
+    #[tokio_test_no_panics(start_paused = true)]
     async fn test_size() -> anyhow::Result<()> {
         use std::collections::HashMap;
 
@@ -215,6 +221,7 @@ mod tests {
         let mut inflight = JoinSet::new();
         batch.flush(client, "topic".to_string(), &mut inflight);
         assert_eq!(batch.size(), "topic".len() as u32);
+        inflight.join_all().await;
 
         Ok(())
     }

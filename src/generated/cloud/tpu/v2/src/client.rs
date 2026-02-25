@@ -121,11 +121,44 @@ impl Tpu {
     }
 
     /// Lists nodes.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::client::Tpu;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_tpu_v2::Result;
+    /// async fn sample(
+    ///    client: &Tpu, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_nodes()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_nodes(&self) -> super::builder::tpu::ListNodes {
         super::builder::tpu::ListNodes::new(self.inner.clone())
     }
 
     /// Gets the details of a node.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::client::Tpu;
+    /// use google_cloud_tpu_v2::Result;
+    /// async fn sample(
+    ///    client: &Tpu, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_node()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_node(&self) -> super::builder::tpu::GetNode {
         super::builder::tpu::GetNode::new(self.inner.clone())
     }
@@ -141,6 +174,26 @@ impl Tpu {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::client::Tpu;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_tpu_v2::model::Node;
+    /// use google_cloud_tpu_v2::Result;
+    /// async fn sample(
+    ///    client: &Tpu, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_node()
+    ///         .set_parent(parent).set_node_id("node_id_value")
+    ///         .set_node(
+    ///             Node::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_node(&self) -> super::builder::tpu::CreateNode {
         super::builder::tpu::CreateNode::new(self.inner.clone())
     }
@@ -156,6 +209,21 @@ impl Tpu {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::client::Tpu;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_tpu_v2::Result;
+    /// async fn sample(
+    ///    client: &Tpu, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_node()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_node(&self) -> super::builder::tpu::DeleteNode {
         super::builder::tpu::DeleteNode::new(self.inner.clone())
     }
@@ -171,6 +239,22 @@ impl Tpu {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::client::Tpu;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_tpu_v2::Result;
+    /// async fn sample(
+    ///    client: &Tpu
+    /// ) -> Result<()> {
+    ///     let response = client.stop_node()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn stop_node(&self) -> super::builder::tpu::StopNode {
         super::builder::tpu::StopNode::new(self.inner.clone())
     }
@@ -186,6 +270,22 @@ impl Tpu {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::client::Tpu;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_tpu_v2::Result;
+    /// async fn sample(
+    ///    client: &Tpu
+    /// ) -> Result<()> {
+    ///     let response = client.start_node()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn start_node(&self) -> super::builder::tpu::StartNode {
         super::builder::tpu::StartNode::new(self.inner.clone())
     }
@@ -201,16 +301,71 @@ impl Tpu {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::client::Tpu;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_tpu_v2::model::Node;
+    /// use google_cloud_tpu_v2::Result;
+    /// async fn sample(
+    ///    client: &Tpu, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_node()
+    ///         .set_node(
+    ///             Node::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_node(&self) -> super::builder::tpu::UpdateNode {
         super::builder::tpu::UpdateNode::new(self.inner.clone())
     }
 
     /// Lists queued resources.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::client::Tpu;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_tpu_v2::Result;
+    /// async fn sample(
+    ///    client: &Tpu, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_queued_resources()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_queued_resources(&self) -> super::builder::tpu::ListQueuedResources {
         super::builder::tpu::ListQueuedResources::new(self.inner.clone())
     }
 
     /// Gets details of a queued resource.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::client::Tpu;
+    /// use google_cloud_tpu_v2::Result;
+    /// async fn sample(
+    ///    client: &Tpu, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_queued_resource()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_queued_resource(&self) -> super::builder::tpu::GetQueuedResource {
         super::builder::tpu::GetQueuedResource::new(self.inner.clone())
     }
@@ -226,6 +381,26 @@ impl Tpu {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::client::Tpu;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_tpu_v2::model::QueuedResource;
+    /// use google_cloud_tpu_v2::Result;
+    /// async fn sample(
+    ///    client: &Tpu, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_queued_resource()
+    ///         .set_parent(parent)
+    ///         .set_queued_resource(
+    ///             QueuedResource::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_queued_resource(&self) -> super::builder::tpu::CreateQueuedResource {
         super::builder::tpu::CreateQueuedResource::new(self.inner.clone())
     }
@@ -241,6 +416,21 @@ impl Tpu {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::client::Tpu;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_tpu_v2::Result;
+    /// async fn sample(
+    ///    client: &Tpu, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_queued_resource()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_queued_resource(&self) -> super::builder::tpu::DeleteQueuedResource {
         super::builder::tpu::DeleteQueuedResource::new(self.inner.clone())
     }
@@ -256,46 +446,191 @@ impl Tpu {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::client::Tpu;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_tpu_v2::Result;
+    /// async fn sample(
+    ///    client: &Tpu
+    /// ) -> Result<()> {
+    ///     let response = client.reset_queued_resource()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn reset_queued_resource(&self) -> super::builder::tpu::ResetQueuedResource {
         super::builder::tpu::ResetQueuedResource::new(self.inner.clone())
     }
 
     /// Generates the Cloud TPU service identity for the project.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::client::Tpu;
+    /// use google_cloud_tpu_v2::Result;
+    /// async fn sample(
+    ///    client: &Tpu
+    /// ) -> Result<()> {
+    ///     let response = client.generate_service_identity()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn generate_service_identity(&self) -> super::builder::tpu::GenerateServiceIdentity {
         super::builder::tpu::GenerateServiceIdentity::new(self.inner.clone())
     }
 
     /// Lists accelerator types supported by this API.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::client::Tpu;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_tpu_v2::Result;
+    /// async fn sample(
+    ///    client: &Tpu, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_accelerator_types()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_accelerator_types(&self) -> super::builder::tpu::ListAcceleratorTypes {
         super::builder::tpu::ListAcceleratorTypes::new(self.inner.clone())
     }
 
     /// Gets AcceleratorType.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::client::Tpu;
+    /// use google_cloud_tpu_v2::Result;
+    /// async fn sample(
+    ///    client: &Tpu, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_accelerator_type()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_accelerator_type(&self) -> super::builder::tpu::GetAcceleratorType {
         super::builder::tpu::GetAcceleratorType::new(self.inner.clone())
     }
 
     /// Lists runtime versions supported by this API.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::client::Tpu;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_tpu_v2::Result;
+    /// async fn sample(
+    ///    client: &Tpu, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_runtime_versions()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_runtime_versions(&self) -> super::builder::tpu::ListRuntimeVersions {
         super::builder::tpu::ListRuntimeVersions::new(self.inner.clone())
     }
 
     /// Gets a runtime version.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::client::Tpu;
+    /// use google_cloud_tpu_v2::Result;
+    /// async fn sample(
+    ///    client: &Tpu, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_runtime_version()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_runtime_version(&self) -> super::builder::tpu::GetRuntimeVersion {
         super::builder::tpu::GetRuntimeVersion::new(self.inner.clone())
     }
 
     /// Retrieves the guest attributes for the node.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::client::Tpu;
+    /// use google_cloud_tpu_v2::Result;
+    /// async fn sample(
+    ///    client: &Tpu
+    /// ) -> Result<()> {
+    ///     let response = client.get_guest_attributes()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_guest_attributes(&self) -> super::builder::tpu::GetGuestAttributes {
         super::builder::tpu::GetGuestAttributes::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::client::Tpu;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_tpu_v2::Result;
+    /// async fn sample(
+    ///    client: &Tpu
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::tpu::ListLocations {
         super::builder::tpu::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::client::Tpu;
+    /// use google_cloud_tpu_v2::Result;
+    /// async fn sample(
+    ///    client: &Tpu
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::tpu::GetLocation {
         super::builder::tpu::GetLocation::new(self.inner.clone())
     }
@@ -303,6 +638,24 @@ impl Tpu {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::client::Tpu;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_tpu_v2::Result;
+    /// async fn sample(
+    ///    client: &Tpu
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::tpu::ListOperations {
         super::builder::tpu::ListOperations::new(self.inner.clone())
     }
@@ -310,6 +663,21 @@ impl Tpu {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::client::Tpu;
+    /// use google_cloud_tpu_v2::Result;
+    /// async fn sample(
+    ///    client: &Tpu
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::tpu::GetOperation {
         super::builder::tpu::GetOperation::new(self.inner.clone())
     }
@@ -317,6 +685,20 @@ impl Tpu {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::client::Tpu;
+    /// use google_cloud_tpu_v2::Result;
+    /// async fn sample(
+    ///    client: &Tpu
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::tpu::DeleteOperation {
         super::builder::tpu::DeleteOperation::new(self.inner.clone())
     }
@@ -324,6 +706,20 @@ impl Tpu {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::client::Tpu;
+    /// use google_cloud_tpu_v2::Result;
+    /// async fn sample(
+    ///    client: &Tpu
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::tpu::CancelOperation {
         super::builder::tpu::CancelOperation::new(self.inner.clone())
     }

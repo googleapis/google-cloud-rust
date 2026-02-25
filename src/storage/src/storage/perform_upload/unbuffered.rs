@@ -18,9 +18,12 @@ use super::{
     handle_object_response, v1,
 };
 use futures::stream::unfold;
-use gaxi::http::{
-    map_send_error,
-    reqwest::{Body, HeaderValue, Method, RequestBuilder, multipart},
+use gaxi::{
+    attempt_info::AttemptInfo,
+    http::{
+        HttpRequestBuilder,
+        reqwest::{Body, HeaderValue, Method, multipart},
+    },
 };
 use std::sync::Arc;
 
@@ -51,8 +54,15 @@ where
         let throttler = self.options.retry_throttler.clone();
         let retry = Arc::new(ContinueOn308::new(self.options.retry_policy.clone()));
         let backoff = self.options.backoff_policy.clone();
+        let mut count = 0_u32;
+        let inner = async move |_| {
+            let previous = count;
+            count += 1;
+            self.resumable_attempt(&mut upload_url, hint.clone(), previous)
+                .await
+        };
         google_cloud_gax::retry_loop_internal::retry_loop(
-            async move |_| self.resumable_attempt(&mut upload_url, hint.clone()).await,
+            inner,
             async |duration| tokio::time::sleep(duration).await,
             true,
             throttler,
@@ -62,9 +72,17 @@ where
         .await
     }
 
-    async fn resumable_attempt(&self, url: &mut Option<String>, hint: SizeHint) -> Result<Object> {
-        let (offset, url_ref) = if let Some(upload_url) = url.as_deref() {
-            match self.query_resumable_upload_attempt(upload_url).await? {
+    async fn resumable_attempt(
+        &self,
+        url: &mut Option<String>,
+        hint: SizeHint,
+        attempt_count: u32,
+    ) -> Result<Object> {
+        let (offset, upload_url) = if let Some(upload_url) = url.as_deref() {
+            match self
+                .query_resumable_upload_attempt(upload_url, attempt_count)
+                .await?
+            {
                 ResumableUploadStatus::Finalized(object) => {
                     return Ok(*object);
                 }
@@ -83,7 +101,7 @@ where
         let builder = self
             .inner
             .client
-            .builder_with_url(Method::PUT, url_ref)
+            .http_builder_with_url(Method::PUT, upload_url, crate::storage::DEFAULT_HOST)?
             .header("content-type", "application/octet-stream")
             .header("Content-Range", range)
             .header(
@@ -92,7 +110,6 @@ where
             );
 
         let builder = apply_customer_supplied_encryption_headers(builder, &self.params);
-        let builder = self.inner.apply_auth_headers(builder).await?;
 
         self.payload
             .lock()
@@ -102,7 +119,9 @@ where
             .map_err(Error::ser)?;
         let payload = self.payload_to_body().await?;
         let builder = builder.body(payload);
-        let response = builder.send().await.map_err(map_send_error)?;
+        let response = builder
+            .send(self.options.gax(), AttemptInfo::new(attempt_count))
+            .await?;
         let object = self::handle_object_response(response).await?;
         self.validate_response_object(object).await
     }
@@ -115,9 +134,15 @@ where
         let throttler = self.options.retry_throttler.clone();
         let retry = self.options.retry_policy.clone();
         let backoff = self.options.backoff_policy.clone();
+        let mut count = 0;
+        // TODO(#2044) - we need to apply any timeouts here.
+        let inner = async move |_| {
+            let previous = count;
+            count += 1;
+            self.single_shot_attempt(hint.clone(), previous).await
+        };
         google_cloud_gax::retry_loop_internal::retry_loop(
-            // TODO(#2044) - we need to apply any timeouts here.
-            async move |_| self.single_shot_attempt(hint.clone()).await,
+            inner,
             async |duration| tokio::time::sleep(duration).await,
             idempotent,
             throttler,
@@ -127,14 +152,17 @@ where
         .await
     }
 
-    async fn single_shot_attempt(&self, hint: SizeHint) -> Result<Object> {
+    async fn single_shot_attempt(&self, hint: SizeHint, attempt_count: u32) -> Result<Object> {
         let builder = self.single_shot_builder(hint).await?;
-        let response = builder.send().await.map_err(map_send_error)?;
+        let options = self.options.gax();
+        let response = builder
+            .send(options, AttemptInfo::new(attempt_count))
+            .await?;
         let object = super::handle_object_response(response).await?;
         self.validate_response_object(object).await
     }
 
-    async fn single_shot_builder(&self, hint: SizeHint) -> Result<RequestBuilder> {
+    async fn single_shot_builder(&self, hint: SizeHint) -> Result<HttpRequestBuilder> {
         let bucket = &self.resource().bucket;
         let bucket_id = bucket.strip_prefix("projects/_/buckets/").ok_or_else(|| {
             Error::binding(format!(
@@ -145,9 +173,9 @@ where
         let builder = self
             .inner
             .client
-            .builder(Method::POST, format!("/upload/storage/v1/b/{bucket_id}/o"))
-            .query(&[("uploadType", "multipart")])
-            .query(&[("name", object)])
+            .http_builder(Method::POST, &format!("/upload/storage/v1/b/{bucket_id}/o"))
+            .query("uploadType", "multipart")
+            .query("name", object)
             .header(
                 "x-goog-api-client",
                 HeaderValue::from_static(&X_GOOG_API_CLIENT_HEADER),
@@ -155,7 +183,6 @@ where
 
         let builder = self.apply_preconditions(builder);
         let builder = apply_customer_supplied_encryption_headers(builder, &self.params);
-        let builder = self.inner.apply_auth_headers(builder).await?;
 
         let metadata = multipart::Part::text(v1::insert_body(self.resource()).to_string())
             .mime_str("application/json; charset=UTF-8")

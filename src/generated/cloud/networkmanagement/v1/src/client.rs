@@ -127,6 +127,24 @@ impl ReachabilityService {
     }
 
     /// Lists all Connectivity Tests owned by a project.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::client::ReachabilityService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_networkmanagement_v1::Result;
+    /// async fn sample(
+    ///    client: &ReachabilityService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_connectivity_tests()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_connectivity_tests(
         &self,
     ) -> super::builder::reachability_service::ListConnectivityTests {
@@ -134,6 +152,21 @@ impl ReachabilityService {
     }
 
     /// Gets the details of a specific Connectivity Test.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::client::ReachabilityService;
+    /// use google_cloud_networkmanagement_v1::Result;
+    /// async fn sample(
+    ///    client: &ReachabilityService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_connectivity_test()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_connectivity_test(
         &self,
     ) -> super::builder::reachability_service::GetConnectivityTest {
@@ -163,6 +196,26 @@ impl ReachabilityService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::client::ReachabilityService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_networkmanagement_v1::model::ConnectivityTest;
+    /// use google_cloud_networkmanagement_v1::Result;
+    /// async fn sample(
+    ///    client: &ReachabilityService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_connectivity_test()
+    ///         .set_parent(parent)
+    ///         .set_resource(
+    ///             ConnectivityTest::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_connectivity_test(
         &self,
     ) -> super::builder::reachability_service::CreateConnectivityTest {
@@ -193,6 +246,28 @@ impl ReachabilityService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::client::ReachabilityService;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_networkmanagement_v1::model::ConnectivityTest;
+    /// use google_cloud_networkmanagement_v1::Result;
+    /// async fn sample(
+    ///    client: &ReachabilityService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_connectivity_test()
+    ///         .set_resource(
+    ///             ConnectivityTest::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_connectivity_test(
         &self,
     ) -> super::builder::reachability_service::UpdateConnectivityTest {
@@ -221,6 +296,22 @@ impl ReachabilityService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::client::ReachabilityService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_networkmanagement_v1::Result;
+    /// async fn sample(
+    ///    client: &ReachabilityService
+    /// ) -> Result<()> {
+    ///     let response = client.rerun_connectivity_test()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn rerun_connectivity_test(
         &self,
     ) -> super::builder::reachability_service::RerunConnectivityTest {
@@ -238,6 +329,21 @@ impl ReachabilityService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::client::ReachabilityService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_networkmanagement_v1::Result;
+    /// async fn sample(
+    ///    client: &ReachabilityService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_connectivity_test()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_connectivity_test(
         &self,
     ) -> super::builder::reachability_service::DeleteConnectivityTest {
@@ -245,11 +351,44 @@ impl ReachabilityService {
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::client::ReachabilityService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_networkmanagement_v1::Result;
+    /// async fn sample(
+    ///    client: &ReachabilityService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::reachability_service::ListLocations {
         super::builder::reachability_service::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::client::ReachabilityService;
+    /// use google_cloud_networkmanagement_v1::Result;
+    /// async fn sample(
+    ///    client: &ReachabilityService
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::reachability_service::GetLocation {
         super::builder::reachability_service::GetLocation::new(self.inner.clone())
     }
@@ -259,12 +398,42 @@ impl ReachabilityService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::client::ReachabilityService;
+    /// use google_cloud_networkmanagement_v1::Result;
+    /// async fn sample(
+    ///    client: &ReachabilityService
+    /// ) -> Result<()> {
+    ///     let response = client.set_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::reachability_service::SetIamPolicy {
         super::builder::reachability_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::client::ReachabilityService;
+    /// use google_cloud_networkmanagement_v1::Result;
+    /// async fn sample(
+    ///    client: &ReachabilityService
+    /// ) -> Result<()> {
+    ///     let response = client.get_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::reachability_service::GetIamPolicy {
         super::builder::reachability_service::GetIamPolicy::new(self.inner.clone())
     }
@@ -276,6 +445,21 @@ impl ReachabilityService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::client::ReachabilityService;
+    /// use google_cloud_networkmanagement_v1::Result;
+    /// async fn sample(
+    ///    client: &ReachabilityService
+    /// ) -> Result<()> {
+    ///     let response = client.test_iam_permissions()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::reachability_service::TestIamPermissions {
         super::builder::reachability_service::TestIamPermissions::new(self.inner.clone())
     }
@@ -283,6 +467,24 @@ impl ReachabilityService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::client::ReachabilityService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_networkmanagement_v1::Result;
+    /// async fn sample(
+    ///    client: &ReachabilityService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::reachability_service::ListOperations {
         super::builder::reachability_service::ListOperations::new(self.inner.clone())
     }
@@ -290,6 +492,21 @@ impl ReachabilityService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::client::ReachabilityService;
+    /// use google_cloud_networkmanagement_v1::Result;
+    /// async fn sample(
+    ///    client: &ReachabilityService
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::reachability_service::GetOperation {
         super::builder::reachability_service::GetOperation::new(self.inner.clone())
     }
@@ -297,6 +514,20 @@ impl ReachabilityService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::client::ReachabilityService;
+    /// use google_cloud_networkmanagement_v1::Result;
+    /// async fn sample(
+    ///    client: &ReachabilityService
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::reachability_service::DeleteOperation {
         super::builder::reachability_service::DeleteOperation::new(self.inner.clone())
     }
@@ -304,6 +535,20 @@ impl ReachabilityService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::client::ReachabilityService;
+    /// use google_cloud_networkmanagement_v1::Result;
+    /// async fn sample(
+    ///    client: &ReachabilityService
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::reachability_service::CancelOperation {
         super::builder::reachability_service::CancelOperation::new(self.inner.clone())
     }
@@ -415,6 +660,24 @@ impl VpcFlowLogsService {
     }
 
     /// Lists all `VpcFlowLogsConfigs` in a given project.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::client::VpcFlowLogsService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_networkmanagement_v1::Result;
+    /// async fn sample(
+    ///    client: &VpcFlowLogsService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_vpc_flow_logs_configs()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_vpc_flow_logs_configs(
         &self,
     ) -> super::builder::vpc_flow_logs_service::ListVpcFlowLogsConfigs {
@@ -422,6 +685,21 @@ impl VpcFlowLogsService {
     }
 
     /// Gets the details of a specific `VpcFlowLogsConfig`.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::client::VpcFlowLogsService;
+    /// use google_cloud_networkmanagement_v1::Result;
+    /// async fn sample(
+    ///    client: &VpcFlowLogsService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_vpc_flow_logs_config()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_vpc_flow_logs_config(
         &self,
     ) -> super::builder::vpc_flow_logs_service::GetVpcFlowLogsConfig {
@@ -453,6 +731,26 @@ impl VpcFlowLogsService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::client::VpcFlowLogsService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_networkmanagement_v1::model::VpcFlowLogsConfig;
+    /// use google_cloud_networkmanagement_v1::Result;
+    /// async fn sample(
+    ///    client: &VpcFlowLogsService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_vpc_flow_logs_config()
+    ///         .set_parent(parent)
+    ///         .set_vpc_flow_logs_config(
+    ///             VpcFlowLogsConfig::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_vpc_flow_logs_config(
         &self,
     ) -> super::builder::vpc_flow_logs_service::CreateVpcFlowLogsConfig {
@@ -484,6 +782,28 @@ impl VpcFlowLogsService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::client::VpcFlowLogsService;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_networkmanagement_v1::model::VpcFlowLogsConfig;
+    /// use google_cloud_networkmanagement_v1::Result;
+    /// async fn sample(
+    ///    client: &VpcFlowLogsService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_vpc_flow_logs_config()
+    ///         .set_vpc_flow_logs_config(
+    ///             VpcFlowLogsConfig::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_vpc_flow_logs_config(
         &self,
     ) -> super::builder::vpc_flow_logs_service::UpdateVpcFlowLogsConfig {
@@ -501,6 +821,21 @@ impl VpcFlowLogsService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::client::VpcFlowLogsService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_networkmanagement_v1::Result;
+    /// async fn sample(
+    ///    client: &VpcFlowLogsService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_vpc_flow_logs_config()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_vpc_flow_logs_config(
         &self,
     ) -> super::builder::vpc_flow_logs_service::DeleteVpcFlowLogsConfig {
@@ -509,6 +844,24 @@ impl VpcFlowLogsService {
 
     /// QueryOrgVpcFlowLogsConfigs returns a list of all organization-level VPC
     /// Flow Logs configurations applicable to the specified project.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::client::VpcFlowLogsService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_networkmanagement_v1::Result;
+    /// async fn sample(
+    ///    client: &VpcFlowLogsService
+    /// ) -> Result<()> {
+    ///     let mut list = client.query_org_vpc_flow_logs_configs()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn query_org_vpc_flow_logs_configs(
         &self,
     ) -> super::builder::vpc_flow_logs_service::QueryOrgVpcFlowLogsConfigs {
@@ -517,6 +870,24 @@ impl VpcFlowLogsService {
 
     /// ShowEffectiveFlowLogsConfigs returns a list of all VPC Flow Logs
     /// configurations applicable to a specified resource.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::client::VpcFlowLogsService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_networkmanagement_v1::Result;
+    /// async fn sample(
+    ///    client: &VpcFlowLogsService
+    /// ) -> Result<()> {
+    ///     let mut list = client.show_effective_flow_logs_configs()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn show_effective_flow_logs_configs(
         &self,
     ) -> super::builder::vpc_flow_logs_service::ShowEffectiveFlowLogsConfigs {
@@ -524,11 +895,44 @@ impl VpcFlowLogsService {
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::client::VpcFlowLogsService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_networkmanagement_v1::Result;
+    /// async fn sample(
+    ///    client: &VpcFlowLogsService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::vpc_flow_logs_service::ListLocations {
         super::builder::vpc_flow_logs_service::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::client::VpcFlowLogsService;
+    /// use google_cloud_networkmanagement_v1::Result;
+    /// async fn sample(
+    ///    client: &VpcFlowLogsService
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::vpc_flow_logs_service::GetLocation {
         super::builder::vpc_flow_logs_service::GetLocation::new(self.inner.clone())
     }
@@ -538,12 +942,42 @@ impl VpcFlowLogsService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::client::VpcFlowLogsService;
+    /// use google_cloud_networkmanagement_v1::Result;
+    /// async fn sample(
+    ///    client: &VpcFlowLogsService
+    /// ) -> Result<()> {
+    ///     let response = client.set_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::vpc_flow_logs_service::SetIamPolicy {
         super::builder::vpc_flow_logs_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::client::VpcFlowLogsService;
+    /// use google_cloud_networkmanagement_v1::Result;
+    /// async fn sample(
+    ///    client: &VpcFlowLogsService
+    /// ) -> Result<()> {
+    ///     let response = client.get_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::vpc_flow_logs_service::GetIamPolicy {
         super::builder::vpc_flow_logs_service::GetIamPolicy::new(self.inner.clone())
     }
@@ -555,6 +989,21 @@ impl VpcFlowLogsService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::client::VpcFlowLogsService;
+    /// use google_cloud_networkmanagement_v1::Result;
+    /// async fn sample(
+    ///    client: &VpcFlowLogsService
+    /// ) -> Result<()> {
+    ///     let response = client.test_iam_permissions()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(
         &self,
     ) -> super::builder::vpc_flow_logs_service::TestIamPermissions {
@@ -564,6 +1013,24 @@ impl VpcFlowLogsService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::client::VpcFlowLogsService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_networkmanagement_v1::Result;
+    /// async fn sample(
+    ///    client: &VpcFlowLogsService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::vpc_flow_logs_service::ListOperations {
         super::builder::vpc_flow_logs_service::ListOperations::new(self.inner.clone())
     }
@@ -571,6 +1038,21 @@ impl VpcFlowLogsService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::client::VpcFlowLogsService;
+    /// use google_cloud_networkmanagement_v1::Result;
+    /// async fn sample(
+    ///    client: &VpcFlowLogsService
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::vpc_flow_logs_service::GetOperation {
         super::builder::vpc_flow_logs_service::GetOperation::new(self.inner.clone())
     }
@@ -578,6 +1060,20 @@ impl VpcFlowLogsService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::client::VpcFlowLogsService;
+    /// use google_cloud_networkmanagement_v1::Result;
+    /// async fn sample(
+    ///    client: &VpcFlowLogsService
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::vpc_flow_logs_service::DeleteOperation {
         super::builder::vpc_flow_logs_service::DeleteOperation::new(self.inner.clone())
     }
@@ -585,6 +1081,20 @@ impl VpcFlowLogsService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::client::VpcFlowLogsService;
+    /// use google_cloud_networkmanagement_v1::Result;
+    /// async fn sample(
+    ///    client: &VpcFlowLogsService
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::vpc_flow_logs_service::CancelOperation {
         super::builder::vpc_flow_logs_service::CancelOperation::new(self.inner.clone())
     }
@@ -700,6 +1210,24 @@ impl OrganizationVpcFlowLogsService {
     }
 
     /// Lists all `VpcFlowLogsConfigs` in a given organization.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::client::OrganizationVpcFlowLogsService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_networkmanagement_v1::Result;
+    /// async fn sample(
+    ///    client: &OrganizationVpcFlowLogsService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_vpc_flow_logs_configs()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_vpc_flow_logs_configs(
         &self,
     ) -> super::builder::organization_vpc_flow_logs_service::ListVpcFlowLogsConfigs {
@@ -709,6 +1237,21 @@ impl OrganizationVpcFlowLogsService {
     }
 
     /// Gets the details of a specific `VpcFlowLogsConfig`.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::client::OrganizationVpcFlowLogsService;
+    /// use google_cloud_networkmanagement_v1::Result;
+    /// async fn sample(
+    ///    client: &OrganizationVpcFlowLogsService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_vpc_flow_logs_config()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_vpc_flow_logs_config(
         &self,
     ) -> super::builder::organization_vpc_flow_logs_service::GetVpcFlowLogsConfig {
@@ -742,6 +1285,26 @@ impl OrganizationVpcFlowLogsService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::client::OrganizationVpcFlowLogsService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_networkmanagement_v1::model::VpcFlowLogsConfig;
+    /// use google_cloud_networkmanagement_v1::Result;
+    /// async fn sample(
+    ///    client: &OrganizationVpcFlowLogsService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_vpc_flow_logs_config()
+    ///         .set_parent(parent)
+    ///         .set_vpc_flow_logs_config(
+    ///             VpcFlowLogsConfig::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_vpc_flow_logs_config(
         &self,
     ) -> super::builder::organization_vpc_flow_logs_service::CreateVpcFlowLogsConfig {
@@ -775,6 +1338,28 @@ impl OrganizationVpcFlowLogsService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::client::OrganizationVpcFlowLogsService;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_networkmanagement_v1::model::VpcFlowLogsConfig;
+    /// use google_cloud_networkmanagement_v1::Result;
+    /// async fn sample(
+    ///    client: &OrganizationVpcFlowLogsService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_vpc_flow_logs_config()
+    ///         .set_vpc_flow_logs_config(
+    ///             VpcFlowLogsConfig::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_vpc_flow_logs_config(
         &self,
     ) -> super::builder::organization_vpc_flow_logs_service::UpdateVpcFlowLogsConfig {
@@ -794,6 +1379,21 @@ impl OrganizationVpcFlowLogsService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::client::OrganizationVpcFlowLogsService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_networkmanagement_v1::Result;
+    /// async fn sample(
+    ///    client: &OrganizationVpcFlowLogsService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_vpc_flow_logs_config()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_vpc_flow_logs_config(
         &self,
     ) -> super::builder::organization_vpc_flow_logs_service::DeleteVpcFlowLogsConfig {
@@ -803,6 +1403,24 @@ impl OrganizationVpcFlowLogsService {
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::client::OrganizationVpcFlowLogsService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_networkmanagement_v1::Result;
+    /// async fn sample(
+    ///    client: &OrganizationVpcFlowLogsService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(
         &self,
     ) -> super::builder::organization_vpc_flow_logs_service::ListLocations {
@@ -810,6 +1428,21 @@ impl OrganizationVpcFlowLogsService {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::client::OrganizationVpcFlowLogsService;
+    /// use google_cloud_networkmanagement_v1::Result;
+    /// async fn sample(
+    ///    client: &OrganizationVpcFlowLogsService
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::organization_vpc_flow_logs_service::GetLocation {
         super::builder::organization_vpc_flow_logs_service::GetLocation::new(self.inner.clone())
     }
@@ -819,6 +1452,21 @@ impl OrganizationVpcFlowLogsService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::client::OrganizationVpcFlowLogsService;
+    /// use google_cloud_networkmanagement_v1::Result;
+    /// async fn sample(
+    ///    client: &OrganizationVpcFlowLogsService
+    /// ) -> Result<()> {
+    ///     let response = client.set_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(
         &self,
     ) -> super::builder::organization_vpc_flow_logs_service::SetIamPolicy {
@@ -827,6 +1475,21 @@ impl OrganizationVpcFlowLogsService {
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::client::OrganizationVpcFlowLogsService;
+    /// use google_cloud_networkmanagement_v1::Result;
+    /// async fn sample(
+    ///    client: &OrganizationVpcFlowLogsService
+    /// ) -> Result<()> {
+    ///     let response = client.get_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(
         &self,
     ) -> super::builder::organization_vpc_flow_logs_service::GetIamPolicy {
@@ -840,6 +1503,21 @@ impl OrganizationVpcFlowLogsService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::client::OrganizationVpcFlowLogsService;
+    /// use google_cloud_networkmanagement_v1::Result;
+    /// async fn sample(
+    ///    client: &OrganizationVpcFlowLogsService
+    /// ) -> Result<()> {
+    ///     let response = client.test_iam_permissions()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(
         &self,
     ) -> super::builder::organization_vpc_flow_logs_service::TestIamPermissions {
@@ -851,6 +1529,24 @@ impl OrganizationVpcFlowLogsService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::client::OrganizationVpcFlowLogsService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_networkmanagement_v1::Result;
+    /// async fn sample(
+    ///    client: &OrganizationVpcFlowLogsService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(
         &self,
     ) -> super::builder::organization_vpc_flow_logs_service::ListOperations {
@@ -860,6 +1556,21 @@ impl OrganizationVpcFlowLogsService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::client::OrganizationVpcFlowLogsService;
+    /// use google_cloud_networkmanagement_v1::Result;
+    /// async fn sample(
+    ///    client: &OrganizationVpcFlowLogsService
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(
         &self,
     ) -> super::builder::organization_vpc_flow_logs_service::GetOperation {
@@ -869,6 +1580,20 @@ impl OrganizationVpcFlowLogsService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::client::OrganizationVpcFlowLogsService;
+    /// use google_cloud_networkmanagement_v1::Result;
+    /// async fn sample(
+    ///    client: &OrganizationVpcFlowLogsService
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(
         &self,
     ) -> super::builder::organization_vpc_flow_logs_service::DeleteOperation {
@@ -878,6 +1603,20 @@ impl OrganizationVpcFlowLogsService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::client::OrganizationVpcFlowLogsService;
+    /// use google_cloud_networkmanagement_v1::Result;
+    /// async fn sample(
+    ///    client: &OrganizationVpcFlowLogsService
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(
         &self,
     ) -> super::builder::organization_vpc_flow_logs_service::CancelOperation {

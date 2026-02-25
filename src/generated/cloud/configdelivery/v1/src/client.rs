@@ -120,11 +120,44 @@ impl ConfigDelivery {
     }
 
     /// Lists ResourceBundles in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_configdelivery_v1::client::ConfigDelivery;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_configdelivery_v1::Result;
+    /// async fn sample(
+    ///    client: &ConfigDelivery, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_resource_bundles()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_resource_bundles(&self) -> super::builder::config_delivery::ListResourceBundles {
         super::builder::config_delivery::ListResourceBundles::new(self.inner.clone())
     }
 
     /// Gets details of a single ResourceBundle.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_configdelivery_v1::client::ConfigDelivery;
+    /// use google_cloud_configdelivery_v1::Result;
+    /// async fn sample(
+    ///    client: &ConfigDelivery, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_resource_bundle()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_resource_bundle(&self) -> super::builder::config_delivery::GetResourceBundle {
         super::builder::config_delivery::GetResourceBundle::new(self.inner.clone())
     }
@@ -140,6 +173,26 @@ impl ConfigDelivery {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_configdelivery_v1::client::ConfigDelivery;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_configdelivery_v1::model::ResourceBundle;
+    /// use google_cloud_configdelivery_v1::Result;
+    /// async fn sample(
+    ///    client: &ConfigDelivery, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_resource_bundle()
+    ///         .set_parent(parent)
+    ///         .set_resource_bundle(
+    ///             ResourceBundle::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_resource_bundle(&self) -> super::builder::config_delivery::CreateResourceBundle {
         super::builder::config_delivery::CreateResourceBundle::new(self.inner.clone())
     }
@@ -155,6 +208,28 @@ impl ConfigDelivery {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_configdelivery_v1::client::ConfigDelivery;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_configdelivery_v1::model::ResourceBundle;
+    /// use google_cloud_configdelivery_v1::Result;
+    /// async fn sample(
+    ///    client: &ConfigDelivery, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_resource_bundle()
+    ///         .set_resource_bundle(
+    ///             ResourceBundle::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_resource_bundle(&self) -> super::builder::config_delivery::UpdateResourceBundle {
         super::builder::config_delivery::UpdateResourceBundle::new(self.inner.clone())
     }
@@ -170,16 +245,64 @@ impl ConfigDelivery {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_configdelivery_v1::client::ConfigDelivery;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_configdelivery_v1::Result;
+    /// async fn sample(
+    ///    client: &ConfigDelivery, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_resource_bundle()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_resource_bundle(&self) -> super::builder::config_delivery::DeleteResourceBundle {
         super::builder::config_delivery::DeleteResourceBundle::new(self.inner.clone())
     }
 
     /// Lists FleetPackages in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_configdelivery_v1::client::ConfigDelivery;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_configdelivery_v1::Result;
+    /// async fn sample(
+    ///    client: &ConfigDelivery, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_fleet_packages()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_fleet_packages(&self) -> super::builder::config_delivery::ListFleetPackages {
         super::builder::config_delivery::ListFleetPackages::new(self.inner.clone())
     }
 
     /// Gets details of a single FleetPackage.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_configdelivery_v1::client::ConfigDelivery;
+    /// use google_cloud_configdelivery_v1::Result;
+    /// async fn sample(
+    ///    client: &ConfigDelivery, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_fleet_package()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_fleet_package(&self) -> super::builder::config_delivery::GetFleetPackage {
         super::builder::config_delivery::GetFleetPackage::new(self.inner.clone())
     }
@@ -195,6 +318,26 @@ impl ConfigDelivery {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_configdelivery_v1::client::ConfigDelivery;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_configdelivery_v1::model::FleetPackage;
+    /// use google_cloud_configdelivery_v1::Result;
+    /// async fn sample(
+    ///    client: &ConfigDelivery, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_fleet_package()
+    ///         .set_parent(parent)
+    ///         .set_fleet_package(
+    ///             FleetPackage::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_fleet_package(&self) -> super::builder::config_delivery::CreateFleetPackage {
         super::builder::config_delivery::CreateFleetPackage::new(self.inner.clone())
     }
@@ -210,6 +353,28 @@ impl ConfigDelivery {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_configdelivery_v1::client::ConfigDelivery;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_configdelivery_v1::model::FleetPackage;
+    /// use google_cloud_configdelivery_v1::Result;
+    /// async fn sample(
+    ///    client: &ConfigDelivery, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_fleet_package()
+    ///         .set_fleet_package(
+    ///             FleetPackage::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_fleet_package(&self) -> super::builder::config_delivery::UpdateFleetPackage {
         super::builder::config_delivery::UpdateFleetPackage::new(self.inner.clone())
     }
@@ -225,16 +390,64 @@ impl ConfigDelivery {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_configdelivery_v1::client::ConfigDelivery;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_configdelivery_v1::Result;
+    /// async fn sample(
+    ///    client: &ConfigDelivery, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_fleet_package()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_fleet_package(&self) -> super::builder::config_delivery::DeleteFleetPackage {
         super::builder::config_delivery::DeleteFleetPackage::new(self.inner.clone())
     }
 
     /// Lists Releases in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_configdelivery_v1::client::ConfigDelivery;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_configdelivery_v1::Result;
+    /// async fn sample(
+    ///    client: &ConfigDelivery, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_releases()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_releases(&self) -> super::builder::config_delivery::ListReleases {
         super::builder::config_delivery::ListReleases::new(self.inner.clone())
     }
 
     /// Gets details of a single Release.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_configdelivery_v1::client::ConfigDelivery;
+    /// use google_cloud_configdelivery_v1::Result;
+    /// async fn sample(
+    ///    client: &ConfigDelivery, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_release()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_release(&self) -> super::builder::config_delivery::GetRelease {
         super::builder::config_delivery::GetRelease::new(self.inner.clone())
     }
@@ -250,6 +463,26 @@ impl ConfigDelivery {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_configdelivery_v1::client::ConfigDelivery;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_configdelivery_v1::model::Release;
+    /// use google_cloud_configdelivery_v1::Result;
+    /// async fn sample(
+    ///    client: &ConfigDelivery, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_release()
+    ///         .set_parent(parent).set_release_id("release_id_value")
+    ///         .set_release(
+    ///             Release::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_release(&self) -> super::builder::config_delivery::CreateRelease {
         super::builder::config_delivery::CreateRelease::new(self.inner.clone())
     }
@@ -265,6 +498,28 @@ impl ConfigDelivery {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_configdelivery_v1::client::ConfigDelivery;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_configdelivery_v1::model::Release;
+    /// use google_cloud_configdelivery_v1::Result;
+    /// async fn sample(
+    ///    client: &ConfigDelivery, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_release()
+    ///         .set_release(
+    ///             Release::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_release(&self) -> super::builder::config_delivery::UpdateRelease {
         super::builder::config_delivery::UpdateRelease::new(self.inner.clone())
     }
@@ -280,16 +535,64 @@ impl ConfigDelivery {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_configdelivery_v1::client::ConfigDelivery;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_configdelivery_v1::Result;
+    /// async fn sample(
+    ///    client: &ConfigDelivery, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_release()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_release(&self) -> super::builder::config_delivery::DeleteRelease {
         super::builder::config_delivery::DeleteRelease::new(self.inner.clone())
     }
 
     /// Lists Variants in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_configdelivery_v1::client::ConfigDelivery;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_configdelivery_v1::Result;
+    /// async fn sample(
+    ///    client: &ConfigDelivery, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_variants()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_variants(&self) -> super::builder::config_delivery::ListVariants {
         super::builder::config_delivery::ListVariants::new(self.inner.clone())
     }
 
     /// Gets details of a single Variant.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_configdelivery_v1::client::ConfigDelivery;
+    /// use google_cloud_configdelivery_v1::Result;
+    /// async fn sample(
+    ///    client: &ConfigDelivery, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_variant()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_variant(&self) -> super::builder::config_delivery::GetVariant {
         super::builder::config_delivery::GetVariant::new(self.inner.clone())
     }
@@ -306,6 +609,26 @@ impl ConfigDelivery {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_configdelivery_v1::client::ConfigDelivery;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_configdelivery_v1::model::Variant;
+    /// use google_cloud_configdelivery_v1::Result;
+    /// async fn sample(
+    ///    client: &ConfigDelivery, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_variant()
+    ///         .set_parent(parent).set_variant_id("variant_id_value")
+    ///         .set_variant(
+    ///             Variant::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_variant(&self) -> super::builder::config_delivery::CreateVariant {
         super::builder::config_delivery::CreateVariant::new(self.inner.clone())
     }
@@ -321,6 +644,28 @@ impl ConfigDelivery {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_configdelivery_v1::client::ConfigDelivery;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_configdelivery_v1::model::Variant;
+    /// use google_cloud_configdelivery_v1::Result;
+    /// async fn sample(
+    ///    client: &ConfigDelivery, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_variant()
+    ///         .set_variant(
+    ///             Variant::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_variant(&self) -> super::builder::config_delivery::UpdateVariant {
         super::builder::config_delivery::UpdateVariant::new(self.inner.clone())
     }
@@ -336,16 +681,64 @@ impl ConfigDelivery {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_configdelivery_v1::client::ConfigDelivery;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_configdelivery_v1::Result;
+    /// async fn sample(
+    ///    client: &ConfigDelivery, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_variant()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_variant(&self) -> super::builder::config_delivery::DeleteVariant {
         super::builder::config_delivery::DeleteVariant::new(self.inner.clone())
     }
 
     /// Lists Rollouts in a given project, location, and Fleet Package.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_configdelivery_v1::client::ConfigDelivery;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_configdelivery_v1::Result;
+    /// async fn sample(
+    ///    client: &ConfigDelivery, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_rollouts()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_rollouts(&self) -> super::builder::config_delivery::ListRollouts {
         super::builder::config_delivery::ListRollouts::new(self.inner.clone())
     }
 
     /// Gets details of a single Rollout.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_configdelivery_v1::client::ConfigDelivery;
+    /// use google_cloud_configdelivery_v1::Result;
+    /// async fn sample(
+    ///    client: &ConfigDelivery, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_rollout()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_rollout(&self) -> super::builder::config_delivery::GetRollout {
         super::builder::config_delivery::GetRollout::new(self.inner.clone())
     }
@@ -361,6 +754,22 @@ impl ConfigDelivery {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_configdelivery_v1::client::ConfigDelivery;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_configdelivery_v1::Result;
+    /// async fn sample(
+    ///    client: &ConfigDelivery
+    /// ) -> Result<()> {
+    ///     let response = client.suspend_rollout()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn suspend_rollout(&self) -> super::builder::config_delivery::SuspendRollout {
         super::builder::config_delivery::SuspendRollout::new(self.inner.clone())
     }
@@ -376,6 +785,22 @@ impl ConfigDelivery {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_configdelivery_v1::client::ConfigDelivery;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_configdelivery_v1::Result;
+    /// async fn sample(
+    ///    client: &ConfigDelivery
+    /// ) -> Result<()> {
+    ///     let response = client.resume_rollout()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn resume_rollout(&self) -> super::builder::config_delivery::ResumeRollout {
         super::builder::config_delivery::ResumeRollout::new(self.inner.clone())
     }
@@ -391,16 +816,65 @@ impl ConfigDelivery {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_configdelivery_v1::client::ConfigDelivery;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_configdelivery_v1::Result;
+    /// async fn sample(
+    ///    client: &ConfigDelivery
+    /// ) -> Result<()> {
+    ///     let response = client.abort_rollout()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn abort_rollout(&self) -> super::builder::config_delivery::AbortRollout {
         super::builder::config_delivery::AbortRollout::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_configdelivery_v1::client::ConfigDelivery;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_configdelivery_v1::Result;
+    /// async fn sample(
+    ///    client: &ConfigDelivery
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::config_delivery::ListLocations {
         super::builder::config_delivery::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_configdelivery_v1::client::ConfigDelivery;
+    /// use google_cloud_configdelivery_v1::Result;
+    /// async fn sample(
+    ///    client: &ConfigDelivery
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::config_delivery::GetLocation {
         super::builder::config_delivery::GetLocation::new(self.inner.clone())
     }
@@ -408,6 +882,24 @@ impl ConfigDelivery {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_configdelivery_v1::client::ConfigDelivery;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_configdelivery_v1::Result;
+    /// async fn sample(
+    ///    client: &ConfigDelivery
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::config_delivery::ListOperations {
         super::builder::config_delivery::ListOperations::new(self.inner.clone())
     }
@@ -415,6 +907,21 @@ impl ConfigDelivery {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_configdelivery_v1::client::ConfigDelivery;
+    /// use google_cloud_configdelivery_v1::Result;
+    /// async fn sample(
+    ///    client: &ConfigDelivery
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::config_delivery::GetOperation {
         super::builder::config_delivery::GetOperation::new(self.inner.clone())
     }
@@ -422,6 +929,20 @@ impl ConfigDelivery {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_configdelivery_v1::client::ConfigDelivery;
+    /// use google_cloud_configdelivery_v1::Result;
+    /// async fn sample(
+    ///    client: &ConfigDelivery
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::config_delivery::DeleteOperation {
         super::builder::config_delivery::DeleteOperation::new(self.inner.clone())
     }
@@ -429,6 +950,20 @@ impl ConfigDelivery {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_configdelivery_v1::client::ConfigDelivery;
+    /// use google_cloud_configdelivery_v1::Result;
+    /// async fn sample(
+    ///    client: &ConfigDelivery
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::config_delivery::CancelOperation {
         super::builder::config_delivery::CancelOperation::new(self.inner.clone())
     }

@@ -124,11 +124,44 @@ impl Workflows {
 
     /// Lists workflows in a given project and location.
     /// The default order is not specified.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_v1::client::Workflows;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_workflows_v1::Result;
+    /// async fn sample(
+    ///    client: &Workflows, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_workflows()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_workflows(&self) -> super::builder::workflows::ListWorkflows {
         super::builder::workflows::ListWorkflows::new(self.inner.clone())
     }
 
     /// Gets details of a single workflow.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_v1::client::Workflows;
+    /// use google_cloud_workflows_v1::Result;
+    /// async fn sample(
+    ///    client: &Workflows, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_workflow()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_workflow(&self) -> super::builder::workflows::GetWorkflow {
         super::builder::workflows::GetWorkflow::new(self.inner.clone())
     }
@@ -146,6 +179,26 @@ impl Workflows {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_v1::client::Workflows;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_workflows_v1::model::Workflow;
+    /// use google_cloud_workflows_v1::Result;
+    /// async fn sample(
+    ///    client: &Workflows, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_workflow()
+    ///         .set_parent(parent).set_workflow_id("workflow_id_value")
+    ///         .set_workflow(
+    ///             Workflow::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_workflow(&self) -> super::builder::workflows::CreateWorkflow {
         super::builder::workflows::CreateWorkflow::new(self.inner.clone())
     }
@@ -163,6 +216,21 @@ impl Workflows {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_v1::client::Workflows;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_workflows_v1::Result;
+    /// async fn sample(
+    ///    client: &Workflows, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_workflow()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_workflow(&self) -> super::builder::workflows::DeleteWorkflow {
         super::builder::workflows::DeleteWorkflow::new(self.inner.clone())
     }
@@ -182,21 +250,94 @@ impl Workflows {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_v1::client::Workflows;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_workflows_v1::model::Workflow;
+    /// use google_cloud_workflows_v1::Result;
+    /// async fn sample(
+    ///    client: &Workflows, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_workflow()
+    ///         .set_workflow(
+    ///             Workflow::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_workflow(&self) -> super::builder::workflows::UpdateWorkflow {
         super::builder::workflows::UpdateWorkflow::new(self.inner.clone())
     }
 
     /// Lists revisions for a given workflow.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_v1::client::Workflows;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_workflows_v1::Result;
+    /// async fn sample(
+    ///    client: &Workflows
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_workflow_revisions()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_workflow_revisions(&self) -> super::builder::workflows::ListWorkflowRevisions {
         super::builder::workflows::ListWorkflowRevisions::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_v1::client::Workflows;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_workflows_v1::Result;
+    /// async fn sample(
+    ///    client: &Workflows
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::workflows::ListLocations {
         super::builder::workflows::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_v1::client::Workflows;
+    /// use google_cloud_workflows_v1::Result;
+    /// async fn sample(
+    ///    client: &Workflows
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::workflows::GetLocation {
         super::builder::workflows::GetLocation::new(self.inner.clone())
     }
@@ -204,6 +345,24 @@ impl Workflows {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_v1::client::Workflows;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_workflows_v1::Result;
+    /// async fn sample(
+    ///    client: &Workflows
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::workflows::ListOperations {
         super::builder::workflows::ListOperations::new(self.inner.clone())
     }
@@ -211,6 +370,21 @@ impl Workflows {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_v1::client::Workflows;
+    /// use google_cloud_workflows_v1::Result;
+    /// async fn sample(
+    ///    client: &Workflows
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::workflows::GetOperation {
         super::builder::workflows::GetOperation::new(self.inner.clone())
     }
@@ -218,6 +392,20 @@ impl Workflows {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_v1::client::Workflows;
+    /// use google_cloud_workflows_v1::Result;
+    /// async fn sample(
+    ///    client: &Workflows
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::workflows::DeleteOperation {
         super::builder::workflows::DeleteOperation::new(self.inner.clone())
     }

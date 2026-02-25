@@ -120,11 +120,44 @@ impl DataMigrationService {
     }
 
     /// Lists migration jobs in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_clouddms_v1::client::DataMigrationService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_clouddms_v1::Result;
+    /// async fn sample(
+    ///    client: &DataMigrationService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_migration_jobs()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_migration_jobs(&self) -> super::builder::data_migration_service::ListMigrationJobs {
         super::builder::data_migration_service::ListMigrationJobs::new(self.inner.clone())
     }
 
     /// Gets details of a single migration job.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_clouddms_v1::client::DataMigrationService;
+    /// use google_cloud_clouddms_v1::Result;
+    /// async fn sample(
+    ///    client: &DataMigrationService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_migration_job()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_migration_job(&self) -> super::builder::data_migration_service::GetMigrationJob {
         super::builder::data_migration_service::GetMigrationJob::new(self.inner.clone())
     }
@@ -140,6 +173,26 @@ impl DataMigrationService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_clouddms_v1::client::DataMigrationService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_clouddms_v1::model::MigrationJob;
+    /// use google_cloud_clouddms_v1::Result;
+    /// async fn sample(
+    ///    client: &DataMigrationService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_migration_job()
+    ///         .set_parent(parent)
+    ///         .set_migration_job(
+    ///             MigrationJob::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_migration_job(
         &self,
     ) -> super::builder::data_migration_service::CreateMigrationJob {
@@ -157,6 +210,28 @@ impl DataMigrationService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_clouddms_v1::client::DataMigrationService;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_clouddms_v1::model::MigrationJob;
+    /// use google_cloud_clouddms_v1::Result;
+    /// async fn sample(
+    ///    client: &DataMigrationService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_migration_job()
+    ///         .set_migration_job(
+    ///             MigrationJob::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_migration_job(
         &self,
     ) -> super::builder::data_migration_service::UpdateMigrationJob {
@@ -174,6 +249,21 @@ impl DataMigrationService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_clouddms_v1::client::DataMigrationService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_clouddms_v1::Result;
+    /// async fn sample(
+    ///    client: &DataMigrationService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_migration_job()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_migration_job(
         &self,
     ) -> super::builder::data_migration_service::DeleteMigrationJob {
@@ -191,6 +281,22 @@ impl DataMigrationService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_clouddms_v1::client::DataMigrationService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_clouddms_v1::Result;
+    /// async fn sample(
+    ///    client: &DataMigrationService
+    /// ) -> Result<()> {
+    ///     let response = client.start_migration_job()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn start_migration_job(&self) -> super::builder::data_migration_service::StartMigrationJob {
         super::builder::data_migration_service::StartMigrationJob::new(self.inner.clone())
     }
@@ -206,6 +312,22 @@ impl DataMigrationService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_clouddms_v1::client::DataMigrationService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_clouddms_v1::Result;
+    /// async fn sample(
+    ///    client: &DataMigrationService
+    /// ) -> Result<()> {
+    ///     let response = client.stop_migration_job()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn stop_migration_job(&self) -> super::builder::data_migration_service::StopMigrationJob {
         super::builder::data_migration_service::StopMigrationJob::new(self.inner.clone())
     }
@@ -222,6 +344,22 @@ impl DataMigrationService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_clouddms_v1::client::DataMigrationService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_clouddms_v1::Result;
+    /// async fn sample(
+    ///    client: &DataMigrationService
+    /// ) -> Result<()> {
+    ///     let response = client.resume_migration_job()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn resume_migration_job(
         &self,
     ) -> super::builder::data_migration_service::ResumeMigrationJob {
@@ -240,6 +378,22 @@ impl DataMigrationService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_clouddms_v1::client::DataMigrationService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_clouddms_v1::Result;
+    /// async fn sample(
+    ///    client: &DataMigrationService
+    /// ) -> Result<()> {
+    ///     let response = client.promote_migration_job()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn promote_migration_job(
         &self,
     ) -> super::builder::data_migration_service::PromoteMigrationJob {
@@ -258,6 +412,22 @@ impl DataMigrationService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_clouddms_v1::client::DataMigrationService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_clouddms_v1::Result;
+    /// async fn sample(
+    ///    client: &DataMigrationService
+    /// ) -> Result<()> {
+    ///     let response = client.verify_migration_job()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn verify_migration_job(
         &self,
     ) -> super::builder::data_migration_service::VerifyMigrationJob {
@@ -277,6 +447,22 @@ impl DataMigrationService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_clouddms_v1::client::DataMigrationService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_clouddms_v1::Result;
+    /// async fn sample(
+    ///    client: &DataMigrationService
+    /// ) -> Result<()> {
+    ///     let response = client.restart_migration_job()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn restart_migration_job(
         &self,
     ) -> super::builder::data_migration_service::RestartMigrationJob {
@@ -285,12 +471,42 @@ impl DataMigrationService {
 
     /// Generate a SSH configuration script to configure the reverse SSH
     /// connectivity.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_clouddms_v1::client::DataMigrationService;
+    /// use google_cloud_clouddms_v1::Result;
+    /// async fn sample(
+    ///    client: &DataMigrationService
+    /// ) -> Result<()> {
+    ///     let response = client.generate_ssh_script()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn generate_ssh_script(&self) -> super::builder::data_migration_service::GenerateSshScript {
         super::builder::data_migration_service::GenerateSshScript::new(self.inner.clone())
     }
 
     /// Generate a TCP Proxy configuration script to configure a cloud-hosted VM
     /// running a TCP Proxy.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_clouddms_v1::client::DataMigrationService;
+    /// use google_cloud_clouddms_v1::Result;
+    /// async fn sample(
+    ///    client: &DataMigrationService
+    /// ) -> Result<()> {
+    ///     let response = client.generate_tcp_proxy_script()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn generate_tcp_proxy_script(
         &self,
     ) -> super::builder::data_migration_service::GenerateTcpProxyScript {
@@ -299,6 +515,24 @@ impl DataMigrationService {
 
     /// Retrieves a list of all connection profiles in a given project and
     /// location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_clouddms_v1::client::DataMigrationService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_clouddms_v1::Result;
+    /// async fn sample(
+    ///    client: &DataMigrationService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_connection_profiles()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_connection_profiles(
         &self,
     ) -> super::builder::data_migration_service::ListConnectionProfiles {
@@ -306,6 +540,21 @@ impl DataMigrationService {
     }
 
     /// Gets details of a single connection profile.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_clouddms_v1::client::DataMigrationService;
+    /// use google_cloud_clouddms_v1::Result;
+    /// async fn sample(
+    ///    client: &DataMigrationService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_connection_profile()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_connection_profile(
         &self,
     ) -> super::builder::data_migration_service::GetConnectionProfile {
@@ -323,6 +572,26 @@ impl DataMigrationService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_clouddms_v1::client::DataMigrationService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_clouddms_v1::model::ConnectionProfile;
+    /// use google_cloud_clouddms_v1::Result;
+    /// async fn sample(
+    ///    client: &DataMigrationService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_connection_profile()
+    ///         .set_parent(parent)
+    ///         .set_connection_profile(
+    ///             ConnectionProfile::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_connection_profile(
         &self,
     ) -> super::builder::data_migration_service::CreateConnectionProfile {
@@ -340,6 +609,28 @@ impl DataMigrationService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_clouddms_v1::client::DataMigrationService;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_clouddms_v1::model::ConnectionProfile;
+    /// use google_cloud_clouddms_v1::Result;
+    /// async fn sample(
+    ///    client: &DataMigrationService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_connection_profile()
+    ///         .set_connection_profile(
+    ///             ConnectionProfile::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_connection_profile(
         &self,
     ) -> super::builder::data_migration_service::UpdateConnectionProfile {
@@ -359,6 +650,21 @@ impl DataMigrationService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_clouddms_v1::client::DataMigrationService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_clouddms_v1::Result;
+    /// async fn sample(
+    ///    client: &DataMigrationService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_connection_profile()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_connection_profile(
         &self,
     ) -> super::builder::data_migration_service::DeleteConnectionProfile {
@@ -376,6 +682,26 @@ impl DataMigrationService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_clouddms_v1::client::DataMigrationService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_clouddms_v1::model::PrivateConnection;
+    /// use google_cloud_clouddms_v1::Result;
+    /// async fn sample(
+    ///    client: &DataMigrationService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_private_connection()
+    ///         .set_parent(parent)
+    ///         .set_private_connection(
+    ///             PrivateConnection::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_private_connection(
         &self,
     ) -> super::builder::data_migration_service::CreatePrivateConnection {
@@ -383,6 +709,21 @@ impl DataMigrationService {
     }
 
     /// Gets details of a single private connection.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_clouddms_v1::client::DataMigrationService;
+    /// use google_cloud_clouddms_v1::Result;
+    /// async fn sample(
+    ///    client: &DataMigrationService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_private_connection()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_private_connection(
         &self,
     ) -> super::builder::data_migration_service::GetPrivateConnection {
@@ -390,6 +731,24 @@ impl DataMigrationService {
     }
 
     /// Retrieves a list of private connections in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_clouddms_v1::client::DataMigrationService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_clouddms_v1::Result;
+    /// async fn sample(
+    ///    client: &DataMigrationService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_private_connections()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_private_connections(
         &self,
     ) -> super::builder::data_migration_service::ListPrivateConnections {
@@ -407,6 +766,21 @@ impl DataMigrationService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_clouddms_v1::client::DataMigrationService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_clouddms_v1::Result;
+    /// async fn sample(
+    ///    client: &DataMigrationService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_private_connection()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_private_connection(
         &self,
     ) -> super::builder::data_migration_service::DeletePrivateConnection {
@@ -414,6 +788,21 @@ impl DataMigrationService {
     }
 
     /// Gets details of a single conversion workspace.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_clouddms_v1::client::DataMigrationService;
+    /// use google_cloud_clouddms_v1::Result;
+    /// async fn sample(
+    ///    client: &DataMigrationService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_conversion_workspace()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_conversion_workspace(
         &self,
     ) -> super::builder::data_migration_service::GetConversionWorkspace {
@@ -421,6 +810,24 @@ impl DataMigrationService {
     }
 
     /// Lists conversion workspaces in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_clouddms_v1::client::DataMigrationService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_clouddms_v1::Result;
+    /// async fn sample(
+    ///    client: &DataMigrationService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_conversion_workspaces()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_conversion_workspaces(
         &self,
     ) -> super::builder::data_migration_service::ListConversionWorkspaces {
@@ -438,6 +845,26 @@ impl DataMigrationService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_clouddms_v1::client::DataMigrationService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_clouddms_v1::model::ConversionWorkspace;
+    /// use google_cloud_clouddms_v1::Result;
+    /// async fn sample(
+    ///    client: &DataMigrationService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_conversion_workspace()
+    ///         .set_parent(parent)
+    ///         .set_conversion_workspace(
+    ///             ConversionWorkspace::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_conversion_workspace(
         &self,
     ) -> super::builder::data_migration_service::CreateConversionWorkspace {
@@ -455,6 +882,28 @@ impl DataMigrationService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_clouddms_v1::client::DataMigrationService;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_clouddms_v1::model::ConversionWorkspace;
+    /// use google_cloud_clouddms_v1::Result;
+    /// async fn sample(
+    ///    client: &DataMigrationService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_conversion_workspace()
+    ///         .set_conversion_workspace(
+    ///             ConversionWorkspace::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_conversion_workspace(
         &self,
     ) -> super::builder::data_migration_service::UpdateConversionWorkspace {
@@ -472,6 +921,21 @@ impl DataMigrationService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_clouddms_v1::client::DataMigrationService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_clouddms_v1::Result;
+    /// async fn sample(
+    ///    client: &DataMigrationService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_conversion_workspace()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_conversion_workspace(
         &self,
     ) -> super::builder::data_migration_service::DeleteConversionWorkspace {
@@ -479,21 +943,87 @@ impl DataMigrationService {
     }
 
     /// Creates a new mapping rule for a given conversion workspace.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_clouddms_v1::client::DataMigrationService;
+    /// use google_cloud_clouddms_v1::model::MappingRule;
+    /// use google_cloud_clouddms_v1::Result;
+    /// async fn sample(
+    ///    client: &DataMigrationService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_mapping_rule()
+    ///         .set_parent(parent)
+    ///         .set_mapping_rule(
+    ///             MappingRule::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_mapping_rule(&self) -> super::builder::data_migration_service::CreateMappingRule {
         super::builder::data_migration_service::CreateMappingRule::new(self.inner.clone())
     }
 
     /// Deletes a single mapping rule.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_clouddms_v1::client::DataMigrationService;
+    /// use google_cloud_clouddms_v1::Result;
+    /// async fn sample(
+    ///    client: &DataMigrationService
+    /// ) -> Result<()> {
+    ///     client.delete_mapping_rule()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_mapping_rule(&self) -> super::builder::data_migration_service::DeleteMappingRule {
         super::builder::data_migration_service::DeleteMappingRule::new(self.inner.clone())
     }
 
     /// Lists the mapping rules for a specific conversion workspace.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_clouddms_v1::client::DataMigrationService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_clouddms_v1::Result;
+    /// async fn sample(
+    ///    client: &DataMigrationService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_mapping_rules()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_mapping_rules(&self) -> super::builder::data_migration_service::ListMappingRules {
         super::builder::data_migration_service::ListMappingRules::new(self.inner.clone())
     }
 
     /// Gets the details of a mapping rule.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_clouddms_v1::client::DataMigrationService;
+    /// use google_cloud_clouddms_v1::Result;
+    /// async fn sample(
+    ///    client: &DataMigrationService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_mapping_rule()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_mapping_rule(&self) -> super::builder::data_migration_service::GetMappingRule {
         super::builder::data_migration_service::GetMappingRule::new(self.inner.clone())
     }
@@ -510,6 +1040,22 @@ impl DataMigrationService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_clouddms_v1::client::DataMigrationService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_clouddms_v1::Result;
+    /// async fn sample(
+    ///    client: &DataMigrationService
+    /// ) -> Result<()> {
+    ///     let response = client.seed_conversion_workspace()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn seed_conversion_workspace(
         &self,
     ) -> super::builder::data_migration_service::SeedConversionWorkspace {
@@ -528,6 +1074,22 @@ impl DataMigrationService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_clouddms_v1::client::DataMigrationService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_clouddms_v1::Result;
+    /// async fn sample(
+    ///    client: &DataMigrationService
+    /// ) -> Result<()> {
+    ///     let response = client.import_mapping_rules()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn import_mapping_rules(
         &self,
     ) -> super::builder::data_migration_service::ImportMappingRules {
@@ -545,6 +1107,22 @@ impl DataMigrationService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_clouddms_v1::client::DataMigrationService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_clouddms_v1::Result;
+    /// async fn sample(
+    ///    client: &DataMigrationService
+    /// ) -> Result<()> {
+    ///     let response = client.convert_conversion_workspace()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn convert_conversion_workspace(
         &self,
     ) -> super::builder::data_migration_service::ConvertConversionWorkspace {
@@ -562,6 +1140,22 @@ impl DataMigrationService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_clouddms_v1::client::DataMigrationService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_clouddms_v1::Result;
+    /// async fn sample(
+    ///    client: &DataMigrationService
+    /// ) -> Result<()> {
+    ///     let response = client.commit_conversion_workspace()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn commit_conversion_workspace(
         &self,
     ) -> super::builder::data_migration_service::CommitConversionWorkspace {
@@ -579,6 +1173,22 @@ impl DataMigrationService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_clouddms_v1::client::DataMigrationService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_clouddms_v1::Result;
+    /// async fn sample(
+    ///    client: &DataMigrationService
+    /// ) -> Result<()> {
+    ///     let response = client.rollback_conversion_workspace()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn rollback_conversion_workspace(
         &self,
     ) -> super::builder::data_migration_service::RollbackConversionWorkspace {
@@ -596,6 +1206,22 @@ impl DataMigrationService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_clouddms_v1::client::DataMigrationService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_clouddms_v1::Result;
+    /// async fn sample(
+    ///    client: &DataMigrationService
+    /// ) -> Result<()> {
+    ///     let response = client.apply_conversion_workspace()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn apply_conversion_workspace(
         &self,
     ) -> super::builder::data_migration_service::ApplyConversionWorkspace {
@@ -608,6 +1234,24 @@ impl DataMigrationService {
     /// Database entities are not resources like conversion workspaces or mapping
     /// rules, and they can't be created, updated or deleted. Instead, they are
     /// simple data objects describing the structure of the client database.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_clouddms_v1::client::DataMigrationService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_clouddms_v1::Result;
+    /// async fn sample(
+    ///    client: &DataMigrationService
+    /// ) -> Result<()> {
+    ///     let mut list = client.describe_database_entities()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn describe_database_entities(
         &self,
     ) -> super::builder::data_migration_service::DescribeDatabaseEntities {
@@ -620,6 +1264,21 @@ impl DataMigrationService {
     /// The background jobs are not resources like conversion workspaces or
     /// mapping rules, and they can't be created, updated or deleted.
     /// Instead, they are a way to expose the data plane jobs log.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_clouddms_v1::client::DataMigrationService;
+    /// use google_cloud_clouddms_v1::Result;
+    /// async fn sample(
+    ///    client: &DataMigrationService
+    /// ) -> Result<()> {
+    ///     let response = client.search_background_jobs()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn search_background_jobs(
         &self,
     ) -> super::builder::data_migration_service::SearchBackgroundJobs {
@@ -628,6 +1287,21 @@ impl DataMigrationService {
 
     /// Retrieves a list of committed revisions of a specific conversion
     /// workspace.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_clouddms_v1::client::DataMigrationService;
+    /// use google_cloud_clouddms_v1::Result;
+    /// async fn sample(
+    ///    client: &DataMigrationService
+    /// ) -> Result<()> {
+    ///     let response = client.describe_conversion_workspace_revisions()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn describe_conversion_workspace_revisions(
         &self,
     ) -> super::builder::data_migration_service::DescribeConversionWorkspaceRevisions {
@@ -638,16 +1312,64 @@ impl DataMigrationService {
 
     /// Fetches a set of static IP addresses that need to be allowlisted by the
     /// customer when using the static-IP connectivity method.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_clouddms_v1::client::DataMigrationService;
+    /// use google_cloud_clouddms_v1::Result;
+    /// async fn sample(
+    ///    client: &DataMigrationService
+    /// ) -> Result<()> {
+    ///     let response = client.fetch_static_ips()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn fetch_static_ips(&self) -> super::builder::data_migration_service::FetchStaticIps {
         super::builder::data_migration_service::FetchStaticIps::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_clouddms_v1::client::DataMigrationService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_clouddms_v1::Result;
+    /// async fn sample(
+    ///    client: &DataMigrationService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::data_migration_service::ListLocations {
         super::builder::data_migration_service::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_clouddms_v1::client::DataMigrationService;
+    /// use google_cloud_clouddms_v1::Result;
+    /// async fn sample(
+    ///    client: &DataMigrationService
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::data_migration_service::GetLocation {
         super::builder::data_migration_service::GetLocation::new(self.inner.clone())
     }
@@ -657,12 +1379,42 @@ impl DataMigrationService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_clouddms_v1::client::DataMigrationService;
+    /// use google_cloud_clouddms_v1::Result;
+    /// async fn sample(
+    ///    client: &DataMigrationService
+    /// ) -> Result<()> {
+    ///     let response = client.set_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::data_migration_service::SetIamPolicy {
         super::builder::data_migration_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_clouddms_v1::client::DataMigrationService;
+    /// use google_cloud_clouddms_v1::Result;
+    /// async fn sample(
+    ///    client: &DataMigrationService
+    /// ) -> Result<()> {
+    ///     let response = client.get_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::data_migration_service::GetIamPolicy {
         super::builder::data_migration_service::GetIamPolicy::new(self.inner.clone())
     }
@@ -674,6 +1426,21 @@ impl DataMigrationService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_clouddms_v1::client::DataMigrationService;
+    /// use google_cloud_clouddms_v1::Result;
+    /// async fn sample(
+    ///    client: &DataMigrationService
+    /// ) -> Result<()> {
+    ///     let response = client.test_iam_permissions()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(
         &self,
     ) -> super::builder::data_migration_service::TestIamPermissions {
@@ -683,6 +1450,24 @@ impl DataMigrationService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_clouddms_v1::client::DataMigrationService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_clouddms_v1::Result;
+    /// async fn sample(
+    ///    client: &DataMigrationService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::data_migration_service::ListOperations {
         super::builder::data_migration_service::ListOperations::new(self.inner.clone())
     }
@@ -690,6 +1475,21 @@ impl DataMigrationService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_clouddms_v1::client::DataMigrationService;
+    /// use google_cloud_clouddms_v1::Result;
+    /// async fn sample(
+    ///    client: &DataMigrationService
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::data_migration_service::GetOperation {
         super::builder::data_migration_service::GetOperation::new(self.inner.clone())
     }
@@ -697,6 +1497,20 @@ impl DataMigrationService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_clouddms_v1::client::DataMigrationService;
+    /// use google_cloud_clouddms_v1::Result;
+    /// async fn sample(
+    ///    client: &DataMigrationService
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::data_migration_service::DeleteOperation {
         super::builder::data_migration_service::DeleteOperation::new(self.inner.clone())
     }
@@ -704,6 +1518,20 @@ impl DataMigrationService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_clouddms_v1::client::DataMigrationService;
+    /// use google_cloud_clouddms_v1::Result;
+    /// async fn sample(
+    ///    client: &DataMigrationService
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::data_migration_service::CancelOperation {
         super::builder::data_migration_service::CancelOperation::new(self.inner.clone())
     }

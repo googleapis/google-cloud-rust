@@ -121,6 +121,24 @@ impl ConnectionService {
 
     /// Lists connections that are currently active for the given Apigee Connect
     /// endpoint.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apigeeconnect_v1::client::ConnectionService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_apigeeconnect_v1::Result;
+    /// async fn sample(
+    ///    client: &ConnectionService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_connections()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_connections(&self) -> super::builder::connection_service::ListConnections {
         super::builder::connection_service::ListConnections::new(self.inner.clone())
     }

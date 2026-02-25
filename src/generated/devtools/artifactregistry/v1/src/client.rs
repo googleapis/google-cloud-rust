@@ -132,41 +132,173 @@ impl ArtifactRegistry {
     }
 
     /// Lists docker images.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::client::ArtifactRegistry;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_artifactregistry_v1::Result;
+    /// async fn sample(
+    ///    client: &ArtifactRegistry, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_docker_images()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_docker_images(&self) -> super::builder::artifact_registry::ListDockerImages {
         super::builder::artifact_registry::ListDockerImages::new(self.inner.clone())
     }
 
     /// Gets a docker image.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::client::ArtifactRegistry;
+    /// use google_cloud_artifactregistry_v1::Result;
+    /// async fn sample(
+    ///    client: &ArtifactRegistry, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_docker_image()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_docker_image(&self) -> super::builder::artifact_registry::GetDockerImage {
         super::builder::artifact_registry::GetDockerImage::new(self.inner.clone())
     }
 
     /// Lists maven artifacts.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::client::ArtifactRegistry;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_artifactregistry_v1::Result;
+    /// async fn sample(
+    ///    client: &ArtifactRegistry, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_maven_artifacts()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_maven_artifacts(&self) -> super::builder::artifact_registry::ListMavenArtifacts {
         super::builder::artifact_registry::ListMavenArtifacts::new(self.inner.clone())
     }
 
     /// Gets a maven artifact.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::client::ArtifactRegistry;
+    /// use google_cloud_artifactregistry_v1::Result;
+    /// async fn sample(
+    ///    client: &ArtifactRegistry, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_maven_artifact()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_maven_artifact(&self) -> super::builder::artifact_registry::GetMavenArtifact {
         super::builder::artifact_registry::GetMavenArtifact::new(self.inner.clone())
     }
 
     /// Lists npm packages.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::client::ArtifactRegistry;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_artifactregistry_v1::Result;
+    /// async fn sample(
+    ///    client: &ArtifactRegistry, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_npm_packages()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_npm_packages(&self) -> super::builder::artifact_registry::ListNpmPackages {
         super::builder::artifact_registry::ListNpmPackages::new(self.inner.clone())
     }
 
     /// Gets a npm package.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::client::ArtifactRegistry;
+    /// use google_cloud_artifactregistry_v1::Result;
+    /// async fn sample(
+    ///    client: &ArtifactRegistry, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_npm_package()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_npm_package(&self) -> super::builder::artifact_registry::GetNpmPackage {
         super::builder::artifact_registry::GetNpmPackage::new(self.inner.clone())
     }
 
     /// Lists python packages.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::client::ArtifactRegistry;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_artifactregistry_v1::Result;
+    /// async fn sample(
+    ///    client: &ArtifactRegistry, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_python_packages()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_python_packages(&self) -> super::builder::artifact_registry::ListPythonPackages {
         super::builder::artifact_registry::ListPythonPackages::new(self.inner.clone())
     }
 
     /// Gets a python package.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::client::ArtifactRegistry;
+    /// use google_cloud_artifactregistry_v1::Result;
+    /// async fn sample(
+    ///    client: &ArtifactRegistry, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_python_package()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_python_package(&self) -> super::builder::artifact_registry::GetPythonPackage {
         super::builder::artifact_registry::GetPythonPackage::new(self.inner.clone())
     }
@@ -185,6 +317,22 @@ impl ArtifactRegistry {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::client::ArtifactRegistry;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_artifactregistry_v1::Result;
+    /// async fn sample(
+    ///    client: &ArtifactRegistry
+    /// ) -> Result<()> {
+    ///     let response = client.import_apt_artifacts()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn import_apt_artifacts(&self) -> super::builder::artifact_registry::ImportAptArtifacts {
         super::builder::artifact_registry::ImportAptArtifacts::new(self.inner.clone())
     }
@@ -203,16 +351,65 @@ impl ArtifactRegistry {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::client::ArtifactRegistry;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_artifactregistry_v1::Result;
+    /// async fn sample(
+    ///    client: &ArtifactRegistry
+    /// ) -> Result<()> {
+    ///     let response = client.import_yum_artifacts()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn import_yum_artifacts(&self) -> super::builder::artifact_registry::ImportYumArtifacts {
         super::builder::artifact_registry::ImportYumArtifacts::new(self.inner.clone())
     }
 
     /// Lists repositories.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::client::ArtifactRegistry;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_artifactregistry_v1::Result;
+    /// async fn sample(
+    ///    client: &ArtifactRegistry, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_repositories()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_repositories(&self) -> super::builder::artifact_registry::ListRepositories {
         super::builder::artifact_registry::ListRepositories::new(self.inner.clone())
     }
 
     /// Gets a repository.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::client::ArtifactRegistry;
+    /// use google_cloud_artifactregistry_v1::Result;
+    /// async fn sample(
+    ///    client: &ArtifactRegistry, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_repository()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_repository(&self) -> super::builder::artifact_registry::GetRepository {
         super::builder::artifact_registry::GetRepository::new(self.inner.clone())
     }
@@ -229,11 +426,52 @@ impl ArtifactRegistry {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::client::ArtifactRegistry;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_artifactregistry_v1::model::Repository;
+    /// use google_cloud_artifactregistry_v1::Result;
+    /// async fn sample(
+    ///    client: &ArtifactRegistry, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_repository()
+    ///         .set_parent(parent).set_repository_id("repository_id_value")
+    ///         .set_repository(
+    ///             Repository::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_repository(&self) -> super::builder::artifact_registry::CreateRepository {
         super::builder::artifact_registry::CreateRepository::new(self.inner.clone())
     }
 
     /// Updates a repository.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::client::ArtifactRegistry;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_artifactregistry_v1::model::Repository;
+    /// use google_cloud_artifactregistry_v1::Result;
+    /// async fn sample(
+    ///    client: &ArtifactRegistry, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_repository()
+    ///         .set_repository(
+    ///             Repository::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_repository(&self) -> super::builder::artifact_registry::UpdateRepository {
         super::builder::artifact_registry::UpdateRepository::new(self.inner.clone())
     }
@@ -251,16 +489,64 @@ impl ArtifactRegistry {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::client::ArtifactRegistry;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_artifactregistry_v1::Result;
+    /// async fn sample(
+    ///    client: &ArtifactRegistry, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_repository()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_repository(&self) -> super::builder::artifact_registry::DeleteRepository {
         super::builder::artifact_registry::DeleteRepository::new(self.inner.clone())
     }
 
     /// Lists packages.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::client::ArtifactRegistry;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_artifactregistry_v1::Result;
+    /// async fn sample(
+    ///    client: &ArtifactRegistry, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_packages()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_packages(&self) -> super::builder::artifact_registry::ListPackages {
         super::builder::artifact_registry::ListPackages::new(self.inner.clone())
     }
 
     /// Gets a package.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::client::ArtifactRegistry;
+    /// use google_cloud_artifactregistry_v1::Result;
+    /// async fn sample(
+    ///    client: &ArtifactRegistry, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_package()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_package(&self) -> super::builder::artifact_registry::GetPackage {
         super::builder::artifact_registry::GetPackage::new(self.inner.clone())
     }
@@ -277,16 +563,64 @@ impl ArtifactRegistry {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::client::ArtifactRegistry;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_artifactregistry_v1::Result;
+    /// async fn sample(
+    ///    client: &ArtifactRegistry, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_package()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_package(&self) -> super::builder::artifact_registry::DeletePackage {
         super::builder::artifact_registry::DeletePackage::new(self.inner.clone())
     }
 
     /// Lists versions.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::client::ArtifactRegistry;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_artifactregistry_v1::Result;
+    /// async fn sample(
+    ///    client: &ArtifactRegistry, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_versions()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_versions(&self) -> super::builder::artifact_registry::ListVersions {
         super::builder::artifact_registry::ListVersions::new(self.inner.clone())
     }
 
     /// Gets a version
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::client::ArtifactRegistry;
+    /// use google_cloud_artifactregistry_v1::Result;
+    /// async fn sample(
+    ///    client: &ArtifactRegistry
+    /// ) -> Result<()> {
+    ///     let response = client.get_version()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_version(&self) -> super::builder::artifact_registry::GetVersion {
         super::builder::artifact_registry::GetVersion::new(self.inner.clone())
     }
@@ -303,6 +637,21 @@ impl ArtifactRegistry {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::client::ArtifactRegistry;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_artifactregistry_v1::Result;
+    /// async fn sample(
+    ///    client: &ArtifactRegistry
+    /// ) -> Result<()> {
+    ///     client.delete_version()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_version(&self) -> super::builder::artifact_registry::DeleteVersion {
         super::builder::artifact_registry::DeleteVersion::new(self.inner.clone())
     }
@@ -319,21 +668,90 @@ impl ArtifactRegistry {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::client::ArtifactRegistry;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_artifactregistry_v1::Result;
+    /// async fn sample(
+    ///    client: &ArtifactRegistry
+    /// ) -> Result<()> {
+    ///     client.batch_delete_versions()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn batch_delete_versions(&self) -> super::builder::artifact_registry::BatchDeleteVersions {
         super::builder::artifact_registry::BatchDeleteVersions::new(self.inner.clone())
     }
 
     /// Updates a version.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::client::ArtifactRegistry;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_artifactregistry_v1::model::Version;
+    /// use google_cloud_artifactregistry_v1::Result;
+    /// async fn sample(
+    ///    client: &ArtifactRegistry, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_version()
+    ///         .set_version(
+    ///             Version::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_version(&self) -> super::builder::artifact_registry::UpdateVersion {
         super::builder::artifact_registry::UpdateVersion::new(self.inner.clone())
     }
 
     /// Lists files.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::client::ArtifactRegistry;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_artifactregistry_v1::Result;
+    /// async fn sample(
+    ///    client: &ArtifactRegistry, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_files()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_files(&self) -> super::builder::artifact_registry::ListFiles {
         super::builder::artifact_registry::ListFiles::new(self.inner.clone())
     }
 
     /// Gets a file.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::client::ArtifactRegistry;
+    /// use google_cloud_artifactregistry_v1::Result;
+    /// async fn sample(
+    ///    client: &ArtifactRegistry, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_file()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_file(&self) -> super::builder::artifact_registry::GetFile {
         super::builder::artifact_registry::GetFile::new(self.inner.clone())
     }
@@ -351,86 +769,377 @@ impl ArtifactRegistry {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::client::ArtifactRegistry;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_artifactregistry_v1::Result;
+    /// async fn sample(
+    ///    client: &ArtifactRegistry, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_file()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_file(&self) -> super::builder::artifact_registry::DeleteFile {
         super::builder::artifact_registry::DeleteFile::new(self.inner.clone())
     }
 
     /// Updates a file.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::client::ArtifactRegistry;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_artifactregistry_v1::model::File;
+    /// use google_cloud_artifactregistry_v1::Result;
+    /// async fn sample(
+    ///    client: &ArtifactRegistry, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_file()
+    ///         .set_file(
+    ///             File::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_file(&self) -> super::builder::artifact_registry::UpdateFile {
         super::builder::artifact_registry::UpdateFile::new(self.inner.clone())
     }
 
     /// Lists tags.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::client::ArtifactRegistry;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_artifactregistry_v1::Result;
+    /// async fn sample(
+    ///    client: &ArtifactRegistry, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_tags()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_tags(&self) -> super::builder::artifact_registry::ListTags {
         super::builder::artifact_registry::ListTags::new(self.inner.clone())
     }
 
     /// Gets a tag.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::client::ArtifactRegistry;
+    /// use google_cloud_artifactregistry_v1::Result;
+    /// async fn sample(
+    ///    client: &ArtifactRegistry
+    /// ) -> Result<()> {
+    ///     let response = client.get_tag()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_tag(&self) -> super::builder::artifact_registry::GetTag {
         super::builder::artifact_registry::GetTag::new(self.inner.clone())
     }
 
     /// Creates a tag.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::client::ArtifactRegistry;
+    /// use google_cloud_artifactregistry_v1::model::Tag;
+    /// use google_cloud_artifactregistry_v1::Result;
+    /// async fn sample(
+    ///    client: &ArtifactRegistry, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_tag()
+    ///         .set_parent(parent).set_tag_id("tag_id_value")
+    ///         .set_tag(
+    ///             Tag::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_tag(&self) -> super::builder::artifact_registry::CreateTag {
         super::builder::artifact_registry::CreateTag::new(self.inner.clone())
     }
 
     /// Updates a tag.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::client::ArtifactRegistry;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_artifactregistry_v1::model::Tag;
+    /// use google_cloud_artifactregistry_v1::Result;
+    /// async fn sample(
+    ///    client: &ArtifactRegistry, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_tag()
+    ///         .set_tag(
+    ///             Tag::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_tag(&self) -> super::builder::artifact_registry::UpdateTag {
         super::builder::artifact_registry::UpdateTag::new(self.inner.clone())
     }
 
     /// Deletes a tag.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::client::ArtifactRegistry;
+    /// use google_cloud_artifactregistry_v1::Result;
+    /// async fn sample(
+    ///    client: &ArtifactRegistry
+    /// ) -> Result<()> {
+    ///     client.delete_tag()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_tag(&self) -> super::builder::artifact_registry::DeleteTag {
         super::builder::artifact_registry::DeleteTag::new(self.inner.clone())
     }
 
     /// Creates a rule.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::client::ArtifactRegistry;
+    /// use google_cloud_artifactregistry_v1::model::Rule;
+    /// use google_cloud_artifactregistry_v1::Result;
+    /// async fn sample(
+    ///    client: &ArtifactRegistry, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_rule()
+    ///         .set_parent(parent).set_rule_id("rule_id_value")
+    ///         .set_rule(
+    ///             Rule::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_rule(&self) -> super::builder::artifact_registry::CreateRule {
         super::builder::artifact_registry::CreateRule::new(self.inner.clone())
     }
 
     /// Lists rules.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::client::ArtifactRegistry;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_artifactregistry_v1::Result;
+    /// async fn sample(
+    ///    client: &ArtifactRegistry, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_rules()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_rules(&self) -> super::builder::artifact_registry::ListRules {
         super::builder::artifact_registry::ListRules::new(self.inner.clone())
     }
 
     /// Gets a rule.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::client::ArtifactRegistry;
+    /// use google_cloud_artifactregistry_v1::Result;
+    /// async fn sample(
+    ///    client: &ArtifactRegistry, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_rule()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_rule(&self) -> super::builder::artifact_registry::GetRule {
         super::builder::artifact_registry::GetRule::new(self.inner.clone())
     }
 
     /// Updates a rule.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::client::ArtifactRegistry;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_artifactregistry_v1::model::Rule;
+    /// use google_cloud_artifactregistry_v1::Result;
+    /// async fn sample(
+    ///    client: &ArtifactRegistry, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_rule()
+    ///         .set_rule(
+    ///             Rule::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_rule(&self) -> super::builder::artifact_registry::UpdateRule {
         super::builder::artifact_registry::UpdateRule::new(self.inner.clone())
     }
 
     /// Deletes a rule.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::client::ArtifactRegistry;
+    /// use google_cloud_artifactregistry_v1::Result;
+    /// async fn sample(
+    ///    client: &ArtifactRegistry, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_rule()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_rule(&self) -> super::builder::artifact_registry::DeleteRule {
         super::builder::artifact_registry::DeleteRule::new(self.inner.clone())
     }
 
     /// Updates the IAM policy for a given resource.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::client::ArtifactRegistry;
+    /// use google_cloud_artifactregistry_v1::Result;
+    /// async fn sample(
+    ///    client: &ArtifactRegistry
+    /// ) -> Result<()> {
+    ///     let response = client.set_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::artifact_registry::SetIamPolicy {
         super::builder::artifact_registry::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the IAM policy for a given resource.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::client::ArtifactRegistry;
+    /// use google_cloud_artifactregistry_v1::Result;
+    /// async fn sample(
+    ///    client: &ArtifactRegistry
+    /// ) -> Result<()> {
+    ///     let response = client.get_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::artifact_registry::GetIamPolicy {
         super::builder::artifact_registry::GetIamPolicy::new(self.inner.clone())
     }
 
     /// Tests if the caller has a list of permissions on a resource.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::client::ArtifactRegistry;
+    /// use google_cloud_artifactregistry_v1::Result;
+    /// async fn sample(
+    ///    client: &ArtifactRegistry
+    /// ) -> Result<()> {
+    ///     let response = client.test_iam_permissions()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::artifact_registry::TestIamPermissions {
         super::builder::artifact_registry::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Retrieves the Settings for the Project.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::client::ArtifactRegistry;
+    /// use google_cloud_artifactregistry_v1::Result;
+    /// async fn sample(
+    ///    client: &ArtifactRegistry, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_project_settings()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_project_settings(&self) -> super::builder::artifact_registry::GetProjectSettings {
         super::builder::artifact_registry::GetProjectSettings::new(self.inner.clone())
     }
 
     /// Updates the Settings for the Project.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::client::ArtifactRegistry;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_artifactregistry_v1::model::ProjectSettings;
+    /// use google_cloud_artifactregistry_v1::Result;
+    /// async fn sample(
+    ///    client: &ArtifactRegistry, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_project_settings()
+    ///         .set_project_settings(
+    ///             ProjectSettings::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_project_settings(
         &self,
     ) -> super::builder::artifact_registry::UpdateProjectSettings {
@@ -438,26 +1147,116 @@ impl ArtifactRegistry {
     }
 
     /// Retrieves the VPCSC Config for the Project.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::client::ArtifactRegistry;
+    /// use google_cloud_artifactregistry_v1::Result;
+    /// async fn sample(
+    ///    client: &ArtifactRegistry, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_vpcsc_config()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_vpcsc_config(&self) -> super::builder::artifact_registry::GetVPCSCConfig {
         super::builder::artifact_registry::GetVPCSCConfig::new(self.inner.clone())
     }
 
     /// Updates the VPCSC Config for the Project.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::client::ArtifactRegistry;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_artifactregistry_v1::model::VPCSCConfig;
+    /// use google_cloud_artifactregistry_v1::Result;
+    /// async fn sample(
+    ///    client: &ArtifactRegistry, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_vpcsc_config()
+    ///         .set_vpcsc_config(
+    ///             VPCSCConfig::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_vpcsc_config(&self) -> super::builder::artifact_registry::UpdateVPCSCConfig {
         super::builder::artifact_registry::UpdateVPCSCConfig::new(self.inner.clone())
     }
 
     /// Updates a package.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::client::ArtifactRegistry;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_artifactregistry_v1::model::Package;
+    /// use google_cloud_artifactregistry_v1::Result;
+    /// async fn sample(
+    ///    client: &ArtifactRegistry, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_package()
+    ///         .set_package(
+    ///             Package::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_package(&self) -> super::builder::artifact_registry::UpdatePackage {
         super::builder::artifact_registry::UpdatePackage::new(self.inner.clone())
     }
 
     /// Lists attachments.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::client::ArtifactRegistry;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_artifactregistry_v1::Result;
+    /// async fn sample(
+    ///    client: &ArtifactRegistry, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_attachments()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_attachments(&self) -> super::builder::artifact_registry::ListAttachments {
         super::builder::artifact_registry::ListAttachments::new(self.inner.clone())
     }
 
     /// Gets an attachment.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::client::ArtifactRegistry;
+    /// use google_cloud_artifactregistry_v1::Result;
+    /// async fn sample(
+    ///    client: &ArtifactRegistry, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_attachment()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_attachment(&self) -> super::builder::artifact_registry::GetAttachment {
         super::builder::artifact_registry::GetAttachment::new(self.inner.clone())
     }
@@ -474,6 +1273,26 @@ impl ArtifactRegistry {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::client::ArtifactRegistry;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_artifactregistry_v1::model::Attachment;
+    /// use google_cloud_artifactregistry_v1::Result;
+    /// async fn sample(
+    ///    client: &ArtifactRegistry, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_attachment()
+    ///         .set_parent(parent).set_attachment_id("attachment_id_value")
+    ///         .set_attachment(
+    ///             Attachment::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_attachment(&self) -> super::builder::artifact_registry::CreateAttachment {
         super::builder::artifact_registry::CreateAttachment::new(self.inner.clone())
     }
@@ -491,6 +1310,21 @@ impl ArtifactRegistry {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::client::ArtifactRegistry;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_artifactregistry_v1::Result;
+    /// async fn sample(
+    ///    client: &ArtifactRegistry, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_attachment()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_attachment(&self) -> super::builder::artifact_registry::DeleteAttachment {
         super::builder::artifact_registry::DeleteAttachment::new(self.inner.clone())
     }
@@ -506,6 +1340,22 @@ impl ArtifactRegistry {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::client::ArtifactRegistry;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_artifactregistry_v1::Result;
+    /// async fn sample(
+    ///    client: &ArtifactRegistry
+    /// ) -> Result<()> {
+    ///     let response = client.export_artifact()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn export_artifact(&self) -> super::builder::artifact_registry::ExportArtifact {
         super::builder::artifact_registry::ExportArtifact::new(self.inner.clone())
     }
@@ -518,11 +1368,44 @@ impl ArtifactRegistry {
     ///   `GET /v1/projects/{project_id}/locations`. This may include public
     ///   locations as well as private or other locations specifically visible
     ///   to the project.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::client::ArtifactRegistry;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_artifactregistry_v1::Result;
+    /// async fn sample(
+    ///    client: &ArtifactRegistry
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::artifact_registry::ListLocations {
         super::builder::artifact_registry::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::client::ArtifactRegistry;
+    /// use google_cloud_artifactregistry_v1::Result;
+    /// async fn sample(
+    ///    client: &ArtifactRegistry
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::artifact_registry::GetLocation {
         super::builder::artifact_registry::GetLocation::new(self.inner.clone())
     }
@@ -530,6 +1413,21 @@ impl ArtifactRegistry {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::client::ArtifactRegistry;
+    /// use google_cloud_artifactregistry_v1::Result;
+    /// async fn sample(
+    ///    client: &ArtifactRegistry
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::artifact_registry::GetOperation {
         super::builder::artifact_registry::GetOperation::new(self.inner.clone())
     }

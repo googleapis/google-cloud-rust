@@ -142,12 +142,46 @@ impl AssetService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_asset_v1::client::AssetService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_asset_v1::Result;
+    /// async fn sample(
+    ///    client: &AssetService
+    /// ) -> Result<()> {
+    ///     let response = client.export_assets()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn export_assets(&self) -> super::builder::asset_service::ExportAssets {
         super::builder::asset_service::ExportAssets::new(self.inner.clone())
     }
 
     /// Lists assets with time and resource types and returns paged results in
     /// response.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_asset_v1::client::AssetService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_asset_v1::Result;
+    /// async fn sample(
+    ///    client: &AssetService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_assets()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_assets(&self) -> super::builder::asset_service::ListAssets {
         super::builder::asset_service::ListAssets::new(self.inner.clone())
     }
@@ -159,32 +193,131 @@ impl AssetService {
     /// deleted status.
     /// If a specified asset does not exist, this API returns an INVALID_ARGUMENT
     /// error.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_asset_v1::client::AssetService;
+    /// use google_cloud_asset_v1::Result;
+    /// async fn sample(
+    ///    client: &AssetService
+    /// ) -> Result<()> {
+    ///     let response = client.batch_get_assets_history()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn batch_get_assets_history(&self) -> super::builder::asset_service::BatchGetAssetsHistory {
         super::builder::asset_service::BatchGetAssetsHistory::new(self.inner.clone())
     }
 
     /// Creates a feed in a parent project/folder/organization to listen to its
     /// asset updates.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_asset_v1::client::AssetService;
+    /// use google_cloud_asset_v1::model::Feed;
+    /// use google_cloud_asset_v1::Result;
+    /// async fn sample(
+    ///    client: &AssetService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_feed()
+    ///         .set_parent(parent).set_feed_id("feed_id_value")
+    ///         .set_feed(
+    ///             Feed::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_feed(&self) -> super::builder::asset_service::CreateFeed {
         super::builder::asset_service::CreateFeed::new(self.inner.clone())
     }
 
     /// Gets details about an asset feed.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_asset_v1::client::AssetService;
+    /// use google_cloud_asset_v1::Result;
+    /// async fn sample(
+    ///    client: &AssetService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_feed()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_feed(&self) -> super::builder::asset_service::GetFeed {
         super::builder::asset_service::GetFeed::new(self.inner.clone())
     }
 
     /// Lists all asset feeds in a parent project/folder/organization.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_asset_v1::client::AssetService;
+    /// use google_cloud_asset_v1::Result;
+    /// async fn sample(
+    ///    client: &AssetService
+    /// ) -> Result<()> {
+    ///     let response = client.list_feeds()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_feeds(&self) -> super::builder::asset_service::ListFeeds {
         super::builder::asset_service::ListFeeds::new(self.inner.clone())
     }
 
     /// Updates an asset feed configuration.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_asset_v1::client::AssetService;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_asset_v1::model::Feed;
+    /// use google_cloud_asset_v1::Result;
+    /// async fn sample(
+    ///    client: &AssetService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_feed()
+    ///         .set_feed(
+    ///             Feed::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_feed(&self) -> super::builder::asset_service::UpdateFeed {
         super::builder::asset_service::UpdateFeed::new(self.inner.clone())
     }
 
     /// Deletes an asset feed.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_asset_v1::client::AssetService;
+    /// use google_cloud_asset_v1::Result;
+    /// async fn sample(
+    ///    client: &AssetService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_feed()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_feed(&self) -> super::builder::asset_service::DeleteFeed {
         super::builder::asset_service::DeleteFeed::new(self.inner.clone())
     }
@@ -193,6 +326,24 @@ impl AssetService {
     /// project, folder, or organization. The caller must be granted the
     /// `cloudasset.assets.searchAllResources` permission on the desired scope,
     /// otherwise the request will be rejected.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_asset_v1::client::AssetService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_asset_v1::Result;
+    /// async fn sample(
+    ///    client: &AssetService
+    /// ) -> Result<()> {
+    ///     let mut list = client.search_all_resources()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn search_all_resources(&self) -> super::builder::asset_service::SearchAllResources {
         super::builder::asset_service::SearchAllResources::new(self.inner.clone())
     }
@@ -201,12 +352,45 @@ impl AssetService {
     /// folder, or organization. The caller must be granted the
     /// `cloudasset.assets.searchAllIamPolicies` permission on the desired scope,
     /// otherwise the request will be rejected.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_asset_v1::client::AssetService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_asset_v1::Result;
+    /// async fn sample(
+    ///    client: &AssetService
+    /// ) -> Result<()> {
+    ///     let mut list = client.search_all_iam_policies()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn search_all_iam_policies(&self) -> super::builder::asset_service::SearchAllIamPolicies {
         super::builder::asset_service::SearchAllIamPolicies::new(self.inner.clone())
     }
 
     /// Analyzes IAM policies to answer which identities have what accesses on
     /// which resources.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_asset_v1::client::AssetService;
+    /// use google_cloud_asset_v1::Result;
+    /// async fn sample(
+    ///    client: &AssetService
+    /// ) -> Result<()> {
+    ///     let response = client.analyze_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn analyze_iam_policy(&self) -> super::builder::asset_service::AnalyzeIamPolicy {
         super::builder::asset_service::AnalyzeIamPolicy::new(self.inner.clone())
     }
@@ -234,6 +418,22 @@ impl AssetService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_asset_v1::client::AssetService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_asset_v1::Result;
+    /// async fn sample(
+    ///    client: &AssetService
+    /// ) -> Result<()> {
+    ///     let response = client.analyze_iam_policy_longrunning()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn analyze_iam_policy_longrunning(
         &self,
     ) -> super::builder::asset_service::AnalyzeIamPolicyLongrunning {
@@ -245,6 +445,21 @@ impl AssetService {
     /// permissions of viewing different hierarchical policies and configurations.
     /// The policies and configuration are subject to change before the actual
     /// resource migration takes place.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_asset_v1::client::AssetService;
+    /// use google_cloud_asset_v1::Result;
+    /// async fn sample(
+    ///    client: &AssetService
+    /// ) -> Result<()> {
+    ///     let response = client.analyze_move()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn analyze_move(&self) -> super::builder::asset_service::AnalyzeMove {
         super::builder::asset_service::AnalyzeMove::new(self.inner.clone())
     }
@@ -261,36 +476,153 @@ impl AssetService {
     /// Note, the query result has approximately 10 GB limitation enforced by
     /// [BigQuery](https://cloud.google.com/bigquery/docs/best-practices-performance-output).
     /// Queries return larger results will result in errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_asset_v1::client::AssetService;
+    /// use google_cloud_asset_v1::Result;
+    /// async fn sample(
+    ///    client: &AssetService
+    /// ) -> Result<()> {
+    ///     let response = client.query_assets()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn query_assets(&self) -> super::builder::asset_service::QueryAssets {
         super::builder::asset_service::QueryAssets::new(self.inner.clone())
     }
 
     /// Creates a saved query in a parent project/folder/organization.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_asset_v1::client::AssetService;
+    /// use google_cloud_asset_v1::model::SavedQuery;
+    /// use google_cloud_asset_v1::Result;
+    /// async fn sample(
+    ///    client: &AssetService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_saved_query()
+    ///         .set_parent(parent)
+    ///         .set_saved_query(
+    ///             SavedQuery::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_saved_query(&self) -> super::builder::asset_service::CreateSavedQuery {
         super::builder::asset_service::CreateSavedQuery::new(self.inner.clone())
     }
 
     /// Gets details about a saved query.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_asset_v1::client::AssetService;
+    /// use google_cloud_asset_v1::Result;
+    /// async fn sample(
+    ///    client: &AssetService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_saved_query()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_saved_query(&self) -> super::builder::asset_service::GetSavedQuery {
         super::builder::asset_service::GetSavedQuery::new(self.inner.clone())
     }
 
     /// Lists all saved queries in a parent project/folder/organization.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_asset_v1::client::AssetService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_asset_v1::Result;
+    /// async fn sample(
+    ///    client: &AssetService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_saved_queries()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_saved_queries(&self) -> super::builder::asset_service::ListSavedQueries {
         super::builder::asset_service::ListSavedQueries::new(self.inner.clone())
     }
 
     /// Updates a saved query.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_asset_v1::client::AssetService;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_asset_v1::model::SavedQuery;
+    /// use google_cloud_asset_v1::Result;
+    /// async fn sample(
+    ///    client: &AssetService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_saved_query()
+    ///         .set_saved_query(
+    ///             SavedQuery::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_saved_query(&self) -> super::builder::asset_service::UpdateSavedQuery {
         super::builder::asset_service::UpdateSavedQuery::new(self.inner.clone())
     }
 
     /// Deletes a saved query.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_asset_v1::client::AssetService;
+    /// use google_cloud_asset_v1::Result;
+    /// async fn sample(
+    ///    client: &AssetService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_saved_query()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_saved_query(&self) -> super::builder::asset_service::DeleteSavedQuery {
         super::builder::asset_service::DeleteSavedQuery::new(self.inner.clone())
     }
 
     /// Gets effective IAM policies for a batch of resources.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_asset_v1::client::AssetService;
+    /// use google_cloud_asset_v1::Result;
+    /// async fn sample(
+    ///    client: &AssetService
+    /// ) -> Result<()> {
+    ///     let response = client.batch_get_effective_iam_policies()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn batch_get_effective_iam_policies(
         &self,
     ) -> super::builder::asset_service::BatchGetEffectiveIamPolicies {
@@ -298,12 +630,48 @@ impl AssetService {
     }
 
     /// Analyzes organization policies under a scope.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_asset_v1::client::AssetService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_asset_v1::Result;
+    /// async fn sample(
+    ///    client: &AssetService
+    /// ) -> Result<()> {
+    ///     let mut list = client.analyze_org_policies()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn analyze_org_policies(&self) -> super::builder::asset_service::AnalyzeOrgPolicies {
         super::builder::asset_service::AnalyzeOrgPolicies::new(self.inner.clone())
     }
 
     /// Analyzes organization policies governed containers (projects, folders or
     /// organization) under a scope.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_asset_v1::client::AssetService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_asset_v1::Result;
+    /// async fn sample(
+    ///    client: &AssetService
+    /// ) -> Result<()> {
+    ///     let mut list = client.analyze_org_policy_governed_containers()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn analyze_org_policy_governed_containers(
         &self,
     ) -> super::builder::asset_service::AnalyzeOrgPolicyGovernedContainers {
@@ -359,6 +727,24 @@ impl AssetService {
     /// This RPC only returns either resources of types [supported by search
     /// APIs](https://cloud.google.com/asset-inventory/docs/supported-asset-types)
     /// or IAM policies.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_asset_v1::client::AssetService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_asset_v1::Result;
+    /// async fn sample(
+    ///    client: &AssetService
+    /// ) -> Result<()> {
+    ///     let mut list = client.analyze_org_policy_governed_assets()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn analyze_org_policy_governed_assets(
         &self,
     ) -> super::builder::asset_service::AnalyzeOrgPolicyGovernedAssets {
@@ -368,6 +754,21 @@ impl AssetService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_asset_v1::client::AssetService;
+    /// use google_cloud_asset_v1::Result;
+    /// async fn sample(
+    ///    client: &AssetService
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::asset_service::GetOperation {
         super::builder::asset_service::GetOperation::new(self.inner.clone())
     }

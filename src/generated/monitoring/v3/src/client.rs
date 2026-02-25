@@ -128,11 +128,44 @@ impl AlertPolicyService {
     }
 
     /// Lists the existing alerting policies for the workspace.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::client::AlertPolicyService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_monitoring_v3::Result;
+    /// async fn sample(
+    ///    client: &AlertPolicyService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_alert_policies()
+    ///         .set_name(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_alert_policies(&self) -> super::builder::alert_policy_service::ListAlertPolicies {
         super::builder::alert_policy_service::ListAlertPolicies::new(self.inner.clone())
     }
 
     /// Gets a single alerting policy.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::client::AlertPolicyService;
+    /// use google_cloud_monitoring_v3::Result;
+    /// async fn sample(
+    ///    client: &AlertPolicyService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_alert_policy()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_alert_policy(&self) -> super::builder::alert_policy_service::GetAlertPolicy {
         super::builder::alert_policy_service::GetAlertPolicy::new(self.inner.clone())
     }
@@ -142,6 +175,25 @@ impl AlertPolicyService {
     /// Design your application to single-thread API calls that modify the state of
     /// alerting policies in a single project. This includes calls to
     /// CreateAlertPolicy, DeleteAlertPolicy and UpdateAlertPolicy.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::client::AlertPolicyService;
+    /// use google_cloud_monitoring_v3::model::AlertPolicy;
+    /// use google_cloud_monitoring_v3::Result;
+    /// async fn sample(
+    ///    client: &AlertPolicyService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_alert_policy()
+    ///         .set_name(parent)
+    ///         .set_alert_policy(
+    ///             AlertPolicy::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_alert_policy(&self) -> super::builder::alert_policy_service::CreateAlertPolicy {
         super::builder::alert_policy_service::CreateAlertPolicy::new(self.inner.clone())
     }
@@ -151,6 +203,20 @@ impl AlertPolicyService {
     /// Design your application to single-thread API calls that modify the state of
     /// alerting policies in a single project. This includes calls to
     /// CreateAlertPolicy, DeleteAlertPolicy and UpdateAlertPolicy.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::client::AlertPolicyService;
+    /// use google_cloud_monitoring_v3::Result;
+    /// async fn sample(
+    ///    client: &AlertPolicyService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_alert_policy()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_alert_policy(&self) -> super::builder::alert_policy_service::DeleteAlertPolicy {
         super::builder::alert_policy_service::DeleteAlertPolicy::new(self.inner.clone())
     }
@@ -163,6 +229,27 @@ impl AlertPolicyService {
     /// Design your application to single-thread API calls that modify the state of
     /// alerting policies in a single project. This includes calls to
     /// CreateAlertPolicy, DeleteAlertPolicy and UpdateAlertPolicy.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::client::AlertPolicyService;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_monitoring_v3::model::AlertPolicy;
+    /// use google_cloud_monitoring_v3::Result;
+    /// async fn sample(
+    ///    client: &AlertPolicyService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_alert_policy()
+    ///         .set_alert_policy(
+    ///             AlertPolicy::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_alert_policy(&self) -> super::builder::alert_policy_service::UpdateAlertPolicy {
         super::builder::alert_policy_service::UpdateAlertPolicy::new(self.inner.clone())
     }
@@ -282,32 +369,134 @@ impl GroupService {
     }
 
     /// Lists the existing groups.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::client::GroupService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_monitoring_v3::Result;
+    /// async fn sample(
+    ///    client: &GroupService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_groups()
+    ///         .set_name(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_groups(&self) -> super::builder::group_service::ListGroups {
         super::builder::group_service::ListGroups::new(self.inner.clone())
     }
 
     /// Gets a single group.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::client::GroupService;
+    /// use google_cloud_monitoring_v3::Result;
+    /// async fn sample(
+    ///    client: &GroupService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_group()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_group(&self) -> super::builder::group_service::GetGroup {
         super::builder::group_service::GetGroup::new(self.inner.clone())
     }
 
     /// Creates a new group.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::client::GroupService;
+    /// use google_cloud_monitoring_v3::model::Group;
+    /// use google_cloud_monitoring_v3::Result;
+    /// async fn sample(
+    ///    client: &GroupService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_group()
+    ///         .set_name(parent)
+    ///         .set_group(
+    ///             Group::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_group(&self) -> super::builder::group_service::CreateGroup {
         super::builder::group_service::CreateGroup::new(self.inner.clone())
     }
 
     /// Updates an existing group.
     /// You can change any group attributes except `name`.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::client::GroupService;
+    /// use google_cloud_monitoring_v3::model::Group;
+    /// use google_cloud_monitoring_v3::Result;
+    /// async fn sample(
+    ///    client: &GroupService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_group()
+    ///         .set_group(
+    ///             Group::new().set_name(name)/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_group(&self) -> super::builder::group_service::UpdateGroup {
         super::builder::group_service::UpdateGroup::new(self.inner.clone())
     }
 
     /// Deletes an existing group.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::client::GroupService;
+    /// use google_cloud_monitoring_v3::Result;
+    /// async fn sample(
+    ///    client: &GroupService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_group()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_group(&self) -> super::builder::group_service::DeleteGroup {
         super::builder::group_service::DeleteGroup::new(self.inner.clone())
     }
 
     /// Lists the monitored resources that are members of a group.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::client::GroupService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_monitoring_v3::Result;
+    /// async fn sample(
+    ///    client: &GroupService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_group_members()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_group_members(&self) -> super::builder::group_service::ListGroupMembers {
         super::builder::group_service::ListGroupMembers::new(self.inner.clone())
     }
@@ -417,6 +606,24 @@ impl MetricService {
     }
 
     /// Lists monitored resource descriptors that match a filter.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::client::MetricService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_monitoring_v3::Result;
+    /// async fn sample(
+    ///    client: &MetricService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_monitored_resource_descriptors()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_monitored_resource_descriptors(
         &self,
     ) -> super::builder::metric_service::ListMonitoredResourceDescriptors {
@@ -424,6 +631,21 @@ impl MetricService {
     }
 
     /// Gets a single monitored resource descriptor.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::client::MetricService;
+    /// use google_cloud_monitoring_v3::Result;
+    /// async fn sample(
+    ///    client: &MetricService
+    /// ) -> Result<()> {
+    ///     let response = client.get_monitored_resource_descriptor()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_monitored_resource_descriptor(
         &self,
     ) -> super::builder::metric_service::GetMonitoredResourceDescriptor {
@@ -431,11 +653,44 @@ impl MetricService {
     }
 
     /// Lists metric descriptors that match a filter.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::client::MetricService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_monitoring_v3::Result;
+    /// async fn sample(
+    ///    client: &MetricService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_metric_descriptors()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_metric_descriptors(&self) -> super::builder::metric_service::ListMetricDescriptors {
         super::builder::metric_service::ListMetricDescriptors::new(self.inner.clone())
     }
 
     /// Gets a single metric descriptor.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::client::MetricService;
+    /// use google_cloud_monitoring_v3::Result;
+    /// async fn sample(
+    ///    client: &MetricService
+    /// ) -> Result<()> {
+    ///     let response = client.get_metric_descriptor()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_metric_descriptor(&self) -> super::builder::metric_service::GetMetricDescriptor {
         super::builder::metric_service::GetMetricDescriptor::new(self.inner.clone())
     }
@@ -446,6 +701,21 @@ impl MetricService {
     /// [custom metrics](https://cloud.google.com/monitoring/custom-metrics).
     /// The metric descriptor is updated if it already exists,
     /// except that metric labels are never removed.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::client::MetricService;
+    /// use google_cloud_monitoring_v3::Result;
+    /// async fn sample(
+    ///    client: &MetricService
+    /// ) -> Result<()> {
+    ///     let response = client.create_metric_descriptor()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_metric_descriptor(
         &self,
     ) -> super::builder::metric_service::CreateMetricDescriptor {
@@ -455,6 +725,20 @@ impl MetricService {
     /// Deletes a metric descriptor. Only user-created
     /// [custom metrics](https://cloud.google.com/monitoring/custom-metrics) can be
     /// deleted.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::client::MetricService;
+    /// use google_cloud_monitoring_v3::Result;
+    /// async fn sample(
+    ///    client: &MetricService
+    /// ) -> Result<()> {
+    ///     client.delete_metric_descriptor()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_metric_descriptor(
         &self,
     ) -> super::builder::metric_service::DeleteMetricDescriptor {
@@ -462,6 +746,24 @@ impl MetricService {
     }
 
     /// Lists time series that match a filter.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::client::MetricService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_monitoring_v3::Result;
+    /// async fn sample(
+    ///    client: &MetricService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_time_series()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_time_series(&self) -> super::builder::metric_service::ListTimeSeries {
         super::builder::metric_service::ListTimeSeries::new(self.inner.clone())
     }
@@ -473,6 +775,20 @@ impl MetricService {
     /// This method does not support
     /// [resource locations constraint of an organization
     /// policy](https://cloud.google.com/resource-manager/docs/organization-policy/defining-locations#setting_the_organization_policy).
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::client::MetricService;
+    /// use google_cloud_monitoring_v3::Result;
+    /// async fn sample(
+    ///    client: &MetricService
+    /// ) -> Result<()> {
+    ///     client.create_time_series()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_time_series(&self) -> super::builder::metric_service::CreateTimeSeries {
         super::builder::metric_service::CreateTimeSeries::new(self.inner.clone())
     }
@@ -488,6 +804,20 @@ impl MetricService {
     /// instead.
     ///
     /// [google.monitoring.v3.MetricService.CreateTimeSeries]: crate::client::MetricService::create_time_series
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::client::MetricService;
+    /// use google_cloud_monitoring_v3::Result;
+    /// async fn sample(
+    ///    client: &MetricService
+    /// ) -> Result<()> {
+    ///     client.create_service_time_series()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_service_time_series(
         &self,
     ) -> super::builder::metric_service::CreateServiceTimeSeries {
@@ -602,6 +932,24 @@ impl NotificationChannelService {
 
     /// Lists the descriptors for supported channel types. The use of descriptors
     /// makes it possible for new channel types to be dynamically added.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::client::NotificationChannelService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_monitoring_v3::Result;
+    /// async fn sample(
+    ///    client: &NotificationChannelService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_notification_channel_descriptors()
+    ///         .set_name(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_notification_channel_descriptors(
         &self,
     ) -> super::builder::notification_channel_service::ListNotificationChannelDescriptors {
@@ -612,6 +960,21 @@ impl NotificationChannelService {
 
     /// Gets a single channel descriptor. The descriptor indicates which fields
     /// are expected / permitted for a notification channel of the given type.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::client::NotificationChannelService;
+    /// use google_cloud_monitoring_v3::Result;
+    /// async fn sample(
+    ///    client: &NotificationChannelService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_notification_channel_descriptor()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_notification_channel_descriptor(
         &self,
     ) -> super::builder::notification_channel_service::GetNotificationChannelDescriptor {
@@ -623,6 +986,24 @@ impl NotificationChannelService {
     /// Lists the notification channels that have been created for the project.
     /// To list the types of notification channels that are supported, use
     /// the `ListNotificationChannelDescriptors` method.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::client::NotificationChannelService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_monitoring_v3::Result;
+    /// async fn sample(
+    ///    client: &NotificationChannelService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_notification_channels()
+    ///         .set_name(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_notification_channels(
         &self,
     ) -> super::builder::notification_channel_service::ListNotificationChannels {
@@ -636,6 +1017,21 @@ impl NotificationChannelService {
     /// response may truncate or omit passwords, API keys, or other private key
     /// matter and thus the response may not be 100% identical to the information
     /// that was supplied in the call to the create method.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::client::NotificationChannelService;
+    /// use google_cloud_monitoring_v3::Result;
+    /// async fn sample(
+    ///    client: &NotificationChannelService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_notification_channel()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_notification_channel(
         &self,
     ) -> super::builder::notification_channel_service::GetNotificationChannel {
@@ -651,6 +1047,25 @@ impl NotificationChannelService {
     /// notification channels in a single project. This includes calls to
     /// CreateNotificationChannel, DeleteNotificationChannel and
     /// UpdateNotificationChannel.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::client::NotificationChannelService;
+    /// use google_cloud_monitoring_v3::model::NotificationChannel;
+    /// use google_cloud_monitoring_v3::Result;
+    /// async fn sample(
+    ///    client: &NotificationChannelService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_notification_channel()
+    ///         .set_name(parent)
+    ///         .set_notification_channel(
+    ///             NotificationChannel::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_notification_channel(
         &self,
     ) -> super::builder::notification_channel_service::CreateNotificationChannel {
@@ -666,6 +1081,27 @@ impl NotificationChannelService {
     /// notification channels in a single project. This includes calls to
     /// CreateNotificationChannel, DeleteNotificationChannel and
     /// UpdateNotificationChannel.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::client::NotificationChannelService;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_monitoring_v3::model::NotificationChannel;
+    /// use google_cloud_monitoring_v3::Result;
+    /// async fn sample(
+    ///    client: &NotificationChannelService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_notification_channel()
+    ///         .set_notification_channel(
+    ///             NotificationChannel::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_notification_channel(
         &self,
     ) -> super::builder::notification_channel_service::UpdateNotificationChannel {
@@ -680,6 +1116,20 @@ impl NotificationChannelService {
     /// notification channels in a single project. This includes calls to
     /// CreateNotificationChannel, DeleteNotificationChannel and
     /// UpdateNotificationChannel.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::client::NotificationChannelService;
+    /// use google_cloud_monitoring_v3::Result;
+    /// async fn sample(
+    ///    client: &NotificationChannelService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_notification_channel()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_notification_channel(
         &self,
     ) -> super::builder::notification_channel_service::DeleteNotificationChannel {
@@ -690,6 +1140,20 @@ impl NotificationChannelService {
 
     /// Causes a verification code to be delivered to the channel. The code
     /// can then be supplied in `VerifyNotificationChannel` to verify the channel.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::client::NotificationChannelService;
+    /// use google_cloud_monitoring_v3::Result;
+    /// async fn sample(
+    ///    client: &NotificationChannelService
+    /// ) -> Result<()> {
+    ///     client.send_notification_channel_verification_code()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn send_notification_channel_verification_code(
         &self,
     ) -> super::builder::notification_channel_service::SendNotificationChannelVerificationCode {
@@ -719,6 +1183,21 @@ impl NotificationChannelService {
     /// have a shorter expiration (e.g. codes such as "G-123456") whereas
     /// GetVerificationCode() will typically return a much longer, websafe base
     /// 64 encoded string that has a longer expiration time.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::client::NotificationChannelService;
+    /// use google_cloud_monitoring_v3::Result;
+    /// async fn sample(
+    ///    client: &NotificationChannelService
+    /// ) -> Result<()> {
+    ///     let response = client.get_notification_channel_verification_code()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_notification_channel_verification_code(
         &self,
     ) -> super::builder::notification_channel_service::GetNotificationChannelVerificationCode {
@@ -730,6 +1209,21 @@ impl NotificationChannelService {
     /// Verifies a `NotificationChannel` by proving receipt of the code
     /// delivered to the channel as a result of calling
     /// `SendNotificationChannelVerificationCode`.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::client::NotificationChannelService;
+    /// use google_cloud_monitoring_v3::Result;
+    /// async fn sample(
+    ///    client: &NotificationChannelService
+    /// ) -> Result<()> {
+    ///     let response = client.verify_notification_channel()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn verify_notification_channel(
         &self,
     ) -> super::builder::notification_channel_service::VerifyNotificationChannel {
@@ -847,6 +1341,24 @@ impl QueryService {
     /// using PromQL instead of MQL. For more information about the status of MQL,
     /// see the [MQL deprecation
     /// notice](https://cloud.google.com/stackdriver/docs/deprecations/mql).
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::client::QueryService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_monitoring_v3::Result;
+    /// async fn sample(
+    ///    client: &QueryService
+    /// ) -> Result<()> {
+    ///     let mut list = client.query_time_series()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     #[deprecated]
     pub fn query_time_series(&self) -> super::builder::query_service::QueryTimeSeries {
         super::builder::query_service::QueryTimeSeries::new(self.inner.clone())
@@ -961,31 +1473,137 @@ impl ServiceMonitoringService {
     }
 
     /// Create a `Service`.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::client::ServiceMonitoringService;
+    /// use google_cloud_monitoring_v3::model::Service;
+    /// use google_cloud_monitoring_v3::Result;
+    /// async fn sample(
+    ///    client: &ServiceMonitoringService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_service()
+    ///         .set_parent(parent).set_service_id("service_id_value")
+    ///         .set_service(
+    ///             Service::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_service(&self) -> super::builder::service_monitoring_service::CreateService {
         super::builder::service_monitoring_service::CreateService::new(self.inner.clone())
     }
 
     /// Get the named `Service`.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::client::ServiceMonitoringService;
+    /// use google_cloud_monitoring_v3::Result;
+    /// async fn sample(
+    ///    client: &ServiceMonitoringService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_service()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_service(&self) -> super::builder::service_monitoring_service::GetService {
         super::builder::service_monitoring_service::GetService::new(self.inner.clone())
     }
 
     /// List `Service`s for this Metrics Scope.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::client::ServiceMonitoringService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_monitoring_v3::Result;
+    /// async fn sample(
+    ///    client: &ServiceMonitoringService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_services()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_services(&self) -> super::builder::service_monitoring_service::ListServices {
         super::builder::service_monitoring_service::ListServices::new(self.inner.clone())
     }
 
     /// Update this `Service`.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::client::ServiceMonitoringService;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_monitoring_v3::model::Service;
+    /// use google_cloud_monitoring_v3::Result;
+    /// async fn sample(
+    ///    client: &ServiceMonitoringService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_service()
+    ///         .set_service(
+    ///             Service::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_service(&self) -> super::builder::service_monitoring_service::UpdateService {
         super::builder::service_monitoring_service::UpdateService::new(self.inner.clone())
     }
 
     /// Soft delete this `Service`.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::client::ServiceMonitoringService;
+    /// use google_cloud_monitoring_v3::Result;
+    /// async fn sample(
+    ///    client: &ServiceMonitoringService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_service()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_service(&self) -> super::builder::service_monitoring_service::DeleteService {
         super::builder::service_monitoring_service::DeleteService::new(self.inner.clone())
     }
 
     /// Create a `ServiceLevelObjective` for the given `Service`.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::client::ServiceMonitoringService;
+    /// use google_cloud_monitoring_v3::model::ServiceLevelObjective;
+    /// use google_cloud_monitoring_v3::Result;
+    /// async fn sample(
+    ///    client: &ServiceMonitoringService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_service_level_objective()
+    ///         .set_parent(parent)
+    ///         .set_service_level_objective(
+    ///             ServiceLevelObjective::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_service_level_objective(
         &self,
     ) -> super::builder::service_monitoring_service::CreateServiceLevelObjective {
@@ -995,6 +1613,21 @@ impl ServiceMonitoringService {
     }
 
     /// Get a `ServiceLevelObjective` by name.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::client::ServiceMonitoringService;
+    /// use google_cloud_monitoring_v3::Result;
+    /// async fn sample(
+    ///    client: &ServiceMonitoringService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_service_level_objective()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_service_level_objective(
         &self,
     ) -> super::builder::service_monitoring_service::GetServiceLevelObjective {
@@ -1004,6 +1637,24 @@ impl ServiceMonitoringService {
     }
 
     /// List the `ServiceLevelObjective`s for the given `Service`.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::client::ServiceMonitoringService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_monitoring_v3::Result;
+    /// async fn sample(
+    ///    client: &ServiceMonitoringService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_service_level_objectives()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_service_level_objectives(
         &self,
     ) -> super::builder::service_monitoring_service::ListServiceLevelObjectives {
@@ -1013,6 +1664,27 @@ impl ServiceMonitoringService {
     }
 
     /// Update the given `ServiceLevelObjective`.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::client::ServiceMonitoringService;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_monitoring_v3::model::ServiceLevelObjective;
+    /// use google_cloud_monitoring_v3::Result;
+    /// async fn sample(
+    ///    client: &ServiceMonitoringService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_service_level_objective()
+    ///         .set_service_level_objective(
+    ///             ServiceLevelObjective::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_service_level_objective(
         &self,
     ) -> super::builder::service_monitoring_service::UpdateServiceLevelObjective {
@@ -1022,6 +1694,20 @@ impl ServiceMonitoringService {
     }
 
     /// Delete the given `ServiceLevelObjective`.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::client::ServiceMonitoringService;
+    /// use google_cloud_monitoring_v3::Result;
+    /// async fn sample(
+    ///    client: &ServiceMonitoringService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_service_level_objective()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_service_level_objective(
         &self,
     ) -> super::builder::service_monitoring_service::DeleteServiceLevelObjective {
@@ -1138,23 +1824,96 @@ impl SnoozeService {
     /// Creates a `Snooze` that will prevent alerts, which match the provided
     /// criteria, from being opened. The `Snooze` applies for a specific time
     /// interval.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::client::SnoozeService;
+    /// use google_cloud_monitoring_v3::model::Snooze;
+    /// use google_cloud_monitoring_v3::Result;
+    /// async fn sample(
+    ///    client: &SnoozeService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_snooze()
+    ///         .set_parent(parent)
+    ///         .set_snooze(
+    ///             Snooze::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_snooze(&self) -> super::builder::snooze_service::CreateSnooze {
         super::builder::snooze_service::CreateSnooze::new(self.inner.clone())
     }
 
     /// Lists the `Snooze`s associated with a project. Can optionally pass in
     /// `filter`, which specifies predicates to match `Snooze`s.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::client::SnoozeService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_monitoring_v3::Result;
+    /// async fn sample(
+    ///    client: &SnoozeService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_snoozes()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_snoozes(&self) -> super::builder::snooze_service::ListSnoozes {
         super::builder::snooze_service::ListSnoozes::new(self.inner.clone())
     }
 
     /// Retrieves a `Snooze` by `name`.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::client::SnoozeService;
+    /// use google_cloud_monitoring_v3::Result;
+    /// async fn sample(
+    ///    client: &SnoozeService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_snooze()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_snooze(&self) -> super::builder::snooze_service::GetSnooze {
         super::builder::snooze_service::GetSnooze::new(self.inner.clone())
     }
 
     /// Updates a `Snooze`, identified by its `name`, with the parameters in the
     /// given `Snooze` object.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::client::SnoozeService;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_monitoring_v3::model::Snooze;
+    /// use google_cloud_monitoring_v3::Result;
+    /// async fn sample(
+    ///    client: &SnoozeService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_snooze()
+    ///         .set_snooze(
+    ///             Snooze::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_snooze(&self) -> super::builder::snooze_service::UpdateSnooze {
         super::builder::snooze_service::UpdateSnooze::new(self.inner.clone())
     }
@@ -1272,6 +2031,24 @@ impl UptimeCheckService {
 
     /// Lists the existing valid Uptime check configurations for the project
     /// (leaving out any invalid configurations).
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::client::UptimeCheckService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_monitoring_v3::Result;
+    /// async fn sample(
+    ///    client: &UptimeCheckService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_uptime_check_configs()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_uptime_check_configs(
         &self,
     ) -> super::builder::uptime_check_service::ListUptimeCheckConfigs {
@@ -1279,6 +2056,21 @@ impl UptimeCheckService {
     }
 
     /// Gets a single Uptime check configuration.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::client::UptimeCheckService;
+    /// use google_cloud_monitoring_v3::Result;
+    /// async fn sample(
+    ///    client: &UptimeCheckService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_uptime_check_config()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_uptime_check_config(
         &self,
     ) -> super::builder::uptime_check_service::GetUptimeCheckConfig {
@@ -1286,6 +2078,25 @@ impl UptimeCheckService {
     }
 
     /// Creates a new Uptime check configuration.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::client::UptimeCheckService;
+    /// use google_cloud_monitoring_v3::model::UptimeCheckConfig;
+    /// use google_cloud_monitoring_v3::Result;
+    /// async fn sample(
+    ///    client: &UptimeCheckService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_uptime_check_config()
+    ///         .set_parent(parent)
+    ///         .set_uptime_check_config(
+    ///             UptimeCheckConfig::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_uptime_check_config(
         &self,
     ) -> super::builder::uptime_check_service::CreateUptimeCheckConfig {
@@ -1296,6 +2107,27 @@ impl UptimeCheckService {
     /// configuration with a new one or replace only certain fields in the current
     /// configuration by specifying the fields to be updated via `updateMask`.
     /// Returns the updated configuration.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::client::UptimeCheckService;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_monitoring_v3::model::UptimeCheckConfig;
+    /// use google_cloud_monitoring_v3::Result;
+    /// async fn sample(
+    ///    client: &UptimeCheckService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_uptime_check_config()
+    ///         .set_uptime_check_config(
+    ///             UptimeCheckConfig::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_uptime_check_config(
         &self,
     ) -> super::builder::uptime_check_service::UpdateUptimeCheckConfig {
@@ -1305,6 +2137,20 @@ impl UptimeCheckService {
     /// Deletes an Uptime check configuration. Note that this method will fail
     /// if the Uptime check configuration is referenced by an alert policy or
     /// other dependent configs that would be rendered invalid by the deletion.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::client::UptimeCheckService;
+    /// use google_cloud_monitoring_v3::Result;
+    /// async fn sample(
+    ///    client: &UptimeCheckService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_uptime_check_config()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_uptime_check_config(
         &self,
     ) -> super::builder::uptime_check_service::DeleteUptimeCheckConfig {
@@ -1312,6 +2158,24 @@ impl UptimeCheckService {
     }
 
     /// Returns the list of IP addresses that checkers run from.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::client::UptimeCheckService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_monitoring_v3::Result;
+    /// async fn sample(
+    ///    client: &UptimeCheckService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_uptime_check_ips()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_uptime_check_ips(
         &self,
     ) -> super::builder::uptime_check_service::ListUptimeCheckIps {

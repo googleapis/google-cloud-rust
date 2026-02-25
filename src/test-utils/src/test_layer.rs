@@ -100,6 +100,8 @@ pub struct CapturedSpan {
     pub name: String,
     /// A map of attribute keys to their typed values.
     pub attributes: HashMap<String, AttributeValue>,
+    /// The count of events in the span.
+    pub events: usize,
     /// The test ID associated with this span, if captured via `TestLayer::initialize`.
     pub test_id: Option<String>,
 }
@@ -323,18 +325,33 @@ where
             name,
             attributes: span_map,
             test_id,
+            events: 0_usize,
         };
         SPAN_LOG.push(captured_span);
     }
 
-    /// Called when an event is recorded within a span.
-    ///
     /// Updates the attributes of the existing captured span.
     fn on_record(&self, id: &span::Id, values: &span::Record<'_>, _ctx: Context<'_, S>) {
         let mut spans = SPAN_LOG.spans.lock().unwrap();
         if let Some(captured_span) = spans.iter_mut().find(|s| s.id == *id) {
             let mut visitor = TestVisitor(&mut captured_span.attributes);
             values.record(&mut visitor);
+        }
+    }
+
+    /// Called before `on_event`, to determine if `on_event` should be called.
+    fn event_enabled(&self, _event: &tracing::Event<'_>, _ctx: Context<'_, S>) -> bool {
+        true
+    }
+
+    /// Notifies this layer that an event has occurred.
+    fn on_event(&self, event: &tracing::Event<'_>, _ctx: Context<'_, S>) {
+        let Some(id) = event.parent() else {
+            return;
+        };
+        let mut spans = SPAN_LOG.spans.lock().unwrap();
+        if let Some(captured_span) = spans.iter_mut().find(|s| s.id == *id) {
+            captured_span.events += 1;
         }
     }
 }
@@ -352,6 +369,7 @@ mod tests {
             name: name.to_string(),
             attributes: HashMap::new(),
             test_id: test_id.map(String::from),
+            events: 0_usize,
         }
     }
 
@@ -454,6 +472,23 @@ mod tests {
         .map(|(k, v)| (k.to_string(), v))
         .collect();
         assert_eq!(span.attributes, expected_attributes);
+    }
+
+    #[tokio::test]
+    async fn test_layer_on_event() {
+        let guard = TestLayer::initialize();
+
+        let span = info_span!("my_span");
+        ::tracing::event!(parent: &span, tracing::Level::INFO, seq = 1);
+        ::tracing::event!(parent: &span, tracing::Level::INFO, seq = 2);
+        ::tracing::event!(parent: &span, tracing::Level::INFO, seq = 3);
+
+        let captured = TestLayer::capture(&guard);
+        let got = captured
+            .iter()
+            .find(|s| s.name == "my_span")
+            .unwrap_or_else(|| panic!("missing `my_span` in captured spans: {captured:?}"));
+        assert_eq!(got.events, 3);
     }
 
     /// Tests that TestVisitor correctly converts various field types to strings.

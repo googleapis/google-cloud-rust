@@ -23,18 +23,16 @@
 //! [Pub/Sub]. Most applications will use the structs defined in the
 //! [client] module.
 //!
-//! For administrative operations:
-//! * [TopicAdmin][client::TopicAdmin]
-//! * [SubscriptionAdmin][client::SubscriptionAdmin]
-//! * [SchemaService][client::SchemaService]
-//!
 //! For publishing messages:
-//! * [BasePublisher][client::BasePublisher] and [Publisher][client::Publisher]
+//! * [Publisher][client::Publisher]
 //!
 //! For receiving messages:
 //! * [Subscriber][client::Subscriber]
 //!
-//! Receiving messages is not yet supported by this crate.
+//! For administrative operations:
+//! * [TopicAdmin][client::TopicAdmin]
+//! * [SubscriptionAdmin][client::SubscriptionAdmin]
+//! * [SchemaService][client::SchemaService]
 //!
 //! **NOTE:** This crate used to contain a different implementation, with a
 //! different surface. [@yoshidan](https://github.com/yoshidan) generously
@@ -61,7 +59,8 @@
 #[allow(rustdoc::broken_intra_doc_links)]
 pub(crate) mod generated;
 
-pub(crate) mod publisher;
+/// Types related to publishing messages.
+pub mod publisher;
 /// Types related to receiving messages with a [Subscriber][client::Subscriber]
 /// client.
 pub mod subscriber;
@@ -105,15 +104,11 @@ pub mod model {
     pub(crate) use crate::generated::gapic_dataplane::model::*;
 }
 
-/// Extends [model] with types that improve type safety and/or ergonomics.
-pub mod model_ext {
-    pub use crate::publisher::model_ext::*;
-}
-
-/// Clients to interact with Google Cloud Pub/Sub.
+/// Clients to interact with Cloud Pub/Sub.
 ///
 /// This module contains the primary entry points for the library, including
-/// clients for publishing messages and managing topics and subscriptions.
+/// clients for publishing and receiving messages, as well as managing topics,
+/// subscriptions, and schemas.
 ///
 /// # Example: Publishing Messages
 ///
@@ -153,22 +148,23 @@ pub mod model_ext {
 /// // Create a subscriber client.
 /// let client = Subscriber::builder().build().await?;
 ///
-/// // Start a streaming pull session to receive messages from a subscription.
-/// let mut session = client
-///     .streaming_pull("projects/my-project/subscriptions/my-subscription")
-///     .start();
+/// // Start a message stream from a subscription.
+/// let mut stream = client
+///     .stream("projects/my-project/subscriptions/my-subscription")
+///     .build();
 ///
-/// // Receive messages from the session and acknowledge.
-/// while let Some((m, h)) = session.next().await.transpose()? {
+/// // Receive messages from the stream.
+/// while let Some((m, h)) = stream.next().await.transpose()? {
 ///     println!("Received message m={m:?}");
+///
+///     // Acknowledge the message.
 ///     h.ack();
 /// }
 /// # Ok(()) }
 /// ```
 pub mod client {
     pub use crate::generated::gapic::client::*;
-    pub use crate::publisher::base_publisher::BasePublisher;
-    pub use crate::publisher::client::Publisher;
+    pub use crate::publisher::implementation::Publisher;
     pub use crate::subscriber::client::Subscriber;
 }
 

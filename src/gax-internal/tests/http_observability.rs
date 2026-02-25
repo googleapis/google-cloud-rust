@@ -17,9 +17,11 @@ mod tests {
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
     use google_cloud_gax::Result;
     use google_cloud_gax::options::RequestOptions;
-    use google_cloud_gax::options::internal::set_path_template;
+    use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
     use google_cloud_gax::response::Response;
+    use google_cloud_gax_internal::client_request_span;
     use google_cloud_gax_internal::http::{NoBody, ReqwestClient};
+    use google_cloud_gax_internal::observability::ResultExt;
     use google_cloud_gax_internal::observability::attributes::keys::*;
     use google_cloud_gax_internal::options::{ClientConfig, InstrumentationClientInfo};
     use google_cloud_test_utils::test_layer::{AttributeValue, TestLayer};
@@ -28,7 +30,7 @@ mod tests {
     use httptest::{Expectation, Server, all_of, responders::*};
     use opentelemetry_semantic_conventions::{attribute as otel_attr, trace as otel_trace};
     use serde::Deserialize;
-    use std::collections::HashMap;
+    use std::collections::BTreeMap;
     use test_case::test_case;
     use tracing::{Instrument, field};
 
@@ -79,7 +81,7 @@ mod tests {
         let client = create_client(true, server_url.clone()).await;
         let guard = TestLayer::initialize();
 
-        let options = set_path_template(RequestOptions::default(), "/test");
+        let options = RequestOptions::default().insert_extension(PathTemplate("/test"));
         let request = client.builder(Method::GET, "/test".to_string());
         let _response: Result<Response<TestResponse>> =
             client.execute(request, None::<NoBody>, options).await;
@@ -88,9 +90,9 @@ mod tests {
         assert_eq!(captured.len(), 1, "Should capture one span: {:?}", captured);
 
         let span = &captured[0];
-        let attrs = &span.attributes;
+        let got = BTreeMap::from_iter(span.attributes.clone());
 
-        let expected_attributes: HashMap<String, AttributeValue> = [
+        let want: BTreeMap<String, AttributeValue> = [
             (OTEL_NAME, "GET /test".into()),
             (OTEL_KIND, "Client".into()),
             (otel_trace::RPC_SYSTEM, "http".into()),
@@ -117,7 +119,7 @@ mod tests {
         .map(|(k, v)| (k.to_string(), v))
         .collect();
 
-        assert_eq!(attrs, &expected_attributes);
+        assert_eq!(got, want);
     }
 
     #[tokio::test]
@@ -163,7 +165,7 @@ mod tests {
         let client = create_client(true, server_url.clone()).await;
         let guard = TestLayer::initialize();
 
-        let options = set_path_template(RequestOptions::default(), "/error");
+        let options = RequestOptions::default().insert_extension(PathTemplate("/error"));
         let request = client.builder(Method::GET, "/error".to_string());
         let _response: Result<Response<TestResponse>> =
             client.execute(request, None::<NoBody>, options).await;
@@ -221,7 +223,7 @@ mod tests {
         let client = create_client(true, server_url.clone()).await;
         let guard = TestLayer::initialize();
 
-        let options = set_path_template(RequestOptions::default(), "/test");
+        let options = RequestOptions::default().insert_extension(PathTemplate("/test"));
         let request = client.builder(Method::POST, "/test".to_string());
         let body = serde_json::json!({"name": "test"});
         let _response: Result<Response<TestResponse>> =
@@ -231,9 +233,9 @@ mod tests {
         assert_eq!(captured.len(), 1, "Should capture one span: {:?}", captured);
 
         let span = &captured[0];
-        let attrs = &span.attributes;
+        let got = BTreeMap::from_iter(span.attributes.clone());
 
-        let expected_attributes: HashMap<String, AttributeValue> = [
+        let want: BTreeMap<String, AttributeValue> = [
             (OTEL_NAME, "POST /test".into()),
             (OTEL_KIND, "Client".into()),
             (otel_trace::RPC_SYSTEM, "http".into()),
@@ -260,7 +262,7 @@ mod tests {
         .map(|(k, v)| (k.to_string(), v))
         .collect();
 
-        assert_eq!(attrs, &expected_attributes);
+        assert_eq!(got, want);
     }
 
     #[tokio::test]
@@ -295,7 +297,7 @@ mod tests {
         let client = create_client(true, server_url.clone()).await;
         let guard = TestLayer::initialize();
 
-        let options = set_path_template(RequestOptions::default(), "/error-info");
+        let options = RequestOptions::default().insert_extension(PathTemplate("/error-info"));
         let request = client.builder(Method::GET, "/error-info".to_string());
         let result: Result<Response<TestResponse>> =
             client.execute(request, None::<NoBody>, options).await;
@@ -361,7 +363,7 @@ mod tests {
         let client = create_client(true, server_url.clone()).await;
         let guard = TestLayer::initialize();
 
-        let options = set_path_template(RequestOptions::default(), "/test");
+        let options = RequestOptions::default().insert_extension(PathTemplate("/test"));
         let request = client.builder(Method::GET, "/test".to_string());
 
         // Create a parent span (T3) with the marker field
@@ -424,7 +426,7 @@ mod tests {
         let client = create_client(true, server_url.clone()).await;
         let guard = TestLayer::initialize();
 
-        let options = set_path_template(RequestOptions::default(), "/test");
+        let options = RequestOptions::default().insert_extension(PathTemplate("/test"));
         let request = client.builder(Method::GET, "/test".to_string());
 
         // Create a user span that happens to have the same fields, but NO marker
@@ -454,10 +456,6 @@ mod tests {
         );
     }
 
-    use google_cloud_gax_internal::observability::{
-        create_client_request_span, record_client_request_span,
-    };
-
     #[tokio::test]
     async fn test_t3_span_creation_and_enrichment() {
         let server = Server::run();
@@ -471,24 +469,19 @@ mod tests {
         let client = create_client(true, server_url.clone()).await;
         let guard = TestLayer::initialize();
 
-        let options = set_path_template(RequestOptions::default(), "/test");
+        let options = RequestOptions::default().insert_extension(PathTemplate("/test"));
         let request = client.builder(Method::GET, "/test".to_string());
 
         // 1. Create the T3 span using the helper
-        let t3_span = create_client_request_span(
-            "google.cloud.test.service.TestMethod",
-            "TestMethod",
-            &TEST_INSTRUMENTATION_INFO,
-        );
+        let t3_span = client_request_span!("Service", "test_method", &TEST_INSTRUMENTATION_INFO);
 
         // 2. Execute the request within the T3 span
-        let result: Result<Response<TestResponse>> = client
+        let _result: Result<Response<TestResponse>> = client
             .execute(request, None::<NoBody>, options)
             .instrument(t3_span.clone())
-            .await;
-
-        // 3. Enrich the span based on the result
-        record_client_request_span(&result, &t3_span);
+            .await
+            // 3. Enrich the span based on the result
+            .record_in_span(&t3_span);
 
         let captured = TestLayer::capture(&guard);
 
@@ -498,14 +491,17 @@ mod tests {
             .find(|s| s.name == "client_request")
             .expect("client_request span not found");
 
-        let attrs = &t3_captured.attributes;
+        let got = BTreeMap::from_iter(t3_captured.attributes.clone());
 
-        let expected_attributes: HashMap<String, AttributeValue> = [
-            (OTEL_NAME, "google.cloud.test.service.TestMethod".into()),
+        let want: BTreeMap<String, AttributeValue> = [
+            (
+                OTEL_NAME,
+                format!("{}::Service::test_method", env!("CARGO_CRATE_NAME")).into(),
+            ),
             (OTEL_KIND, "Internal".into()),
             (otel_trace::RPC_SYSTEM, "http".into()),
             (otel_trace::RPC_SERVICE, TEST_SERVICE.into()),
-            (otel_trace::RPC_METHOD, "TestMethod".into()),
+            (otel_trace::RPC_METHOD, "test_method".into()),
             (GCP_CLIENT_SERVICE, TEST_SERVICE.into()),
             (GCP_CLIENT_VERSION, TEST_VERSION.into()),
             (GCP_CLIENT_REPO, "googleapis/google-cloud-rust".into()),
@@ -526,6 +522,6 @@ mod tests {
         .map(|(k, v)| (k.to_string(), v))
         .collect();
 
-        assert_eq!(attrs, &expected_attributes);
+        assert_eq!(got, want);
     }
 }

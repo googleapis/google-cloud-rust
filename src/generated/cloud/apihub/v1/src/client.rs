@@ -120,16 +120,68 @@ impl ApiHub {
 
     /// Create an API resource in the API hub.
     /// Once an API resource is created, versions can be added to it.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHub;
+    /// use google_cloud_apihub_v1::model::Api;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHub, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_api()
+    ///         .set_parent(parent).set_api_id("api_id_value")
+    ///         .set_api(
+    ///             Api::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_api(&self) -> super::builder::api_hub::CreateApi {
         super::builder::api_hub::CreateApi::new(self.inner.clone())
     }
 
     /// Get API resource details including the API versions contained in it.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHub;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHub, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_api()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_api(&self) -> super::builder::api_hub::GetApi {
         super::builder::api_hub::GetApi::new(self.inner.clone())
     }
 
     /// List API resources in the API hub.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHub;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHub, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_apis()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_apis(&self) -> super::builder::api_hub::ListApis {
         super::builder::api_hub::ListApis::new(self.inner.clone())
     }
@@ -167,17 +219,71 @@ impl ApiHub {
     /// [google.cloud.apihub.v1.Api.target_user]: crate::model::Api::target_user
     /// [google.cloud.apihub.v1.Api.team]: crate::model::Api::team
     /// [google.cloud.apihub.v1.UpdateApiRequest.update_mask]: crate::model::UpdateApiRequest::update_mask
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHub;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_apihub_v1::model::Api;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHub, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_api()
+    ///         .set_api(
+    ///             Api::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_api(&self) -> super::builder::api_hub::UpdateApi {
         super::builder::api_hub::UpdateApi::new(self.inner.clone())
     }
 
     /// Delete an API resource in the API hub. API can only be deleted if all
     /// underlying versions are deleted.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHub;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHub, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_api()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_api(&self) -> super::builder::api_hub::DeleteApi {
         super::builder::api_hub::DeleteApi::new(self.inner.clone())
     }
 
     /// Create an API version for an API resource in the API hub.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHub;
+    /// use google_cloud_apihub_v1::model::Version;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHub, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_version()
+    ///         .set_parent(parent).set_version_id("version_id_value")
+    ///         .set_version(
+    ///             Version::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_version(&self) -> super::builder::api_hub::CreateVersion {
         super::builder::api_hub::CreateVersion::new(self.inner.clone())
     }
@@ -185,11 +291,44 @@ impl ApiHub {
     /// Get details about the API version of an API resource. This will include
     /// information about the specs and operations present in the API
     /// version as well as the deployments linked to it.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHub;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHub, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_version()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_version(&self) -> super::builder::api_hub::GetVersion {
         super::builder::api_hub::GetVersion::new(self.inner.clone())
     }
 
     /// List API versions of an API resource in the API hub.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHub;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHub, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_versions()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_versions(&self) -> super::builder::api_hub::ListVersions {
         super::builder::api_hub::ListVersions::new(self.inner.clone())
     }
@@ -220,12 +359,47 @@ impl ApiHub {
     /// [google.cloud.apihub.v1.Version.display_name]: crate::model::Version::display_name
     /// [google.cloud.apihub.v1.Version.documentation]: crate::model::Version::documentation
     /// [google.cloud.apihub.v1.Version.lifecycle]: crate::model::Version::lifecycle
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHub;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_apihub_v1::model::Version;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHub, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_version()
+    ///         .set_version(
+    ///             Version::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_version(&self) -> super::builder::api_hub::UpdateVersion {
         super::builder::api_hub::UpdateVersion::new(self.inner.clone())
     }
 
     /// Delete an API version. Version can only be deleted if all underlying specs,
     /// operations, definitions and linked deployments are deleted.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHub;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHub, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_version()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_version(&self) -> super::builder::api_hub::DeleteVersion {
         super::builder::api_hub::DeleteVersion::new(self.inner.clone())
     }
@@ -255,6 +429,25 @@ impl ApiHub {
     /// [google.cloud.apihub.v1.ApiHub.GetSpec]: crate::client::ApiHub::get_spec
     /// [google.cloud.apihub.v1.ApiHub.GetSpecContents]: crate::client::ApiHub::get_spec_contents
     /// [google.cloud.apihub.v1.ApiHub.ListApiOperations]: crate::client::ApiHub::list_api_operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHub;
+    /// use google_cloud_apihub_v1::model::Spec;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHub, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_spec()
+    ///         .set_parent(parent).set_spec_id("spec_id_value")
+    ///         .set_spec(
+    ///             Spec::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_spec(&self) -> super::builder::api_hub::CreateSpec {
         super::builder::api_hub::CreateSpec::new(self.inner.clone())
     }
@@ -265,16 +458,64 @@ impl ApiHub {
     /// to retrieve the same.
     ///
     /// [google.cloud.apihub.v1.ApiHub.GetSpecContents]: crate::client::ApiHub::get_spec_contents
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHub;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHub, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_spec()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_spec(&self) -> super::builder::api_hub::GetSpec {
         super::builder::api_hub::GetSpec::new(self.inner.clone())
     }
 
     /// Get spec contents.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHub;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHub
+    /// ) -> Result<()> {
+    ///     let response = client.get_spec_contents()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_spec_contents(&self) -> super::builder::api_hub::GetSpecContents {
         super::builder::api_hub::GetSpecContents::new(self.inner.clone())
     }
 
     /// List specs corresponding to a particular API resource.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHub;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHub, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_specs()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_specs(&self) -> super::builder::api_hub::ListSpecs {
         super::builder::api_hub::ListSpecs::new(self.inner.clone())
     }
@@ -311,6 +552,27 @@ impl ApiHub {
     /// [google.cloud.apihub.v1.Spec.source_uri]: crate::model::Spec::source_uri
     /// [google.cloud.apihub.v1.Spec.spec_type]: crate::model::Spec::spec_type
     /// [google.cloud.apihub.v1.UpdateSpecRequest.update_mask]: crate::model::UpdateSpecRequest::update_mask
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHub;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_apihub_v1::model::Spec;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHub, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_spec()
+    ///         .set_spec(
+    ///             Spec::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_spec(&self) -> super::builder::api_hub::UpdateSpec {
         super::builder::api_hub::UpdateSpec::new(self.inner.clone())
     }
@@ -318,6 +580,20 @@ impl ApiHub {
     /// Delete a spec.
     /// Deleting a spec will also delete the associated operations from the
     /// version.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHub;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHub, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_spec()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_spec(&self) -> super::builder::api_hub::DeleteSpec {
         super::builder::api_hub::DeleteSpec::new(self.inner.clone())
     }
@@ -325,16 +601,68 @@ impl ApiHub {
     /// Create an apiOperation in an API version.
     /// An apiOperation can be created only if the version has no apiOperations
     /// which were created by parsing a spec.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHub;
+    /// use google_cloud_apihub_v1::model::ApiOperation;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHub, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_api_operation()
+    ///         .set_parent(parent)
+    ///         .set_api_operation(
+    ///             ApiOperation::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_api_operation(&self) -> super::builder::api_hub::CreateApiOperation {
         super::builder::api_hub::CreateApiOperation::new(self.inner.clone())
     }
 
     /// Get details about a particular operation in API version.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHub;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHub, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_api_operation()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_api_operation(&self) -> super::builder::api_hub::GetApiOperation {
         super::builder::api_hub::GetApiOperation::new(self.inner.clone())
     }
 
     /// List operations in an API version.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHub;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHub, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_api_operations()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_api_operations(&self) -> super::builder::api_hub::ListApiOperations {
         super::builder::api_hub::ListApiOperations::new(self.inner.clone())
     }
@@ -363,6 +691,27 @@ impl ApiHub {
     /// [google.cloud.apihub.v1.ApiOperation]: crate::model::ApiOperation
     /// [google.cloud.apihub.v1.ApiOperation.attributes]: crate::model::ApiOperation::attributes
     /// [google.cloud.apihub.v1.UpdateApiOperationRequest.update_mask]: crate::model::UpdateApiOperationRequest::update_mask
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHub;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_apihub_v1::model::ApiOperation;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHub, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_api_operation()
+    ///         .set_api_operation(
+    ///             ApiOperation::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_api_operation(&self) -> super::builder::api_hub::UpdateApiOperation {
         super::builder::api_hub::UpdateApiOperation::new(self.inner.clone())
     }
@@ -370,11 +719,40 @@ impl ApiHub {
     /// Delete an operation in an API version and we can delete only the
     /// operations created via create API. If the operation was created by parsing
     /// the spec, then it can be deleted by editing or deleting the spec.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHub;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHub, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_api_operation()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_api_operation(&self) -> super::builder::api_hub::DeleteApiOperation {
         super::builder::api_hub::DeleteApiOperation::new(self.inner.clone())
     }
 
     /// Get details about a definition in an API version.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHub;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHub, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_definition()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_definition(&self) -> super::builder::api_hub::GetDefinition {
         super::builder::api_hub::GetDefinition::new(self.inner.clone())
     }
@@ -382,16 +760,68 @@ impl ApiHub {
     /// Create a deployment resource in the API hub.
     /// Once a deployment resource is created, it can be associated with API
     /// versions.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHub;
+    /// use google_cloud_apihub_v1::model::Deployment;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHub, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_deployment()
+    ///         .set_parent(parent).set_deployment_id("deployment_id_value")
+    ///         .set_deployment(
+    ///             Deployment::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_deployment(&self) -> super::builder::api_hub::CreateDeployment {
         super::builder::api_hub::CreateDeployment::new(self.inner.clone())
     }
 
     /// Get details about a deployment and the API versions linked to it.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHub;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHub, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_deployment()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_deployment(&self) -> super::builder::api_hub::GetDeployment {
         super::builder::api_hub::GetDeployment::new(self.inner.clone())
     }
 
     /// List deployment resources in the API hub.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHub;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHub, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_deployments()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_deployments(&self) -> super::builder::api_hub::ListDeployments {
         super::builder::api_hub::ListDeployments::new(self.inner.clone())
     }
@@ -431,11 +861,46 @@ impl ApiHub {
     /// [google.cloud.apihub.v1.Deployment.slo]: crate::model::Deployment::slo
     /// [google.cloud.apihub.v1.Deployment.source_uri]: crate::model::Deployment::source_uri
     /// [google.cloud.apihub.v1.UpdateDeploymentRequest.update_mask]: crate::model::UpdateDeploymentRequest::update_mask
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHub;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_apihub_v1::model::Deployment;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHub, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_deployment()
+    ///         .set_deployment(
+    ///             Deployment::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_deployment(&self) -> super::builder::api_hub::UpdateDeployment {
         super::builder::api_hub::UpdateDeployment::new(self.inner.clone())
     }
 
     /// Delete a deployment resource in the API hub.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHub;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHub, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_deployment()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_deployment(&self) -> super::builder::api_hub::DeleteDeployment {
         super::builder::api_hub::DeleteDeployment::new(self.inner.clone())
     }
@@ -450,11 +915,45 @@ impl ApiHub {
     ///
     /// [google.cloud.apihub.v1.ApiHub.ListAttributes]: crate::client::ApiHub::list_attributes
     /// [google.cloud.apihub.v1.ApiHub.UpdateAttribute]: crate::client::ApiHub::update_attribute
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHub;
+    /// use google_cloud_apihub_v1::model::Attribute;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHub, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_attribute()
+    ///         .set_parent(parent).set_attribute_id("attribute_id_value")
+    ///         .set_attribute(
+    ///             Attribute::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_attribute(&self) -> super::builder::api_hub::CreateAttribute {
         super::builder::api_hub::CreateAttribute::new(self.inner.clone())
     }
 
     /// Get details about the attribute.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHub;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHub, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_attribute()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_attribute(&self) -> super::builder::api_hub::GetAttribute {
         super::builder::api_hub::GetAttribute::new(self.inner.clone())
     }
@@ -489,6 +988,27 @@ impl ApiHub {
     /// [google.cloud.apihub.v1.Attribute.description]: crate::model::Attribute::description
     /// [google.cloud.apihub.v1.Attribute.display_name]: crate::model::Attribute::display_name
     /// [google.cloud.apihub.v1.UpdateAttributeRequest.update_mask]: crate::model::UpdateAttributeRequest::update_mask
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHub;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_apihub_v1::model::Attribute;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHub, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_attribute()
+    ///         .set_attribute(
+    ///             Attribute::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_attribute(&self) -> super::builder::api_hub::UpdateAttribute {
         super::builder::api_hub::UpdateAttribute::new(self.inner.clone())
     }
@@ -498,26 +1018,110 @@ impl ApiHub {
     /// Note: System defined attributes cannot be deleted. All
     /// associations of the attribute being deleted with any API hub resource will
     /// also get deleted.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHub;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHub, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_attribute()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_attribute(&self) -> super::builder::api_hub::DeleteAttribute {
         super::builder::api_hub::DeleteAttribute::new(self.inner.clone())
     }
 
     /// List all attributes.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHub;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHub, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_attributes()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_attributes(&self) -> super::builder::api_hub::ListAttributes {
         super::builder::api_hub::ListAttributes::new(self.inner.clone())
     }
 
     /// Search across API-Hub resources.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHub;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHub
+    /// ) -> Result<()> {
+    ///     let mut list = client.search_resources()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn search_resources(&self) -> super::builder::api_hub::SearchResources {
         super::builder::api_hub::SearchResources::new(self.inner.clone())
     }
 
     /// Create an External API resource in the API hub.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHub;
+    /// use google_cloud_apihub_v1::model::ExternalApi;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHub, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_external_api()
+    ///         .set_parent(parent)
+    ///         .set_external_api(
+    ///             ExternalApi::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_external_api(&self) -> super::builder::api_hub::CreateExternalApi {
         super::builder::api_hub::CreateExternalApi::new(self.inner.clone())
     }
 
     /// Get details about an External API resource in the API hub.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHub;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHub, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_external_api()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_external_api(&self) -> super::builder::api_hub::GetExternalApi {
         super::builder::api_hub::GetExternalApi::new(self.inner.clone())
     }
@@ -541,26 +1145,112 @@ impl ApiHub {
     /// [google.cloud.apihub.v1.ExternalApi.endpoints]: crate::model::ExternalApi::endpoints
     /// [google.cloud.apihub.v1.ExternalApi.paths]: crate::model::ExternalApi::paths
     /// [google.cloud.apihub.v1.UpdateExternalApiRequest.update_mask]: crate::model::UpdateExternalApiRequest::update_mask
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHub;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_apihub_v1::model::ExternalApi;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHub, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_external_api()
+    ///         .set_external_api(
+    ///             ExternalApi::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_external_api(&self) -> super::builder::api_hub::UpdateExternalApi {
         super::builder::api_hub::UpdateExternalApi::new(self.inner.clone())
     }
 
     /// Delete an External API resource in the API hub.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHub;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHub, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_external_api()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_external_api(&self) -> super::builder::api_hub::DeleteExternalApi {
         super::builder::api_hub::DeleteExternalApi::new(self.inner.clone())
     }
 
     /// List External API resources in the API hub.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHub;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHub, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_external_apis()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_external_apis(&self) -> super::builder::api_hub::ListExternalApis {
         super::builder::api_hub::ListExternalApis::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHub;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHub
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::api_hub::ListLocations {
         super::builder::api_hub::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHub;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHub
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::api_hub::GetLocation {
         super::builder::api_hub::GetLocation::new(self.inner.clone())
     }
@@ -568,6 +1258,24 @@ impl ApiHub {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHub;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHub
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::api_hub::ListOperations {
         super::builder::api_hub::ListOperations::new(self.inner.clone())
     }
@@ -575,6 +1283,21 @@ impl ApiHub {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHub;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHub
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::api_hub::GetOperation {
         super::builder::api_hub::GetOperation::new(self.inner.clone())
     }
@@ -582,6 +1305,20 @@ impl ApiHub {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHub;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHub
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::api_hub::DeleteOperation {
         super::builder::api_hub::DeleteOperation::new(self.inner.clone())
     }
@@ -589,6 +1326,20 @@ impl ApiHub {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHub;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHub
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::api_hub::CancelOperation {
         super::builder::api_hub::CancelOperation::new(self.inner.clone())
     }
@@ -701,11 +1452,45 @@ impl ApiHubDependencies {
     }
 
     /// Create a dependency between two entities in the API hub.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHubDependencies;
+    /// use google_cloud_apihub_v1::model::Dependency;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHubDependencies, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_dependency()
+    ///         .set_parent(parent).set_dependency_id("dependency_id_value")
+    ///         .set_dependency(
+    ///             Dependency::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_dependency(&self) -> super::builder::api_hub_dependencies::CreateDependency {
         super::builder::api_hub_dependencies::CreateDependency::new(self.inner.clone())
     }
 
     /// Get details about a dependency resource in the API hub.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHubDependencies;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHubDependencies, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_dependency()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_dependency(&self) -> super::builder::api_hub_dependencies::GetDependency {
         super::builder::api_hub_dependencies::GetDependency::new(self.inner.clone())
     }
@@ -722,26 +1507,112 @@ impl ApiHubDependencies {
     /// [google.cloud.apihub.v1.Dependency]: crate::model::Dependency
     /// [google.cloud.apihub.v1.Dependency.description]: crate::model::Dependency::description
     /// [google.cloud.apihub.v1.UpdateDependencyRequest.update_mask]: crate::model::UpdateDependencyRequest::update_mask
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHubDependencies;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_apihub_v1::model::Dependency;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHubDependencies, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_dependency()
+    ///         .set_dependency(
+    ///             Dependency::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_dependency(&self) -> super::builder::api_hub_dependencies::UpdateDependency {
         super::builder::api_hub_dependencies::UpdateDependency::new(self.inner.clone())
     }
 
     /// Delete the dependency resource.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHubDependencies;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHubDependencies, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_dependency()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_dependency(&self) -> super::builder::api_hub_dependencies::DeleteDependency {
         super::builder::api_hub_dependencies::DeleteDependency::new(self.inner.clone())
     }
 
     /// List dependencies based on the provided filter and pagination parameters.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHubDependencies;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHubDependencies, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_dependencies()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_dependencies(&self) -> super::builder::api_hub_dependencies::ListDependencies {
         super::builder::api_hub_dependencies::ListDependencies::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHubDependencies;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHubDependencies
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::api_hub_dependencies::ListLocations {
         super::builder::api_hub_dependencies::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHubDependencies;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHubDependencies
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::api_hub_dependencies::GetLocation {
         super::builder::api_hub_dependencies::GetLocation::new(self.inner.clone())
     }
@@ -749,6 +1620,24 @@ impl ApiHubDependencies {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHubDependencies;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHubDependencies
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::api_hub_dependencies::ListOperations {
         super::builder::api_hub_dependencies::ListOperations::new(self.inner.clone())
     }
@@ -756,6 +1645,21 @@ impl ApiHubDependencies {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHubDependencies;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHubDependencies
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::api_hub_dependencies::GetOperation {
         super::builder::api_hub_dependencies::GetOperation::new(self.inner.clone())
     }
@@ -763,6 +1667,20 @@ impl ApiHubDependencies {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHubDependencies;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHubDependencies
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::api_hub_dependencies::DeleteOperation {
         super::builder::api_hub_dependencies::DeleteOperation::new(self.inner.clone())
     }
@@ -770,6 +1688,20 @@ impl ApiHubDependencies {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHubDependencies;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHubDependencies
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::api_hub_dependencies::CancelOperation {
         super::builder::api_hub_dependencies::CancelOperation::new(self.inner.clone())
     }
@@ -890,16 +1822,65 @@ impl ApiHubCollect {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHubCollect;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHubCollect
+    /// ) -> Result<()> {
+    ///     let response = client.collect_api_data()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn collect_api_data(&self) -> super::builder::api_hub_collect::CollectApiData {
         super::builder::api_hub_collect::CollectApiData::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHubCollect;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHubCollect
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::api_hub_collect::ListLocations {
         super::builder::api_hub_collect::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHubCollect;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHubCollect
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::api_hub_collect::GetLocation {
         super::builder::api_hub_collect::GetLocation::new(self.inner.clone())
     }
@@ -907,6 +1888,24 @@ impl ApiHubCollect {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHubCollect;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHubCollect
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::api_hub_collect::ListOperations {
         super::builder::api_hub_collect::ListOperations::new(self.inner.clone())
     }
@@ -914,6 +1913,21 @@ impl ApiHubCollect {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHubCollect;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHubCollect
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::api_hub_collect::GetOperation {
         super::builder::api_hub_collect::GetOperation::new(self.inner.clone())
     }
@@ -921,6 +1935,20 @@ impl ApiHubCollect {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHubCollect;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHubCollect
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::api_hub_collect::DeleteOperation {
         super::builder::api_hub_collect::DeleteOperation::new(self.inner.clone())
     }
@@ -928,6 +1956,20 @@ impl ApiHubCollect {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHubCollect;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHubCollect
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::api_hub_collect::CancelOperation {
         super::builder::api_hub_collect::CancelOperation::new(self.inner.clone())
     }
@@ -1038,16 +2080,68 @@ impl ApiHubCurate {
 
     /// Create a curation resource in the API hub.
     /// Once a curation resource is created, plugin instances can start using it.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHubCurate;
+    /// use google_cloud_apihub_v1::model::Curation;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHubCurate, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_curation()
+    ///         .set_parent(parent).set_curation_id("curation_id_value")
+    ///         .set_curation(
+    ///             Curation::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_curation(&self) -> super::builder::api_hub_curate::CreateCuration {
         super::builder::api_hub_curate::CreateCuration::new(self.inner.clone())
     }
 
     /// Get curation resource details.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHubCurate;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHubCurate, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_curation()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_curation(&self) -> super::builder::api_hub_curate::GetCuration {
         super::builder::api_hub_curate::GetCuration::new(self.inner.clone())
     }
 
     /// List curation resources in the API hub.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHubCurate;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHubCurate, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_curations()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_curations(&self) -> super::builder::api_hub_curate::ListCurations {
         super::builder::api_hub_curate::ListCurations::new(self.inner.clone())
     }
@@ -1066,22 +2160,90 @@ impl ApiHubCurate {
     /// [google.cloud.apihub.v1.Curation.description]: crate::model::Curation::description
     /// [google.cloud.apihub.v1.Curation.display_name]: crate::model::Curation::display_name
     /// [google.cloud.apihub.v1.UpdateApiRequest.update_mask]: crate::model::UpdateApiRequest::update_mask
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHubCurate;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_apihub_v1::model::Curation;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHubCurate, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_curation()
+    ///         .set_curation(
+    ///             Curation::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_curation(&self) -> super::builder::api_hub_curate::UpdateCuration {
         super::builder::api_hub_curate::UpdateCuration::new(self.inner.clone())
     }
 
     /// Delete a curation resource in the API hub. A curation can only be deleted
     /// if it's not being used by any plugin instance.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHubCurate;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHubCurate, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_curation()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_curation(&self) -> super::builder::api_hub_curate::DeleteCuration {
         super::builder::api_hub_curate::DeleteCuration::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHubCurate;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHubCurate
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::api_hub_curate::ListLocations {
         super::builder::api_hub_curate::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHubCurate;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHubCurate
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::api_hub_curate::GetLocation {
         super::builder::api_hub_curate::GetLocation::new(self.inner.clone())
     }
@@ -1089,6 +2251,24 @@ impl ApiHubCurate {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHubCurate;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHubCurate
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::api_hub_curate::ListOperations {
         super::builder::api_hub_curate::ListOperations::new(self.inner.clone())
     }
@@ -1096,6 +2276,21 @@ impl ApiHubCurate {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHubCurate;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHubCurate
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::api_hub_curate::GetOperation {
         super::builder::api_hub_curate::GetOperation::new(self.inner.clone())
     }
@@ -1103,6 +2298,20 @@ impl ApiHubCurate {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHubCurate;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHubCurate
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::api_hub_curate::DeleteOperation {
         super::builder::api_hub_curate::DeleteOperation::new(self.inner.clone())
     }
@@ -1110,6 +2319,20 @@ impl ApiHubCurate {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHubCurate;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHubCurate
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::api_hub_curate::CancelOperation {
         super::builder::api_hub_curate::CancelOperation::new(self.inner.clone())
     }
@@ -1219,6 +2442,24 @@ impl ApiHubDiscovery {
     }
 
     /// Lists all the DiscoveredAPIObservations in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHubDiscovery;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHubDiscovery, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_discovered_api_observations()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_discovered_api_observations(
         &self,
     ) -> super::builder::api_hub_discovery::ListDiscoveredApiObservations {
@@ -1227,6 +2468,21 @@ impl ApiHubDiscovery {
 
     /// Gets a DiscoveredAPIObservation in a given project, location and
     /// ApiObservation.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHubDiscovery;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHubDiscovery, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_discovered_api_observation()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_discovered_api_observation(
         &self,
     ) -> super::builder::api_hub_discovery::GetDiscoveredApiObservation {
@@ -1235,6 +2491,24 @@ impl ApiHubDiscovery {
 
     /// Lists all the DiscoveredAPIOperations in a given project, location and
     /// ApiObservation.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHubDiscovery;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHubDiscovery, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_discovered_api_operations()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_discovered_api_operations(
         &self,
     ) -> super::builder::api_hub_discovery::ListDiscoveredApiOperations {
@@ -1243,6 +2517,21 @@ impl ApiHubDiscovery {
 
     /// Gets a DiscoveredAPIOperation in a given project, location,
     /// ApiObservation and ApiOperation.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHubDiscovery;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHubDiscovery, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_discovered_api_operation()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_discovered_api_operation(
         &self,
     ) -> super::builder::api_hub_discovery::GetDiscoveredApiOperation {
@@ -1250,11 +2539,44 @@ impl ApiHubDiscovery {
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHubDiscovery;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHubDiscovery
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::api_hub_discovery::ListLocations {
         super::builder::api_hub_discovery::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHubDiscovery;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHubDiscovery
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::api_hub_discovery::GetLocation {
         super::builder::api_hub_discovery::GetLocation::new(self.inner.clone())
     }
@@ -1262,6 +2584,24 @@ impl ApiHubDiscovery {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHubDiscovery;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHubDiscovery
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::api_hub_discovery::ListOperations {
         super::builder::api_hub_discovery::ListOperations::new(self.inner.clone())
     }
@@ -1269,6 +2609,21 @@ impl ApiHubDiscovery {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHubDiscovery;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHubDiscovery
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::api_hub_discovery::GetOperation {
         super::builder::api_hub_discovery::GetOperation::new(self.inner.clone())
     }
@@ -1276,6 +2631,20 @@ impl ApiHubDiscovery {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHubDiscovery;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHubDiscovery
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::api_hub_discovery::DeleteOperation {
         super::builder::api_hub_discovery::DeleteOperation::new(self.inner.clone())
     }
@@ -1283,6 +2652,20 @@ impl ApiHubDiscovery {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHubDiscovery;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHubDiscovery
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::api_hub_discovery::CancelOperation {
         super::builder::api_hub_discovery::CancelOperation::new(self.inner.clone())
     }
@@ -1399,6 +2782,25 @@ impl HostProjectRegistrationService {
     /// attached as a runtime project to another host project.
     /// A project can be registered as a host project only once. Subsequent
     /// register calls for the same project will fail.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::HostProjectRegistrationService;
+    /// use google_cloud_apihub_v1::model::HostProjectRegistration;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &HostProjectRegistrationService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_host_project_registration()
+    ///         .set_parent(parent)
+    ///         .set_host_project_registration(
+    ///             HostProjectRegistration::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_host_project_registration(
         &self,
     ) -> super::builder::host_project_registration_service::CreateHostProjectRegistration {
@@ -1408,6 +2810,21 @@ impl HostProjectRegistrationService {
     }
 
     /// Get a host project registration.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::HostProjectRegistrationService;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &HostProjectRegistrationService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_host_project_registration()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_host_project_registration(
         &self,
     ) -> super::builder::host_project_registration_service::GetHostProjectRegistration {
@@ -1417,6 +2834,24 @@ impl HostProjectRegistrationService {
     }
 
     /// Lists host project registrations.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::HostProjectRegistrationService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &HostProjectRegistrationService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_host_project_registrations()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_host_project_registrations(
         &self,
     ) -> super::builder::host_project_registration_service::ListHostProjectRegistrations {
@@ -1426,6 +2861,24 @@ impl HostProjectRegistrationService {
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::HostProjectRegistrationService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &HostProjectRegistrationService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(
         &self,
     ) -> super::builder::host_project_registration_service::ListLocations {
@@ -1433,6 +2886,21 @@ impl HostProjectRegistrationService {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::HostProjectRegistrationService;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &HostProjectRegistrationService
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::host_project_registration_service::GetLocation {
         super::builder::host_project_registration_service::GetLocation::new(self.inner.clone())
     }
@@ -1440,6 +2908,24 @@ impl HostProjectRegistrationService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::HostProjectRegistrationService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &HostProjectRegistrationService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(
         &self,
     ) -> super::builder::host_project_registration_service::ListOperations {
@@ -1449,6 +2935,21 @@ impl HostProjectRegistrationService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::HostProjectRegistrationService;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &HostProjectRegistrationService
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::host_project_registration_service::GetOperation {
         super::builder::host_project_registration_service::GetOperation::new(self.inner.clone())
     }
@@ -1456,6 +2957,20 @@ impl HostProjectRegistrationService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::HostProjectRegistrationService;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &HostProjectRegistrationService
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(
         &self,
     ) -> super::builder::host_project_registration_service::DeleteOperation {
@@ -1465,6 +2980,20 @@ impl HostProjectRegistrationService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::HostProjectRegistrationService;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &HostProjectRegistrationService
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(
         &self,
     ) -> super::builder::host_project_registration_service::CancelOperation {
@@ -1575,16 +3104,67 @@ impl LintingService {
     }
 
     /// Get the style guide being used for linting.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::LintingService;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &LintingService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_style_guide()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_style_guide(&self) -> super::builder::linting_service::GetStyleGuide {
         super::builder::linting_service::GetStyleGuide::new(self.inner.clone())
     }
 
     /// Update the styleGuide to be used for liniting in by API hub.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::LintingService;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_apihub_v1::model::StyleGuide;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &LintingService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_style_guide()
+    ///         .set_style_guide(
+    ///             StyleGuide::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_style_guide(&self) -> super::builder::linting_service::UpdateStyleGuide {
         super::builder::linting_service::UpdateStyleGuide::new(self.inner.clone())
     }
 
     /// Get the contents of the style guide.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::LintingService;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &LintingService
+    /// ) -> Result<()> {
+    ///     let response = client.get_style_guide_contents()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_style_guide_contents(
         &self,
     ) -> super::builder::linting_service::GetStyleGuideContents {
@@ -1594,16 +3174,63 @@ impl LintingService {
     /// Lints the requested spec and updates the corresponding API Spec with the
     /// lint response. This lint response will be available in all subsequent
     /// Get and List Spec calls to Core service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::LintingService;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &LintingService
+    /// ) -> Result<()> {
+    ///     client.lint_spec()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn lint_spec(&self) -> super::builder::linting_service::LintSpec {
         super::builder::linting_service::LintSpec::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::LintingService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &LintingService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::linting_service::ListLocations {
         super::builder::linting_service::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::LintingService;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &LintingService
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::linting_service::GetLocation {
         super::builder::linting_service::GetLocation::new(self.inner.clone())
     }
@@ -1611,6 +3238,24 @@ impl LintingService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::LintingService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &LintingService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::linting_service::ListOperations {
         super::builder::linting_service::ListOperations::new(self.inner.clone())
     }
@@ -1618,6 +3263,21 @@ impl LintingService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::LintingService;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &LintingService
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::linting_service::GetOperation {
         super::builder::linting_service::GetOperation::new(self.inner.clone())
     }
@@ -1625,6 +3285,20 @@ impl LintingService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::LintingService;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &LintingService
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::linting_service::DeleteOperation {
         super::builder::linting_service::DeleteOperation::new(self.inner.clone())
     }
@@ -1632,6 +3306,20 @@ impl LintingService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::LintingService;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &LintingService
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::linting_service::CancelOperation {
         super::builder::linting_service::CancelOperation::new(self.inner.clone())
     }
@@ -1740,29 +3428,111 @@ impl ApiHubPlugin {
     }
 
     /// Get an API Hub plugin.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHubPlugin;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHubPlugin, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_plugin()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_plugin(&self) -> super::builder::api_hub_plugin::GetPlugin {
         super::builder::api_hub_plugin::GetPlugin::new(self.inner.clone())
     }
 
     /// Enables a plugin.
     /// The `state` of the plugin after enabling is `ENABLED`
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHubPlugin;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHubPlugin
+    /// ) -> Result<()> {
+    ///     let response = client.enable_plugin()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn enable_plugin(&self) -> super::builder::api_hub_plugin::EnablePlugin {
         super::builder::api_hub_plugin::EnablePlugin::new(self.inner.clone())
     }
 
     /// Disables a plugin.
     /// The `state` of the plugin after disabling is `DISABLED`
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHubPlugin;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHubPlugin
+    /// ) -> Result<()> {
+    ///     let response = client.disable_plugin()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn disable_plugin(&self) -> super::builder::api_hub_plugin::DisablePlugin {
         super::builder::api_hub_plugin::DisablePlugin::new(self.inner.clone())
     }
 
     /// Create an API Hub plugin resource in the API hub.
     /// Once a plugin is created, it can be used to create plugin instances.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHubPlugin;
+    /// use google_cloud_apihub_v1::model::Plugin;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHubPlugin, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_plugin()
+    ///         .set_parent(parent).set_plugin_id("plugin_id_value")
+    ///         .set_plugin(
+    ///             Plugin::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_plugin(&self) -> super::builder::api_hub_plugin::CreatePlugin {
         super::builder::api_hub_plugin::CreatePlugin::new(self.inner.clone())
     }
 
     /// List all the plugins in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHubPlugin;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHubPlugin, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_plugins()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_plugins(&self) -> super::builder::api_hub_plugin::ListPlugins {
         super::builder::api_hub_plugin::ListPlugins::new(self.inner.clone())
     }
@@ -1779,6 +3549,21 @@ impl ApiHubPlugin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHubPlugin;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHubPlugin, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_plugin()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_plugin(&self) -> super::builder::api_hub_plugin::DeletePlugin {
         super::builder::api_hub_plugin::DeletePlugin::new(self.inner.clone())
     }
@@ -1794,6 +3579,26 @@ impl ApiHubPlugin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHubPlugin;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_apihub_v1::model::PluginInstance;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHubPlugin, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_plugin_instance()
+    ///         .set_parent(parent)
+    ///         .set_plugin_instance(
+    ///             PluginInstance::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_plugin_instance(&self) -> super::builder::api_hub_plugin::CreatePluginInstance {
         super::builder::api_hub_plugin::CreatePluginInstance::new(self.inner.clone())
     }
@@ -1809,6 +3614,22 @@ impl ApiHubPlugin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHubPlugin;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHubPlugin
+    /// ) -> Result<()> {
+    ///     let response = client.execute_plugin_instance_action()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn execute_plugin_instance_action(
         &self,
     ) -> super::builder::api_hub_plugin::ExecutePluginInstanceAction {
@@ -1816,12 +3637,45 @@ impl ApiHubPlugin {
     }
 
     /// Get an API Hub plugin instance.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHubPlugin;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHubPlugin, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_plugin_instance()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_plugin_instance(&self) -> super::builder::api_hub_plugin::GetPluginInstance {
         super::builder::api_hub_plugin::GetPluginInstance::new(self.inner.clone())
     }
 
     /// List all the plugins in a given project and location.
     /// `-` can be used as wildcard value for {plugin_id}
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHubPlugin;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHubPlugin, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_plugin_instances()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_plugin_instances(&self) -> super::builder::api_hub_plugin::ListPluginInstances {
         super::builder::api_hub_plugin::ListPluginInstances::new(self.inner.clone())
     }
@@ -1837,6 +3691,22 @@ impl ApiHubPlugin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHubPlugin;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHubPlugin
+    /// ) -> Result<()> {
+    ///     let response = client.enable_plugin_instance_action()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn enable_plugin_instance_action(
         &self,
     ) -> super::builder::api_hub_plugin::EnablePluginInstanceAction {
@@ -1854,6 +3724,22 @@ impl ApiHubPlugin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHubPlugin;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHubPlugin
+    /// ) -> Result<()> {
+    ///     let response = client.disable_plugin_instance_action()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn disable_plugin_instance_action(
         &self,
     ) -> super::builder::api_hub_plugin::DisablePluginInstanceAction {
@@ -1884,6 +3770,27 @@ impl ApiHubPlugin {
     /// [google.cloud.apihub.v1.PluginInstance.auth_config]: crate::model::PluginInstance::auth_config
     /// [google.cloud.apihub.v1.PluginInstance.display_name]: crate::model::PluginInstance::display_name
     /// [google.cloud.apihub.v1.UpdatePluginInstanceRequest.update_mask]: crate::model::UpdatePluginInstanceRequest::update_mask
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHubPlugin;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_apihub_v1::model::PluginInstance;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHubPlugin, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_plugin_instance()
+    ///         .set_plugin_instance(
+    ///             PluginInstance::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_plugin_instance(&self) -> super::builder::api_hub_plugin::UpdatePluginInstance {
         super::builder::api_hub_plugin::UpdatePluginInstance::new(self.inner.clone())
     }
@@ -1899,16 +3806,64 @@ impl ApiHubPlugin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHubPlugin;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHubPlugin, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_plugin_instance()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_plugin_instance(&self) -> super::builder::api_hub_plugin::DeletePluginInstance {
         super::builder::api_hub_plugin::DeletePluginInstance::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHubPlugin;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHubPlugin
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::api_hub_plugin::ListLocations {
         super::builder::api_hub_plugin::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHubPlugin;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHubPlugin
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::api_hub_plugin::GetLocation {
         super::builder::api_hub_plugin::GetLocation::new(self.inner.clone())
     }
@@ -1916,6 +3871,24 @@ impl ApiHubPlugin {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHubPlugin;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHubPlugin
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::api_hub_plugin::ListOperations {
         super::builder::api_hub_plugin::ListOperations::new(self.inner.clone())
     }
@@ -1923,6 +3896,21 @@ impl ApiHubPlugin {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHubPlugin;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHubPlugin
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::api_hub_plugin::GetOperation {
         super::builder::api_hub_plugin::GetOperation::new(self.inner.clone())
     }
@@ -1930,6 +3918,20 @@ impl ApiHubPlugin {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHubPlugin;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHubPlugin
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::api_hub_plugin::DeleteOperation {
         super::builder::api_hub_plugin::DeleteOperation::new(self.inner.clone())
     }
@@ -1937,6 +3939,20 @@ impl ApiHubPlugin {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::ApiHubPlugin;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &ApiHubPlugin
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::api_hub_plugin::CancelOperation {
         super::builder::api_hub_plugin::CancelOperation::new(self.inner.clone())
     }
@@ -2055,6 +4071,26 @@ impl Provisioning {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::Provisioning;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_apihub_v1::model::ApiHubInstance;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &Provisioning, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_api_hub_instance()
+    ///         .set_parent(parent)
+    ///         .set_api_hub_instance(
+    ///             ApiHubInstance::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_api_hub_instance(&self) -> super::builder::provisioning::CreateApiHubInstance {
         super::builder::provisioning::CreateApiHubInstance::new(self.inner.clone())
     }
@@ -2070,27 +4106,105 @@ impl Provisioning {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::Provisioning;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &Provisioning, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_api_hub_instance()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_api_hub_instance(&self) -> super::builder::provisioning::DeleteApiHubInstance {
         super::builder::provisioning::DeleteApiHubInstance::new(self.inner.clone())
     }
 
     /// Gets details of a single API Hub instance.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::Provisioning;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &Provisioning, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_api_hub_instance()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_api_hub_instance(&self) -> super::builder::provisioning::GetApiHubInstance {
         super::builder::provisioning::GetApiHubInstance::new(self.inner.clone())
     }
 
     /// Looks up an Api Hub instance in a given GCP project. There will always be
     /// only one Api Hub instance for a GCP project across all locations.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::Provisioning;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &Provisioning
+    /// ) -> Result<()> {
+    ///     let response = client.lookup_api_hub_instance()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn lookup_api_hub_instance(&self) -> super::builder::provisioning::LookupApiHubInstance {
         super::builder::provisioning::LookupApiHubInstance::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::Provisioning;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &Provisioning
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::provisioning::ListLocations {
         super::builder::provisioning::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::Provisioning;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &Provisioning
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::provisioning::GetLocation {
         super::builder::provisioning::GetLocation::new(self.inner.clone())
     }
@@ -2098,6 +4212,24 @@ impl Provisioning {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::Provisioning;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &Provisioning
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::provisioning::ListOperations {
         super::builder::provisioning::ListOperations::new(self.inner.clone())
     }
@@ -2105,6 +4237,21 @@ impl Provisioning {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::Provisioning;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &Provisioning
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::provisioning::GetOperation {
         super::builder::provisioning::GetOperation::new(self.inner.clone())
     }
@@ -2112,6 +4259,20 @@ impl Provisioning {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::Provisioning;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &Provisioning
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::provisioning::DeleteOperation {
         super::builder::provisioning::DeleteOperation::new(self.inner.clone())
     }
@@ -2119,6 +4280,20 @@ impl Provisioning {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::Provisioning;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &Provisioning
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::provisioning::CancelOperation {
         super::builder::provisioning::CancelOperation::new(self.inner.clone())
     }
@@ -2231,6 +4406,25 @@ impl RuntimeProjectAttachmentService {
     }
 
     /// Attaches a runtime project to the host project.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::RuntimeProjectAttachmentService;
+    /// use google_cloud_apihub_v1::model::RuntimeProjectAttachment;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &RuntimeProjectAttachmentService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_runtime_project_attachment()
+    ///         .set_parent(parent)
+    ///         .set_runtime_project_attachment(
+    ///             RuntimeProjectAttachment::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_runtime_project_attachment(
         &self,
     ) -> super::builder::runtime_project_attachment_service::CreateRuntimeProjectAttachment {
@@ -2240,6 +4434,21 @@ impl RuntimeProjectAttachmentService {
     }
 
     /// Gets a runtime project attachment.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::RuntimeProjectAttachmentService;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &RuntimeProjectAttachmentService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_runtime_project_attachment()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_runtime_project_attachment(
         &self,
     ) -> super::builder::runtime_project_attachment_service::GetRuntimeProjectAttachment {
@@ -2249,6 +4458,24 @@ impl RuntimeProjectAttachmentService {
     }
 
     /// List runtime projects attached to the host project.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::RuntimeProjectAttachmentService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &RuntimeProjectAttachmentService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_runtime_project_attachments()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_runtime_project_attachments(
         &self,
     ) -> super::builder::runtime_project_attachment_service::ListRuntimeProjectAttachments {
@@ -2259,6 +4486,20 @@ impl RuntimeProjectAttachmentService {
 
     /// Delete a runtime project attachment in the API Hub. This call will detach
     /// the runtime project from the host project.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::RuntimeProjectAttachmentService;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &RuntimeProjectAttachmentService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_runtime_project_attachment()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_runtime_project_attachment(
         &self,
     ) -> super::builder::runtime_project_attachment_service::DeleteRuntimeProjectAttachment {
@@ -2269,6 +4510,21 @@ impl RuntimeProjectAttachmentService {
 
     /// Look up a runtime project attachment. This API can be called in the context
     /// of any project.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::RuntimeProjectAttachmentService;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &RuntimeProjectAttachmentService
+    /// ) -> Result<()> {
+    ///     let response = client.lookup_runtime_project_attachment()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn lookup_runtime_project_attachment(
         &self,
     ) -> super::builder::runtime_project_attachment_service::LookupRuntimeProjectAttachment {
@@ -2278,6 +4534,24 @@ impl RuntimeProjectAttachmentService {
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::RuntimeProjectAttachmentService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &RuntimeProjectAttachmentService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(
         &self,
     ) -> super::builder::runtime_project_attachment_service::ListLocations {
@@ -2285,6 +4559,21 @@ impl RuntimeProjectAttachmentService {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::RuntimeProjectAttachmentService;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &RuntimeProjectAttachmentService
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::runtime_project_attachment_service::GetLocation {
         super::builder::runtime_project_attachment_service::GetLocation::new(self.inner.clone())
     }
@@ -2292,6 +4581,24 @@ impl RuntimeProjectAttachmentService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::RuntimeProjectAttachmentService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &RuntimeProjectAttachmentService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(
         &self,
     ) -> super::builder::runtime_project_attachment_service::ListOperations {
@@ -2301,6 +4608,21 @@ impl RuntimeProjectAttachmentService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::RuntimeProjectAttachmentService;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &RuntimeProjectAttachmentService
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(
         &self,
     ) -> super::builder::runtime_project_attachment_service::GetOperation {
@@ -2310,6 +4632,20 @@ impl RuntimeProjectAttachmentService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::RuntimeProjectAttachmentService;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &RuntimeProjectAttachmentService
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(
         &self,
     ) -> super::builder::runtime_project_attachment_service::DeleteOperation {
@@ -2319,6 +4655,20 @@ impl RuntimeProjectAttachmentService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apihub_v1::client::RuntimeProjectAttachmentService;
+    /// use google_cloud_apihub_v1::Result;
+    /// async fn sample(
+    ///    client: &RuntimeProjectAttachmentService
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(
         &self,
     ) -> super::builder::runtime_project_attachment_service::CancelOperation {

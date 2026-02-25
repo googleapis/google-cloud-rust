@@ -119,16 +119,64 @@ impl Changes {
     }
 
     /// Atomically updates the ResourceRecordSet collection.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dns_v1::client::Changes;
+    /// use google_cloud_dns_v1::Result;
+    /// async fn sample(
+    ///    client: &Changes
+    /// ) -> Result<()> {
+    ///     let response = client.create()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create(&self) -> super::builder::changes::Create {
         super::builder::changes::Create::new(self.inner.clone())
     }
 
     /// Fetches the representation of an existing Change.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dns_v1::client::Changes;
+    /// use google_cloud_dns_v1::Result;
+    /// async fn sample(
+    ///    client: &Changes
+    /// ) -> Result<()> {
+    ///     let response = client.get()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get(&self) -> super::builder::changes::Get {
         super::builder::changes::Get::new(self.inner.clone())
     }
 
     /// Enumerates Changes to a ResourceRecordSet collection.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dns_v1::client::Changes;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_dns_v1::Result;
+    /// async fn sample(
+    ///    client: &Changes
+    /// ) -> Result<()> {
+    ///     let mut list = client.list()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list(&self) -> super::builder::changes::List {
         super::builder::changes::List::new(self.inner.clone())
     }
@@ -237,11 +285,44 @@ impl DnsKeys {
     }
 
     /// Fetches the representation of an existing DnsKey.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dns_v1::client::DnsKeys;
+    /// use google_cloud_dns_v1::Result;
+    /// async fn sample(
+    ///    client: &DnsKeys
+    /// ) -> Result<()> {
+    ///     let response = client.get()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get(&self) -> super::builder::dns_keys::Get {
         super::builder::dns_keys::Get::new(self.inner.clone())
     }
 
     /// Enumerates DnsKeys to a ResourceRecordSet collection.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dns_v1::client::DnsKeys;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_dns_v1::Result;
+    /// async fn sample(
+    ///    client: &DnsKeys
+    /// ) -> Result<()> {
+    ///     let mut list = client.list()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list(&self) -> super::builder::dns_keys::List {
         super::builder::dns_keys::List::new(self.inner.clone())
     }
@@ -351,11 +432,44 @@ impl ManagedZoneOperations {
     }
 
     /// Fetches the representation of an existing Operation.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dns_v1::client::ManagedZoneOperations;
+    /// use google_cloud_dns_v1::Result;
+    /// async fn sample(
+    ///    client: &ManagedZoneOperations
+    /// ) -> Result<()> {
+    ///     let response = client.get()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get(&self) -> super::builder::managed_zone_operations::Get {
         super::builder::managed_zone_operations::Get::new(self.inner.clone())
     }
 
     /// Enumerates Operations for the given ManagedZone.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dns_v1::client::ManagedZoneOperations;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_dns_v1::Result;
+    /// async fn sample(
+    ///    client: &ManagedZoneOperations
+    /// ) -> Result<()> {
+    ///     let mut list = client.list()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list(&self) -> super::builder::managed_zone_operations::List {
         super::builder::managed_zone_operations::List::new(self.inner.clone())
     }
@@ -464,51 +578,195 @@ impl ManagedZones {
     }
 
     /// Creates a new ManagedZone.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dns_v1::client::ManagedZones;
+    /// use google_cloud_dns_v1::Result;
+    /// async fn sample(
+    ///    client: &ManagedZones
+    /// ) -> Result<()> {
+    ///     let response = client.create()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create(&self) -> super::builder::managed_zones::Create {
         super::builder::managed_zones::Create::new(self.inner.clone())
     }
 
     /// Deletes a previously created ManagedZone.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dns_v1::client::ManagedZones;
+    /// use google_cloud_dns_v1::Result;
+    /// async fn sample(
+    ///    client: &ManagedZones
+    /// ) -> Result<()> {
+    ///     client.delete()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete(&self) -> super::builder::managed_zones::Delete {
         super::builder::managed_zones::Delete::new(self.inner.clone())
     }
 
     /// Fetches the representation of an existing ManagedZone.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dns_v1::client::ManagedZones;
+    /// use google_cloud_dns_v1::Result;
+    /// async fn sample(
+    ///    client: &ManagedZones
+    /// ) -> Result<()> {
+    ///     let response = client.get()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get(&self) -> super::builder::managed_zones::Get {
         super::builder::managed_zones::Get::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dns_v1::client::ManagedZones;
+    /// use google_cloud_dns_v1::Result;
+    /// async fn sample(
+    ///    client: &ManagedZones
+    /// ) -> Result<()> {
+    ///     let response = client.get_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::managed_zones::GetIamPolicy {
         super::builder::managed_zones::GetIamPolicy::new(self.inner.clone())
     }
 
     /// Enumerates ManagedZones that have been created but not yet deleted.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dns_v1::client::ManagedZones;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_dns_v1::Result;
+    /// async fn sample(
+    ///    client: &ManagedZones
+    /// ) -> Result<()> {
+    ///     let mut list = client.list()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list(&self) -> super::builder::managed_zones::List {
         super::builder::managed_zones::List::new(self.inner.clone())
     }
 
     /// Applies a partial update to an existing ManagedZone.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dns_v1::client::ManagedZones;
+    /// use google_cloud_dns_v1::Result;
+    /// async fn sample(
+    ///    client: &ManagedZones
+    /// ) -> Result<()> {
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn patch(&self) -> super::builder::managed_zones::Patch {
         super::builder::managed_zones::Patch::new(self.inner.clone())
     }
 
     /// Sets the access control policy on the specified resource. Replaces any existing policy. Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED` errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dns_v1::client::ManagedZones;
+    /// use google_cloud_dns_v1::Result;
+    /// async fn sample(
+    ///    client: &ManagedZones
+    /// ) -> Result<()> {
+    ///     let response = client.set_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::managed_zones::SetIamPolicy {
         super::builder::managed_zones::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Returns permissions that a caller has on the specified resource. If the resource does not exist, this returns an empty set of permissions, not a `NOT_FOUND` error. Note: This operation is designed to be used for building permission-aware UIs and command-line tools, not for authorization checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dns_v1::client::ManagedZones;
+    /// use google_cloud_dns_v1::Result;
+    /// async fn sample(
+    ///    client: &ManagedZones
+    /// ) -> Result<()> {
+    ///     let response = client.test_iam_permissions()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::managed_zones::TestIamPermissions {
         super::builder::managed_zones::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Updates an existing ManagedZone.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dns_v1::client::ManagedZones;
+    /// use google_cloud_dns_v1::Result;
+    /// async fn sample(
+    ///    client: &ManagedZones
+    /// ) -> Result<()> {
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update(&self) -> super::builder::managed_zones::Update {
         super::builder::managed_zones::Update::new(self.inner.clone())
     }
 
     /// Fetches the representation of an existing Operation.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dns_v1::client::ManagedZones;
+    /// use google_cloud_dns_v1::Result;
+    /// async fn sample(
+    ///    client: &ManagedZones
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::managed_zones::GetOperation {
         super::builder::managed_zones::GetOperation::new(self.inner.clone())
     }
@@ -617,31 +875,123 @@ impl Policies {
     }
 
     /// Creates a new policy.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dns_v1::client::Policies;
+    /// use google_cloud_dns_v1::Result;
+    /// async fn sample(
+    ///    client: &Policies
+    /// ) -> Result<()> {
+    ///     let response = client.create()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create(&self) -> super::builder::policies::Create {
         super::builder::policies::Create::new(self.inner.clone())
     }
 
     /// Deletes a previously created policy. Fails if the policy is still being referenced by a network.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dns_v1::client::Policies;
+    /// use google_cloud_dns_v1::Result;
+    /// async fn sample(
+    ///    client: &Policies
+    /// ) -> Result<()> {
+    ///     client.delete()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete(&self) -> super::builder::policies::Delete {
         super::builder::policies::Delete::new(self.inner.clone())
     }
 
     /// Fetches the representation of an existing policy.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dns_v1::client::Policies;
+    /// use google_cloud_dns_v1::Result;
+    /// async fn sample(
+    ///    client: &Policies
+    /// ) -> Result<()> {
+    ///     let response = client.get()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get(&self) -> super::builder::policies::Get {
         super::builder::policies::Get::new(self.inner.clone())
     }
 
     /// Enumerates all policies associated with a project.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dns_v1::client::Policies;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_dns_v1::Result;
+    /// async fn sample(
+    ///    client: &Policies
+    /// ) -> Result<()> {
+    ///     let mut list = client.list()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list(&self) -> super::builder::policies::List {
         super::builder::policies::List::new(self.inner.clone())
     }
 
     /// Applies a partial update to an existing policy.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dns_v1::client::Policies;
+    /// use google_cloud_dns_v1::Result;
+    /// async fn sample(
+    ///    client: &Policies
+    /// ) -> Result<()> {
+    ///     let response = client.patch()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn patch(&self) -> super::builder::policies::Patch {
         super::builder::policies::Patch::new(self.inner.clone())
     }
 
     /// Updates an existing policy.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dns_v1::client::Policies;
+    /// use google_cloud_dns_v1::Result;
+    /// async fn sample(
+    ///    client: &Policies
+    /// ) -> Result<()> {
+    ///     let response = client.update()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update(&self) -> super::builder::policies::Update {
         super::builder::policies::Update::new(self.inner.clone())
     }
@@ -750,6 +1100,21 @@ impl Projects {
     }
 
     /// Fetches the representation of an existing Project.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dns_v1::client::Projects;
+    /// use google_cloud_dns_v1::Result;
+    /// async fn sample(
+    ///    client: &Projects
+    /// ) -> Result<()> {
+    ///     let response = client.get()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get(&self) -> super::builder::projects::Get {
         super::builder::projects::Get::new(self.inner.clone())
     }
@@ -859,26 +1224,104 @@ impl ResourceRecordSets {
     }
 
     /// Creates a new ResourceRecordSet.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dns_v1::client::ResourceRecordSets;
+    /// use google_cloud_dns_v1::Result;
+    /// async fn sample(
+    ///    client: &ResourceRecordSets
+    /// ) -> Result<()> {
+    ///     let response = client.create()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create(&self) -> super::builder::resource_record_sets::Create {
         super::builder::resource_record_sets::Create::new(self.inner.clone())
     }
 
     /// Deletes a previously created ResourceRecordSet.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dns_v1::client::ResourceRecordSets;
+    /// use google_cloud_dns_v1::Result;
+    /// async fn sample(
+    ///    client: &ResourceRecordSets
+    /// ) -> Result<()> {
+    ///     let response = client.delete()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete(&self) -> super::builder::resource_record_sets::Delete {
         super::builder::resource_record_sets::Delete::new(self.inner.clone())
     }
 
     /// Fetches the representation of an existing ResourceRecordSet.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dns_v1::client::ResourceRecordSets;
+    /// use google_cloud_dns_v1::Result;
+    /// async fn sample(
+    ///    client: &ResourceRecordSets
+    /// ) -> Result<()> {
+    ///     let response = client.get()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get(&self) -> super::builder::resource_record_sets::Get {
         super::builder::resource_record_sets::Get::new(self.inner.clone())
     }
 
     /// Enumerates ResourceRecordSets that you have created but not yet deleted.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dns_v1::client::ResourceRecordSets;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_dns_v1::Result;
+    /// async fn sample(
+    ///    client: &ResourceRecordSets
+    /// ) -> Result<()> {
+    ///     let mut list = client.list()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list(&self) -> super::builder::resource_record_sets::List {
         super::builder::resource_record_sets::List::new(self.inner.clone())
     }
 
     /// Applies a partial update to an existing ResourceRecordSet.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dns_v1::client::ResourceRecordSets;
+    /// use google_cloud_dns_v1::Result;
+    /// async fn sample(
+    ///    client: &ResourceRecordSets
+    /// ) -> Result<()> {
+    ///     let response = client.patch()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn patch(&self) -> super::builder::resource_record_sets::Patch {
         super::builder::resource_record_sets::Patch::new(self.inner.clone())
     }
@@ -988,31 +1431,123 @@ impl ResponsePolicies {
     }
 
     /// Creates a new Response Policy
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dns_v1::client::ResponsePolicies;
+    /// use google_cloud_dns_v1::Result;
+    /// async fn sample(
+    ///    client: &ResponsePolicies
+    /// ) -> Result<()> {
+    ///     let response = client.create()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create(&self) -> super::builder::response_policies::Create {
         super::builder::response_policies::Create::new(self.inner.clone())
     }
 
     /// Deletes a previously created Response Policy. Fails if the response policy is non-empty or still being referenced by a network.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dns_v1::client::ResponsePolicies;
+    /// use google_cloud_dns_v1::Result;
+    /// async fn sample(
+    ///    client: &ResponsePolicies
+    /// ) -> Result<()> {
+    ///     client.delete()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete(&self) -> super::builder::response_policies::Delete {
         super::builder::response_policies::Delete::new(self.inner.clone())
     }
 
     /// Fetches the representation of an existing Response Policy.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dns_v1::client::ResponsePolicies;
+    /// use google_cloud_dns_v1::Result;
+    /// async fn sample(
+    ///    client: &ResponsePolicies
+    /// ) -> Result<()> {
+    ///     let response = client.get()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get(&self) -> super::builder::response_policies::Get {
         super::builder::response_policies::Get::new(self.inner.clone())
     }
 
     /// Enumerates all Response Policies associated with a project.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dns_v1::client::ResponsePolicies;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_dns_v1::Result;
+    /// async fn sample(
+    ///    client: &ResponsePolicies
+    /// ) -> Result<()> {
+    ///     let mut list = client.list()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list(&self) -> super::builder::response_policies::List {
         super::builder::response_policies::List::new(self.inner.clone())
     }
 
     /// Applies a partial update to an existing Response Policy.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dns_v1::client::ResponsePolicies;
+    /// use google_cloud_dns_v1::Result;
+    /// async fn sample(
+    ///    client: &ResponsePolicies
+    /// ) -> Result<()> {
+    ///     let response = client.patch()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn patch(&self) -> super::builder::response_policies::Patch {
         super::builder::response_policies::Patch::new(self.inner.clone())
     }
 
     /// Updates an existing Response Policy.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dns_v1::client::ResponsePolicies;
+    /// use google_cloud_dns_v1::Result;
+    /// async fn sample(
+    ///    client: &ResponsePolicies
+    /// ) -> Result<()> {
+    ///     let response = client.update()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update(&self) -> super::builder::response_policies::Update {
         super::builder::response_policies::Update::new(self.inner.clone())
     }
@@ -1122,31 +1657,123 @@ impl ResponsePolicyRules {
     }
 
     /// Creates a new Response Policy Rule.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dns_v1::client::ResponsePolicyRules;
+    /// use google_cloud_dns_v1::Result;
+    /// async fn sample(
+    ///    client: &ResponsePolicyRules
+    /// ) -> Result<()> {
+    ///     let response = client.create()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create(&self) -> super::builder::response_policy_rules::Create {
         super::builder::response_policy_rules::Create::new(self.inner.clone())
     }
 
     /// Deletes a previously created Response Policy Rule.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dns_v1::client::ResponsePolicyRules;
+    /// use google_cloud_dns_v1::Result;
+    /// async fn sample(
+    ///    client: &ResponsePolicyRules
+    /// ) -> Result<()> {
+    ///     client.delete()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete(&self) -> super::builder::response_policy_rules::Delete {
         super::builder::response_policy_rules::Delete::new(self.inner.clone())
     }
 
     /// Fetches the representation of an existing Response Policy Rule.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dns_v1::client::ResponsePolicyRules;
+    /// use google_cloud_dns_v1::Result;
+    /// async fn sample(
+    ///    client: &ResponsePolicyRules
+    /// ) -> Result<()> {
+    ///     let response = client.get()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get(&self) -> super::builder::response_policy_rules::Get {
         super::builder::response_policy_rules::Get::new(self.inner.clone())
     }
 
     /// Enumerates all Response Policy Rules associated with a project.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dns_v1::client::ResponsePolicyRules;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_dns_v1::Result;
+    /// async fn sample(
+    ///    client: &ResponsePolicyRules
+    /// ) -> Result<()> {
+    ///     let mut list = client.list()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list(&self) -> super::builder::response_policy_rules::List {
         super::builder::response_policy_rules::List::new(self.inner.clone())
     }
 
     /// Applies a partial update to an existing Response Policy Rule.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dns_v1::client::ResponsePolicyRules;
+    /// use google_cloud_dns_v1::Result;
+    /// async fn sample(
+    ///    client: &ResponsePolicyRules
+    /// ) -> Result<()> {
+    ///     let response = client.patch()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn patch(&self) -> super::builder::response_policy_rules::Patch {
         super::builder::response_policy_rules::Patch::new(self.inner.clone())
     }
 
     /// Updates an existing Response Policy Rule.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dns_v1::client::ResponsePolicyRules;
+    /// use google_cloud_dns_v1::Result;
+    /// async fn sample(
+    ///    client: &ResponsePolicyRules
+    /// ) -> Result<()> {
+    ///     let response = client.update()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update(&self) -> super::builder::response_policy_rules::Update {
         super::builder::response_policy_rules::Update::new(self.inner.clone())
     }

@@ -123,6 +123,24 @@ impl TelcoAutomation {
     }
 
     /// Lists OrchestrationClusters in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_telcoautomation_v1::client::TelcoAutomation;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_telcoautomation_v1::Result;
+    /// async fn sample(
+    ///    client: &TelcoAutomation, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_orchestration_clusters()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_orchestration_clusters(
         &self,
     ) -> super::builder::telco_automation::ListOrchestrationClusters {
@@ -130,6 +148,21 @@ impl TelcoAutomation {
     }
 
     /// Gets details of a single OrchestrationCluster.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_telcoautomation_v1::client::TelcoAutomation;
+    /// use google_cloud_telcoautomation_v1::Result;
+    /// async fn sample(
+    ///    client: &TelcoAutomation, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_orchestration_cluster()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_orchestration_cluster(
         &self,
     ) -> super::builder::telco_automation::GetOrchestrationCluster {
@@ -147,6 +180,26 @@ impl TelcoAutomation {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_telcoautomation_v1::client::TelcoAutomation;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_telcoautomation_v1::model::OrchestrationCluster;
+    /// use google_cloud_telcoautomation_v1::Result;
+    /// async fn sample(
+    ///    client: &TelcoAutomation, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_orchestration_cluster()
+    ///         .set_parent(parent)
+    ///         .set_orchestration_cluster(
+    ///             OrchestrationCluster::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_orchestration_cluster(
         &self,
     ) -> super::builder::telco_automation::CreateOrchestrationCluster {
@@ -164,6 +217,21 @@ impl TelcoAutomation {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_telcoautomation_v1::client::TelcoAutomation;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_telcoautomation_v1::Result;
+    /// async fn sample(
+    ///    client: &TelcoAutomation, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_orchestration_cluster()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_orchestration_cluster(
         &self,
     ) -> super::builder::telco_automation::DeleteOrchestrationCluster {
@@ -171,11 +239,44 @@ impl TelcoAutomation {
     }
 
     /// Lists EdgeSlms in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_telcoautomation_v1::client::TelcoAutomation;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_telcoautomation_v1::Result;
+    /// async fn sample(
+    ///    client: &TelcoAutomation, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_edge_slms()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_edge_slms(&self) -> super::builder::telco_automation::ListEdgeSlms {
         super::builder::telco_automation::ListEdgeSlms::new(self.inner.clone())
     }
 
     /// Gets details of a single EdgeSlm.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_telcoautomation_v1::client::TelcoAutomation;
+    /// use google_cloud_telcoautomation_v1::Result;
+    /// async fn sample(
+    ///    client: &TelcoAutomation, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_edge_slm()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_edge_slm(&self) -> super::builder::telco_automation::GetEdgeSlm {
         super::builder::telco_automation::GetEdgeSlm::new(self.inner.clone())
     }
@@ -191,6 +292,26 @@ impl TelcoAutomation {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_telcoautomation_v1::client::TelcoAutomation;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_telcoautomation_v1::model::EdgeSlm;
+    /// use google_cloud_telcoautomation_v1::Result;
+    /// async fn sample(
+    ///    client: &TelcoAutomation, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_edge_slm()
+    ///         .set_parent(parent)
+    ///         .set_edge_slm(
+    ///             EdgeSlm::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_edge_slm(&self) -> super::builder::telco_automation::CreateEdgeSlm {
         super::builder::telco_automation::CreateEdgeSlm::new(self.inner.clone())
     }
@@ -206,51 +327,216 @@ impl TelcoAutomation {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_telcoautomation_v1::client::TelcoAutomation;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_telcoautomation_v1::Result;
+    /// async fn sample(
+    ///    client: &TelcoAutomation, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_edge_slm()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_edge_slm(&self) -> super::builder::telco_automation::DeleteEdgeSlm {
         super::builder::telco_automation::DeleteEdgeSlm::new(self.inner.clone())
     }
 
     /// Creates a blueprint.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_telcoautomation_v1::client::TelcoAutomation;
+    /// use google_cloud_telcoautomation_v1::model::Blueprint;
+    /// use google_cloud_telcoautomation_v1::Result;
+    /// async fn sample(
+    ///    client: &TelcoAutomation, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_blueprint()
+    ///         .set_parent(parent).set_blueprint_id("blueprint_id_value")
+    ///         .set_blueprint(
+    ///             Blueprint::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_blueprint(&self) -> super::builder::telco_automation::CreateBlueprint {
         super::builder::telco_automation::CreateBlueprint::new(self.inner.clone())
     }
 
     /// Updates a blueprint.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_telcoautomation_v1::client::TelcoAutomation;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_telcoautomation_v1::model::Blueprint;
+    /// use google_cloud_telcoautomation_v1::Result;
+    /// async fn sample(
+    ///    client: &TelcoAutomation, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_blueprint()
+    ///         .set_blueprint(
+    ///             Blueprint::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_blueprint(&self) -> super::builder::telco_automation::UpdateBlueprint {
         super::builder::telco_automation::UpdateBlueprint::new(self.inner.clone())
     }
 
     /// Returns the requested blueprint.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_telcoautomation_v1::client::TelcoAutomation;
+    /// use google_cloud_telcoautomation_v1::Result;
+    /// async fn sample(
+    ///    client: &TelcoAutomation, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_blueprint()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_blueprint(&self) -> super::builder::telco_automation::GetBlueprint {
         super::builder::telco_automation::GetBlueprint::new(self.inner.clone())
     }
 
     /// Deletes a blueprint and all its revisions.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_telcoautomation_v1::client::TelcoAutomation;
+    /// use google_cloud_telcoautomation_v1::Result;
+    /// async fn sample(
+    ///    client: &TelcoAutomation, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_blueprint()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_blueprint(&self) -> super::builder::telco_automation::DeleteBlueprint {
         super::builder::telco_automation::DeleteBlueprint::new(self.inner.clone())
     }
 
     /// List all blueprints.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_telcoautomation_v1::client::TelcoAutomation;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_telcoautomation_v1::Result;
+    /// async fn sample(
+    ///    client: &TelcoAutomation, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_blueprints()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_blueprints(&self) -> super::builder::telco_automation::ListBlueprints {
         super::builder::telco_automation::ListBlueprints::new(self.inner.clone())
     }
 
     /// Approves a blueprint and commits a new revision.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_telcoautomation_v1::client::TelcoAutomation;
+    /// use google_cloud_telcoautomation_v1::Result;
+    /// async fn sample(
+    ///    client: &TelcoAutomation
+    /// ) -> Result<()> {
+    ///     let response = client.approve_blueprint()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn approve_blueprint(&self) -> super::builder::telco_automation::ApproveBlueprint {
         super::builder::telco_automation::ApproveBlueprint::new(self.inner.clone())
     }
 
     /// Proposes a blueprint for approval of changes.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_telcoautomation_v1::client::TelcoAutomation;
+    /// use google_cloud_telcoautomation_v1::Result;
+    /// async fn sample(
+    ///    client: &TelcoAutomation
+    /// ) -> Result<()> {
+    ///     let response = client.propose_blueprint()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn propose_blueprint(&self) -> super::builder::telco_automation::ProposeBlueprint {
         super::builder::telco_automation::ProposeBlueprint::new(self.inner.clone())
     }
 
     /// Rejects a blueprint revision proposal and flips it back to Draft state.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_telcoautomation_v1::client::TelcoAutomation;
+    /// use google_cloud_telcoautomation_v1::Result;
+    /// async fn sample(
+    ///    client: &TelcoAutomation
+    /// ) -> Result<()> {
+    ///     let response = client.reject_blueprint()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn reject_blueprint(&self) -> super::builder::telco_automation::RejectBlueprint {
         super::builder::telco_automation::RejectBlueprint::new(self.inner.clone())
     }
 
     /// List blueprint revisions of a given blueprint.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_telcoautomation_v1::client::TelcoAutomation;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_telcoautomation_v1::Result;
+    /// async fn sample(
+    ///    client: &TelcoAutomation
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_blueprint_revisions()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_blueprint_revisions(
         &self,
     ) -> super::builder::telco_automation::ListBlueprintRevisions {
@@ -258,6 +544,24 @@ impl TelcoAutomation {
     }
 
     /// Searches across blueprint revisions.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_telcoautomation_v1::client::TelcoAutomation;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_telcoautomation_v1::Result;
+    /// async fn sample(
+    ///    client: &TelcoAutomation
+    /// ) -> Result<()> {
+    ///     let mut list = client.search_blueprint_revisions()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn search_blueprint_revisions(
         &self,
     ) -> super::builder::telco_automation::SearchBlueprintRevisions {
@@ -265,6 +569,24 @@ impl TelcoAutomation {
     }
 
     /// Searches across deployment revisions.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_telcoautomation_v1::client::TelcoAutomation;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_telcoautomation_v1::Result;
+    /// async fn sample(
+    ///    client: &TelcoAutomation
+    /// ) -> Result<()> {
+    ///     let mut list = client.search_deployment_revisions()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn search_deployment_revisions(
         &self,
     ) -> super::builder::telco_automation::SearchDeploymentRevisions {
@@ -274,6 +596,21 @@ impl TelcoAutomation {
     /// Discards the changes in a blueprint and reverts the blueprint to the last
     /// approved blueprint revision. No changes take place if a blueprint does not
     /// have revisions.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_telcoautomation_v1::client::TelcoAutomation;
+    /// use google_cloud_telcoautomation_v1::Result;
+    /// async fn sample(
+    ///    client: &TelcoAutomation
+    /// ) -> Result<()> {
+    ///     let response = client.discard_blueprint_changes()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn discard_blueprint_changes(
         &self,
     ) -> super::builder::telco_automation::DiscardBlueprintChanges {
@@ -282,42 +619,180 @@ impl TelcoAutomation {
 
     /// Lists the blueprints in TNA's public catalog. Default page size = 20,
     /// Max Page Size = 100.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_telcoautomation_v1::client::TelcoAutomation;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_telcoautomation_v1::Result;
+    /// async fn sample(
+    ///    client: &TelcoAutomation, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_public_blueprints()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_public_blueprints(&self) -> super::builder::telco_automation::ListPublicBlueprints {
         super::builder::telco_automation::ListPublicBlueprints::new(self.inner.clone())
     }
 
     /// Returns the requested public blueprint.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_telcoautomation_v1::client::TelcoAutomation;
+    /// use google_cloud_telcoautomation_v1::Result;
+    /// async fn sample(
+    ///    client: &TelcoAutomation, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_public_blueprint()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_public_blueprint(&self) -> super::builder::telco_automation::GetPublicBlueprint {
         super::builder::telco_automation::GetPublicBlueprint::new(self.inner.clone())
     }
 
     /// Creates a deployment.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_telcoautomation_v1::client::TelcoAutomation;
+    /// use google_cloud_telcoautomation_v1::model::Deployment;
+    /// use google_cloud_telcoautomation_v1::Result;
+    /// async fn sample(
+    ///    client: &TelcoAutomation, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_deployment()
+    ///         .set_parent(parent).set_deployment_id("deployment_id_value")
+    ///         .set_deployment(
+    ///             Deployment::new()/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_deployment(&self) -> super::builder::telco_automation::CreateDeployment {
         super::builder::telco_automation::CreateDeployment::new(self.inner.clone())
     }
 
     /// Updates a deployment.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_telcoautomation_v1::client::TelcoAutomation;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_telcoautomation_v1::model::Deployment;
+    /// use google_cloud_telcoautomation_v1::Result;
+    /// async fn sample(
+    ///    client: &TelcoAutomation, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_deployment()
+    ///         .set_deployment(
+    ///             Deployment::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_deployment(&self) -> super::builder::telco_automation::UpdateDeployment {
         super::builder::telco_automation::UpdateDeployment::new(self.inner.clone())
     }
 
     /// Returns the requested deployment.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_telcoautomation_v1::client::TelcoAutomation;
+    /// use google_cloud_telcoautomation_v1::Result;
+    /// async fn sample(
+    ///    client: &TelcoAutomation, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_deployment()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_deployment(&self) -> super::builder::telco_automation::GetDeployment {
         super::builder::telco_automation::GetDeployment::new(self.inner.clone())
     }
 
     /// Removes the deployment by marking it as DELETING. Post which deployment and
     /// it's revisions gets deleted.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_telcoautomation_v1::client::TelcoAutomation;
+    /// use google_cloud_telcoautomation_v1::Result;
+    /// async fn sample(
+    ///    client: &TelcoAutomation
+    /// ) -> Result<()> {
+    ///     client.remove_deployment()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn remove_deployment(&self) -> super::builder::telco_automation::RemoveDeployment {
         super::builder::telco_automation::RemoveDeployment::new(self.inner.clone())
     }
 
     /// List all deployments.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_telcoautomation_v1::client::TelcoAutomation;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_telcoautomation_v1::Result;
+    /// async fn sample(
+    ///    client: &TelcoAutomation, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_deployments()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_deployments(&self) -> super::builder::telco_automation::ListDeployments {
         super::builder::telco_automation::ListDeployments::new(self.inner.clone())
     }
 
     /// List deployment revisions of a given deployment.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_telcoautomation_v1::client::TelcoAutomation;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_telcoautomation_v1::Result;
+    /// async fn sample(
+    ///    client: &TelcoAutomation
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_deployment_revisions()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_deployment_revisions(
         &self,
     ) -> super::builder::telco_automation::ListDeploymentRevisions {
@@ -327,6 +802,21 @@ impl TelcoAutomation {
     /// Discards the changes in a deployment and reverts the deployment to the last
     /// approved deployment revision. No changes take place if a deployment does
     /// not have revisions.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_telcoautomation_v1::client::TelcoAutomation;
+    /// use google_cloud_telcoautomation_v1::Result;
+    /// async fn sample(
+    ///    client: &TelcoAutomation
+    /// ) -> Result<()> {
+    ///     let response = client.discard_deployment_changes()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn discard_deployment_changes(
         &self,
     ) -> super::builder::telco_automation::DiscardDeploymentChanges {
@@ -334,11 +824,41 @@ impl TelcoAutomation {
     }
 
     /// Applies the deployment's YAML files to the parent orchestration cluster.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_telcoautomation_v1::client::TelcoAutomation;
+    /// use google_cloud_telcoautomation_v1::Result;
+    /// async fn sample(
+    ///    client: &TelcoAutomation
+    /// ) -> Result<()> {
+    ///     let response = client.apply_deployment()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn apply_deployment(&self) -> super::builder::telco_automation::ApplyDeployment {
         super::builder::telco_automation::ApplyDeployment::new(self.inner.clone())
     }
 
     /// Returns the requested deployment status.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_telcoautomation_v1::client::TelcoAutomation;
+    /// use google_cloud_telcoautomation_v1::Result;
+    /// async fn sample(
+    ///    client: &TelcoAutomation
+    /// ) -> Result<()> {
+    ///     let response = client.compute_deployment_status()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn compute_deployment_status(
         &self,
     ) -> super::builder::telco_automation::ComputeDeploymentStatus {
@@ -347,11 +867,41 @@ impl TelcoAutomation {
 
     /// Rollback the active deployment to the given past approved deployment
     /// revision.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_telcoautomation_v1::client::TelcoAutomation;
+    /// use google_cloud_telcoautomation_v1::Result;
+    /// async fn sample(
+    ///    client: &TelcoAutomation
+    /// ) -> Result<()> {
+    ///     let response = client.rollback_deployment()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn rollback_deployment(&self) -> super::builder::telco_automation::RollbackDeployment {
         super::builder::telco_automation::RollbackDeployment::new(self.inner.clone())
     }
 
     /// Returns the requested hydrated deployment.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_telcoautomation_v1::client::TelcoAutomation;
+    /// use google_cloud_telcoautomation_v1::Result;
+    /// async fn sample(
+    ///    client: &TelcoAutomation, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_hydrated_deployment()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_hydrated_deployment(
         &self,
     ) -> super::builder::telco_automation::GetHydratedDeployment {
@@ -359,6 +909,24 @@ impl TelcoAutomation {
     }
 
     /// List all hydrated deployments present under a deployment.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_telcoautomation_v1::client::TelcoAutomation;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_telcoautomation_v1::Result;
+    /// async fn sample(
+    ///    client: &TelcoAutomation, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_hydrated_deployments()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_hydrated_deployments(
         &self,
     ) -> super::builder::telco_automation::ListHydratedDeployments {
@@ -366,6 +934,27 @@ impl TelcoAutomation {
     }
 
     /// Updates a hydrated deployment.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_telcoautomation_v1::client::TelcoAutomation;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_telcoautomation_v1::model::HydratedDeployment;
+    /// use google_cloud_telcoautomation_v1::Result;
+    /// async fn sample(
+    ///    client: &TelcoAutomation, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_hydrated_deployment()
+    ///         .set_hydrated_deployment(
+    ///             HydratedDeployment::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_hydrated_deployment(
         &self,
     ) -> super::builder::telco_automation::UpdateHydratedDeployment {
@@ -373,6 +962,21 @@ impl TelcoAutomation {
     }
 
     /// Applies a hydrated deployment to a workload cluster.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_telcoautomation_v1::client::TelcoAutomation;
+    /// use google_cloud_telcoautomation_v1::Result;
+    /// async fn sample(
+    ///    client: &TelcoAutomation
+    /// ) -> Result<()> {
+    ///     let response = client.apply_hydrated_deployment()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn apply_hydrated_deployment(
         &self,
     ) -> super::builder::telco_automation::ApplyHydratedDeployment {
@@ -380,11 +984,44 @@ impl TelcoAutomation {
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_telcoautomation_v1::client::TelcoAutomation;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_telcoautomation_v1::Result;
+    /// async fn sample(
+    ///    client: &TelcoAutomation
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::telco_automation::ListLocations {
         super::builder::telco_automation::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_telcoautomation_v1::client::TelcoAutomation;
+    /// use google_cloud_telcoautomation_v1::Result;
+    /// async fn sample(
+    ///    client: &TelcoAutomation
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::telco_automation::GetLocation {
         super::builder::telco_automation::GetLocation::new(self.inner.clone())
     }
@@ -392,6 +1029,24 @@ impl TelcoAutomation {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_telcoautomation_v1::client::TelcoAutomation;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_telcoautomation_v1::Result;
+    /// async fn sample(
+    ///    client: &TelcoAutomation
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::telco_automation::ListOperations {
         super::builder::telco_automation::ListOperations::new(self.inner.clone())
     }
@@ -399,6 +1054,21 @@ impl TelcoAutomation {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_telcoautomation_v1::client::TelcoAutomation;
+    /// use google_cloud_telcoautomation_v1::Result;
+    /// async fn sample(
+    ///    client: &TelcoAutomation
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::telco_automation::GetOperation {
         super::builder::telco_automation::GetOperation::new(self.inner.clone())
     }
@@ -406,6 +1076,20 @@ impl TelcoAutomation {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_telcoautomation_v1::client::TelcoAutomation;
+    /// use google_cloud_telcoautomation_v1::Result;
+    /// async fn sample(
+    ///    client: &TelcoAutomation
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::telco_automation::DeleteOperation {
         super::builder::telco_automation::DeleteOperation::new(self.inner.clone())
     }
@@ -413,6 +1097,20 @@ impl TelcoAutomation {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_telcoautomation_v1::client::TelcoAutomation;
+    /// use google_cloud_telcoautomation_v1::Result;
+    /// async fn sample(
+    ///    client: &TelcoAutomation
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::telco_automation::CancelOperation {
         super::builder::telco_automation::CancelOperation::new(self.inner.clone())
     }

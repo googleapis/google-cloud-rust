@@ -16,12 +16,23 @@ use crate::observability::attributes::keys::*;
 use crate::observability::attributes::*;
 use crate::observability::errors::ErrorType;
 use crate::options::InstrumentationClientInfo;
-use google_cloud_gax::options::{
-    RequestOptions,
-    internal::{get_path_template, get_resource_name},
-};
+use google_cloud_gax::options::RequestOptions;
+use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt, ResourceName};
 use opentelemetry_semantic_conventions::{attribute as otel_attr, trace as otel_trace};
+use std::collections::HashSet;
 use tracing::{Span, field};
+
+lazy_static::lazy_static! {
+    pub(crate) static ref REDACTED_QUERY_PARAMETERS: HashSet<&'static str> = {
+        HashSet::from_iter([
+            // Required by OpenTelemetry semantic conventions:
+            //     https://opentelemetry.io/docs/specs/semconv/registry/attributes/url/#url-full
+            "AWSAccessKeyId", "Signature", "sig", "X-Goog-Signature",
+            // Google uses this as a key in resumable uploads.
+            "upload_id",
+        ])
+    };
+}
 
 /// Creates a new tracing span for an HTTP request attempt.
 ///
@@ -33,15 +44,16 @@ pub(crate) fn create_http_attempt_span(
     instrumentation: Option<&'static InstrumentationClientInfo>,
     prior_attempt_count: u32,
 ) -> Span {
-    let url = request.url();
+    let url = cleanup_url(request.url());
     let method = request.method();
 
-    let url_template = get_path_template(options);
-    let resource_name = get_resource_name(options);
-    let otel_name = url_template.map_or_else(
-        || method.to_string(),
-        |template| format!("{} {}", method, template),
-    );
+    let resource_name = options
+        .get_extension::<ResourceName>()
+        .map(|e| e.0.as_str());
+    let url_template = options.get_extension::<PathTemplate>().map(|e| e.0);
+    let otel_name = url_template
+        .map(|template| format!("{method} {template}"))
+        .unwrap_or_else(|| method.to_string());
 
     let http_request_resend_count = if prior_attempt_count > 0 {
         Some(prior_attempt_count as i64)
@@ -198,22 +210,45 @@ pub(crate) fn record_intermediate_client_request(
     }
 }
 
+fn cleanup_url(url: &::reqwest::Url) -> ::reqwest::Url {
+    if url.query().is_none() {
+        return url.clone();
+    }
+    let mut clone = url.clone();
+    let mut query = clone.query_pairs_mut();
+    query.clear();
+    url.query_pairs()
+        .into_iter()
+        .map(|(k, v)| {
+            if !REDACTED_QUERY_PARAMETERS.contains(k.as_ref()) {
+                (k, v)
+            } else {
+                (k, "REDACTED".into())
+            }
+        })
+        .fold(query, |mut query, (k, v)| {
+            query.append_pair(k.as_ref(), v.as_ref());
+            query
+        });
+    clone
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::observability::client_tracing::create_client_request_span;
+    use crate::client_request_span;
     use crate::options::InstrumentationClientInfo;
     use google_cloud_gax::error::{
         Error,
         rpc::{Code, Status, StatusDetails},
     };
     use google_cloud_gax::options::RequestOptions;
-    use google_cloud_gax::options::internal::{set_path_template, set_resource_name};
-    use google_cloud_test_utils::test_layer::{AttributeValue, TestLayer};
+    use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt, ResourceName};
+    use google_cloud_test_utils::test_layer::{AttributeValue, TestLayer, TestLayerGuard};
     use http::Method;
     use opentelemetry_semantic_conventions::{attribute as otel_attr, trace as otel_trace};
     use reqwest::{self, StatusCode};
-    use std::collections::HashMap;
+    use std::collections::{BTreeMap, BTreeSet};
     use test_case::test_case;
 
     const TEST_INFO: InstrumentationClientInfo = InstrumentationClientInfo {
@@ -223,17 +258,29 @@ mod tests {
         default_host: "example.com",
     };
 
+    #[track_caller]
+    fn http_request_attributes(guard: &TestLayerGuard) -> BTreeMap<String, AttributeValue> {
+        let captured = TestLayer::capture(guard);
+        let span = captured
+            .iter()
+            .find(|s| s.name == "http_request")
+            .unwrap_or_else(|| panic!("missing `http_request` span in {captured:?}"));
+        BTreeMap::from_iter(span.attributes.clone())
+    }
+
     #[tokio::test]
     async fn test_create_span_attributes() {
         let guard = TestLayer::initialize();
         let request =
             reqwest::Request::new(Method::GET, "https://example.com/test".parse().unwrap());
-        let options = set_path_template(RequestOptions::default(), "/test");
-        let options =
-            set_resource_name(options, "//example.com/projects/p/resources/r".to_string());
+        let options = RequestOptions::default()
+            .insert_extension(PathTemplate("/test"))
+            .insert_extension(ResourceName(
+                "//example.com/projects/p/resources/r".to_string(),
+            ));
         let _span = create_http_attempt_span(&request, &options, Some(&TEST_INFO), 1);
 
-        let expected_attributes: HashMap<String, AttributeValue> = [
+        let want: BTreeMap<String, AttributeValue> = [
             (OTEL_NAME, "GET /test".into()),
             (OTEL_KIND, "Client".into()),
             (otel_trace::RPC_SYSTEM, "http".into()),
@@ -260,10 +307,8 @@ mod tests {
         .map(|(k, v)| (k.to_string(), v))
         .collect();
 
-        let captured = TestLayer::capture(&guard);
-        assert_eq!(captured.len(), 1, "captured spans: {:?}", captured);
-        let attributes = &captured[0].attributes;
-        assert_eq!(*attributes, expected_attributes);
+        let got = http_request_attributes(&guard);
+        assert_eq!(got, want);
     }
 
     #[tokio::test]
@@ -275,7 +320,7 @@ mod tests {
         // No InstrumentationClientInfo
         let _span = create_http_attempt_span(&request, &options, None, 0);
 
-        let expected_attributes: HashMap<String, AttributeValue> = [
+        let want: BTreeMap<String, AttributeValue> = [
             (OTEL_NAME, "POST".into()),
             (OTEL_KIND, "Client".into()),
             (otel_trace::RPC_SYSTEM, "http".into()),
@@ -292,10 +337,59 @@ mod tests {
         .map(|(k, v)| (k.to_string(), v))
         .collect();
 
+        let got = http_request_attributes(&guard);
+        assert_eq!(got, want);
+    }
+
+    #[test_case("https://example.com/test", vec![])]
+    #[test_case("https://example.com/test?upload_id=ABC", vec!["upload_id=REDACTED"])]
+    #[test_case("https://example.com/test?X-Goog-Signature=ABC", vec!["X-Goog-Signature=REDACTED"])]
+    #[test_case("https://example.com/test?sig=ABC", vec!["sig=REDACTED"])]
+    #[test_case("https://example.com/test?Signature=ABC", vec!["Signature=REDACTED"])]
+    #[test_case("https://example.com/test?AWSAccessKeyId=ABC", vec!["AWSAccessKeyId=REDACTED"])]
+    #[test_case("https://example.com/test?AWSAccessKeyId=ABC&Signature=BCD&sig=CDE&X-Goog-Signature=DEF&upload_id=EFG",
+            vec![
+                "AWSAccessKeyId=REDACTED",
+                "Signature=REDACTED",
+                "sig=REDACTED",
+                "X-Goog-Signature=REDACTED",
+                "upload_id=REDACTED",
+            ])]
+    fn cleanup_url_query(input: &str, want: Vec<&str>) -> anyhow::Result<()> {
+        let guard = TestLayer::initialize();
+        let request = reqwest::Request::new(Method::GET, input.parse()?);
+        let options = RequestOptions::default()
+            .insert_extension(PathTemplate("/test"))
+            .insert_extension(ResourceName(
+                "//example.com/projects/p/resources/r".to_string(),
+            ));
+        let _span = create_http_attempt_span(&request, &options, Some(&TEST_INFO), 1);
+
         let captured = TestLayer::capture(&guard);
-        assert_eq!(captured.len(), 1, "captured spans: {:?}", captured);
-        let attributes = &captured[0].attributes;
-        assert_eq!(*attributes, expected_attributes);
+        let span = captured
+            .iter()
+            .find(|s| s.name == "http_request")
+            .unwrap_or_else(|| panic!("missing `http_request` span in capture: {captured:?}"));
+        let value = span
+            .attributes
+            .get(otel_trace::URL_FULL)
+            .unwrap_or_else(|| {
+                panic!(
+                    "missing attribute {} in span: {span:?}",
+                    otel_trace::URL_FULL
+                )
+            });
+        let url = value
+            .as_string()
+            .unwrap_or_else(|| panic!("URL_FULL attribute must be a string, got: {value:?}"));
+        let parsed = ::reqwest::Url::parse(&url)?;
+        let got = parsed
+            .query_pairs()
+            .map(|(k, v)| format!("{k}={v}"))
+            .collect::<BTreeSet<_>>();
+        let want = BTreeSet::from_iter(want.iter().map(|s| s.to_string()));
+        assert_eq!(got, want, "url={url:?}");
+        Ok(())
     }
 
     #[test_case(StatusCode::OK; "OK")]
@@ -316,7 +410,7 @@ mod tests {
         let reqwest_response: reqwest::Response = response.into();
         record_http_response_attributes(&span, Ok(&reqwest_response));
 
-        let expected_attributes: HashMap<String, AttributeValue> = [
+        let want: BTreeMap<String, AttributeValue> = [
             (OTEL_NAME, "GET".into()),
             (OTEL_KIND, "Client".into()),
             (otel_trace::RPC_SYSTEM, "http".into()),
@@ -337,10 +431,8 @@ mod tests {
         .map(|(k, v)| (k.to_string(), v))
         .collect();
 
-        let captured = TestLayer::capture(&guard);
-        assert_eq!(captured.len(), 1, "captured spans: {:?}", captured);
-        let attributes = &captured[0].attributes;
-        assert_eq!(*attributes, expected_attributes);
+        let got = http_request_attributes(&guard);
+        assert_eq!(got, want);
     }
 
     #[tokio::test]
@@ -356,7 +448,7 @@ mod tests {
         let error = Error::timeout("test timeout");
         record_http_response_attributes(&span, Err(&error));
 
-        let expected_attributes: HashMap<String, AttributeValue> = [
+        let want: BTreeMap<String, AttributeValue> = [
             (OTEL_NAME, "GET".into()),
             (OTEL_KIND, "Client".into()),
             (otel_trace::RPC_SYSTEM, "http".into()),
@@ -378,10 +470,8 @@ mod tests {
         .map(|(k, v)| (k.to_string(), v))
         .collect();
 
-        let captured = TestLayer::capture(&guard);
-        assert_eq!(captured.len(), 1, "captured spans: {:?}", captured);
-        let attributes = &captured[0].attributes;
-        assert_eq!(*attributes, expected_attributes);
+        let got = http_request_attributes(&guard);
+        assert_eq!(got, want);
     }
 
     #[test_case(StatusCode::BAD_REQUEST, "400", "the HTTP transport reports a [400] error: "; "Bad Request")]
@@ -553,7 +643,7 @@ mod tests {
     #[tokio::test]
     async fn test_record_intermediate_client_request() {
         let guard = TestLayer::initialize();
-        let span = create_client_request_span("test_span", "test_method", &TEST_INFO);
+        let span = client_request_span!("Service", "test_method", &TEST_INFO);
         let _enter = span.enter();
 
         let url = "https://example.com/test".parse::<reqwest::Url>().unwrap();
@@ -613,7 +703,7 @@ mod tests {
     #[tokio::test]
     async fn test_record_intermediate_client_request_error() {
         let guard = TestLayer::initialize();
-        let span = create_client_request_span("test_span", "test_method", &TEST_INFO);
+        let span = client_request_span!("Service", "test_method", &TEST_INFO);
         let _enter = span.enter();
 
         let url = "https://example.com/test".parse::<reqwest::Url>().unwrap();

@@ -159,6 +159,7 @@ impl std::fmt::Debug for super::BaseImage {
         debug_struct.field("name", &self.name);
         debug_struct.field("repository", &self.repository);
         debug_struct.field("layer_count", &self.layer_count);
+        debug_struct.field("registry", &self.registry);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1730,6 +1731,7 @@ impl std::fmt::Debug for super::VulnerabilityNote {
         debug_struct.field("source_update_time", &self.source_update_time);
         debug_struct.field("cvss_version", &self.cvss_version);
         debug_struct.field("cvss_v2", &self.cvss_v2);
+        debug_struct.field("advisory_publish_time", &self.advisory_publish_time);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

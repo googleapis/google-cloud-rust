@@ -122,11 +122,44 @@ impl SecureSourceManager {
     }
 
     /// Lists Instances in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_securesourcemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &SecureSourceManager, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_instances()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_instances(&self) -> super::builder::secure_source_manager::ListInstances {
         super::builder::secure_source_manager::ListInstances::new(self.inner.clone())
     }
 
     /// Gets details of a single instance.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
+    /// use google_cloud_securesourcemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &SecureSourceManager, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_instance()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_instance(&self) -> super::builder::secure_source_manager::GetInstance {
         super::builder::secure_source_manager::GetInstance::new(self.inner.clone())
     }
@@ -142,6 +175,26 @@ impl SecureSourceManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_securesourcemanager_v1::model::Instance;
+    /// use google_cloud_securesourcemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &SecureSourceManager, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_instance()
+    ///         .set_parent(parent).set_instance_id("instance_id_value")
+    ///         .set_instance(
+    ///             Instance::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_instance(&self) -> super::builder::secure_source_manager::CreateInstance {
         super::builder::secure_source_manager::CreateInstance::new(self.inner.clone())
     }
@@ -157,6 +210,21 @@ impl SecureSourceManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_securesourcemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &SecureSourceManager, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_instance()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_instance(&self) -> super::builder::secure_source_manager::DeleteInstance {
         super::builder::secure_source_manager::DeleteInstance::new(self.inner.clone())
     }
@@ -165,11 +233,44 @@ impl SecureSourceManager {
     ///
     /// The instance field is required in the query parameter for requests using
     /// the securesourcemanager.googleapis.com endpoint.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_securesourcemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &SecureSourceManager, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_repositories()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_repositories(&self) -> super::builder::secure_source_manager::ListRepositories {
         super::builder::secure_source_manager::ListRepositories::new(self.inner.clone())
     }
 
     /// Gets metadata of a repository.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
+    /// use google_cloud_securesourcemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &SecureSourceManager, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_repository()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_repository(&self) -> super::builder::secure_source_manager::GetRepository {
         super::builder::secure_source_manager::GetRepository::new(self.inner.clone())
     }
@@ -188,6 +289,26 @@ impl SecureSourceManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_securesourcemanager_v1::model::Repository;
+    /// use google_cloud_securesourcemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &SecureSourceManager, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_repository()
+    ///         .set_parent(parent).set_repository_id("repository_id_value")
+    ///         .set_repository(
+    ///             Repository::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_repository(&self) -> super::builder::secure_source_manager::CreateRepository {
         super::builder::secure_source_manager::CreateRepository::new(self.inner.clone())
     }
@@ -203,6 +324,28 @@ impl SecureSourceManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_securesourcemanager_v1::model::Repository;
+    /// use google_cloud_securesourcemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &SecureSourceManager, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_repository()
+    ///         .set_repository(
+    ///             Repository::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_repository(&self) -> super::builder::secure_source_manager::UpdateRepository {
         super::builder::secure_source_manager::UpdateRepository::new(self.inner.clone())
     }
@@ -218,16 +361,64 @@ impl SecureSourceManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_securesourcemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &SecureSourceManager, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_repository()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_repository(&self) -> super::builder::secure_source_manager::DeleteRepository {
         super::builder::secure_source_manager::DeleteRepository::new(self.inner.clone())
     }
 
     /// Lists hooks in a given repository.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_securesourcemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &SecureSourceManager, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_hooks()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_hooks(&self) -> super::builder::secure_source_manager::ListHooks {
         super::builder::secure_source_manager::ListHooks::new(self.inner.clone())
     }
 
     /// Gets metadata of a hook.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
+    /// use google_cloud_securesourcemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &SecureSourceManager, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_hook()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_hook(&self) -> super::builder::secure_source_manager::GetHook {
         super::builder::secure_source_manager::GetHook::new(self.inner.clone())
     }
@@ -243,6 +434,26 @@ impl SecureSourceManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_securesourcemanager_v1::model::Hook;
+    /// use google_cloud_securesourcemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &SecureSourceManager, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_hook()
+    ///         .set_parent(parent).set_hook_id("hook_id_value")
+    ///         .set_hook(
+    ///             Hook::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_hook(&self) -> super::builder::secure_source_manager::CreateHook {
         super::builder::secure_source_manager::CreateHook::new(self.inner.clone())
     }
@@ -258,6 +469,28 @@ impl SecureSourceManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_securesourcemanager_v1::model::Hook;
+    /// use google_cloud_securesourcemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &SecureSourceManager, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_hook()
+    ///         .set_hook(
+    ///             Hook::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_hook(&self) -> super::builder::secure_source_manager::UpdateHook {
         super::builder::secure_source_manager::UpdateHook::new(self.inner.clone())
     }
@@ -273,22 +506,82 @@ impl SecureSourceManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_securesourcemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &SecureSourceManager, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_hook()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_hook(&self) -> super::builder::secure_source_manager::DeleteHook {
         super::builder::secure_source_manager::DeleteHook::new(self.inner.clone())
     }
 
     /// Get IAM policy for a repository.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
+    /// use google_cloud_securesourcemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &SecureSourceManager
+    /// ) -> Result<()> {
+    ///     let response = client.get_iam_policy_repo()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy_repo(&self) -> super::builder::secure_source_manager::GetIamPolicyRepo {
         super::builder::secure_source_manager::GetIamPolicyRepo::new(self.inner.clone())
     }
 
     /// Set IAM policy on a repository.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
+    /// use google_cloud_securesourcemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &SecureSourceManager
+    /// ) -> Result<()> {
+    ///     let response = client.set_iam_policy_repo()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy_repo(&self) -> super::builder::secure_source_manager::SetIamPolicyRepo {
         super::builder::secure_source_manager::SetIamPolicyRepo::new(self.inner.clone())
     }
 
     /// Test IAM permissions on a repository.
     /// IAM permission checks are not required on this method.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
+    /// use google_cloud_securesourcemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &SecureSourceManager
+    /// ) -> Result<()> {
+    ///     let response = client.test_iam_permissions_repo()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions_repo(
         &self,
     ) -> super::builder::secure_source_manager::TestIamPermissionsRepo {
@@ -306,16 +599,69 @@ impl SecureSourceManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_securesourcemanager_v1::model::BranchRule;
+    /// use google_cloud_securesourcemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &SecureSourceManager, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_branch_rule()
+    ///         .set_parent(parent)
+    ///         .set_branch_rule(
+    ///             BranchRule::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_branch_rule(&self) -> super::builder::secure_source_manager::CreateBranchRule {
         super::builder::secure_source_manager::CreateBranchRule::new(self.inner.clone())
     }
 
     /// ListBranchRules lists branch rules in a given repository.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_securesourcemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &SecureSourceManager, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_branch_rules()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_branch_rules(&self) -> super::builder::secure_source_manager::ListBranchRules {
         super::builder::secure_source_manager::ListBranchRules::new(self.inner.clone())
     }
 
     /// GetBranchRule gets a branch rule.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
+    /// use google_cloud_securesourcemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &SecureSourceManager, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_branch_rule()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_branch_rule(&self) -> super::builder::secure_source_manager::GetBranchRule {
         super::builder::secure_source_manager::GetBranchRule::new(self.inner.clone())
     }
@@ -331,6 +677,28 @@ impl SecureSourceManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_securesourcemanager_v1::model::BranchRule;
+    /// use google_cloud_securesourcemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &SecureSourceManager, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_branch_rule()
+    ///         .set_branch_rule(
+    ///             BranchRule::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_branch_rule(&self) -> super::builder::secure_source_manager::UpdateBranchRule {
         super::builder::secure_source_manager::UpdateBranchRule::new(self.inner.clone())
     }
@@ -346,6 +714,21 @@ impl SecureSourceManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_securesourcemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &SecureSourceManager, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_branch_rule()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_branch_rule(&self) -> super::builder::secure_source_manager::DeleteBranchRule {
         super::builder::secure_source_manager::DeleteBranchRule::new(self.inner.clone())
     }
@@ -361,16 +744,69 @@ impl SecureSourceManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_securesourcemanager_v1::model::PullRequest;
+    /// use google_cloud_securesourcemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &SecureSourceManager, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_pull_request()
+    ///         .set_parent(parent)
+    ///         .set_pull_request(
+    ///             PullRequest::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_pull_request(&self) -> super::builder::secure_source_manager::CreatePullRequest {
         super::builder::secure_source_manager::CreatePullRequest::new(self.inner.clone())
     }
 
     /// Gets a pull request.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
+    /// use google_cloud_securesourcemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &SecureSourceManager, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_pull_request()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_pull_request(&self) -> super::builder::secure_source_manager::GetPullRequest {
         super::builder::secure_source_manager::GetPullRequest::new(self.inner.clone())
     }
 
     /// Lists pull requests in a repository.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_securesourcemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &SecureSourceManager, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_pull_requests()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_pull_requests(&self) -> super::builder::secure_source_manager::ListPullRequests {
         super::builder::secure_source_manager::ListPullRequests::new(self.inner.clone())
     }
@@ -386,6 +822,28 @@ impl SecureSourceManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_securesourcemanager_v1::model::PullRequest;
+    /// use google_cloud_securesourcemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &SecureSourceManager, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_pull_request()
+    ///         .set_pull_request(
+    ///             PullRequest::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_pull_request(&self) -> super::builder::secure_source_manager::UpdatePullRequest {
         super::builder::secure_source_manager::UpdatePullRequest::new(self.inner.clone())
     }
@@ -401,6 +859,22 @@ impl SecureSourceManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_securesourcemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &SecureSourceManager
+    /// ) -> Result<()> {
+    ///     let response = client.merge_pull_request()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn merge_pull_request(&self) -> super::builder::secure_source_manager::MergePullRequest {
         super::builder::secure_source_manager::MergePullRequest::new(self.inner.clone())
     }
@@ -416,6 +890,22 @@ impl SecureSourceManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_securesourcemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &SecureSourceManager
+    /// ) -> Result<()> {
+    ///     let response = client.open_pull_request()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn open_pull_request(&self) -> super::builder::secure_source_manager::OpenPullRequest {
         super::builder::secure_source_manager::OpenPullRequest::new(self.inner.clone())
     }
@@ -431,11 +921,45 @@ impl SecureSourceManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_securesourcemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &SecureSourceManager
+    /// ) -> Result<()> {
+    ///     let response = client.close_pull_request()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn close_pull_request(&self) -> super::builder::secure_source_manager::ClosePullRequest {
         super::builder::secure_source_manager::ClosePullRequest::new(self.inner.clone())
     }
 
     /// Lists a pull request's file diffs.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_securesourcemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &SecureSourceManager
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_pull_request_file_diffs()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_pull_request_file_diffs(
         &self,
     ) -> super::builder::secure_source_manager::ListPullRequestFileDiffs {
@@ -443,11 +967,44 @@ impl SecureSourceManager {
     }
 
     /// Fetches a tree from a repository.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_securesourcemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &SecureSourceManager
+    /// ) -> Result<()> {
+    ///     let mut list = client.fetch_tree()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn fetch_tree(&self) -> super::builder::secure_source_manager::FetchTree {
         super::builder::secure_source_manager::FetchTree::new(self.inner.clone())
     }
 
     /// Fetches a blob from a repository.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
+    /// use google_cloud_securesourcemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &SecureSourceManager
+    /// ) -> Result<()> {
+    ///     let response = client.fetch_blob()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn fetch_blob(&self) -> super::builder::secure_source_manager::FetchBlob {
         super::builder::secure_source_manager::FetchBlob::new(self.inner.clone())
     }
@@ -463,16 +1020,69 @@ impl SecureSourceManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_securesourcemanager_v1::model::Issue;
+    /// use google_cloud_securesourcemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &SecureSourceManager, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_issue()
+    ///         .set_parent(parent)
+    ///         .set_issue(
+    ///             Issue::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_issue(&self) -> super::builder::secure_source_manager::CreateIssue {
         super::builder::secure_source_manager::CreateIssue::new(self.inner.clone())
     }
 
     /// Gets an issue.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
+    /// use google_cloud_securesourcemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &SecureSourceManager, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_issue()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_issue(&self) -> super::builder::secure_source_manager::GetIssue {
         super::builder::secure_source_manager::GetIssue::new(self.inner.clone())
     }
 
     /// Lists issues in a repository.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_securesourcemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &SecureSourceManager, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_issues()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_issues(&self) -> super::builder::secure_source_manager::ListIssues {
         super::builder::secure_source_manager::ListIssues::new(self.inner.clone())
     }
@@ -488,6 +1098,28 @@ impl SecureSourceManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_securesourcemanager_v1::model::Issue;
+    /// use google_cloud_securesourcemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &SecureSourceManager, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_issue()
+    ///         .set_issue(
+    ///             Issue::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_issue(&self) -> super::builder::secure_source_manager::UpdateIssue {
         super::builder::secure_source_manager::UpdateIssue::new(self.inner.clone())
     }
@@ -503,6 +1135,21 @@ impl SecureSourceManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_securesourcemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &SecureSourceManager, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_issue()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_issue(&self) -> super::builder::secure_source_manager::DeleteIssue {
         super::builder::secure_source_manager::DeleteIssue::new(self.inner.clone())
     }
@@ -518,6 +1165,22 @@ impl SecureSourceManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_securesourcemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &SecureSourceManager
+    /// ) -> Result<()> {
+    ///     let response = client.open_issue()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn open_issue(&self) -> super::builder::secure_source_manager::OpenIssue {
         super::builder::secure_source_manager::OpenIssue::new(self.inner.clone())
     }
@@ -533,11 +1196,42 @@ impl SecureSourceManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_securesourcemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &SecureSourceManager
+    /// ) -> Result<()> {
+    ///     let response = client.close_issue()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn close_issue(&self) -> super::builder::secure_source_manager::CloseIssue {
         super::builder::secure_source_manager::CloseIssue::new(self.inner.clone())
     }
 
     /// Gets a pull request comment.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
+    /// use google_cloud_securesourcemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &SecureSourceManager, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_pull_request_comment()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_pull_request_comment(
         &self,
     ) -> super::builder::secure_source_manager::GetPullRequestComment {
@@ -545,6 +1239,24 @@ impl SecureSourceManager {
     }
 
     /// Lists pull request comments.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_securesourcemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &SecureSourceManager, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_pull_request_comments()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_pull_request_comments(
         &self,
     ) -> super::builder::secure_source_manager::ListPullRequestComments {
@@ -566,6 +1278,26 @@ impl SecureSourceManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_securesourcemanager_v1::model::PullRequestComment;
+    /// use google_cloud_securesourcemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &SecureSourceManager, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_pull_request_comment()
+    ///         .set_parent(parent)
+    ///         .set_pull_request_comment(
+    ///             PullRequestComment::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_pull_request_comment(
         &self,
     ) -> super::builder::secure_source_manager::CreatePullRequestComment {
@@ -583,6 +1315,28 @@ impl SecureSourceManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_securesourcemanager_v1::model::PullRequestComment;
+    /// use google_cloud_securesourcemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &SecureSourceManager, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_pull_request_comment()
+    ///         .set_pull_request_comment(
+    ///             PullRequestComment::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_pull_request_comment(
         &self,
     ) -> super::builder::secure_source_manager::UpdatePullRequestComment {
@@ -600,6 +1354,21 @@ impl SecureSourceManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_securesourcemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &SecureSourceManager, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_pull_request_comment()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_pull_request_comment(
         &self,
     ) -> super::builder::secure_source_manager::DeletePullRequestComment {
@@ -621,6 +1390,22 @@ impl SecureSourceManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_securesourcemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &SecureSourceManager
+    /// ) -> Result<()> {
+    ///     let response = client.batch_create_pull_request_comments()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn batch_create_pull_request_comments(
         &self,
     ) -> super::builder::secure_source_manager::BatchCreatePullRequestComments {
@@ -643,6 +1428,22 @@ impl SecureSourceManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_securesourcemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &SecureSourceManager
+    /// ) -> Result<()> {
+    ///     let response = client.resolve_pull_request_comments()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn resolve_pull_request_comments(
         &self,
     ) -> super::builder::secure_source_manager::ResolvePullRequestComments {
@@ -663,6 +1464,22 @@ impl SecureSourceManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_securesourcemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &SecureSourceManager
+    /// ) -> Result<()> {
+    ///     let response = client.unresolve_pull_request_comments()
+    ///         /* set fields */
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn unresolve_pull_request_comments(
         &self,
     ) -> super::builder::secure_source_manager::UnresolvePullRequestComments {
@@ -680,6 +1497,26 @@ impl SecureSourceManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_securesourcemanager_v1::model::IssueComment;
+    /// use google_cloud_securesourcemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &SecureSourceManager, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_issue_comment()
+    ///         .set_parent(parent)
+    ///         .set_issue_comment(
+    ///             IssueComment::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_issue_comment(
         &self,
     ) -> super::builder::secure_source_manager::CreateIssueComment {
@@ -687,11 +1524,44 @@ impl SecureSourceManager {
     }
 
     /// Gets an issue comment.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
+    /// use google_cloud_securesourcemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &SecureSourceManager, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_issue_comment()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_issue_comment(&self) -> super::builder::secure_source_manager::GetIssueComment {
         super::builder::secure_source_manager::GetIssueComment::new(self.inner.clone())
     }
 
     /// Lists comments in an issue.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_securesourcemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &SecureSourceManager, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_issue_comments()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_issue_comments(&self) -> super::builder::secure_source_manager::ListIssueComments {
         super::builder::secure_source_manager::ListIssueComments::new(self.inner.clone())
     }
@@ -707,6 +1577,28 @@ impl SecureSourceManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_securesourcemanager_v1::model::IssueComment;
+    /// use google_cloud_securesourcemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &SecureSourceManager, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_issue_comment()
+    ///         .set_issue_comment(
+    ///             IssueComment::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_issue_comment(
         &self,
     ) -> super::builder::secure_source_manager::UpdateIssueComment {
@@ -724,6 +1616,21 @@ impl SecureSourceManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_securesourcemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &SecureSourceManager, resource_name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_issue_comment()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_issue_comment(
         &self,
     ) -> super::builder::secure_source_manager::DeleteIssueComment {
@@ -731,11 +1638,44 @@ impl SecureSourceManager {
     }
 
     /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_securesourcemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &SecureSourceManager
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_locations(&self) -> super::builder::secure_source_manager::ListLocations {
         super::builder::secure_source_manager::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
+    /// use google_cloud_securesourcemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &SecureSourceManager
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::secure_source_manager::GetLocation {
         super::builder::secure_source_manager::GetLocation::new(self.inner.clone())
     }
@@ -745,12 +1685,42 @@ impl SecureSourceManager {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
+    /// use google_cloud_securesourcemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &SecureSourceManager
+    /// ) -> Result<()> {
+    ///     let response = client.set_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::secure_source_manager::SetIamPolicy {
         super::builder::secure_source_manager::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
+    /// use google_cloud_securesourcemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &SecureSourceManager
+    /// ) -> Result<()> {
+    ///     let response = client.get_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::secure_source_manager::GetIamPolicy {
         super::builder::secure_source_manager::GetIamPolicy::new(self.inner.clone())
     }
@@ -762,6 +1732,21 @@ impl SecureSourceManager {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
+    /// use google_cloud_securesourcemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &SecureSourceManager
+    /// ) -> Result<()> {
+    ///     let response = client.test_iam_permissions()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(
         &self,
     ) -> super::builder::secure_source_manager::TestIamPermissions {
@@ -771,6 +1756,24 @@ impl SecureSourceManager {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_securesourcemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &SecureSourceManager
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::secure_source_manager::ListOperations {
         super::builder::secure_source_manager::ListOperations::new(self.inner.clone())
     }
@@ -778,6 +1781,21 @@ impl SecureSourceManager {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
+    /// use google_cloud_securesourcemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &SecureSourceManager
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::secure_source_manager::GetOperation {
         super::builder::secure_source_manager::GetOperation::new(self.inner.clone())
     }
@@ -785,6 +1803,20 @@ impl SecureSourceManager {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
+    /// use google_cloud_securesourcemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &SecureSourceManager
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::secure_source_manager::DeleteOperation {
         super::builder::secure_source_manager::DeleteOperation::new(self.inner.clone())
     }
@@ -792,6 +1824,20 @@ impl SecureSourceManager {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
+    /// use google_cloud_securesourcemanager_v1::Result;
+    /// async fn sample(
+    ///    client: &SecureSourceManager
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::secure_source_manager::CancelOperation {
         super::builder::secure_source_manager::CancelOperation::new(self.inner.clone())
     }

@@ -13,8 +13,9 @@
 // limitations under the License.
 
 pub mod showcase;
+pub mod storage;
 
-use super::otlp::CloudTelemetryTracerProviderBuilder;
+use super::otlp::trace::Builder as TracerProviderBuilder;
 use google_cloud_auth::credentials::Builder as CredentialsBuilder;
 use google_cloud_gax::error::rpc::Code;
 use google_cloud_trace_v1::client::TraceService;
@@ -105,7 +106,7 @@ async fn new_provider(project_id: &str) -> anyhow::Result<SdkTracerProvider> {
     } else {
         credentials
     };
-    let provider = CloudTelemetryTracerProviderBuilder::new(project_id, SERVICE_NAME)
+    let provider = TracerProviderBuilder::new(project_id, SERVICE_NAME)
         .with_credentials(credentials)
         .build()
         .await?;

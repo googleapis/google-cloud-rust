@@ -121,6 +121,24 @@ impl AdvisoryNotificationsService {
     }
 
     /// Lists notifications under a given parent.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_advisorynotifications_v1::client::AdvisoryNotificationsService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_advisorynotifications_v1::Result;
+    /// async fn sample(
+    ///    client: &AdvisoryNotificationsService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_notifications()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_notifications(
         &self,
     ) -> super::builder::advisory_notifications_service::ListNotifications {
@@ -128,6 +146,21 @@ impl AdvisoryNotificationsService {
     }
 
     /// Gets a notification.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_advisorynotifications_v1::client::AdvisoryNotificationsService;
+    /// use google_cloud_advisorynotifications_v1::Result;
+    /// async fn sample(
+    ///    client: &AdvisoryNotificationsService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_notification()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_notification(
         &self,
     ) -> super::builder::advisory_notifications_service::GetNotification {
@@ -135,11 +168,44 @@ impl AdvisoryNotificationsService {
     }
 
     /// Get notification settings.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_advisorynotifications_v1::client::AdvisoryNotificationsService;
+    /// use google_cloud_advisorynotifications_v1::Result;
+    /// async fn sample(
+    ///    client: &AdvisoryNotificationsService, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_settings()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_settings(&self) -> super::builder::advisory_notifications_service::GetSettings {
         super::builder::advisory_notifications_service::GetSettings::new(self.inner.clone())
     }
 
     /// Update notification settings.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_advisorynotifications_v1::client::AdvisoryNotificationsService;
+    /// use google_cloud_advisorynotifications_v1::model::Settings;
+    /// use google_cloud_advisorynotifications_v1::Result;
+    /// async fn sample(
+    ///    client: &AdvisoryNotificationsService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_settings()
+    ///         .set_settings(
+    ///             Settings::new().set_name(name)/* set fields */
+    ///         )
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_settings(
         &self,
     ) -> super::builder::advisory_notifications_service::UpdateSettings {

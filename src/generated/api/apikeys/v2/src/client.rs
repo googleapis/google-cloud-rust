@@ -132,6 +132,26 @@ impl ApiKeys {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apikeys_v2::client::ApiKeys;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_apikeys_v2::model::Key;
+    /// use google_cloud_apikeys_v2::Result;
+    /// async fn sample(
+    ///    client: &ApiKeys, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_key()
+    ///         .set_parent(parent).set_key_id("key_id_value")
+    ///         .set_key(
+    ///             Key::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_key(&self) -> super::builder::api_keys::CreateKey {
         super::builder::api_keys::CreateKey::new(self.inner.clone())
     }
@@ -141,6 +161,24 @@ impl ApiKeys {
     ///
     /// NOTE: Key is a global resource; hence the only supported value for
     /// location is `global`.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apikeys_v2::client::ApiKeys;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_apikeys_v2::Result;
+    /// async fn sample(
+    ///    client: &ApiKeys, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_keys()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_keys(&self) -> super::builder::api_keys::ListKeys {
         super::builder::api_keys::ListKeys::new(self.inner.clone())
     }
@@ -150,6 +188,21 @@ impl ApiKeys {
     ///
     /// NOTE: Key is a global resource; hence the only supported value for
     /// location is `global`.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apikeys_v2::client::ApiKeys;
+    /// use google_cloud_apikeys_v2::Result;
+    /// async fn sample(
+    ///    client: &ApiKeys, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_key()
+    ///         .set_name(resource_name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_key(&self) -> super::builder::api_keys::GetKey {
         super::builder::api_keys::GetKey::new(self.inner.clone())
     }
@@ -158,6 +211,21 @@ impl ApiKeys {
     ///
     /// NOTE: Key is a global resource; hence the only supported value for
     /// location is `global`.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apikeys_v2::client::ApiKeys;
+    /// use google_cloud_apikeys_v2::Result;
+    /// async fn sample(
+    ///    client: &ApiKeys
+    /// ) -> Result<()> {
+    ///     let response = client.get_key_string()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_key_string(&self) -> super::builder::api_keys::GetKeyString {
         super::builder::api_keys::GetKeyString::new(self.inner.clone())
     }
@@ -177,6 +245,28 @@ impl ApiKeys {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apikeys_v2::client::ApiKeys;
+    /// use google_cloud_lro::Poller;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_apikeys_v2::model::Key;
+    /// use google_cloud_apikeys_v2::Result;
+    /// async fn sample(
+    ///    client: &ApiKeys, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_key()
+    ///         .set_key(
+    ///             Key::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_key(&self) -> super::builder::api_keys::UpdateKey {
         super::builder::api_keys::UpdateKey::new(self.inner.clone())
     }
@@ -196,6 +286,22 @@ impl ApiKeys {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apikeys_v2::client::ApiKeys;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_apikeys_v2::Result;
+    /// async fn sample(
+    ///    client: &ApiKeys, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.delete_key()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_key(&self) -> super::builder::api_keys::DeleteKey {
         super::builder::api_keys::DeleteKey::new(self.inner.clone())
     }
@@ -214,6 +320,22 @@ impl ApiKeys {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apikeys_v2::client::ApiKeys;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_apikeys_v2::Result;
+    /// async fn sample(
+    ///    client: &ApiKeys, resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.undelete_key()
+    ///         .set_name(resource_name)
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn undelete_key(&self) -> super::builder::api_keys::UndeleteKey {
         super::builder::api_keys::UndeleteKey::new(self.inner.clone())
     }
@@ -223,6 +345,21 @@ impl ApiKeys {
     /// purged, resource name will not be set.
     /// The service account must have the `apikeys.keys.lookup` permission
     /// on the parent project.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apikeys_v2::client::ApiKeys;
+    /// use google_cloud_apikeys_v2::Result;
+    /// async fn sample(
+    ///    client: &ApiKeys
+    /// ) -> Result<()> {
+    ///     let response = client.lookup_key()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn lookup_key(&self) -> super::builder::api_keys::LookupKey {
         super::builder::api_keys::LookupKey::new(self.inner.clone())
     }
@@ -230,6 +367,21 @@ impl ApiKeys {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apikeys_v2::client::ApiKeys;
+    /// use google_cloud_apikeys_v2::Result;
+    /// async fn sample(
+    ///    client: &ApiKeys
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::api_keys::GetOperation {
         super::builder::api_keys::GetOperation::new(self.inner.clone())
     }

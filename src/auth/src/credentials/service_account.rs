@@ -72,6 +72,7 @@
 
 pub(crate) mod jws;
 
+use crate::access_boundary::CredentialsWithAccessBoundary;
 use crate::build_errors::Error as BuilderError;
 use crate::constants::DEFAULT_SCOPE;
 use crate::credentials::dynamic::{AccessTokenCredentialsProvider, CredentialsProvider};
@@ -207,6 +208,7 @@ pub struct Builder {
     service_account_key: Value,
     access_specifier: AccessSpecifier,
     quota_project_id: Option<String>,
+    iam_endpoint_override: Option<String>,
 }
 
 impl Builder {
@@ -221,6 +223,7 @@ impl Builder {
             service_account_key,
             access_specifier: AccessSpecifier::Scopes([DEFAULT_SCOPE].map(str::to_string).to_vec()),
             quota_project_id: None,
+            iam_endpoint_override: None,
         }
     }
 
@@ -263,6 +266,12 @@ impl Builder {
         self
     }
 
+    #[cfg(test)]
+    fn maybe_iam_endpoint_override(mut self, iam_endpoint_override: Option<String>) -> Self {
+        self.iam_endpoint_override = iam_endpoint_override;
+        self
+    }
+
     fn build_token_provider(self) -> BuildResult<ServiceAccountTokenProvider> {
         let service_account_key =
             serde_json::from_value::<ServiceAccountKey>(self.service_account_key)
@@ -288,7 +297,7 @@ impl Builder {
     ///
     /// [creating service account keys]: https://cloud.google.com/iam/docs/keys-create-delete#creating
     pub fn build(self) -> BuildResult<Credentials> {
-        Ok(self.build_access_token_credentials()?.into())
+        Ok(self.build_credentials()?.into())
     }
 
     /// Returns an [AccessTokenCredentials] instance with the configured settings.
@@ -328,12 +337,29 @@ impl Builder {
     ///
     /// [service account keys]: https://cloud.google.com/iam/docs/keys-create-delete#creating
     pub fn build_access_token_credentials(self) -> BuildResult<AccessTokenCredentials> {
-        Ok(AccessTokenCredentials {
-            inner: Arc::new(ServiceAccountCredentials {
-                quota_project_id: self.quota_project_id.clone(),
-                token_provider: TokenCache::new(self.build_token_provider()?),
-            }),
-        })
+        Ok(self.build_credentials()?.into())
+    }
+
+    fn build_credentials(
+        self,
+    ) -> BuildResult<CredentialsWithAccessBoundary<ServiceAccountCredentials<TokenCache>>> {
+        let iam_endpoint = self.iam_endpoint_override.clone();
+        let quota_project_id = self.quota_project_id.clone();
+        let token_provider = self.build_token_provider()?;
+        let client_email = token_provider.service_account_key.client_email.clone();
+        let access_boundary_url = crate::access_boundary::service_account_lookup_url(
+            &client_email,
+            iam_endpoint.as_deref(),
+        );
+        let creds = ServiceAccountCredentials {
+            quota_project_id,
+            token_provider: TokenCache::new(token_provider),
+        };
+
+        Ok(CredentialsWithAccessBoundary::new(
+            creds,
+            access_boundary_url,
+        ))
     }
 
     /// Returns a [crate::signer::Signer] instance with the configured settings.
@@ -594,17 +620,23 @@ where
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::access_boundary::REGIONAL_ACCESS_BOUNDARIES_ENV_VAR;
     use crate::credentials::QUOTA_PROJECT_KEY;
     use crate::credentials::tests::{
-        PKCS8_PK, b64_decode_to_json, get_headers_from_cache, get_token_from_headers,
+        PKCS8_PK, b64_decode_to_json, get_access_boundary_from_headers, get_headers_from_cache,
+        get_token_from_headers,
     };
     use crate::token::tests::MockTokenProvider;
     use http::HeaderValue;
     use http::header::AUTHORIZATION;
+    use httptest::responders::json_encoded;
+    use httptest::{Expectation, Server, matchers::*};
     use rsa::pkcs1::EncodeRsaPrivateKey;
     use rsa::pkcs8::LineEnding;
+    use scoped_env::ScopedEnv;
     use serde_json::Value;
     use serde_json::json;
+    use serial_test::{parallel, serial};
     use std::error::Error as _;
     use std::time::Duration;
 
@@ -613,6 +645,7 @@ mod tests {
     const SSJ_REGEX: &str = r"(?<header>[^\.]+)\.(?<claims>[^\.]+)\.(?<sig>[^\.]+)";
 
     #[test]
+    #[parallel]
     fn debug_token_provider() {
         let expected = ServiceAccountKey {
             client_email: "test-client-email".to_string(),
@@ -630,6 +663,7 @@ mod tests {
     }
 
     #[test]
+    #[parallel]
     fn validate_token_issue_time() {
         let current_time = OffsetDateTime::now_utc();
         let token_issue_time = token_issue_time(current_time);
@@ -637,6 +671,7 @@ mod tests {
     }
 
     #[test]
+    #[parallel]
     fn validate_token_expiry_time() {
         let current_time = OffsetDateTime::now_utc();
         let token_issue_time = token_expiry_time(current_time);
@@ -644,6 +679,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[parallel]
     async fn headers_success_without_quota_project() -> TestResult {
         let token = Token {
             token: "test-token".to_string(),
@@ -684,6 +720,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[parallel]
     async fn headers_success_with_quota_project() -> TestResult {
         let token = Token {
             token: "test-token".to_string(),
@@ -718,6 +755,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[parallel]
     async fn headers_failure() {
         let mut mock = MockTokenProvider::new();
         mock.expect_token()
@@ -742,6 +780,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[parallel]
     async fn get_service_account_headers_pkcs1_private_key_failure() -> TestResult {
         let mut service_account_key = get_mock_service_key();
 
@@ -762,6 +801,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[parallel]
     async fn get_service_account_token_pkcs8_key_success() -> TestResult {
         let mut service_account_key = get_mock_service_key();
         service_account_key["private_key"] = Value::from(PKCS8_PK.clone());
@@ -791,6 +831,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[parallel]
     async fn header_caching() -> TestResult {
         let private_key = PKCS8_PK.clone();
 
@@ -835,6 +876,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[parallel]
     async fn get_service_account_headers_invalid_key_failure() -> TestResult {
         let mut service_account_key = get_mock_service_key();
         let pem_data = "-----BEGIN PRIVATE KEY-----\nMIGkAg==\n-----END PRIVATE KEY-----";
@@ -850,6 +892,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[parallel]
     async fn get_service_account_invalid_json_failure() -> TestResult {
         let service_account_key = Value::from(" ");
         let e = Builder::new(service_account_key).build().unwrap_err();
@@ -893,6 +936,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[parallel]
     async fn get_service_account_headers_with_audience() -> TestResult {
         let mut service_account_key = get_mock_service_key();
         service_account_key["private_key"] = Value::from(PKCS8_PK.clone());
@@ -923,6 +967,7 @@ mod tests {
     }
 
     #[tokio::test(start_paused = true)]
+    #[parallel]
     async fn get_service_account_token_verify_expiry_time() -> TestResult {
         let now = Instant::now();
         let mut service_account_key = get_mock_service_key();
@@ -939,6 +984,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[parallel]
     async fn get_service_account_headers_with_custom_scopes() -> TestResult {
         let mut service_account_key = get_mock_service_key();
         let scopes = vec![
@@ -972,6 +1018,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[parallel]
     async fn get_service_account_access_token() -> TestResult {
         let mut service_account_key = get_mock_service_key();
         service_account_key["private_key"] = Value::from(PKCS8_PK.clone());
@@ -993,6 +1040,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[parallel]
     async fn get_service_account_signer() -> TestResult {
         let mut service_account_key = get_mock_service_key();
         service_account_key["private_key"] = Value::from(PKCS8_PK.clone());
@@ -1002,6 +1050,50 @@ mod tests {
         assert_eq!(client_email, service_account_key["client_email"]);
 
         let _bytes = signer.sign(b"test").await?;
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    #[serial]
+    async fn e2e_access_boundary() -> TestResult {
+        let _env = ScopedEnv::set(REGIONAL_ACCESS_BOUNDARIES_ENV_VAR, "true");
+
+        let mut service_account_key = get_mock_service_key();
+        service_account_key["private_key"] = Value::from(PKCS8_PK.clone());
+        let email = service_account_key["client_email"].as_str().unwrap();
+
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(all_of![request::method_path(
+                "GET",
+                format!("/v1/projects/-/serviceAccounts/{email}/allowedLocations")
+            ),])
+            .times(1)
+            .respond_with(json_encoded(json!({
+                "locations": ["us-central1", "us-east1"],
+                "encodedLocations": "0x1234"
+            }))),
+        );
+
+        let iam_endpoint = server.url("").to_string().trim_end_matches('/').to_string();
+
+        let creds = Builder::new(service_account_key.clone())
+            .maybe_iam_endpoint_override(Some(iam_endpoint))
+            .build()?;
+
+        // let the access boundary background thread update
+        tokio::time::sleep(tokio::time::Duration::from_secs(1)).await;
+
+        let headers = creds.headers(Extensions::new()).await?;
+        let token = get_token_from_headers(headers.clone());
+        let access_boundary = get_access_boundary_from_headers(headers);
+        assert!(token.is_some(), "should have some token: {token:?}");
+        assert_eq!(
+            access_boundary.as_deref(),
+            Some("0x1234"),
+            "should be 0x1234 but found: {access_boundary:?}"
+        );
 
         Ok(())
     }
