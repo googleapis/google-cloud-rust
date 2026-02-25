@@ -1138,10 +1138,10 @@ mod tests {
         let creds = Builder::default()
             .with_endpoint(&endpoint)
             .maybe_iam_endpoint_override(Some(endpoint))
-            .build()?;
+            .build_credentials()?;
 
         // let the access boundary background thread update
-        tokio::time::sleep(tokio::time::Duration::from_secs(1)).await;
+        creds.wait_for_boundary().await;
 
         let headers = creds.headers(Extensions::new()).await?;
         let token = get_token_from_headers(headers.clone());
