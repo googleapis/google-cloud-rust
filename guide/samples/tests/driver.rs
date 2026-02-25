@@ -271,13 +271,13 @@ mod driver {
 
     #[tokio::test]
     async fn binding_fail() -> user_guide_samples::Result<()> {
-        user_guide_samples::binding_errors::binding_fail().await?;
+        user_guide_samples::binding_errors::binding_fail::binding_fail().await?;
         Ok(())
     }
 
     #[tokio::test]
     async fn binding_success() -> user_guide_samples::Result<()> {
-        user_guide_samples::binding_errors::binding_success().await?;
+        user_guide_samples::binding_errors::binding_success::binding_success().await?;
         Ok(())
     }
 }
