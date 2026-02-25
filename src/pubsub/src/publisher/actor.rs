@@ -161,13 +161,11 @@ impl Dispatcher {
                                 }
                                 flush_set.spawn(rx);
                             }
-                            // Wait on all the tasks that exist right now.
-                            // TODO(#4505): We could instead tokio::spawn this as well so the
-                            // publisher can keep working on additional messages. The Dispatcher
-                            // would also need to keep track of any pending flushes, and make sure
-                            // all of those resolve as well.
-                            flush_set.join_all().await;
-                            let _ = tx.send(());
+                            tokio::spawn(async move {
+                                // Wait on all the flush operations.
+                                flush_set.join_all().await;
+                                let _ = tx.send(());
+                            });
                         },
                         Some(ToDispatcher::ResumePublish(ordering_key)) => {
                             if let Some(batch_actor) = batch_actors.get_mut(&ordering_key) {
