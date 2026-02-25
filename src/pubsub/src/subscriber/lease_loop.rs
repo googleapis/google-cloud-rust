@@ -90,6 +90,7 @@ where
 #[cfg(test)]
 mod tests {
     use super::super::lease_state::tests::{sorted, test_id, test_ids, test_info};
+    use super::super::leaser::ConfirmedAcks;
     use super::super::leaser::tests::MockLeaser;
     use super::*;
     use google_cloud_test_macros::tokio_test_no_panics;
@@ -314,6 +315,12 @@ mod tests {
                 assert_eq!(ack_ids, test_ids(10..30));
             }
             async fn extend(&self, _ack_ids: Vec<String>) {}
+            async fn confirmed_ack(
+                &self,
+                _ack_ids: Vec<String>,
+                _result_tx: UnboundedSender<ConfirmedAcks>,
+            ) {
+            }
         }
 
         let lease_loop = LeaseLoop::new(FakeLeaser, LeaseOptions::default());

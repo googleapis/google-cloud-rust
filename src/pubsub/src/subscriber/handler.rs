@@ -40,6 +40,8 @@
 //! }
 //! ```
 
+#[cfg(test)] // TODO(#3964): implementation in progress...
+use crate::error::AckError;
 use tokio::sync::mpsc::UnboundedSender;
 
 /// The action an application does with a message.
@@ -236,6 +238,10 @@ impl ExactlyOnceImpl {
 
     // TODO(#3964): add confirmed_ack()
 }
+
+#[cfg(test)] // TODO(#3964): implementation in progress...
+/// The result of a confirmed acknowledgement.
+pub type AckResult = std::result::Result<(), AckError>;
 
 #[cfg(test)]
 mod tests {
