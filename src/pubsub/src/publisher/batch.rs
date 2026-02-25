@@ -144,6 +144,7 @@ mod tests {
         publisher::actor::BundledMessage,
         publisher::batch::{Batch, BatchingOptions},
     };
+    use google_cloud_test_macros::tokio_test_no_panics;
     use tokio::task::JoinSet;
 
     mockall::mock! {
@@ -154,15 +155,7 @@ mod tests {
         }
     }
 
-    #[cfg_attr(
-        tokio_unstable,
-        tokio::test(
-            start_paused = true,
-            flavor = "current_thread",
-            unhandled_panic = "shutdown_runtime"
-        )
-    )]
-    #[cfg_attr(not(tokio_unstable), tokio::test(start_paused = true))]
+    #[tokio_test_no_panics(start_paused = true)]
     async fn test_push_and_flush_batch() -> anyhow::Result<()> {
         let mut batch = Batch::new("topic".len() as u32, BatchingOptions::default());
         assert!(batch.is_empty());
@@ -192,15 +185,7 @@ mod tests {
         Ok(())
     }
 
-    #[cfg_attr(
-        tokio_unstable,
-        tokio::test(
-            start_paused = true,
-            flavor = "current_thread",
-            unhandled_panic = "shutdown_runtime"
-        )
-    )]
-    #[cfg_attr(not(tokio_unstable), tokio::test(start_paused = true))]
+    #[tokio_test_no_panics(start_paused = true)]
     async fn test_size() -> anyhow::Result<()> {
         use std::collections::HashMap;
 
