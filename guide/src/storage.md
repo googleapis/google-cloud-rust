@@ -101,7 +101,7 @@ this guide:
 {{#rustdoc_include ../samples/tests/storage/quickstart.rs:cleanup}}
 ```
 
-## Next Steps
+## Next steps
 
 - [Push data on object uploads](storage/queue.md)
 - [Rewriting objects](storage/rewrite_object.md)
