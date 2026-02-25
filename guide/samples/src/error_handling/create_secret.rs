@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// [START create_secret] ANCHOR: create-secret
+// [START rust_create_secret] ANCHOR: create-secret
 use google_cloud_gax::options::RequestOptionsBuilder;
 use google_cloud_gax::retry_policy::AlwaysRetry;
 use google_cloud_gax::retry_policy::RetryPolicyExt;
@@ -45,4 +45,4 @@ pub async fn create_secret(
         .await?;
     Ok(secret)
 }
-// [END create_secret] ANCHOR_END: create-secret
+// [END rust_create_secret] ANCHOR_END: create-secret

@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// [START update_attempt] ANCHOR: update-attempt
+// [START rust_update_attempt] ANCHOR: update-attempt
 use google_cloud_secretmanager_v1::client::SecretManagerService;
 use google_cloud_secretmanager_v1::model::{SecretPayload, SecretVersion};
 
@@ -35,4 +35,4 @@ pub(crate) async fn update_attempt(
         .await?;
     Ok(version)
 }
-// [END update_attempt] ANCHOR_END: update-attempt
+// [END rust_update_attempt] ANCHOR_END: update-attempt
