@@ -536,6 +536,7 @@ mod tests {
         generated::gapic_dataplane::client::Publisher as GapicPublisher,
         model::{Message, PublishResponse},
     };
+    use google_cloud_test_macros::tokio_test_no_panics;
     use mockall::Sequence;
     use rand::{RngExt, distr::Alphanumeric};
     use std::collections::VecDeque;

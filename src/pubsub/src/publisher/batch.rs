@@ -144,6 +144,7 @@ mod tests {
         publisher::actor::BundledMessage,
         publisher::batch::{Batch, BatchingOptions},
     };
+    use google_cloud_test_macros::tokio_test_no_panics;
     use tokio::task::JoinSet;
 
     mockall::mock! {
