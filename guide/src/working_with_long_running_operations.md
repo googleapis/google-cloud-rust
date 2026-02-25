@@ -19,7 +19,7 @@ limitations under the License.
 Occasionally, an API may need to expose a method that takes a significant amount
 of time to complete. In these situations, it's often a poor user experience to
 simply block while the task runs. It's usually better to return some kind of
-promise to the user and allow the user to check back later.
+promise to the user and allow the user to check back.
 
 The Google Cloud Client Libraries for Rust provide helpers to work with these
 long-running operations (LROs). This guide shows you how to start LROs and wait
@@ -100,7 +100,7 @@ to write your own.
 
 You can find the
 [full function](#automatically-polling-a-long-running-operation-complete-code)
-below.
+at the end of this section.
 
 ## Automatically polling a long-running operation
 
@@ -134,7 +134,7 @@ And then poll until the operation is completed and print the result:
 
 You can find the
 [full function](#automatically-polling-a-long-running-operation-complete-code)
-below.
+at the end of this section.
 
 ## Polling a long-running operation with intermediate results
 
@@ -165,7 +165,8 @@ resolve themselves. The [Configuring polling policies] chapter covers this topic
 in detail.
 
 You can find the
-[full function](#polling-a-long-running-operation-complete-code) below.
+[full function](#polling-a-long-running-operation-complete-code) at the end of
+this section.
 
 ## Manually polling a long-running operation
 
@@ -175,7 +176,7 @@ this can be quite tedious, and it is easy to get the types wrong. If you do need
 to manually poll a long-running operation, this section walks you through the
 required steps. You may want to read the
 [Operation][longrunning::model::operation] message reference documentation, as
-some of the fields and types are used below.
+some of the fields and types are used.
 
 Recall that you started the long-running operation using the client:
 
@@ -265,7 +266,8 @@ choose to treat only a subset of the errors as non-recoverable, and may want to
 limit the number of polling attempts if these fail.
 
 You can find the
-[full function](#manually-polling-a-long-running-operation-complete-code) below.
+[full function](#manually-polling-a-long-running-operation-complete-code) at the
+end of this section.
 
 ## What's next
 

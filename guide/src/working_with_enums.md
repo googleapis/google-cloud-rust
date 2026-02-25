@@ -70,8 +70,8 @@ The same principle applies to unknown integer values:
 
 ## Preparing for upgrades
 
-As mentioned above, the Rust enumerations in the client libraries may gain new
-variants in future releases. To avoid breaking applications we mark these
+As previously mentioned, the Rust enumerations in the client libraries may gain
+new variants in future releases. To avoid breaking applications we mark these
 enumerations as `#[non_exhaustive]`.
 
 If you use a match expression for non-exhaustive enumerations then you must

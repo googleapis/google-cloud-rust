@@ -98,7 +98,7 @@ labels: {"updated": "your-label"},
 annotations: {"updated": "your-annotations"},
 ```
 
-See [below](#update-field-complete-code) for the complete code.
+Review the [complete code](#update-field-complete-code).
 
 ## What's next
 

@@ -94,9 +94,8 @@ The client library will first wait for 500ms, after the first polling attempt,
 then for 1,000ms (or 1s) for the second attempt, and sub-sequent attempts will
 wait 2s, 4s, 8s and then all attempts will wait 10s.
 
-See
-[below](#configuring-the-polling-frequency-for-all-requests-in-a-client-complete-code)
-for the complete code.
+Review the
+[complete code](#configuring-the-polling-frequency-for-all-requests-in-a-client-complete-code).
 
 ## Configuring the polling frequency for a specific request
 
@@ -132,9 +131,8 @@ You can issue this request as usual. For example:
 {{#include ../samples/tests/storage/polling_policies.rs:rpc-backoff-print}}
 ```
 
-See
-[below](#configuring-the-polling-frequency-for-a-specific-request-complete-code)
-for the complete code.
+Review the
+[complete code](#configuring-the-polling-frequency-for-a-specific-request-complete-code).
 
 ## Configuring the retryable polling errors for all requests in a client
 
@@ -177,9 +175,8 @@ The client library will only treat `UNAVAILABLE` (see [AIP-194]) as a retryable
 error, and will stop polling after 100 attempts or 300 seconds, whichever comes
 first.
 
-See
-[below](#configuring-the-retryable-polling-errors-for-all-requests-in-a-client-complete-code)
-for the complete code.
+Review the
+[complete code](#configuring-the-retryable-polling-errors-for-all-requests-in-a-client-complete-code).
 
 ## Configuring the retryable polling errors for a specific request
 
@@ -222,9 +219,8 @@ fails:
 {{#include ../samples/tests/storage/polling_policies.rs:rpc-errors-client}}
 ```
 
-See
-[below](#configuring-the-retryable-polling-errors-for-a-specific-request-complete-code)
-for the complete code.
+Review the
+[complete code](#configuring-the-retryable-polling-errors-for-a-specific-request-complete-code).
 
 ## Configuring the polling frequency for all requests in a client: complete code
 

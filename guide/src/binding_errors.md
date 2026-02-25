@@ -42,9 +42,9 @@ The client library considers all possible URIs, and only returns a binding error
 if no URIs work. Typically this happens when a field is either missing or in an
 invalid format.
 
-The example error above was produced by trying to get a resource without naming
-the resource. Specifically, the `name` field on a [`GetSecretRequest`] was
-required but not set.
+The preceding example error was produced by trying to get a resource without
+naming the resource. Specifically, the `name` field on a [`GetSecretRequest`]
+was required but not set.
 
 ```rust,ignore
 {{#include ../samples/src/binding_errors/binding_fail.rs:request}}

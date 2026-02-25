@@ -69,7 +69,7 @@ First we will define the mock class. This class implements the
 
 Next, we create an instance of the mock. Note that the
 [`mockall::mock!`][mock-macro] macro prepends a `Mock` prefix to the name of our
-struct from above.
+previously defined struct.
 
 ```rust,ignore
 {{#include ../samples/tests/mocking.rs:mock_new}}
