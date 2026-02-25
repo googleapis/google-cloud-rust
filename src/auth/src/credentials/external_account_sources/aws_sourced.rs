@@ -459,7 +459,7 @@ mod tests {
     #[test_case("   ", None; "whitespace")]
     #[test_case("a", Some("a"); "short_zone")]
     fn test_parse_region_from_zone(zone: &str, expected: Option<&str>) {
-        assert_eq!(parse_region_from_zone(zone).as_deref(), expected);
+        assert_eq!(parse_region_from_zone(zone), expected);
     }
 
     #[test_case(None, "us-east-1", "https://sts.us-east-1.amazonaws.com/?Action=GetCallerIdentity&Version=2011-06-15"; "default_template")]
