@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// [START rust_update_field] ANCHOR: update-field
+// [START rust_update_resource_field] ANCHOR: update-field
 use google_cloud_secretmanager_v1::client::SecretManagerService;
 use google_cloud_secretmanager_v1::model::replication::Automatic;
 use google_cloud_secretmanager_v1::model::{Replication, Secret};
@@ -20,7 +20,7 @@ use google_cloud_wkt::FieldMask;
 use std::collections::HashMap;
 
 pub async fn update_field(project_id: &str) -> anyhow::Result<()> {
-    // [START rust_create] ANCHOR: create
+    // [START rust_update_resource_create] ANCHOR: create
     let client = SecretManagerService::builder().build().await?;
 
     let secret = client
@@ -33,9 +33,9 @@ pub async fn update_field(project_id: &str) -> anyhow::Result<()> {
         .send()
         .await?;
     println!("CREATE = {secret:?}");
-    // [END rust_create] ANCHOR_END: create
+    // [END rust_update_resource_create] ANCHOR_END: create
 
-    // [START rust_update] ANCHOR: update
+    // [START rust_update_resource_update] ANCHOR: update
     let tag = |mut labels: HashMap<_, _>, msg: &str| {
         labels.insert("updated".to_string(), msg.to_string());
         labels
@@ -50,14 +50,14 @@ pub async fn update_field(project_id: &str) -> anyhow::Result<()> {
                 .set_labels(tag(secret.labels, "your-label"))
                 .set_annotations(tag(secret.annotations, "your-annotations")),
         )
-        // [START rust_set_update_mask] ANCHOR: set-update-mask
+        // [START rust_update_resource_set_update_mask] ANCHOR: set-update-mask
         .set_update_mask(FieldMask::default().set_paths(["annotations", "labels"]))
-        // [END rust_set_update_mask] ANCHOR_END: set-update-mask
+        // [END rust_update_resource_set_update_mask] ANCHOR_END: set-update-mask
         .send()
         .await?;
     println!("UPDATE = {update:?}");
-    // [END rust_update] ANCHOR_END: update
+    // [END rust_update_resource_update] ANCHOR_END: update
 
     Ok(())
 }
-// [END rust_update_field] ANCHOR_END: update-field
+// [END rust_update_resource_field] ANCHOR_END: update-field
