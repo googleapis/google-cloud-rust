@@ -36,17 +36,9 @@ pub(super) trait Leaser {
 
     /// Acknowledge a batch of messages with exactly-once semantics.
     ///
-    /// This method handles retries. Results are reported via the channel, as
-    /// they are known. This lets us keep the retry logic in the leaser, while
-    /// allowing for partial results to be reported before the entire operation
-    /// completes.
-    ///
-    /// The caller should spawn a task for this operation.
-    async fn confirmed_ack(
-        &self,
-        ack_ids: Vec<String>,
-        confirmed_tx: UnboundedSender<ConfirmedAcks>,
-    );
+    /// The caller should spawn a task for this operation, as retries can take
+    /// arbitrarily long.
+    async fn confirmed_ack(&self, ack_ids: Vec<String>);
 }
 
 /// A map of exactly-once ack IDs to their final result.
@@ -57,6 +49,7 @@ where
     T: Stub,
 {
     inner: Arc<T>,
+    confirmed_tx: UnboundedSender<ConfirmedAcks>,
     options: RequestOptions,
     subscription: String,
     ack_deadline_seconds: i32,
@@ -69,6 +62,7 @@ where
     fn clone(&self) -> Self {
         Self {
             inner: self.inner.clone(),
+            confirmed_tx: self.confirmed_tx.clone(),
             options: self.options.clone(),
             // TODO(#3975) - We can save some clones of the subscription if we
             // make the `Leaser` API functional.
@@ -84,12 +78,14 @@ where
 {
     pub(super) fn new(
         inner: Arc<T>,
+        confirmed_tx: UnboundedSender<ConfirmedAcks>,
         subscription: String,
         ack_deadline_seconds: i32,
         grpc_subchannel_count: usize,
     ) -> Self {
         DefaultLeaser {
             inner,
+            confirmed_tx,
             options: at_least_once_options(grpc_subchannel_count),
             subscription,
             ack_deadline_seconds,
@@ -131,11 +127,12 @@ where
             .await;
     }
 
-    async fn confirmed_ack(
-        &self,
-        ack_ids: Vec<String>,
-        confirmed_tx: UnboundedSender<ConfirmedAcks>,
-    ) {
+    /// The exactly-once ack retry loop.
+    ///
+    /// Results are reported via the channel, as they are known. This lets us
+    /// keep the retry logic in the leaser, while allowing for partial results
+    /// to be reported before the entire operation completes.
+    async fn confirmed_ack(&self, ack_ids: Vec<String>) {
         // TODO(#4804): implement retries
         let req = AcknowledgeRequest::new()
             .set_subscription(self.subscription.clone())
@@ -155,7 +152,7 @@ where
                 )
             })
             .collect();
-        let _ = confirmed_tx.send(confirmed_acks);
+        let _ = self.confirmed_tx.send(confirmed_acks);
     }
 }
 
@@ -179,7 +176,7 @@ pub(super) mod tests {
             async fn ack(&self, ack_ids: Vec<String>);
             async fn nack(&self, ack_ids: Vec<String>);
             async fn extend(&self, ack_ids: Vec<String>);
-            async fn confirmed_ack(&self, ack_ids: Vec<String>, confirmed_tx: UnboundedSender<ConfirmedAcks>);
+            async fn confirmed_ack(&self, ack_ids: Vec<String>);
         }
     }
 
@@ -194,12 +191,8 @@ pub(super) mod tests {
         async fn extend(&self, ack_ids: Vec<String>) {
             MockLeaser::extend(self, ack_ids).await
         }
-        async fn confirmed_ack(
-            &self,
-            ack_ids: Vec<String>,
-            confirmed_tx: UnboundedSender<ConfirmedAcks>,
-        ) {
-            MockLeaser::confirmed_ack(self, ack_ids, confirmed_tx).await
+        async fn confirmed_ack(&self, ack_ids: Vec<String>) {
+            MockLeaser::confirmed_ack(self, ack_ids).await
         }
     }
 
@@ -214,19 +207,17 @@ pub(super) mod tests {
         async fn extend(&self, ack_ids: Vec<String>) {
             self.lock().await.extend(ack_ids).await
         }
-        async fn confirmed_ack(
-            &self,
-            ack_ids: Vec<String>,
-            confirmed_tx: UnboundedSender<ConfirmedAcks>,
-        ) {
-            self.lock().await.confirmed_ack(ack_ids, confirmed_tx).await
+        async fn confirmed_ack(&self, ack_ids: Vec<String>) {
+            self.lock().await.confirmed_ack(ack_ids).await
         }
     }
 
     #[test]
     fn clone() {
+        let (confirmed_tx, _confirmed_rx) = unbounded_channel();
         let leaser = DefaultLeaser::new(
             Arc::new(MockStub::new()),
+            confirmed_tx,
             "projects/my-project/subscriptions/my-subscription".to_string(),
             10,
             1_usize,
@@ -234,12 +225,14 @@ pub(super) mod tests {
 
         let clone = leaser.clone();
         assert!(Arc::ptr_eq(&leaser.inner, &clone.inner));
+        assert!(leaser.confirmed_tx.same_channel(&clone.confirmed_tx));
         assert_eq!(leaser.subscription, clone.subscription);
         assert_eq!(leaser.ack_deadline_seconds, clone.ack_deadline_seconds);
     }
 
     #[tokio::test]
     async fn ack() {
+        let (confirmed_tx, _confirmed_rx) = unbounded_channel();
         let mut mock = MockStub::new();
         mock.expect_acknowledge().times(1).return_once(|r, o| {
             assert_eq!(
@@ -253,6 +246,7 @@ pub(super) mod tests {
 
         let leaser = DefaultLeaser::new(
             Arc::new(mock),
+            confirmed_tx,
             "projects/my-project/subscriptions/my-subscription".to_string(),
             10,
             16_usize,
@@ -262,6 +256,7 @@ pub(super) mod tests {
 
     #[tokio::test]
     async fn nack() {
+        let (confirmed_tx, _confirmed_rx) = unbounded_channel();
         let mut mock = MockStub::new();
         mock.expect_modify_ack_deadline()
             .times(1)
@@ -278,6 +273,7 @@ pub(super) mod tests {
 
         let leaser = DefaultLeaser::new(
             Arc::new(mock),
+            confirmed_tx,
             "projects/my-project/subscriptions/my-subscription".to_string(),
             10,
             16_usize,
@@ -287,6 +283,7 @@ pub(super) mod tests {
 
     #[tokio::test]
     async fn extend() {
+        let (confirmed_tx, _confirmed_rx) = unbounded_channel();
         let mut mock = MockStub::new();
         mock.expect_modify_ack_deadline()
             .times(1)
@@ -303,6 +300,7 @@ pub(super) mod tests {
 
         let leaser = DefaultLeaser::new(
             Arc::new(mock),
+            confirmed_tx,
             "projects/my-project/subscriptions/my-subscription".to_string(),
             10,
             16_usize,
@@ -326,11 +324,12 @@ pub(super) mod tests {
 
         let leaser = DefaultLeaser::new(
             Arc::new(mock),
+            confirmed_tx,
             "projects/my-project/subscriptions/my-subscription".to_string(),
             10,
             16_usize,
         );
-        leaser.confirmed_ack(test_ids(0..10), confirmed_tx).await;
+        leaser.confirmed_ack(test_ids(0..10)).await;
 
         let confirmed_acks = confirmed_rx.recv().await.expect("results were not sent");
 
@@ -368,11 +367,12 @@ pub(super) mod tests {
 
         let leaser = DefaultLeaser::new(
             Arc::new(mock),
+            confirmed_tx,
             "projects/my-project/subscriptions/my-subscription".to_string(),
             10,
             16_usize,
         );
-        leaser.confirmed_ack(test_ids(0..10), confirmed_tx).await;
+        leaser.confirmed_ack(test_ids(0..10)).await;
 
         let confirmed_acks = confirmed_rx.recv().await.expect("results were not sent");
 
