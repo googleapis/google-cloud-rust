@@ -16,6 +16,8 @@ use crate::error_handling::create_secret::create_secret;
 use crate::error_handling::update_attempt::update_attempt;
 
 // ANCHOR: update-secret
+use google_cloud_gax::error::Error;
+use google_cloud_gax::error::rpc::Code;
 use google_cloud_secretmanager_v1::client::SecretManagerService;
 use google_cloud_secretmanager_v1::model::SecretVersion;
 
@@ -39,13 +41,9 @@ pub async fn update_secret(
         // ANCHOR_END: update-secret-success
         // ANCHOR: update-secret-svc-error
         Err(e) => {
-            if let Some(status) = e
-                .downcast_ref::<google_cloud_gax::error::Error>()
-                .and_then(|e| e.status())
-            {
+            if let Some(status) = e.downcast_ref::<Error>().and_then(|e| e.status()) {
                 // ANCHOR_END: update-secret-svc-error
                 // ANCHOR: update-secret-not-found
-                use google_cloud_gax::error::rpc::Code;
                 if status.code == Code::NotFound {
                     // ANCHOR_END: update-secret-not-found
                     // ANCHOR: update-secret-create
