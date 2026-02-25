@@ -15,6 +15,7 @@
 #[cfg(all(test, feature = "run-integration-tests"))]
 mod driver {
     use google_cloud_gax::error::rpc::{Code, StatusDetails};
+    use google_cloud_secretmanager_v1::client::SecretManagerService;
     use rand::{RngExt, distr::Alphanumeric};
 
     const SECRET_ID_LENGTH: usize = 32;
@@ -146,19 +147,17 @@ mod driver {
     #[tokio::test(flavor = "multi_thread")]
     async fn retry_policies_client() -> user_guide_samples::Result<()> {
         let project_id = std::env::var("GOOGLE_CLOUD_PROJECT").unwrap();
-        user_guide_samples::retry_policies::client_retry(&project_id).await
+        user_guide_samples::retry_policies::client_retry::client_retry(&project_id).await
     }
 
     #[tokio::test(flavor = "multi_thread")]
     async fn retry_policies_client_full() -> user_guide_samples::Result<()> {
         let project_id = std::env::var("GOOGLE_CLOUD_PROJECT").unwrap();
-        user_guide_samples::retry_policies::client_retry_full(&project_id).await
+        user_guide_samples::retry_policies::client_retry_full::client_retry_full(&project_id).await
     }
 
     #[tokio::test(flavor = "multi_thread")]
     async fn retry_policies_request() -> user_guide_samples::Result<()> {
-        use google_cloud_secretmanager_v1 as sm;
-
         let project_id = std::env::var("GOOGLE_CLOUD_PROJECT").unwrap();
         let secret_id: String = rand::rng()
             .sample_iter(&Alphanumeric)
@@ -166,7 +165,7 @@ mod driver {
             .map(char::from)
             .collect();
 
-        let client = sm::client::SecretManagerService::builder().build().await?;
+        let client = SecretManagerService::builder().build().await?;
         // The sample will delete this secret. If that fails, the cleanup step
         // for the integration tests will garbage collect it in a couple of
         // days.
@@ -183,7 +182,6 @@ mod driver {
     async fn error_handling_found() -> user_guide_samples::Result<()> {
         use google_cloud_gax::retry_policy::AlwaysRetry;
         use google_cloud_gax::retry_policy::RetryPolicyExt;
-        use google_cloud_secretmanager_v1 as sm;
         use std::time::Duration;
 
         let project_id = std::env::var("GOOGLE_CLOUD_PROJECT").unwrap();
@@ -193,7 +191,7 @@ mod driver {
             .map(char::from)
             .collect();
 
-        let client = sm::client::SecretManagerService::builder()
+        let client = SecretManagerService::builder()
             .with_retry_policy(
                 AlwaysRetry
                     .with_attempt_limit(5)
