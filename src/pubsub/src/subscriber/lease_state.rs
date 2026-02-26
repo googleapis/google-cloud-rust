@@ -55,7 +55,6 @@ pub(super) struct NewMessage {
 }
 
 #[derive(Debug)]
-#[cfg_attr(test, derive(PartialEq))]
 pub(super) enum LeaseInfo {
     AtLeastOnce(Instant),
     // TODO(#3964) - support exactly once delivery
@@ -227,18 +226,6 @@ where
 }
 
 #[cfg(test)]
-impl<L> PartialEq for LeaseState<L>
-where
-    L: Leaser + Clone,
-{
-    fn eq(&self, other: &Self) -> bool {
-        self.under_lease == other.under_lease
-            && self.to_ack == other.to_ack
-            && self.to_nack == other.to_nack
-    }
-}
-
-#[cfg(test)]
 pub(super) mod tests {
     use super::super::leaser::tests::MockLeaser;
     use super::*;
@@ -259,23 +246,26 @@ pub(super) mod tests {
         Duration::from_secs(123)
     }
 
-    fn make_state<L, A, N>(under_lease: L, to_ack: A, to_nack: N) -> LeaseState<Arc<MockLeaser>>
+    #[derive(Debug)]
+    struct TestState {
+        under_lease: Vec<String>,
+        to_ack: Vec<String>,
+        to_nack: Vec<String>,
+    }
+
+    impl<L> PartialEq<LeaseState<L>> for TestState
     where
-        L: IntoIterator<Item = &'static str>,
-        A: IntoIterator<Item = &'static str>,
-        N: IntoIterator<Item = &'static str>,
+        L: Leaser + Clone,
     {
-        LeaseState {
-            under_lease: under_lease
-                .into_iter()
-                .map(|s| (s.to_string(), test_info()))
-                .collect(),
-            to_ack: to_ack.into_iter().map(|s| s.to_string()).collect(),
-            to_nack: to_nack.into_iter().map(|s| s.to_string()).collect(),
-            leaser: Arc::new(MockLeaser::new()),
-            flush_interval: test_interval(),
-            extend_interval: test_interval(),
-            max_lease_extension: test_duration(),
+        fn eq(&self, state: &LeaseState<L>) -> bool {
+            let under_lease = {
+                let mut v: Vec<String> = state.under_lease.keys().cloned().collect();
+                v.sort();
+                v
+            };
+            self.under_lease == under_lease
+                && self.to_ack == state.to_ack
+                && self.to_nack == state.to_nack
         }
     }
 
@@ -301,31 +291,94 @@ pub(super) mod tests {
     async fn basic_add_ack_nack() {
         let mock = MockLeaser::new();
         let mut state = LeaseState::new(Arc::new(mock), LeaseOptions::default());
-        assert_eq!(state, make_state([], [], []));
+        assert_eq!(
+            TestState {
+                under_lease: Vec::new(),
+                to_ack: Vec::new(),
+                to_nack: Vec::new(),
+            },
+            state
+        );
 
-        state.add("1".to_string(), test_info());
-        assert_eq!(state, make_state(["1"], [], []));
+        state.add(test_id(1), test_info());
+        assert_eq!(
+            TestState {
+                under_lease: vec![test_id(1)],
+                to_ack: Vec::new(),
+                to_nack: Vec::new(),
+            },
+            state
+        );
 
-        state.add("2".to_string(), test_info());
-        assert_eq!(state, make_state(["1", "2"], [], []));
+        state.add(test_id(2), test_info());
+        assert_eq!(
+            TestState {
+                under_lease: vec![test_id(1), test_id(2)],
+                to_ack: Vec::new(),
+                to_nack: Vec::new(),
+            },
+            state
+        );
 
-        state.add("3".to_string(), test_info());
-        assert_eq!(state, make_state(["1", "2", "3"], [], []));
+        state.add(test_id(3), test_info());
+        assert_eq!(
+            TestState {
+                under_lease: vec![test_id(1), test_id(2), test_id(3)],
+                to_ack: Vec::new(),
+                to_nack: Vec::new(),
+            },
+            state
+        );
 
-        state.ack("1".to_string());
-        assert_eq!(state, make_state(["2", "3"], ["1"], []));
+        state.ack(test_id(1));
+        assert_eq!(
+            TestState {
+                under_lease: vec![test_id(2), test_id(3)],
+                to_ack: vec![test_id(1)],
+                to_nack: Vec::new(),
+            },
+            state
+        );
 
-        state.nack("2".to_string());
-        assert_eq!(state, make_state(["3"], ["1"], ["2"]));
+        state.nack(test_id(2));
+        assert_eq!(
+            TestState {
+                under_lease: vec![test_id(3)],
+                to_ack: vec![test_id(1)],
+                to_nack: vec![test_id(2)],
+            },
+            state
+        );
 
-        state.add("4".to_string(), test_info());
-        assert_eq!(state, make_state(["3", "4"], ["1"], ["2"]));
+        state.add(test_id(4), test_info());
+        assert_eq!(
+            TestState {
+                under_lease: vec![test_id(3), test_id(4)],
+                to_ack: vec![test_id(1)],
+                to_nack: vec![test_id(2)],
+            },
+            state
+        );
 
-        state.ack("4".to_string());
-        assert_eq!(state, make_state(["3"], ["1", "4"], ["2"]));
+        state.ack(test_id(4));
+        assert_eq!(
+            TestState {
+                under_lease: vec![test_id(3)],
+                to_ack: vec![test_id(1), test_id(4)],
+                to_nack: vec![test_id(2)],
+            },
+            state
+        );
 
-        state.nack("3".to_string());
-        assert_eq!(state, make_state([], ["1", "4"], ["2", "3"]));
+        state.nack(test_id(3));
+        assert_eq!(
+            TestState {
+                under_lease: Vec::new(),
+                to_ack: vec![test_id(1), test_id(4)],
+                to_nack: vec![test_id(2), test_id(3)],
+            },
+            state
+        );
     }
 
     #[tokio::test]
@@ -361,34 +414,24 @@ pub(super) mod tests {
         for i in 10..20 {
             state.nack(test_id(i));
         }
-        let expected = LeaseState {
-            under_lease: test_ids(20..100)
-                .into_iter()
-                .map(|s| (s, test_info()))
-                .collect(),
-            to_ack: test_ids(0..10),
-            to_nack: test_ids(10..20),
-            leaser: Arc::new(MockLeaser::new()),
-            flush_interval: test_interval(),
-            extend_interval: test_interval(),
-            max_lease_extension: test_duration(),
-        };
-        assert_eq!(state, expected);
+        assert_eq!(
+            TestState {
+                under_lease: test_ids(20..100),
+                to_ack: test_ids(0..10),
+                to_nack: test_ids(10..20),
+            },
+            state
+        );
 
         state.flush().await;
-        let expected = LeaseState {
-            under_lease: test_ids(20..100)
-                .into_iter()
-                .map(|s| (s, test_info()))
-                .collect(),
-            to_ack: Vec::new(),
-            to_nack: Vec::new(),
-            leaser: Arc::new(MockLeaser::new()),
-            flush_interval: test_interval(),
-            extend_interval: test_interval(),
-            max_lease_extension: test_duration(),
-        };
-        assert_eq!(state, expected);
+        assert_eq!(
+            TestState {
+                under_lease: test_ids(20..100),
+                to_ack: Vec::new(),
+                to_nack: Vec::new(),
+            },
+            state
+        );
     }
 
     #[tokio::test(start_paused = true)]
@@ -472,20 +515,48 @@ pub(super) mod tests {
     async fn ack_out_of_lease_included() {
         let mock = MockLeaser::new();
         let mut state = LeaseState::new(Arc::new(mock), LeaseOptions::default());
-        assert_eq!(state, make_state([], [], []));
+        assert_eq!(
+            TestState {
+                under_lease: Vec::new(),
+                to_ack: Vec::new(),
+                to_nack: Vec::new(),
+            },
+            state
+        );
 
-        state.ack("1".to_string());
-        assert_eq!(state, make_state([], ["1"], []));
+        state.ack(test_id(1));
+        assert_eq!(
+            TestState {
+                under_lease: Vec::new(),
+                to_ack: vec![test_id(1)],
+                to_nack: Vec::new(),
+            },
+            state
+        );
     }
 
     #[tokio::test(start_paused = true)]
     async fn nack_out_of_lease_ignored() {
         let mock = MockLeaser::new();
         let mut state = LeaseState::new(Arc::new(mock), LeaseOptions::default());
-        assert_eq!(state, make_state([], [], []));
+        assert_eq!(
+            TestState {
+                under_lease: Vec::new(),
+                to_ack: Vec::new(),
+                to_nack: Vec::new(),
+            },
+            state
+        );
 
-        state.nack("1".to_string());
-        assert_eq!(state, make_state([], [], []));
+        state.nack(test_id(1));
+        assert_eq!(
+            TestState {
+                under_lease: Vec::new(),
+                to_ack: Vec::new(),
+                to_nack: Vec::new(),
+            },
+            state
+        );
     }
 
     #[tokio::test(start_paused = true)]
