@@ -314,6 +314,23 @@ mod tests {
         Ok(())
     }
 
+    #[tokio::test]
+    async fn publisher_publish_large_message() -> anyhow::Result<()> {
+        let mut mock = MockGapicPublisher::new();
+        mock.expect_publish()
+            .withf(|req, _o| req.topic == TOPIC)
+            .returning(publish_ok);
+
+        let client = GapicPublisher::from_stub(mock);
+        let publisher = PublisherPartialBuilder::new(client, TOPIC.to_string())
+            .set_byte_threshold(1_u32)
+            .build();
+        assert_publishing_is_ok!(publisher, "");
+        assert_publishing_is_ok!(publisher, "key");
+
+        Ok(())
+    }
+
     #[tokio::test(start_paused = true)]
     async fn worker_handles_forced_shutdown_gracefully() -> anyhow::Result<()> {
         let mock = MockGapicPublisher::new();
