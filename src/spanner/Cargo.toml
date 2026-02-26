@@ -41,3 +41,6 @@ google-cloud-gax      = { workspace = true }
 google-cloud-rpc      = { workspace = true }
 wkt.workspace         = true
 gaxi                  = { workspace = true, features = ["_internal-common", "_internal-grpc-client"] }
+
+[dev-dependencies]
+anyhow.workspace = true

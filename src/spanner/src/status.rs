@@ -13,10 +13,13 @@
 // limitations under the License.
 
 use crate::google;
+use gaxi::prost::FromProto;
+use gaxi::prost::ToProto;
+use google_cloud_rpc::model::Status;
 
-impl gaxi::prost::ToProto<google::rpc::Status> for google_cloud_rpc::model::Status {
+impl ToProto<google::rpc::Status> for Status {
     type Output = google::rpc::Status;
-    fn to_proto(self) -> std::result::Result<google::rpc::Status, gaxi::prost::ConvertError> {
+    fn to_proto(self) -> Result<google::rpc::Status, gaxi::prost::ConvertError> {
         Ok(google::rpc::Status {
             code: self.code,
             message: self.message.to_string(),
@@ -29,11 +32,9 @@ impl gaxi::prost::ToProto<google::rpc::Status> for google_cloud_rpc::model::Stat
     }
 }
 
-impl gaxi::prost::FromProto<google_cloud_rpc::model::Status> for google::rpc::Status {
-    fn cnv(
-        self,
-    ) -> std::result::Result<google_cloud_rpc::model::Status, gaxi::prost::ConvertError> {
-        let mut status = google_cloud_rpc::model::Status::new();
+impl FromProto<Status> for google::rpc::Status {
+    fn cnv(self) -> Result<Status, gaxi::prost::ConvertError> {
+        let mut status = Status::new();
         status = status.set_code(self.code);
         status = status.set_message(self.message);
         status = status.set_details(
@@ -43,5 +44,36 @@ impl gaxi::prost::FromProto<google_cloud_rpc::model::Status> for google::rpc::St
                 .collect::<Vec<wkt::Any>>(),
         );
         Ok(status)
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn from_proto() -> anyhow::Result<()> {
+        let input = google::rpc::Status {
+            code: 12,
+            message: "test-message".into(),
+            ..Default::default()
+        };
+        let got = input.cnv()?;
+        let want = Status::new().set_code(12).set_message("test-message");
+        assert_eq!(got, want);
+        Ok(())
+    }
+
+    #[test]
+    fn to_proto() -> anyhow::Result<()> {
+        let input = Status::new().set_code(12).set_message("test-message");
+        let got: google::rpc::Status = input.to_proto()?;
+        let want = google::rpc::Status {
+            code: 12,
+            message: "test-message".into(),
+            ..Default::default()
+        };
+        assert_eq!(got, want);
+        Ok(())
     }
 }
