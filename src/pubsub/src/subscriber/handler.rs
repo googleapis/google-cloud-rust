@@ -234,7 +234,7 @@ impl ExactlyOnceImpl {
 }
 
 /// The result of a confirmed acknowledgement.
-pub type AckResult = std::result::Result<(), AckError>;
+pub(crate) type AckResult = std::result::Result<(), AckError>;
 
 #[cfg(test)]
 mod tests {

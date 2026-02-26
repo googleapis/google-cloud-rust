@@ -129,6 +129,12 @@ where
 
     /// The exactly-once ack retry loop.
     ///
+    /// The request has N ack IDs. The server can tell us the result of
+    /// individual acks in the response metadata.
+    ///
+    /// If the result for an ack ID is a success or permanent error, we can
+    /// report it, and remove that ack ID from subsequent attempts of the RPC.
+    ///
     /// Results are reported via the channel, as they are known. This lets us
     /// keep the retry logic in the leaser, while allowing for partial results
     /// to be reported before the entire operation completes.
