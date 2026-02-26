@@ -15,6 +15,10 @@
 
 set -ev
 
+# This is the only case where using `nightly` for CI is acceptable. Or maybe
+# "we must do, with regrets". The rationale is that docs.rs uses nightly to
+# generate the documentation, our releases would break if this test does not
+# pass.
 rustup toolchain install nightly
 cargo install --locked cargo-docs-rs
 cargo install --locked cargo-workspaces
