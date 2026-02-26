@@ -115,6 +115,7 @@ use super::external_account_sources::url_sourced::UrlSourcedCredentials;
 use super::impersonated;
 use super::internal::sts_exchange::{ClientAuthentication, ExchangeTokenRequest, STSHandler};
 use super::{CacheableResource, Credentials};
+use crate::access_boundary::{CredentialsWithAccessBoundary, external_account_lookup_url};
 use crate::build_errors::Error as BuilderError;
 use crate::constants::{DEFAULT_SCOPE, STS_TOKEN_URL};
 use crate::credentials::dynamic::AccessTokenCredentialsProvider;
@@ -349,7 +350,7 @@ impl ExternalAccountConfig {
         self,
         quota_project_id: Option<String>,
         retry_builder: RetryTokenProviderBuilder,
-    ) -> AccessTokenCredentials {
+    ) -> ExternalAccountCredentials<TokenCache> {
         let config = self.clone();
         match self.credential_source {
             CredentialSource::Url(source) => {
@@ -375,7 +376,7 @@ impl ExternalAccountConfig {
         config: ExternalAccountConfig,
         quota_project_id: Option<String>,
         retry_builder: RetryTokenProviderBuilder,
-    ) -> AccessTokenCredentials
+    ) -> ExternalAccountCredentials<TokenCache>
     where
         T: dynamic::SubjectTokenProvider + 'static,
     {
@@ -385,11 +386,9 @@ impl ExternalAccountConfig {
         };
         let token_provider_with_retry = retry_builder.build(token_provider);
         let cache = TokenCache::new(token_provider_with_retry);
-        AccessTokenCredentials {
-            inner: Arc::new(ExternalAccountCredentials {
-                token_provider: cache,
-                quota_project_id,
-            }),
+        ExternalAccountCredentials {
+            token_provider: cache,
+            quota_project_id,
         }
     }
 }
@@ -527,6 +526,7 @@ pub struct Builder {
     quota_project_id: Option<String>,
     scopes: Option<Vec<String>>,
     retry_builder: RetryTokenProviderBuilder,
+    iam_endpoint_override: Option<String>,
 }
 
 impl Builder {
@@ -539,6 +539,7 @@ impl Builder {
             quota_project_id: None,
             scopes: None,
             retry_builder: RetryTokenProviderBuilder::default(),
+            iam_endpoint_override: None,
         }
     }
 
@@ -652,6 +653,12 @@ impl Builder {
         self
     }
 
+    #[cfg(test)]
+    fn maybe_iam_endpoint_override(mut self, iam_endpoint_override: Option<String>) -> Self {
+        self.iam_endpoint_override = iam_endpoint_override;
+        self
+    }
+
     /// Returns a [Credentials] instance with the configured settings.
     ///
     /// # Errors
@@ -666,7 +673,7 @@ impl Builder {
     ///
     /// [external_account_credentials]: https://google.aip.dev/auth/4117#configuration-file-generation-and-usage
     pub fn build(self) -> BuildResult<Credentials> {
-        Ok(self.build_access_token_credentials()?.into())
+        Ok(self.build_credentials()?.into())
     }
 
     /// Returns an [AccessTokenCredentials] instance with the configured settings.
@@ -683,6 +690,12 @@ impl Builder {
     ///
     /// [external_account_credentials]: https://google.aip.dev/auth/4117#configuration-file-generation-and-usage
     pub fn build_access_token_credentials(self) -> BuildResult<AccessTokenCredentials> {
+        Ok(self.build_credentials()?.into())
+    }
+
+    fn build_credentials(
+        self,
+    ) -> BuildResult<CredentialsWithAccessBoundary<ExternalAccountCredentials<TokenCache>>> {
         let mut file: ExternalAccountFile =
             serde_json::from_value(self.external_account_config).map_err(BuilderError::parsing)?;
 
@@ -692,7 +705,15 @@ impl Builder {
 
         let config: ExternalAccountConfig = file.into();
 
-        Ok(config.make_credentials(self.quota_project_id, self.retry_builder))
+        let access_boundary_url =
+            external_account_lookup_url(&config.audience, self.iam_endpoint_override.as_deref());
+
+        let creds = config.make_credentials(self.quota_project_id, self.retry_builder);
+
+        Ok(CredentialsWithAccessBoundary::new(
+            creds,
+            access_boundary_url,
+        ))
     }
 }
 
@@ -1260,9 +1281,10 @@ impl ProgrammaticBuilder {
     /// `audience` or `subject_token_type`) have not been set.
     pub fn build(self) -> BuildResult<Credentials> {
         let (config, quota_project_id, retry_builder) = self.build_components()?;
-        Ok(config
-            .make_credentials(quota_project_id, retry_builder)
-            .into())
+        let creds = config.make_credentials(quota_project_id, retry_builder);
+        Ok(Credentials {
+            inner: Arc::new(creds),
+        })
     }
 
     /// Consumes the builder and returns its configured components.
@@ -1320,6 +1342,8 @@ where
 #[cfg(test)]
 mod tests {
     use super::*;
+    type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
+    use crate::access_boundary::REGIONAL_ACCESS_BOUNDARIES_ENV_VAR;
     use crate::constants::{
         ACCESS_TOKEN_TYPE, DEFAULT_SCOPE, JWT_TOKEN_TYPE, TOKEN_EXCHANGE_GRANT_TYPE,
     };
@@ -1327,8 +1351,8 @@ mod tests {
         Builder as SubjectTokenBuilder, SubjectToken, SubjectTokenProvider,
     };
     use crate::credentials::tests::{
-        find_source_error, get_mock_auth_retry_policy, get_mock_backoff_policy,
-        get_mock_retry_throttler,
+        find_source_error, get_access_boundary_from_headers, get_mock_auth_retry_policy,
+        get_mock_backoff_policy, get_mock_retry_throttler, get_token_from_headers,
     };
     use crate::errors::{CredentialsError, SubjectTokenProviderError};
     use httptest::{
@@ -1336,7 +1360,9 @@ mod tests {
         matchers::{all_of, contains, request, url_decoded},
         responders::{json_encoded, status_code},
     };
+    use scoped_env::ScopedEnv;
     use serde_json::*;
+    use serial_test::serial;
     use std::collections::HashMap;
     use std::error::Error;
     use std::fmt;
@@ -2173,6 +2199,89 @@ mod tests {
             CacheableResource::NotModified => panic!("Expected new headers"),
         }
         sts_server.verify_and_clear();
+    }
+
+    #[test_case(
+        "//iam.googleapis.com/projects/12345/locations/global/workloadIdentityPools/my-pool/providers/my-provider",
+        "/v1/projects/12345/locations/global/workloadIdentityPools/my-pool/allowedLocations";
+        "workload_identity_pool"
+    )]
+    #[test_case(
+        "//iam.googleapis.com/locations/global/workforcePools/my-pool/providers/my-provider",
+        "/v1/locations/global/workforcePools/my-pool/allowedLocations";
+        "workforce_pool"
+    )]
+    #[serial]
+    #[tokio::test]
+    async fn e2e_access_boundary(audience: &str, iam_path: &str) -> TestResult {
+        let _env = ScopedEnv::set(REGIONAL_ACCESS_BOUNDARIES_ENV_VAR, "true");
+
+        let audience = audience.to_string();
+        let iam_path = iam_path.to_string();
+
+        let server = Server::run();
+
+        server.expect(
+            Expectation::matching(request::method_path("GET", "/subject_token")).respond_with(
+                json_encoded(json!({
+                    "access_token": "subject_token",
+                })),
+            ),
+        );
+
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path("POST", "/token"),
+                request::body(url_decoded(contains(("subject_token", "subject_token")))),
+                request::body(url_decoded(contains(("audience", audience.clone())))),
+            ])
+            .respond_with(json_encoded(json!({
+                "access_token": "sts-only-token",
+                "issued_token_type": "urn:ietf:params:oauth:token-type:access_token",
+                "token_type": "Bearer",
+                "expires_in": 3600,
+            }))),
+        );
+
+        server.expect(
+            Expectation::matching(all_of![request::method_path("GET", iam_path.clone()),])
+                .respond_with(json_encoded(json!({
+                    "locations": ["us-central1"],
+                    "encodedLocations": "0x1234"
+                }))),
+        );
+
+        let contents = json!({
+            "type": "external_account",
+            "audience": audience.to_string(),
+            "subject_token_type": "urn:ietf:params:oauth:token-type:jwt",
+            "token_url": server.url("/token").to_string(),
+            "credential_source": {
+                "url": server.url("/subject_token").to_string(),
+                "format": {
+                  "type": "json",
+                  "subject_token_field_name": "access_token"
+                }
+            }
+        });
+
+        let iam_endpoint = server.url("").to_string().trim_end_matches('/').to_string();
+
+        let creds = Builder::new(contents)
+            .maybe_iam_endpoint_override(Some(iam_endpoint))
+            .build_credentials()?;
+
+        // wait for the access boundary background thread to update
+        creds.wait_for_boundary().await;
+
+        let headers = creds.headers(Extensions::new()).await?;
+        let token = get_token_from_headers(headers.clone());
+        let access_boundary = get_access_boundary_from_headers(headers);
+
+        assert!(token.is_some(), "should have some token");
+        assert_eq!(access_boundary.as_deref(), Some("0x1234"));
+
+        Ok(())
     }
 
     #[tokio::test]
