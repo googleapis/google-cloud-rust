@@ -132,7 +132,7 @@ impl GoogleCloudResourceDetectorBuilder {
             builder = builder.with_attribute(KeyValue::new("k8s.cluster.name", v));
         }
 
-        Ok(Self::attributes(
+        Ok(Self::attributes_from_env(
             builder,
             &[
                 ("POD_NAME", "k8s.pod.name"),
@@ -177,7 +177,7 @@ impl GoogleCloudResourceDetectorBuilder {
     }
 
     fn gae_resource(&self, builder: ResourceBuilder) -> ResourceBuilder {
-        Self::attributes(
+        Self::attributes_from_env(
             builder,
             &[
                 ("GAE_SERVICE", "gae.service"),
@@ -188,7 +188,7 @@ impl GoogleCloudResourceDetectorBuilder {
     }
 
     fn gcr_resource(&self, builder: ResourceBuilder) -> ResourceBuilder {
-        Self::attributes(
+        Self::attributes_from_env(
             builder,
             &[
                 ("K_SERVICE", "gcr.service"),
@@ -198,7 +198,7 @@ impl GoogleCloudResourceDetectorBuilder {
         )
     }
 
-    fn attributes(
+    fn attributes_from_env(
         builder: ResourceBuilder,
         list: &[(&'static str, &'static str)],
     ) -> ResourceBuilder {
