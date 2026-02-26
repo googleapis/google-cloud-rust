@@ -85,21 +85,6 @@ impl Spanner {
     ///
     /// Idle sessions can be kept alive by sending a trivial SQL query
     /// periodically, for example, `"SELECT 1"`.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner::client::Spanner;
-    /// use google_cloud_spanner::Result;
-    /// async fn sample(
-    ///    client: &Spanner
-    /// ) -> Result<()> {
-    ///     let response = client.create_session()
-    ///         /* set fields */
-    ///         .send().await?;
-    ///     println!("response {:?}", response);
-    ///     Ok(())
-    /// }
-    /// ```
     pub(crate) fn create_session(&self) -> super::builder::spanner::CreateSession {
         super::builder::spanner::CreateSession::new(self.inner.clone())
     }
@@ -108,21 +93,6 @@ impl Spanner {
     ///
     /// This API can be used to initialize a session cache on the clients.
     /// See <https://goo.gl/TgSFN2> for best practices on session cache management.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner::client::Spanner;
-    /// use google_cloud_spanner::Result;
-    /// async fn sample(
-    ///    client: &Spanner
-    /// ) -> Result<()> {
-    ///     let response = client.batch_create_sessions()
-    ///         /* set fields */
-    ///         .send().await?;
-    ///     println!("response {:?}", response);
-    ///     Ok(())
-    /// }
-    /// ```
     pub(crate) fn batch_create_sessions(&self) -> super::builder::spanner::BatchCreateSessions {
         super::builder::spanner::BatchCreateSessions::new(self.inner.clone())
     }
@@ -130,44 +100,11 @@ impl Spanner {
     /// Gets a session. Returns `NOT_FOUND` if the session doesn't exist.
     /// This is mainly useful for determining whether a session is still
     /// alive.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner::client::Spanner;
-    /// use google_cloud_spanner::Result;
-    /// async fn sample(
-    ///    client: &Spanner, resource_name: &str
-    /// ) -> Result<()> {
-    ///     let response = client.get_session()
-    ///         .set_name(resource_name)
-    ///         .send().await?;
-    ///     println!("response {:?}", response);
-    ///     Ok(())
-    /// }
-    /// ```
     pub(crate) fn get_session(&self) -> super::builder::spanner::GetSession {
         super::builder::spanner::GetSession::new(self.inner.clone())
     }
 
     /// Lists all sessions in a given database.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner::client::Spanner;
-    /// use google_cloud_gax::paginator::ItemPaginator as _;
-    /// use google_cloud_spanner::Result;
-    /// async fn sample(
-    ///    client: &Spanner
-    /// ) -> Result<()> {
-    ///     let mut list = client.list_sessions()
-    ///         /* set fields */
-    ///         .by_item();
-    ///     while let Some(item) = list.next().await.transpose()? {
-    ///         println!("{:?}", item);
-    ///     }
-    ///     Ok(())
-    /// }
-    /// ```
     pub(crate) fn list_sessions(&self) -> super::builder::spanner::ListSessions {
         super::builder::spanner::ListSessions::new(self.inner.clone())
     }
@@ -175,20 +112,6 @@ impl Spanner {
     /// Ends a session, releasing server resources associated with it. This
     /// asynchronously triggers the cancellation of any operations that are running
     /// with this session.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner::client::Spanner;
-    /// use google_cloud_spanner::Result;
-    /// async fn sample(
-    ///    client: &Spanner, resource_name: &str
-    /// ) -> Result<()> {
-    ///     client.delete_session()
-    ///         .set_name(resource_name)
-    ///         .send().await?;
-    ///     Ok(())
-    /// }
-    /// ```
     pub(crate) fn delete_session(&self) -> super::builder::spanner::DeleteSession {
         super::builder::spanner::DeleteSession::new(self.inner.clone())
     }
@@ -211,21 +134,6 @@ impl Spanner {
     /// (GQL)](https://cloud.google.com/spanner/docs/reference/standard-sql/graph-intro).
     ///
     /// [google.spanner.v1.Transaction]: crate::model::Transaction
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner::client::Spanner;
-    /// use google_cloud_spanner::Result;
-    /// async fn sample(
-    ///    client: &Spanner
-    /// ) -> Result<()> {
-    ///     let response = client.execute_sql()
-    ///         /* set fields */
-    ///         .send().await?;
-    ///     println!("response {:?}", response);
-    ///     Ok(())
-    /// }
-    /// ```
     pub(crate) fn execute_sql(&self) -> super::builder::spanner::ExecuteSql {
         super::builder::spanner::ExecuteSql::new(self.inner.clone())
     }
@@ -245,21 +153,6 @@ impl Spanner {
     ///
     /// [google.spanner.v1.ExecuteBatchDmlResponse.status]: crate::model::ExecuteBatchDmlResponse::status
     /// [google.spanner.v1.Spanner.ExecuteSql]: crate::client::Spanner::execute_sql
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner::client::Spanner;
-    /// use google_cloud_spanner::Result;
-    /// async fn sample(
-    ///    client: &Spanner
-    /// ) -> Result<()> {
-    ///     let response = client.execute_batch_dml()
-    ///         /* set fields */
-    ///         .send().await?;
-    ///     println!("response {:?}", response);
-    ///     Ok(())
-    /// }
-    /// ```
     pub(crate) fn execute_batch_dml(&self) -> super::builder::spanner::ExecuteBatchDml {
         super::builder::spanner::ExecuteBatchDml::new(self.inner.clone())
     }
@@ -281,21 +174,6 @@ impl Spanner {
     ///
     /// [google.spanner.v1.Spanner.ExecuteSql]: crate::client::Spanner::execute_sql
     /// [google.spanner.v1.Transaction]: crate::model::Transaction
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner::client::Spanner;
-    /// use google_cloud_spanner::Result;
-    /// async fn sample(
-    ///    client: &Spanner
-    /// ) -> Result<()> {
-    ///     let response = client.read()
-    ///         /* set fields */
-    ///         .send().await?;
-    ///     println!("response {:?}", response);
-    ///     Ok(())
-    /// }
-    /// ```
     pub(crate) fn read(&self) -> super::builder::spanner::Read {
         super::builder::spanner::Read::new(self.inner.clone())
     }
@@ -309,21 +187,6 @@ impl Spanner {
     /// [google.spanner.v1.Spanner.Commit]: crate::client::Spanner::commit
     /// [google.spanner.v1.Spanner.ExecuteSql]: crate::client::Spanner::execute_sql
     /// [google.spanner.v1.Spanner.Read]: crate::client::Spanner::read
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner::client::Spanner;
-    /// use google_cloud_spanner::Result;
-    /// async fn sample(
-    ///    client: &Spanner
-    /// ) -> Result<()> {
-    ///     let response = client.begin_transaction()
-    ///         /* set fields */
-    ///         .send().await?;
-    ///     println!("response {:?}", response);
-    ///     Ok(())
-    /// }
-    /// ```
     pub(crate) fn begin_transaction(&self) -> super::builder::spanner::BeginTransaction {
         super::builder::spanner::BeginTransaction::new(self.inner.clone())
     }
@@ -342,21 +205,6 @@ impl Spanner {
     /// At that point, Cloud Spanner has lost track of the transaction outcome and
     /// we recommend that you perform another read from the database to see the
     /// state of things as they are now.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner::client::Spanner;
-    /// use google_cloud_spanner::Result;
-    /// async fn sample(
-    ///    client: &Spanner
-    /// ) -> Result<()> {
-    ///     let response = client.commit()
-    ///         /* set fields */
-    ///         .send().await?;
-    ///     println!("response {:?}", response);
-    ///     Ok(())
-    /// }
-    /// ```
     pub(crate) fn commit(&self) -> super::builder::spanner::Commit {
         super::builder::spanner::Commit::new(self.inner.clone())
     }
@@ -373,20 +221,6 @@ impl Spanner {
     ///
     /// [google.spanner.v1.Spanner.ExecuteSql]: crate::client::Spanner::execute_sql
     /// [google.spanner.v1.Spanner.Read]: crate::client::Spanner::read
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner::client::Spanner;
-    /// use google_cloud_spanner::Result;
-    /// async fn sample(
-    ///    client: &Spanner
-    /// ) -> Result<()> {
-    ///     client.rollback()
-    ///         /* set fields */
-    ///         .send().await?;
-    ///     Ok(())
-    /// }
-    /// ```
     pub(crate) fn rollback(&self) -> super::builder::spanner::Rollback {
         super::builder::spanner::Rollback::new(self.inner.clone())
     }
@@ -403,21 +237,6 @@ impl Spanner {
     /// is deleted, is idle for too long, begins a new transaction, or becomes too
     /// old. When any of these happen, it isn't possible to resume the query, and
     /// the whole operation must be restarted from the beginning.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner::client::Spanner;
-    /// use google_cloud_spanner::Result;
-    /// async fn sample(
-    ///    client: &Spanner
-    /// ) -> Result<()> {
-    ///     let response = client.partition_query()
-    ///         /* set fields */
-    ///         .send().await?;
-    ///     println!("response {:?}", response);
-    ///     Ok(())
-    /// }
-    /// ```
     pub(crate) fn partition_query(&self) -> super::builder::spanner::PartitionQuery {
         super::builder::spanner::PartitionQuery::new(self.inner.clone())
     }
@@ -436,21 +255,6 @@ impl Spanner {
     /// is deleted, is idle for too long, begins a new transaction, or becomes too
     /// old. When any of these happen, it isn't possible to resume the read, and
     /// the whole operation must be restarted from the beginning.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_spanner::client::Spanner;
-    /// use google_cloud_spanner::Result;
-    /// async fn sample(
-    ///    client: &Spanner
-    /// ) -> Result<()> {
-    ///     let response = client.partition_read()
-    ///         /* set fields */
-    ///         .send().await?;
-    ///     println!("response {:?}", response);
-    ///     Ok(())
-    /// }
-    /// ```
     pub(crate) fn partition_read(&self) -> super::builder::spanner::PartitionRead {
         super::builder::spanner::PartitionRead::new(self.inner.clone())
     }

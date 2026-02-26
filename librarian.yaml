@@ -1389,6 +1389,7 @@ libraries:
           template: convert-prost
         - extend_grpc_transport: true
           generate_setter_samples: "false"
+          generate_rpc_samples: "false"
           has_veneer: true
           internal_builders: true
           output: src/spanner/src/generated/gapic_dataplane
