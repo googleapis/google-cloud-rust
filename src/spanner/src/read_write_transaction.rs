@@ -34,6 +34,7 @@ impl ReadWriteTransactionBuilder {
         Ok(ReadWriteTransaction {
             transaction,
             state: AtomicU8::new(TransactionState::Initialized as u8),
+            mutations: std::sync::Mutex::new(Vec::new()),
         })
     }
 
@@ -126,9 +127,16 @@ impl TransactionRunner {
 pub struct ReadWriteTransaction {
     pub(crate) transaction: crate::read_context::MultiUseTransaction,
     state: AtomicU8,
+    mutations: std::sync::Mutex<Vec<crate::mutation::Mutation>>,
 }
 
 impl ReadWriteTransaction {
+    /// buffers the mutations to be applied when the transaction is committed.
+    pub fn buffer(&self, mut mutations: Vec<crate::mutation::Mutation>) {
+        let mut guard = self.mutations.lock().unwrap();
+        guard.append(&mut mutations);
+    }
+
     pub async fn execute_query(
         &self,
         statement: impl Into<crate::statement::Statement>,
@@ -156,6 +164,18 @@ impl ReadWriteTransaction {
             .client
             .execute_sql(request, options)
             .await?;
+
+        if let Some(token) = response.precommit_token.clone() {
+             let mut guard = self.transaction.context.precommit_token.lock().unwrap();
+             let update = match &*guard {
+                 Some(current) => token.seq_num > current.seq_num,
+                 None => true,
+             };
+             if update {
+                 *guard = Some(token);
+             }
+        }
+
         Ok(response
             .stats
             .ok_or_else(|| crate::Error::service(google_cloud_gax::error::rpc::Status::default().set_code(gaxi::grpc::tonic::Status::internal("No stats returned").code() as i32)))
@@ -176,8 +196,27 @@ impl ReadWriteTransaction {
         let mut request = crate::model::CommitRequest::new();
         request.session = self.transaction.context.session.name.clone();
         request = request.set_transaction_id(self.transaction.context.get_transaction_id().await?);
-        request.mutations = vec![]; // TODO: Buffer mutations
-        self.transaction.context.client.commit(request, crate::RequestOptions::default()).await
+        let mutations = {
+            let mut guard = self.mutations.lock().unwrap();
+            guard.drain(..).map(|m| m.build_proto()).collect::<Vec<_>>()
+        };
+        request.mutations = mutations.clone();
+
+        loop {
+            request.precommit_token = self.transaction.context.precommit_token.lock().unwrap().clone();
+            let response = self.transaction.context.client.commit(request.clone(), crate::RequestOptions::default()).await?;
+            if let Some(retry) = response.multiplexed_session_retry.clone() {
+                match retry {
+                    crate::model::commit_response::MultiplexedSessionRetry::PrecommitToken(token) => {
+                         let mut guard = self.transaction.context.precommit_token.lock().unwrap();
+                         *guard = Some(*token);
+                    }
+                }
+                request.mutations.clear();
+                continue;
+            }
+            return Ok(response);
+        }
     }
 
     pub(crate) async fn rollback(&self) -> crate::Result<()> {
@@ -553,5 +592,170 @@ mod tests {
         }).await;
 
         assert_eq!(result.unwrap().0, 1);
+    }
+
+    #[tokio::test]
+    async fn test_read_write_transaction_buffer_mutations() {
+        let mut mock = MockSpanner::new();
+        mock.expect_create_session().returning(|_| {
+            Ok(gaxi::grpc::tonic::Response::new(spanner_grpc_mock::google::spanner::v1::Session {
+                name: "projects/test-project/instances/test-instance/databases/test-db/sessions/123".to_string(),
+                multiplexed: false,
+                ..Default::default()
+            }))
+        });
+
+        mock.expect_commit().withf(|req| {
+            let req = req.get_ref();
+            if req.mutations.len() != 2 {
+                return false;
+            }
+            // Check first mutation (Insert)
+            let m1 = &req.mutations[0];
+            let write1 = match &m1.operation {
+                Some(spanner_grpc_mock::google::spanner::v1::mutation::Operation::Insert(w)) => w,
+                _ => return false,
+            };
+            if write1.table != "Users" || write1.values.len() != 1 {
+                return false;
+            }
+
+            // Check second mutation (Update)
+            let m2 = &req.mutations[1];
+            let write2 = match &m2.operation {
+                Some(spanner_grpc_mock::google::spanner::v1::mutation::Operation::Update(w)) => w,
+                _ => return false,
+            };
+             if write2.table != "Users" || write2.values.len() != 1 {
+                return false;
+            }
+            true
+        }).returning(|_| {
+            Ok(gaxi::grpc::tonic::Response::new(spanner_grpc_mock::google::spanner::v1::CommitResponse {
+                commit_timestamp: Some(prost_types::Timestamp::default()),
+                ..Default::default()
+            }))
+        });
+
+        let (address, _server) = start("0.0.0.0:0", mock).await.expect("Failed to start mock server");
+        let spanner = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await
+            .expect("Failed to build client");
+
+        let db_client = spanner.database_client("projects/test-project/instances/test-instance/databases/test-db").await.expect("Failed to create DatabaseClient");
+
+        let mut runner = db_client.read_write_transaction()
+            .build()
+            .await
+            .expect("Failed to build runner");
+
+        let res = runner.run(|tx| async move {
+            tx.buffer(vec![
+                crate::mutation::Mutation::new_insert_builder("Users").set("Name").to(&"Alice").build(),
+            ]);
+            tx.buffer(vec![
+                crate::mutation::Mutation::new_update_builder("Users").set("Name").to(&"Bob").build(),
+            ]);
+            Ok(())
+        }).await;
+
+        assert!(res.is_ok());
+    }
+    #[tokio::test]
+    async fn test_read_write_transaction_precommit_token() {
+        let mut mock = MockSpanner::new();
+        mock.expect_create_session().returning(|_| {
+            Ok(gaxi::grpc::tonic::Response::new(spanner_grpc_mock::google::spanner::v1::Session {
+                name: "projects/test-project/instances/test-instance/databases/test-db/sessions/123".to_string(),
+                multiplexed: true,
+                ..Default::default()
+            }))
+        });
+
+        // 1. execute_query returns precommit_token (seq 1)
+        mock.expect_execute_streaming_sql().returning(|_| {
+            let stream = tokio_stream::iter(vec![Ok(
+                spanner_grpc_mock::google::spanner::v1::PartialResultSet {
+                    metadata: Some(spanner_grpc_mock::google::spanner::v1::ResultSetMetadata {
+                        transaction: Some(spanner_grpc_mock::google::spanner::v1::Transaction {
+                            id: vec![1, 2, 3],
+                            ..Default::default()
+                        }),
+                        ..Default::default()
+                    }),
+                    stats: None,
+                    precommit_token: Some(spanner_grpc_mock::google::spanner::v1::MultiplexedSessionPrecommitToken {
+                        precommit_token: vec![100],
+                        seq_num: 1,
+                    }),
+                    values: vec![],
+                    chunked_value: false,
+                    resume_token: vec![],
+                    cache_update: None,
+                    last: true,
+                },
+            )]);
+            Ok(gaxi::grpc::tonic::Response::new(Box::pin(stream) as <MockSpanner as spanner_grpc_mock::google::spanner::v1::spanner_server::Spanner>::ExecuteStreamingSqlStream))
+        });
+
+        // 2. First commit attempt: Expect token (seq 1) and mutations. Return retry with token (seq 2).
+        mock.expect_commit().times(1).withf(|req| {
+            let req = req.get_ref();
+            let check_token = req.precommit_token.as_ref().map(|t| t.seq_num == 1 && t.precommit_token == vec![100]).unwrap_or(false);
+            let check_mutations = !req.mutations.is_empty();
+            check_token && check_mutations
+        }).returning(|_| {
+            Ok(gaxi::grpc::tonic::Response::new(spanner_grpc_mock::google::spanner::v1::CommitResponse {
+                multiplexed_session_retry: Some(spanner_grpc_mock::google::spanner::v1::commit_response::MultiplexedSessionRetry::PrecommitToken(
+                    spanner_grpc_mock::google::spanner::v1::MultiplexedSessionPrecommitToken {
+                        precommit_token: vec![101],
+                        seq_num: 2,
+                    }
+                )),
+                ..Default::default()
+            }))
+        });
+
+        // 3. Second commit attempt: Expect token (seq 2) and NO mutations. Return success.
+        mock.expect_commit().times(1).withf(|req| {
+             let req = req.get_ref();
+            let check_token = req.precommit_token.as_ref().map(|t| t.seq_num == 2 && t.precommit_token == vec![101]).unwrap_or(false);
+            let check_mutations = req.mutations.is_empty();
+            check_token && check_mutations
+        }).returning(|_| {
+            Ok(gaxi::grpc::tonic::Response::new(spanner_grpc_mock::google::spanner::v1::CommitResponse {
+                commit_timestamp: Some(prost_types::Timestamp::default()),
+                ..Default::default()
+            }))
+        });
+
+        let (address, _server) = start("0.0.0.0:0", mock).await.expect("Failed to start mock server");
+        let spanner = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await
+            .expect("Failed to build client");
+
+        let db_client = spanner.database_client("projects/test-project/instances/test-instance/databases/test-db").await.expect("Failed to create DatabaseClient");
+
+        let mut runner = db_client.read_write_transaction()
+            .build()
+            .await
+            .expect("Failed to build runner");
+
+        let res = runner.run(|tx| async move {
+            let mut rs = tx.execute_query("SELECT 1").await?;
+            let _ = rs.next().await;
+            tx.buffer(vec![
+                crate::mutation::Mutation::new_insert_builder("Users").set("Name").to(&"Alice").build(),
+            ]);
+            Ok(())
+        }).await;
+
+        assert!(res.is_ok());
     }
 }

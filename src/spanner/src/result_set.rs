@@ -61,6 +61,7 @@ pub struct ResultSet {
     chunked: bool,
     transaction_callback: Option<TransactionCallback>,
     read_timestamp_out: Option<Arc<std::sync::OnceLock<chrono::DateTime<chrono::Utc>>>>,
+    precommit_token_callback: Option<Box<dyn FnMut(crate::model::MultiplexedSessionPrecommitToken) + Send + Sync>>,
 }
 
 
@@ -77,6 +78,7 @@ impl ResultSet {
             chunked: false,
             transaction_callback: None,
             read_timestamp_out: None,
+            precommit_token_callback: None,
         }
 
 
@@ -96,12 +98,20 @@ impl ResultSet {
             chunked: false,
             transaction_callback: Some(callback),
             read_timestamp_out: None,
+            precommit_token_callback: None,
         }
     }
 
     pub(crate) fn with_read_timestamp(mut self, read_timestamp: Arc<std::sync::OnceLock<chrono::DateTime<chrono::Utc>>>) -> Self {
         self.read_timestamp_out = Some(read_timestamp);
         self
+    }
+
+    pub(crate) fn set_precommit_token_callback(
+        &mut self,
+        callback: Box<dyn FnMut(crate::model::MultiplexedSessionPrecommitToken) + Send + Sync>,
+    ) {
+        self.precommit_token_callback = Some(callback);
     }
 
 
@@ -135,6 +145,15 @@ impl ResultSet {
                     return Some(Err(e));
                 }
             };
+
+            if let Some(token) = prs.precommit_token {
+                if let Some(cb) = &mut self.precommit_token_callback {
+                    use gaxi::prost::FromProto;
+                    if let Ok(model_token) = token.cnv() {
+                         cb(model_token);
+                    }
+                }
+            }
 
             if self.metadata.is_none() {
                 if let Some(meta) = &prs.metadata {

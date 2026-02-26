@@ -49,6 +49,7 @@ pub mod row;
 pub mod statement;
 pub mod partitioned_dml;
 pub mod types;
+pub mod mutation;
 pub mod value;
 pub mod stub {
     pub use crate::generated::gapic_dataplane::stub::*;

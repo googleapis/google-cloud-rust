@@ -274,6 +274,7 @@ pub(crate) struct ReadContext {
     pub(crate) transaction_tag: Option<String>,
     pub(crate) seqno: AtomicI64,
     pub(crate) read_timestamp: Arc<std::sync::OnceLock<chrono::DateTime<chrono::Utc>>>,
+    pub(crate) precommit_token: Arc<std::sync::Mutex<Option<crate::model::MultiplexedSessionPrecommitToken>>>,
 }
 
 impl ReadContext {
@@ -290,6 +291,7 @@ impl ReadContext {
             transaction_tag,
             seqno: AtomicI64::new(1),
             read_timestamp: Arc::new(std::sync::OnceLock::new()),
+            precommit_token: Arc::new(std::sync::Mutex::new(None)),
         }
     }
 
@@ -319,6 +321,19 @@ impl ReadContext {
         } else {
             crate::result_set::ResultSet::new(stream)
         };
+
+        // Handle precommit token updates from ResultSet
+        let precommit_token_state = self.precommit_token.clone();
+        rs.set_precommit_token_callback(Box::new(move |token| {
+            let mut guard = precommit_token_state.lock().unwrap();
+            let update = match &*guard {
+                Some(current) => token.seq_num > current.seq_num,
+                None => true,
+            };
+            if update {
+                *guard = Some(token);
+            }
+        }));
 
         if let Some(rt) = read_timestamp {
             rs = rs.with_read_timestamp(rt);
