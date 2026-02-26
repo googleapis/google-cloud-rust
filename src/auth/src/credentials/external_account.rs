@@ -188,17 +188,14 @@ fn is_valid_workforce_pool_audience(audience: &str) -> bool {
 
     let parts: Vec<&str> = path.split('/').collect();
 
-    match &parts[..] {
-        [
+    matches!(&parts[..], [
             "locations",
             _location,
             "workforcePools",
             pool,
             "providers",
             provider,
-        ] if !pool.is_empty() && !provider.is_empty() => true,
-        _ => false,
-    }
+        ] if !pool.is_empty() && !provider.is_empty())
 }
 
 /// A representation of a [external account config file].
