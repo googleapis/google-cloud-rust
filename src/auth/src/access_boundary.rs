@@ -20,7 +20,6 @@ use crate::errors::CredentialsError;
 use crate::mds::client::Client as MDSClient;
 use crate::{Result, errors};
 use http::{Extensions, HeaderMap, HeaderValue};
-use regex::Regex;
 use reqwest::Client;
 use std::clone::Clone;
 use std::fmt::Debug;
@@ -341,42 +340,50 @@ pub(crate) fn service_account_lookup_url(
     format!("{iam_endpoint}/v1/projects/-/serviceAccounts/{email}/allowedLocations")
 }
 
-static WORKLOAD_PATTERN: OnceLock<Regex> = OnceLock::new();
-static WORKFORCE_PATTERN: OnceLock<Regex> = OnceLock::new();
-
-fn get_workload_regex() -> &'static Regex {
-    WORKLOAD_PATTERN.get_or_init(|| {
-        Regex::new(r"^(?://iam\.googleapis\.com/|https://iam\.googleapis\.com/|/)?projects/(?P<project>[^/]+)/locations/global/workloadIdentityPools/(?P<pool>[^/]+)/providers/(?P<provider>[^/]+)$").unwrap()
-    })
-}
-
-fn get_workforce_regex() -> &'static Regex {
-    WORKFORCE_PATTERN.get_or_init(|| {
-        Regex::new(r"^(?://iam\.googleapis\.com/|https://iam\.googleapis\.com/|/)?locations/global/workforcePools/(?P<pool>[^/]+)/providers/(?P<provider>[^/]+)$").unwrap()
-    })
-}
-
 pub(crate) fn external_account_lookup_url(
     audience: &str,
     iam_endpoint_override: Option<&str>,
 ) -> Option<String> {
     let iam_endpoint = iam_endpoint_override.unwrap_or("https://iamcredentials.googleapis.com");
 
-    if let Some(caps) = get_workload_regex().captures(audience) {
-        return Some(format!(
+    // Strip common domain and scheme prefixes to normalize the relative path.
+    let path = audience
+        .strip_prefix("//iam.googleapis.com/")
+        .or_else(|| audience.strip_prefix("https://iam.googleapis.com/"))
+        .or_else(|| audience.strip_prefix('/'))
+        .unwrap_or(audience);
+
+    let parts: Vec<&str> = path.split('/').collect();
+
+    match &parts[..] {
+        // Workload Identity Pool
+        [
+            "projects",
+            project,
+            "locations",
+            "global",
+            "workloadIdentityPools",
+            pool,
+            "providers",
+            provider,
+        ] if !project.is_empty() && !pool.is_empty() && !provider.is_empty() => Some(format!(
             "{}/v1/projects/{}/locations/global/workloadIdentityPools/{}/allowedLocations",
-            iam_endpoint, &caps["project"], &caps["pool"]
-        ));
-    }
-
-    if let Some(caps) = get_workforce_regex().captures(audience) {
-        return Some(format!(
+            iam_endpoint, project, pool
+        )),
+        // Workforce Pool
+        [
+            "locations",
+            "global",
+            "workforcePools",
+            pool,
+            "providers",
+            provider,
+        ] if !pool.is_empty() && !provider.is_empty() => Some(format!(
             "{}/v1/locations/global/workforcePools/{}/allowedLocations",
-            iam_endpoint, &caps["pool"]
-        ));
+            iam_endpoint, pool
+        )),
+        _ => None,
     }
-
-    None
 }
 
 #[cfg(test)]

@@ -50,7 +50,6 @@ sha2.workspace        = true
 thiserror.workspace   = true
 time                  = { workspace = true, features = ["serde"] }
 tokio                 = { workspace = true, features = ["fs", "process"] }
-regex                 = { workspace = true }
 url.workspace         = true
 jsonwebtoken          = { workspace = true, optional = true }
 # We do not use this directly, but without it the minimal-versions build breaks.
@@ -71,6 +70,7 @@ tempfile.workspace    = true
 test-case.workspace   = true
 tokio                 = { workspace = true, features = ["macros", "rt-multi-thread", "test-util"] }
 tokio-test.workspace  = true
+regex                 = { workspace = true }
 url.workspace         = true
 mutants.workspace     = true
 static_assertions     = { workspace = true }
