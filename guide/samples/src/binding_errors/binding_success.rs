@@ -14,7 +14,7 @@
 
 use google_cloud_secretmanager_v1::client::SecretManagerService;
 
-pub async fn binding_success() -> anyhow::Result<()> {
+pub async fn sample() -> anyhow::Result<()> {
     let client = SecretManagerService::builder().build().await?;
 
     // [START rust_binding_request_success_1] ANCHOR: request-success-1

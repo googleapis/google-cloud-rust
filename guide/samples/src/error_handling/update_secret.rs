@@ -21,7 +21,7 @@ use google_cloud_gax::error::rpc::Code;
 use google_cloud_secretmanager_v1::client::SecretManagerService;
 use google_cloud_secretmanager_v1::model::SecretVersion;
 
-pub async fn update_secret(
+pub async fn sample(
     project_id: &str,
     secret_id: &str,
     data: Vec<u8>,

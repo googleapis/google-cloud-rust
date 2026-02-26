@@ -19,7 +19,7 @@ use google_cloud_secretmanager_v1::model::{Replication, Secret};
 use google_cloud_wkt::FieldMask;
 use std::collections::HashMap;
 
-pub async fn update_field(project_id: &str) -> anyhow::Result<()> {
+pub async fn sample(project_id: &str) -> anyhow::Result<()> {
     // [START rust_update_resource_create] ANCHOR: create
     let client = SecretManagerService::builder().build().await?;
 

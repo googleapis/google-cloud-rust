@@ -16,7 +16,7 @@
 use google_cloud_aiplatform_v1::client::PredictionService;
 use google_cloud_aiplatform_v1::model::{Content, Part};
 
-pub async fn text_prompt(project_id: &str) -> anyhow::Result<()> {
+pub async fn sample(project_id: &str) -> anyhow::Result<()> {
     // [START rust_text_prompt_client] ANCHOR: text-prompt-client
     let client = PredictionService::builder().build().await?;
     // [END rust_text_prompt_client] ANCHOR_END: text-prompt-client

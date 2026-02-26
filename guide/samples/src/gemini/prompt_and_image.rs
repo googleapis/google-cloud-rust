@@ -16,7 +16,7 @@
 use google_cloud_aiplatform_v1::client::PredictionService;
 use google_cloud_aiplatform_v1::model::{Content, FileData, Part};
 
-pub async fn prompt_and_image(project_id: &str) -> anyhow::Result<()> {
+pub async fn sample(project_id: &str) -> anyhow::Result<()> {
     // [START rust_prompt_and_image_client] ANCHOR: prompt-and-image-client
     let client = PredictionService::builder().build().await?;
     // [END rust_prompt_and_image_client] ANCHOR_END: prompt-and-image-client

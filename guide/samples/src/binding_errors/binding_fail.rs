@@ -16,7 +16,7 @@ use google_cloud_gax::error::binding::BindingError;
 use google_cloud_secretmanager_v1::client::SecretManagerService;
 use std::error::Error as _;
 
-pub async fn binding_fail() -> anyhow::Result<()> {
+pub async fn sample() -> anyhow::Result<()> {
     let client = SecretManagerService::builder().build().await?;
 
     // [START rust_binding_error_inspect] ANCHOR: inspect

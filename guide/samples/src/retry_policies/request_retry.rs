@@ -19,7 +19,7 @@ use google_cloud_gax::retry_policy::RetryPolicyExt;
 use google_cloud_secretmanager_v1::client::SecretManagerService;
 use std::time::Duration;
 
-pub async fn request_retry(
+pub async fn sample(
     client: &SecretManagerService,
     project_id: &str,
     secret_id: &str,
