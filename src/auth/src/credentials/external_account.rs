@@ -131,11 +131,10 @@ use google_cloud_gax::backoff_policy::BackoffPolicyArg;
 use google_cloud_gax::retry_policy::RetryPolicyArg;
 use google_cloud_gax::retry_throttler::RetryThrottlerArg;
 use http::{Extensions, HeaderMap};
-use regex::Regex;
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
 use std::collections::HashMap;
-use std::sync::{Arc, OnceLock};
+use std::sync::Arc;
 use tokio::time::{Duration, Instant};
 
 const IAM_SCOPE: &str = "https://www.googleapis.com/auth/iam";
@@ -180,17 +179,26 @@ enum CredentialSourceFile {
     },
 }
 
-static WORKFORCE_PATTERN: OnceLock<Regex> = OnceLock::new();
-
-fn get_workforce_regex() -> &'static Regex {
-    WORKFORCE_PATTERN.get_or_init(|| {
-        Regex::new(r"//iam\.googleapis\.com/locations/[^/]+/workforcePools/").unwrap()
-    })
-}
-
 /// Check if the audience parameter matches the pattern for a valid workforce pool.
+/// Example: https://iam.googleapis.com/locations/global/workforcePools/pool/providers/provider
 fn is_valid_workforce_pool_audience(audience: &str) -> bool {
-    get_workforce_regex().is_match(audience)
+    let path = audience
+        .strip_prefix("//iam.googleapis.com/")
+        .unwrap_or(audience);
+
+    let parts: Vec<&str> = path.split('/').collect();
+
+    match &parts[..] {
+        [
+            "locations",
+            _location,
+            "workforcePools",
+            pool,
+            "providers",
+            provider,
+        ] if !pool.is_empty() && !provider.is_empty() => true,
+        _ => false,
+    }
 }
 
 /// A representation of a [external account config file].
