@@ -28,6 +28,7 @@ default-members = [
   "src/pubsub",
   "src/pubsub/examples",
   "src/spanner",
+  "src/spanner/grpc-mock",
   "src/storage",
   "src/storage/examples",
   "src/wkt",
@@ -283,6 +284,7 @@ members = [
   "src/pubsub",
   "src/pubsub/examples",
   "src/spanner",
+  "src/spanner/grpc-mock",
   "src/storage",
   "src/storage/benchmarks/random",
   "src/storage/benchmarks/w1r3",
@@ -453,6 +455,7 @@ gaxi                     = { default-features = false, version = "0.7.10", path 
 wkt                      = { default-features = false, version = "1", path = "src/wkt", package = "google-cloud-wkt" }
 google-cloud-wkt         = { default-features = false, version = "1", path = "src/wkt", package = "google-cloud-wkt" }
 google-cloud-api         = { default-features = false, version = "1.3.0", path = "src/generated/api/types" }
+spanner-grpc-mock        = { path = "src/spanner/grpc-mock" }
 google-cloud-iam-v1      = { default-features = false, version = "1.6.0", path = "src/generated/iam/v1" }
 google-cloud-location    = { default-features = false, version = "1.6.0", path = "src/generated/cloud/location" }
 google-cloud-longrunning = { default-features = false, version = "1.7.0", path = "src/generated/longrunning" }

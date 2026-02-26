@@ -24,6 +24,7 @@ sources:
   googleapis:
     commit: 3be416e51c2610e96dcc1915c8c2640be72c7be6
     sha256: 9509ec1c3743818f38828d9e722875ad17f4db846be3734b7b5e181592c85ece
+    dir: /Users/loite/googleapis
   protobuf:
     commit: b407e8416e3893036aee5af9a12bd9b6a0e2b2e6
     sha256: 55912546338433f465a552e9ef09930c63b9eb697053937416890cff83a8622d
@@ -1375,10 +1376,28 @@ libraries:
     rust:
       detailed_tracing_attributes: true
   - name: google-cloud-spanner
-    copyright_year: "2025"
     output: src/spanner
     skip_release: true
     veneer: true
+    skip_publish: true
+    copyright_year: "2026"
+    rust:
+      modules:
+        - module_path: crate::generated::gapic_dataplane::model
+          output: src/spanner/src/generated/convert/spanner
+          source: google/spanner/v1
+          template: convert-prost
+        - extend_grpc_transport: true
+          generate_setter_samples: "false"
+          has_veneer: true
+          internal_builders: true
+          output: src/spanner/src/generated/gapic_dataplane
+          service_config: google/spanner/v1/spanner.yaml
+          source: google/spanner/v1
+          template: grpc-client
+        - output: src/spanner/src/generated/protos/spanner
+          source: google/spanner/v1
+          template: prost
   - name: google-cloud-spanner-admin-database-v1
     version: 1.7.0
     apis:

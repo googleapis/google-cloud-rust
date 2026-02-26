@@ -13,13 +13,61 @@
 // limitations under the License.
 
 //! Google Cloud Client Libraries for Rust - Spanner
-//!
-//! **WARNING:** this crate is under active development. We expect multiple
-//! breaking changes in the upcoming releases. Testing is also incomplete, we do
-//! **not** recommend that you use this crate in production. We welcome feedback
-//! about the APIs, documentation, missing features, bugs, etc.
-//!
-//! This crate contains traits, types, and functions to interact with
-//! [Spanner].
-//!
-//! [spanner]: https://cloud.google.com/spanner
+
+#![cfg_attr(docsrs, feature(doc_cfg))]
+
+#[allow(rustdoc::broken_intra_doc_links)]
+pub(crate) mod generated;
+mod status;
+
+pub use google_cloud_gax::Result;
+pub use google_cloud_gax::error::Error;
+// Define some shortcuts for imported crates.
+pub(crate) use google_cloud_gax::client_builder::ClientBuilder;
+pub(crate) use google_cloud_gax::client_builder::Result as ClientBuilderResult;
+pub(crate) use google_cloud_gax::client_builder::internal::ClientFactory;
+pub(crate) use google_cloud_gax::client_builder::internal::new_builder as new_client_builder;
+pub(crate) use google_cloud_gax::options::RequestOptions;
+pub(crate) use google_cloud_gax::options::internal::RequestBuilder;
+pub(crate) use google_cloud_gax::response::Response;
+
+pub mod builder {
+    pub use crate::generated::gapic_dataplane::builder::spanner;
+}
+
+pub mod model {
+    pub use crate::generated::gapic_dataplane::model::*;
+}
+
+pub mod client;
+pub mod database_client;
+pub mod read_context;
+pub mod read_only_transaction;
+pub mod read_write_transaction;
+pub mod result_set;
+pub mod row;
+pub mod statement;
+pub mod partitioned_dml;
+pub mod types;
+pub mod mutation;
+pub mod value;
+pub mod stub {
+    pub use crate::generated::gapic_dataplane::stub::*;
+}
+
+#[allow(dead_code)]
+pub mod google {
+    pub mod api {
+        include!("generated/protos/spanner/google.api.rs");
+    }
+    pub mod rpc {
+        include!("generated/protos/spanner/google.rpc.rs");
+    }
+    pub mod spanner {
+        #[allow(clippy::enum_variant_names)]
+        pub mod v1 {
+            include!("generated/protos/spanner/google.spanner.v1.rs");
+            include!("generated/convert/spanner/convert.rs");
+        }
+    }
+}

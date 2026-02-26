@@ -26,4 +26,48 @@ keywords.workspace     = true
 categories.workspace   = true
 rust-version.workspace = true
 
+[lints]
+workspace = true
+
 [dependencies]
+async-trait.workspace  = true
+base64.workspace       = true
+bytes.workspace        = true
+chrono                 = { workspace = true, features = ["std"] }
+futures.workspace      = true
+futures-util           = "0.3.31"
+http.workspace         = true
+lazy_static.workspace  = true
+prost.workspace        = true
+prost-types.workspace  = true
+rustc_version_runtime  = "0.2"
+serde.workspace        = true
+serde_json.workspace   = true
+serde_with.workspace   = true
+thiserror.workspace    = true
+tokio                  = { workspace = true, features = ["sync"] }
+tokio-stream.workspace = true
+tracing.workspace      = true
+
+# Local crates
+google-cloud-auth        = { workspace = true }
+google-cloud-gax         = { workspace = true }
+google-cloud-iam-v1      = { workspace = true }
+google-cloud-longrunning = { workspace = true }
+google-cloud-lro         = { workspace = true }
+google-cloud-rpc         = { workspace = true }
+google-cloud-type        = { workspace = true }
+wkt.workspace            = true
+
+# We use a lot of features from gaxi.
+gaxi = { workspace = true, features = ["_internal-common", "_internal-grpc-client"] }
+bigdecimal = "0.4.10"
+
+[dev-dependencies]
+tokio                       = { workspace = true, features = ["macros"] }
+spanner-grpc-mock.workspace = true
+
+[features]
+default                 = ["default-rustls-provider"]
+unstable-stream         = []
+default-rustls-provider = ["google-cloud-auth/default-rustls-provider"]
