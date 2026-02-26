@@ -1379,12 +1379,10 @@ libraries:
     output: src/spanner
     skip_release: true
     veneer: true
-    skip_publish: true
     rust:
       modules:
         - module_path: crate::generated::gapic_dataplane::model
           output: src/spanner/src/generated/convert/spanner
-          source: google/spanner/v1
           api_path: google/spanner/v1
           template: convert-prost
         - extend_grpc_transport: true
@@ -1394,11 +1392,9 @@ libraries:
           internal_builders: true
           output: src/spanner/src/generated/gapic_dataplane
           service_config: google/spanner/v1/spanner.yaml
-          source: google/spanner/v1
           api_path: google/spanner/v1
           template: grpc-client
         - output: src/spanner/src/generated/protos/spanner
-          source: google/spanner/v1
           api_path: google/spanner/v1
           template: prost
   - name: google-cloud-spanner-admin-database-v1

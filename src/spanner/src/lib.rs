@@ -19,20 +19,16 @@
 //! **not** recommend that you use this crate in production. We welcome feedback
 //! about the APIs, documentation, missing features, bugs, etc.
 //!
-pub use google_cloud_gax::Result;
 pub use google_cloud_gax::error::Error;
+pub use google_cloud_gax::Result;
 
 pub(crate) use google_cloud_gax::client_builder::Result as ClientBuilderResult;
-pub(crate) use google_cloud_gax::options::RequestOptions;
 pub(crate) use google_cloud_gax::options::internal::RequestBuilder;
+pub(crate) use google_cloud_gax::options::RequestOptions;
 pub(crate) use google_cloud_gax::response::Response;
 
-pub mod client {
-    pub use crate::generated::gapic_dataplane::client::*;
-}
-pub mod builder {
-    pub use crate::generated::gapic_dataplane::builder::*;
-}
+pub mod client {}
+pub mod builder {}
 pub mod model {
     pub use crate::generated::gapic_dataplane::model::*;
 }
@@ -40,6 +36,8 @@ pub mod model {
 mod status;
 
 #[allow(dead_code)]
+#[allow(rustdoc::broken_intra_doc_links)]
+#[allow(rustdoc::private_intra_doc_links)]
 pub(crate) mod generated;
 
 #[allow(dead_code)]
