@@ -40,6 +40,7 @@
 //! }
 //! ```
 
+use crate::error::AckError;
 use tokio::sync::mpsc::UnboundedSender;
 
 /// The action an application does with a message.
@@ -167,14 +168,12 @@ impl Drop for AtLeastOnce {
     }
 }
 
-#[cfg(test)] // TODO(#3964): implementation in progress...
 /// A handler for exactly-once delivery.
 #[derive(Debug)]
 pub struct ExactlyOnce {
     inner: Option<ExactlyOnceImpl>,
 }
 
-#[cfg(test)] // TODO(#3964): implementation in progress...
 impl ExactlyOnce {
     pub(super) fn new(
         ack_id: String,
@@ -203,7 +202,6 @@ impl ExactlyOnce {
     // TODO(#3964): add confirmed_ack()
 }
 
-#[cfg(test)] // TODO(#3964): implementation in progress...
 impl Drop for ExactlyOnce {
     /// Rejects the message associated with this handler.
     ///
@@ -216,7 +214,6 @@ impl Drop for ExactlyOnce {
     }
 }
 
-#[cfg(test)] // TODO(#3964): implementation in progress...
 #[derive(Debug)]
 struct ExactlyOnceImpl {
     pub(super) ack_id: String,
@@ -224,7 +221,6 @@ struct ExactlyOnceImpl {
     // TODO(#3964): support confirmed acks
 }
 
-#[cfg(test)] // TODO(#3964): implementation in progress...
 impl ExactlyOnceImpl {
     pub fn ack(self) {
         let _ = self.ack_tx.send(Action::Ack(self.ack_id));
@@ -236,6 +232,9 @@ impl ExactlyOnceImpl {
 
     // TODO(#3964): add confirmed_ack()
 }
+
+/// The result of a confirmed acknowledgement.
+pub(crate) type AckResult = std::result::Result<(), AckError>;
 
 #[cfg(test)]
 mod tests {

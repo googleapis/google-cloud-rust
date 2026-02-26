@@ -51,11 +51,11 @@ pub enum PublishError {
     ExceededByteThresholdError(()),
 }
 
-#[cfg(test)] // TODO(#3964): implementation in progress...
+#[allow(dead_code)] // TODO(#3964): implementation in progress...
 /// Represents an error that can occur when acknowledging a message.
 #[derive(thiserror::Error, Debug)]
 #[non_exhaustive]
-pub enum AckError {
+pub(crate) enum AckError {
     /// The message's lease expired before the client could acknowledge it.
     ///
     /// The message has not been acknowledged, and will be redelivered, maybe to
