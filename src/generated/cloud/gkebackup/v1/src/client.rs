@@ -476,7 +476,8 @@ impl BackupForGKE {
     ///    client: &BackupForGKE, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_backup()
-    ///         .set_parent(parent).set_backup_id("backup_id_value")
+    ///         .set_parent(parent)
+    ///         .set_backup_id("backup_id_value")
     ///         .set_backup(
     ///             Backup::new()/* set fields */
     ///         )
@@ -1001,7 +1002,8 @@ impl BackupForGKE {
     ///    client: &BackupForGKE, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_restore()
-    ///         .set_parent(parent).set_restore_id("restore_id_value")
+    ///         .set_parent(parent)
+    ///         .set_restore_id("restore_id_value")
     ///         .set_restore(
     ///             Restore::new()/* set fields */
     ///         )

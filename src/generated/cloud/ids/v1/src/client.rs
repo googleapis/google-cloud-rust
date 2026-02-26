@@ -183,7 +183,8 @@ impl Ids {
     ///    client: &Ids, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_endpoint()
-    ///         .set_parent(parent).set_endpoint_id("endpoint_id_value")
+    ///         .set_parent(parent)
+    ///         .set_endpoint_id("endpoint_id_value")
     ///         .set_endpoint(
     ///             Endpoint::new()/* set fields */
     ///         )

@@ -146,7 +146,8 @@ impl LivestreamService {
     ///    client: &LivestreamService, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_channel()
-    ///         .set_parent(parent).set_channel_id("channel_id_value")
+    ///         .set_parent(parent)
+    ///         .set_channel_id("channel_id_value")
     ///         .set_channel(
     ///             Channel::new()/* set fields */
     ///         )
@@ -418,7 +419,8 @@ impl LivestreamService {
     ///    client: &LivestreamService, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_input()
-    ///         .set_parent(parent).set_input_id("input_id_value")
+    ///         .set_parent(parent)
+    ///         .set_input_id("input_id_value")
     ///         .set_input(
     ///             Input::new()/* set fields */
     ///         )
@@ -572,7 +574,8 @@ impl LivestreamService {
     ///    client: &LivestreamService, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_event()
-    ///         .set_parent(parent).set_event_id("event_id_value")
+    ///         .set_parent(parent)
+    ///         .set_event_id("event_id_value")
     ///         .set_event(
     ///             Event::new()/* set fields */
     ///         )
@@ -712,7 +715,8 @@ impl LivestreamService {
     ///    client: &LivestreamService, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_clip()
-    ///         .set_parent(parent).set_clip_id("clip_id_value")
+    ///         .set_parent(parent)
+    ///         .set_clip_id("clip_id_value")
     ///         .set_clip(
     ///             Clip::new()/* set fields */
     ///         )
@@ -924,7 +928,8 @@ impl LivestreamService {
     ///    client: &LivestreamService, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_asset()
-    ///         .set_parent(parent).set_asset_id("asset_id_value")
+    ///         .set_parent(parent)
+    ///         .set_asset_id("asset_id_value")
     ///         .set_asset(
     ///             Asset::new()/* set fields */
     ///         )

@@ -1490,7 +1490,8 @@ impl NetworkServices {
     ///    client: &NetworkServices, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_gateway()
-    ///         .set_parent(parent).set_gateway_id("gateway_id_value")
+    ///         .set_parent(parent)
+    ///         .set_gateway_id("gateway_id_value")
     ///         .set_gateway(
     ///             Gateway::new()/* set fields */
     ///         )
@@ -2360,7 +2361,8 @@ impl NetworkServices {
     ///    client: &NetworkServices, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_mesh()
-    ///         .set_parent(parent).set_mesh_id("mesh_id_value")
+    ///         .set_parent(parent)
+    ///         .set_mesh_id("mesh_id_value")
     ///         .set_mesh(
     ///             Mesh::new()/* set fields */
     ///         )

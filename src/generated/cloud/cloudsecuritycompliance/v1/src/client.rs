@@ -812,7 +812,8 @@ impl Config {
     ///    client: &Config, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_framework()
-    ///         .set_parent(parent).set_framework_id("framework_id_value")
+    ///         .set_parent(parent)
+    ///         .set_framework_id("framework_id_value")
     ///         .set_framework(
     ///             Framework::new()/* set fields */
     ///         )

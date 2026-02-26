@@ -190,7 +190,8 @@ impl FunctionService {
     ///    client: &FunctionService, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_function()
-    ///         .set_parent(parent).set_function_id("function_id_value")
+    ///         .set_parent(parent)
+    ///         .set_function_id("function_id_value")
     ///         .set_function(
     ///             Function::new()/* set fields */
     ///         )

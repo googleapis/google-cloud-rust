@@ -1313,7 +1313,8 @@ impl Conversations {
     ///    client: &Conversations, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_conversation()
-    ///         .set_parent(parent).set_conversation_id("conversation_id_value")
+    ///         .set_parent(parent)
+    ///         .set_conversation_id("conversation_id_value")
     ///         .set_conversation(
     ///             Conversation::new()/* set fields */
     ///         )
@@ -4609,7 +4610,8 @@ impl Environments {
     ///    client: &Environments, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_environment()
-    ///         .set_parent(parent).set_environment_id("environment_id_value")
+    ///         .set_parent(parent)
+    ///         .set_environment_id("environment_id_value")
     ///         .set_environment(
     ///             Environment::new()/* set fields */
     ///         )
@@ -5198,7 +5200,8 @@ impl Generators {
     ///    client: &Generators, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_generator()
-    ///         .set_parent(parent).set_generator_id("generator_id_value")
+    ///         .set_parent(parent)
+    ///         .set_generator_id("generator_id_value")
     ///         .set_generator(
     ///             Generator::new()/* set fields */
     ///         )
@@ -7989,7 +7992,8 @@ impl Tools {
     ///    client: &Tools, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_tool()
-    ///         .set_parent(parent).set_tool_id("tool_id_value")
+    ///         .set_parent(parent)
+    ///         .set_tool_id("tool_id_value")
     ///         .set_tool(
     ///             Tool::new()/* set fields */
     ///         )

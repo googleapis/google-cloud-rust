@@ -220,7 +220,8 @@ impl SecurityPosture {
     ///    client: &SecurityPosture, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_posture()
-    ///         .set_parent(parent).set_posture_id("posture_id_value")
+    ///         .set_parent(parent)
+    ///         .set_posture_id("posture_id_value")
     ///         .set_posture(
     ///             Posture::new()/* set fields */
     ///         )

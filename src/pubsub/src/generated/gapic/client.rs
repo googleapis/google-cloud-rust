@@ -838,7 +838,8 @@ impl SchemaService {
     ///    client: &SchemaService, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_schema()
-    ///         .set_parent(parent).set_schema_id("schema_id_value")
+    ///         .set_parent(parent)
+    ///         .set_schema_id("schema_id_value")
     ///         .set_schema(
     ///             Schema::new()/* set fields */
     ///         )

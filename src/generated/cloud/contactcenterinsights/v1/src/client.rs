@@ -132,7 +132,8 @@ impl ContactCenterInsights {
     ///    client: &ContactCenterInsights, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_conversation()
-    ///         .set_parent(parent).set_conversation_id("conversation_id_value")
+    ///         .set_parent(parent)
+    ///         .set_conversation_id("conversation_id_value")
     ///         .set_conversation(
     ///             Conversation::new()/* set fields */
     ///         )

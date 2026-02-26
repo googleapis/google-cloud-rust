@@ -190,7 +190,8 @@ impl Workflows {
     ///    client: &Workflows, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_workflow()
-    ///         .set_parent(parent).set_workflow_id("workflow_id_value")
+    ///         .set_parent(parent)
+    ///         .set_workflow_id("workflow_id_value")
     ///         .set_workflow(
     ///             Workflow::new()/* set fields */
     ///         )

@@ -359,7 +359,8 @@ impl Grafeas {
     ///    client: &Grafeas, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_note()
-    ///         .set_parent(parent).set_note_id("note_id_value")
+    ///         .set_parent(parent)
+    ///         .set_note_id("note_id_value")
     ///         .set_note(
     ///             Note::new()/* set fields */
     ///         )

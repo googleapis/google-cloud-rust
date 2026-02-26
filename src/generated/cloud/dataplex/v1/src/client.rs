@@ -147,7 +147,8 @@ impl BusinessGlossaryService {
     ///    client: &BusinessGlossaryService, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_glossary()
-    ///         .set_parent(parent).set_glossary_id("glossary_id_value")
+    ///         .set_parent(parent)
+    ///         .set_glossary_id("glossary_id_value")
     ///         .set_glossary(
     ///             Glossary::new()/* set fields */
     ///         )
@@ -1253,7 +1254,8 @@ impl CatalogService {
     ///    client: &CatalogService, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_entry()
-    ///         .set_parent(parent).set_entry_id("entry_id_value")
+    ///         .set_parent(parent)
+    ///         .set_entry_id("entry_id_value")
     ///         .set_entry(
     ///             Entry::new()/* set fields */
     ///         )
@@ -4622,7 +4624,8 @@ impl DataplexService {
     ///    client: &DataplexService, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_lake()
-    ///         .set_parent(parent).set_lake_id("lake_id_value")
+    ///         .set_parent(parent)
+    ///         .set_lake_id("lake_id_value")
     ///         .set_lake(
     ///             Lake::new()/* set fields */
     ///         )
@@ -4791,7 +4794,8 @@ impl DataplexService {
     ///    client: &DataplexService, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_zone()
-    ///         .set_parent(parent).set_zone_id("zone_id_value")
+    ///         .set_parent(parent)
+    ///         .set_zone_id("zone_id_value")
     ///         .set_zone(
     ///             Zone::new()/* set fields */
     ///         )
@@ -4960,7 +4964,8 @@ impl DataplexService {
     ///    client: &DataplexService, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_asset()
-    ///         .set_parent(parent).set_asset_id("asset_id_value")
+    ///         .set_parent(parent)
+    ///         .set_asset_id("asset_id_value")
     ///         .set_asset(
     ///             Asset::new()/* set fields */
     ///         )
@@ -5129,7 +5134,8 @@ impl DataplexService {
     ///    client: &DataplexService, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_task()
-    ///         .set_parent(parent).set_task_id("task_id_value")
+    ///         .set_parent(parent)
+    ///         .set_task_id("task_id_value")
     ///         .set_task(
     ///             Task::new()/* set fields */
     ///         )
@@ -5356,7 +5362,8 @@ impl DataplexService {
     ///    client: &DataplexService, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_environment()
-    ///         .set_parent(parent).set_environment_id("environment_id_value")
+    ///         .set_parent(parent)
+    ///         .set_environment_id("environment_id_value")
     ///         .set_environment(
     ///             Environment::new()/* set fields */
     ///         )

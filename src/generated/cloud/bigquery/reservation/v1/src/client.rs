@@ -144,7 +144,8 @@ impl ReservationService {
     ///    client: &ReservationService, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_reservation()
-    ///         .set_parent(parent).set_reservation_id("reservation_id_value")
+    ///         .set_parent(parent)
+    ///         .set_reservation_id("reservation_id_value")
     ///         .set_reservation(
     ///             Reservation::new()/* set fields */
     ///         )
@@ -503,7 +504,8 @@ impl ReservationService {
     ///    client: &ReservationService, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_assignment()
-    ///         .set_parent(parent).set_assignment_id("assignment_id_value")
+    ///         .set_parent(parent)
+    ///         .set_assignment_id("assignment_id_value")
     ///         .set_assignment(
     ///             Assignment::new()/* set fields */
     ///         )

@@ -624,7 +624,8 @@ impl EntityService {
     ///    client: &EntityService, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_watchlist()
-    ///         .set_parent(parent).set_watchlist_id("watchlist_id_value")
+    ///         .set_parent(parent)
+    ///         .set_watchlist_id("watchlist_id_value")
     ///         .set_watchlist(
     ///             Watchlist::new()/* set fields */
     ///         )

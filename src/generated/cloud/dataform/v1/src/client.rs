@@ -176,7 +176,8 @@ impl Dataform {
     ///    client: &Dataform, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_repository()
-    ///         .set_parent(parent).set_repository_id("repository_id_value")
+    ///         .set_parent(parent)
+    ///         .set_repository_id("repository_id_value")
     ///         .set_repository(
     ///             Repository::new()/* set fields */
     ///         )
@@ -427,7 +428,8 @@ impl Dataform {
     ///    client: &Dataform, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_workspace()
-    ///         .set_parent(parent).set_workspace_id("workspace_id_value")
+    ///         .set_parent(parent)
+    ///         .set_workspace_id("workspace_id_value")
     ///         .set_workspace(
     ///             Workspace::new()/* set fields */
     ///         )

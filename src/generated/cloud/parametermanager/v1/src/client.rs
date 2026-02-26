@@ -173,7 +173,8 @@ impl ParameterManager {
     ///    client: &ParameterManager, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_parameter()
-    ///         .set_parent(parent).set_parameter_id("parameter_id_value")
+    ///         .set_parent(parent)
+    ///         .set_parameter_id("parameter_id_value")
     ///         .set_parameter(
     ///             Parameter::new()/* set fields */
     ///         )

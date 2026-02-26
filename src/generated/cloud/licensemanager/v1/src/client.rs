@@ -183,7 +183,8 @@ impl LicenseManager {
     ///    client: &LicenseManager, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_configuration()
-    ///         .set_parent(parent).set_configuration_id("configuration_id_value")
+    ///         .set_parent(parent)
+    ///         .set_configuration_id("configuration_id_value")
     ///         .set_configuration(
     ///             Configuration::new()/* set fields */
     ///         )

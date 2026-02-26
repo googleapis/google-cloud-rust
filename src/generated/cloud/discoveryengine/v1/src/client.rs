@@ -947,7 +947,8 @@ impl ControlService {
     ///    client: &ControlService, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_control()
-    ///         .set_parent(parent).set_control_id("control_id_value")
+    ///         .set_parent(parent)
+    ///         .set_control_id("control_id_value")
     ///         .set_control(
     ///             Control::new()/* set fields */
     ///         )
@@ -2143,7 +2144,8 @@ impl DocumentService {
     ///    client: &DocumentService, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_document()
-    ///         .set_parent(parent).set_document_id("document_id_value")
+    ///         .set_parent(parent)
+    ///         .set_document_id("document_id_value")
     ///         .set_document(
     ///             Document::new()/* set fields */
     ///         )
@@ -2522,7 +2524,8 @@ impl EngineService {
     ///    client: &EngineService, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_engine()
-    ///         .set_parent(parent).set_engine_id("engine_id_value")
+    ///         .set_parent(parent)
+    ///         .set_engine_id("engine_id_value")
     ///         .set_engine(
     ///             Engine::new()/* set fields */
     ///         )
@@ -4102,7 +4105,8 @@ impl SchemaService {
     ///    client: &SchemaService, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_schema()
-    ///         .set_parent(parent).set_schema_id("schema_id_value")
+    ///         .set_parent(parent)
+    ///         .set_schema_id("schema_id_value")
     ///         .set_schema(
     ///             Schema::new()/* set fields */
     ///         )

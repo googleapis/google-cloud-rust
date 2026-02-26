@@ -159,7 +159,8 @@ impl StorageControl {
     ///    client: &StorageControl, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_bucket()
-    ///         .set_parent(parent).set_bucket_id("bucket_id_value")
+    ///         .set_parent(parent)
+    ///         .set_bucket_id("bucket_id_value")
     ///         .set_bucket(
     ///             Bucket::new()/* set fields */
     ///         )

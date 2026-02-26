@@ -669,7 +669,8 @@ impl MigrationCenter {
     ///    client: &MigrationCenter, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_group()
-    ///         .set_parent(parent).set_group_id("group_id_value")
+    ///         .set_parent(parent)
+    ///         .set_group_id("group_id_value")
     ///         .set_group(
     ///             Group::new()/* set fields */
     ///         )
@@ -921,7 +922,8 @@ impl MigrationCenter {
     ///    client: &MigrationCenter, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_source()
-    ///         .set_parent(parent).set_source_id("source_id_value")
+    ///         .set_parent(parent)
+    ///         .set_source_id("source_id_value")
     ///         .set_source(
     ///             Source::new()/* set fields */
     ///         )
@@ -1333,7 +1335,8 @@ impl MigrationCenter {
     ///    client: &MigrationCenter, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_report()
-    ///         .set_parent(parent).set_report_id("report_id_value")
+    ///         .set_parent(parent)
+    ///         .set_report_id("report_id_value")
     ///         .set_report(
     ///             Report::new()/* set fields */
     ///         )

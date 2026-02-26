@@ -1250,7 +1250,8 @@ impl DataTransferService {
     ///    client: &DataTransferService, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_destination()
-    ///         .set_parent(parent).set_destination_id("destination_id_value")
+    ///         .set_parent(parent)
+    ///         .set_destination_id("destination_id_value")
     ///         .set_destination(
     ///             Destination::new()/* set fields */
     ///         )
@@ -1758,7 +1759,8 @@ impl HubService {
     ///    client: &HubService, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_hub()
-    ///         .set_parent(parent).set_hub_id("hub_id_value")
+    ///         .set_parent(parent)
+    ///         .set_hub_id("hub_id_value")
     ///         .set_hub(
     ///             Hub::new()/* set fields */
     ///         )
@@ -1954,7 +1956,8 @@ impl HubService {
     ///    client: &HubService, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_spoke()
-    ///         .set_parent(parent).set_spoke_id("spoke_id_value")
+    ///         .set_parent(parent)
+    ///         .set_spoke_id("spoke_id_value")
     ///         .set_spoke(
     ///             Spoke::new()/* set fields */
     ///         )

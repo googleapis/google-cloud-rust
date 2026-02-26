@@ -254,7 +254,8 @@ impl PrivilegedAccessManager {
     ///    client: &PrivilegedAccessManager, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_entitlement()
-    ///         .set_parent(parent).set_entitlement_id("entitlement_id_value")
+    ///         .set_parent(parent)
+    ///         .set_entitlement_id("entitlement_id_value")
     ///         .set_entitlement(
     ///             Entitlement::new()/* set fields */
     ///         )

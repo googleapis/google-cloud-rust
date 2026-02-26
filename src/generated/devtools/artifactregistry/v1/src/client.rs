@@ -437,7 +437,8 @@ impl ArtifactRegistry {
     ///    client: &ArtifactRegistry, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_repository()
-    ///         .set_parent(parent).set_repository_id("repository_id_value")
+    ///         .set_parent(parent)
+    ///         .set_repository_id("repository_id_value")
     ///         .set_repository(
     ///             Repository::new()/* set fields */
     ///         )
@@ -868,7 +869,8 @@ impl ArtifactRegistry {
     ///    client: &ArtifactRegistry, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_tag()
-    ///         .set_parent(parent).set_tag_id("tag_id_value")
+    ///         .set_parent(parent)
+    ///         .set_tag_id("tag_id_value")
     ///         .set_tag(
     ///             Tag::new()/* set fields */
     ///         )
@@ -937,7 +939,8 @@ impl ArtifactRegistry {
     ///    client: &ArtifactRegistry, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_rule()
-    ///         .set_parent(parent).set_rule_id("rule_id_value")
+    ///         .set_parent(parent)
+    ///         .set_rule_id("rule_id_value")
     ///         .set_rule(
     ///             Rule::new()/* set fields */
     ///         )
@@ -1284,7 +1287,8 @@ impl ArtifactRegistry {
     ///    client: &ArtifactRegistry, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_attachment()
-    ///         .set_parent(parent).set_attachment_id("attachment_id_value")
+    ///         .set_parent(parent)
+    ///         .set_attachment_id("attachment_id_value")
     ///         .set_attachment(
     ///             Attachment::new()/* set fields */
     ///         )

@@ -210,7 +210,8 @@ impl CertificateManager {
     ///    client: &CertificateManager, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_certificate()
-    ///         .set_parent(parent).set_certificate_id("certificate_id_value")
+    ///         .set_parent(parent)
+    ///         .set_certificate_id("certificate_id_value")
     ///         .set_certificate(
     ///             Certificate::new()/* set fields */
     ///         )
