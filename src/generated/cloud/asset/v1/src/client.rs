@@ -224,7 +224,8 @@ impl AssetService {
     ///    client: &AssetService, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_feed()
-    ///         .set_parent(parent).set_feed_id("feed_id_value")
+    ///         .set_parent(parent)
+    ///         .set_feed_id("feed_id_value")
     ///         .set_feed(
     ///             Feed::new()/* set fields */
     ///         )

@@ -78,7 +78,8 @@ impl StorageControl {
     ///    client: &StorageControl, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_folder()
-    ///         .set_parent(parent).set_folder_id("folder_id_value")
+    ///         .set_parent(parent)
+    ///         .set_folder_id("folder_id_value")
     ///         .set_folder(
     ///             Folder::new()/* set fields */
     ///         )

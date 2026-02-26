@@ -531,7 +531,8 @@ impl BatchController {
     ///    client: &BatchController, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_batch()
-    ///         .set_parent(parent).set_batch_id("batch_id_value")
+    ///         .set_parent(parent)
+    ///         .set_batch_id("batch_id_value")
     ///         .set_batch(
     ///             Batch::new()/* set fields */
     ///         )
@@ -2580,7 +2581,8 @@ impl SessionController {
     ///    client: &SessionController, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_session()
-    ///         .set_parent(parent).set_session_id("session_id_value")
+    ///         .set_parent(parent)
+    ///         .set_session_id("session_id_value")
     ///         .set_session(
     ///             Session::new()/* set fields */
     ///         )

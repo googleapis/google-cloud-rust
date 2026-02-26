@@ -1027,7 +1027,8 @@ impl ControlService {
     ///    client: &ControlService, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_control()
-    ///         .set_parent(parent).set_control_id("control_id_value")
+    ///         .set_parent(parent)
+    ///         .set_control_id("control_id_value")
     ///         .set_control(
     ///             Control::new()/* set fields */
     ///         )
@@ -2268,7 +2269,8 @@ impl ProductService {
     ///    client: &ProductService, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_product()
-    ///         .set_parent(parent).set_product_id("product_id_value")
+    ///         .set_parent(parent)
+    ///         .set_product_id("product_id_value")
     ///         .set_product(
     ///             Product::new()/* set fields */
     ///         )

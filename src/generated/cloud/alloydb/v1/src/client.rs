@@ -452,7 +452,8 @@ impl AlloyDBAdmin {
     ///    client: &AlloyDBAdmin, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_cluster()
-    ///         .set_parent(parent).set_cluster_id("cluster_id_value")
+    ///         .set_parent(parent)
+    ///         .set_cluster_id("cluster_id_value")
     ///         .set_cluster(
     ///             Cluster::new()/* set fields */
     ///         )
@@ -827,7 +828,8 @@ impl AlloyDBAdmin {
     ///    client: &AlloyDBAdmin, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_instance()
-    ///         .set_parent(parent).set_instance_id("instance_id_value")
+    ///         .set_parent(parent)
+    ///         .set_instance_id("instance_id_value")
     ///         .set_instance(
     ///             Instance::new()/* set fields */
     ///         )
@@ -1162,7 +1164,8 @@ impl AlloyDBAdmin {
     ///    client: &AlloyDBAdmin, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_backup()
-    ///         .set_parent(parent).set_backup_id("backup_id_value")
+    ///         .set_parent(parent)
+    ///         .set_backup_id("backup_id_value")
     ///         .set_backup(
     ///             Backup::new()/* set fields */
     ///         )
@@ -1367,7 +1370,8 @@ impl AlloyDBAdmin {
     ///    client: &AlloyDBAdmin, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_user()
-    ///         .set_parent(parent).set_user_id("user_id_value")
+    ///         .set_parent(parent)
+    ///         .set_user_id("user_id_value")
     ///         .set_user(
     ///             User::new()/* set fields */
     ///         )

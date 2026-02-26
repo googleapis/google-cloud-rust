@@ -474,7 +474,8 @@ impl ConfigDelivery {
     ///    client: &ConfigDelivery, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_release()
-    ///         .set_parent(parent).set_release_id("release_id_value")
+    ///         .set_parent(parent)
+    ///         .set_release_id("release_id_value")
     ///         .set_release(
     ///             Release::new()/* set fields */
     ///         )
@@ -620,7 +621,8 @@ impl ConfigDelivery {
     ///    client: &ConfigDelivery, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_variant()
-    ///         .set_parent(parent).set_variant_id("variant_id_value")
+    ///         .set_parent(parent)
+    ///         .set_variant_id("variant_id_value")
     ///         .set_variant(
     ///             Variant::new()/* set fields */
     ///         )

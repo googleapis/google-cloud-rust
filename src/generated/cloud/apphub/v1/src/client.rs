@@ -391,7 +391,8 @@ impl AppHub {
     ///    client: &AppHub, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_service()
-    ///         .set_parent(parent).set_service_id("service_id_value")
+    ///         .set_parent(parent)
+    ///         .set_service_id("service_id_value")
     ///         .set_service(
     ///             Service::new()/* set fields */
     ///         )
@@ -601,7 +602,8 @@ impl AppHub {
     ///    client: &AppHub, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_workload()
-    ///         .set_parent(parent).set_workload_id("workload_id_value")
+    ///         .set_parent(parent)
+    ///         .set_workload_id("workload_id_value")
     ///         .set_workload(
     ///             Workload::new()/* set fields */
     ///         )
@@ -746,7 +748,8 @@ impl AppHub {
     ///    client: &AppHub, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_application()
-    ///         .set_parent(parent).set_application_id("application_id_value")
+    ///         .set_parent(parent)
+    ///         .set_application_id("application_id_value")
     ///         .set_application(
     ///             Application::new()/* set fields */
     ///         )

@@ -176,7 +176,8 @@ impl GSuiteAddOns {
     ///    client: &GSuiteAddOns, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_deployment()
-    ///         .set_parent(parent).set_deployment_id("deployment_id_value")
+    ///         .set_parent(parent)
+    ///         .set_deployment_id("deployment_id_value")
     ///         .set_deployment(
     ///             Deployment::new()/* set fields */
     ///         )

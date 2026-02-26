@@ -652,7 +652,8 @@ impl Instances {
     ///    client: &Instances, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_instance()
-    ///         .set_parent(parent).set_instance_id("instance_id_value")
+    ///         .set_parent(parent)
+    ///         .set_instance_id("instance_id_value")
     ///         .set_instance(
     ///             Instance::new()/* set fields */
     ///         )
@@ -1016,7 +1017,8 @@ impl Jobs {
     ///    client: &Jobs, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_job()
-    ///         .set_parent(parent).set_job_id("job_id_value")
+    ///         .set_parent(parent)
+    ///         .set_job_id("job_id_value")
     ///         .set_job(
     ///             Job::new()/* set fields */
     ///         )
@@ -1715,7 +1717,8 @@ impl Services {
     ///    client: &Services, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_service()
-    ///         .set_parent(parent).set_service_id("service_id_value")
+    ///         .set_parent(parent)
+    ///         .set_service_id("service_id_value")
     ///         .set_service(
     ///             Service::new()/* set fields */
     ///         )

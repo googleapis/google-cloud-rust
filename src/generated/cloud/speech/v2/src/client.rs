@@ -142,7 +142,8 @@ impl Speech {
     ///    client: &Speech, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_recognizer()
-    ///         .set_parent(parent).set_recognizer_id("recognizer_id_value")
+    ///         .set_parent(parent)
+    ///         .set_recognizer_id("recognizer_id_value")
     ///         .set_recognizer(
     ///             Recognizer::new()/* set fields */
     ///         )

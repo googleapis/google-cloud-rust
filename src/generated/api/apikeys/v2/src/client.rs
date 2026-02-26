@@ -143,7 +143,8 @@ impl ApiKeys {
     ///    client: &ApiKeys, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_key()
-    ///         .set_parent(parent).set_key_id("key_id_value")
+    ///         .set_parent(parent)
+    ///         .set_key_id("key_id_value")
     ///         .set_key(
     ///             Key::new()/* set fields */
     ///         )

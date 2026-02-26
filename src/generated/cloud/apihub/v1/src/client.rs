@@ -130,7 +130,8 @@ impl ApiHub {
     ///    client: &ApiHub, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_api()
-    ///         .set_parent(parent).set_api_id("api_id_value")
+    ///         .set_parent(parent)
+    ///         .set_api_id("api_id_value")
     ///         .set_api(
     ///             Api::new()/* set fields */
     ///         )
@@ -275,7 +276,8 @@ impl ApiHub {
     ///    client: &ApiHub, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_version()
-    ///         .set_parent(parent).set_version_id("version_id_value")
+    ///         .set_parent(parent)
+    ///         .set_version_id("version_id_value")
     ///         .set_version(
     ///             Version::new()/* set fields */
     ///         )
@@ -439,7 +441,8 @@ impl ApiHub {
     ///    client: &ApiHub, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_spec()
-    ///         .set_parent(parent).set_spec_id("spec_id_value")
+    ///         .set_parent(parent)
+    ///         .set_spec_id("spec_id_value")
     ///         .set_spec(
     ///             Spec::new()/* set fields */
     ///         )
@@ -770,7 +773,8 @@ impl ApiHub {
     ///    client: &ApiHub, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_deployment()
-    ///         .set_parent(parent).set_deployment_id("deployment_id_value")
+    ///         .set_parent(parent)
+    ///         .set_deployment_id("deployment_id_value")
     ///         .set_deployment(
     ///             Deployment::new()/* set fields */
     ///         )
@@ -925,7 +929,8 @@ impl ApiHub {
     ///    client: &ApiHub, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_attribute()
-    ///         .set_parent(parent).set_attribute_id("attribute_id_value")
+    ///         .set_parent(parent)
+    ///         .set_attribute_id("attribute_id_value")
     ///         .set_attribute(
     ///             Attribute::new()/* set fields */
     ///         )
@@ -1462,7 +1467,8 @@ impl ApiHubDependencies {
     ///    client: &ApiHubDependencies, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_dependency()
-    ///         .set_parent(parent).set_dependency_id("dependency_id_value")
+    ///         .set_parent(parent)
+    ///         .set_dependency_id("dependency_id_value")
     ///         .set_dependency(
     ///             Dependency::new()/* set fields */
     ///         )
@@ -2090,7 +2096,8 @@ impl ApiHubCurate {
     ///    client: &ApiHubCurate, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_curation()
-    ///         .set_parent(parent).set_curation_id("curation_id_value")
+    ///         .set_parent(parent)
+    ///         .set_curation_id("curation_id_value")
     ///         .set_curation(
     ///             Curation::new()/* set fields */
     ///         )
@@ -3501,7 +3508,8 @@ impl ApiHubPlugin {
     ///    client: &ApiHubPlugin, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_plugin()
-    ///         .set_parent(parent).set_plugin_id("plugin_id_value")
+    ///         .set_parent(parent)
+    ///         .set_plugin_id("plugin_id_value")
     ///         .set_plugin(
     ///             Plugin::new()/* set fields */
     ///         )

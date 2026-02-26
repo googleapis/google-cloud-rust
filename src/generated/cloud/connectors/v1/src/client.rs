@@ -183,7 +183,8 @@ impl Connectors {
     ///    client: &Connectors, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_connection()
-    ///         .set_parent(parent).set_connection_id("connection_id_value")
+    ///         .set_parent(parent)
+    ///         .set_connection_id("connection_id_value")
     ///         .set_connection(
     ///             Connection::new()/* set fields */
     ///         )

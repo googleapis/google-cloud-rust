@@ -310,7 +310,8 @@ impl CloudControlsPartnerCore {
     ///    client: &CloudControlsPartnerCore, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_customer()
-    ///         .set_parent(parent).set_customer_id("customer_id_value")
+    ///         .set_parent(parent)
+    ///         .set_customer_id("customer_id_value")
     ///         .set_customer(
     ///             Customer::new()/* set fields */
     ///         )

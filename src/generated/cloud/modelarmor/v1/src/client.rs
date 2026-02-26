@@ -172,7 +172,8 @@ impl ModelArmor {
     ///    client: &ModelArmor, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_template()
-    ///         .set_parent(parent).set_template_id("template_id_value")
+    ///         .set_parent(parent)
+    ///         .set_template_id("template_id_value")
     ///         .set_template(
     ///             Template::new()/* set fields */
     ///         )

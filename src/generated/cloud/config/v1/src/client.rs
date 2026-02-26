@@ -191,7 +191,8 @@ impl Config {
     ///    client: &Config, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_deployment()
-    ///         .set_parent(parent).set_deployment_id("deployment_id_value")
+    ///         .set_parent(parent)
+    ///         .set_deployment_id("deployment_id_value")
     ///         .set_deployment(
     ///             Deployment::new()/* set fields */
     ///         )
@@ -557,7 +558,8 @@ impl Config {
     ///    client: &Config, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_preview()
-    ///         .set_parent(parent).set_preview_id("preview_id_value")
+    ///         .set_parent(parent)
+    ///         .set_preview_id("preview_id_value")
     ///         .set_preview(
     ///             Preview::new()/* set fields */
     ///         )

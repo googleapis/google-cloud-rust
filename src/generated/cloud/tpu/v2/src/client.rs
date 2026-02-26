@@ -185,7 +185,8 @@ impl Tpu {
     ///    client: &Tpu, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_node()
-    ///         .set_parent(parent).set_node_id("node_id_value")
+    ///         .set_parent(parent)
+    ///         .set_node_id("node_id_value")
     ///         .set_node(
     ///             Node::new()/* set fields */
     ///         )

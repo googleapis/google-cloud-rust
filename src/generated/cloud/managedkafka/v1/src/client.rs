@@ -184,7 +184,8 @@ impl ManagedKafka {
     ///    client: &ManagedKafka, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_cluster()
-    ///         .set_parent(parent).set_cluster_id("cluster_id_value")
+    ///         .set_parent(parent)
+    ///         .set_cluster_id("cluster_id_value")
     ///         .set_cluster(
     ///             Cluster::new()/* set fields */
     ///         )
@@ -318,7 +319,8 @@ impl ManagedKafka {
     ///    client: &ManagedKafka, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_topic()
-    ///         .set_parent(parent).set_topic_id("topic_id_value")
+    ///         .set_parent(parent)
+    ///         .set_topic_id("topic_id_value")
     ///         .set_topic(
     ///             Topic::new()/* set fields */
     ///         )
@@ -518,7 +520,8 @@ impl ManagedKafka {
     ///    client: &ManagedKafka, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_acl()
-    ///         .set_parent(parent).set_acl_id("acl_id_value")
+    ///         .set_parent(parent)
+    ///         .set_acl_id("acl_id_value")
     ///         .set_acl(
     ///             Acl::new()/* set fields */
     ///         )
@@ -1063,7 +1066,8 @@ impl ManagedKafkaConnect {
     ///    client: &ManagedKafkaConnect, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_connector()
-    ///         .set_parent(parent).set_connector_id("connector_id_value")
+    ///         .set_parent(parent)
+    ///         .set_connector_id("connector_id_value")
     ///         .set_connector(
     ///             Connector::new()/* set fields */
     ///         )

@@ -204,7 +204,8 @@ impl DataprocMetastore {
     ///    client: &DataprocMetastore, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_service()
-    ///         .set_parent(parent).set_service_id("service_id_value")
+    ///         .set_parent(parent)
+    ///         .set_service_id("service_id_value")
     ///         .set_service(
     ///             Service::new()/* set fields */
     ///         )
@@ -531,7 +532,8 @@ impl DataprocMetastore {
     ///    client: &DataprocMetastore, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_backup()
-    ///         .set_parent(parent).set_backup_id("backup_id_value")
+    ///         .set_parent(parent)
+    ///         .set_backup_id("backup_id_value")
     ///         .set_backup(
     ///             Backup::new()/* set fields */
     ///         )
@@ -1062,7 +1064,8 @@ impl DataprocMetastoreFederation {
     ///    client: &DataprocMetastoreFederation, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_federation()
-    ///         .set_parent(parent).set_federation_id("federation_id_value")
+    ///         .set_parent(parent)
+    ///         .set_federation_id("federation_id_value")
     ///         .set_federation(
     ///             Federation::new()/* set fields */
     ///         )

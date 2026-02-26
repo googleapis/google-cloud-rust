@@ -539,7 +539,8 @@ impl Workstations {
     ///    client: &Workstations, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_workstation()
-    ///         .set_parent(parent).set_workstation_id("workstation_id_value")
+    ///         .set_parent(parent)
+    ///         .set_workstation_id("workstation_id_value")
     ///         .set_workstation(
     ///             Workstation::new()/* set fields */
     ///         )

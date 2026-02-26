@@ -529,7 +529,8 @@ impl InstanceAdmin {
     ///    client: &InstanceAdmin, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_instance()
-    ///         .set_parent(parent).set_instance_id("instance_id_value")
+    ///         .set_parent(parent)
+    ///         .set_instance_id("instance_id_value")
     ///         .set_instance(
     ///             Instance::new()/* set fields */
     ///         )

@@ -184,7 +184,8 @@ impl Aml {
     ///    client: &Aml, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_instance()
-    ///         .set_parent(parent).set_instance_id("instance_id_value")
+    ///         .set_parent(parent)
+    ///         .set_instance_id("instance_id_value")
     ///         .set_instance(
     ///             Instance::new()/* set fields */
     ///         )
@@ -397,7 +398,8 @@ impl Aml {
     ///    client: &Aml, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_dataset()
-    ///         .set_parent(parent).set_dataset_id("dataset_id_value")
+    ///         .set_parent(parent)
+    ///         .set_dataset_id("dataset_id_value")
     ///         .set_dataset(
     ///             Dataset::new()/* set fields */
     ///         )
@@ -542,7 +544,8 @@ impl Aml {
     ///    client: &Aml, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_model()
-    ///         .set_parent(parent).set_model_id("model_id_value")
+    ///         .set_parent(parent)
+    ///         .set_model_id("model_id_value")
     ///         .set_model(
     ///             Model::new()/* set fields */
     ///         )

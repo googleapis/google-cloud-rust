@@ -544,7 +544,8 @@ impl ProductSearch {
     ///    client: &ProductSearch, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_product()
-    ///         .set_parent(parent).set_product_id("product_id_value")
+    ///         .set_parent(parent)
+    ///         .set_product_id("product_id_value")
     ///         .set_product(
     ///             Product::new()/* set fields */
     ///         )

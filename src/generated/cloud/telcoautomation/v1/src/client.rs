@@ -357,7 +357,8 @@ impl TelcoAutomation {
     ///    client: &TelcoAutomation, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_blueprint()
-    ///         .set_parent(parent).set_blueprint_id("blueprint_id_value")
+    ///         .set_parent(parent)
+    ///         .set_blueprint_id("blueprint_id_value")
     ///         .set_blueprint(
     ///             Blueprint::new()/* set fields */
     ///         )
@@ -672,7 +673,8 @@ impl TelcoAutomation {
     ///    client: &TelcoAutomation, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_deployment()
-    ///         .set_parent(parent).set_deployment_id("deployment_id_value")
+    ///         .set_parent(parent)
+    ///         .set_deployment_id("deployment_id_value")
     ///         .set_deployment(
     ///             Deployment::new()/* set fields */
     ///         )
