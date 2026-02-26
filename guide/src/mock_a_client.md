@@ -36,8 +36,7 @@ cargo add --dev mockall
 This guide will use a [`Speech`][speech-client] client. Note that the same ideas
 in this guide apply to all of the clients, not just the `Speech` client.
 
-Declare the dependency in your `Cargo.toml`. It will be similar, but without the
-custom `path`.
+Add the dependency to your `Cargo.toml` file:
 
 ```shell
 cargo add google-cloud-speech-v2 google-cloud-lro
