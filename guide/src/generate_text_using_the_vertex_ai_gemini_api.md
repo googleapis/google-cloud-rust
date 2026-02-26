@@ -39,15 +39,15 @@ cargo add google-cloud-aiplatform-v1 --no-default-features --features prediction
 First, initialize the client using the default settings:
 
 ```rust,ignore,noplayground
-{{#include ../samples/src/gemini.rs:text-prompt-client}}
+{{#include ../samples/src/gemini/text_prompt.rs:text-prompt-client}}
 ```
 
 Then build the model name. For simplicity, this example receives the project ID
-as an argument and uses a fixed location (`global`) and model id
-(`gemini-2.0-flash-001`).
+as an argument and uses a fixed location (`global`) and the model is hard-coded
+to a specific version of `gemini`.
 
 ```rust,ignore,noplayground
-{{#include ../samples/src/gemini.rs:text-prompt-model}}
+{{#include ../samples/src/gemini/text_prompt.rs:text-prompt-model}}
 ```
 
 If you want to run this function in your own code, use the project id (without
@@ -57,14 +57,14 @@ prerequisites.
 With the client initialized you can send the request:
 
 ```rust,ignore,noplayground
-{{#include ../samples/src/gemini.rs:text-prompt-request}}
+{{#include ../samples/src/gemini/text_prompt.rs:text-prompt-request}}
 ```
 
 And then print the response. You can use the `:#?` format specifier to prettify
 the nested response objects:
 
 ```rust,ignore,noplayground
-{{#include ../samples/src/gemini.rs:text-prompt-response}}
+{{#include ../samples/src/gemini/text_prompt.rs:text-prompt-response}}
 ```
 
 See [below](#text-prompt-complete-code) for the complete code.
@@ -74,37 +74,37 @@ See [below](#text-prompt-complete-code) for the complete code.
 As in the previous example, initialize the client using the default settings:
 
 ```rust,ignore,noplayground
-{{#include ../samples/src/gemini.rs:prompt-and-image-client}}
+{{#include ../samples/src/gemini/prompt_and_image.rs:prompt-and-image-client}}
 ```
 
 And then build the model name:
 
 ```rust,ignore,noplayground
-{{#include ../samples/src/gemini.rs:prompt-and-image-model}}
+{{#include ../samples/src/gemini/prompt_and_image.rs:prompt-and-image-model}}
 ```
 
 The new request includes an image part:
 
 ```rust,ignore,noplayground
-{{#include ../samples/src/gemini.rs:prompt-and-image-image-part}}
+{{#include ../samples/src/gemini/prompt_and_image.rs:prompt-and-image-image-part}}
 ```
 
 And the prompt part:
 
 ```rust,ignore,noplayground
-{{#include ../samples/src/gemini.rs:prompt-and-image-prompt-part}}
+{{#include ../samples/src/gemini/prompt_and_image.rs:prompt-and-image-prompt-part}}
 ```
 
 Send the full request:
 
 ```rust,ignore,noplayground
-{{#include ../samples/src/gemini.rs:prompt-and-image-request}}
+{{#include ../samples/src/gemini/prompt_and_image.rs:prompt-and-image-request}}
 ```
 
 As in the previous example, print the full response:
 
 ```rust,ignore,noplayground
-{{#include ../samples/src/gemini.rs:prompt-and-image-response}}
+{{#include ../samples/src/gemini/prompt_and_image.rs:prompt-and-image-response}}
 ```
 
 See [below](#prompt-and-image-complete-code) for the complete code.
@@ -114,13 +114,13 @@ ______________________________________________________________________
 ## Text prompt: complete code
 
 ```rust,ignore,noplayground
-{{#include ../samples/src/gemini.rs:text-prompt}}
+{{#include ../samples/src/gemini/text_prompt.rs:text-prompt}}
 ```
 
 ## Prompt and image: complete code
 
 ```rust,ignore,noplayground
-{{#include ../samples/src/gemini.rs:prompt-and-image}}
+{{#include ../samples/src/gemini/prompt_and_image.rs:prompt-and-image}}
 ```
 
 [vertex ai setup guide]: https://cloud.google.com/vertex-ai/docs/start/cloud-environment

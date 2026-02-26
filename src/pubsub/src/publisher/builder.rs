@@ -16,12 +16,14 @@ use super::options::BatchingOptions;
 use crate::client::Publisher;
 use crate::generated::gapic_dataplane::client::Publisher as GapicPublisher;
 use crate::publisher::actor::Dispatcher;
-use crate::publisher::base_publisher::{BasePublisher, BasePublisherBuilder};
+use crate::publisher::base_publisher::BasePublisher;
 use google_cloud_gax::{
     backoff_policy::BackoffPolicyArg, retry_policy::RetryPolicyArg,
     retry_throttler::RetryThrottlerArg,
 };
 use std::time::Duration;
+
+pub use super::base_publisher::BasePublisherBuilder;
 
 /// A builder for a [`Publisher`].
 #[derive(Clone, Debug)]
