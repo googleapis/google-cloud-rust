@@ -38,7 +38,7 @@ pub async fn run(bucket_name: &str) -> Result<()> {
         Box::pin(abort_upload_unbuffered(&client, bucket_name)),
         Box::pin(checksums(&client, bucket_name)),
     ];
-    let result: Result<Vec<_>> = futures::future::join_all(pending.into_iter())
+    let result: Result<Vec<_>> = futures::future::join_all(pending)
         .await
         .into_iter()
         .collect();
