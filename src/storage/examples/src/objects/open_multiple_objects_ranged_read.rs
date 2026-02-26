@@ -20,35 +20,28 @@ use tokio::task::JoinSet;
 pub async fn sample(client: &Storage, bucket: &str, object_names: &[&str]) -> anyhow::Result<()> {
     let mut set = JoinSet::new();
     let bucket_name = format!("projects/_/buckets/{bucket}");
-
-    for object in object_names {
-        let client = client.clone();
-        let bucket_name = bucket_name.clone();
-        let object = object.to_string();
-
-        set.spawn(async move {
-            let (_descriptor, mut reader) = client
-                .open_object(bucket_name, &object)
-                .send_and_read(ReadRange::segment(5, 5))
-                .await?;
-
-            let mut content = Vec::new();
-            while let Some(data) = reader.next().await.transpose()? {
-                content.extend_from_slice(&data);
-            }
-
-            Ok::<(String, Vec<u8>), anyhow::Error>((object, content))
-        });
-    }
-
+    async fn  read_footer(client: &Storage, bucket: &str, object: &str)
+        -> anyhow::Result<(ObjectDescriptor, Vec<u8>)>
+    {
+        // Reading the last 8 bytes is common in Parquet and other column-oriented formats
+        // with a footer.
+        let (descriptor, mut reader) = client.open_object(bucket_name.clone(), object)
+            .send_and_read(ReadRange::tail(8))
+            .await?;
+        let mut footer = Vec::new();
+        while let Some(data) = reader.next().await.transpose()? {
+            content.extend_from_slice(&data);
+        }
+        Ok((descriptor, footer, object.to_string()))
+    };
+    
+    object_names.iter().for_each(|o| set.spawn(read_footer(client, &bucket_name, o.as_str())));
+    let mut descriptors = HashMap::new();
     while let Some(result) = set.join_next().await {
-        let (object, content) = result??;
-        println!(
-            "Downloaded first 10 bytes of object {object} in bucket {bucket}. Content: {:?}",
-            String::from_utf8_lossy(&content)
-        );
+        let (descriptor, footer, name) = result??;
+        println!("The footer for {name} is {footer:?}");
+        descriptors.insert(name, (descriptor, footer));
     }
-
     Ok(())
 }
 // [END storage_open_multiple_objects_ranged_read]
