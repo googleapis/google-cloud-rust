@@ -19,12 +19,12 @@
 //! **not** recommend that you use this crate in production. We welcome feedback
 //! about the APIs, documentation, missing features, bugs, etc.
 //!
-pub use google_cloud_gax::error::Error;
 pub use google_cloud_gax::Result;
+pub use google_cloud_gax::error::Error;
 
 pub(crate) use google_cloud_gax::client_builder::Result as ClientBuilderResult;
-pub(crate) use google_cloud_gax::options::internal::RequestBuilder;
 pub(crate) use google_cloud_gax::options::RequestOptions;
+pub(crate) use google_cloud_gax::options::internal::RequestBuilder;
 pub(crate) use google_cloud_gax::response::Response;
 
 pub mod client {}
@@ -48,6 +48,7 @@ pub(crate) mod google {
     pub mod rpc {
         include!("generated/protos/spanner/google.rpc.rs");
     }
+    #[allow(clippy::enum_variant_names)]
     pub mod spanner {
         pub mod v1 {
             include!("generated/protos/spanner/google.spanner.v1.rs");
