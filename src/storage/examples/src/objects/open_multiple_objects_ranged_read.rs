@@ -55,8 +55,8 @@ pub async fn sample(client: &Storage, bucket: &str, object_names: &[&str]) -> an
         println!("The footer for object {object_name} is {footer:?}");
         descriptors.insert(object_name, (descriptor, footer));
     }
-    
-    // You can use the descriptors in the map to read more ranges.
+
+    // Use the descriptors in the map to read more ranges.
 
     Ok(())
 }
