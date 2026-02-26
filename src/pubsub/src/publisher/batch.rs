@@ -125,7 +125,7 @@ impl Batch {
             }
             Ok(result) => {
                 txs.into_iter()
-                    .zip(result.message_ids.into_iter())
+                    .zip(result.message_ids)
                     .for_each(|(tx, result)| {
                         // The user may have dropped the handle, so it is ok if this fails.
                         let _ = tx.send(Ok(result));

@@ -222,7 +222,7 @@ pub async fn success_testlayer() -> anyhow::Result<()> {
     .map(|(k, v)| (k.to_string(), v))
     .collect();
 
-    let got = BTreeMap::from_iter(t3_span.attributes.clone().into_iter());
+    let got = BTreeMap::from_iter(t3_span.attributes.clone());
     assert_eq!(got, expected_attributes);
 
     Ok(())
@@ -304,7 +304,7 @@ pub async fn parse_error() -> anyhow::Result<()> {
     .map(|(k, v)| (k.to_string(), v))
     .collect();
 
-    let got = BTreeMap::from_iter(t3_span.attributes.clone().into_iter());
+    let got = BTreeMap::from_iter(t3_span.attributes.clone());
     assert_eq!(got, expected_attributes);
 
     Ok(())
@@ -388,7 +388,7 @@ pub async fn api_error() -> anyhow::Result<()> {
     .map(|(k, v)| (k.to_string(), v))
     .collect();
 
-    let got = BTreeMap::from_iter(t3_span.attributes.clone().into_iter());
+    let got = BTreeMap::from_iter(t3_span.attributes.clone());
     assert_eq!(got, expected_attributes);
 
     Ok(())
