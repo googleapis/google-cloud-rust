@@ -35,9 +35,10 @@
 use super::{OTEL_KEY_GCP_PROJECT_ID, OTEL_KEY_SERVICE_NAME};
 use crate::auth::CloudTelemetryAuthInterceptor;
 use google_cloud_auth::credentials::{Builder as AdcBuilder, Credentials};
+use opentelemetry::KeyValue;
 use opentelemetry_otlp::tonic_types::transport::ClientTlsConfig;
 use opentelemetry_otlp::{ExporterBuildError, WithExportConfig, WithTonicConfig};
-use opentelemetry_sdk::metrics::SdkMeterProvider;
+use opentelemetry_sdk::metrics::{Aggregation, Instrument, SdkMeterProvider, Stream};
 use opentelemetry_sdk::resource::ResourceDetector;
 
 pub use http::Uri;
@@ -126,8 +127,8 @@ impl Builder {
     pub async fn build(self) -> Result<SdkMeterProvider, Error> {
         let resource = opentelemetry_sdk::Resource::builder()
             .with_attributes(vec![
-                opentelemetry::KeyValue::new(OTEL_KEY_GCP_PROJECT_ID, self.project_id),
-                opentelemetry::KeyValue::new(OTEL_KEY_SERVICE_NAME, self.service_name),
+                KeyValue::new(OTEL_KEY_GCP_PROJECT_ID, self.project_id),
+                KeyValue::new(OTEL_KEY_SERVICE_NAME, self.service_name),
             ])
             .with_detectors(&Vec::from_iter(self.detector.into_iter()))
             .build();
@@ -147,7 +148,7 @@ impl Builder {
             if self
                 .endpoint
                 .scheme()
-                .is_none_or(|s| s != &http::uri::Scheme::HTTP)
+                .is_none_or(|s| s != &http::uri::Scheme::HTTPS)
             {
                 builder
             } else {
@@ -163,12 +164,53 @@ impl Builder {
         };
 
         let exporter = exporter_builder.build().map_err(Error::create_exporter)?;
+        let view = move |ins: &Instrument| {
+            let name = if Self::name_missing_prefix(ins.name()) {
+                format!("workload.googleapis.com/{}", ins.name())
+            } else {
+                ins.name().to_string()
+            };
+            tracing::info!("exporting instrument: {ins:?} with name {name}");
+            Stream::builder()
+                .with_name(name)
+                .with_aggregation(Aggregation::Base2ExponentialHistogram {
+                    max_size: 32,
+                    max_scale: 20,
+                    record_min_max: true,
+                })
+                .build()
+                .expect("stream should be valid")
+                .into()
+        };
         let provider = SdkMeterProvider::builder()
             .with_periodic_exporter(exporter)
             .with_resource(resource)
+            .with_view(view)
             .build();
 
         Ok(provider)
+    }
+
+    /// Returns true if the metric name needs a `workload.googleapis.com` prefix.
+    ///
+    /// Google Cloud Monitoring only accepts metric names in these formats:
+    ///     custom.googleapis.com/{name}
+    ///     workload.googleapis.com/{name}
+    ///     project/{projectId}/metriDescriptors/custom.googleapis.com/{name}
+    ///     project/{projectId}/metriDescriptors/workload.googleapis.com/{name}
+    fn name_missing_prefix(name: &str) -> bool {
+        const W: &str = "workload.googleapis.com";
+        const C: &str = "custom.googleapis.com";
+        const P: &str = "projects";
+        const D: &str = "metricDescriptors";
+        let mut s = name.split('/');
+        match (s.next(), s.next(), s.next(), s.next(), s.next()) {
+            (Some(P), Some(_), Some(D), Some(W), Some(_)) => false,
+            (Some(P), Some(_), Some(D), Some(C), Some(_)) => false,
+            (Some(W), Some(_), _, _, _) => false,
+            (Some(C), Some(_), _, _, _) => false,
+            _ => true,
+        }
     }
 }
 
@@ -209,6 +251,7 @@ mod tests {
     use opentelemetry_proto::tonic::metrics::v1::number_data_point::Value;
     use std::collections::BTreeMap;
     use std::str::FromStr;
+    use test_case::test_case;
 
     /// Tests that the provider sends authenticated results to a mock
     /// collector.
@@ -354,5 +397,19 @@ mod tests {
         );
 
         Ok(())
+    }
+
+    #[test_case("plain", true)]
+    #[test_case("custom.googleapis.com/plain", false)]
+    #[test_case("workload.googleapis.com/plain", false)]
+    #[test_case("projects/p/metricDescriptors/custom.googleapis.com/plain", false)]
+    #[test_case("projects/p/metricDescriptors/workload.googleapis.com/plain", false)]
+    #[test_case("projects/p/custom.googleapis.com/plain", true)]
+    #[test_case("projects/p/workload.googleapis.com/plain", true)]
+    #[test_case("projects/p/D/custom.googleapis.com/plain", true)]
+    #[test_case("projects/p/D/workload.googleapis.com/plain", true)]
+    fn prefix(name: &str, want: bool) {
+        let got = Builder::name_missing_prefix(name);
+        assert_eq!(got, want, "{name}");
     }
 }

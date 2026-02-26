@@ -5908,16 +5908,19 @@ dependencies = [
  "google-cloud-auth",
  "google-cloud-gax",
  "google-cloud-lro",
+ "google-cloud-monitoring-v3",
  "google-cloud-showcase-v1beta1",
  "google-cloud-storage",
  "google-cloud-test-utils",
  "google-cloud-trace-v1",
+ "google-cloud-wkt",
  "http",
  "httptest",
  "opentelemetry",
  "opentelemetry-otlp",
  "opentelemetry-proto",
  "opentelemetry_sdk",
+ "rand 0.10.0",
  "reqwest 0.13.2",
  "scoped-env",
  "serde",
@@ -5933,6 +5936,7 @@ dependencies = [
  "tracing",
  "tracing-opentelemetry",
  "tracing-subscriber",
+ "uuid",
 ]
 
 [[package]]
@@ -6466,6 +6470,19 @@ dependencies = [
  "js-sys",
  "pin-project-lite",
  "thiserror 2.0.18",
+ "tracing",
+]
+
+[[package]]
+name = "opentelemetry-http"
+version = "0.31.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "d7a6d09a73194e6b66df7c8f1b680f156d916a1a942abf2de06823dd02b7855d"
+dependencies = [
+ "async-trait",
+ "bytes",
+ "http",
+ "opentelemetry",
 ]
 
 [[package]]
@@ -6476,12 +6493,14 @@ checksum = "7a2366db2dca4d2ad033cad11e6ee42844fd727007af5ad04a1730f4cb8163bf"
 dependencies = [
  "http",
  "opentelemetry",
+ "opentelemetry-http",
  "opentelemetry-proto",
  "opentelemetry_sdk",
  "prost",
  "thiserror 2.0.18",
  "tokio",
  "tonic",
+ "tracing",
 ]
 
 [[package]]
