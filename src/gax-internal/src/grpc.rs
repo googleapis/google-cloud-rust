@@ -215,6 +215,62 @@ impl Client {
             .await)
     }
 
+    /// Opens a server stream.
+    pub async fn server_streaming<Request, Response>(
+        &self,
+        extensions: tonic::Extensions,
+        path: http::uri::PathAndQuery,
+        request: Request,
+        options: RequestOptions,
+        api_client_header: &'static str,
+        request_params: &str,
+    ) -> Result<tonic::Response<tonic::Streaming<Response>>>
+    where
+        Request: prost::Message + Clone + 'static,
+        Response: prost::Message + Default + 'static,
+    {
+        self.server_streaming_with_status(
+            extensions,
+            path,
+            request,
+            options,
+            api_client_header,
+            request_params,
+        )
+        .await?
+        .map_err(to_gax_error)
+    }
+
+    /// Opens a server stream with detailed status.
+    pub async fn server_streaming_with_status<Request, Response>(
+        &self,
+        extensions: tonic::Extensions,
+        path: http::uri::PathAndQuery,
+        request: Request,
+        options: RequestOptions,
+        api_client_header: &'static str,
+        request_params: &str,
+    ) -> Result<tonic::Result<tonic::Response<tonic::Streaming<Response>>>>
+    where
+        Request: prost::Message + Clone + 'static,
+        Response: prost::Message + Default + 'static,
+    {
+        use ::tonic::IntoRequest;
+        let headers = Self::make_headers(api_client_header, request_params, &options).await?;
+        let headers = self.add_auth_headers(headers).await?;
+        let metadata = tonic::MetadataMap::from_headers(headers);
+        let mut request = ::tonic::Request::from_parts(metadata, extensions, request);
+        if let Some(attempt_timeout) = options.attempt_timeout() {
+            request.set_timeout(*attempt_timeout);
+        }
+        let codec = tonic_prost::ProstCodec::<Request, Response>::default();
+        let mut inner = self.inner.clone();
+        inner.ready().await.map_err(Error::io)?;
+        Ok(inner
+            .server_streaming(request.into_request(), path, codec)
+            .await)
+    }
+
     /// Runs the retry loop.
     async fn retry_loop<Request, Response>(
         &self,
