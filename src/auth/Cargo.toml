@@ -62,7 +62,7 @@ google-cloud-gax.workspace = true
 anyhow.workspace      = true
 httptest.workspace    = true
 mockall.workspace     = true
-regex                 = { workspace = true }
+regex.workspace       = true
 rsa                   = { workspace = true, features = ["pem", "sha2"] }
 p256                  = { workspace = true, features = ["ecdsa", "pem"] }
 scoped-env.workspace  = true
