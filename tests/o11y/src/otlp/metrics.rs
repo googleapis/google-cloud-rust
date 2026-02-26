@@ -38,6 +38,7 @@ use google_cloud_auth::credentials::{Builder as AdcBuilder, Credentials};
 use opentelemetry_otlp::tonic_types::transport::ClientTlsConfig;
 use opentelemetry_otlp::{ExporterBuildError, WithExportConfig, WithTonicConfig};
 use opentelemetry_sdk::metrics::SdkMeterProvider;
+use opentelemetry_sdk::resource::ResourceDetector;
 
 pub use http::Uri;
 
@@ -72,6 +73,7 @@ pub struct Builder {
     service_name: String,
     credentials: Option<Credentials>,
     endpoint: Uri,
+    detector: Option<Box<dyn ResourceDetector>>,
 }
 
 impl Builder {
@@ -93,6 +95,7 @@ impl Builder {
             service_name: service_name.into(),
             credentials: None,
             endpoint: uri,
+            detector: None,
         }
     }
 
@@ -110,6 +113,15 @@ impl Builder {
         self
     }
 
+    /// Sets the resource detector.
+    pub fn with_detector<D>(mut self, detector: D) -> Self
+    where
+        D: ResourceDetector + 'static,
+    {
+        self.detector = Some(Box::new(detector));
+        self
+    }
+
     /// Builds and initializes the `SdkTracerProvider`.
     pub async fn build(self) -> Result<SdkMeterProvider, Error> {
         let resource = opentelemetry_sdk::Resource::builder()
@@ -117,6 +129,7 @@ impl Builder {
                 opentelemetry::KeyValue::new(OTEL_KEY_GCP_PROJECT_ID, self.project_id),
                 opentelemetry::KeyValue::new(OTEL_KEY_SERVICE_NAME, self.service_name),
             ])
+            .with_detectors(&Vec::from_iter(self.detector.into_iter()))
             .build();
         let credentials = match self.credentials {
             Some(c) => c,

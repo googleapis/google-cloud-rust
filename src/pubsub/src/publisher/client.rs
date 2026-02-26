@@ -20,6 +20,8 @@ use crate::publisher::builder::PublisherBuilder;
 use tokio::sync::mpsc::UnboundedSender;
 use tokio::sync::oneshot;
 
+pub use super::base_publisher::BasePublisher;
+
 /// A Publisher client for the [Cloud Pub/Sub] API.
 ///
 /// A `Publisher` sends messages to a specific topic. It manages message batching
