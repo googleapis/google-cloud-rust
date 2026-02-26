@@ -15,8 +15,6 @@
 
 set -ev
 
-rustup toolchain install nightly
-rustup default nightly
 rustup component add clippy rustfmt
 cargo version
 rustup show active-toolchain -v

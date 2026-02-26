@@ -24,7 +24,7 @@ pub async fn run(bucket_name: &str) -> anyhow::Result<()> {
         Box::pin(ranged_reads(&client, bucket_name)),
         Box::pin(read_gzip(&client, bucket_name)),
     ];
-    let result: Result<Vec<_>> = futures::future::join_all(pending.into_iter())
+    let result: Result<Vec<_>> = futures::future::join_all(pending)
         .await
         .into_iter()
         .collect();
