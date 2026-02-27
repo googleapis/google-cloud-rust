@@ -152,10 +152,10 @@ impl StorageBatchOperations {
     /// # use google_cloud_storagebatchoperations_v1::client::StorageBatchOperations;
     /// use google_cloud_storagebatchoperations_v1::Result;
     /// async fn sample(
-    ///    client: &StorageBatchOperations, resource_name: &str
+    ///    client: &StorageBatchOperations, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_job()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -208,10 +208,10 @@ impl StorageBatchOperations {
     /// # use google_cloud_storagebatchoperations_v1::client::StorageBatchOperations;
     /// use google_cloud_storagebatchoperations_v1::Result;
     /// async fn sample(
-    ///    client: &StorageBatchOperations, resource_name: &str
+    ///    client: &StorageBatchOperations, name: &str
     /// ) -> Result<()> {
     ///     client.delete_job()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -272,10 +272,10 @@ impl StorageBatchOperations {
     /// # use google_cloud_storagebatchoperations_v1::client::StorageBatchOperations;
     /// use google_cloud_storagebatchoperations_v1::Result;
     /// async fn sample(
-    ///    client: &StorageBatchOperations, resource_name: &str
+    ///    client: &StorageBatchOperations, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_bucket_operation()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())

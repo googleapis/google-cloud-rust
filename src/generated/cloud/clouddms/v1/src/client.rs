@@ -149,10 +149,10 @@ impl DataMigrationService {
     /// # use google_cloud_clouddms_v1::client::DataMigrationService;
     /// use google_cloud_clouddms_v1::Result;
     /// async fn sample(
-    ///    client: &DataMigrationService, resource_name: &str
+    ///    client: &DataMigrationService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_migration_job()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -256,10 +256,10 @@ impl DataMigrationService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_clouddms_v1::Result;
     /// async fn sample(
-    ///    client: &DataMigrationService, resource_name: &str
+    ///    client: &DataMigrationService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_migration_job()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -546,10 +546,10 @@ impl DataMigrationService {
     /// # use google_cloud_clouddms_v1::client::DataMigrationService;
     /// use google_cloud_clouddms_v1::Result;
     /// async fn sample(
-    ///    client: &DataMigrationService, resource_name: &str
+    ///    client: &DataMigrationService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_connection_profile()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -657,10 +657,10 @@ impl DataMigrationService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_clouddms_v1::Result;
     /// async fn sample(
-    ///    client: &DataMigrationService, resource_name: &str
+    ///    client: &DataMigrationService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_connection_profile()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -715,10 +715,10 @@ impl DataMigrationService {
     /// # use google_cloud_clouddms_v1::client::DataMigrationService;
     /// use google_cloud_clouddms_v1::Result;
     /// async fn sample(
-    ///    client: &DataMigrationService, resource_name: &str
+    ///    client: &DataMigrationService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_private_connection()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -773,10 +773,10 @@ impl DataMigrationService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_clouddms_v1::Result;
     /// async fn sample(
-    ///    client: &DataMigrationService, resource_name: &str
+    ///    client: &DataMigrationService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_private_connection()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -794,10 +794,10 @@ impl DataMigrationService {
     /// # use google_cloud_clouddms_v1::client::DataMigrationService;
     /// use google_cloud_clouddms_v1::Result;
     /// async fn sample(
-    ///    client: &DataMigrationService, resource_name: &str
+    ///    client: &DataMigrationService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_conversion_workspace()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -928,10 +928,10 @@ impl DataMigrationService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_clouddms_v1::Result;
     /// async fn sample(
-    ///    client: &DataMigrationService, resource_name: &str
+    ///    client: &DataMigrationService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_conversion_workspace()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1015,10 +1015,10 @@ impl DataMigrationService {
     /// # use google_cloud_clouddms_v1::client::DataMigrationService;
     /// use google_cloud_clouddms_v1::Result;
     /// async fn sample(
-    ///    client: &DataMigrationService, resource_name: &str
+    ///    client: &DataMigrationService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_mapping_rule()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())

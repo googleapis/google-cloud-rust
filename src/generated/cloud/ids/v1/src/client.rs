@@ -148,10 +148,10 @@ impl Ids {
     /// # use google_cloud_ids_v1::client::Ids;
     /// use google_cloud_ids_v1::Result;
     /// async fn sample(
-    ///    client: &Ids, resource_name: &str
+    ///    client: &Ids, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_endpoint()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -215,10 +215,10 @@ impl Ids {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_ids_v1::Result;
     /// async fn sample(
-    ///    client: &Ids, resource_name: &str
+    ///    client: &Ids, name: &str
     /// ) -> Result<()> {
     ///     client.delete_endpoint()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }

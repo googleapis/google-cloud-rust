@@ -151,10 +151,10 @@ impl AddressGroupService {
     /// # use google_cloud_networksecurity_v1::client::AddressGroupService;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &AddressGroupService, resource_name: &str
+    ///    client: &AddressGroupService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_address_group()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -357,10 +357,10 @@ impl AddressGroupService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &AddressGroupService, resource_name: &str
+    ///    client: &AddressGroupService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_address_group()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -744,10 +744,10 @@ impl OrganizationAddressGroupService {
     /// # use google_cloud_networksecurity_v1::client::OrganizationAddressGroupService;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &OrganizationAddressGroupService, resource_name: &str
+    ///    client: &OrganizationAddressGroupService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_address_group()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -962,10 +962,10 @@ impl OrganizationAddressGroupService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &OrganizationAddressGroupService, resource_name: &str
+    ///    client: &OrganizationAddressGroupService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_address_group()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1363,10 +1363,10 @@ impl NetworkSecurity {
     /// # use google_cloud_networksecurity_v1::client::NetworkSecurity;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkSecurity, resource_name: &str
+    ///    client: &NetworkSecurity, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_authorization_policy()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1472,10 +1472,10 @@ impl NetworkSecurity {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkSecurity, resource_name: &str
+    ///    client: &NetworkSecurity, name: &str
     /// ) -> Result<()> {
     ///     client.delete_authorization_policy()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1518,10 +1518,10 @@ impl NetworkSecurity {
     /// # use google_cloud_networksecurity_v1::client::NetworkSecurity;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkSecurity, resource_name: &str
+    ///    client: &NetworkSecurity, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_server_tls_policy()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1625,10 +1625,10 @@ impl NetworkSecurity {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkSecurity, resource_name: &str
+    ///    client: &NetworkSecurity, name: &str
     /// ) -> Result<()> {
     ///     client.delete_server_tls_policy()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1671,10 +1671,10 @@ impl NetworkSecurity {
     /// # use google_cloud_networksecurity_v1::client::NetworkSecurity;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkSecurity, resource_name: &str
+    ///    client: &NetworkSecurity, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_client_tls_policy()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1778,10 +1778,10 @@ impl NetworkSecurity {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_networksecurity_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkSecurity, resource_name: &str
+    ///    client: &NetworkSecurity, name: &str
     /// ) -> Result<()> {
     ///     client.delete_client_tls_policy()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }

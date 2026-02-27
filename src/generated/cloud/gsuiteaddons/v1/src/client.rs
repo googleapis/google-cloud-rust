@@ -152,10 +152,10 @@ impl GSuiteAddOns {
     /// # use google_cloud_gsuiteaddons_v1::client::GSuiteAddOns;
     /// use google_cloud_gsuiteaddons_v1::Result;
     /// async fn sample(
-    ///    client: &GSuiteAddOns, resource_name: &str
+    ///    client: &GSuiteAddOns, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_authorization()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -217,10 +217,10 @@ impl GSuiteAddOns {
     /// # use google_cloud_gsuiteaddons_v1::client::GSuiteAddOns;
     /// use google_cloud_gsuiteaddons_v1::Result;
     /// async fn sample(
-    ///    client: &GSuiteAddOns, resource_name: &str
+    ///    client: &GSuiteAddOns, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_deployment()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -260,10 +260,10 @@ impl GSuiteAddOns {
     /// # use google_cloud_gsuiteaddons_v1::client::GSuiteAddOns;
     /// use google_cloud_gsuiteaddons_v1::Result;
     /// async fn sample(
-    ///    client: &GSuiteAddOns, resource_name: &str
+    ///    client: &GSuiteAddOns, name: &str
     /// ) -> Result<()> {
     ///     client.delete_deployment()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -321,10 +321,10 @@ impl GSuiteAddOns {
     /// # use google_cloud_gsuiteaddons_v1::client::GSuiteAddOns;
     /// use google_cloud_gsuiteaddons_v1::Result;
     /// async fn sample(
-    ///    client: &GSuiteAddOns, resource_name: &str
+    ///    client: &GSuiteAddOns, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_install_status()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())

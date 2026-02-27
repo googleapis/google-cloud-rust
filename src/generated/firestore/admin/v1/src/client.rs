@@ -217,10 +217,10 @@ impl FirestoreAdmin {
     /// # use google_cloud_firestore_admin_v1::client::FirestoreAdmin;
     /// use google_cloud_firestore_admin_v1::Result;
     /// async fn sample(
-    ///    client: &FirestoreAdmin, resource_name: &str
+    ///    client: &FirestoreAdmin, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_index()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -237,10 +237,10 @@ impl FirestoreAdmin {
     /// # use google_cloud_firestore_admin_v1::client::FirestoreAdmin;
     /// use google_cloud_firestore_admin_v1::Result;
     /// async fn sample(
-    ///    client: &FirestoreAdmin, resource_name: &str
+    ///    client: &FirestoreAdmin, name: &str
     /// ) -> Result<()> {
     ///     client.delete_index()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -256,10 +256,10 @@ impl FirestoreAdmin {
     /// # use google_cloud_firestore_admin_v1::client::FirestoreAdmin;
     /// use google_cloud_firestore_admin_v1::Result;
     /// async fn sample(
-    ///    client: &FirestoreAdmin, resource_name: &str
+    ///    client: &FirestoreAdmin, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_field()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -514,10 +514,10 @@ impl FirestoreAdmin {
     /// # use google_cloud_firestore_admin_v1::client::FirestoreAdmin;
     /// use google_cloud_firestore_admin_v1::Result;
     /// async fn sample(
-    ///    client: &FirestoreAdmin, resource_name: &str
+    ///    client: &FirestoreAdmin, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_database()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -602,10 +602,10 @@ impl FirestoreAdmin {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_firestore_admin_v1::Result;
     /// async fn sample(
-    ///    client: &FirestoreAdmin, resource_name: &str
+    ///    client: &FirestoreAdmin, name: &str
     /// ) -> Result<()> {
     ///     let response = client.delete_database()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -647,10 +647,10 @@ impl FirestoreAdmin {
     /// # use google_cloud_firestore_admin_v1::client::FirestoreAdmin;
     /// use google_cloud_firestore_admin_v1::Result;
     /// async fn sample(
-    ///    client: &FirestoreAdmin, resource_name: &str
+    ///    client: &FirestoreAdmin, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_user_creds()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -748,10 +748,10 @@ impl FirestoreAdmin {
     /// # use google_cloud_firestore_admin_v1::client::FirestoreAdmin;
     /// use google_cloud_firestore_admin_v1::Result;
     /// async fn sample(
-    ///    client: &FirestoreAdmin, resource_name: &str
+    ///    client: &FirestoreAdmin, name: &str
     /// ) -> Result<()> {
     ///     client.delete_user_creds()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -767,10 +767,10 @@ impl FirestoreAdmin {
     /// # use google_cloud_firestore_admin_v1::client::FirestoreAdmin;
     /// use google_cloud_firestore_admin_v1::Result;
     /// async fn sample(
-    ///    client: &FirestoreAdmin, resource_name: &str
+    ///    client: &FirestoreAdmin, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_backup()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -807,10 +807,10 @@ impl FirestoreAdmin {
     /// # use google_cloud_firestore_admin_v1::client::FirestoreAdmin;
     /// use google_cloud_firestore_admin_v1::Result;
     /// async fn sample(
-    ///    client: &FirestoreAdmin, resource_name: &str
+    ///    client: &FirestoreAdmin, name: &str
     /// ) -> Result<()> {
     ///     client.delete_backup()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -906,10 +906,10 @@ impl FirestoreAdmin {
     /// # use google_cloud_firestore_admin_v1::client::FirestoreAdmin;
     /// use google_cloud_firestore_admin_v1::Result;
     /// async fn sample(
-    ///    client: &FirestoreAdmin, resource_name: &str
+    ///    client: &FirestoreAdmin, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_backup_schedule()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -972,10 +972,10 @@ impl FirestoreAdmin {
     /// # use google_cloud_firestore_admin_v1::client::FirestoreAdmin;
     /// use google_cloud_firestore_admin_v1::Result;
     /// async fn sample(
-    ///    client: &FirestoreAdmin, resource_name: &str
+    ///    client: &FirestoreAdmin, name: &str
     /// ) -> Result<()> {
     ///     client.delete_backup_schedule()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }

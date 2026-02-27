@@ -170,10 +170,10 @@ impl BigtableInstanceAdmin {
     /// # use google_cloud_bigtable_admin_v2::client::BigtableInstanceAdmin;
     /// use google_cloud_bigtable_admin_v2::Result;
     /// async fn sample(
-    ///    client: &BigtableInstanceAdmin, resource_name: &str
+    ///    client: &BigtableInstanceAdmin, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_instance()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -266,10 +266,10 @@ impl BigtableInstanceAdmin {
     /// # use google_cloud_bigtable_admin_v2::client::BigtableInstanceAdmin;
     /// use google_cloud_bigtable_admin_v2::Result;
     /// async fn sample(
-    ///    client: &BigtableInstanceAdmin, resource_name: &str
+    ///    client: &BigtableInstanceAdmin, name: &str
     /// ) -> Result<()> {
     ///     client.delete_instance()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -327,10 +327,10 @@ impl BigtableInstanceAdmin {
     /// # use google_cloud_bigtable_admin_v2::client::BigtableInstanceAdmin;
     /// use google_cloud_bigtable_admin_v2::Result;
     /// async fn sample(
-    ///    client: &BigtableInstanceAdmin, resource_name: &str
+    ///    client: &BigtableInstanceAdmin, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_cluster()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -446,10 +446,10 @@ impl BigtableInstanceAdmin {
     /// # use google_cloud_bigtable_admin_v2::client::BigtableInstanceAdmin;
     /// use google_cloud_bigtable_admin_v2::Result;
     /// async fn sample(
-    ///    client: &BigtableInstanceAdmin, resource_name: &str
+    ///    client: &BigtableInstanceAdmin, name: &str
     /// ) -> Result<()> {
     ///     client.delete_cluster()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -489,10 +489,10 @@ impl BigtableInstanceAdmin {
     /// # use google_cloud_bigtable_admin_v2::client::BigtableInstanceAdmin;
     /// use google_cloud_bigtable_admin_v2::Result;
     /// async fn sample(
-    ///    client: &BigtableInstanceAdmin, resource_name: &str
+    ///    client: &BigtableInstanceAdmin, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_app_profile()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -569,10 +569,10 @@ impl BigtableInstanceAdmin {
     /// # use google_cloud_bigtable_admin_v2::client::BigtableInstanceAdmin;
     /// use google_cloud_bigtable_admin_v2::Result;
     /// async fn sample(
-    ///    client: &BigtableInstanceAdmin, resource_name: &str
+    ///    client: &BigtableInstanceAdmin, name: &str
     /// ) -> Result<()> {
     ///     client.delete_app_profile()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -713,10 +713,10 @@ impl BigtableInstanceAdmin {
     /// # use google_cloud_bigtable_admin_v2::client::BigtableInstanceAdmin;
     /// use google_cloud_bigtable_admin_v2::Result;
     /// async fn sample(
-    ///    client: &BigtableInstanceAdmin, resource_name: &str
+    ///    client: &BigtableInstanceAdmin, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_logical_view()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -795,10 +795,10 @@ impl BigtableInstanceAdmin {
     /// # use google_cloud_bigtable_admin_v2::client::BigtableInstanceAdmin;
     /// use google_cloud_bigtable_admin_v2::Result;
     /// async fn sample(
-    ///    client: &BigtableInstanceAdmin, resource_name: &str
+    ///    client: &BigtableInstanceAdmin, name: &str
     /// ) -> Result<()> {
     ///     client.delete_logical_view()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -853,10 +853,10 @@ impl BigtableInstanceAdmin {
     /// # use google_cloud_bigtable_admin_v2::client::BigtableInstanceAdmin;
     /// use google_cloud_bigtable_admin_v2::Result;
     /// async fn sample(
-    ///    client: &BigtableInstanceAdmin, resource_name: &str
+    ///    client: &BigtableInstanceAdmin, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_materialized_view()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -939,10 +939,10 @@ impl BigtableInstanceAdmin {
     /// # use google_cloud_bigtable_admin_v2::client::BigtableInstanceAdmin;
     /// use google_cloud_bigtable_admin_v2::Result;
     /// async fn sample(
-    ///    client: &BigtableInstanceAdmin, resource_name: &str
+    ///    client: &BigtableInstanceAdmin, name: &str
     /// ) -> Result<()> {
     ///     client.delete_materialized_view()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -1246,10 +1246,10 @@ impl BigtableTableAdmin {
     /// # use google_cloud_bigtable_admin_v2::client::BigtableTableAdmin;
     /// use google_cloud_bigtable_admin_v2::Result;
     /// async fn sample(
-    ///    client: &BigtableTableAdmin, resource_name: &str
+    ///    client: &BigtableTableAdmin, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_table()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1303,10 +1303,10 @@ impl BigtableTableAdmin {
     /// # use google_cloud_bigtable_admin_v2::client::BigtableTableAdmin;
     /// use google_cloud_bigtable_admin_v2::Result;
     /// async fn sample(
-    ///    client: &BigtableTableAdmin, resource_name: &str
+    ///    client: &BigtableTableAdmin, name: &str
     /// ) -> Result<()> {
     ///     client.delete_table()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -1333,10 +1333,10 @@ impl BigtableTableAdmin {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_bigtable_admin_v2::Result;
     /// async fn sample(
-    ///    client: &BigtableTableAdmin, resource_name: &str
+    ///    client: &BigtableTableAdmin, name: &str
     /// ) -> Result<()> {
     ///     let response = client.undelete_table()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1415,10 +1415,10 @@ impl BigtableTableAdmin {
     /// # use google_cloud_bigtable_admin_v2::client::BigtableTableAdmin;
     /// use google_cloud_bigtable_admin_v2::Result;
     /// async fn sample(
-    ///    client: &BigtableTableAdmin, resource_name: &str
+    ///    client: &BigtableTableAdmin, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_authorized_view()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1474,10 +1474,10 @@ impl BigtableTableAdmin {
     /// # use google_cloud_bigtable_admin_v2::client::BigtableTableAdmin;
     /// use google_cloud_bigtable_admin_v2::Result;
     /// async fn sample(
-    ///    client: &BigtableTableAdmin, resource_name: &str
+    ///    client: &BigtableTableAdmin, name: &str
     /// ) -> Result<()> {
     ///     client.delete_authorized_view()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -1632,10 +1632,10 @@ impl BigtableTableAdmin {
     /// # use google_cloud_bigtable_admin_v2::client::BigtableTableAdmin;
     /// use google_cloud_bigtable_admin_v2::Result;
     /// async fn sample(
-    ///    client: &BigtableTableAdmin, resource_name: &str
+    ///    client: &BigtableTableAdmin, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_snapshot()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1687,10 +1687,10 @@ impl BigtableTableAdmin {
     /// # use google_cloud_bigtable_admin_v2::client::BigtableTableAdmin;
     /// use google_cloud_bigtable_admin_v2::Result;
     /// async fn sample(
-    ///    client: &BigtableTableAdmin, resource_name: &str
+    ///    client: &BigtableTableAdmin, name: &str
     /// ) -> Result<()> {
     ///     client.delete_snapshot()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -1755,10 +1755,10 @@ impl BigtableTableAdmin {
     /// # use google_cloud_bigtable_admin_v2::client::BigtableTableAdmin;
     /// use google_cloud_bigtable_admin_v2::Result;
     /// async fn sample(
-    ///    client: &BigtableTableAdmin, resource_name: &str
+    ///    client: &BigtableTableAdmin, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_backup()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1801,10 +1801,10 @@ impl BigtableTableAdmin {
     /// # use google_cloud_bigtable_admin_v2::client::BigtableTableAdmin;
     /// use google_cloud_bigtable_admin_v2::Result;
     /// async fn sample(
-    ///    client: &BigtableTableAdmin, resource_name: &str
+    ///    client: &BigtableTableAdmin, name: &str
     /// ) -> Result<()> {
     ///     client.delete_backup()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -2055,10 +2055,10 @@ impl BigtableTableAdmin {
     /// # use google_cloud_bigtable_admin_v2::client::BigtableTableAdmin;
     /// use google_cloud_bigtable_admin_v2::Result;
     /// async fn sample(
-    ///    client: &BigtableTableAdmin, resource_name: &str
+    ///    client: &BigtableTableAdmin, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_schema_bundle()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -2098,10 +2098,10 @@ impl BigtableTableAdmin {
     /// # use google_cloud_bigtable_admin_v2::client::BigtableTableAdmin;
     /// use google_cloud_bigtable_admin_v2::Result;
     /// async fn sample(
-    ///    client: &BigtableTableAdmin, resource_name: &str
+    ///    client: &BigtableTableAdmin, name: &str
     /// ) -> Result<()> {
     ///     client.delete_schema_bundle()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }

@@ -417,10 +417,10 @@ impl AlloyDBAdmin {
     /// # use google_cloud_alloydb_v1::client::AlloyDBAdmin;
     /// use google_cloud_alloydb_v1::Result;
     /// async fn sample(
-    ///    client: &AlloyDBAdmin, resource_name: &str
+    ///    client: &AlloyDBAdmin, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_cluster()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -617,10 +617,10 @@ impl AlloyDBAdmin {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_alloydb_v1::Result;
     /// async fn sample(
-    ///    client: &AlloyDBAdmin, resource_name: &str
+    ///    client: &AlloyDBAdmin, name: &str
     /// ) -> Result<()> {
     ///     client.delete_cluster()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -793,10 +793,10 @@ impl AlloyDBAdmin {
     /// # use google_cloud_alloydb_v1::client::AlloyDBAdmin;
     /// use google_cloud_alloydb_v1::Result;
     /// async fn sample(
-    ///    client: &AlloyDBAdmin, resource_name: &str
+    ///    client: &AlloyDBAdmin, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_instance()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -970,10 +970,10 @@ impl AlloyDBAdmin {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_alloydb_v1::Result;
     /// async fn sample(
-    ///    client: &AlloyDBAdmin, resource_name: &str
+    ///    client: &AlloyDBAdmin, name: &str
     /// ) -> Result<()> {
     ///     client.delete_instance()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1129,10 +1129,10 @@ impl AlloyDBAdmin {
     /// # use google_cloud_alloydb_v1::client::AlloyDBAdmin;
     /// use google_cloud_alloydb_v1::Result;
     /// async fn sample(
-    ///    client: &AlloyDBAdmin, resource_name: &str
+    ///    client: &AlloyDBAdmin, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_backup()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1233,10 +1233,10 @@ impl AlloyDBAdmin {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_alloydb_v1::Result;
     /// async fn sample(
-    ///    client: &AlloyDBAdmin, resource_name: &str
+    ///    client: &AlloyDBAdmin, name: &str
     /// ) -> Result<()> {
     ///     client.delete_backup()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1346,10 +1346,10 @@ impl AlloyDBAdmin {
     /// # use google_cloud_alloydb_v1::client::AlloyDBAdmin;
     /// use google_cloud_alloydb_v1::Result;
     /// async fn sample(
-    ///    client: &AlloyDBAdmin, resource_name: &str
+    ///    client: &AlloyDBAdmin, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_user()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1417,10 +1417,10 @@ impl AlloyDBAdmin {
     /// # use google_cloud_alloydb_v1::client::AlloyDBAdmin;
     /// use google_cloud_alloydb_v1::Result;
     /// async fn sample(
-    ///    client: &AlloyDBAdmin, resource_name: &str
+    ///    client: &AlloyDBAdmin, name: &str
     /// ) -> Result<()> {
     ///     client.delete_user()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }

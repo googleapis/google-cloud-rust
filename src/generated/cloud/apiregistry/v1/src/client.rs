@@ -127,10 +127,10 @@ impl CloudApiRegistry {
     /// # use google_cloud_apiregistry_v1::client::CloudApiRegistry;
     /// use google_cloud_apiregistry_v1::Result;
     /// async fn sample(
-    ///    client: &CloudApiRegistry, resource_name: &str
+    ///    client: &CloudApiRegistry, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_mcp_server()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -170,10 +170,10 @@ impl CloudApiRegistry {
     /// # use google_cloud_apiregistry_v1::client::CloudApiRegistry;
     /// use google_cloud_apiregistry_v1::Result;
     /// async fn sample(
-    ///    client: &CloudApiRegistry, resource_name: &str
+    ///    client: &CloudApiRegistry, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_mcp_tool()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())

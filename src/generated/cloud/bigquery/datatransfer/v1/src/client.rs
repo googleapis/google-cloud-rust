@@ -126,10 +126,10 @@ impl DataTransferService {
     /// # use google_cloud_bigquery_datatransfer_v1::client::DataTransferService;
     /// use google_cloud_bigquery_datatransfer_v1::Result;
     /// async fn sample(
-    ///    client: &DataTransferService, resource_name: &str
+    ///    client: &DataTransferService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_data_source()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -225,10 +225,10 @@ impl DataTransferService {
     /// # use google_cloud_bigquery_datatransfer_v1::client::DataTransferService;
     /// use google_cloud_bigquery_datatransfer_v1::Result;
     /// async fn sample(
-    ///    client: &DataTransferService, resource_name: &str
+    ///    client: &DataTransferService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_transfer_config()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -246,10 +246,10 @@ impl DataTransferService {
     /// # use google_cloud_bigquery_datatransfer_v1::client::DataTransferService;
     /// use google_cloud_bigquery_datatransfer_v1::Result;
     /// async fn sample(
-    ///    client: &DataTransferService, resource_name: &str
+    ///    client: &DataTransferService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_transfer_config()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -344,10 +344,10 @@ impl DataTransferService {
     /// # use google_cloud_bigquery_datatransfer_v1::client::DataTransferService;
     /// use google_cloud_bigquery_datatransfer_v1::Result;
     /// async fn sample(
-    ///    client: &DataTransferService, resource_name: &str
+    ///    client: &DataTransferService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_transfer_run()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -364,10 +364,10 @@ impl DataTransferService {
     /// # use google_cloud_bigquery_datatransfer_v1::client::DataTransferService;
     /// use google_cloud_bigquery_datatransfer_v1::Result;
     /// async fn sample(
-    ///    client: &DataTransferService, resource_name: &str
+    ///    client: &DataTransferService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_transfer_run()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }

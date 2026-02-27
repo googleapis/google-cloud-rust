@@ -152,10 +152,10 @@ impl Dataform {
     /// # use google_cloud_dataform_v1::client::Dataform;
     /// use google_cloud_dataform_v1::Result;
     /// async fn sample(
-    ///    client: &Dataform, resource_name: &str
+    ///    client: &Dataform, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_repository()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -228,10 +228,10 @@ impl Dataform {
     /// # use google_cloud_dataform_v1::client::Dataform;
     /// use google_cloud_dataform_v1::Result;
     /// async fn sample(
-    ///    client: &Dataform, resource_name: &str
+    ///    client: &Dataform, name: &str
     /// ) -> Result<()> {
     ///     client.delete_repository()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -404,10 +404,10 @@ impl Dataform {
     /// # use google_cloud_dataform_v1::client::Dataform;
     /// use google_cloud_dataform_v1::Result;
     /// async fn sample(
-    ///    client: &Dataform, resource_name: &str
+    ///    client: &Dataform, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_workspace()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -449,10 +449,10 @@ impl Dataform {
     /// # use google_cloud_dataform_v1::client::Dataform;
     /// use google_cloud_dataform_v1::Result;
     /// async fn sample(
-    ///    client: &Dataform, resource_name: &str
+    ///    client: &Dataform, name: &str
     /// ) -> Result<()> {
     ///     client.delete_workspace()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -838,10 +838,10 @@ impl Dataform {
     /// # use google_cloud_dataform_v1::client::Dataform;
     /// use google_cloud_dataform_v1::Result;
     /// async fn sample(
-    ///    client: &Dataform, resource_name: &str
+    ///    client: &Dataform, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_release_config()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -913,10 +913,10 @@ impl Dataform {
     /// # use google_cloud_dataform_v1::client::Dataform;
     /// use google_cloud_dataform_v1::Result;
     /// async fn sample(
-    ///    client: &Dataform, resource_name: &str
+    ///    client: &Dataform, name: &str
     /// ) -> Result<()> {
     ///     client.delete_release_config()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -955,10 +955,10 @@ impl Dataform {
     /// # use google_cloud_dataform_v1::client::Dataform;
     /// use google_cloud_dataform_v1::Result;
     /// async fn sample(
-    ///    client: &Dataform, resource_name: &str
+    ///    client: &Dataform, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_compilation_result()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1047,10 +1047,10 @@ impl Dataform {
     /// # use google_cloud_dataform_v1::client::Dataform;
     /// use google_cloud_dataform_v1::Result;
     /// async fn sample(
-    ///    client: &Dataform, resource_name: &str
+    ///    client: &Dataform, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_workflow_config()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1122,10 +1122,10 @@ impl Dataform {
     /// # use google_cloud_dataform_v1::client::Dataform;
     /// use google_cloud_dataform_v1::Result;
     /// async fn sample(
-    ///    client: &Dataform, resource_name: &str
+    ///    client: &Dataform, name: &str
     /// ) -> Result<()> {
     ///     client.delete_workflow_config()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -1164,10 +1164,10 @@ impl Dataform {
     /// # use google_cloud_dataform_v1::client::Dataform;
     /// use google_cloud_dataform_v1::Result;
     /// async fn sample(
-    ///    client: &Dataform, resource_name: &str
+    ///    client: &Dataform, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_workflow_invocation()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1208,10 +1208,10 @@ impl Dataform {
     /// # use google_cloud_dataform_v1::client::Dataform;
     /// use google_cloud_dataform_v1::Result;
     /// async fn sample(
-    ///    client: &Dataform, resource_name: &str
+    ///    client: &Dataform, name: &str
     /// ) -> Result<()> {
     ///     client.delete_workflow_invocation()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -1272,10 +1272,10 @@ impl Dataform {
     /// # use google_cloud_dataform_v1::client::Dataform;
     /// use google_cloud_dataform_v1::Result;
     /// async fn sample(
-    ///    client: &Dataform, resource_name: &str
+    ///    client: &Dataform, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_config()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())

@@ -194,10 +194,10 @@ impl OrgPolicy {
     /// # use google_cloud_orgpolicy_v2::client::OrgPolicy;
     /// use google_cloud_orgpolicy_v2::Result;
     /// async fn sample(
-    ///    client: &OrgPolicy, resource_name: &str
+    ///    client: &OrgPolicy, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_policy()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -219,10 +219,10 @@ impl OrgPolicy {
     /// # use google_cloud_orgpolicy_v2::client::OrgPolicy;
     /// use google_cloud_orgpolicy_v2::Result;
     /// async fn sample(
-    ///    client: &OrgPolicy, resource_name: &str
+    ///    client: &OrgPolicy, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_effective_policy()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -305,10 +305,10 @@ impl OrgPolicy {
     /// # use google_cloud_orgpolicy_v2::client::OrgPolicy;
     /// use google_cloud_orgpolicy_v2::Result;
     /// async fn sample(
-    ///    client: &OrgPolicy, resource_name: &str
+    ///    client: &OrgPolicy, name: &str
     /// ) -> Result<()> {
     ///     client.delete_policy()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -385,10 +385,10 @@ impl OrgPolicy {
     /// # use google_cloud_orgpolicy_v2::client::OrgPolicy;
     /// use google_cloud_orgpolicy_v2::Result;
     /// async fn sample(
-    ///    client: &OrgPolicy, resource_name: &str
+    ///    client: &OrgPolicy, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_custom_constraint()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -432,10 +432,10 @@ impl OrgPolicy {
     /// # use google_cloud_orgpolicy_v2::client::OrgPolicy;
     /// use google_cloud_orgpolicy_v2::Result;
     /// async fn sample(
-    ///    client: &OrgPolicy, resource_name: &str
+    ///    client: &OrgPolicy, name: &str
     /// ) -> Result<()> {
     ///     client.delete_custom_constraint()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }

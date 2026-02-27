@@ -219,10 +219,10 @@ impl AssuredWorkloadsService {
     /// # use google_cloud_assuredworkloads_v1::client::AssuredWorkloadsService;
     /// use google_cloud_assuredworkloads_v1::Result;
     /// async fn sample(
-    ///    client: &AssuredWorkloadsService, resource_name: &str
+    ///    client: &AssuredWorkloadsService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_workload()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -238,10 +238,10 @@ impl AssuredWorkloadsService {
     /// # use google_cloud_assuredworkloads_v1::client::AssuredWorkloadsService;
     /// use google_cloud_assuredworkloads_v1::Result;
     /// async fn sample(
-    ///    client: &AssuredWorkloadsService, resource_name: &str
+    ///    client: &AssuredWorkloadsService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_workload()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())

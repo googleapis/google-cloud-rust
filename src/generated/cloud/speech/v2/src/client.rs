@@ -191,10 +191,10 @@ impl Speech {
     /// # use google_cloud_speech_v2::client::Speech;
     /// use google_cloud_speech_v2::Result;
     /// async fn sample(
-    ///    client: &Speech, resource_name: &str
+    ///    client: &Speech, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_recognizer()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -263,10 +263,10 @@ impl Speech {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_speech_v2::Result;
     /// async fn sample(
-    ///    client: &Speech, resource_name: &str
+    ///    client: &Speech, name: &str
     /// ) -> Result<()> {
     ///     let response = client.delete_recognizer()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -296,10 +296,10 @@ impl Speech {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_speech_v2::Result;
     /// async fn sample(
-    ///    client: &Speech, resource_name: &str
+    ///    client: &Speech, name: &str
     /// ) -> Result<()> {
     ///     let response = client.undelete_recognizer()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -372,10 +372,10 @@ impl Speech {
     /// # use google_cloud_speech_v2::client::Speech;
     /// use google_cloud_speech_v2::Result;
     /// async fn sample(
-    ///    client: &Speech, resource_name: &str
+    ///    client: &Speech, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_config()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -483,10 +483,10 @@ impl Speech {
     /// # use google_cloud_speech_v2::client::Speech;
     /// use google_cloud_speech_v2::Result;
     /// async fn sample(
-    ///    client: &Speech, resource_name: &str
+    ///    client: &Speech, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_custom_class()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -555,10 +555,10 @@ impl Speech {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_speech_v2::Result;
     /// async fn sample(
-    ///    client: &Speech, resource_name: &str
+    ///    client: &Speech, name: &str
     /// ) -> Result<()> {
     ///     let response = client.delete_custom_class()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -588,10 +588,10 @@ impl Speech {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_speech_v2::Result;
     /// async fn sample(
-    ///    client: &Speech, resource_name: &str
+    ///    client: &Speech, name: &str
     /// ) -> Result<()> {
     ///     let response = client.undelete_custom_class()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -671,10 +671,10 @@ impl Speech {
     /// # use google_cloud_speech_v2::client::Speech;
     /// use google_cloud_speech_v2::Result;
     /// async fn sample(
-    ///    client: &Speech, resource_name: &str
+    ///    client: &Speech, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_phrase_set()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -743,10 +743,10 @@ impl Speech {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_speech_v2::Result;
     /// async fn sample(
-    ///    client: &Speech, resource_name: &str
+    ///    client: &Speech, name: &str
     /// ) -> Result<()> {
     ///     let response = client.delete_phrase_set()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -776,10 +776,10 @@ impl Speech {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_speech_v2::Result;
     /// async fn sample(
-    ///    client: &Speech, resource_name: &str
+    ///    client: &Speech, name: &str
     /// ) -> Result<()> {
     ///     let response = client.undelete_phrase_set()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())

@@ -188,10 +188,10 @@ impl ReservationService {
     /// # use google_cloud_bigquery_reservation_v1::client::ReservationService;
     /// use google_cloud_bigquery_reservation_v1::Result;
     /// async fn sample(
-    ///    client: &ReservationService, resource_name: &str
+    ///    client: &ReservationService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_reservation()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -210,10 +210,10 @@ impl ReservationService {
     /// # use google_cloud_bigquery_reservation_v1::client::ReservationService;
     /// use google_cloud_bigquery_reservation_v1::Result;
     /// async fn sample(
-    ///    client: &ReservationService, resource_name: &str
+    ///    client: &ReservationService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_reservation()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -330,10 +330,10 @@ impl ReservationService {
     /// # use google_cloud_bigquery_reservation_v1::client::ReservationService;
     /// use google_cloud_bigquery_reservation_v1::Result;
     /// async fn sample(
-    ///    client: &ReservationService, resource_name: &str
+    ///    client: &ReservationService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_capacity_commitment()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -354,10 +354,10 @@ impl ReservationService {
     /// # use google_cloud_bigquery_reservation_v1::client::ReservationService;
     /// use google_cloud_bigquery_reservation_v1::Result;
     /// async fn sample(
-    ///    client: &ReservationService, resource_name: &str
+    ///    client: &ReservationService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_capacity_commitment()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -582,10 +582,10 @@ impl ReservationService {
     /// # use google_cloud_bigquery_reservation_v1::client::ReservationService;
     /// use google_cloud_bigquery_reservation_v1::Result;
     /// async fn sample(
-    ///    client: &ReservationService, resource_name: &str
+    ///    client: &ReservationService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_assignment()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -743,10 +743,10 @@ impl ReservationService {
     /// # use google_cloud_bigquery_reservation_v1::client::ReservationService;
     /// use google_cloud_bigquery_reservation_v1::Result;
     /// async fn sample(
-    ///    client: &ReservationService, resource_name: &str
+    ///    client: &ReservationService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_bi_reservation()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -916,10 +916,10 @@ impl ReservationService {
     /// # use google_cloud_bigquery_reservation_v1::client::ReservationService;
     /// use google_cloud_bigquery_reservation_v1::Result;
     /// async fn sample(
-    ///    client: &ReservationService, resource_name: &str
+    ///    client: &ReservationService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_reservation_group()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -940,10 +940,10 @@ impl ReservationService {
     /// # use google_cloud_bigquery_reservation_v1::client::ReservationService;
     /// use google_cloud_bigquery_reservation_v1::Result;
     /// async fn sample(
-    ///    client: &ReservationService, resource_name: &str
+    ///    client: &ReservationService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_reservation_group()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }

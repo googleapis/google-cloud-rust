@@ -132,10 +132,10 @@ impl CloudShellService {
     /// # use google_cloud_shell_v1::client::CloudShellService;
     /// use google_cloud_shell_v1::Result;
     /// async fn sample(
-    ///    client: &CloudShellService, resource_name: &str
+    ///    client: &CloudShellService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_environment()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())

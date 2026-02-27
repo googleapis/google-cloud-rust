@@ -181,10 +181,10 @@ impl OrgPolicyViolationsPreviewService {
     /// # use google_cloud_policysimulator_v1::client::OrgPolicyViolationsPreviewService;
     /// use google_cloud_policysimulator_v1::Result;
     /// async fn sample(
-    ///    client: &OrgPolicyViolationsPreviewService, resource_name: &str
+    ///    client: &OrgPolicyViolationsPreviewService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_org_policy_violations_preview()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -455,10 +455,10 @@ impl Simulator {
     /// # use google_cloud_policysimulator_v1::client::Simulator;
     /// use google_cloud_policysimulator_v1::Result;
     /// async fn sample(
-    ///    client: &Simulator, resource_name: &str
+    ///    client: &Simulator, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_replay()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())

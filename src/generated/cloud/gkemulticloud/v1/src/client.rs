@@ -264,10 +264,10 @@ impl AttachedClusters {
     /// # use google_cloud_gkemulticloud_v1::client::AttachedClusters;
     /// use google_cloud_gkemulticloud_v1::Result;
     /// async fn sample(
-    ///    client: &AttachedClusters, resource_name: &str
+    ///    client: &AttachedClusters, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_attached_cluster()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -331,10 +331,10 @@ impl AttachedClusters {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_gkemulticloud_v1::Result;
     /// async fn sample(
-    ///    client: &AttachedClusters, resource_name: &str
+    ///    client: &AttachedClusters, name: &str
     /// ) -> Result<()> {
     ///     client.delete_attached_cluster()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -353,10 +353,10 @@ impl AttachedClusters {
     /// # use google_cloud_gkemulticloud_v1::client::AttachedClusters;
     /// use google_cloud_gkemulticloud_v1::Result;
     /// async fn sample(
-    ///    client: &AttachedClusters, resource_name: &str
+    ///    client: &AttachedClusters, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_attached_server_config()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -704,10 +704,10 @@ impl AwsClusters {
     /// # use google_cloud_gkemulticloud_v1::client::AwsClusters;
     /// use google_cloud_gkemulticloud_v1::Result;
     /// async fn sample(
-    ///    client: &AwsClusters, resource_name: &str
+    ///    client: &AwsClusters, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_aws_cluster()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -775,10 +775,10 @@ impl AwsClusters {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_gkemulticloud_v1::Result;
     /// async fn sample(
-    ///    client: &AwsClusters, resource_name: &str
+    ///    client: &AwsClusters, name: &str
     /// ) -> Result<()> {
     ///     client.delete_aws_cluster()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -973,10 +973,10 @@ impl AwsClusters {
     /// # use google_cloud_gkemulticloud_v1::client::AwsClusters;
     /// use google_cloud_gkemulticloud_v1::Result;
     /// async fn sample(
-    ///    client: &AwsClusters, resource_name: &str
+    ///    client: &AwsClusters, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_aws_node_pool()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1042,10 +1042,10 @@ impl AwsClusters {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_gkemulticloud_v1::Result;
     /// async fn sample(
-    ///    client: &AwsClusters, resource_name: &str
+    ///    client: &AwsClusters, name: &str
     /// ) -> Result<()> {
     ///     client.delete_aws_node_pool()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1110,10 +1110,10 @@ impl AwsClusters {
     /// # use google_cloud_gkemulticloud_v1::client::AwsClusters;
     /// use google_cloud_gkemulticloud_v1::Result;
     /// async fn sample(
-    ///    client: &AwsClusters, resource_name: &str
+    ///    client: &AwsClusters, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_aws_server_config()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1376,10 +1376,10 @@ impl AzureClusters {
     /// # use google_cloud_gkemulticloud_v1::client::AzureClusters;
     /// use google_cloud_gkemulticloud_v1::Result;
     /// async fn sample(
-    ///    client: &AzureClusters, resource_name: &str
+    ///    client: &AzureClusters, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_azure_client()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1446,10 +1446,10 @@ impl AzureClusters {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_gkemulticloud_v1::Result;
     /// async fn sample(
-    ///    client: &AzureClusters, resource_name: &str
+    ///    client: &AzureClusters, name: &str
     /// ) -> Result<()> {
     ///     client.delete_azure_client()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1553,10 +1553,10 @@ impl AzureClusters {
     /// # use google_cloud_gkemulticloud_v1::client::AzureClusters;
     /// use google_cloud_gkemulticloud_v1::Result;
     /// async fn sample(
-    ///    client: &AzureClusters, resource_name: &str
+    ///    client: &AzureClusters, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_azure_cluster()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1624,10 +1624,10 @@ impl AzureClusters {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_gkemulticloud_v1::Result;
     /// async fn sample(
-    ///    client: &AzureClusters, resource_name: &str
+    ///    client: &AzureClusters, name: &str
     /// ) -> Result<()> {
     ///     client.delete_azure_cluster()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1782,10 +1782,10 @@ impl AzureClusters {
     /// # use google_cloud_gkemulticloud_v1::client::AzureClusters;
     /// use google_cloud_gkemulticloud_v1::Result;
     /// async fn sample(
-    ///    client: &AzureClusters, resource_name: &str
+    ///    client: &AzureClusters, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_azure_node_pool()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1851,10 +1851,10 @@ impl AzureClusters {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_gkemulticloud_v1::Result;
     /// async fn sample(
-    ///    client: &AzureClusters, resource_name: &str
+    ///    client: &AzureClusters, name: &str
     /// ) -> Result<()> {
     ///     client.delete_azure_node_pool()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1919,10 +1919,10 @@ impl AzureClusters {
     /// # use google_cloud_gkemulticloud_v1::client::AzureClusters;
     /// use google_cloud_gkemulticloud_v1::Result;
     /// async fn sample(
-    ///    client: &AzureClusters, resource_name: &str
+    ///    client: &AzureClusters, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_azure_server_config()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())

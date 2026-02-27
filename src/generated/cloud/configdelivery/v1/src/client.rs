@@ -149,10 +149,10 @@ impl ConfigDelivery {
     /// # use google_cloud_configdelivery_v1::client::ConfigDelivery;
     /// use google_cloud_configdelivery_v1::Result;
     /// async fn sample(
-    ///    client: &ConfigDelivery, resource_name: &str
+    ///    client: &ConfigDelivery, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_resource_bundle()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -252,10 +252,10 @@ impl ConfigDelivery {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_configdelivery_v1::Result;
     /// async fn sample(
-    ///    client: &ConfigDelivery, resource_name: &str
+    ///    client: &ConfigDelivery, name: &str
     /// ) -> Result<()> {
     ///     client.delete_resource_bundle()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -294,10 +294,10 @@ impl ConfigDelivery {
     /// # use google_cloud_configdelivery_v1::client::ConfigDelivery;
     /// use google_cloud_configdelivery_v1::Result;
     /// async fn sample(
-    ///    client: &ConfigDelivery, resource_name: &str
+    ///    client: &ConfigDelivery, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_fleet_package()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -397,10 +397,10 @@ impl ConfigDelivery {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_configdelivery_v1::Result;
     /// async fn sample(
-    ///    client: &ConfigDelivery, resource_name: &str
+    ///    client: &ConfigDelivery, name: &str
     /// ) -> Result<()> {
     ///     client.delete_fleet_package()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -439,10 +439,10 @@ impl ConfigDelivery {
     /// # use google_cloud_configdelivery_v1::client::ConfigDelivery;
     /// use google_cloud_configdelivery_v1::Result;
     /// async fn sample(
-    ///    client: &ConfigDelivery, resource_name: &str
+    ///    client: &ConfigDelivery, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_release()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -543,10 +543,10 @@ impl ConfigDelivery {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_configdelivery_v1::Result;
     /// async fn sample(
-    ///    client: &ConfigDelivery, resource_name: &str
+    ///    client: &ConfigDelivery, name: &str
     /// ) -> Result<()> {
     ///     client.delete_release()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -585,10 +585,10 @@ impl ConfigDelivery {
     /// # use google_cloud_configdelivery_v1::client::ConfigDelivery;
     /// use google_cloud_configdelivery_v1::Result;
     /// async fn sample(
-    ///    client: &ConfigDelivery, resource_name: &str
+    ///    client: &ConfigDelivery, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_variant()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -690,10 +690,10 @@ impl ConfigDelivery {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_configdelivery_v1::Result;
     /// async fn sample(
-    ///    client: &ConfigDelivery, resource_name: &str
+    ///    client: &ConfigDelivery, name: &str
     /// ) -> Result<()> {
     ///     client.delete_variant()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -732,10 +732,10 @@ impl ConfigDelivery {
     /// # use google_cloud_configdelivery_v1::client::ConfigDelivery;
     /// use google_cloud_configdelivery_v1::Result;
     /// async fn sample(
-    ///    client: &ConfigDelivery, resource_name: &str
+    ///    client: &ConfigDelivery, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_rollout()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())

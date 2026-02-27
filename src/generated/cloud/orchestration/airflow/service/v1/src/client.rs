@@ -423,10 +423,10 @@ impl Environments {
     /// # use google_cloud_orchestration_airflow_service_v1::client::Environments;
     /// use google_cloud_orchestration_airflow_service_v1::Result;
     /// async fn sample(
-    ///    client: &Environments, resource_name: &str
+    ///    client: &Environments, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_user_workloads_secret()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -504,10 +504,10 @@ impl Environments {
     /// # use google_cloud_orchestration_airflow_service_v1::client::Environments;
     /// use google_cloud_orchestration_airflow_service_v1::Result;
     /// async fn sample(
-    ///    client: &Environments, resource_name: &str
+    ///    client: &Environments, name: &str
     /// ) -> Result<()> {
     ///     client.delete_user_workloads_secret()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -557,10 +557,10 @@ impl Environments {
     /// # use google_cloud_orchestration_airflow_service_v1::client::Environments;
     /// use google_cloud_orchestration_airflow_service_v1::Result;
     /// async fn sample(
-    ///    client: &Environments, resource_name: &str
+    ///    client: &Environments, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_user_workloads_config_map()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -638,10 +638,10 @@ impl Environments {
     /// # use google_cloud_orchestration_airflow_service_v1::client::Environments;
     /// use google_cloud_orchestration_airflow_service_v1::Result;
     /// async fn sample(
-    ///    client: &Environments, resource_name: &str
+    ///    client: &Environments, name: &str
     /// ) -> Result<()> {
     ///     client.delete_user_workloads_config_map()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }

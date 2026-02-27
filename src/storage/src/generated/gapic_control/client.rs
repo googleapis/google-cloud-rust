@@ -100,10 +100,10 @@ impl StorageControl {
     /// # use google_cloud_storage::client::StorageControl;
     /// use google_cloud_storage::Result;
     /// async fn sample(
-    ///    client: &StorageControl, resource_name: &str
+    ///    client: &StorageControl, name: &str
     /// ) -> Result<()> {
     ///     client.delete_folder()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -120,10 +120,10 @@ impl StorageControl {
     /// # use google_cloud_storage::client::StorageControl;
     /// use google_cloud_storage::Result;
     /// async fn sample(
-    ///    client: &StorageControl, resource_name: &str
+    ///    client: &StorageControl, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_folder()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -231,10 +231,10 @@ impl StorageControl {
     /// # use google_cloud_storage::client::StorageControl;
     /// use google_cloud_storage::Result;
     /// async fn sample(
-    ///    client: &StorageControl, resource_name: &str
+    ///    client: &StorageControl, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_storage_layout()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -271,10 +271,10 @@ impl StorageControl {
     /// # use google_cloud_storage::client::StorageControl;
     /// use google_cloud_storage::Result;
     /// async fn sample(
-    ///    client: &StorageControl, resource_name: &str
+    ///    client: &StorageControl, name: &str
     /// ) -> Result<()> {
     ///     client.delete_managed_folder()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -290,10 +290,10 @@ impl StorageControl {
     /// # use google_cloud_storage::client::StorageControl;
     /// use google_cloud_storage::Result;
     /// async fn sample(
-    ///    client: &StorageControl, resource_name: &str
+    ///    client: &StorageControl, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_managed_folder()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -459,10 +459,10 @@ impl StorageControl {
     /// # use google_cloud_storage::client::StorageControl;
     /// use google_cloud_storage::Result;
     /// async fn sample(
-    ///    client: &StorageControl, resource_name: &str
+    ///    client: &StorageControl, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_anywhere_cache()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())

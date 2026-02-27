@@ -245,10 +245,10 @@ impl AssetService {
     /// # use google_cloud_asset_v1::client::AssetService;
     /// use google_cloud_asset_v1::Result;
     /// async fn sample(
-    ///    client: &AssetService, resource_name: &str
+    ///    client: &AssetService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_feed()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -311,10 +311,10 @@ impl AssetService {
     /// # use google_cloud_asset_v1::client::AssetService;
     /// use google_cloud_asset_v1::Result;
     /// async fn sample(
-    ///    client: &AssetService, resource_name: &str
+    ///    client: &AssetService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_feed()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -527,10 +527,10 @@ impl AssetService {
     /// # use google_cloud_asset_v1::client::AssetService;
     /// use google_cloud_asset_v1::Result;
     /// async fn sample(
-    ///    client: &AssetService, resource_name: &str
+    ///    client: &AssetService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_saved_query()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -596,10 +596,10 @@ impl AssetService {
     /// # use google_cloud_asset_v1::client::AssetService;
     /// use google_cloud_asset_v1::Result;
     /// async fn sample(
-    ///    client: &AssetService, resource_name: &str
+    ///    client: &AssetService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_saved_query()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }

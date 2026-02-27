@@ -152,10 +152,10 @@ impl MigrationService {
     /// # use google_cloud_bigquery_migration_v2::client::MigrationService;
     /// use google_cloud_bigquery_migration_v2::Result;
     /// async fn sample(
-    ///    client: &MigrationService, resource_name: &str
+    ///    client: &MigrationService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_migration_workflow()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -199,10 +199,10 @@ impl MigrationService {
     /// # use google_cloud_bigquery_migration_v2::client::MigrationService;
     /// use google_cloud_bigquery_migration_v2::Result;
     /// async fn sample(
-    ///    client: &MigrationService, resource_name: &str
+    ///    client: &MigrationService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_migration_workflow()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -244,10 +244,10 @@ impl MigrationService {
     /// # use google_cloud_bigquery_migration_v2::client::MigrationService;
     /// use google_cloud_bigquery_migration_v2::Result;
     /// async fn sample(
-    ///    client: &MigrationService, resource_name: &str
+    ///    client: &MigrationService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_migration_subtask()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())

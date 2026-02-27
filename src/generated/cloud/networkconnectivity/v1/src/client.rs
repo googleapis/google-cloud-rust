@@ -154,10 +154,10 @@ impl CrossNetworkAutomationService {
     /// # use google_cloud_networkconnectivity_v1::client::CrossNetworkAutomationService;
     /// use google_cloud_networkconnectivity_v1::Result;
     /// async fn sample(
-    ///    client: &CrossNetworkAutomationService, resource_name: &str
+    ///    client: &CrossNetworkAutomationService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_service_connection_map()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -269,10 +269,10 @@ impl CrossNetworkAutomationService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_networkconnectivity_v1::Result;
     /// async fn sample(
-    ///    client: &CrossNetworkAutomationService, resource_name: &str
+    ///    client: &CrossNetworkAutomationService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_service_connection_map()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -319,10 +319,10 @@ impl CrossNetworkAutomationService {
     /// # use google_cloud_networkconnectivity_v1::client::CrossNetworkAutomationService;
     /// use google_cloud_networkconnectivity_v1::Result;
     /// async fn sample(
-    ///    client: &CrossNetworkAutomationService, resource_name: &str
+    ///    client: &CrossNetworkAutomationService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_service_connection_policy()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -434,10 +434,10 @@ impl CrossNetworkAutomationService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_networkconnectivity_v1::Result;
     /// async fn sample(
-    ///    client: &CrossNetworkAutomationService, resource_name: &str
+    ///    client: &CrossNetworkAutomationService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_service_connection_policy()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -484,10 +484,10 @@ impl CrossNetworkAutomationService {
     /// # use google_cloud_networkconnectivity_v1::client::CrossNetworkAutomationService;
     /// use google_cloud_networkconnectivity_v1::Result;
     /// async fn sample(
-    ///    client: &CrossNetworkAutomationService, resource_name: &str
+    ///    client: &CrossNetworkAutomationService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_service_class()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -558,10 +558,10 @@ impl CrossNetworkAutomationService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_networkconnectivity_v1::Result;
     /// async fn sample(
-    ///    client: &CrossNetworkAutomationService, resource_name: &str
+    ///    client: &CrossNetworkAutomationService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_service_class()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -581,10 +581,10 @@ impl CrossNetworkAutomationService {
     /// # use google_cloud_networkconnectivity_v1::client::CrossNetworkAutomationService;
     /// use google_cloud_networkconnectivity_v1::Result;
     /// async fn sample(
-    ///    client: &CrossNetworkAutomationService, resource_name: &str
+    ///    client: &CrossNetworkAutomationService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_service_connection_token()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -682,10 +682,10 @@ impl CrossNetworkAutomationService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_networkconnectivity_v1::Result;
     /// async fn sample(
-    ///    client: &CrossNetworkAutomationService, resource_name: &str
+    ///    client: &CrossNetworkAutomationService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_service_connection_token()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1052,10 +1052,10 @@ impl DataTransferService {
     /// # use google_cloud_networkconnectivity_v1::client::DataTransferService;
     /// use google_cloud_networkconnectivity_v1::Result;
     /// async fn sample(
-    ///    client: &DataTransferService, resource_name: &str
+    ///    client: &DataTransferService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_multicloud_data_transfer_config()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1169,10 +1169,10 @@ impl DataTransferService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_networkconnectivity_v1::Result;
     /// async fn sample(
-    ///    client: &DataTransferService, resource_name: &str
+    ///    client: &DataTransferService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_multicloud_data_transfer_config()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1215,10 +1215,10 @@ impl DataTransferService {
     /// # use google_cloud_networkconnectivity_v1::client::DataTransferService;
     /// use google_cloud_networkconnectivity_v1::Result;
     /// async fn sample(
-    ///    client: &DataTransferService, resource_name: &str
+    ///    client: &DataTransferService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_destination()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1319,10 +1319,10 @@ impl DataTransferService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_networkconnectivity_v1::Result;
     /// async fn sample(
-    ///    client: &DataTransferService, resource_name: &str
+    ///    client: &DataTransferService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_destination()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1339,10 +1339,10 @@ impl DataTransferService {
     /// # use google_cloud_networkconnectivity_v1::client::DataTransferService;
     /// use google_cloud_networkconnectivity_v1::Result;
     /// async fn sample(
-    ///    client: &DataTransferService, resource_name: &str
+    ///    client: &DataTransferService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_multicloud_data_transfer_supported_service()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1724,10 +1724,10 @@ impl HubService {
     /// # use google_cloud_networkconnectivity_v1::client::HubService;
     /// use google_cloud_networkconnectivity_v1::Result;
     /// async fn sample(
-    ///    client: &HubService, resource_name: &str
+    ///    client: &HubService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_hub()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1829,10 +1829,10 @@ impl HubService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_networkconnectivity_v1::Result;
     /// async fn sample(
-    ///    client: &HubService, resource_name: &str
+    ///    client: &HubService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_hub()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1921,10 +1921,10 @@ impl HubService {
     /// # use google_cloud_networkconnectivity_v1::client::HubService;
     /// use google_cloud_networkconnectivity_v1::Result;
     /// async fn sample(
-    ///    client: &HubService, resource_name: &str
+    ///    client: &HubService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_spoke()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -2153,10 +2153,10 @@ impl HubService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_networkconnectivity_v1::Result;
     /// async fn sample(
-    ///    client: &HubService, resource_name: &str
+    ///    client: &HubService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_spoke()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -2172,10 +2172,10 @@ impl HubService {
     /// # use google_cloud_networkconnectivity_v1::client::HubService;
     /// use google_cloud_networkconnectivity_v1::Result;
     /// async fn sample(
-    ///    client: &HubService, resource_name: &str
+    ///    client: &HubService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_route_table()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -2192,10 +2192,10 @@ impl HubService {
     /// # use google_cloud_networkconnectivity_v1::client::HubService;
     /// use google_cloud_networkconnectivity_v1::Result;
     /// async fn sample(
-    ///    client: &HubService, resource_name: &str
+    ///    client: &HubService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_route()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -2258,10 +2258,10 @@ impl HubService {
     /// # use google_cloud_networkconnectivity_v1::client::HubService;
     /// use google_cloud_networkconnectivity_v1::Result;
     /// async fn sample(
-    ///    client: &HubService, resource_name: &str
+    ///    client: &HubService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_group()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -2671,10 +2671,10 @@ impl InternalRangeService {
     /// # use google_cloud_networkconnectivity_v1::client::InternalRangeService;
     /// use google_cloud_networkconnectivity_v1::Result;
     /// async fn sample(
-    ///    client: &InternalRangeService, resource_name: &str
+    ///    client: &InternalRangeService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_internal_range()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -2778,10 +2778,10 @@ impl InternalRangeService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_networkconnectivity_v1::Result;
     /// async fn sample(
-    ///    client: &InternalRangeService, resource_name: &str
+    ///    client: &InternalRangeService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_internal_range()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -3135,10 +3135,10 @@ impl PolicyBasedRoutingService {
     /// # use google_cloud_networkconnectivity_v1::client::PolicyBasedRoutingService;
     /// use google_cloud_networkconnectivity_v1::Result;
     /// async fn sample(
-    ///    client: &PolicyBasedRoutingService, resource_name: &str
+    ///    client: &PolicyBasedRoutingService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_policy_based_route()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -3207,10 +3207,10 @@ impl PolicyBasedRoutingService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_networkconnectivity_v1::Result;
     /// async fn sample(
-    ///    client: &PolicyBasedRoutingService, resource_name: &str
+    ///    client: &PolicyBasedRoutingService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_policy_based_route()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }

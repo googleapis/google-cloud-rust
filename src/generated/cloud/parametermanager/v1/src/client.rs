@@ -149,10 +149,10 @@ impl ParameterManager {
     /// # use google_cloud_parametermanager_v1::client::ParameterManager;
     /// use google_cloud_parametermanager_v1::Result;
     /// async fn sample(
-    ///    client: &ParameterManager, resource_name: &str
+    ///    client: &ParameterManager, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_parameter()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -220,10 +220,10 @@ impl ParameterManager {
     /// # use google_cloud_parametermanager_v1::client::ParameterManager;
     /// use google_cloud_parametermanager_v1::Result;
     /// async fn sample(
-    ///    client: &ParameterManager, resource_name: &str
+    ///    client: &ParameterManager, name: &str
     /// ) -> Result<()> {
     ///     client.delete_parameter()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -264,10 +264,10 @@ impl ParameterManager {
     /// # use google_cloud_parametermanager_v1::client::ParameterManager;
     /// use google_cloud_parametermanager_v1::Result;
     /// async fn sample(
-    ///    client: &ParameterManager, resource_name: &str
+    ///    client: &ParameterManager, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_parameter_version()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -360,10 +360,10 @@ impl ParameterManager {
     /// # use google_cloud_parametermanager_v1::client::ParameterManager;
     /// use google_cloud_parametermanager_v1::Result;
     /// async fn sample(
-    ///    client: &ParameterManager, resource_name: &str
+    ///    client: &ParameterManager, name: &str
     /// ) -> Result<()> {
     ///     client.delete_parameter_version()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }

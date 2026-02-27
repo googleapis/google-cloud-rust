@@ -126,10 +126,10 @@ impl Eventarc {
     /// # use google_cloud_eventarc_v1::client::Eventarc;
     /// use google_cloud_eventarc_v1::Result;
     /// async fn sample(
-    ///    client: &Eventarc, resource_name: &str
+    ///    client: &Eventarc, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_trigger()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -253,10 +253,10 @@ impl Eventarc {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_eventarc_v1::Result;
     /// async fn sample(
-    ///    client: &Eventarc, resource_name: &str
+    ///    client: &Eventarc, name: &str
     /// ) -> Result<()> {
     ///     let response = client.delete_trigger()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -273,10 +273,10 @@ impl Eventarc {
     /// # use google_cloud_eventarc_v1::client::Eventarc;
     /// use google_cloud_eventarc_v1::Result;
     /// async fn sample(
-    ///    client: &Eventarc, resource_name: &str
+    ///    client: &Eventarc, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_channel()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -400,10 +400,10 @@ impl Eventarc {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_eventarc_v1::Result;
     /// async fn sample(
-    ///    client: &Eventarc, resource_name: &str
+    ///    client: &Eventarc, name: &str
     /// ) -> Result<()> {
     ///     let response = client.delete_channel()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -420,10 +420,10 @@ impl Eventarc {
     /// # use google_cloud_eventarc_v1::client::Eventarc;
     /// use google_cloud_eventarc_v1::Result;
     /// async fn sample(
-    ///    client: &Eventarc, resource_name: &str
+    ///    client: &Eventarc, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_provider()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -463,10 +463,10 @@ impl Eventarc {
     /// # use google_cloud_eventarc_v1::client::Eventarc;
     /// use google_cloud_eventarc_v1::Result;
     /// async fn sample(
-    ///    client: &Eventarc, resource_name: &str
+    ///    client: &Eventarc, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_channel_connection()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -552,10 +552,10 @@ impl Eventarc {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_eventarc_v1::Result;
     /// async fn sample(
-    ///    client: &Eventarc, resource_name: &str
+    ///    client: &Eventarc, name: &str
     /// ) -> Result<()> {
     ///     let response = client.delete_channel_connection()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -574,10 +574,10 @@ impl Eventarc {
     /// # use google_cloud_eventarc_v1::client::Eventarc;
     /// use google_cloud_eventarc_v1::Result;
     /// async fn sample(
-    ///    client: &Eventarc, resource_name: &str
+    ///    client: &Eventarc, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_google_channel_config()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -622,10 +622,10 @@ impl Eventarc {
     /// # use google_cloud_eventarc_v1::client::Eventarc;
     /// use google_cloud_eventarc_v1::Result;
     /// async fn sample(
-    ///    client: &Eventarc, resource_name: &str
+    ///    client: &Eventarc, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_message_bus()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -770,10 +770,10 @@ impl Eventarc {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_eventarc_v1::Result;
     /// async fn sample(
-    ///    client: &Eventarc, resource_name: &str
+    ///    client: &Eventarc, name: &str
     /// ) -> Result<()> {
     ///     let response = client.delete_message_bus()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -790,10 +790,10 @@ impl Eventarc {
     /// # use google_cloud_eventarc_v1::client::Eventarc;
     /// use google_cloud_eventarc_v1::Result;
     /// async fn sample(
-    ///    client: &Eventarc, resource_name: &str
+    ///    client: &Eventarc, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_enrollment()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -917,10 +917,10 @@ impl Eventarc {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_eventarc_v1::Result;
     /// async fn sample(
-    ///    client: &Eventarc, resource_name: &str
+    ///    client: &Eventarc, name: &str
     /// ) -> Result<()> {
     ///     let response = client.delete_enrollment()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -937,10 +937,10 @@ impl Eventarc {
     /// # use google_cloud_eventarc_v1::client::Eventarc;
     /// use google_cloud_eventarc_v1::Result;
     /// async fn sample(
-    ///    client: &Eventarc, resource_name: &str
+    ///    client: &Eventarc, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_pipeline()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1064,10 +1064,10 @@ impl Eventarc {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_eventarc_v1::Result;
     /// async fn sample(
-    ///    client: &Eventarc, resource_name: &str
+    ///    client: &Eventarc, name: &str
     /// ) -> Result<()> {
     ///     let response = client.delete_pipeline()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1084,10 +1084,10 @@ impl Eventarc {
     /// # use google_cloud_eventarc_v1::client::Eventarc;
     /// use google_cloud_eventarc_v1::Result;
     /// async fn sample(
-    ///    client: &Eventarc, resource_name: &str
+    ///    client: &Eventarc, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_google_api_source()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1210,10 +1210,10 @@ impl Eventarc {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_eventarc_v1::Result;
     /// async fn sample(
-    ///    client: &Eventarc, resource_name: &str
+    ///    client: &Eventarc, name: &str
     /// ) -> Result<()> {
     ///     let response = client.delete_google_api_source()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())

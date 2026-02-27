@@ -149,10 +149,10 @@ impl ManagedKafka {
     /// # use google_cloud_managedkafka_v1::client::ManagedKafka;
     /// use google_cloud_managedkafka_v1::Result;
     /// async fn sample(
-    ///    client: &ManagedKafka, resource_name: &str
+    ///    client: &ManagedKafka, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_cluster()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -253,10 +253,10 @@ impl ManagedKafka {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_managedkafka_v1::Result;
     /// async fn sample(
-    ///    client: &ManagedKafka, resource_name: &str
+    ///    client: &ManagedKafka, name: &str
     /// ) -> Result<()> {
     ///     client.delete_cluster()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -295,10 +295,10 @@ impl ManagedKafka {
     /// # use google_cloud_managedkafka_v1::client::ManagedKafka;
     /// use google_cloud_managedkafka_v1::Result;
     /// async fn sample(
-    ///    client: &ManagedKafka, resource_name: &str
+    ///    client: &ManagedKafka, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_topic()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -366,10 +366,10 @@ impl ManagedKafka {
     /// # use google_cloud_managedkafka_v1::client::ManagedKafka;
     /// use google_cloud_managedkafka_v1::Result;
     /// async fn sample(
-    ///    client: &ManagedKafka, resource_name: &str
+    ///    client: &ManagedKafka, name: &str
     /// ) -> Result<()> {
     ///     client.delete_topic()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -408,10 +408,10 @@ impl ManagedKafka {
     /// # use google_cloud_managedkafka_v1::client::ManagedKafka;
     /// use google_cloud_managedkafka_v1::Result;
     /// async fn sample(
-    ///    client: &ManagedKafka, resource_name: &str
+    ///    client: &ManagedKafka, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_consumer_group()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -454,10 +454,10 @@ impl ManagedKafka {
     /// # use google_cloud_managedkafka_v1::client::ManagedKafka;
     /// use google_cloud_managedkafka_v1::Result;
     /// async fn sample(
-    ///    client: &ManagedKafka, resource_name: &str
+    ///    client: &ManagedKafka, name: &str
     /// ) -> Result<()> {
     ///     client.delete_consumer_group()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -496,10 +496,10 @@ impl ManagedKafka {
     /// # use google_cloud_managedkafka_v1::client::ManagedKafka;
     /// use google_cloud_managedkafka_v1::Result;
     /// async fn sample(
-    ///    client: &ManagedKafka, resource_name: &str
+    ///    client: &ManagedKafka, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_acl()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -567,10 +567,10 @@ impl ManagedKafka {
     /// # use google_cloud_managedkafka_v1::client::ManagedKafka;
     /// use google_cloud_managedkafka_v1::Result;
     /// async fn sample(
-    ///    client: &ManagedKafka, resource_name: &str
+    ///    client: &ManagedKafka, name: &str
     /// ) -> Result<()> {
     ///     client.delete_acl()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -891,10 +891,10 @@ impl ManagedKafkaConnect {
     /// # use google_cloud_managedkafka_v1::client::ManagedKafkaConnect;
     /// use google_cloud_managedkafka_v1::Result;
     /// async fn sample(
-    ///    client: &ManagedKafkaConnect, resource_name: &str
+    ///    client: &ManagedKafkaConnect, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_connect_cluster()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -998,10 +998,10 @@ impl ManagedKafkaConnect {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_managedkafka_v1::Result;
     /// async fn sample(
-    ///    client: &ManagedKafkaConnect, resource_name: &str
+    ///    client: &ManagedKafkaConnect, name: &str
     /// ) -> Result<()> {
     ///     client.delete_connect_cluster()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1042,10 +1042,10 @@ impl ManagedKafkaConnect {
     /// # use google_cloud_managedkafka_v1::client::ManagedKafkaConnect;
     /// use google_cloud_managedkafka_v1::Result;
     /// async fn sample(
-    ///    client: &ManagedKafkaConnect, resource_name: &str
+    ///    client: &ManagedKafkaConnect, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_connector()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1113,10 +1113,10 @@ impl ManagedKafkaConnect {
     /// # use google_cloud_managedkafka_v1::client::ManagedKafkaConnect;
     /// use google_cloud_managedkafka_v1::Result;
     /// async fn sample(
-    ///    client: &ManagedKafkaConnect, resource_name: &str
+    ///    client: &ManagedKafkaConnect, name: &str
     /// ) -> Result<()> {
     ///     client.delete_connector()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
