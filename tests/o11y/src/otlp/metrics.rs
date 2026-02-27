@@ -38,7 +38,9 @@ use google_cloud_auth::credentials::{Builder as AdcBuilder, Credentials};
 use opentelemetry::KeyValue;
 use opentelemetry_otlp::tonic_types::transport::ClientTlsConfig;
 use opentelemetry_otlp::{ExporterBuildError, WithExportConfig, WithTonicConfig};
-use opentelemetry_sdk::metrics::{Aggregation, Instrument, SdkMeterProvider, Stream};
+use opentelemetry_sdk::metrics::{
+    Aggregation, Instrument, InstrumentKind, SdkMeterProvider, Stream,
+};
 use opentelemetry_sdk::resource::ResourceDetector;
 
 pub use http::Uri;
@@ -170,17 +172,17 @@ impl Builder {
             } else {
                 ins.name().to_string()
             };
-            tracing::info!("exporting instrument: {ins:?} with name {name}");
-            Stream::builder()
-                .with_name(name)
-                .with_aggregation(Aggregation::Base2ExponentialHistogram {
+            let builder = Stream::builder().with_name(name);
+            let builder = if ins.kind() != InstrumentKind::Histogram {
+                builder
+            } else {
+                builder.with_aggregation(Aggregation::Base2ExponentialHistogram {
                     max_size: 32,
                     max_scale: 20,
                     record_min_max: true,
                 })
-                .build()
-                .expect("stream should be valid")
-                .into()
+            };
+            builder.build().expect("stream should be valid").into()
         };
         let provider = SdkMeterProvider::builder()
             .with_periodic_exporter(exporter)
@@ -297,7 +299,7 @@ mod tests {
         provider.force_flush()?;
 
         // 5. Read any requests received by the mock collector.
-        let (metadata, _extensions, mut request) = mock_collector
+        let (metadata, _extensions, request) = mock_collector
             .metrics
             .lock()
             .expect("never poisoned")
@@ -321,16 +323,13 @@ mod tests {
 
         // 7. Verify there is a single resource and it includes the expected
         //    attributes.
-        let rm = request
-            .resource_metrics
-            .pop()
-            .expect("there should be at least one resource");
-        assert!(
-            request.resource_metrics.is_empty(),
-            "unexpected resource {request:?}"
-        );
+        let rm = match &request.resource_metrics[..] {
+            [rm] => rm,
+            _ => panic!("expected exactly one resource, got {request:#?}"),
+        };
         let resource = rm
             .resource
+            .as_ref()
             .expect("the resource metrics should have a resource: {rm:?}");
         let got = resource
             .attributes
@@ -360,7 +359,7 @@ mod tests {
             .iter()
             // All the metrics for a single scope are grouped in a vector.
             .flat_map(|m| m.metrics.iter())
-            .filter(|m| m.name == NAME)
+            .filter(|m| m.name.ends_with(NAME))
             // Then all the data points for each metric.
             .filter_map(|m| m.data.as_ref())
             // We only want the counters.
@@ -370,7 +369,7 @@ mod tests {
             .flat_map(|s| s.data_points.iter())
             .find(|point| point.value == Some(Value::AsInt(123_i64)))
             .unwrap_or_else(|| {
-                panic!("cannot find data point for metric {NAME} in captured request: {request:?}")
+                panic!("cannot find data point for metric {NAME} in captured request: {request:#?}")
             });
         // Sort the expectations so the errors are easier to grok.
         let got = BTreeMap::from_iter(
