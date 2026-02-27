@@ -36,7 +36,9 @@ where
         let stream = tokio_stream::wrappers::TcpListenerStream::new(listener);
 
         let _ = tonic::transport::Server::builder()
-            .add_service(google::spanner::v1::spanner_server::SpannerServer::new(service))
+            .add_service(google::spanner::v1::spanner_server::SpannerServer::new(
+                service,
+            ))
             .serve_with_incoming(stream)
             .await;
     });
@@ -71,8 +73,8 @@ pub mod google {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use tonic::transport::Channel;
     use google::spanner::v1::spanner_client::SpannerClient;
+    use tonic::transport::Channel;
 
     macro_rules! stub_tests {
         ($(($method:ident, $request:path)),*) => {
@@ -101,14 +103,23 @@ mod tests {
 
     stub_tests!(
         (create_session, google::spanner::v1::CreateSessionRequest),
-        (batch_create_sessions, google::spanner::v1::BatchCreateSessionsRequest),
+        (
+            batch_create_sessions,
+            google::spanner::v1::BatchCreateSessionsRequest
+        ),
         (get_session, google::spanner::v1::GetSessionRequest),
         (list_sessions, google::spanner::v1::ListSessionsRequest),
         (delete_session, google::spanner::v1::DeleteSessionRequest),
         (execute_sql, google::spanner::v1::ExecuteSqlRequest),
-        (execute_batch_dml, google::spanner::v1::ExecuteBatchDmlRequest),
+        (
+            execute_batch_dml,
+            google::spanner::v1::ExecuteBatchDmlRequest
+        ),
         (read, google::spanner::v1::ReadRequest),
-        (begin_transaction, google::spanner::v1::BeginTransactionRequest),
+        (
+            begin_transaction,
+            google::spanner::v1::BeginTransactionRequest
+        ),
         (commit, google::spanner::v1::CommitRequest),
         (rollback, google::spanner::v1::RollbackRequest),
         (partition_query, google::spanner::v1::PartitionQueryRequest),

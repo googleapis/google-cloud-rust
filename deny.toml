@@ -115,6 +115,7 @@ wrappers = [
   "grpc-server",
   "integration-tests-o11y",
   "pubsub-grpc-mock",
+  "spanner-grpc-mock",
   "storage-grpc-mock",
   # Indirect dependencies are fine.
   "opentelemetry-otlp",

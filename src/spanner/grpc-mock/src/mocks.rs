@@ -13,10 +13,10 @@
 // limitations under the License.
 
 use crate::google::spanner::v1::*;
-use tonic::{Request, Response, Status};
 use async_trait::async_trait;
 use std::pin::Pin;
 use tokio_stream::Stream;
+use tonic::{Request, Response, Status};
 
 mockall::mock! {
     pub Spanner {}
@@ -29,10 +29,10 @@ mockall::mock! {
         async fn list_sessions(&self, request: Request<ListSessionsRequest>) -> Result<Response<ListSessionsResponse>, Status>;
         async fn delete_session(&self, request: Request<DeleteSessionRequest>) -> Result<Response<()>, Status>;
         async fn execute_sql(&self, request: Request<ExecuteSqlRequest>) -> Result<Response<ResultSet>, Status>;
-        
+
         type ExecuteStreamingSqlStream = Pin<Box<dyn Stream<Item = Result<PartialResultSet, Status>> + Send + 'static>>;
         async fn execute_streaming_sql(&self, request: Request<ExecuteSqlRequest>) -> Result<Response<<Self as spanner_server::Spanner>::ExecuteStreamingSqlStream>, Status>;
-        
+
         async fn execute_batch_dml(&self, request: Request<ExecuteBatchDmlRequest>) -> Result<Response<ExecuteBatchDmlResponse>, Status>;
         async fn read(&self, request: Request<ReadRequest>) -> Result<Response<ResultSet>, Status>;
 

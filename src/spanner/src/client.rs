@@ -25,9 +25,6 @@ pub struct Spanner {
     inner: GapicSpanner,
 }
 
-impl std::panic::RefUnwindSafe for Spanner {}
-impl std::panic::UnwindSafe for Spanner {}
-
 pub struct Factory;
 
 impl google_cloud_gax::client_builder::internal::ClientFactory for Factory {
@@ -175,12 +172,12 @@ mod tests {
     use spanner_grpc_mock::google::rpc as mock_rpc;
     use spanner_grpc_mock::google::spanner::v1 as mock_v1;
     use spanner_grpc_mock::{MockSpanner, start};
-    use static_assertions::assert_impl_all;
+    use static_assertions::{assert_impl_all, assert_not_impl_any};
 
     #[test]
     fn auto_traits() {
         assert_impl_all!(Spanner: std::fmt::Debug, Clone, Send, Sync);
-        assert_impl_all!(Spanner: std::panic::RefUnwindSafe, std::panic::UnwindSafe);
+        assert_not_impl_any!(Spanner: std::panic::RefUnwindSafe, std::panic::UnwindSafe);
     }
 
     #[tokio::test]
@@ -228,22 +225,25 @@ mod tests {
 
     #[tokio::test]
     async fn test_create_session_retry() {
-        use std::sync::Arc;
-        use std::sync::atomic::{AtomicUsize, Ordering};
+        use google_cloud_gax::options::RequestOptionsBuilder;
+        use google_cloud_gax::retry_policy::{Aip194Strict, RetryPolicyExt};
 
         // 1. Setup Mock Server
         let mut mock = MockSpanner::new();
-        let counter = Arc::new(AtomicUsize::new(0));
-
-        mock.expect_create_session().times(2).returning(move |_| {
-            if counter.fetch_add(1, Ordering::SeqCst) == 0 {
-                Err(gaxi::grpc::tonic::Status::unavailable("server is unavailable"))
-            } else {
-                Ok(gaxi::grpc::tonic::Response::new(                mock_v1::Session {
-                    name: "projects/test-project/instances/test-instance/databases/test-db/sessions/456".to_string(),
-                    ..Default::default()
-                }))
-            }
+        let mut seq = mockall::Sequence::new();
+        mock.expect_create_session()
+            .once()
+            .in_sequence(&mut seq)
+            .returning(|_| {
+                Err(gaxi::grpc::tonic::Status::unavailable(
+                    "server is unavailable",
+                ))
+            });
+        mock.expect_create_session().once().in_sequence(&mut seq).returning(|_| {
+            Ok(gaxi::grpc::tonic::Response::new(mock_v1::Session {
+                name: "projects/test-project/instances/test-instance/databases/test-db/sessions/456".to_string(),
+                ..Default::default()
+            }))
         });
 
         // 2. Start mock server
@@ -264,9 +264,6 @@ mod tests {
         let mut req = CreateSessionRequest::new();
         req.database =
             "projects/test-project/instances/test-instance/databases/test-db".to_string();
-
-        use google_cloud_gax::options::RequestOptionsBuilder;
-        use google_cloud_gax::retry_policy::{Aip194Strict, RetryPolicyExt};
 
         let session = client
             .inner
