@@ -228,7 +228,7 @@ impl super::stub::AcceleratorTypes for AcceleratorTypes {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -313,7 +313,7 @@ impl super::stub::AcceleratorTypes for AcceleratorTypes {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/acceleratorTypes/{}",
@@ -418,7 +418,7 @@ impl super::stub::AcceleratorTypes for AcceleratorTypes {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}",
@@ -545,7 +545,7 @@ impl super::stub::Addresses for Addresses {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -634,7 +634,7 @@ impl super::stub::Addresses for Addresses {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/addresses/{}",
@@ -727,7 +727,7 @@ impl super::stub::Addresses for Addresses {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/addresses/{}",
@@ -814,7 +814,7 @@ impl super::stub::Addresses for Addresses {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}",
@@ -915,7 +915,7 @@ impl super::stub::Addresses for Addresses {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}",
@@ -1008,7 +1008,7 @@ impl super::stub::Addresses for Addresses {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/addresses/{}",
@@ -1105,7 +1105,7 @@ impl super::stub::Addresses for Addresses {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/addresses/{}",
@@ -1198,7 +1198,7 @@ impl super::stub::Addresses for Addresses {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/addresses/{}",
@@ -1291,7 +1291,7 @@ impl super::stub::Addresses for Addresses {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/operations/{}",
@@ -1415,7 +1415,7 @@ impl super::stub::Advice for Advice {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}",
@@ -1542,7 +1542,7 @@ impl super::stub::Autoscalers for Autoscalers {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -1631,7 +1631,7 @@ impl super::stub::Autoscalers for Autoscalers {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/autoscalers/{}",
@@ -1724,7 +1724,7 @@ impl super::stub::Autoscalers for Autoscalers {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/autoscalers/{}",
@@ -1811,7 +1811,7 @@ impl super::stub::Autoscalers for Autoscalers {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}",
@@ -1912,7 +1912,7 @@ impl super::stub::Autoscalers for Autoscalers {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}",
@@ -1999,7 +1999,7 @@ impl super::stub::Autoscalers for Autoscalers {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}",
@@ -2088,7 +2088,7 @@ impl super::stub::Autoscalers for Autoscalers {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/autoscalers/{}",
@@ -2179,7 +2179,7 @@ impl super::stub::Autoscalers for Autoscalers {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}",
@@ -2268,7 +2268,7 @@ impl super::stub::Autoscalers for Autoscalers {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/operations/{}",
@@ -2396,7 +2396,7 @@ impl super::stub::BackendBuckets for BackendBuckets {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/backendBuckets/{}",
@@ -2479,7 +2479,7 @@ impl super::stub::BackendBuckets for BackendBuckets {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/backendBuckets/{}",
@@ -2563,7 +2563,7 @@ impl super::stub::BackendBuckets for BackendBuckets {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/backendBuckets/{}",
@@ -2642,7 +2642,7 @@ impl super::stub::BackendBuckets for BackendBuckets {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/backendBuckets/{}",
@@ -2727,7 +2727,7 @@ impl super::stub::BackendBuckets for BackendBuckets {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/backendBuckets/{}",
@@ -2800,7 +2800,7 @@ impl super::stub::BackendBuckets for BackendBuckets {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -2887,7 +2887,7 @@ impl super::stub::BackendBuckets for BackendBuckets {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -2966,7 +2966,7 @@ impl super::stub::BackendBuckets for BackendBuckets {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/backendBuckets/{}",
@@ -3049,7 +3049,7 @@ impl super::stub::BackendBuckets for BackendBuckets {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/backendBuckets/{}",
@@ -3128,7 +3128,7 @@ impl super::stub::BackendBuckets for BackendBuckets {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/backendBuckets/{}",
@@ -3207,7 +3207,7 @@ impl super::stub::BackendBuckets for BackendBuckets {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/backendBuckets/{}",
@@ -3290,7 +3290,7 @@ impl super::stub::BackendBuckets for BackendBuckets {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/backendBuckets/{}",
@@ -3369,7 +3369,7 @@ impl super::stub::BackendBuckets for BackendBuckets {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/operations/{}",
@@ -3493,7 +3493,7 @@ impl super::stub::BackendServices for BackendServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/backendServices/{}",
@@ -3593,7 +3593,7 @@ impl super::stub::BackendServices for BackendServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -3672,7 +3672,7 @@ impl super::stub::BackendServices for BackendServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/backendServices/{}",
@@ -3756,7 +3756,7 @@ impl super::stub::BackendServices for BackendServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/backendServices/{}",
@@ -3835,7 +3835,7 @@ impl super::stub::BackendServices for BackendServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/backendServices/{}",
@@ -3906,7 +3906,7 @@ impl super::stub::BackendServices for BackendServices {
             }
             google_cloud_gax::error::Error::binding(BindingError { paths })
         })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/backendServices/{}",
@@ -3991,7 +3991,7 @@ impl super::stub::BackendServices for BackendServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/backendServices/{}",
@@ -4076,7 +4076,7 @@ impl super::stub::BackendServices for BackendServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/backendServices/{}",
@@ -4149,7 +4149,7 @@ impl super::stub::BackendServices for BackendServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -4236,7 +4236,7 @@ impl super::stub::BackendServices for BackendServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -4323,7 +4323,7 @@ impl super::stub::BackendServices for BackendServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -4402,7 +4402,7 @@ impl super::stub::BackendServices for BackendServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/backendServices/{}",
@@ -4485,7 +4485,7 @@ impl super::stub::BackendServices for BackendServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/backendServices/{}",
@@ -4564,7 +4564,7 @@ impl super::stub::BackendServices for BackendServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/backendServices/{}",
@@ -4647,7 +4647,7 @@ impl super::stub::BackendServices for BackendServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/backendServices/{}",
@@ -4726,7 +4726,7 @@ impl super::stub::BackendServices for BackendServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/backendServices/{}",
@@ -4809,7 +4809,7 @@ impl super::stub::BackendServices for BackendServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/backendServices/{}",
@@ -4888,7 +4888,7 @@ impl super::stub::BackendServices for BackendServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/operations/{}",
@@ -5016,7 +5016,7 @@ impl super::stub::CrossSiteNetworks for CrossSiteNetworks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/crossSiteNetworks/{}",
@@ -5099,7 +5099,7 @@ impl super::stub::CrossSiteNetworks for CrossSiteNetworks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/crossSiteNetworks/{}",
@@ -5176,7 +5176,7 @@ impl super::stub::CrossSiteNetworks for CrossSiteNetworks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -5263,7 +5263,7 @@ impl super::stub::CrossSiteNetworks for CrossSiteNetworks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -5362,7 +5362,7 @@ impl super::stub::CrossSiteNetworks for CrossSiteNetworks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/crossSiteNetworks/{}",
@@ -5441,7 +5441,7 @@ impl super::stub::CrossSiteNetworks for CrossSiteNetworks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/operations/{}",
@@ -5582,7 +5582,7 @@ impl super::stub::DiskTypes for DiskTypes {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -5667,7 +5667,7 @@ impl super::stub::DiskTypes for DiskTypes {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/diskTypes/{}",
@@ -5772,7 +5772,7 @@ impl super::stub::DiskTypes for DiskTypes {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}",
@@ -5890,7 +5890,7 @@ impl super::stub::Disks for Disks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/disks/{}",
@@ -5994,7 +5994,7 @@ impl super::stub::Disks for Disks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -6073,7 +6073,7 @@ impl super::stub::Disks for Disks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}",
@@ -6160,7 +6160,7 @@ impl super::stub::Disks for Disks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}",
@@ -6257,7 +6257,7 @@ impl super::stub::Disks for Disks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/disks/{}",
@@ -6354,7 +6354,7 @@ impl super::stub::Disks for Disks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/disks/{}",
@@ -6447,7 +6447,7 @@ impl super::stub::Disks for Disks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/disks/{}",
@@ -6546,7 +6546,7 @@ impl super::stub::Disks for Disks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/disks/{}",
@@ -6637,7 +6637,7 @@ impl super::stub::Disks for Disks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}",
@@ -6738,7 +6738,7 @@ impl super::stub::Disks for Disks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}",
@@ -6831,7 +6831,7 @@ impl super::stub::Disks for Disks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/disks/{}",
@@ -6928,7 +6928,7 @@ impl super::stub::Disks for Disks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/disks/{}",
@@ -7021,7 +7021,7 @@ impl super::stub::Disks for Disks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/disks/{}",
@@ -7118,7 +7118,7 @@ impl super::stub::Disks for Disks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/disks/{}",
@@ -7215,7 +7215,7 @@ impl super::stub::Disks for Disks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/disks/{}",
@@ -7312,7 +7312,7 @@ impl super::stub::Disks for Disks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/disks/{}",
@@ -7399,7 +7399,7 @@ impl super::stub::Disks for Disks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}",
@@ -7488,7 +7488,7 @@ impl super::stub::Disks for Disks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/disks/{}",
@@ -7601,7 +7601,7 @@ impl super::stub::Disks for Disks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/disks/{}",
@@ -7694,7 +7694,7 @@ impl super::stub::Disks for Disks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/operations/{}",
@@ -7826,7 +7826,7 @@ impl super::stub::ExternalVpnGateways for ExternalVpnGateways {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/externalVpnGateways/{}",
@@ -7909,7 +7909,7 @@ impl super::stub::ExternalVpnGateways for ExternalVpnGateways {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/externalVpnGateways/{}",
@@ -7982,7 +7982,7 @@ impl super::stub::ExternalVpnGateways for ExternalVpnGateways {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -8069,7 +8069,7 @@ impl super::stub::ExternalVpnGateways for ExternalVpnGateways {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -8144,7 +8144,7 @@ impl super::stub::ExternalVpnGateways for ExternalVpnGateways {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/externalVpnGateways/{}",
@@ -8223,7 +8223,7 @@ impl super::stub::ExternalVpnGateways for ExternalVpnGateways {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/externalVpnGateways/{}",
@@ -8302,7 +8302,7 @@ impl super::stub::ExternalVpnGateways for ExternalVpnGateways {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/operations/{}",
@@ -8422,7 +8422,7 @@ impl super::stub::FirewallPolicies for FirewallPolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/firewallPolicies/{}",
@@ -8491,7 +8491,7 @@ impl super::stub::FirewallPolicies for FirewallPolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/firewallPolicies/{}",
@@ -8566,7 +8566,7 @@ impl super::stub::FirewallPolicies for FirewallPolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/firewallPolicies/{}",
@@ -8635,7 +8635,7 @@ impl super::stub::FirewallPolicies for FirewallPolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/firewallPolicies/{}",
@@ -8700,7 +8700,7 @@ impl super::stub::FirewallPolicies for FirewallPolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/firewallPolicies/{}",
@@ -8769,7 +8769,7 @@ impl super::stub::FirewallPolicies for FirewallPolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/firewallPolicies/{}",
@@ -8840,7 +8840,7 @@ impl super::stub::FirewallPolicies for FirewallPolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/firewallPolicies/{}",
@@ -8909,7 +8909,7 @@ impl super::stub::FirewallPolicies for FirewallPolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/firewallPolicies/{}",
@@ -9134,7 +9134,7 @@ impl super::stub::FirewallPolicies for FirewallPolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/firewallPolicies/{}",
@@ -9203,7 +9203,7 @@ impl super::stub::FirewallPolicies for FirewallPolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/firewallPolicies/{}",
@@ -9276,7 +9276,7 @@ impl super::stub::FirewallPolicies for FirewallPolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/firewallPolicies/{}",
@@ -9349,7 +9349,7 @@ impl super::stub::FirewallPolicies for FirewallPolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/firewallPolicies/{}",
@@ -9422,7 +9422,7 @@ impl super::stub::FirewallPolicies for FirewallPolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/firewallPolicies/{}",
@@ -9487,7 +9487,7 @@ impl super::stub::FirewallPolicies for FirewallPolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/firewallPolicies/{}",
@@ -9552,7 +9552,7 @@ impl super::stub::FirewallPolicies for FirewallPolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/firewallPolicies/{}",
@@ -9621,7 +9621,7 @@ impl super::stub::FirewallPolicies for FirewallPolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/operations/{}",
@@ -9741,7 +9741,7 @@ impl super::stub::Firewalls for Firewalls {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/firewalls/{}",
@@ -9820,7 +9820,7 @@ impl super::stub::Firewalls for Firewalls {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/firewalls/{}",
@@ -9893,7 +9893,7 @@ impl super::stub::Firewalls for Firewalls {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -9980,7 +9980,7 @@ impl super::stub::Firewalls for Firewalls {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -10059,7 +10059,7 @@ impl super::stub::Firewalls for Firewalls {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/firewalls/{}",
@@ -10138,7 +10138,7 @@ impl super::stub::Firewalls for Firewalls {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/firewalls/{}",
@@ -10221,7 +10221,7 @@ impl super::stub::Firewalls for Firewalls {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/firewalls/{}",
@@ -10300,7 +10300,7 @@ impl super::stub::Firewalls for Firewalls {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/operations/{}",
@@ -10441,7 +10441,7 @@ impl super::stub::ForwardingRules for ForwardingRules {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -10530,7 +10530,7 @@ impl super::stub::ForwardingRules for ForwardingRules {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/forwardingRules/{}",
@@ -10623,7 +10623,7 @@ impl super::stub::ForwardingRules for ForwardingRules {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/forwardingRules/{}",
@@ -10710,7 +10710,7 @@ impl super::stub::ForwardingRules for ForwardingRules {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}",
@@ -10811,7 +10811,7 @@ impl super::stub::ForwardingRules for ForwardingRules {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}",
@@ -10904,7 +10904,7 @@ impl super::stub::ForwardingRules for ForwardingRules {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/forwardingRules/{}",
@@ -11001,7 +11001,7 @@ impl super::stub::ForwardingRules for ForwardingRules {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/forwardingRules/{}",
@@ -11098,7 +11098,7 @@ impl super::stub::ForwardingRules for ForwardingRules {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/forwardingRules/{}",
@@ -11191,7 +11191,7 @@ impl super::stub::ForwardingRules for ForwardingRules {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/operations/{}",
@@ -11336,7 +11336,7 @@ impl super::stub::FutureReservations for FutureReservations {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -11429,7 +11429,7 @@ impl super::stub::FutureReservations for FutureReservations {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/futureReservations/{}",
@@ -11530,7 +11530,7 @@ impl super::stub::FutureReservations for FutureReservations {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/futureReservations/{}",
@@ -11627,7 +11627,7 @@ impl super::stub::FutureReservations for FutureReservations {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/futureReservations/{}",
@@ -11714,7 +11714,7 @@ impl super::stub::FutureReservations for FutureReservations {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}",
@@ -11815,7 +11815,7 @@ impl super::stub::FutureReservations for FutureReservations {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}",
@@ -11924,7 +11924,7 @@ impl super::stub::FutureReservations for FutureReservations {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/futureReservations/{}",
@@ -12017,7 +12017,7 @@ impl super::stub::FutureReservations for FutureReservations {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/operations/{}",
@@ -12145,7 +12145,7 @@ impl super::stub::GlobalAddresses for GlobalAddresses {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/addresses/{}",
@@ -12224,7 +12224,7 @@ impl super::stub::GlobalAddresses for GlobalAddresses {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/addresses/{}",
@@ -12297,7 +12297,7 @@ impl super::stub::GlobalAddresses for GlobalAddresses {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -12384,7 +12384,7 @@ impl super::stub::GlobalAddresses for GlobalAddresses {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -12463,7 +12463,7 @@ impl super::stub::GlobalAddresses for GlobalAddresses {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/addresses/{}",
@@ -12542,7 +12542,7 @@ impl super::stub::GlobalAddresses for GlobalAddresses {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/addresses/{}",
@@ -12621,7 +12621,7 @@ impl super::stub::GlobalAddresses for GlobalAddresses {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/addresses/{}",
@@ -12700,7 +12700,7 @@ impl super::stub::GlobalAddresses for GlobalAddresses {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/operations/{}",
@@ -12824,7 +12824,7 @@ impl super::stub::GlobalForwardingRules for GlobalForwardingRules {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/forwardingRules/{}",
@@ -12903,7 +12903,7 @@ impl super::stub::GlobalForwardingRules for GlobalForwardingRules {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/forwardingRules/{}",
@@ -12976,7 +12976,7 @@ impl super::stub::GlobalForwardingRules for GlobalForwardingRules {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -13063,7 +13063,7 @@ impl super::stub::GlobalForwardingRules for GlobalForwardingRules {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -13142,7 +13142,7 @@ impl super::stub::GlobalForwardingRules for GlobalForwardingRules {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/forwardingRules/{}",
@@ -13221,7 +13221,7 @@ impl super::stub::GlobalForwardingRules for GlobalForwardingRules {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/forwardingRules/{}",
@@ -13304,7 +13304,7 @@ impl super::stub::GlobalForwardingRules for GlobalForwardingRules {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/forwardingRules/{}",
@@ -13383,7 +13383,7 @@ impl super::stub::GlobalForwardingRules for GlobalForwardingRules {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/operations/{}",
@@ -13496,7 +13496,7 @@ impl super::stub::GlobalNetworkEndpointGroups for GlobalNetworkEndpointGroups {
             }
             google_cloud_gax::error::Error::binding(BindingError { paths })
         })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/networkEndpointGroups/{}",
@@ -13583,7 +13583,7 @@ impl super::stub::GlobalNetworkEndpointGroups for GlobalNetworkEndpointGroups {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/networkEndpointGroups/{}",
@@ -13655,7 +13655,7 @@ impl super::stub::GlobalNetworkEndpointGroups for GlobalNetworkEndpointGroups {
             }
             google_cloud_gax::error::Error::binding(BindingError { paths })
         })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/networkEndpointGroups/{}",
@@ -13738,7 +13738,7 @@ impl super::stub::GlobalNetworkEndpointGroups for GlobalNetworkEndpointGroups {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/networkEndpointGroups/{}",
@@ -13811,7 +13811,7 @@ impl super::stub::GlobalNetworkEndpointGroups for GlobalNetworkEndpointGroups {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -13898,7 +13898,7 @@ impl super::stub::GlobalNetworkEndpointGroups for GlobalNetworkEndpointGroups {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -13999,7 +13999,7 @@ impl super::stub::GlobalNetworkEndpointGroups for GlobalNetworkEndpointGroups {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/networkEndpointGroups/{}",
@@ -14078,7 +14078,7 @@ impl super::stub::GlobalNetworkEndpointGroups for GlobalNetworkEndpointGroups {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/operations/{}",
@@ -14219,7 +14219,7 @@ impl super::stub::GlobalOperations for GlobalOperations {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -14294,7 +14294,7 @@ impl super::stub::GlobalOperations for GlobalOperations {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/operations/{}",
@@ -14379,7 +14379,7 @@ impl super::stub::GlobalOperations for GlobalOperations {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/operations/{}",
@@ -14470,7 +14470,7 @@ impl super::stub::GlobalOperations for GlobalOperations {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -14545,7 +14545,7 @@ impl super::stub::GlobalOperations for GlobalOperations {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/operations/{}",
@@ -14645,7 +14645,7 @@ impl super::stub::GlobalOrganizationOperations for GlobalOrganizationOperations 
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/operations/{}",
@@ -14720,7 +14720,7 @@ impl super::stub::GlobalOrganizationOperations for GlobalOrganizationOperations 
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/operations/{}",
@@ -14892,7 +14892,7 @@ impl super::stub::GlobalPublicDelegatedPrefixes for GlobalPublicDelegatedPrefixe
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/publicDelegatedPrefixes/{}",
@@ -14975,7 +14975,7 @@ impl super::stub::GlobalPublicDelegatedPrefixes for GlobalPublicDelegatedPrefixe
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/publicDelegatedPrefixes/{}",
@@ -15048,7 +15048,7 @@ impl super::stub::GlobalPublicDelegatedPrefixes for GlobalPublicDelegatedPrefixe
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -15135,7 +15135,7 @@ impl super::stub::GlobalPublicDelegatedPrefixes for GlobalPublicDelegatedPrefixe
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -15218,7 +15218,7 @@ impl super::stub::GlobalPublicDelegatedPrefixes for GlobalPublicDelegatedPrefixe
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/publicDelegatedPrefixes/{}",
@@ -15297,7 +15297,7 @@ impl super::stub::GlobalPublicDelegatedPrefixes for GlobalPublicDelegatedPrefixe
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/operations/{}",
@@ -15438,7 +15438,7 @@ impl super::stub::HealthChecks for HealthChecks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -15517,7 +15517,7 @@ impl super::stub::HealthChecks for HealthChecks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/healthChecks/{}",
@@ -15596,7 +15596,7 @@ impl super::stub::HealthChecks for HealthChecks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/healthChecks/{}",
@@ -15669,7 +15669,7 @@ impl super::stub::HealthChecks for HealthChecks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -15756,7 +15756,7 @@ impl super::stub::HealthChecks for HealthChecks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -15835,7 +15835,7 @@ impl super::stub::HealthChecks for HealthChecks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/healthChecks/{}",
@@ -15914,7 +15914,7 @@ impl super::stub::HealthChecks for HealthChecks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/healthChecks/{}",
@@ -15997,7 +15997,7 @@ impl super::stub::HealthChecks for HealthChecks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/healthChecks/{}",
@@ -16076,7 +16076,7 @@ impl super::stub::HealthChecks for HealthChecks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/operations/{}",
@@ -16200,7 +16200,7 @@ impl super::stub::HttpHealthChecks for HttpHealthChecks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/httpHealthChecks/{}",
@@ -16279,7 +16279,7 @@ impl super::stub::HttpHealthChecks for HttpHealthChecks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/httpHealthChecks/{}",
@@ -16352,7 +16352,7 @@ impl super::stub::HttpHealthChecks for HttpHealthChecks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -16439,7 +16439,7 @@ impl super::stub::HttpHealthChecks for HttpHealthChecks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -16518,7 +16518,7 @@ impl super::stub::HttpHealthChecks for HttpHealthChecks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/httpHealthChecks/{}",
@@ -16597,7 +16597,7 @@ impl super::stub::HttpHealthChecks for HttpHealthChecks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/httpHealthChecks/{}",
@@ -16680,7 +16680,7 @@ impl super::stub::HttpHealthChecks for HttpHealthChecks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/httpHealthChecks/{}",
@@ -16759,7 +16759,7 @@ impl super::stub::HttpHealthChecks for HttpHealthChecks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/operations/{}",
@@ -16887,7 +16887,7 @@ impl super::stub::HttpsHealthChecks for HttpsHealthChecks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/httpsHealthChecks/{}",
@@ -16970,7 +16970,7 @@ impl super::stub::HttpsHealthChecks for HttpsHealthChecks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/httpsHealthChecks/{}",
@@ -17043,7 +17043,7 @@ impl super::stub::HttpsHealthChecks for HttpsHealthChecks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -17130,7 +17130,7 @@ impl super::stub::HttpsHealthChecks for HttpsHealthChecks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -17213,7 +17213,7 @@ impl super::stub::HttpsHealthChecks for HttpsHealthChecks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/httpsHealthChecks/{}",
@@ -17292,7 +17292,7 @@ impl super::stub::HttpsHealthChecks for HttpsHealthChecks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/httpsHealthChecks/{}",
@@ -17379,7 +17379,7 @@ impl super::stub::HttpsHealthChecks for HttpsHealthChecks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/httpsHealthChecks/{}",
@@ -17458,7 +17458,7 @@ impl super::stub::HttpsHealthChecks for HttpsHealthChecks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/operations/{}",
@@ -17588,7 +17588,7 @@ impl super::stub::ImageFamilyViews for ImageFamilyViews {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/imageFamilyViews/{}",
@@ -17702,7 +17702,7 @@ impl super::stub::Images for Images {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/images/{}",
@@ -17785,7 +17785,7 @@ impl super::stub::Images for Images {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/images/{}",
@@ -17864,7 +17864,7 @@ impl super::stub::Images for Images {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/images/{}",
@@ -17943,7 +17943,7 @@ impl super::stub::Images for Images {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -18024,7 +18024,7 @@ impl super::stub::Images for Images {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/images/{}",
@@ -18101,7 +18101,7 @@ impl super::stub::Images for Images {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -18188,7 +18188,7 @@ impl super::stub::Images for Images {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -18267,7 +18267,7 @@ impl super::stub::Images for Images {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/images/{}",
@@ -18346,7 +18346,7 @@ impl super::stub::Images for Images {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/images/{}",
@@ -18425,7 +18425,7 @@ impl super::stub::Images for Images {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/images/{}",
@@ -18504,7 +18504,7 @@ impl super::stub::Images for Images {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/images/{}",
@@ -18583,7 +18583,7 @@ impl super::stub::Images for Images {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/operations/{}",
@@ -18708,7 +18708,7 @@ impl super::stub::InstanceGroupManagerResizeRequests for InstanceGroupManagerRes
             }
             google_cloud_gax::error::Error::binding(BindingError { paths })
         })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/instanceGroupManagers/{}/resizeRequests/{}",
@@ -18823,7 +18823,7 @@ impl super::stub::InstanceGroupManagerResizeRequests for InstanceGroupManagerRes
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/instanceGroupManagers/{}/resizeRequests/{}",
@@ -18934,7 +18934,7 @@ impl super::stub::InstanceGroupManagerResizeRequests for InstanceGroupManagerRes
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/instanceGroupManagers/{}/resizeRequests/{}",
@@ -19039,7 +19039,7 @@ impl super::stub::InstanceGroupManagerResizeRequests for InstanceGroupManagerRes
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/instanceGroupManagers/{}",
@@ -19158,7 +19158,7 @@ impl super::stub::InstanceGroupManagerResizeRequests for InstanceGroupManagerRes
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/instanceGroupManagers/{}",
@@ -19251,7 +19251,7 @@ impl super::stub::InstanceGroupManagerResizeRequests for InstanceGroupManagerRes
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/operations/{}",
@@ -19393,7 +19393,7 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/instanceGroupManagers/{}",
@@ -19497,7 +19497,7 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -19570,7 +19570,7 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
             }
             google_cloud_gax::error::Error::binding(BindingError { paths })
         })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/instanceGroupManagers/{}",
@@ -19671,7 +19671,7 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/instanceGroupManagers/{}",
@@ -19772,7 +19772,7 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/instanceGroupManagers/{}",
@@ -19873,7 +19873,7 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/instanceGroupManagers/{}",
@@ -19954,7 +19954,7 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
             }
             google_cloud_gax::error::Error::binding(BindingError { paths })
         })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/instanceGroupManagers/{}",
@@ -20051,7 +20051,7 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/instanceGroupManagers/{}",
@@ -20138,7 +20138,7 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}",
@@ -20239,7 +20239,7 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}",
@@ -20354,7 +20354,7 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/instanceGroupManagers/{}",
@@ -20441,7 +20441,7 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
             }
             google_cloud_gax::error::Error::binding(BindingError { paths })
         })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/instanceGroupManagers/{}",
@@ -20528,7 +20528,7 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
             }
             google_cloud_gax::error::Error::binding(BindingError { paths })
         })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/instanceGroupManagers/{}",
@@ -20629,7 +20629,7 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/instanceGroupManagers/{}",
@@ -20711,7 +20711,7 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
             }
             google_cloud_gax::error::Error::binding(BindingError { paths })
         })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/instanceGroupManagers/{}",
@@ -20812,7 +20812,7 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/instanceGroupManagers/{}",
@@ -20914,7 +20914,7 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/instanceGroupManagers/{}",
@@ -21015,7 +21015,7 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/instanceGroupManagers/{}",
@@ -21116,7 +21116,7 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/instanceGroupManagers/{}",
@@ -21217,7 +21217,7 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/instanceGroupManagers/{}",
@@ -21318,7 +21318,7 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/instanceGroupManagers/{}",
@@ -21419,7 +21419,7 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/instanceGroupManagers/{}",
@@ -21520,7 +21520,7 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/instanceGroupManagers/{}",
@@ -21602,7 +21602,7 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
             }
             google_cloud_gax::error::Error::binding(BindingError { paths })
         })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/instanceGroupManagers/{}",
@@ -21695,7 +21695,7 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/operations/{}",
@@ -21833,7 +21833,7 @@ impl super::stub::InstanceGroups for InstanceGroups {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/instanceGroups/{}",
@@ -21937,7 +21937,7 @@ impl super::stub::InstanceGroups for InstanceGroups {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -22026,7 +22026,7 @@ impl super::stub::InstanceGroups for InstanceGroups {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/instanceGroups/{}",
@@ -22119,7 +22119,7 @@ impl super::stub::InstanceGroups for InstanceGroups {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/instanceGroups/{}",
@@ -22206,7 +22206,7 @@ impl super::stub::InstanceGroups for InstanceGroups {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}",
@@ -22307,7 +22307,7 @@ impl super::stub::InstanceGroups for InstanceGroups {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}",
@@ -22418,7 +22418,7 @@ impl super::stub::InstanceGroups for InstanceGroups {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/instanceGroups/{}",
@@ -22515,7 +22515,7 @@ impl super::stub::InstanceGroups for InstanceGroups {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/instanceGroups/{}",
@@ -22612,7 +22612,7 @@ impl super::stub::InstanceGroups for InstanceGroups {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/instanceGroups/{}",
@@ -22705,7 +22705,7 @@ impl super::stub::InstanceGroups for InstanceGroups {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/instanceGroups/{}",
@@ -22798,7 +22798,7 @@ impl super::stub::InstanceGroups for InstanceGroups {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/operations/{}",
@@ -22922,7 +22922,7 @@ impl super::stub::InstanceSettings for InstanceSettings {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}",
@@ -23017,7 +23017,7 @@ impl super::stub::InstanceSettings for InstanceSettings {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}",
@@ -23106,7 +23106,7 @@ impl super::stub::InstanceSettings for InstanceSettings {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/operations/{}",
@@ -23251,7 +23251,7 @@ impl super::stub::InstanceTemplates for InstanceTemplates {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -23330,7 +23330,7 @@ impl super::stub::InstanceTemplates for InstanceTemplates {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/instanceTemplates/{}",
@@ -23409,7 +23409,7 @@ impl super::stub::InstanceTemplates for InstanceTemplates {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/instanceTemplates/{}",
@@ -23494,7 +23494,7 @@ impl super::stub::InstanceTemplates for InstanceTemplates {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/instanceTemplates/{}",
@@ -23567,7 +23567,7 @@ impl super::stub::InstanceTemplates for InstanceTemplates {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -23654,7 +23654,7 @@ impl super::stub::InstanceTemplates for InstanceTemplates {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -23729,7 +23729,7 @@ impl super::stub::InstanceTemplates for InstanceTemplates {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/instanceTemplates/{}",
@@ -23808,7 +23808,7 @@ impl super::stub::InstanceTemplates for InstanceTemplates {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/instanceTemplates/{}",
@@ -23887,7 +23887,7 @@ impl super::stub::InstanceTemplates for InstanceTemplates {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/operations/{}",
@@ -24022,7 +24022,7 @@ impl super::stub::Instances for Instances {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/instances/{}",
@@ -24119,7 +24119,7 @@ impl super::stub::Instances for Instances {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/instances/{}",
@@ -24216,7 +24216,7 @@ impl super::stub::Instances for Instances {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/instances/{}",
@@ -24320,7 +24320,7 @@ impl super::stub::Instances for Instances {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -24413,7 +24413,7 @@ impl super::stub::Instances for Instances {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/instances/{}",
@@ -24500,7 +24500,7 @@ impl super::stub::Instances for Instances {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}",
@@ -24593,7 +24593,7 @@ impl super::stub::Instances for Instances {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/instances/{}",
@@ -24692,7 +24692,7 @@ impl super::stub::Instances for Instances {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/instances/{}",
@@ -24791,7 +24791,7 @@ impl super::stub::Instances for Instances {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/instances/{}",
@@ -24889,7 +24889,7 @@ impl super::stub::Instances for Instances {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/instances/{}",
@@ -24982,7 +24982,7 @@ impl super::stub::Instances for Instances {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/instances/{}",
@@ -25076,7 +25076,7 @@ impl super::stub::Instances for Instances {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/instances/{}",
@@ -25177,7 +25177,7 @@ impl super::stub::Instances for Instances {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/instances/{}",
@@ -25276,7 +25276,7 @@ impl super::stub::Instances for Instances {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/instances/{}",
@@ -25369,7 +25369,7 @@ impl super::stub::Instances for Instances {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/instances/{}",
@@ -25470,7 +25470,7 @@ impl super::stub::Instances for Instances {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/instances/{}",
@@ -25563,7 +25563,7 @@ impl super::stub::Instances for Instances {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/instances/{}",
@@ -25659,7 +25659,7 @@ impl super::stub::Instances for Instances {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}",
@@ -25760,7 +25760,7 @@ impl super::stub::Instances for Instances {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}",
@@ -25871,7 +25871,7 @@ impl super::stub::Instances for Instances {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/instances/{}",
@@ -25968,7 +25968,7 @@ impl super::stub::Instances for Instances {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/instances/{}",
@@ -26065,7 +26065,7 @@ impl super::stub::Instances for Instances {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/instances/{}",
@@ -26162,7 +26162,7 @@ impl super::stub::Instances for Instances {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/instances/{}",
@@ -26259,7 +26259,7 @@ impl super::stub::Instances for Instances {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/instances/{}",
@@ -26356,7 +26356,7 @@ impl super::stub::Instances for Instances {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/instances/{}",
@@ -26449,7 +26449,7 @@ impl super::stub::Instances for Instances {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/instances/{}",
@@ -26555,7 +26555,7 @@ impl super::stub::Instances for Instances {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/instances/{}",
@@ -26654,7 +26654,7 @@ impl super::stub::Instances for Instances {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/instances/{}",
@@ -26747,7 +26747,7 @@ impl super::stub::Instances for Instances {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/instances/{}",
@@ -26844,7 +26844,7 @@ impl super::stub::Instances for Instances {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/instances/{}",
@@ -26941,7 +26941,7 @@ impl super::stub::Instances for Instances {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/instances/{}",
@@ -27038,7 +27038,7 @@ impl super::stub::Instances for Instances {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/instances/{}",
@@ -27135,7 +27135,7 @@ impl super::stub::Instances for Instances {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/instances/{}",
@@ -27232,7 +27232,7 @@ impl super::stub::Instances for Instances {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/instances/{}",
@@ -27329,7 +27329,7 @@ impl super::stub::Instances for Instances {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/instances/{}",
@@ -27426,7 +27426,7 @@ impl super::stub::Instances for Instances {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/instances/{}",
@@ -27523,7 +27523,7 @@ impl super::stub::Instances for Instances {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/instances/{}",
@@ -27620,7 +27620,7 @@ impl super::stub::Instances for Instances {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/instances/{}",
@@ -27702,7 +27702,7 @@ impl super::stub::Instances for Instances {
             }
             google_cloud_gax::error::Error::binding(BindingError { paths })
         })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/instances/{}",
@@ -27799,7 +27799,7 @@ impl super::stub::Instances for Instances {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/instances/{}",
@@ -27902,7 +27902,7 @@ impl super::stub::Instances for Instances {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/instances/{}",
@@ -27999,7 +27999,7 @@ impl super::stub::Instances for Instances {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/instances/{}",
@@ -28096,7 +28096,7 @@ impl super::stub::Instances for Instances {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/instances/{}",
@@ -28196,7 +28196,7 @@ impl super::stub::Instances for Instances {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/instances/{}",
@@ -28296,7 +28296,7 @@ impl super::stub::Instances for Instances {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/instances/{}",
@@ -28389,7 +28389,7 @@ impl super::stub::Instances for Instances {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/instances/{}",
@@ -28496,7 +28496,7 @@ impl super::stub::Instances for Instances {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/instances/{}",
@@ -28594,7 +28594,7 @@ impl super::stub::Instances for Instances {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/instances/{}",
@@ -28691,7 +28691,7 @@ impl super::stub::Instances for Instances {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/instances/{}",
@@ -28789,7 +28789,7 @@ impl super::stub::Instances for Instances {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/instances/{}",
@@ -28886,7 +28886,7 @@ impl super::stub::Instances for Instances {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/instances/{}",
@@ -28979,7 +28979,7 @@ impl super::stub::Instances for Instances {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/operations/{}",
@@ -29124,7 +29124,7 @@ impl super::stub::InstantSnapshots for InstantSnapshots {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -29213,7 +29213,7 @@ impl super::stub::InstantSnapshots for InstantSnapshots {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/instantSnapshots/{}",
@@ -29306,7 +29306,7 @@ impl super::stub::InstantSnapshots for InstantSnapshots {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/instantSnapshots/{}",
@@ -29405,7 +29405,7 @@ impl super::stub::InstantSnapshots for InstantSnapshots {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/instantSnapshots/{}",
@@ -29492,7 +29492,7 @@ impl super::stub::InstantSnapshots for InstantSnapshots {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}",
@@ -29593,7 +29593,7 @@ impl super::stub::InstantSnapshots for InstantSnapshots {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}",
@@ -29682,7 +29682,7 @@ impl super::stub::InstantSnapshots for InstantSnapshots {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/instantSnapshots/{}",
@@ -29779,7 +29779,7 @@ impl super::stub::InstantSnapshots for InstantSnapshots {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/instantSnapshots/{}",
@@ -29872,7 +29872,7 @@ impl super::stub::InstantSnapshots for InstantSnapshots {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/instantSnapshots/{}",
@@ -29965,7 +29965,7 @@ impl super::stub::InstantSnapshots for InstantSnapshots {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/operations/{}",
@@ -30097,7 +30097,7 @@ impl super::stub::InterconnectAttachmentGroups for InterconnectAttachmentGroups 
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/interconnectAttachmentGroups/{}",
@@ -30180,7 +30180,7 @@ impl super::stub::InterconnectAttachmentGroups for InterconnectAttachmentGroups 
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/interconnectAttachmentGroups/{}",
@@ -30265,7 +30265,7 @@ impl super::stub::InterconnectAttachmentGroups for InterconnectAttachmentGroups 
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/interconnectAttachmentGroups/{}",
@@ -30338,7 +30338,7 @@ impl super::stub::InterconnectAttachmentGroups for InterconnectAttachmentGroups 
             }
             google_cloud_gax::error::Error::binding(BindingError { paths })
         })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/interconnectAttachmentGroups/{}",
@@ -30411,7 +30411,7 @@ impl super::stub::InterconnectAttachmentGroups for InterconnectAttachmentGroups 
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -30498,7 +30498,7 @@ impl super::stub::InterconnectAttachmentGroups for InterconnectAttachmentGroups 
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -30593,7 +30593,7 @@ impl super::stub::InterconnectAttachmentGroups for InterconnectAttachmentGroups 
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/interconnectAttachmentGroups/{}",
@@ -30672,7 +30672,7 @@ impl super::stub::InterconnectAttachmentGroups for InterconnectAttachmentGroups 
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/interconnectAttachmentGroups/{}",
@@ -30743,7 +30743,7 @@ impl super::stub::InterconnectAttachmentGroups for InterconnectAttachmentGroups 
             }
             google_cloud_gax::error::Error::binding(BindingError { paths })
         })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/interconnectAttachmentGroups/{}",
@@ -30822,7 +30822,7 @@ impl super::stub::InterconnectAttachmentGroups for InterconnectAttachmentGroups 
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/operations/{}",
@@ -30963,7 +30963,7 @@ impl super::stub::InterconnectAttachments for InterconnectAttachments {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -31056,7 +31056,7 @@ impl super::stub::InterconnectAttachments for InterconnectAttachments {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/interconnectAttachments/{}",
@@ -31153,7 +31153,7 @@ impl super::stub::InterconnectAttachments for InterconnectAttachments {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/interconnectAttachments/{}",
@@ -31244,7 +31244,7 @@ impl super::stub::InterconnectAttachments for InterconnectAttachments {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}",
@@ -31345,7 +31345,7 @@ impl super::stub::InterconnectAttachments for InterconnectAttachments {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}",
@@ -31442,7 +31442,7 @@ impl super::stub::InterconnectAttachments for InterconnectAttachments {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/interconnectAttachments/{}",
@@ -31539,7 +31539,7 @@ impl super::stub::InterconnectAttachments for InterconnectAttachments {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/interconnectAttachments/{}",
@@ -31632,7 +31632,7 @@ impl super::stub::InterconnectAttachments for InterconnectAttachments {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/operations/{}",
@@ -31760,7 +31760,7 @@ impl super::stub::InterconnectGroups for InterconnectGroups {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/interconnectGroups/{}",
@@ -31847,7 +31847,7 @@ impl super::stub::InterconnectGroups for InterconnectGroups {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/interconnectGroups/{}",
@@ -31930,7 +31930,7 @@ impl super::stub::InterconnectGroups for InterconnectGroups {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/interconnectGroups/{}",
@@ -32015,7 +32015,7 @@ impl super::stub::InterconnectGroups for InterconnectGroups {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/interconnectGroups/{}",
@@ -32098,7 +32098,7 @@ impl super::stub::InterconnectGroups for InterconnectGroups {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/interconnectGroups/{}",
@@ -32171,7 +32171,7 @@ impl super::stub::InterconnectGroups for InterconnectGroups {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -32258,7 +32258,7 @@ impl super::stub::InterconnectGroups for InterconnectGroups {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -32353,7 +32353,7 @@ impl super::stub::InterconnectGroups for InterconnectGroups {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/interconnectGroups/{}",
@@ -32432,7 +32432,7 @@ impl super::stub::InterconnectGroups for InterconnectGroups {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/interconnectGroups/{}",
@@ -32511,7 +32511,7 @@ impl super::stub::InterconnectGroups for InterconnectGroups {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/interconnectGroups/{}",
@@ -32590,7 +32590,7 @@ impl super::stub::InterconnectGroups for InterconnectGroups {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/operations/{}",
@@ -32714,7 +32714,7 @@ impl super::stub::InterconnectLocations for InterconnectLocations {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/interconnectLocations/{}",
@@ -32805,7 +32805,7 @@ impl super::stub::InterconnectLocations for InterconnectLocations {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -32911,7 +32911,7 @@ impl super::stub::InterconnectRemoteLocations for InterconnectRemoteLocations {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/interconnectRemoteLocations/{}",
@@ -33002,7 +33002,7 @@ impl super::stub::InterconnectRemoteLocations for InterconnectRemoteLocations {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -33108,7 +33108,7 @@ impl super::stub::Interconnects for Interconnects {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/interconnects/{}",
@@ -33187,7 +33187,7 @@ impl super::stub::Interconnects for Interconnects {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/interconnects/{}",
@@ -33266,7 +33266,7 @@ impl super::stub::Interconnects for Interconnects {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/interconnects/{}",
@@ -33345,7 +33345,7 @@ impl super::stub::Interconnects for Interconnects {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/interconnects/{}",
@@ -33418,7 +33418,7 @@ impl super::stub::Interconnects for Interconnects {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -33505,7 +33505,7 @@ impl super::stub::Interconnects for Interconnects {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -33584,7 +33584,7 @@ impl super::stub::Interconnects for Interconnects {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/interconnects/{}",
@@ -33663,7 +33663,7 @@ impl super::stub::Interconnects for Interconnects {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/interconnects/{}",
@@ -33742,7 +33742,7 @@ impl super::stub::Interconnects for Interconnects {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/operations/{}",
@@ -33862,7 +33862,7 @@ impl super::stub::LicenseCodes for LicenseCodes {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/licenseCodes/{}",
@@ -33941,7 +33941,7 @@ impl super::stub::LicenseCodes for LicenseCodes {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/licenseCodes/{}",
@@ -34051,7 +34051,7 @@ impl super::stub::Licenses for Licenses {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/licenses/{}",
@@ -34130,7 +34130,7 @@ impl super::stub::Licenses for Licenses {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/licenses/{}",
@@ -34215,7 +34215,7 @@ impl super::stub::Licenses for Licenses {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/licenses/{}",
@@ -34288,7 +34288,7 @@ impl super::stub::Licenses for Licenses {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -34375,7 +34375,7 @@ impl super::stub::Licenses for Licenses {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -34450,7 +34450,7 @@ impl super::stub::Licenses for Licenses {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/licenses/{}",
@@ -34529,7 +34529,7 @@ impl super::stub::Licenses for Licenses {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/licenses/{}",
@@ -34624,7 +34624,7 @@ impl super::stub::Licenses for Licenses {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/licenses/{}",
@@ -34703,7 +34703,7 @@ impl super::stub::Licenses for Licenses {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/operations/{}",
@@ -34827,7 +34827,7 @@ impl super::stub::MachineImages for MachineImages {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/machineImages/{}",
@@ -34906,7 +34906,7 @@ impl super::stub::MachineImages for MachineImages {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/machineImages/{}",
@@ -34991,7 +34991,7 @@ impl super::stub::MachineImages for MachineImages {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/machineImages/{}",
@@ -35067,7 +35067,7 @@ impl super::stub::MachineImages for MachineImages {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -35154,7 +35154,7 @@ impl super::stub::MachineImages for MachineImages {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -35229,7 +35229,7 @@ impl super::stub::MachineImages for MachineImages {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/machineImages/{}",
@@ -35308,7 +35308,7 @@ impl super::stub::MachineImages for MachineImages {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/machineImages/{}",
@@ -35387,7 +35387,7 @@ impl super::stub::MachineImages for MachineImages {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/machineImages/{}",
@@ -35466,7 +35466,7 @@ impl super::stub::MachineImages for MachineImages {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/operations/{}",
@@ -35607,7 +35607,7 @@ impl super::stub::MachineTypes for MachineTypes {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -35692,7 +35692,7 @@ impl super::stub::MachineTypes for MachineTypes {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/machineTypes/{}",
@@ -35797,7 +35797,7 @@ impl super::stub::MachineTypes for MachineTypes {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}",
@@ -35924,7 +35924,7 @@ impl super::stub::NetworkAttachments for NetworkAttachments {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -36017,7 +36017,7 @@ impl super::stub::NetworkAttachments for NetworkAttachments {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/networkAttachments/{}",
@@ -36114,7 +36114,7 @@ impl super::stub::NetworkAttachments for NetworkAttachments {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/networkAttachments/{}",
@@ -36213,7 +36213,7 @@ impl super::stub::NetworkAttachments for NetworkAttachments {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/networkAttachments/{}",
@@ -36300,7 +36300,7 @@ impl super::stub::NetworkAttachments for NetworkAttachments {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}",
@@ -36401,7 +36401,7 @@ impl super::stub::NetworkAttachments for NetworkAttachments {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}",
@@ -36498,7 +36498,7 @@ impl super::stub::NetworkAttachments for NetworkAttachments {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/networkAttachments/{}",
@@ -36591,7 +36591,7 @@ impl super::stub::NetworkAttachments for NetworkAttachments {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/networkAttachments/{}",
@@ -36684,7 +36684,7 @@ impl super::stub::NetworkAttachments for NetworkAttachments {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/networkAttachments/{}",
@@ -36777,7 +36777,7 @@ impl super::stub::NetworkAttachments for NetworkAttachments {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/operations/{}",
@@ -36922,7 +36922,7 @@ impl super::stub::NetworkEdgeSecurityServices for NetworkEdgeSecurityServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -37015,7 +37015,7 @@ impl super::stub::NetworkEdgeSecurityServices for NetworkEdgeSecurityServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/networkEdgeSecurityServices/{}",
@@ -37112,7 +37112,7 @@ impl super::stub::NetworkEdgeSecurityServices for NetworkEdgeSecurityServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/networkEdgeSecurityServices/{}",
@@ -37203,7 +37203,7 @@ impl super::stub::NetworkEdgeSecurityServices for NetworkEdgeSecurityServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}",
@@ -37316,7 +37316,7 @@ impl super::stub::NetworkEdgeSecurityServices for NetworkEdgeSecurityServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/networkEdgeSecurityServices/{}",
@@ -37409,7 +37409,7 @@ impl super::stub::NetworkEdgeSecurityServices for NetworkEdgeSecurityServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/operations/{}",
@@ -37554,7 +37554,7 @@ impl super::stub::NetworkEndpointGroups for NetworkEndpointGroups {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -37628,7 +37628,7 @@ impl super::stub::NetworkEndpointGroups for NetworkEndpointGroups {
             }
             google_cloud_gax::error::Error::binding(BindingError { paths })
         })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/networkEndpointGroups/{}",
@@ -37729,7 +37729,7 @@ impl super::stub::NetworkEndpointGroups for NetworkEndpointGroups {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/networkEndpointGroups/{}",
@@ -37811,7 +37811,7 @@ impl super::stub::NetworkEndpointGroups for NetworkEndpointGroups {
             }
             google_cloud_gax::error::Error::binding(BindingError { paths })
         })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/networkEndpointGroups/{}",
@@ -37908,7 +37908,7 @@ impl super::stub::NetworkEndpointGroups for NetworkEndpointGroups {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/networkEndpointGroups/{}",
@@ -37995,7 +37995,7 @@ impl super::stub::NetworkEndpointGroups for NetworkEndpointGroups {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}",
@@ -38096,7 +38096,7 @@ impl super::stub::NetworkEndpointGroups for NetworkEndpointGroups {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}",
@@ -38178,7 +38178,7 @@ impl super::stub::NetworkEndpointGroups for NetworkEndpointGroups {
             }
             google_cloud_gax::error::Error::binding(BindingError { paths })
         })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/networkEndpointGroups/{}",
@@ -38271,7 +38271,7 @@ impl super::stub::NetworkEndpointGroups for NetworkEndpointGroups {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/networkEndpointGroups/{}",
@@ -38364,7 +38364,7 @@ impl super::stub::NetworkEndpointGroups for NetworkEndpointGroups {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/operations/{}",
@@ -38498,7 +38498,7 @@ impl super::stub::NetworkFirewallPolicies for NetworkFirewallPolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/firewallPolicies/{}",
@@ -38589,7 +38589,7 @@ impl super::stub::NetworkFirewallPolicies for NetworkFirewallPolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/firewallPolicies/{}",
@@ -38680,7 +38680,7 @@ impl super::stub::NetworkFirewallPolicies for NetworkFirewallPolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/firewallPolicies/{}",
@@ -38780,7 +38780,7 @@ impl super::stub::NetworkFirewallPolicies for NetworkFirewallPolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -38865,7 +38865,7 @@ impl super::stub::NetworkFirewallPolicies for NetworkFirewallPolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/firewallPolicies/{}",
@@ -38948,7 +38948,7 @@ impl super::stub::NetworkFirewallPolicies for NetworkFirewallPolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/firewallPolicies/{}",
@@ -39027,7 +39027,7 @@ impl super::stub::NetworkFirewallPolicies for NetworkFirewallPolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/firewallPolicies/{}",
@@ -39110,7 +39110,7 @@ impl super::stub::NetworkFirewallPolicies for NetworkFirewallPolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/firewallPolicies/{}",
@@ -39195,7 +39195,7 @@ impl super::stub::NetworkFirewallPolicies for NetworkFirewallPolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/firewallPolicies/{}",
@@ -39278,7 +39278,7 @@ impl super::stub::NetworkFirewallPolicies for NetworkFirewallPolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/firewallPolicies/{}",
@@ -39361,7 +39361,7 @@ impl super::stub::NetworkFirewallPolicies for NetworkFirewallPolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/firewallPolicies/{}",
@@ -39434,7 +39434,7 @@ impl super::stub::NetworkFirewallPolicies for NetworkFirewallPolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -39521,7 +39521,7 @@ impl super::stub::NetworkFirewallPolicies for NetworkFirewallPolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -39600,7 +39600,7 @@ impl super::stub::NetworkFirewallPolicies for NetworkFirewallPolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/firewallPolicies/{}",
@@ -39687,7 +39687,7 @@ impl super::stub::NetworkFirewallPolicies for NetworkFirewallPolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/firewallPolicies/{}",
@@ -39774,7 +39774,7 @@ impl super::stub::NetworkFirewallPolicies for NetworkFirewallPolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/firewallPolicies/{}",
@@ -39861,7 +39861,7 @@ impl super::stub::NetworkFirewallPolicies for NetworkFirewallPolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/firewallPolicies/{}",
@@ -39948,7 +39948,7 @@ impl super::stub::NetworkFirewallPolicies for NetworkFirewallPolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/firewallPolicies/{}",
@@ -40035,7 +40035,7 @@ impl super::stub::NetworkFirewallPolicies for NetworkFirewallPolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/firewallPolicies/{}",
@@ -40114,7 +40114,7 @@ impl super::stub::NetworkFirewallPolicies for NetworkFirewallPolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/firewallPolicies/{}",
@@ -40193,7 +40193,7 @@ impl super::stub::NetworkFirewallPolicies for NetworkFirewallPolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/firewallPolicies/{}",
@@ -40272,7 +40272,7 @@ impl super::stub::NetworkFirewallPolicies for NetworkFirewallPolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/operations/{}",
@@ -40392,7 +40392,7 @@ impl super::stub::NetworkProfiles for NetworkProfiles {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/networkProfiles/{}",
@@ -40483,7 +40483,7 @@ impl super::stub::NetworkProfiles for NetworkProfiles {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -40589,7 +40589,7 @@ impl super::stub::Networks for Networks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/networks/{}",
@@ -40672,7 +40672,7 @@ impl super::stub::Networks for Networks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/networks/{}",
@@ -40751,7 +40751,7 @@ impl super::stub::Networks for Networks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/networks/{}",
@@ -40830,7 +40830,7 @@ impl super::stub::Networks for Networks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/networks/{}",
@@ -40903,7 +40903,7 @@ impl super::stub::Networks for Networks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -40990,7 +40990,7 @@ impl super::stub::Networks for Networks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -41099,7 +41099,7 @@ impl super::stub::Networks for Networks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/networks/{}",
@@ -41182,7 +41182,7 @@ impl super::stub::Networks for Networks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/networks/{}",
@@ -41265,7 +41265,7 @@ impl super::stub::Networks for Networks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/networks/{}",
@@ -41348,7 +41348,7 @@ impl super::stub::Networks for Networks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/networks/{}",
@@ -41431,7 +41431,7 @@ impl super::stub::Networks for Networks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/networks/{}",
@@ -41514,7 +41514,7 @@ impl super::stub::Networks for Networks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/networks/{}",
@@ -41593,7 +41593,7 @@ impl super::stub::Networks for Networks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/operations/{}",
@@ -41727,7 +41727,7 @@ impl super::stub::NodeGroups for NodeGroups {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/nodeGroups/{}",
@@ -41831,7 +41831,7 @@ impl super::stub::NodeGroups for NodeGroups {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -41920,7 +41920,7 @@ impl super::stub::NodeGroups for NodeGroups {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/nodeGroups/{}",
@@ -42017,7 +42017,7 @@ impl super::stub::NodeGroups for NodeGroups {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/nodeGroups/{}",
@@ -42110,7 +42110,7 @@ impl super::stub::NodeGroups for NodeGroups {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/nodeGroups/{}",
@@ -42209,7 +42209,7 @@ impl super::stub::NodeGroups for NodeGroups {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/nodeGroups/{}",
@@ -42297,7 +42297,7 @@ impl super::stub::NodeGroups for NodeGroups {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}",
@@ -42398,7 +42398,7 @@ impl super::stub::NodeGroups for NodeGroups {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}",
@@ -42509,7 +42509,7 @@ impl super::stub::NodeGroups for NodeGroups {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/nodeGroups/{}",
@@ -42606,7 +42606,7 @@ impl super::stub::NodeGroups for NodeGroups {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/nodeGroups/{}",
@@ -42703,7 +42703,7 @@ impl super::stub::NodeGroups for NodeGroups {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/nodeGroups/{}",
@@ -42796,7 +42796,7 @@ impl super::stub::NodeGroups for NodeGroups {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/nodeGroups/{}",
@@ -42893,7 +42893,7 @@ impl super::stub::NodeGroups for NodeGroups {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/nodeGroups/{}",
@@ -42990,7 +42990,7 @@ impl super::stub::NodeGroups for NodeGroups {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/nodeGroups/{}",
@@ -43083,7 +43083,7 @@ impl super::stub::NodeGroups for NodeGroups {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/nodeGroups/{}",
@@ -43176,7 +43176,7 @@ impl super::stub::NodeGroups for NodeGroups {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/operations/{}",
@@ -43321,7 +43321,7 @@ impl super::stub::NodeTemplates for NodeTemplates {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -43410,7 +43410,7 @@ impl super::stub::NodeTemplates for NodeTemplates {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/nodeTemplates/{}",
@@ -43503,7 +43503,7 @@ impl super::stub::NodeTemplates for NodeTemplates {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/nodeTemplates/{}",
@@ -43602,7 +43602,7 @@ impl super::stub::NodeTemplates for NodeTemplates {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/nodeTemplates/{}",
@@ -43689,7 +43689,7 @@ impl super::stub::NodeTemplates for NodeTemplates {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}",
@@ -43790,7 +43790,7 @@ impl super::stub::NodeTemplates for NodeTemplates {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}",
@@ -43879,7 +43879,7 @@ impl super::stub::NodeTemplates for NodeTemplates {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/nodeTemplates/{}",
@@ -43972,7 +43972,7 @@ impl super::stub::NodeTemplates for NodeTemplates {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/nodeTemplates/{}",
@@ -44065,7 +44065,7 @@ impl super::stub::NodeTemplates for NodeTemplates {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/operations/{}",
@@ -44210,7 +44210,7 @@ impl super::stub::NodeTypes for NodeTypes {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -44295,7 +44295,7 @@ impl super::stub::NodeTypes for NodeTypes {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/nodeTypes/{}",
@@ -44400,7 +44400,7 @@ impl super::stub::NodeTypes for NodeTypes {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}",
@@ -44506,7 +44506,7 @@ impl super::stub::OrganizationSecurityPolicies for OrganizationSecurityPolicies 
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/securityPolicies/{}",
@@ -44575,7 +44575,7 @@ impl super::stub::OrganizationSecurityPolicies for OrganizationSecurityPolicies 
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/securityPolicies/{}",
@@ -44650,7 +44650,7 @@ impl super::stub::OrganizationSecurityPolicies for OrganizationSecurityPolicies 
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/securityPolicies/{}",
@@ -44719,7 +44719,7 @@ impl super::stub::OrganizationSecurityPolicies for OrganizationSecurityPolicies 
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/securityPolicies/{}",
@@ -44784,7 +44784,7 @@ impl super::stub::OrganizationSecurityPolicies for OrganizationSecurityPolicies 
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/securityPolicies/{}",
@@ -44853,7 +44853,7 @@ impl super::stub::OrganizationSecurityPolicies for OrganizationSecurityPolicies 
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/securityPolicies/{}",
@@ -44922,7 +44922,7 @@ impl super::stub::OrganizationSecurityPolicies for OrganizationSecurityPolicies 
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/securityPolicies/{}",
@@ -45208,7 +45208,7 @@ impl super::stub::OrganizationSecurityPolicies for OrganizationSecurityPolicies 
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/securityPolicies/{}",
@@ -45277,7 +45277,7 @@ impl super::stub::OrganizationSecurityPolicies for OrganizationSecurityPolicies 
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/securityPolicies/{}",
@@ -45350,7 +45350,7 @@ impl super::stub::OrganizationSecurityPolicies for OrganizationSecurityPolicies 
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/securityPolicies/{}",
@@ -45423,7 +45423,7 @@ impl super::stub::OrganizationSecurityPolicies for OrganizationSecurityPolicies 
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/securityPolicies/{}",
@@ -45496,7 +45496,7 @@ impl super::stub::OrganizationSecurityPolicies for OrganizationSecurityPolicies 
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/securityPolicies/{}",
@@ -45565,7 +45565,7 @@ impl super::stub::OrganizationSecurityPolicies for OrganizationSecurityPolicies 
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/operations/{}",
@@ -45702,7 +45702,7 @@ impl super::stub::PacketMirrorings for PacketMirrorings {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -45791,7 +45791,7 @@ impl super::stub::PacketMirrorings for PacketMirrorings {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/packetMirrorings/{}",
@@ -45884,7 +45884,7 @@ impl super::stub::PacketMirrorings for PacketMirrorings {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/packetMirrorings/{}",
@@ -45971,7 +45971,7 @@ impl super::stub::PacketMirrorings for PacketMirrorings {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}",
@@ -46072,7 +46072,7 @@ impl super::stub::PacketMirrorings for PacketMirrorings {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}",
@@ -46165,7 +46165,7 @@ impl super::stub::PacketMirrorings for PacketMirrorings {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/packetMirrorings/{}",
@@ -46258,7 +46258,7 @@ impl super::stub::PacketMirrorings for PacketMirrorings {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/packetMirrorings/{}",
@@ -46351,7 +46351,7 @@ impl super::stub::PacketMirrorings for PacketMirrorings {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/operations/{}",
@@ -46475,7 +46475,7 @@ impl super::stub::PreviewFeatures for PreviewFeatures {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/previewFeatures/{}",
@@ -46566,7 +46566,7 @@ impl super::stub::PreviewFeatures for PreviewFeatures {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -46645,7 +46645,7 @@ impl super::stub::PreviewFeatures for PreviewFeatures {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/previewFeatures/{}",
@@ -46724,7 +46724,7 @@ impl super::stub::PreviewFeatures for PreviewFeatures {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/operations/{}",
@@ -46838,7 +46838,7 @@ impl super::stub::Projects for Projects {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -46907,7 +46907,7 @@ impl super::stub::Projects for Projects {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -46976,7 +46976,7 @@ impl super::stub::Projects for Projects {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -47045,7 +47045,7 @@ impl super::stub::Projects for Projects {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -47110,7 +47110,7 @@ impl super::stub::Projects for Projects {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -47175,7 +47175,7 @@ impl super::stub::Projects for Projects {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -47262,7 +47262,7 @@ impl super::stub::Projects for Projects {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -47349,7 +47349,7 @@ impl super::stub::Projects for Projects {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -47418,7 +47418,7 @@ impl super::stub::Projects for Projects {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -47487,7 +47487,7 @@ impl super::stub::Projects for Projects {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -47556,7 +47556,7 @@ impl super::stub::Projects for Projects {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -47625,7 +47625,7 @@ impl super::stub::Projects for Projects {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -47694,7 +47694,7 @@ impl super::stub::Projects for Projects {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -47763,7 +47763,7 @@ impl super::stub::Projects for Projects {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -47838,7 +47838,7 @@ impl super::stub::Projects for Projects {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/operations/{}",
@@ -47966,7 +47966,7 @@ impl super::stub::PublicAdvertisedPrefixes for PublicAdvertisedPrefixes {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/publicAdvertisedPrefixes/{}",
@@ -48053,7 +48053,7 @@ impl super::stub::PublicAdvertisedPrefixes for PublicAdvertisedPrefixes {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/publicAdvertisedPrefixes/{}",
@@ -48136,7 +48136,7 @@ impl super::stub::PublicAdvertisedPrefixes for PublicAdvertisedPrefixes {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/publicAdvertisedPrefixes/{}",
@@ -48209,7 +48209,7 @@ impl super::stub::PublicAdvertisedPrefixes for PublicAdvertisedPrefixes {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -48296,7 +48296,7 @@ impl super::stub::PublicAdvertisedPrefixes for PublicAdvertisedPrefixes {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -48379,7 +48379,7 @@ impl super::stub::PublicAdvertisedPrefixes for PublicAdvertisedPrefixes {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/publicAdvertisedPrefixes/{}",
@@ -48466,7 +48466,7 @@ impl super::stub::PublicAdvertisedPrefixes for PublicAdvertisedPrefixes {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/publicAdvertisedPrefixes/{}",
@@ -48545,7 +48545,7 @@ impl super::stub::PublicAdvertisedPrefixes for PublicAdvertisedPrefixes {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/operations/{}",
@@ -48686,7 +48686,7 @@ impl super::stub::PublicDelegatedPrefixes for PublicDelegatedPrefixes {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -48779,7 +48779,7 @@ impl super::stub::PublicDelegatedPrefixes for PublicDelegatedPrefixes {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/publicDelegatedPrefixes/{}",
@@ -48880,7 +48880,7 @@ impl super::stub::PublicDelegatedPrefixes for PublicDelegatedPrefixes {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/publicDelegatedPrefixes/{}",
@@ -48977,7 +48977,7 @@ impl super::stub::PublicDelegatedPrefixes for PublicDelegatedPrefixes {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/publicDelegatedPrefixes/{}",
@@ -49064,7 +49064,7 @@ impl super::stub::PublicDelegatedPrefixes for PublicDelegatedPrefixes {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}",
@@ -49165,7 +49165,7 @@ impl super::stub::PublicDelegatedPrefixes for PublicDelegatedPrefixes {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}",
@@ -49262,7 +49262,7 @@ impl super::stub::PublicDelegatedPrefixes for PublicDelegatedPrefixes {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/publicDelegatedPrefixes/{}",
@@ -49363,7 +49363,7 @@ impl super::stub::PublicDelegatedPrefixes for PublicDelegatedPrefixes {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/publicDelegatedPrefixes/{}",
@@ -49456,7 +49456,7 @@ impl super::stub::PublicDelegatedPrefixes for PublicDelegatedPrefixes {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/operations/{}",
@@ -49594,7 +49594,7 @@ impl super::stub::RegionAutoscalers for RegionAutoscalers {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/autoscalers/{}",
@@ -49687,7 +49687,7 @@ impl super::stub::RegionAutoscalers for RegionAutoscalers {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/autoscalers/{}",
@@ -49774,7 +49774,7 @@ impl super::stub::RegionAutoscalers for RegionAutoscalers {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}",
@@ -49875,7 +49875,7 @@ impl super::stub::RegionAutoscalers for RegionAutoscalers {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}",
@@ -49962,7 +49962,7 @@ impl super::stub::RegionAutoscalers for RegionAutoscalers {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}",
@@ -50051,7 +50051,7 @@ impl super::stub::RegionAutoscalers for RegionAutoscalers {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/autoscalers/{}",
@@ -50142,7 +50142,7 @@ impl super::stub::RegionAutoscalers for RegionAutoscalers {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}",
@@ -50231,7 +50231,7 @@ impl super::stub::RegionAutoscalers for RegionAutoscalers {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/operations/{}",
@@ -50369,7 +50369,7 @@ impl super::stub::RegionBackendServices for RegionBackendServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/backendServices/{}",
@@ -50462,7 +50462,7 @@ impl super::stub::RegionBackendServices for RegionBackendServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/backendServices/{}",
@@ -50555,7 +50555,7 @@ impl super::stub::RegionBackendServices for RegionBackendServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/backendServices/{}",
@@ -50654,7 +50654,7 @@ impl super::stub::RegionBackendServices for RegionBackendServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/backendServices/{}",
@@ -50741,7 +50741,7 @@ impl super::stub::RegionBackendServices for RegionBackendServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}",
@@ -50842,7 +50842,7 @@ impl super::stub::RegionBackendServices for RegionBackendServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}",
@@ -50943,7 +50943,7 @@ impl super::stub::RegionBackendServices for RegionBackendServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}",
@@ -51036,7 +51036,7 @@ impl super::stub::RegionBackendServices for RegionBackendServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/backendServices/{}",
@@ -51129,7 +51129,7 @@ impl super::stub::RegionBackendServices for RegionBackendServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/backendServices/{}",
@@ -51226,7 +51226,7 @@ impl super::stub::RegionBackendServices for RegionBackendServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/backendServices/{}",
@@ -51319,7 +51319,7 @@ impl super::stub::RegionBackendServices for RegionBackendServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/backendServices/{}",
@@ -51416,7 +51416,7 @@ impl super::stub::RegionBackendServices for RegionBackendServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/backendServices/{}",
@@ -51509,7 +51509,7 @@ impl super::stub::RegionBackendServices for RegionBackendServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/operations/{}",
@@ -51654,7 +51654,7 @@ impl super::stub::RegionCommitments for RegionCommitments {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -51739,7 +51739,7 @@ impl super::stub::RegionCommitments for RegionCommitments {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/commitments/{}",
@@ -51826,7 +51826,7 @@ impl super::stub::RegionCommitments for RegionCommitments {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}",
@@ -51927,7 +51927,7 @@ impl super::stub::RegionCommitments for RegionCommitments {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}",
@@ -52036,7 +52036,7 @@ impl super::stub::RegionCommitments for RegionCommitments {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/commitments/{}",
@@ -52129,7 +52129,7 @@ impl super::stub::RegionCommitments for RegionCommitments {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/operations/{}",
@@ -52263,7 +52263,7 @@ impl super::stub::RegionDiskTypes for RegionDiskTypes {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/diskTypes/{}",
@@ -52368,7 +52368,7 @@ impl super::stub::RegionDiskTypes for RegionDiskTypes {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}",
@@ -52488,7 +52488,7 @@ impl super::stub::RegionDisks for RegionDisks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/disks/{}",
@@ -52575,7 +52575,7 @@ impl super::stub::RegionDisks for RegionDisks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}",
@@ -52668,7 +52668,7 @@ impl super::stub::RegionDisks for RegionDisks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/disks/{}",
@@ -52765,7 +52765,7 @@ impl super::stub::RegionDisks for RegionDisks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/disks/{}",
@@ -52858,7 +52858,7 @@ impl super::stub::RegionDisks for RegionDisks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/disks/{}",
@@ -52957,7 +52957,7 @@ impl super::stub::RegionDisks for RegionDisks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/disks/{}",
@@ -53048,7 +53048,7 @@ impl super::stub::RegionDisks for RegionDisks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}",
@@ -53149,7 +53149,7 @@ impl super::stub::RegionDisks for RegionDisks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}",
@@ -53242,7 +53242,7 @@ impl super::stub::RegionDisks for RegionDisks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/disks/{}",
@@ -53339,7 +53339,7 @@ impl super::stub::RegionDisks for RegionDisks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/disks/{}",
@@ -53432,7 +53432,7 @@ impl super::stub::RegionDisks for RegionDisks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/disks/{}",
@@ -53529,7 +53529,7 @@ impl super::stub::RegionDisks for RegionDisks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/disks/{}",
@@ -53626,7 +53626,7 @@ impl super::stub::RegionDisks for RegionDisks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/disks/{}",
@@ -53723,7 +53723,7 @@ impl super::stub::RegionDisks for RegionDisks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/disks/{}",
@@ -53810,7 +53810,7 @@ impl super::stub::RegionDisks for RegionDisks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}",
@@ -53899,7 +53899,7 @@ impl super::stub::RegionDisks for RegionDisks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/disks/{}",
@@ -54012,7 +54012,7 @@ impl super::stub::RegionDisks for RegionDisks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/disks/{}",
@@ -54105,7 +54105,7 @@ impl super::stub::RegionDisks for RegionDisks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/operations/{}",
@@ -54250,7 +54250,7 @@ impl super::stub::RegionHealthAggregationPolicies for RegionHealthAggregationPol
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -54343,7 +54343,7 @@ impl super::stub::RegionHealthAggregationPolicies for RegionHealthAggregationPol
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/healthAggregationPolicies/{}",
@@ -54440,7 +54440,7 @@ impl super::stub::RegionHealthAggregationPolicies for RegionHealthAggregationPol
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/healthAggregationPolicies/{}",
@@ -54527,7 +54527,7 @@ impl super::stub::RegionHealthAggregationPolicies for RegionHealthAggregationPol
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}",
@@ -54628,7 +54628,7 @@ impl super::stub::RegionHealthAggregationPolicies for RegionHealthAggregationPol
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}",
@@ -54725,7 +54725,7 @@ impl super::stub::RegionHealthAggregationPolicies for RegionHealthAggregationPol
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/healthAggregationPolicies/{}",
@@ -54806,7 +54806,7 @@ impl super::stub::RegionHealthAggregationPolicies for RegionHealthAggregationPol
             }
             google_cloud_gax::error::Error::binding(BindingError { paths })
         })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/healthAggregationPolicies/{}",
@@ -54899,7 +54899,7 @@ impl super::stub::RegionHealthAggregationPolicies for RegionHealthAggregationPol
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/operations/{}",
@@ -55041,7 +55041,7 @@ impl super::stub::RegionHealthCheckServices for RegionHealthCheckServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/healthCheckServices/{}",
@@ -55138,7 +55138,7 @@ impl super::stub::RegionHealthCheckServices for RegionHealthCheckServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/healthCheckServices/{}",
@@ -55225,7 +55225,7 @@ impl super::stub::RegionHealthCheckServices for RegionHealthCheckServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}",
@@ -55326,7 +55326,7 @@ impl super::stub::RegionHealthCheckServices for RegionHealthCheckServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}",
@@ -55423,7 +55423,7 @@ impl super::stub::RegionHealthCheckServices for RegionHealthCheckServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/healthCheckServices/{}",
@@ -55516,7 +55516,7 @@ impl super::stub::RegionHealthCheckServices for RegionHealthCheckServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/healthCheckServices/{}",
@@ -55609,7 +55609,7 @@ impl super::stub::RegionHealthCheckServices for RegionHealthCheckServices {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/operations/{}",
@@ -55747,7 +55747,7 @@ impl super::stub::RegionHealthChecks for RegionHealthChecks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/healthChecks/{}",
@@ -55840,7 +55840,7 @@ impl super::stub::RegionHealthChecks for RegionHealthChecks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/healthChecks/{}",
@@ -55927,7 +55927,7 @@ impl super::stub::RegionHealthChecks for RegionHealthChecks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}",
@@ -56028,7 +56028,7 @@ impl super::stub::RegionHealthChecks for RegionHealthChecks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}",
@@ -56121,7 +56121,7 @@ impl super::stub::RegionHealthChecks for RegionHealthChecks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/healthChecks/{}",
@@ -56214,7 +56214,7 @@ impl super::stub::RegionHealthChecks for RegionHealthChecks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/healthChecks/{}",
@@ -56311,7 +56311,7 @@ impl super::stub::RegionHealthChecks for RegionHealthChecks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/healthChecks/{}",
@@ -56404,7 +56404,7 @@ impl super::stub::RegionHealthChecks for RegionHealthChecks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/operations/{}",
@@ -56546,7 +56546,7 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/instanceGroupManagers/{}",
@@ -56627,7 +56627,7 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
             }
             google_cloud_gax::error::Error::binding(BindingError { paths })
         })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/instanceGroupManagers/{}",
@@ -56728,7 +56728,7 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/instanceGroupManagers/{}",
@@ -56829,7 +56829,7 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/instanceGroupManagers/{}",
@@ -56930,7 +56930,7 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/instanceGroupManagers/{}",
@@ -57011,7 +57011,7 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
             }
             google_cloud_gax::error::Error::binding(BindingError { paths })
         })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/instanceGroupManagers/{}",
@@ -57108,7 +57108,7 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/instanceGroupManagers/{}",
@@ -57195,7 +57195,7 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}",
@@ -57296,7 +57296,7 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}",
@@ -57411,7 +57411,7 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/instanceGroupManagers/{}",
@@ -57498,7 +57498,7 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
             }
             google_cloud_gax::error::Error::binding(BindingError { paths })
         })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/instanceGroupManagers/{}",
@@ -57585,7 +57585,7 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
             }
             google_cloud_gax::error::Error::binding(BindingError { paths })
         })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/instanceGroupManagers/{}",
@@ -57686,7 +57686,7 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/instanceGroupManagers/{}",
@@ -57768,7 +57768,7 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
             }
             google_cloud_gax::error::Error::binding(BindingError { paths })
         })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/instanceGroupManagers/{}",
@@ -57869,7 +57869,7 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/instanceGroupManagers/{}",
@@ -57971,7 +57971,7 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/instanceGroupManagers/{}",
@@ -58072,7 +58072,7 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/instanceGroupManagers/{}",
@@ -58154,7 +58154,7 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
             }
             google_cloud_gax::error::Error::binding(BindingError { paths })
         })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/instanceGroupManagers/{}",
@@ -58255,7 +58255,7 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/instanceGroupManagers/{}",
@@ -58356,7 +58356,7 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/instanceGroupManagers/{}",
@@ -58457,7 +58457,7 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/instanceGroupManagers/{}",
@@ -58558,7 +58558,7 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/instanceGroupManagers/{}",
@@ -58640,7 +58640,7 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
             }
             google_cloud_gax::error::Error::binding(BindingError { paths })
         })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/instanceGroupManagers/{}",
@@ -58733,7 +58733,7 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/operations/{}",
@@ -58867,7 +58867,7 @@ impl super::stub::RegionInstanceGroups for RegionInstanceGroups {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/instanceGroups/{}",
@@ -58972,7 +58972,7 @@ impl super::stub::RegionInstanceGroups for RegionInstanceGroups {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}",
@@ -59083,7 +59083,7 @@ impl super::stub::RegionInstanceGroups for RegionInstanceGroups {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/instanceGroups/{}",
@@ -59180,7 +59180,7 @@ impl super::stub::RegionInstanceGroups for RegionInstanceGroups {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/instanceGroups/{}",
@@ -59273,7 +59273,7 @@ impl super::stub::RegionInstanceGroups for RegionInstanceGroups {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/instanceGroups/{}",
@@ -59366,7 +59366,7 @@ impl super::stub::RegionInstanceGroups for RegionInstanceGroups {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/operations/{}",
@@ -59504,7 +59504,7 @@ impl super::stub::RegionInstanceTemplates for RegionInstanceTemplates {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/instanceTemplates/{}",
@@ -59597,7 +59597,7 @@ impl super::stub::RegionInstanceTemplates for RegionInstanceTemplates {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/instanceTemplates/{}",
@@ -59684,7 +59684,7 @@ impl super::stub::RegionInstanceTemplates for RegionInstanceTemplates {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}",
@@ -59785,7 +59785,7 @@ impl super::stub::RegionInstanceTemplates for RegionInstanceTemplates {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}",
@@ -59874,7 +59874,7 @@ impl super::stub::RegionInstanceTemplates for RegionInstanceTemplates {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/operations/{}",
@@ -60002,7 +60002,7 @@ impl super::stub::RegionInstances for RegionInstances {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}",
@@ -60091,7 +60091,7 @@ impl super::stub::RegionInstances for RegionInstances {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/operations/{}",
@@ -60229,7 +60229,7 @@ impl super::stub::RegionInstantSnapshots for RegionInstantSnapshots {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/instantSnapshots/{}",
@@ -60322,7 +60322,7 @@ impl super::stub::RegionInstantSnapshots for RegionInstantSnapshots {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/instantSnapshots/{}",
@@ -60421,7 +60421,7 @@ impl super::stub::RegionInstantSnapshots for RegionInstantSnapshots {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/instantSnapshots/{}",
@@ -60508,7 +60508,7 @@ impl super::stub::RegionInstantSnapshots for RegionInstantSnapshots {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}",
@@ -60609,7 +60609,7 @@ impl super::stub::RegionInstantSnapshots for RegionInstantSnapshots {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}",
@@ -60698,7 +60698,7 @@ impl super::stub::RegionInstantSnapshots for RegionInstantSnapshots {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/instantSnapshots/{}",
@@ -60795,7 +60795,7 @@ impl super::stub::RegionInstantSnapshots for RegionInstantSnapshots {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/instantSnapshots/{}",
@@ -60888,7 +60888,7 @@ impl super::stub::RegionInstantSnapshots for RegionInstantSnapshots {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/instantSnapshots/{}",
@@ -60981,7 +60981,7 @@ impl super::stub::RegionInstantSnapshots for RegionInstantSnapshots {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/operations/{}",
@@ -61104,7 +61104,7 @@ impl super::stub::RegionNetworkEndpointGroups for RegionNetworkEndpointGroups {
             }
             google_cloud_gax::error::Error::binding(BindingError { paths })
         })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/networkEndpointGroups/{}",
@@ -61205,7 +61205,7 @@ impl super::stub::RegionNetworkEndpointGroups for RegionNetworkEndpointGroups {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/networkEndpointGroups/{}",
@@ -61287,7 +61287,7 @@ impl super::stub::RegionNetworkEndpointGroups for RegionNetworkEndpointGroups {
             }
             google_cloud_gax::error::Error::binding(BindingError { paths })
         })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/networkEndpointGroups/{}",
@@ -61384,7 +61384,7 @@ impl super::stub::RegionNetworkEndpointGroups for RegionNetworkEndpointGroups {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/networkEndpointGroups/{}",
@@ -61471,7 +61471,7 @@ impl super::stub::RegionNetworkEndpointGroups for RegionNetworkEndpointGroups {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}",
@@ -61572,7 +61572,7 @@ impl super::stub::RegionNetworkEndpointGroups for RegionNetworkEndpointGroups {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}",
@@ -61654,7 +61654,7 @@ impl super::stub::RegionNetworkEndpointGroups for RegionNetworkEndpointGroups {
             }
             google_cloud_gax::error::Error::binding(BindingError { paths })
         })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/networkEndpointGroups/{}",
@@ -61747,7 +61747,7 @@ impl super::stub::RegionNetworkEndpointGroups for RegionNetworkEndpointGroups {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/operations/{}",
@@ -61891,7 +61891,7 @@ impl super::stub::RegionNetworkFirewallPolicies for RegionNetworkFirewallPolicie
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/firewallPolicies/{}",
@@ -61996,7 +61996,7 @@ impl super::stub::RegionNetworkFirewallPolicies for RegionNetworkFirewallPolicie
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/firewallPolicies/{}",
@@ -62099,7 +62099,7 @@ impl super::stub::RegionNetworkFirewallPolicies for RegionNetworkFirewallPolicie
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/firewallPolicies/{}",
@@ -62196,7 +62196,7 @@ impl super::stub::RegionNetworkFirewallPolicies for RegionNetworkFirewallPolicie
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/firewallPolicies/{}",
@@ -62289,7 +62289,7 @@ impl super::stub::RegionNetworkFirewallPolicies for RegionNetworkFirewallPolicie
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/firewallPolicies/{}",
@@ -62386,7 +62386,7 @@ impl super::stub::RegionNetworkFirewallPolicies for RegionNetworkFirewallPolicie
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/firewallPolicies/{}",
@@ -62472,7 +62472,7 @@ impl super::stub::RegionNetworkFirewallPolicies for RegionNetworkFirewallPolicie
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}",
@@ -62567,7 +62567,7 @@ impl super::stub::RegionNetworkFirewallPolicies for RegionNetworkFirewallPolicie
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/firewallPolicies/{}",
@@ -62664,7 +62664,7 @@ impl super::stub::RegionNetworkFirewallPolicies for RegionNetworkFirewallPolicie
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/firewallPolicies/{}",
@@ -62751,7 +62751,7 @@ impl super::stub::RegionNetworkFirewallPolicies for RegionNetworkFirewallPolicie
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}",
@@ -62852,7 +62852,7 @@ impl super::stub::RegionNetworkFirewallPolicies for RegionNetworkFirewallPolicie
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}",
@@ -62945,7 +62945,7 @@ impl super::stub::RegionNetworkFirewallPolicies for RegionNetworkFirewallPolicie
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/firewallPolicies/{}",
@@ -63046,7 +63046,7 @@ impl super::stub::RegionNetworkFirewallPolicies for RegionNetworkFirewallPolicie
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/firewallPolicies/{}",
@@ -63147,7 +63147,7 @@ impl super::stub::RegionNetworkFirewallPolicies for RegionNetworkFirewallPolicie
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/firewallPolicies/{}",
@@ -63248,7 +63248,7 @@ impl super::stub::RegionNetworkFirewallPolicies for RegionNetworkFirewallPolicie
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/firewallPolicies/{}",
@@ -63341,7 +63341,7 @@ impl super::stub::RegionNetworkFirewallPolicies for RegionNetworkFirewallPolicie
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/firewallPolicies/{}",
@@ -63434,7 +63434,7 @@ impl super::stub::RegionNetworkFirewallPolicies for RegionNetworkFirewallPolicie
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/firewallPolicies/{}",
@@ -63527,7 +63527,7 @@ impl super::stub::RegionNetworkFirewallPolicies for RegionNetworkFirewallPolicie
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/operations/{}",
@@ -63669,7 +63669,7 @@ impl super::stub::RegionNotificationEndpoints for RegionNotificationEndpoints {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/notificationEndpoints/{}",
@@ -63766,7 +63766,7 @@ impl super::stub::RegionNotificationEndpoints for RegionNotificationEndpoints {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/notificationEndpoints/{}",
@@ -63853,7 +63853,7 @@ impl super::stub::RegionNotificationEndpoints for RegionNotificationEndpoints {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}",
@@ -63954,7 +63954,7 @@ impl super::stub::RegionNotificationEndpoints for RegionNotificationEndpoints {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}",
@@ -64031,7 +64031,7 @@ impl super::stub::RegionNotificationEndpoints for RegionNotificationEndpoints {
             }
             google_cloud_gax::error::Error::binding(BindingError { paths })
         })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/notificationEndpoints/{}",
@@ -64124,7 +64124,7 @@ impl super::stub::RegionNotificationEndpoints for RegionNotificationEndpoints {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/operations/{}",
@@ -64258,7 +64258,7 @@ impl super::stub::RegionOperations for RegionOperations {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/operations/{}",
@@ -64357,7 +64357,7 @@ impl super::stub::RegionOperations for RegionOperations {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/operations/{}",
@@ -64462,7 +64462,7 @@ impl super::stub::RegionOperations for RegionOperations {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}",
@@ -64551,7 +64551,7 @@ impl super::stub::RegionOperations for RegionOperations {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/operations/{}",
@@ -64675,7 +64675,7 @@ impl super::stub::RegionSecurityPolicies for RegionSecurityPolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/securityPolicies/{}",
@@ -64772,7 +64772,7 @@ impl super::stub::RegionSecurityPolicies for RegionSecurityPolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/securityPolicies/{}",
@@ -64865,7 +64865,7 @@ impl super::stub::RegionSecurityPolicies for RegionSecurityPolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/securityPolicies/{}",
@@ -64962,7 +64962,7 @@ impl super::stub::RegionSecurityPolicies for RegionSecurityPolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/securityPolicies/{}",
@@ -65053,7 +65053,7 @@ impl super::stub::RegionSecurityPolicies for RegionSecurityPolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}",
@@ -65154,7 +65154,7 @@ impl super::stub::RegionSecurityPolicies for RegionSecurityPolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}",
@@ -65259,7 +65259,7 @@ impl super::stub::RegionSecurityPolicies for RegionSecurityPolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/securityPolicies/{}",
@@ -65372,7 +65372,7 @@ impl super::stub::RegionSecurityPolicies for RegionSecurityPolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/securityPolicies/{}",
@@ -65469,7 +65469,7 @@ impl super::stub::RegionSecurityPolicies for RegionSecurityPolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/securityPolicies/{}",
@@ -65566,7 +65566,7 @@ impl super::stub::RegionSecurityPolicies for RegionSecurityPolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/securityPolicies/{}",
@@ -65659,7 +65659,7 @@ impl super::stub::RegionSecurityPolicies for RegionSecurityPolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/operations/{}",
@@ -65797,7 +65797,7 @@ impl super::stub::RegionSslCertificates for RegionSslCertificates {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/sslCertificates/{}",
@@ -65890,7 +65890,7 @@ impl super::stub::RegionSslCertificates for RegionSslCertificates {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/sslCertificates/{}",
@@ -65977,7 +65977,7 @@ impl super::stub::RegionSslCertificates for RegionSslCertificates {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}",
@@ -66078,7 +66078,7 @@ impl super::stub::RegionSslCertificates for RegionSslCertificates {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}",
@@ -66167,7 +66167,7 @@ impl super::stub::RegionSslCertificates for RegionSslCertificates {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/operations/{}",
@@ -66305,7 +66305,7 @@ impl super::stub::RegionSslPolicies for RegionSslPolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/sslPolicies/{}",
@@ -66398,7 +66398,7 @@ impl super::stub::RegionSslPolicies for RegionSslPolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/sslPolicies/{}",
@@ -66485,7 +66485,7 @@ impl super::stub::RegionSslPolicies for RegionSslPolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}",
@@ -66586,7 +66586,7 @@ impl super::stub::RegionSslPolicies for RegionSslPolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}",
@@ -66687,7 +66687,7 @@ impl super::stub::RegionSslPolicies for RegionSslPolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}",
@@ -66780,7 +66780,7 @@ impl super::stub::RegionSslPolicies for RegionSslPolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/sslPolicies/{}",
@@ -66873,7 +66873,7 @@ impl super::stub::RegionSslPolicies for RegionSslPolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/operations/{}",
@@ -67011,7 +67011,7 @@ impl super::stub::RegionTargetHttpProxies for RegionTargetHttpProxies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/targetHttpProxies/{}",
@@ -67104,7 +67104,7 @@ impl super::stub::RegionTargetHttpProxies for RegionTargetHttpProxies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/targetHttpProxies/{}",
@@ -67191,7 +67191,7 @@ impl super::stub::RegionTargetHttpProxies for RegionTargetHttpProxies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}",
@@ -67292,7 +67292,7 @@ impl super::stub::RegionTargetHttpProxies for RegionTargetHttpProxies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}",
@@ -67385,7 +67385,7 @@ impl super::stub::RegionTargetHttpProxies for RegionTargetHttpProxies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/targetHttpProxies/{}",
@@ -67478,7 +67478,7 @@ impl super::stub::RegionTargetHttpProxies for RegionTargetHttpProxies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/operations/{}",
@@ -67620,7 +67620,7 @@ impl super::stub::RegionTargetHttpsProxies for RegionTargetHttpsProxies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/targetHttpsProxies/{}",
@@ -67717,7 +67717,7 @@ impl super::stub::RegionTargetHttpsProxies for RegionTargetHttpsProxies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/targetHttpsProxies/{}",
@@ -67804,7 +67804,7 @@ impl super::stub::RegionTargetHttpsProxies for RegionTargetHttpsProxies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}",
@@ -67905,7 +67905,7 @@ impl super::stub::RegionTargetHttpsProxies for RegionTargetHttpsProxies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}",
@@ -68002,7 +68002,7 @@ impl super::stub::RegionTargetHttpsProxies for RegionTargetHttpsProxies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/targetHttpsProxies/{}",
@@ -68103,7 +68103,7 @@ impl super::stub::RegionTargetHttpsProxies for RegionTargetHttpsProxies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/targetHttpsProxies/{}",
@@ -68204,7 +68204,7 @@ impl super::stub::RegionTargetHttpsProxies for RegionTargetHttpsProxies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/targetHttpsProxies/{}",
@@ -68297,7 +68297,7 @@ impl super::stub::RegionTargetHttpsProxies for RegionTargetHttpsProxies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/operations/{}",
@@ -68435,7 +68435,7 @@ impl super::stub::RegionTargetTcpProxies for RegionTargetTcpProxies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/targetTcpProxies/{}",
@@ -68528,7 +68528,7 @@ impl super::stub::RegionTargetTcpProxies for RegionTargetTcpProxies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/targetTcpProxies/{}",
@@ -68615,7 +68615,7 @@ impl super::stub::RegionTargetTcpProxies for RegionTargetTcpProxies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}",
@@ -68716,7 +68716,7 @@ impl super::stub::RegionTargetTcpProxies for RegionTargetTcpProxies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}",
@@ -68805,7 +68805,7 @@ impl super::stub::RegionTargetTcpProxies for RegionTargetTcpProxies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/operations/{}",
@@ -68943,7 +68943,7 @@ impl super::stub::RegionUrlMaps for RegionUrlMaps {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/urlMaps/{}",
@@ -69036,7 +69036,7 @@ impl super::stub::RegionUrlMaps for RegionUrlMaps {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/urlMaps/{}",
@@ -69123,7 +69123,7 @@ impl super::stub::RegionUrlMaps for RegionUrlMaps {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}",
@@ -69224,7 +69224,7 @@ impl super::stub::RegionUrlMaps for RegionUrlMaps {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}",
@@ -69317,7 +69317,7 @@ impl super::stub::RegionUrlMaps for RegionUrlMaps {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/urlMaps/{}",
@@ -69414,7 +69414,7 @@ impl super::stub::RegionUrlMaps for RegionUrlMaps {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/urlMaps/{}",
@@ -69507,7 +69507,7 @@ impl super::stub::RegionUrlMaps for RegionUrlMaps {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/urlMaps/{}",
@@ -69600,7 +69600,7 @@ impl super::stub::RegionUrlMaps for RegionUrlMaps {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/operations/{}",
@@ -69746,7 +69746,7 @@ impl super::stub::RegionZones for RegionZones {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}",
@@ -69852,7 +69852,7 @@ impl super::stub::Regions for Regions {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}",
@@ -69943,7 +69943,7 @@ impl super::stub::Regions for Regions {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -70069,7 +70069,7 @@ impl super::stub::ReservationBlocks for ReservationBlocks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/reservations/{}/reservationBlocks/{}",
@@ -70161,7 +70161,7 @@ impl super::stub::ReservationBlocks for ReservationBlocks {
             }
             google_cloud_gax::error::Error::binding(BindingError { paths })
         })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/reservations/{}/reservationBlocks/{}",
@@ -70280,7 +70280,7 @@ impl super::stub::ReservationBlocks for ReservationBlocks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/reservations/{}",
@@ -70368,7 +70368,7 @@ impl super::stub::ReservationBlocks for ReservationBlocks {
             }
             google_cloud_gax::error::Error::binding(BindingError { paths })
         })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/reservations/{}/reservationBlocks/{}",
@@ -70459,7 +70459,7 @@ impl super::stub::ReservationBlocks for ReservationBlocks {
             }
             google_cloud_gax::error::Error::binding(BindingError { paths })
         })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/reservations/{}/reservationBlocks/{}",
@@ -70550,7 +70550,7 @@ impl super::stub::ReservationBlocks for ReservationBlocks {
             }
             google_cloud_gax::error::Error::binding(BindingError { paths })
         })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/reservations/{}/reservationBlocks/{}",
@@ -70647,7 +70647,7 @@ impl super::stub::ReservationBlocks for ReservationBlocks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/operations/{}",
@@ -70791,7 +70791,7 @@ impl super::stub::ReservationSlots for ReservationSlots {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/{}/reservationSlots/{}",
@@ -70801,6 +70801,10 @@ impl super::stub::ReservationSlots for ReservationSlots {
                     .filter(|s| !s.is_empty())?,
                 Some(&req)
                     .map(|m| &m.zone)
+                    .map(|s| s.as_str())
+                    .filter(|s| !s.is_empty())?,
+                Some(&req)
+                    .map(|m| &m.parent_name)
                     .map(|s| s.as_str())
                     .filter(|s| !s.is_empty())?,
                 Some(&req)
@@ -70906,7 +70910,7 @@ impl super::stub::ReservationSlots for ReservationSlots {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}",
@@ -71017,7 +71021,7 @@ impl super::stub::ReservationSlots for ReservationSlots {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/{}/reservationSlots/{}",
@@ -71027,6 +71031,10 @@ impl super::stub::ReservationSlots for ReservationSlots {
                     .filter(|s| !s.is_empty())?,
                 Some(&req)
                     .map(|m| &m.zone)
+                    .map(|s| s.as_str())
+                    .filter(|s| !s.is_empty())?,
+                Some(&req)
+                    .map(|m| &m.parent_name)
                     .map(|s| s.as_str())
                     .filter(|s| !s.is_empty())?,
                 Some(&req)
@@ -71110,7 +71118,7 @@ impl super::stub::ReservationSlots for ReservationSlots {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/operations/{}",
@@ -71262,7 +71270,7 @@ impl super::stub::ReservationSubBlocks for ReservationSubBlocks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/{}/reservationSubBlocks/{}",
@@ -71272,6 +71280,10 @@ impl super::stub::ReservationSubBlocks for ReservationSubBlocks {
                     .filter(|s| !s.is_empty())?,
                 Some(&req)
                     .map(|m| &m.zone)
+                    .map(|s| s.as_str())
+                    .filter(|s| !s.is_empty())?,
+                Some(&req)
+                    .map(|m| &m.parent_name)
                     .map(|s| s.as_str())
                     .filter(|s| !s.is_empty())?,
                 Some(&req)
@@ -71371,7 +71383,7 @@ impl super::stub::ReservationSubBlocks for ReservationSubBlocks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/{}/reservationSubBlocks/{}",
@@ -71381,6 +71393,10 @@ impl super::stub::ReservationSubBlocks for ReservationSubBlocks {
                     .filter(|s| !s.is_empty())?,
                 Some(&req)
                     .map(|m| &m.zone)
+                    .map(|s| s.as_str())
+                    .filter(|s| !s.is_empty())?,
+                Some(&req)
+                    .map(|m| &m.parent_resource)
                     .map(|s| s.as_str())
                     .filter(|s| !s.is_empty())?,
                 Some(&req)
@@ -71486,7 +71502,7 @@ impl super::stub::ReservationSubBlocks for ReservationSubBlocks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}",
@@ -71570,7 +71586,7 @@ impl super::stub::ReservationSubBlocks for ReservationSubBlocks {
             }
             google_cloud_gax::error::Error::binding(BindingError { paths })
         })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/{}/reservationSubBlocks/{}",
@@ -71580,6 +71596,10 @@ impl super::stub::ReservationSubBlocks for ReservationSubBlocks {
                     .filter(|s| !s.is_empty())?,
                 Some(&req)
                     .map(|m| &m.zone)
+                    .map(|s| s.as_str())
+                    .filter(|s| !s.is_empty())?,
+                Some(&req)
+                    .map(|m| &m.parent_name)
                     .map(|s| s.as_str())
                     .filter(|s| !s.is_empty())?,
                 Some(&req)
@@ -71681,7 +71701,7 @@ impl super::stub::ReservationSubBlocks for ReservationSubBlocks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/{}/reservationSubBlocks/{}",
@@ -71691,6 +71711,10 @@ impl super::stub::ReservationSubBlocks for ReservationSubBlocks {
                     .filter(|s| !s.is_empty())?,
                 Some(&req)
                     .map(|m| &m.zone)
+                    .map(|s| s.as_str())
+                    .filter(|s| !s.is_empty())?,
+                Some(&req)
+                    .map(|m| &m.parent_name)
                     .map(|s| s.as_str())
                     .filter(|s| !s.is_empty())?,
                 Some(&req)
@@ -71784,7 +71808,7 @@ impl super::stub::ReservationSubBlocks for ReservationSubBlocks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/{}/reservationSubBlocks/{}",
@@ -71794,6 +71818,10 @@ impl super::stub::ReservationSubBlocks for ReservationSubBlocks {
                     .filter(|s| !s.is_empty())?,
                 Some(&req)
                     .map(|m| &m.zone)
+                    .map(|s| s.as_str())
+                    .filter(|s| !s.is_empty())?,
+                Some(&req)
+                    .map(|m| &m.parent_resource)
                     .map(|s| s.as_str())
                     .filter(|s| !s.is_empty())?,
                 Some(&req)
@@ -71871,7 +71899,7 @@ impl super::stub::ReservationSubBlocks for ReservationSubBlocks {
             }
             google_cloud_gax::error::Error::binding(BindingError { paths })
         })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/{}/reservationSubBlocks/{}",
@@ -71881,6 +71909,10 @@ impl super::stub::ReservationSubBlocks for ReservationSubBlocks {
                     .filter(|s| !s.is_empty())?,
                 Some(&req)
                     .map(|m| &m.zone)
+                    .map(|s| s.as_str())
+                    .filter(|s| !s.is_empty())?,
+                Some(&req)
+                    .map(|m| &m.parent_resource)
                     .map(|s| s.as_str())
                     .filter(|s| !s.is_empty())?,
                 Some(&req)
@@ -71964,7 +71996,7 @@ impl super::stub::ReservationSubBlocks for ReservationSubBlocks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/operations/{}",
@@ -72109,7 +72141,7 @@ impl super::stub::Reservations for Reservations {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -72198,7 +72230,7 @@ impl super::stub::Reservations for Reservations {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/reservations/{}",
@@ -72291,7 +72323,7 @@ impl super::stub::Reservations for Reservations {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/reservations/{}",
@@ -72390,7 +72422,7 @@ impl super::stub::Reservations for Reservations {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/reservations/{}",
@@ -72477,7 +72509,7 @@ impl super::stub::Reservations for Reservations {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}",
@@ -72578,7 +72610,7 @@ impl super::stub::Reservations for Reservations {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}",
@@ -72671,7 +72703,7 @@ impl super::stub::Reservations for Reservations {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/reservations/{}",
@@ -72768,7 +72800,7 @@ impl super::stub::Reservations for Reservations {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/reservations/{}",
@@ -72861,7 +72893,7 @@ impl super::stub::Reservations for Reservations {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/reservations/{}",
@@ -72954,7 +72986,7 @@ impl super::stub::Reservations for Reservations {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/reservations/{}",
@@ -73067,7 +73099,7 @@ impl super::stub::Reservations for Reservations {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/reservations/{}",
@@ -73160,7 +73192,7 @@ impl super::stub::Reservations for Reservations {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/operations/{}",
@@ -73305,7 +73337,7 @@ impl super::stub::ResourcePolicies for ResourcePolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -73394,7 +73426,7 @@ impl super::stub::ResourcePolicies for ResourcePolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/resourcePolicies/{}",
@@ -73487,7 +73519,7 @@ impl super::stub::ResourcePolicies for ResourcePolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/resourcePolicies/{}",
@@ -73586,7 +73618,7 @@ impl super::stub::ResourcePolicies for ResourcePolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/resourcePolicies/{}",
@@ -73673,7 +73705,7 @@ impl super::stub::ResourcePolicies for ResourcePolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}",
@@ -73774,7 +73806,7 @@ impl super::stub::ResourcePolicies for ResourcePolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}",
@@ -73879,7 +73911,7 @@ impl super::stub::ResourcePolicies for ResourcePolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/resourcePolicies/{}",
@@ -73972,7 +74004,7 @@ impl super::stub::ResourcePolicies for ResourcePolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/resourcePolicies/{}",
@@ -74065,7 +74097,7 @@ impl super::stub::ResourcePolicies for ResourcePolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/resourcePolicies/{}",
@@ -74158,7 +74190,7 @@ impl super::stub::ResourcePolicies for ResourcePolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/operations/{}",
@@ -74303,7 +74335,7 @@ impl super::stub::Routers for Routers {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -74392,7 +74424,7 @@ impl super::stub::Routers for Routers {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/routers/{}",
@@ -74493,7 +74525,7 @@ impl super::stub::Routers for Routers {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/routers/{}",
@@ -74586,7 +74618,7 @@ impl super::stub::Routers for Routers {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/routers/{}",
@@ -74683,7 +74715,7 @@ impl super::stub::Routers for Routers {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/routers/{}",
@@ -74802,7 +74834,7 @@ impl super::stub::Routers for Routers {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/routers/{}",
@@ -74899,7 +74931,7 @@ impl super::stub::Routers for Routers {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/routers/{}",
@@ -74992,7 +75024,7 @@ impl super::stub::Routers for Routers {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/routers/{}",
@@ -75079,7 +75111,7 @@ impl super::stub::Routers for Routers {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}",
@@ -75180,7 +75212,7 @@ impl super::stub::Routers for Routers {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}",
@@ -75310,7 +75342,7 @@ impl super::stub::Routers for Routers {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/routers/{}",
@@ -75425,7 +75457,7 @@ impl super::stub::Routers for Routers {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/routers/{}",
@@ -75522,7 +75554,7 @@ impl super::stub::Routers for Routers {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/routers/{}",
@@ -75619,7 +75651,7 @@ impl super::stub::Routers for Routers {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/routers/{}",
@@ -75712,7 +75744,7 @@ impl super::stub::Routers for Routers {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/routers/{}",
@@ -75809,7 +75841,7 @@ impl super::stub::Routers for Routers {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/routers/{}",
@@ -75906,7 +75938,7 @@ impl super::stub::Routers for Routers {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/routers/{}",
@@ -75999,7 +76031,7 @@ impl super::stub::Routers for Routers {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/operations/{}",
@@ -76127,7 +76159,7 @@ impl super::stub::Routes for Routes {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/routes/{}",
@@ -76206,7 +76238,7 @@ impl super::stub::Routes for Routes {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/routes/{}",
@@ -76279,7 +76311,7 @@ impl super::stub::Routes for Routes {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -76366,7 +76398,7 @@ impl super::stub::Routes for Routes {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -76441,7 +76473,7 @@ impl super::stub::Routes for Routes {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/routes/{}",
@@ -76520,7 +76552,7 @@ impl super::stub::Routes for Routes {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/operations/{}",
@@ -76644,7 +76676,7 @@ impl super::stub::SecurityPolicies for SecurityPolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/securityPolicies/{}",
@@ -76744,7 +76776,7 @@ impl super::stub::SecurityPolicies for SecurityPolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -76823,7 +76855,7 @@ impl super::stub::SecurityPolicies for SecurityPolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/securityPolicies/{}",
@@ -76902,7 +76934,7 @@ impl super::stub::SecurityPolicies for SecurityPolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/securityPolicies/{}",
@@ -76985,7 +77017,7 @@ impl super::stub::SecurityPolicies for SecurityPolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/securityPolicies/{}",
@@ -77062,7 +77094,7 @@ impl super::stub::SecurityPolicies for SecurityPolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -77149,7 +77181,7 @@ impl super::stub::SecurityPolicies for SecurityPolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -77217,7 +77249,7 @@ impl super::stub::SecurityPolicies for SecurityPolicies {
             }
             google_cloud_gax::error::Error::binding(BindingError { paths })
         })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -77308,7 +77340,7 @@ impl super::stub::SecurityPolicies for SecurityPolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/securityPolicies/{}",
@@ -77407,7 +77439,7 @@ impl super::stub::SecurityPolicies for SecurityPolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/securityPolicies/{}",
@@ -77490,7 +77522,7 @@ impl super::stub::SecurityPolicies for SecurityPolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/securityPolicies/{}",
@@ -77569,7 +77601,7 @@ impl super::stub::SecurityPolicies for SecurityPolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/securityPolicies/{}",
@@ -77648,7 +77680,7 @@ impl super::stub::SecurityPolicies for SecurityPolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/operations/{}",
@@ -77789,7 +77821,7 @@ impl super::stub::ServiceAttachments for ServiceAttachments {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -77882,7 +77914,7 @@ impl super::stub::ServiceAttachments for ServiceAttachments {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/serviceAttachments/{}",
@@ -77983,7 +78015,7 @@ impl super::stub::ServiceAttachments for ServiceAttachments {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/serviceAttachments/{}",
@@ -78082,7 +78114,7 @@ impl super::stub::ServiceAttachments for ServiceAttachments {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/serviceAttachments/{}",
@@ -78169,7 +78201,7 @@ impl super::stub::ServiceAttachments for ServiceAttachments {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}",
@@ -78270,7 +78302,7 @@ impl super::stub::ServiceAttachments for ServiceAttachments {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}",
@@ -78367,7 +78399,7 @@ impl super::stub::ServiceAttachments for ServiceAttachments {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/serviceAttachments/{}",
@@ -78460,7 +78492,7 @@ impl super::stub::ServiceAttachments for ServiceAttachments {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/serviceAttachments/{}",
@@ -78553,7 +78585,7 @@ impl super::stub::ServiceAttachments for ServiceAttachments {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/serviceAttachments/{}",
@@ -78646,7 +78678,7 @@ impl super::stub::ServiceAttachments for ServiceAttachments {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/operations/{}",
@@ -78760,7 +78792,7 @@ impl super::stub::SnapshotSettings for SnapshotSettings {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -78841,7 +78873,7 @@ impl super::stub::SnapshotSettings for SnapshotSettings {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -78916,7 +78948,7 @@ impl super::stub::SnapshotSettings for SnapshotSettings {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/operations/{}",
@@ -79040,7 +79072,7 @@ impl super::stub::Snapshots for Snapshots {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/snapshots/{}",
@@ -79119,7 +79151,7 @@ impl super::stub::Snapshots for Snapshots {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/snapshots/{}",
@@ -79204,7 +79236,7 @@ impl super::stub::Snapshots for Snapshots {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/snapshots/{}",
@@ -79277,7 +79309,7 @@ impl super::stub::Snapshots for Snapshots {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -79364,7 +79396,7 @@ impl super::stub::Snapshots for Snapshots {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -79439,7 +79471,7 @@ impl super::stub::Snapshots for Snapshots {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/snapshots/{}",
@@ -79518,7 +79550,7 @@ impl super::stub::Snapshots for Snapshots {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/snapshots/{}",
@@ -79597,7 +79629,7 @@ impl super::stub::Snapshots for Snapshots {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/snapshots/{}",
@@ -79676,7 +79708,7 @@ impl super::stub::Snapshots for Snapshots {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/operations/{}",
@@ -79817,7 +79849,7 @@ impl super::stub::SslCertificates for SslCertificates {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -79896,7 +79928,7 @@ impl super::stub::SslCertificates for SslCertificates {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/sslCertificates/{}",
@@ -79975,7 +80007,7 @@ impl super::stub::SslCertificates for SslCertificates {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/sslCertificates/{}",
@@ -80048,7 +80080,7 @@ impl super::stub::SslCertificates for SslCertificates {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -80135,7 +80167,7 @@ impl super::stub::SslCertificates for SslCertificates {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -80210,7 +80242,7 @@ impl super::stub::SslCertificates for SslCertificates {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/operations/{}",
@@ -80351,7 +80383,7 @@ impl super::stub::SslPolicies for SslPolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -80430,7 +80462,7 @@ impl super::stub::SslPolicies for SslPolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/sslPolicies/{}",
@@ -80509,7 +80541,7 @@ impl super::stub::SslPolicies for SslPolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/sslPolicies/{}",
@@ -80582,7 +80614,7 @@ impl super::stub::SslPolicies for SslPolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -80669,7 +80701,7 @@ impl super::stub::SslPolicies for SslPolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -80756,7 +80788,7 @@ impl super::stub::SslPolicies for SslPolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -80835,7 +80867,7 @@ impl super::stub::SslPolicies for SslPolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/sslPolicies/{}",
@@ -80914,7 +80946,7 @@ impl super::stub::SslPolicies for SslPolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/operations/{}",
@@ -81055,7 +81087,7 @@ impl super::stub::StoragePoolTypes for StoragePoolTypes {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -81140,7 +81172,7 @@ impl super::stub::StoragePoolTypes for StoragePoolTypes {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/storagePoolTypes/{}",
@@ -81245,7 +81277,7 @@ impl super::stub::StoragePoolTypes for StoragePoolTypes {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}",
@@ -81372,7 +81404,7 @@ impl super::stub::StoragePools for StoragePools {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -81461,7 +81493,7 @@ impl super::stub::StoragePools for StoragePools {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/storagePools/{}",
@@ -81554,7 +81586,7 @@ impl super::stub::StoragePools for StoragePools {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/storagePools/{}",
@@ -81653,7 +81685,7 @@ impl super::stub::StoragePools for StoragePools {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/storagePools/{}",
@@ -81740,7 +81772,7 @@ impl super::stub::StoragePools for StoragePools {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}",
@@ -81841,7 +81873,7 @@ impl super::stub::StoragePools for StoragePools {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}",
@@ -81952,7 +81984,7 @@ impl super::stub::StoragePools for StoragePools {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/storagePools/{}",
@@ -82045,7 +82077,7 @@ impl super::stub::StoragePools for StoragePools {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/storagePools/{}",
@@ -82138,7 +82170,7 @@ impl super::stub::StoragePools for StoragePools {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/storagePools/{}",
@@ -82247,7 +82279,7 @@ impl super::stub::StoragePools for StoragePools {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/storagePools/{}",
@@ -82340,7 +82372,7 @@ impl super::stub::StoragePools for StoragePools {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/operations/{}",
@@ -82489,7 +82521,7 @@ impl super::stub::Subnetworks for Subnetworks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -82578,7 +82610,7 @@ impl super::stub::Subnetworks for Subnetworks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/subnetworks/{}",
@@ -82675,7 +82707,7 @@ impl super::stub::Subnetworks for Subnetworks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/subnetworks/{}",
@@ -82772,7 +82804,7 @@ impl super::stub::Subnetworks for Subnetworks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/subnetworks/{}",
@@ -82871,7 +82903,7 @@ impl super::stub::Subnetworks for Subnetworks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/subnetworks/{}",
@@ -82958,7 +82990,7 @@ impl super::stub::Subnetworks for Subnetworks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}",
@@ -83063,7 +83095,7 @@ impl super::stub::Subnetworks for Subnetworks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}",
@@ -83157,7 +83189,7 @@ impl super::stub::Subnetworks for Subnetworks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -83252,7 +83284,7 @@ impl super::stub::Subnetworks for Subnetworks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/subnetworks/{}",
@@ -83345,7 +83377,7 @@ impl super::stub::Subnetworks for Subnetworks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/subnetworks/{}",
@@ -83442,7 +83474,7 @@ impl super::stub::Subnetworks for Subnetworks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/subnetworks/{}",
@@ -83535,7 +83567,7 @@ impl super::stub::Subnetworks for Subnetworks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/subnetworks/{}",
@@ -83628,7 +83660,7 @@ impl super::stub::Subnetworks for Subnetworks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/operations/{}",
@@ -83756,7 +83788,7 @@ impl super::stub::TargetGrpcProxies for TargetGrpcProxies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/targetGrpcProxies/{}",
@@ -83835,7 +83867,7 @@ impl super::stub::TargetGrpcProxies for TargetGrpcProxies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/targetGrpcProxies/{}",
@@ -83908,7 +83940,7 @@ impl super::stub::TargetGrpcProxies for TargetGrpcProxies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -83995,7 +84027,7 @@ impl super::stub::TargetGrpcProxies for TargetGrpcProxies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -84074,7 +84106,7 @@ impl super::stub::TargetGrpcProxies for TargetGrpcProxies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/targetGrpcProxies/{}",
@@ -84153,7 +84185,7 @@ impl super::stub::TargetGrpcProxies for TargetGrpcProxies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/operations/{}",
@@ -84294,7 +84326,7 @@ impl super::stub::TargetHttpProxies for TargetHttpProxies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -84373,7 +84405,7 @@ impl super::stub::TargetHttpProxies for TargetHttpProxies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/targetHttpProxies/{}",
@@ -84452,7 +84484,7 @@ impl super::stub::TargetHttpProxies for TargetHttpProxies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/targetHttpProxies/{}",
@@ -84525,7 +84557,7 @@ impl super::stub::TargetHttpProxies for TargetHttpProxies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -84612,7 +84644,7 @@ impl super::stub::TargetHttpProxies for TargetHttpProxies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -84691,7 +84723,7 @@ impl super::stub::TargetHttpProxies for TargetHttpProxies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/targetHttpProxies/{}",
@@ -84774,7 +84806,7 @@ impl super::stub::TargetHttpProxies for TargetHttpProxies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/targetHttpProxies/{}",
@@ -84853,7 +84885,7 @@ impl super::stub::TargetHttpProxies for TargetHttpProxies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/operations/{}",
@@ -84994,7 +85026,7 @@ impl super::stub::TargetHttpsProxies for TargetHttpsProxies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -85077,7 +85109,7 @@ impl super::stub::TargetHttpsProxies for TargetHttpsProxies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/targetHttpsProxies/{}",
@@ -85160,7 +85192,7 @@ impl super::stub::TargetHttpsProxies for TargetHttpsProxies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/targetHttpsProxies/{}",
@@ -85233,7 +85265,7 @@ impl super::stub::TargetHttpsProxies for TargetHttpsProxies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -85320,7 +85352,7 @@ impl super::stub::TargetHttpsProxies for TargetHttpsProxies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -85403,7 +85435,7 @@ impl super::stub::TargetHttpsProxies for TargetHttpsProxies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/targetHttpsProxies/{}",
@@ -85490,7 +85522,7 @@ impl super::stub::TargetHttpsProxies for TargetHttpsProxies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/targetHttpsProxies/{}",
@@ -85577,7 +85609,7 @@ impl super::stub::TargetHttpsProxies for TargetHttpsProxies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/targetHttpsProxies/{}",
@@ -85664,7 +85696,7 @@ impl super::stub::TargetHttpsProxies for TargetHttpsProxies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/targetHttpsProxies/{}",
@@ -85751,7 +85783,7 @@ impl super::stub::TargetHttpsProxies for TargetHttpsProxies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/targetHttpsProxies/{}",
@@ -85838,7 +85870,7 @@ impl super::stub::TargetHttpsProxies for TargetHttpsProxies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/targetHttpsProxies/{}",
@@ -85917,7 +85949,7 @@ impl super::stub::TargetHttpsProxies for TargetHttpsProxies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/operations/{}",
@@ -86058,7 +86090,7 @@ impl super::stub::TargetInstances for TargetInstances {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -86147,7 +86179,7 @@ impl super::stub::TargetInstances for TargetInstances {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/targetInstances/{}",
@@ -86240,7 +86272,7 @@ impl super::stub::TargetInstances for TargetInstances {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/targetInstances/{}",
@@ -86327,7 +86359,7 @@ impl super::stub::TargetInstances for TargetInstances {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}",
@@ -86428,7 +86460,7 @@ impl super::stub::TargetInstances for TargetInstances {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}",
@@ -86521,7 +86553,7 @@ impl super::stub::TargetInstances for TargetInstances {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/targetInstances/{}",
@@ -86614,7 +86646,7 @@ impl super::stub::TargetInstances for TargetInstances {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/targetInstances/{}",
@@ -86707,7 +86739,7 @@ impl super::stub::TargetInstances for TargetInstances {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/operations/{}",
@@ -86845,7 +86877,7 @@ impl super::stub::TargetPools for TargetPools {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/targetPools/{}",
@@ -86942,7 +86974,7 @@ impl super::stub::TargetPools for TargetPools {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/targetPools/{}",
@@ -87046,7 +87078,7 @@ impl super::stub::TargetPools for TargetPools {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -87135,7 +87167,7 @@ impl super::stub::TargetPools for TargetPools {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/targetPools/{}",
@@ -87228,7 +87260,7 @@ impl super::stub::TargetPools for TargetPools {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/targetPools/{}",
@@ -87321,7 +87353,7 @@ impl super::stub::TargetPools for TargetPools {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/targetPools/{}",
@@ -87408,7 +87440,7 @@ impl super::stub::TargetPools for TargetPools {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}",
@@ -87509,7 +87541,7 @@ impl super::stub::TargetPools for TargetPools {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}",
@@ -87602,7 +87634,7 @@ impl super::stub::TargetPools for TargetPools {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/targetPools/{}",
@@ -87699,7 +87731,7 @@ impl super::stub::TargetPools for TargetPools {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/targetPools/{}",
@@ -87800,7 +87832,7 @@ impl super::stub::TargetPools for TargetPools {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/targetPools/{}",
@@ -87897,7 +87929,7 @@ impl super::stub::TargetPools for TargetPools {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/targetPools/{}",
@@ -87990,7 +88022,7 @@ impl super::stub::TargetPools for TargetPools {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/targetPools/{}",
@@ -88083,7 +88115,7 @@ impl super::stub::TargetPools for TargetPools {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/operations/{}",
@@ -88211,7 +88243,7 @@ impl super::stub::TargetSslProxies for TargetSslProxies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/targetSslProxies/{}",
@@ -88290,7 +88322,7 @@ impl super::stub::TargetSslProxies for TargetSslProxies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/targetSslProxies/{}",
@@ -88363,7 +88395,7 @@ impl super::stub::TargetSslProxies for TargetSslProxies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -88450,7 +88482,7 @@ impl super::stub::TargetSslProxies for TargetSslProxies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -88529,7 +88561,7 @@ impl super::stub::TargetSslProxies for TargetSslProxies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/targetSslProxies/{}",
@@ -88612,7 +88644,7 @@ impl super::stub::TargetSslProxies for TargetSslProxies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/targetSslProxies/{}",
@@ -88695,7 +88727,7 @@ impl super::stub::TargetSslProxies for TargetSslProxies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/targetSslProxies/{}",
@@ -88778,7 +88810,7 @@ impl super::stub::TargetSslProxies for TargetSslProxies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/targetSslProxies/{}",
@@ -88861,7 +88893,7 @@ impl super::stub::TargetSslProxies for TargetSslProxies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/targetSslProxies/{}",
@@ -88940,7 +88972,7 @@ impl super::stub::TargetSslProxies for TargetSslProxies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/targetSslProxies/{}",
@@ -89019,7 +89051,7 @@ impl super::stub::TargetSslProxies for TargetSslProxies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/operations/{}",
@@ -89160,7 +89192,7 @@ impl super::stub::TargetTcpProxies for TargetTcpProxies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -89239,7 +89271,7 @@ impl super::stub::TargetTcpProxies for TargetTcpProxies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/targetTcpProxies/{}",
@@ -89318,7 +89350,7 @@ impl super::stub::TargetTcpProxies for TargetTcpProxies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/targetTcpProxies/{}",
@@ -89391,7 +89423,7 @@ impl super::stub::TargetTcpProxies for TargetTcpProxies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -89478,7 +89510,7 @@ impl super::stub::TargetTcpProxies for TargetTcpProxies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -89557,7 +89589,7 @@ impl super::stub::TargetTcpProxies for TargetTcpProxies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/targetTcpProxies/{}",
@@ -89640,7 +89672,7 @@ impl super::stub::TargetTcpProxies for TargetTcpProxies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/targetTcpProxies/{}",
@@ -89719,7 +89751,7 @@ impl super::stub::TargetTcpProxies for TargetTcpProxies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/targetTcpProxies/{}",
@@ -89798,7 +89830,7 @@ impl super::stub::TargetTcpProxies for TargetTcpProxies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/operations/{}",
@@ -89939,7 +89971,7 @@ impl super::stub::TargetVpnGateways for TargetVpnGateways {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -90032,7 +90064,7 @@ impl super::stub::TargetVpnGateways for TargetVpnGateways {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/targetVpnGateways/{}",
@@ -90129,7 +90161,7 @@ impl super::stub::TargetVpnGateways for TargetVpnGateways {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/targetVpnGateways/{}",
@@ -90216,7 +90248,7 @@ impl super::stub::TargetVpnGateways for TargetVpnGateways {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}",
@@ -90317,7 +90349,7 @@ impl super::stub::TargetVpnGateways for TargetVpnGateways {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}",
@@ -90410,7 +90442,7 @@ impl super::stub::TargetVpnGateways for TargetVpnGateways {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/targetVpnGateways/{}",
@@ -90503,7 +90535,7 @@ impl super::stub::TargetVpnGateways for TargetVpnGateways {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/operations/{}",
@@ -90648,7 +90680,7 @@ impl super::stub::UrlMaps for UrlMaps {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -90727,7 +90759,7 @@ impl super::stub::UrlMaps for UrlMaps {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/urlMaps/{}",
@@ -90806,7 +90838,7 @@ impl super::stub::UrlMaps for UrlMaps {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/urlMaps/{}",
@@ -90879,7 +90911,7 @@ impl super::stub::UrlMaps for UrlMaps {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -90958,7 +90990,7 @@ impl super::stub::UrlMaps for UrlMaps {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/urlMaps/{}",
@@ -91049,7 +91081,7 @@ impl super::stub::UrlMaps for UrlMaps {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -91128,7 +91160,7 @@ impl super::stub::UrlMaps for UrlMaps {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/urlMaps/{}",
@@ -91207,7 +91239,7 @@ impl super::stub::UrlMaps for UrlMaps {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/urlMaps/{}",
@@ -91290,7 +91322,7 @@ impl super::stub::UrlMaps for UrlMaps {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/urlMaps/{}",
@@ -91369,7 +91401,7 @@ impl super::stub::UrlMaps for UrlMaps {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/urlMaps/{}",
@@ -91448,7 +91480,7 @@ impl super::stub::UrlMaps for UrlMaps {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/operations/{}",
@@ -91589,7 +91621,7 @@ impl super::stub::VpnGateways for VpnGateways {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -91678,7 +91710,7 @@ impl super::stub::VpnGateways for VpnGateways {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/vpnGateways/{}",
@@ -91771,7 +91803,7 @@ impl super::stub::VpnGateways for VpnGateways {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/vpnGateways/{}",
@@ -91864,7 +91896,7 @@ impl super::stub::VpnGateways for VpnGateways {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/vpnGateways/{}",
@@ -91951,7 +91983,7 @@ impl super::stub::VpnGateways for VpnGateways {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}",
@@ -92052,7 +92084,7 @@ impl super::stub::VpnGateways for VpnGateways {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}",
@@ -92145,7 +92177,7 @@ impl super::stub::VpnGateways for VpnGateways {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/vpnGateways/{}",
@@ -92238,7 +92270,7 @@ impl super::stub::VpnGateways for VpnGateways {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/vpnGateways/{}",
@@ -92331,7 +92363,7 @@ impl super::stub::VpnGateways for VpnGateways {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/operations/{}",
@@ -92476,7 +92508,7 @@ impl super::stub::VpnTunnels for VpnTunnels {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
@@ -92565,7 +92597,7 @@ impl super::stub::VpnTunnels for VpnTunnels {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/vpnTunnels/{}",
@@ -92658,7 +92690,7 @@ impl super::stub::VpnTunnels for VpnTunnels {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/vpnTunnels/{}",
@@ -92745,7 +92777,7 @@ impl super::stub::VpnTunnels for VpnTunnels {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}",
@@ -92846,7 +92878,7 @@ impl super::stub::VpnTunnels for VpnTunnels {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}",
@@ -92939,7 +92971,7 @@ impl super::stub::VpnTunnels for VpnTunnels {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/vpnTunnels/{}",
@@ -93032,7 +93064,7 @@ impl super::stub::VpnTunnels for VpnTunnels {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/regions/{}/operations/{}",
@@ -93174,7 +93206,7 @@ impl super::stub::WireGroups for WireGroups {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/crossSiteNetworks/{}/wireGroups/{}",
@@ -93271,7 +93303,7 @@ impl super::stub::WireGroups for WireGroups {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/crossSiteNetworks/{}/wireGroups/{}",
@@ -93366,7 +93398,7 @@ impl super::stub::WireGroups for WireGroups {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/crossSiteNetworks/{}",
@@ -93471,7 +93503,7 @@ impl super::stub::WireGroups for WireGroups {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/crossSiteNetworks/{}",
@@ -93584,7 +93616,7 @@ impl super::stub::WireGroups for WireGroups {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/crossSiteNetworks/{}/wireGroups/{}",
@@ -93667,7 +93699,7 @@ impl super::stub::WireGroups for WireGroups {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/global/operations/{}",
@@ -93797,7 +93829,7 @@ impl super::stub::ZoneOperations for ZoneOperations {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/operations/{}",
@@ -93896,7 +93928,7 @@ impl super::stub::ZoneOperations for ZoneOperations {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/operations/{}",
@@ -94001,7 +94033,7 @@ impl super::stub::ZoneOperations for ZoneOperations {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}",
@@ -94090,7 +94122,7 @@ impl super::stub::ZoneOperations for ZoneOperations {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}/operations/{}",
@@ -94198,7 +94230,7 @@ impl super::stub::Zones for Zones {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}/zones/{}",
@@ -94289,7 +94321,7 @@ impl super::stub::Zones for Zones {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
-        #[cfg(google_cloud_unstable_resource_name)]
+        #[cfg(google_cloud_unstable_tracing)]
         let options = if let Some(resource_name) = (|| {
             Some(format!(
                 "//compute.googleapis.com/projects/{}",
