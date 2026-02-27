@@ -153,11 +153,9 @@ The `Storage` client has complex types in its interfaces.
 - `write_object` accepts a generic payload.
 - `read_object` returns a stream-like thing.
 
-Thus, if one wanted to use the same dynamic dispatch approach for the `Storage`
-client, it would be necessary to box all generics / trait `impl`s. Each box is
 Thus, if you want to use the same dynamic dispatch approach for the `Storage`
-client, then it is necessary to box all generics / trait `impl`s. Each box is an
-extra heap allocation, plus the dynamic dispatch.
+client, then it would be necessary to box all generics / trait `impl`s. Each box
+introduces an extra heap allocation, and more the dynamic dispatch.
 
 Because the `Storage` client should be as performant as possible, the Rust SDK
 team decided it was preferable to template the client on a non-`dyn`-compatible,
