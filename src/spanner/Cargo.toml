@@ -44,3 +44,6 @@ gaxi                  = { workspace = true, features = ["_internal-common", "_in
 
 [dev-dependencies]
 anyhow.workspace = true
+spanner-grpc-mock = { path = "grpc-mock" }
+tokio.workspace = true
+google-cloud-auth.workspace = true

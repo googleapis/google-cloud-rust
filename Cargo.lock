@@ -4552,6 +4552,7 @@ dependencies = [
  "anyhow",
  "async-trait",
  "bytes",
+ "google-cloud-auth",
  "google-cloud-gax",
  "google-cloud-gax-internal",
  "google-cloud-rpc",
@@ -4563,6 +4564,8 @@ dependencies = [
  "serde",
  "serde_json",
  "serde_with",
+ "spanner-grpc-mock",
+ "tokio",
  "tracing",
 ]
 
@@ -7662,6 +7665,27 @@ checksum = "86f4aa3ad99f2088c990dfa82d367e19cb29268ed67c574d10d0a4bfe71f07e0"
 dependencies = [
  "libc",
  "windows-sys 0.60.2",
+]
+
+[[package]]
+name = "spanner-grpc-mock"
+version = "0.0.0"
+dependencies = [
+ "anyhow",
+ "async-trait",
+ "http",
+ "mockall",
+ "pastey",
+ "prost",
+ "prost-build",
+ "prost-types",
+ "serde_json",
+ "test-case",
+ "tokio",
+ "tokio-stream",
+ "tonic",
+ "tonic-prost",
+ "tonic-prost-build",
 ]
 
 [[package]]
