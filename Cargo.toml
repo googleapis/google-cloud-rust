@@ -28,7 +28,6 @@ default-members = [
   "src/pubsub",
   "src/pubsub/examples",
   "src/spanner",
-  "src/spanner/grpc-mock",
   "src/storage",
   "src/storage/examples",
   "src/wkt",

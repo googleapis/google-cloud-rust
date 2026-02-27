@@ -14,7 +14,6 @@
 
 use crate::generated::gapic_dataplane::client::Spanner as GapicSpanner;
 use gaxi::options::{ClientConfig, Credentials};
-use std::sync::Arc;
 
 /// A client for the [Spanner] API.
 ///
@@ -23,10 +22,11 @@ use std::sync::Arc;
 /// [Spanner]: https://docs.cloud.google.com/spanner/docs
 #[derive(Clone, Debug)]
 pub struct Spanner {
-    inner: Arc<GapicSpanner>,
-    #[allow(dead_code)]
-    grpc_client: gaxi::grpc::Client,
+    inner: GapicSpanner,
 }
+
+impl std::panic::RefUnwindSafe for Spanner {}
+impl std::panic::UnwindSafe for Spanner {}
 
 pub struct Factory;
 
@@ -40,7 +40,6 @@ impl google_cloud_gax::client_builder::internal::ClientFactory for Factory {
     ) -> google_cloud_gax::client_builder::Result<Self::Client> {
         let transport =
             crate::generated::gapic_dataplane::transport::Spanner::new(config.clone()).await?;
-        let grpc_client = transport.inner.clone();
 
         let inner = if gaxi::options::tracing_enabled(&config) {
             GapicSpanner::from_stub(crate::generated::gapic_dataplane::tracing::Spanner::new(
@@ -49,22 +48,33 @@ impl google_cloud_gax::client_builder::internal::ClientFactory for Factory {
         } else {
             GapicSpanner::from_stub(transport)
         };
-        Ok(Spanner {
-            inner: Arc::new(inner),
-            grpc_client,
-        })
+        Ok(Spanner { inner })
     }
 }
 
 /// A builder for the Spanner client.
 pub type ClientBuilder = google_cloud_gax::client_builder::ClientBuilder<Factory, Credentials>;
 
+#[allow(dead_code)]
 impl Spanner {
     pub fn builder() -> ClientBuilder {
         google_cloud_gax::client_builder::internal::new_builder(Factory)
     }
 
-    pub async fn create_session(
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: T) -> Self
+    where
+        T: crate::generated::gapic_dataplane::stub::Spanner + 'static,
+    {
+        Self {
+            inner: GapicSpanner::from_stub(stub),
+        }
+    }
+
+    pub(crate) async fn create_session(
         &self,
         request: crate::model::CreateSessionRequest,
         options: crate::RequestOptions,
@@ -77,7 +87,7 @@ impl Spanner {
             .await
     }
 
-    pub async fn execute_sql(
+    pub(crate) async fn execute_sql(
         &self,
         request: crate::model::ExecuteSqlRequest,
         options: crate::RequestOptions,
@@ -90,7 +100,7 @@ impl Spanner {
             .await
     }
 
-    pub async fn execute_batch_dml(
+    pub(crate) async fn execute_batch_dml(
         &self,
         request: crate::model::ExecuteBatchDmlRequest,
         options: crate::RequestOptions,
@@ -103,7 +113,7 @@ impl Spanner {
             .await
     }
 
-    pub async fn read(
+    pub(crate) async fn read(
         &self,
         request: crate::model::ReadRequest,
         options: crate::RequestOptions,
@@ -116,7 +126,7 @@ impl Spanner {
             .await
     }
 
-    pub async fn begin_transaction(
+    pub(crate) async fn begin_transaction(
         &self,
         request: crate::model::BeginTransactionRequest,
         options: crate::RequestOptions,
@@ -129,7 +139,7 @@ impl Spanner {
             .await
     }
 
-    pub async fn commit(
+    pub(crate) async fn commit(
         &self,
         request: crate::model::CommitRequest,
         options: crate::RequestOptions,
@@ -142,7 +152,7 @@ impl Spanner {
             .await
     }
 
-    pub async fn rollback(
+    pub(crate) async fn rollback(
         &self,
         request: crate::model::RollbackRequest,
         options: crate::RequestOptions,
@@ -165,6 +175,13 @@ mod tests {
     use spanner_grpc_mock::google::rpc as mock_rpc;
     use spanner_grpc_mock::google::spanner::v1 as mock_v1;
     use spanner_grpc_mock::{MockSpanner, start};
+    use static_assertions::assert_impl_all;
+
+    #[test]
+    fn auto_traits() {
+        assert_impl_all!(Spanner: std::fmt::Debug, Clone, Send, Sync);
+        assert_impl_all!(Spanner: std::panic::RefUnwindSafe, std::panic::UnwindSafe);
+    }
 
     #[tokio::test]
     async fn test_create_session() {

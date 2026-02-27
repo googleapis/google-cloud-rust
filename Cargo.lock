@@ -4565,6 +4565,7 @@ dependencies = [
  "serde_json",
  "serde_with",
  "spanner-grpc-mock",
+ "static_assertions",
  "tokio",
  "tracing",
 ]
