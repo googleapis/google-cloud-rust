@@ -168,7 +168,8 @@ impl SecretManagerService {
     ///    client: &SecretManagerService, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_secret()
-    ///         .set_parent(parent).set_secret_id("secret_id_value")
+    ///         .set_parent(parent)
+    ///         .set_secret_id("secret_id_value")
     ///         .set_secret(
     ///             Secret::new()/* set fields */
     ///         )

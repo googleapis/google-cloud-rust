@@ -29,7 +29,7 @@ use gaxi::prost::FromProto as _;
 use google_cloud_gax::retry_result::RetryResult;
 use std::collections::VecDeque;
 use std::sync::Arc;
-use tokio::sync::mpsc::UnboundedSender;
+use tokio::sync::mpsc::{UnboundedSender, unbounded_channel};
 use tokio::time::Instant;
 
 /// Represents an open subscribe stream.
@@ -97,8 +97,10 @@ impl MessageStream {
         let inner = builder.inner;
         let subscription = builder.subscription;
 
+        let (confirmed_tx, _confirmed_rx) = unbounded_channel();
         let leaser = DefaultLeaser::new(
             inner.clone(),
+            confirmed_tx,
             subscription.clone(),
             builder.ack_deadline_seconds,
             builder.grpc_subchannel_count,

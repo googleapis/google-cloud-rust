@@ -186,7 +186,8 @@ impl SecureSourceManager {
     ///    client: &SecureSourceManager, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_instance()
-    ///         .set_parent(parent).set_instance_id("instance_id_value")
+    ///         .set_parent(parent)
+    ///         .set_instance_id("instance_id_value")
     ///         .set_instance(
     ///             Instance::new()/* set fields */
     ///         )
@@ -300,7 +301,8 @@ impl SecureSourceManager {
     ///    client: &SecureSourceManager, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_repository()
-    ///         .set_parent(parent).set_repository_id("repository_id_value")
+    ///         .set_parent(parent)
+    ///         .set_repository_id("repository_id_value")
     ///         .set_repository(
     ///             Repository::new()/* set fields */
     ///         )
@@ -445,7 +447,8 @@ impl SecureSourceManager {
     ///    client: &SecureSourceManager, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_hook()
-    ///         .set_parent(parent).set_hook_id("hook_id_value")
+    ///         .set_parent(parent)
+    ///         .set_hook_id("hook_id_value")
     ///         .set_hook(
     ///             Hook::new()/* set fields */
     ///         )

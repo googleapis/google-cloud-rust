@@ -187,7 +187,8 @@ impl StorageBatchOperations {
     ///    client: &StorageBatchOperations, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_job()
-    ///         .set_parent(parent).set_job_id("job_id_value")
+    ///         .set_parent(parent)
+    ///         .set_job_id("job_id_value")
     ///         .set_job(
     ///             Job::new()/* set fields */
     ///         )

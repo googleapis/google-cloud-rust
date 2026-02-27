@@ -319,7 +319,8 @@ impl RegistrationService {
     ///    client: &RegistrationService, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_namespace()
-    ///         .set_parent(parent).set_namespace_id("namespace_id_value")
+    ///         .set_parent(parent)
+    ///         .set_namespace_id("namespace_id_value")
     ///         .set_namespace(
     ///             Namespace::new()/* set fields */
     ///         )
@@ -432,7 +433,8 @@ impl RegistrationService {
     ///    client: &RegistrationService, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_service()
-    ///         .set_parent(parent).set_service_id("service_id_value")
+    ///         .set_parent(parent)
+    ///         .set_service_id("service_id_value")
     ///         .set_service(
     ///             Service::new()/* set fields */
     ///         )
@@ -545,7 +547,8 @@ impl RegistrationService {
     ///    client: &RegistrationService, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_endpoint()
-    ///         .set_parent(parent).set_endpoint_id("endpoint_id_value")
+    ///         .set_parent(parent)
+    ///         .set_endpoint_id("endpoint_id_value")
     ///         .set_endpoint(
     ///             Endpoint::new()/* set fields */
     ///         )

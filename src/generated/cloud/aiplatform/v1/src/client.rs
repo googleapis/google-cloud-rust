@@ -1869,7 +1869,8 @@ impl EndpointService {
     ///    client: &EndpointService, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_endpoint()
-    ///         .set_parent(parent).set_endpoint_id("endpoint_id_value")
+    ///         .set_parent(parent)
+    ///         .set_endpoint_id("endpoint_id_value")
     ///         .set_endpoint(
     ///             Endpoint::new()/* set fields */
     ///         )
@@ -4139,7 +4140,8 @@ impl FeatureRegistryService {
     ///    client: &FeatureRegistryService, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_feature()
-    ///         .set_parent(parent).set_feature_id("feature_id_value")
+    ///         .set_parent(parent)
+    ///         .set_feature_id("feature_id_value")
     ///         .set_feature(
     ///             Feature::new()/* set fields */
     ///         )
@@ -5064,7 +5066,8 @@ impl FeaturestoreService {
     ///    client: &FeaturestoreService, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_featurestore()
-    ///         .set_parent(parent).set_featurestore_id("featurestore_id_value")
+    ///         .set_parent(parent)
+    ///         .set_featurestore_id("featurestore_id_value")
     ///         .set_featurestore(
     ///             Featurestore::new()/* set fields */
     ///         )
@@ -5345,7 +5348,8 @@ impl FeaturestoreService {
     ///    client: &FeaturestoreService, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_feature()
-    ///         .set_parent(parent).set_feature_id("feature_id_value")
+    ///         .set_parent(parent)
+    ///         .set_feature_id("feature_id_value")
     ///         .set_feature(
     ///             Feature::new()/* set fields */
     ///         )
@@ -10150,7 +10154,8 @@ impl MetadataService {
     ///    client: &MetadataService, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_artifact()
-    ///         .set_parent(parent).set_artifact_id("artifact_id_value")
+    ///         .set_parent(parent)
+    ///         .set_artifact_id("artifact_id_value")
     ///         .set_artifact(
     ///             Artifact::new()/* set fields */
     ///         )
@@ -10304,7 +10309,8 @@ impl MetadataService {
     ///    client: &MetadataService, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_context()
-    ///         .set_parent(parent).set_context_id("context_id_value")
+    ///         .set_parent(parent)
+    ///         .set_context_id("context_id_value")
     ///         .set_context(
     ///             Context::new()/* set fields */
     ///         )
@@ -10553,7 +10559,8 @@ impl MetadataService {
     ///    client: &MetadataService, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_execution()
-    ///         .set_parent(parent).set_execution_id("execution_id_value")
+    ///         .set_parent(parent)
+    ///         .set_execution_id("execution_id_value")
     ///         .set_execution(
     ///             Execution::new()/* set fields */
     ///         )

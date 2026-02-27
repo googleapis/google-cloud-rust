@@ -143,7 +143,8 @@ impl RapidMigrationAssessment {
     ///    client: &RapidMigrationAssessment, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_collector()
-    ///         .set_parent(parent).set_collector_id("collector_id_value")
+    ///         .set_parent(parent)
+    ///         .set_collector_id("collector_id_value")
     ///         .set_collector(
     ///             Collector::new()/* set fields */
     ///         )

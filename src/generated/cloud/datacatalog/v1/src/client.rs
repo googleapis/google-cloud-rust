@@ -334,7 +334,8 @@ impl DataCatalog {
     ///    client: &DataCatalog, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_entry()
-    ///         .set_parent(parent).set_entry_id("entry_id_value")
+    ///         .set_parent(parent)
+    ///         .set_entry_id("entry_id_value")
     ///         .set_entry(
     ///             Entry::new()/* set fields */
     ///         )

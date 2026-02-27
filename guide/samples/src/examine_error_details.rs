@@ -20,7 +20,7 @@ use google_cloud_language_v2::client::LanguageService;
 use google_cloud_language_v2::model::Document;
 use google_cloud_language_v2::model::document::Type;
 
-pub async fn examine_error_details() -> anyhow::Result<()> {
+pub async fn sample() -> anyhow::Result<()> {
     // [START rust_examine_error_details_client] ANCHOR: examine-error-details-client
     let client = LanguageService::builder().build().await?;
     // [END rust_examine_error_details_client] ANCHOR_END: examine-error-details-client

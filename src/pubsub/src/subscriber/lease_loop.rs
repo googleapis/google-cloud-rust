@@ -314,6 +314,7 @@ mod tests {
                 assert_eq!(ack_ids, test_ids(10..30));
             }
             async fn extend(&self, _ack_ids: Vec<String>) {}
+            async fn confirmed_ack(&self, _ack_ids: Vec<String>) {}
         }
 
         let lease_loop = LeaseLoop::new(FakeLeaser, LeaseOptions::default());

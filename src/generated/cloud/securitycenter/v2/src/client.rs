@@ -211,7 +211,8 @@ impl SecurityCenter {
     ///    client: &SecurityCenter, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_finding()
-    ///         .set_parent(parent).set_finding_id("finding_id_value")
+    ///         .set_parent(parent)
+    ///         .set_finding_id("finding_id_value")
     ///         .set_finding(
     ///             Finding::new()/* set fields */
     ///         )

@@ -18,6 +18,8 @@ use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
 #[cfg(google_cloud_unstable_tracing)]
 pub mod auth;
 #[cfg(google_cloud_unstable_tracing)]
+pub mod detector;
+#[cfg(google_cloud_unstable_tracing)]
 pub mod e2e;
 #[cfg(google_cloud_unstable_tracing)]
 pub mod http_tracing;

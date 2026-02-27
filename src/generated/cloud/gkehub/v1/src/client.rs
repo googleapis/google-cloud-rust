@@ -273,7 +273,8 @@ impl GkeHub {
     ///    client: &GkeHub, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_membership()
-    ///         .set_parent(parent).set_membership_id("membership_id_value")
+    ///         .set_parent(parent)
+    ///         .set_membership_id("membership_id_value")
     ///         .set_resource(
     ///             Membership::new()/* set fields */
     ///         )
@@ -308,7 +309,8 @@ impl GkeHub {
     ///    client: &GkeHub, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_feature()
-    ///         .set_parent(parent).set_feature_id("feature_id_value")
+    ///         .set_parent(parent)
+    ///         .set_feature_id("feature_id_value")
     ///         .set_resource(
     ///             Feature::new()/* set fields */
     ///         )
@@ -968,7 +970,8 @@ impl GkeHub {
     ///    client: &GkeHub, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_scope()
-    ///         .set_parent(parent).set_scope_id("scope_id_value")
+    ///         .set_parent(parent)
+    ///         .set_scope_id("scope_id_value")
     ///         .set_scope(
     ///             Scope::new()/* set fields */
     ///         )

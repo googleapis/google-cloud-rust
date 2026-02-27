@@ -273,7 +273,8 @@ impl EdgeNetwork {
     ///    client: &EdgeNetwork, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_network()
-    ///         .set_parent(parent).set_network_id("network_id_value")
+    ///         .set_parent(parent)
+    ///         .set_network_id("network_id_value")
     ///         .set_network(
     ///             Network::new()/* set fields */
     ///         )
@@ -381,7 +382,8 @@ impl EdgeNetwork {
     ///    client: &EdgeNetwork, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_subnet()
-    ///         .set_parent(parent).set_subnet_id("subnet_id_value")
+    ///         .set_parent(parent)
+    ///         .set_subnet_id("subnet_id_value")
     ///         .set_subnet(
     ///             Subnet::new()/* set fields */
     ///         )
@@ -725,7 +727,8 @@ impl EdgeNetwork {
     ///    client: &EdgeNetwork, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_router()
-    ///         .set_parent(parent).set_router_id("router_id_value")
+    ///         .set_parent(parent)
+    ///         .set_router_id("router_id_value")
     ///         .set_router(
     ///             Router::new()/* set fields */
     ///         )

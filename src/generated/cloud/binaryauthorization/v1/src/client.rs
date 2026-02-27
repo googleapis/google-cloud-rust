@@ -203,7 +203,8 @@ impl BinauthzManagementServiceV1 {
     ///    client: &BinauthzManagementServiceV1, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_attestor()
-    ///         .set_parent(parent).set_attestor_id("attestor_id_value")
+    ///         .set_parent(parent)
+    ///         .set_attestor_id("attestor_id_value")
     ///         .set_attestor(
     ///             Attestor::new()/* set fields */
     ///         )

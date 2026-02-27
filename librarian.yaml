@@ -13,7 +13,7 @@
 # limitations under the License.
 
 language: rust
-version: v0.8.4-0.20260224172937-39ac98873227
+version: v0.8.4-0.20260226170122-6f5418b06612
 sources:
   conformance:
     commit: b407e8416e3893036aee5af9a12bd9b6a0e2b2e6
@@ -1375,10 +1375,28 @@ libraries:
     rust:
       detailed_tracing_attributes: true
   - name: google-cloud-spanner
-    copyright_year: "2025"
+    copyright_year: "2026"
     output: src/spanner
     skip_release: true
     veneer: true
+    rust:
+      modules:
+        - module_path: crate::generated::gapic_dataplane::model
+          output: src/spanner/src/generated/convert/spanner
+          api_path: google/spanner/v1
+          template: convert-prost
+        - extend_grpc_transport: true
+          generate_setter_samples: "false"
+          generate_rpc_samples: "false"
+          has_veneer: true
+          internal_builders: true
+          output: src/spanner/src/generated/gapic_dataplane
+          service_config: google/spanner/v1/spanner.yaml
+          api_path: google/spanner/v1
+          template: grpc-client
+        - output: src/spanner/src/generated/protos/spanner
+          api_path: google/spanner/v1
+          template: prost
   - name: google-cloud-spanner-admin-database-v1
     version: 1.7.0
     apis:

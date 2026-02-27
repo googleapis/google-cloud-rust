@@ -479,7 +479,8 @@ impl VideoStitcherService {
     ///    client: &VideoStitcherService, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_slate()
-    ///         .set_parent(parent).set_slate_id("slate_id_value")
+    ///         .set_parent(parent)
+    ///         .set_slate_id("slate_id_value")
     ///         .set_slate(
     ///             Slate::new()/* set fields */
     ///         )

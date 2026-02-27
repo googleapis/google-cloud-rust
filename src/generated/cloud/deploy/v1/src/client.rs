@@ -349,7 +349,8 @@ impl CloudDeploy {
     ///    client: &CloudDeploy, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_target()
-    ///         .set_parent(parent).set_target_id("target_id_value")
+    ///         .set_parent(parent)
+    ///         .set_target_id("target_id_value")
     ///         .set_target(
     ///             Target::new()/* set fields */
     ///         )
@@ -645,7 +646,8 @@ impl CloudDeploy {
     ///    client: &CloudDeploy, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_release()
-    ///         .set_parent(parent).set_release_id("release_id_value")
+    ///         .set_parent(parent)
+    ///         .set_release_id("release_id_value")
     ///         .set_release(
     ///             Release::new()/* set fields */
     ///         )
@@ -948,7 +950,8 @@ impl CloudDeploy {
     ///    client: &CloudDeploy, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_rollout()
-    ///         .set_parent(parent).set_rollout_id("rollout_id_value")
+    ///         .set_parent(parent)
+    ///         .set_rollout_id("rollout_id_value")
     ///         .set_rollout(
     ///             Rollout::new()/* set fields */
     ///         )
@@ -1106,7 +1109,8 @@ impl CloudDeploy {
     ///    client: &CloudDeploy, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_automation()
-    ///         .set_parent(parent).set_automation_id("automation_id_value")
+    ///         .set_parent(parent)
+    ///         .set_automation_id("automation_id_value")
     ///         .set_automation(
     ///             Automation::new()/* set fields */
     ///         )

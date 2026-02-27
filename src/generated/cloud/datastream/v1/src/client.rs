@@ -354,7 +354,8 @@ impl Datastream {
     ///    client: &Datastream, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_stream()
-    ///         .set_parent(parent).set_stream_id("stream_id_value")
+    ///         .set_parent(parent)
+    ///         .set_stream_id("stream_id_value")
     ///         .set_stream(
     ///             Stream::new()/* set fields */
     ///         )
@@ -722,7 +723,8 @@ impl Datastream {
     ///    client: &Datastream, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_route()
-    ///         .set_parent(parent).set_route_id("route_id_value")
+    ///         .set_parent(parent)
+    ///         .set_route_id("route_id_value")
     ///         .set_route(
     ///             Route::new()/* set fields */
     ///         )

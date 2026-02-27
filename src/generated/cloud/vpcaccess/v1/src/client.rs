@@ -143,7 +143,8 @@ impl VpcAccessService {
     ///    client: &VpcAccessService, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_connector()
-    ///         .set_parent(parent).set_connector_id("connector_id_value")
+    ///         .set_parent(parent)
+    ///         .set_connector_id("connector_id_value")
     ///         .set_connector(
     ///             Connector::new()/* set fields */
     ///         )

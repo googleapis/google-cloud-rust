@@ -13,7 +13,7 @@
 // limitations under the License.
 
 // [START compute_instances_list] ANCHOR: all
-pub async fn quickstart(project_id: &str) -> anyhow::Result<()> {
+pub async fn sample(project_id: &str) -> anyhow::Result<()> {
     use google_cloud_compute_v1::client::Instances;
     use google_cloud_gax::paginator::ItemPaginator;
 

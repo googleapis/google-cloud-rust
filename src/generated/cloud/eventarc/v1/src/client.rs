@@ -184,7 +184,8 @@ impl Eventarc {
     ///    client: &Eventarc, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_trigger()
-    ///         .set_parent(parent).set_trigger_id("trigger_id_value")
+    ///         .set_parent(parent)
+    ///         .set_trigger_id("trigger_id_value")
     ///         .set_trigger(
     ///             Trigger::new()/* set fields */
     ///         )
@@ -330,7 +331,8 @@ impl Eventarc {
     ///    client: &Eventarc, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_channel()
-    ///         .set_parent(parent).set_channel_id("channel_id_value")
+    ///         .set_parent(parent)
+    ///         .set_channel_id("channel_id_value")
     ///         .set_channel(
     ///             Channel::new()/* set fields */
     ///         )
@@ -846,7 +848,8 @@ impl Eventarc {
     ///    client: &Eventarc, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_enrollment()
-    ///         .set_parent(parent).set_enrollment_id("enrollment_id_value")
+    ///         .set_parent(parent)
+    ///         .set_enrollment_id("enrollment_id_value")
     ///         .set_enrollment(
     ///             Enrollment::new()/* set fields */
     ///         )
@@ -992,7 +995,8 @@ impl Eventarc {
     ///    client: &Eventarc, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_pipeline()
-    ///         .set_parent(parent).set_pipeline_id("pipeline_id_value")
+    ///         .set_parent(parent)
+    ///         .set_pipeline_id("pipeline_id_value")
     ///         .set_pipeline(
     ///             Pipeline::new()/* set fields */
     ///         )

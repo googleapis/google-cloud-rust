@@ -322,7 +322,8 @@ impl AnalyticsHubService {
     ///    client: &AnalyticsHubService, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_listing()
-    ///         .set_parent(parent).set_listing_id("listing_id_value")
+    ///         .set_parent(parent)
+    ///         .set_listing_id("listing_id_value")
     ///         .set_listing(
     ///             Listing::new()/* set fields */
     ///         )

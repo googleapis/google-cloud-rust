@@ -184,7 +184,8 @@ impl EdgeContainer {
     ///    client: &EdgeContainer, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_cluster()
-    ///         .set_parent(parent).set_cluster_id("cluster_id_value")
+    ///         .set_parent(parent)
+    ///         .set_cluster_id("cluster_id_value")
     ///         .set_cluster(
     ///             Cluster::new()/* set fields */
     ///         )

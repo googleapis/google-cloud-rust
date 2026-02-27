@@ -32,6 +32,7 @@ use crate::auth::CloudTelemetryAuthInterceptor;
 use google_cloud_auth::credentials::{Builder as AdcBuilder, Credentials};
 use opentelemetry_otlp::tonic_types::transport::ClientTlsConfig;
 use opentelemetry_otlp::{WithExportConfig, WithTonicConfig};
+use opentelemetry_sdk::resource::ResourceDetector;
 use opentelemetry_sdk::trace::{SdkTracerProvider, TraceError};
 
 const GCP_OTLP_DOMAIN_NAME: &str = "telemetry.googleapis.com";
@@ -66,6 +67,7 @@ pub struct Builder {
     credentials: Option<Credentials>,
     endpoint: String,
     domain_name: String,
+    detector: Option<Box<dyn ResourceDetector>>,
 }
 
 impl Builder {
@@ -82,6 +84,7 @@ impl Builder {
             credentials: None,
             endpoint: format!("https://{}", GCP_OTLP_DOMAIN_NAME),
             domain_name: GCP_OTLP_DOMAIN_NAME.to_string(),
+            detector: None,
         }
     }
 
@@ -106,6 +109,15 @@ impl Builder {
         self
     }
 
+    /// Sets the resource detector.
+    pub fn with_detector<D>(mut self, detector: D) -> Self
+    where
+        D: ResourceDetector + 'static,
+    {
+        self.detector = Some(Box::new(detector));
+        self
+    }
+
     /// Builds and initializes the `SdkTracerProvider`.
     pub async fn build(self) -> Result<SdkTracerProvider, TraceError> {
         let credentials = match self.credentials {
@@ -116,11 +128,12 @@ impl Builder {
         };
         let interceptor = CloudTelemetryAuthInterceptor::new(credentials).await;
 
-        let resource = opentelemetry_sdk::Resource::builder_empty()
+        let resource = opentelemetry_sdk::Resource::builder()
             .with_attributes(vec![
                 opentelemetry::KeyValue::new(OTEL_KEY_GCP_PROJECT_ID, self.project_id),
                 opentelemetry::KeyValue::new(OTEL_KEY_SERVICE_NAME, self.service_name),
             ])
+            .with_detectors(&Vec::from_iter(self.detector.into_iter()))
             .build();
 
         let is_https = self.endpoint.starts_with("https");

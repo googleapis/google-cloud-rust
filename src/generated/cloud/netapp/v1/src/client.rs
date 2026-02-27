@@ -391,7 +391,8 @@ impl NetApp {
     ///    client: &NetApp, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_volume()
-    ///         .set_parent(parent).set_volume_id("volume_id_value")
+    ///         .set_parent(parent)
+    ///         .set_volume_id("volume_id_value")
     ///         .set_volume(
     ///             Volume::new()/* set fields */
     ///         )
@@ -569,7 +570,8 @@ impl NetApp {
     ///    client: &NetApp, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_snapshot()
-    ///         .set_parent(parent).set_snapshot_id("snapshot_id_value")
+    ///         .set_parent(parent)
+    ///         .set_snapshot_id("snapshot_id_value")
     ///         .set_snapshot(
     ///             Snapshot::new()/* set fields */
     ///         )
@@ -1057,7 +1059,8 @@ impl NetApp {
     ///    client: &NetApp, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_replication()
-    ///         .set_parent(parent).set_replication_id("replication_id_value")
+    ///         .set_parent(parent)
+    ///         .set_replication_id("replication_id_value")
     ///         .set_replication(
     ///             Replication::new()/* set fields */
     ///         )
@@ -1466,7 +1469,8 @@ impl NetApp {
     ///    client: &NetApp, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_backup()
-    ///         .set_parent(parent).set_backup_id("backup_id_value")
+    ///         .set_parent(parent)
+    ///         .set_backup_id("backup_id_value")
     ///         .set_backup(
     ///             Backup::new()/* set fields */
     ///         )

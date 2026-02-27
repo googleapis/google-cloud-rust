@@ -493,7 +493,8 @@ impl FirestoreAdmin {
     ///    client: &FirestoreAdmin, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_database()
-    ///         .set_parent(parent).set_database_id("database_id_value")
+    ///         .set_parent(parent)
+    ///         .set_database_id("database_id_value")
     ///         .set_database(
     ///             Database::new()/* set fields */
     ///         )
