@@ -25,7 +25,7 @@ env:
   GHA_RUST_VERSIONS: '{ "rust:current": "1.93" }'
   GHA_GO_VERSIONS: '{ "go:current": "1.25.6" }'
   # Define the unstable flags once
-  UNSTABLE_CFGS: &unstable_cfgs '--cfg google_cloud_unstable_tracing --cfg google_cloud_unstable_trust_boundaries --cfg google_cloud_unstable_storage_bidi'
+  UNSTABLE_CFGS: &unstable_cfgs '--cfg google_cloud_unstable_tracing --cfg google_cloud_unstable_trust_boundaries --cfg google_cloud_unstable_storage_bidi --cfg google_cloud_unstable_grpc_server_streaming'
 
 jobs:
   build:
