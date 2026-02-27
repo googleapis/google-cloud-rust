@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#[cfg(all(test, feature = "_internal-grpc-client"))]
+#[cfg(all(test, feature = "_internal-grpc-client", google_cloud_unstable_grpc_server_streaming))]
 mod tests {
     use google_cloud_auth::credentials::{
         Credentials, anonymous::Builder as Anonymous, testing::error_credentials,
@@ -101,11 +101,65 @@ mod tests {
             .build()
             .await?;
 
-        let response =
-            send_server_streaming_request_with_status(client.clone(), "msg0", "resource=error")
-                .await?;
-        let status = response.unwrap_err();
-        assert_eq!(status.code(), tonic::Code::Aborted, "{status:?}");
+        // Uses the public server_streaming, so we expect a gax::Error wrapping the status
+        let response = send_server_streaming_request_with_options(
+            client.clone(),
+            "msg0",
+            "resource=error",
+            RequestOptions::default(),
+        )
+        .await;
+
+        let err = response.unwrap_err();
+        if let Some(status) = err.status() {
+            assert_eq!(
+                status.code,
+                google_cloud_gax::error::rpc::Code::Aborted,
+                "{err:?}"
+            );
+        } else {
+            panic!("expected status, got {err:?}");
+        }
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn server_streaming_timeout() -> anyhow::Result<()> {
+        let (endpoint, _server) = start_echo_server().await?;
+        let client = builder(endpoint)
+            .with_credentials(test_credentials())
+            .build()
+            .await?;
+
+        // Set a very short timeout to ensure it triggers DeadlineExceeded
+        let duration = std::time::Duration::from_nanos(1);
+        let mut options = RequestOptions::default();
+        options.set_attempt_timeout(duration);
+        let response = send_server_streaming_request_with_options(
+            client.clone(),
+            "msg0",
+            "resource=test",
+            options,
+        )
+        .await;
+
+        let err = response.unwrap_err();
+        // The error might be DeadlineExceeded (Code 4) or Cancelled (Code 1) depending on timing,
+        // or a local Timeout error.
+        if let Some(status) = err.status() {
+            assert!(
+                matches!(
+                    status.code,
+                    google_cloud_gax::error::rpc::Code::DeadlineExceeded
+                        | google_cloud_gax::error::rpc::Code::Cancelled
+                ),
+                "{err:?}"
+            );
+        } else {
+             // If it's not a Status, it should be a local Timeout error
+             assert!(err.is_timeout(), "expected timeout error, got {err:?}");
+        }
 
         Ok(())
     }
@@ -171,13 +225,12 @@ mod tests {
             .await
     }
 
-    async fn send_server_streaming_request_with_status(
+    async fn send_server_streaming_request_with_options(
         client: grpc::Client,
         msg: &str,
         request_params: &str,
-    ) -> google_cloud_gax::Result<
-        tonic::Result<tonic::Response<tonic::codec::Streaming<EchoResponse>>>,
-    > {
+        request_options: RequestOptions,
+    ) -> google_cloud_gax::Result<tonic::Response<tonic::codec::Streaming<EchoResponse>>> {
         let extensions = {
             let mut e = tonic::Extensions::new();
             e.insert(tonic::GrpcMethod::new(
@@ -186,17 +239,12 @@ mod tests {
             ));
             e
         };
-        let request_options = {
-            let mut o = RequestOptions::default();
-            o.set_retry_policy(NeverRetry);
-            o
-        };
         let request = EchoRequest {
             message: msg.into(),
             ..Default::default()
         };
         client
-            .server_streaming_with_status::<EchoRequest, EchoResponse>(
+            .server_streaming::<EchoRequest, EchoResponse>(
                 extensions,
                 http::uri::PathAndQuery::from_static("/google.test.v1.EchoService/Expand"),
                 request,

@@ -216,6 +216,7 @@ impl Client {
     }
 
     /// Opens a server stream.
+    #[cfg(google_cloud_unstable_grpc_server_streaming)]
     pub async fn server_streaming<Request, Response>(
         &self,
         extensions: tonic::Extensions,
@@ -242,7 +243,8 @@ impl Client {
     }
 
     /// Opens a server stream with detailed status.
-    pub async fn server_streaming_with_status<Request, Response>(
+    #[cfg(google_cloud_unstable_grpc_server_streaming)]
+    pub(crate) async fn server_streaming_with_status<Request, Response>(
         &self,
         extensions: tonic::Extensions,
         path: http::uri::PathAndQuery,
