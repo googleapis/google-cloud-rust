@@ -57,7 +57,7 @@ RPC, and process the response from the server.
 {{#include ../samples/tests/mocking.rs:my_application_function}}
 ```
 
-You want to test how the code handles different responses from the service.
+To test how the code handles different responses from the service.
 
 First, define the mock class. This class implements the
 [`speech::stub::Speech`][speech-stub] trait.

@@ -75,7 +75,7 @@ new variants in future releases. To avoid breaking applications, these
 enumerations are marked as `#[non_exhaustive]`.
 
 If you use a match expression for non-exhaustive enumerations then you must
-include the [wildcard pattern] in your match. This will prevent compilation
+include the [wildcard pattern] in your match. This maintains backward compatibility when new variants are added to the enumeration.
 problems when you include new variants in the enumeration.
 
 ```rust,ignore

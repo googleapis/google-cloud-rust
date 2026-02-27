@@ -98,8 +98,8 @@ updates.
 {{#rustdoc_include ../samples/tests/mocking_lros_manual.rs:app-fn}}
 ```
 
-You want to simulate how the application acts when it receives intermediate
-metadata. You can achieve this by returning in-progress operations from the
+Simulate how the application acts when it receives intermediate
+metada by returning in-progress operations from the
 mock.
 
 ### Creating the `longrunning::model::Operation`

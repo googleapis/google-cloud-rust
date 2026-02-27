@@ -102,7 +102,7 @@ First, introduce a helper function to perform one iteration of the rewrite loop.
 
 Send the request and process the response. Log the progress made.
 
-If the operation is `done`, return the object metadata, otherwise return the
+If the operation is `done`, return the object metadata; otherwise return the
 rewrite token.
 
 ```rust,ignore,noplayground
@@ -117,14 +117,14 @@ Now perform the rewrite loop until the operation is done.
 {{#rustdoc_include ../../samples/tests/storage/rewrite_object.rs:loop}}
 ```
 
-Note how if the operation is incomplete, you must supply the rewrite token
-returned by the server to the next request.
+If the operation is incomplete, then supply the rewrite token returned by
+the server to the next request.
 
 ```rust,ignore,noplayground
 {{#rustdoc_include ../../samples/tests/storage/rewrite_object.rs:set-rewrite-token}}
 ```
 
-Also note that you can use the rewrite token to continue the operation from
+Note that you can use the rewrite token to continue the operation from
 another process. Rewrite tokens are valid for up to one week.
 
 ## Full program
