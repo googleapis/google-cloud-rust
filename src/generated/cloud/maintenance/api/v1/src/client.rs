@@ -173,10 +173,10 @@ impl Maintenance {
     /// # use google_cloud_maintenance_api_v1::client::Maintenance;
     /// use google_cloud_maintenance_api_v1::Result;
     /// async fn sample(
-    ///    client: &Maintenance, resource_name: &str
+    ///    client: &Maintenance, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_resource_maintenance()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())

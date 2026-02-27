@@ -314,10 +314,10 @@ impl DlpService {
     /// # use google_cloud_privacy_dlp_v2::client::DlpService;
     /// use google_cloud_privacy_dlp_v2::Result;
     /// async fn sample(
-    ///    client: &DlpService, resource_name: &str
+    ///    client: &DlpService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_inspect_template()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -363,10 +363,10 @@ impl DlpService {
     /// # use google_cloud_privacy_dlp_v2::client::DlpService;
     /// use google_cloud_privacy_dlp_v2::Result;
     /// async fn sample(
-    ///    client: &DlpService, resource_name: &str
+    ///    client: &DlpService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_inspect_template()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -436,10 +436,10 @@ impl DlpService {
     /// # use google_cloud_privacy_dlp_v2::client::DlpService;
     /// use google_cloud_privacy_dlp_v2::Result;
     /// async fn sample(
-    ///    client: &DlpService, resource_name: &str
+    ///    client: &DlpService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_deidentify_template()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -487,10 +487,10 @@ impl DlpService {
     /// # use google_cloud_privacy_dlp_v2::client::DlpService;
     /// use google_cloud_privacy_dlp_v2::Result;
     /// async fn sample(
-    ///    client: &DlpService, resource_name: &str
+    ///    client: &DlpService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_deidentify_template()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -582,10 +582,10 @@ impl DlpService {
     /// # use google_cloud_privacy_dlp_v2::client::DlpService;
     /// use google_cloud_privacy_dlp_v2::Result;
     /// async fn sample(
-    ///    client: &DlpService, resource_name: &str
+    ///    client: &DlpService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_job_trigger()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -631,10 +631,10 @@ impl DlpService {
     /// # use google_cloud_privacy_dlp_v2::client::DlpService;
     /// use google_cloud_privacy_dlp_v2::Result;
     /// async fn sample(
-    ///    client: &DlpService, resource_name: &str
+    ///    client: &DlpService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_job_trigger()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -711,10 +711,10 @@ impl DlpService {
     /// # use google_cloud_privacy_dlp_v2::client::DlpService;
     /// use google_cloud_privacy_dlp_v2::Result;
     /// async fn sample(
-    ///    client: &DlpService, resource_name: &str
+    ///    client: &DlpService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_discovery_config()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -754,10 +754,10 @@ impl DlpService {
     /// # use google_cloud_privacy_dlp_v2::client::DlpService;
     /// use google_cloud_privacy_dlp_v2::Result;
     /// async fn sample(
-    ///    client: &DlpService, resource_name: &str
+    ///    client: &DlpService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_discovery_config()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -835,10 +835,10 @@ impl DlpService {
     /// # use google_cloud_privacy_dlp_v2::client::DlpService;
     /// use google_cloud_privacy_dlp_v2::Result;
     /// async fn sample(
-    ///    client: &DlpService, resource_name: &str
+    ///    client: &DlpService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_dlp_job()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -862,10 +862,10 @@ impl DlpService {
     /// # use google_cloud_privacy_dlp_v2::client::DlpService;
     /// use google_cloud_privacy_dlp_v2::Result;
     /// async fn sample(
-    ///    client: &DlpService, resource_name: &str
+    ///    client: &DlpService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_dlp_job()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -957,10 +957,10 @@ impl DlpService {
     /// # use google_cloud_privacy_dlp_v2::client::DlpService;
     /// use google_cloud_privacy_dlp_v2::Result;
     /// async fn sample(
-    ///    client: &DlpService, resource_name: &str
+    ///    client: &DlpService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_stored_info_type()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1006,10 +1006,10 @@ impl DlpService {
     /// # use google_cloud_privacy_dlp_v2::client::DlpService;
     /// use google_cloud_privacy_dlp_v2::Result;
     /// async fn sample(
-    ///    client: &DlpService, resource_name: &str
+    ///    client: &DlpService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_stored_info_type()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -1096,10 +1096,10 @@ impl DlpService {
     /// # use google_cloud_privacy_dlp_v2::client::DlpService;
     /// use google_cloud_privacy_dlp_v2::Result;
     /// async fn sample(
-    ///    client: &DlpService, resource_name: &str
+    ///    client: &DlpService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_project_data_profile()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1164,10 +1164,10 @@ impl DlpService {
     /// # use google_cloud_privacy_dlp_v2::client::DlpService;
     /// use google_cloud_privacy_dlp_v2::Result;
     /// async fn sample(
-    ///    client: &DlpService, resource_name: &str
+    ///    client: &DlpService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_file_store_data_profile()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -1185,10 +1185,10 @@ impl DlpService {
     /// # use google_cloud_privacy_dlp_v2::client::DlpService;
     /// use google_cloud_privacy_dlp_v2::Result;
     /// async fn sample(
-    ///    client: &DlpService, resource_name: &str
+    ///    client: &DlpService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_table_data_profile()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1205,10 +1205,10 @@ impl DlpService {
     /// # use google_cloud_privacy_dlp_v2::client::DlpService;
     /// use google_cloud_privacy_dlp_v2::Result;
     /// async fn sample(
-    ///    client: &DlpService, resource_name: &str
+    ///    client: &DlpService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_column_data_profile()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1226,10 +1226,10 @@ impl DlpService {
     /// # use google_cloud_privacy_dlp_v2::client::DlpService;
     /// use google_cloud_privacy_dlp_v2::Result;
     /// async fn sample(
-    ///    client: &DlpService, resource_name: &str
+    ///    client: &DlpService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_table_data_profile()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -1311,10 +1311,10 @@ impl DlpService {
     /// # use google_cloud_privacy_dlp_v2::client::DlpService;
     /// use google_cloud_privacy_dlp_v2::Result;
     /// async fn sample(
-    ///    client: &DlpService, resource_name: &str
+    ///    client: &DlpService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_connection()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1378,10 +1378,10 @@ impl DlpService {
     /// # use google_cloud_privacy_dlp_v2::client::DlpService;
     /// use google_cloud_privacy_dlp_v2::Result;
     /// async fn sample(
-    ///    client: &DlpService, resource_name: &str
+    ///    client: &DlpService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_connection()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }

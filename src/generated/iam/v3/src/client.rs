@@ -163,10 +163,10 @@ impl PolicyBindings {
     /// # use google_cloud_iam_v3::client::PolicyBindings;
     /// use google_cloud_iam_v3::Result;
     /// async fn sample(
-    ///    client: &PolicyBindings, resource_name: &str
+    ///    client: &PolicyBindings, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_policy_binding()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -237,10 +237,10 @@ impl PolicyBindings {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_iam_v3::Result;
     /// async fn sample(
-    ///    client: &PolicyBindings, resource_name: &str
+    ///    client: &PolicyBindings, name: &str
     /// ) -> Result<()> {
     ///     client.delete_policy_binding()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -476,10 +476,10 @@ impl PrincipalAccessBoundaryPolicies {
     /// # use google_cloud_iam_v3::client::PrincipalAccessBoundaryPolicies;
     /// use google_cloud_iam_v3::Result;
     /// async fn sample(
-    ///    client: &PrincipalAccessBoundaryPolicies, resource_name: &str
+    ///    client: &PrincipalAccessBoundaryPolicies, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_principal_access_boundary_policy()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -553,10 +553,10 @@ impl PrincipalAccessBoundaryPolicies {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_iam_v3::Result;
     /// async fn sample(
-    ///    client: &PrincipalAccessBoundaryPolicies, resource_name: &str
+    ///    client: &PrincipalAccessBoundaryPolicies, name: &str
     /// ) -> Result<()> {
     ///     client.delete_principal_access_boundary_policy()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }

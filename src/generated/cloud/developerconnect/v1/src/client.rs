@@ -149,10 +149,10 @@ impl DeveloperConnect {
     /// # use google_cloud_developerconnect_v1::client::DeveloperConnect;
     /// use google_cloud_developerconnect_v1::Result;
     /// async fn sample(
-    ///    client: &DeveloperConnect, resource_name: &str
+    ///    client: &DeveloperConnect, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_connection()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -253,10 +253,10 @@ impl DeveloperConnect {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_developerconnect_v1::Result;
     /// async fn sample(
-    ///    client: &DeveloperConnect, resource_name: &str
+    ///    client: &DeveloperConnect, name: &str
     /// ) -> Result<()> {
     ///     client.delete_connection()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -324,10 +324,10 @@ impl DeveloperConnect {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_developerconnect_v1::Result;
     /// async fn sample(
-    ///    client: &DeveloperConnect, resource_name: &str
+    ///    client: &DeveloperConnect, name: &str
     /// ) -> Result<()> {
     ///     client.delete_git_repository_link()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -370,10 +370,10 @@ impl DeveloperConnect {
     /// # use google_cloud_developerconnect_v1::client::DeveloperConnect;
     /// use google_cloud_developerconnect_v1::Result;
     /// async fn sample(
-    ///    client: &DeveloperConnect, resource_name: &str
+    ///    client: &DeveloperConnect, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_git_repository_link()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -528,10 +528,10 @@ impl DeveloperConnect {
     /// # use google_cloud_developerconnect_v1::client::DeveloperConnect;
     /// use google_cloud_developerconnect_v1::Result;
     /// async fn sample(
-    ///    client: &DeveloperConnect, resource_name: &str
+    ///    client: &DeveloperConnect, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_account_connector()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -635,10 +635,10 @@ impl DeveloperConnect {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_developerconnect_v1::Result;
     /// async fn sample(
-    ///    client: &DeveloperConnect, resource_name: &str
+    ///    client: &DeveloperConnect, name: &str
     /// ) -> Result<()> {
     ///     client.delete_account_connector()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -710,10 +710,10 @@ impl DeveloperConnect {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_developerconnect_v1::Result;
     /// async fn sample(
-    ///    client: &DeveloperConnect, resource_name: &str
+    ///    client: &DeveloperConnect, name: &str
     /// ) -> Result<()> {
     ///     client.delete_user()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1085,10 +1085,10 @@ impl InsightsConfigService {
     /// # use google_cloud_developerconnect_v1::client::InsightsConfigService;
     /// use google_cloud_developerconnect_v1::Result;
     /// async fn sample(
-    ///    client: &InsightsConfigService, resource_name: &str
+    ///    client: &InsightsConfigService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_insights_config()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1154,10 +1154,10 @@ impl InsightsConfigService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_developerconnect_v1::Result;
     /// async fn sample(
-    ///    client: &InsightsConfigService, resource_name: &str
+    ///    client: &InsightsConfigService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_insights_config()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }

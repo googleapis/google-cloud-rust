@@ -193,10 +193,10 @@ impl Autokey {
     /// # use google_cloud_kms_v1::client::Autokey;
     /// use google_cloud_kms_v1::Result;
     /// async fn sample(
-    ///    client: &Autokey, resource_name: &str
+    ///    client: &Autokey, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_key_handle()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -534,10 +534,10 @@ impl AutokeyAdmin {
     /// # use google_cloud_kms_v1::client::AutokeyAdmin;
     /// use google_cloud_kms_v1::Result;
     /// async fn sample(
-    ///    client: &AutokeyAdmin, resource_name: &str
+    ///    client: &AutokeyAdmin, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_autokey_config()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -857,10 +857,10 @@ impl EkmService {
     /// # use google_cloud_kms_v1::client::EkmService;
     /// use google_cloud_kms_v1::Result;
     /// async fn sample(
-    ///    client: &EkmService, resource_name: &str
+    ///    client: &EkmService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_ekm_connection()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -935,10 +935,10 @@ impl EkmService {
     /// # use google_cloud_kms_v1::client::EkmService;
     /// use google_cloud_kms_v1::Result;
     /// async fn sample(
-    ///    client: &EkmService, resource_name: &str
+    ///    client: &EkmService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_ekm_config()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1297,10 +1297,10 @@ impl HsmManagement {
     /// # use google_cloud_kms_v1::client::HsmManagement;
     /// use google_cloud_kms_v1::Result;
     /// async fn sample(
-    ///    client: &HsmManagement, resource_name: &str
+    ///    client: &HsmManagement, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_single_tenant_hsm_instance()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1489,10 +1489,10 @@ impl HsmManagement {
     /// # use google_cloud_kms_v1::client::HsmManagement;
     /// use google_cloud_kms_v1::Result;
     /// async fn sample(
-    ///    client: &HsmManagement, resource_name: &str
+    ///    client: &HsmManagement, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_single_tenant_hsm_instance_proposal()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1544,10 +1544,10 @@ impl HsmManagement {
     /// # use google_cloud_kms_v1::client::HsmManagement;
     /// use google_cloud_kms_v1::Result;
     /// async fn sample(
-    ///    client: &HsmManagement, resource_name: &str
+    ///    client: &HsmManagement, name: &str
     /// ) -> Result<()> {
     ///     client.delete_single_tenant_hsm_instance_proposal()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -1964,10 +1964,10 @@ impl KeyManagementService {
     /// # use google_cloud_kms_v1::client::KeyManagementService;
     /// use google_cloud_kms_v1::Result;
     /// async fn sample(
-    ///    client: &KeyManagementService, resource_name: &str
+    ///    client: &KeyManagementService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_key_ring()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1990,10 +1990,10 @@ impl KeyManagementService {
     /// # use google_cloud_kms_v1::client::KeyManagementService;
     /// use google_cloud_kms_v1::Result;
     /// async fn sample(
-    ///    client: &KeyManagementService, resource_name: &str
+    ///    client: &KeyManagementService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_crypto_key()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -2013,10 +2013,10 @@ impl KeyManagementService {
     /// # use google_cloud_kms_v1::client::KeyManagementService;
     /// use google_cloud_kms_v1::Result;
     /// async fn sample(
-    ///    client: &KeyManagementService, resource_name: &str
+    ///    client: &KeyManagementService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_crypto_key_version()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -2067,10 +2067,10 @@ impl KeyManagementService {
     /// # use google_cloud_kms_v1::client::KeyManagementService;
     /// use google_cloud_kms_v1::Result;
     /// async fn sample(
-    ///    client: &KeyManagementService, resource_name: &str
+    ///    client: &KeyManagementService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_import_job()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -2092,10 +2092,10 @@ impl KeyManagementService {
     /// # use google_cloud_kms_v1::client::KeyManagementService;
     /// use google_cloud_kms_v1::Result;
     /// async fn sample(
-    ///    client: &KeyManagementService, resource_name: &str
+    ///    client: &KeyManagementService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_retired_resource()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -2231,10 +2231,10 @@ impl KeyManagementService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_kms_v1::Result;
     /// async fn sample(
-    ///    client: &KeyManagementService, resource_name: &str
+    ///    client: &KeyManagementService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_crypto_key()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -2274,10 +2274,10 @@ impl KeyManagementService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_kms_v1::Result;
     /// async fn sample(
-    ///    client: &KeyManagementService, resource_name: &str
+    ///    client: &KeyManagementService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_crypto_key_version()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }

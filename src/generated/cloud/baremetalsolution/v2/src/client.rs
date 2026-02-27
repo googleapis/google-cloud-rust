@@ -156,10 +156,10 @@ impl BareMetalSolution {
     /// # use google_cloud_baremetalsolution_v2::client::BareMetalSolution;
     /// use google_cloud_baremetalsolution_v2::Result;
     /// async fn sample(
-    ///    client: &BareMetalSolution, resource_name: &str
+    ///    client: &BareMetalSolution, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_instance()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -476,10 +476,10 @@ impl BareMetalSolution {
     /// # use google_cloud_baremetalsolution_v2::client::BareMetalSolution;
     /// use google_cloud_baremetalsolution_v2::Result;
     /// async fn sample(
-    ///    client: &BareMetalSolution, resource_name: &str
+    ///    client: &BareMetalSolution, name: &str
     /// ) -> Result<()> {
     ///     client.delete_ssh_key()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -518,10 +518,10 @@ impl BareMetalSolution {
     /// # use google_cloud_baremetalsolution_v2::client::BareMetalSolution;
     /// use google_cloud_baremetalsolution_v2::Result;
     /// async fn sample(
-    ///    client: &BareMetalSolution, resource_name: &str
+    ///    client: &BareMetalSolution, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_volume()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -702,10 +702,10 @@ impl BareMetalSolution {
     /// # use google_cloud_baremetalsolution_v2::client::BareMetalSolution;
     /// use google_cloud_baremetalsolution_v2::Result;
     /// async fn sample(
-    ///    client: &BareMetalSolution, resource_name: &str
+    ///    client: &BareMetalSolution, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_network()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -821,10 +821,10 @@ impl BareMetalSolution {
     /// # use google_cloud_baremetalsolution_v2::client::BareMetalSolution;
     /// use google_cloud_baremetalsolution_v2::Result;
     /// async fn sample(
-    ///    client: &BareMetalSolution, resource_name: &str
+    ///    client: &BareMetalSolution, name: &str
     /// ) -> Result<()> {
     ///     client.delete_volume_snapshot()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -843,10 +843,10 @@ impl BareMetalSolution {
     /// # use google_cloud_baremetalsolution_v2::client::BareMetalSolution;
     /// use google_cloud_baremetalsolution_v2::Result;
     /// async fn sample(
-    ///    client: &BareMetalSolution, resource_name: &str
+    ///    client: &BareMetalSolution, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_volume_snapshot()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -890,10 +890,10 @@ impl BareMetalSolution {
     /// # use google_cloud_baremetalsolution_v2::client::BareMetalSolution;
     /// use google_cloud_baremetalsolution_v2::Result;
     /// async fn sample(
-    ///    client: &BareMetalSolution, resource_name: &str
+    ///    client: &BareMetalSolution, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_lun()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -964,10 +964,10 @@ impl BareMetalSolution {
     /// # use google_cloud_baremetalsolution_v2::client::BareMetalSolution;
     /// use google_cloud_baremetalsolution_v2::Result;
     /// async fn sample(
-    ///    client: &BareMetalSolution, resource_name: &str
+    ///    client: &BareMetalSolution, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_nfs_share()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1111,10 +1111,10 @@ impl BareMetalSolution {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_baremetalsolution_v2::Result;
     /// async fn sample(
-    ///    client: &BareMetalSolution, resource_name: &str
+    ///    client: &BareMetalSolution, name: &str
     /// ) -> Result<()> {
     ///     client.delete_nfs_share()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1177,10 +1177,10 @@ impl BareMetalSolution {
     /// # use google_cloud_baremetalsolution_v2::client::BareMetalSolution;
     /// use google_cloud_baremetalsolution_v2::Result;
     /// async fn sample(
-    ///    client: &BareMetalSolution, resource_name: &str
+    ///    client: &BareMetalSolution, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_provisioning_config()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())

@@ -165,10 +165,10 @@ impl CertificateAuthorityService {
     /// # use google_cloud_security_privateca_v1::client::CertificateAuthorityService;
     /// use google_cloud_security_privateca_v1::Result;
     /// async fn sample(
-    ///    client: &CertificateAuthorityService, resource_name: &str
+    ///    client: &CertificateAuthorityService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_certificate()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -479,10 +479,10 @@ impl CertificateAuthorityService {
     /// # use google_cloud_security_privateca_v1::client::CertificateAuthorityService;
     /// use google_cloud_security_privateca_v1::Result;
     /// async fn sample(
-    ///    client: &CertificateAuthorityService, resource_name: &str
+    ///    client: &CertificateAuthorityService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_certificate_authority()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -548,10 +548,10 @@ impl CertificateAuthorityService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_security_privateca_v1::Result;
     /// async fn sample(
-    ///    client: &CertificateAuthorityService, resource_name: &str
+    ///    client: &CertificateAuthorityService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.undelete_certificate_authority()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -586,10 +586,10 @@ impl CertificateAuthorityService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_security_privateca_v1::Result;
     /// async fn sample(
-    ///    client: &CertificateAuthorityService, resource_name: &str
+    ///    client: &CertificateAuthorityService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.delete_certificate_authority()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -732,10 +732,10 @@ impl CertificateAuthorityService {
     /// # use google_cloud_security_privateca_v1::client::CertificateAuthorityService;
     /// use google_cloud_security_privateca_v1::Result;
     /// async fn sample(
-    ///    client: &CertificateAuthorityService, resource_name: &str
+    ///    client: &CertificateAuthorityService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_ca_pool()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -790,10 +790,10 @@ impl CertificateAuthorityService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_security_privateca_v1::Result;
     /// async fn sample(
-    ///    client: &CertificateAuthorityService, resource_name: &str
+    ///    client: &CertificateAuthorityService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_ca_pool()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -837,10 +837,10 @@ impl CertificateAuthorityService {
     /// # use google_cloud_security_privateca_v1::client::CertificateAuthorityService;
     /// use google_cloud_security_privateca_v1::Result;
     /// async fn sample(
-    ///    client: &CertificateAuthorityService, resource_name: &str
+    ///    client: &CertificateAuthorityService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_certificate_revocation_list()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -992,10 +992,10 @@ impl CertificateAuthorityService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_security_privateca_v1::Result;
     /// async fn sample(
-    ///    client: &CertificateAuthorityService, resource_name: &str
+    ///    client: &CertificateAuthorityService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_certificate_template()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1018,10 +1018,10 @@ impl CertificateAuthorityService {
     /// # use google_cloud_security_privateca_v1::client::CertificateAuthorityService;
     /// use google_cloud_security_privateca_v1::Result;
     /// async fn sample(
-    ///    client: &CertificateAuthorityService, resource_name: &str
+    ///    client: &CertificateAuthorityService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_certificate_template()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())

@@ -174,10 +174,10 @@ impl EdgeNetwork {
     /// # use google_cloud_edgenetwork_v1::client::EdgeNetwork;
     /// use google_cloud_edgenetwork_v1::Result;
     /// async fn sample(
-    ///    client: &EdgeNetwork, resource_name: &str
+    ///    client: &EdgeNetwork, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_zone()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -218,10 +218,10 @@ impl EdgeNetwork {
     /// # use google_cloud_edgenetwork_v1::client::EdgeNetwork;
     /// use google_cloud_edgenetwork_v1::Result;
     /// async fn sample(
-    ///    client: &EdgeNetwork, resource_name: &str
+    ///    client: &EdgeNetwork, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_network()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -305,10 +305,10 @@ impl EdgeNetwork {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_edgenetwork_v1::Result;
     /// async fn sample(
-    ///    client: &EdgeNetwork, resource_name: &str
+    ///    client: &EdgeNetwork, name: &str
     /// ) -> Result<()> {
     ///     client.delete_network()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -347,10 +347,10 @@ impl EdgeNetwork {
     /// # use google_cloud_edgenetwork_v1::client::EdgeNetwork;
     /// use google_cloud_edgenetwork_v1::Result;
     /// async fn sample(
-    ///    client: &EdgeNetwork, resource_name: &str
+    ///    client: &EdgeNetwork, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_subnet()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -451,10 +451,10 @@ impl EdgeNetwork {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_edgenetwork_v1::Result;
     /// async fn sample(
-    ///    client: &EdgeNetwork, resource_name: &str
+    ///    client: &EdgeNetwork, name: &str
     /// ) -> Result<()> {
     ///     client.delete_subnet()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -493,10 +493,10 @@ impl EdgeNetwork {
     /// # use google_cloud_edgenetwork_v1::client::EdgeNetwork;
     /// use google_cloud_edgenetwork_v1::Result;
     /// async fn sample(
-    ///    client: &EdgeNetwork, resource_name: &str
+    ///    client: &EdgeNetwork, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_interconnect()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -558,10 +558,10 @@ impl EdgeNetwork {
     /// # use google_cloud_edgenetwork_v1::client::EdgeNetwork;
     /// use google_cloud_edgenetwork_v1::Result;
     /// async fn sample(
-    ///    client: &EdgeNetwork, resource_name: &str
+    ///    client: &EdgeNetwork, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_interconnect_attachment()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -628,10 +628,10 @@ impl EdgeNetwork {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_edgenetwork_v1::Result;
     /// async fn sample(
-    ///    client: &EdgeNetwork, resource_name: &str
+    ///    client: &EdgeNetwork, name: &str
     /// ) -> Result<()> {
     ///     client.delete_interconnect_attachment()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -672,10 +672,10 @@ impl EdgeNetwork {
     /// # use google_cloud_edgenetwork_v1::client::EdgeNetwork;
     /// use google_cloud_edgenetwork_v1::Result;
     /// async fn sample(
-    ///    client: &EdgeNetwork, resource_name: &str
+    ///    client: &EdgeNetwork, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_router()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -796,10 +796,10 @@ impl EdgeNetwork {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_edgenetwork_v1::Result;
     /// async fn sample(
-    ///    client: &EdgeNetwork, resource_name: &str
+    ///    client: &EdgeNetwork, name: &str
     /// ) -> Result<()> {
     ///     client.delete_router()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }

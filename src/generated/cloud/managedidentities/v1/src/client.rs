@@ -241,10 +241,10 @@ impl ManagedIdentitiesService {
     /// # use google_cloud_managedidentities_v1::client::ManagedIdentitiesService;
     /// use google_cloud_managedidentities_v1::Result;
     /// async fn sample(
-    ///    client: &ManagedIdentitiesService, resource_name: &str
+    ///    client: &ManagedIdentitiesService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_domain()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -309,10 +309,10 @@ impl ManagedIdentitiesService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_managedidentities_v1::Result;
     /// async fn sample(
-    ///    client: &ManagedIdentitiesService, resource_name: &str
+    ///    client: &ManagedIdentitiesService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_domain()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }

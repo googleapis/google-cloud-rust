@@ -150,10 +150,10 @@ impl OracleDatabase {
     /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
     /// use google_cloud_oracledatabase_v1::Result;
     /// async fn sample(
-    ///    client: &OracleDatabase, resource_name: &str
+    ///    client: &OracleDatabase, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_cloud_exadata_infrastructure()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -220,10 +220,10 @@ impl OracleDatabase {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_oracledatabase_v1::Result;
     /// async fn sample(
-    ///    client: &OracleDatabase, resource_name: &str
+    ///    client: &OracleDatabase, name: &str
     /// ) -> Result<()> {
     ///     client.delete_cloud_exadata_infrastructure()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -264,10 +264,10 @@ impl OracleDatabase {
     /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
     /// use google_cloud_oracledatabase_v1::Result;
     /// async fn sample(
-    ///    client: &OracleDatabase, resource_name: &str
+    ///    client: &OracleDatabase, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_cloud_vm_cluster()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -330,10 +330,10 @@ impl OracleDatabase {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_oracledatabase_v1::Result;
     /// async fn sample(
-    ///    client: &OracleDatabase, resource_name: &str
+    ///    client: &OracleDatabase, name: &str
     /// ) -> Result<()> {
     ///     client.delete_cloud_vm_cluster()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -514,10 +514,10 @@ impl OracleDatabase {
     /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
     /// use google_cloud_oracledatabase_v1::Result;
     /// async fn sample(
-    ///    client: &OracleDatabase, resource_name: &str
+    ///    client: &OracleDatabase, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_autonomous_database()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -623,10 +623,10 @@ impl OracleDatabase {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_oracledatabase_v1::Result;
     /// async fn sample(
-    ///    client: &OracleDatabase, resource_name: &str
+    ///    client: &OracleDatabase, name: &str
     /// ) -> Result<()> {
     ///     client.delete_autonomous_database()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -967,10 +967,10 @@ impl OracleDatabase {
     /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
     /// use google_cloud_oracledatabase_v1::Result;
     /// async fn sample(
-    ///    client: &OracleDatabase, resource_name: &str
+    ///    client: &OracleDatabase, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_odb_network()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1033,10 +1033,10 @@ impl OracleDatabase {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_oracledatabase_v1::Result;
     /// async fn sample(
-    ///    client: &OracleDatabase, resource_name: &str
+    ///    client: &OracleDatabase, name: &str
     /// ) -> Result<()> {
     ///     client.delete_odb_network()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1075,10 +1075,10 @@ impl OracleDatabase {
     /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
     /// use google_cloud_oracledatabase_v1::Result;
     /// async fn sample(
-    ///    client: &OracleDatabase, resource_name: &str
+    ///    client: &OracleDatabase, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_odb_subnet()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1141,10 +1141,10 @@ impl OracleDatabase {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_oracledatabase_v1::Result;
     /// async fn sample(
-    ///    client: &OracleDatabase, resource_name: &str
+    ///    client: &OracleDatabase, name: &str
     /// ) -> Result<()> {
     ///     client.delete_odb_subnet()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1184,10 +1184,10 @@ impl OracleDatabase {
     /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
     /// use google_cloud_oracledatabase_v1::Result;
     /// async fn sample(
-    ///    client: &OracleDatabase, resource_name: &str
+    ///    client: &OracleDatabase, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_exadb_vm_cluster()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1250,10 +1250,10 @@ impl OracleDatabase {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_oracledatabase_v1::Result;
     /// async fn sample(
-    ///    client: &OracleDatabase, resource_name: &str
+    ///    client: &OracleDatabase, name: &str
     /// ) -> Result<()> {
     ///     client.delete_exadb_vm_cluster()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1366,10 +1366,10 @@ impl OracleDatabase {
     /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
     /// use google_cloud_oracledatabase_v1::Result;
     /// async fn sample(
-    ///    client: &OracleDatabase, resource_name: &str
+    ///    client: &OracleDatabase, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_exascale_db_storage_vault()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1436,10 +1436,10 @@ impl OracleDatabase {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_oracledatabase_v1::Result;
     /// async fn sample(
-    ///    client: &OracleDatabase, resource_name: &str
+    ///    client: &OracleDatabase, name: &str
     /// ) -> Result<()> {
     ///     client.delete_exascale_db_storage_vault()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1506,10 +1506,10 @@ impl OracleDatabase {
     /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
     /// use google_cloud_oracledatabase_v1::Result;
     /// async fn sample(
-    ///    client: &OracleDatabase, resource_name: &str
+    ///    client: &OracleDatabase, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_database()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1552,10 +1552,10 @@ impl OracleDatabase {
     /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
     /// use google_cloud_oracledatabase_v1::Result;
     /// async fn sample(
-    ///    client: &OracleDatabase, resource_name: &str
+    ///    client: &OracleDatabase, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_pluggable_database()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1595,10 +1595,10 @@ impl OracleDatabase {
     /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
     /// use google_cloud_oracledatabase_v1::Result;
     /// async fn sample(
-    ///    client: &OracleDatabase, resource_name: &str
+    ///    client: &OracleDatabase, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_db_system()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1661,10 +1661,10 @@ impl OracleDatabase {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_oracledatabase_v1::Result;
     /// async fn sample(
-    ///    client: &OracleDatabase, resource_name: &str
+    ///    client: &OracleDatabase, name: &str
     /// ) -> Result<()> {
     ///     client.delete_db_system()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }

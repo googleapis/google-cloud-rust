@@ -180,10 +180,10 @@ impl Iam {
     /// # use google_cloud_iam_admin_v1::client::Iam;
     /// use google_cloud_iam_admin_v1::Result;
     /// async fn sample(
-    ///    client: &Iam, resource_name: &str
+    ///    client: &Iam, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_service_account()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -289,10 +289,10 @@ impl Iam {
     /// # use google_cloud_iam_admin_v1::client::Iam;
     /// use google_cloud_iam_admin_v1::Result;
     /// async fn sample(
-    ///    client: &Iam, resource_name: &str
+    ///    client: &Iam, name: &str
     /// ) -> Result<()> {
     ///     client.delete_service_account()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -428,10 +428,10 @@ impl Iam {
     /// # use google_cloud_iam_admin_v1::client::Iam;
     /// use google_cloud_iam_admin_v1::Result;
     /// async fn sample(
-    ///    client: &Iam, resource_name: &str
+    ///    client: &Iam, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_service_account_key()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -500,10 +500,10 @@ impl Iam {
     /// # use google_cloud_iam_admin_v1::client::Iam;
     /// use google_cloud_iam_admin_v1::Result;
     /// async fn sample(
-    ///    client: &Iam, resource_name: &str
+    ///    client: &Iam, name: &str
     /// ) -> Result<()> {
     ///     client.delete_service_account_key()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -855,10 +855,10 @@ impl Iam {
     /// # use google_cloud_iam_admin_v1::client::Iam;
     /// use google_cloud_iam_admin_v1::Result;
     /// async fn sample(
-    ///    client: &Iam, resource_name: &str
+    ///    client: &Iam, name: &str
     /// ) -> Result<()> {
     ///     let response = client.delete_role()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -877,10 +877,10 @@ impl Iam {
     /// # use google_cloud_iam_admin_v1::client::Iam;
     /// use google_cloud_iam_admin_v1::Result;
     /// async fn sample(
-    ///    client: &Iam, resource_name: &str
+    ///    client: &Iam, name: &str
     /// ) -> Result<()> {
     ///     let response = client.undelete_role()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())

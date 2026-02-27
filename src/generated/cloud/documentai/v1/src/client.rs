@@ -235,10 +235,10 @@ impl DocumentProcessorService {
     /// # use google_cloud_documentai_v1::client::DocumentProcessorService;
     /// use google_cloud_documentai_v1::Result;
     /// async fn sample(
-    ///    client: &DocumentProcessorService, resource_name: &str
+    ///    client: &DocumentProcessorService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_processor_type()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -280,10 +280,10 @@ impl DocumentProcessorService {
     /// # use google_cloud_documentai_v1::client::DocumentProcessorService;
     /// use google_cloud_documentai_v1::Result;
     /// async fn sample(
-    ///    client: &DocumentProcessorService, resource_name: &str
+    ///    client: &DocumentProcessorService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_processor()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -337,10 +337,10 @@ impl DocumentProcessorService {
     /// # use google_cloud_documentai_v1::client::DocumentProcessorService;
     /// use google_cloud_documentai_v1::Result;
     /// async fn sample(
-    ///    client: &DocumentProcessorService, resource_name: &str
+    ///    client: &DocumentProcessorService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_processor_version()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -396,10 +396,10 @@ impl DocumentProcessorService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_documentai_v1::Result;
     /// async fn sample(
-    ///    client: &DocumentProcessorService, resource_name: &str
+    ///    client: &DocumentProcessorService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_processor_version()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -529,10 +529,10 @@ impl DocumentProcessorService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_documentai_v1::Result;
     /// async fn sample(
-    ///    client: &DocumentProcessorService, resource_name: &str
+    ///    client: &DocumentProcessorService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_processor()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -723,10 +723,10 @@ impl DocumentProcessorService {
     /// # use google_cloud_documentai_v1::client::DocumentProcessorService;
     /// use google_cloud_documentai_v1::Result;
     /// async fn sample(
-    ///    client: &DocumentProcessorService, resource_name: &str
+    ///    client: &DocumentProcessorService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_evaluation()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())

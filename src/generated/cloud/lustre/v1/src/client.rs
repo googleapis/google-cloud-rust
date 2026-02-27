@@ -148,10 +148,10 @@ impl Lustre {
     /// # use google_cloud_lustre_v1::client::Lustre;
     /// use google_cloud_lustre_v1::Result;
     /// async fn sample(
-    ///    client: &Lustre, resource_name: &str
+    ///    client: &Lustre, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_instance()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -252,10 +252,10 @@ impl Lustre {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_lustre_v1::Result;
     /// async fn sample(
-    ///    client: &Lustre, resource_name: &str
+    ///    client: &Lustre, name: &str
     /// ) -> Result<()> {
     ///     client.delete_instance()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }

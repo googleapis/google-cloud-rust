@@ -148,10 +148,10 @@ impl VmwareEngine {
     /// # use google_cloud_vmwareengine_v1::client::VmwareEngine;
     /// use google_cloud_vmwareengine_v1::Result;
     /// async fn sample(
-    ///    client: &VmwareEngine, resource_name: &str
+    ///    client: &VmwareEngine, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_private_cloud()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -278,10 +278,10 @@ impl VmwareEngine {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_vmwareengine_v1::Result;
     /// async fn sample(
-    ///    client: &VmwareEngine, resource_name: &str
+    ///    client: &VmwareEngine, name: &str
     /// ) -> Result<()> {
     ///     let response = client.delete_private_cloud()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -312,10 +312,10 @@ impl VmwareEngine {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_vmwareengine_v1::Result;
     /// async fn sample(
-    ///    client: &VmwareEngine, resource_name: &str
+    ///    client: &VmwareEngine, name: &str
     /// ) -> Result<()> {
     ///     let response = client.undelete_private_cloud()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -355,10 +355,10 @@ impl VmwareEngine {
     /// # use google_cloud_vmwareengine_v1::client::VmwareEngine;
     /// use google_cloud_vmwareengine_v1::Result;
     /// async fn sample(
-    ///    client: &VmwareEngine, resource_name: &str
+    ///    client: &VmwareEngine, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_cluster()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -471,10 +471,10 @@ impl VmwareEngine {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_vmwareengine_v1::Result;
     /// async fn sample(
-    ///    client: &VmwareEngine, resource_name: &str
+    ///    client: &VmwareEngine, name: &str
     /// ) -> Result<()> {
     ///     client.delete_cluster()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -513,10 +513,10 @@ impl VmwareEngine {
     /// # use google_cloud_vmwareengine_v1::client::VmwareEngine;
     /// use google_cloud_vmwareengine_v1::Result;
     /// async fn sample(
-    ///    client: &VmwareEngine, resource_name: &str
+    ///    client: &VmwareEngine, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_node()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -583,10 +583,10 @@ impl VmwareEngine {
     /// # use google_cloud_vmwareengine_v1::client::VmwareEngine;
     /// use google_cloud_vmwareengine_v1::Result;
     /// async fn sample(
-    ///    client: &VmwareEngine, resource_name: &str
+    ///    client: &VmwareEngine, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_external_address()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -696,10 +696,10 @@ impl VmwareEngine {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_vmwareengine_v1::Result;
     /// async fn sample(
-    ///    client: &VmwareEngine, resource_name: &str
+    ///    client: &VmwareEngine, name: &str
     /// ) -> Result<()> {
     ///     client.delete_external_address()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -738,10 +738,10 @@ impl VmwareEngine {
     /// # use google_cloud_vmwareengine_v1::client::VmwareEngine;
     /// use google_cloud_vmwareengine_v1::Result;
     /// async fn sample(
-    ///    client: &VmwareEngine, resource_name: &str
+    ///    client: &VmwareEngine, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_subnet()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -825,10 +825,10 @@ impl VmwareEngine {
     /// # use google_cloud_vmwareengine_v1::client::VmwareEngine;
     /// use google_cloud_vmwareengine_v1::Result;
     /// async fn sample(
-    ///    client: &VmwareEngine, resource_name: &str
+    ///    client: &VmwareEngine, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_external_access_rule()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -933,10 +933,10 @@ impl VmwareEngine {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_vmwareengine_v1::Result;
     /// async fn sample(
-    ///    client: &VmwareEngine, resource_name: &str
+    ///    client: &VmwareEngine, name: &str
     /// ) -> Result<()> {
     ///     client.delete_external_access_rule()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -978,10 +978,10 @@ impl VmwareEngine {
     /// # use google_cloud_vmwareengine_v1::client::VmwareEngine;
     /// use google_cloud_vmwareengine_v1::Result;
     /// async fn sample(
-    ///    client: &VmwareEngine, resource_name: &str
+    ///    client: &VmwareEngine, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_logging_server()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1082,10 +1082,10 @@ impl VmwareEngine {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_vmwareengine_v1::Result;
     /// async fn sample(
-    ///    client: &VmwareEngine, resource_name: &str
+    ///    client: &VmwareEngine, name: &str
     /// ) -> Result<()> {
     ///     client.delete_logging_server()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1124,10 +1124,10 @@ impl VmwareEngine {
     /// # use google_cloud_vmwareengine_v1::client::VmwareEngine;
     /// use google_cloud_vmwareengine_v1::Result;
     /// async fn sample(
-    ///    client: &VmwareEngine, resource_name: &str
+    ///    client: &VmwareEngine, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_node_type()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1250,10 +1250,10 @@ impl VmwareEngine {
     /// # use google_cloud_vmwareengine_v1::client::VmwareEngine;
     /// use google_cloud_vmwareengine_v1::Result;
     /// async fn sample(
-    ///    client: &VmwareEngine, resource_name: &str
+    ///    client: &VmwareEngine, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_dns_forwarding()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1311,10 +1311,10 @@ impl VmwareEngine {
     /// # use google_cloud_vmwareengine_v1::client::VmwareEngine;
     /// use google_cloud_vmwareengine_v1::Result;
     /// async fn sample(
-    ///    client: &VmwareEngine, resource_name: &str
+    ///    client: &VmwareEngine, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_network_peering()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1406,10 +1406,10 @@ impl VmwareEngine {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_vmwareengine_v1::Result;
     /// async fn sample(
-    ///    client: &VmwareEngine, resource_name: &str
+    ///    client: &VmwareEngine, name: &str
     /// ) -> Result<()> {
     ///     client.delete_network_peering()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1548,10 +1548,10 @@ impl VmwareEngine {
     /// # use google_cloud_vmwareengine_v1::client::VmwareEngine;
     /// use google_cloud_vmwareengine_v1::Result;
     /// async fn sample(
-    ///    client: &VmwareEngine, resource_name: &str
+    ///    client: &VmwareEngine, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_hcx_activation_key()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1568,10 +1568,10 @@ impl VmwareEngine {
     /// # use google_cloud_vmwareengine_v1::client::VmwareEngine;
     /// use google_cloud_vmwareengine_v1::Result;
     /// async fn sample(
-    ///    client: &VmwareEngine, resource_name: &str
+    ///    client: &VmwareEngine, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_network_policy()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1709,10 +1709,10 @@ impl VmwareEngine {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_vmwareengine_v1::Result;
     /// async fn sample(
-    ///    client: &VmwareEngine, resource_name: &str
+    ///    client: &VmwareEngine, name: &str
     /// ) -> Result<()> {
     ///     client.delete_network_policy()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1753,10 +1753,10 @@ impl VmwareEngine {
     /// # use google_cloud_vmwareengine_v1::client::VmwareEngine;
     /// use google_cloud_vmwareengine_v1::Result;
     /// async fn sample(
-    ///    client: &VmwareEngine, resource_name: &str
+    ///    client: &VmwareEngine, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_management_dns_zone_binding()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1871,10 +1871,10 @@ impl VmwareEngine {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_vmwareengine_v1::Result;
     /// async fn sample(
-    ///    client: &VmwareEngine, resource_name: &str
+    ///    client: &VmwareEngine, name: &str
     /// ) -> Result<()> {
     ///     client.delete_management_dns_zone_binding()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -2018,10 +2018,10 @@ impl VmwareEngine {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_vmwareengine_v1::Result;
     /// async fn sample(
-    ///    client: &VmwareEngine, resource_name: &str
+    ///    client: &VmwareEngine, name: &str
     /// ) -> Result<()> {
     ///     client.delete_vmware_engine_network()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -2042,10 +2042,10 @@ impl VmwareEngine {
     /// # use google_cloud_vmwareengine_v1::client::VmwareEngine;
     /// use google_cloud_vmwareengine_v1::Result;
     /// async fn sample(
-    ///    client: &VmwareEngine, resource_name: &str
+    ///    client: &VmwareEngine, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_vmware_engine_network()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -2129,10 +2129,10 @@ impl VmwareEngine {
     /// # use google_cloud_vmwareengine_v1::client::VmwareEngine;
     /// use google_cloud_vmwareengine_v1::Result;
     /// async fn sample(
-    ///    client: &VmwareEngine, resource_name: &str
+    ///    client: &VmwareEngine, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_private_connection()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -2228,10 +2228,10 @@ impl VmwareEngine {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_vmwareengine_v1::Result;
     /// async fn sample(
-    ///    client: &VmwareEngine, resource_name: &str
+    ///    client: &VmwareEngine, name: &str
     /// ) -> Result<()> {
     ///     client.delete_private_connection()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -2312,10 +2312,10 @@ impl VmwareEngine {
     /// # use google_cloud_vmwareengine_v1::client::VmwareEngine;
     /// use google_cloud_vmwareengine_v1::Result;
     /// async fn sample(
-    ///    client: &VmwareEngine, resource_name: &str
+    ///    client: &VmwareEngine, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_dns_bind_permission()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())

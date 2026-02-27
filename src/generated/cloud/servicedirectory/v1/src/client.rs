@@ -363,10 +363,10 @@ impl RegistrationService {
     /// # use google_cloud_servicedirectory_v1::client::RegistrationService;
     /// use google_cloud_servicedirectory_v1::Result;
     /// async fn sample(
-    ///    client: &RegistrationService, resource_name: &str
+    ///    client: &RegistrationService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_namespace()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -410,10 +410,10 @@ impl RegistrationService {
     /// # use google_cloud_servicedirectory_v1::client::RegistrationService;
     /// use google_cloud_servicedirectory_v1::Result;
     /// async fn sample(
-    ///    client: &RegistrationService, resource_name: &str
+    ///    client: &RegistrationService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_namespace()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -477,10 +477,10 @@ impl RegistrationService {
     /// # use google_cloud_servicedirectory_v1::client::RegistrationService;
     /// use google_cloud_servicedirectory_v1::Result;
     /// async fn sample(
-    ///    client: &RegistrationService, resource_name: &str
+    ///    client: &RegistrationService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_service()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -524,10 +524,10 @@ impl RegistrationService {
     /// # use google_cloud_servicedirectory_v1::client::RegistrationService;
     /// use google_cloud_servicedirectory_v1::Result;
     /// async fn sample(
-    ///    client: &RegistrationService, resource_name: &str
+    ///    client: &RegistrationService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_service()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -591,10 +591,10 @@ impl RegistrationService {
     /// # use google_cloud_servicedirectory_v1::client::RegistrationService;
     /// use google_cloud_servicedirectory_v1::Result;
     /// async fn sample(
-    ///    client: &RegistrationService, resource_name: &str
+    ///    client: &RegistrationService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_endpoint()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -637,10 +637,10 @@ impl RegistrationService {
     /// # use google_cloud_servicedirectory_v1::client::RegistrationService;
     /// use google_cloud_servicedirectory_v1::Result;
     /// async fn sample(
-    ///    client: &RegistrationService, resource_name: &str
+    ///    client: &RegistrationService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_endpoint()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }

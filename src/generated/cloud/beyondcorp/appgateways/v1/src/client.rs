@@ -162,10 +162,10 @@ impl AppGatewaysService {
     /// # use google_cloud_beyondcorp_appgateways_v1::client::AppGatewaysService;
     /// use google_cloud_beyondcorp_appgateways_v1::Result;
     /// async fn sample(
-    ///    client: &AppGatewaysService, resource_name: &str
+    ///    client: &AppGatewaysService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_app_gateway()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -228,10 +228,10 @@ impl AppGatewaysService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_beyondcorp_appgateways_v1::Result;
     /// async fn sample(
-    ///    client: &AppGatewaysService, resource_name: &str
+    ///    client: &AppGatewaysService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_app_gateway()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }

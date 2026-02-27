@@ -149,10 +149,10 @@ impl ApiGatewayService {
     /// # use google_cloud_apigateway_v1::client::ApiGatewayService;
     /// use google_cloud_apigateway_v1::Result;
     /// async fn sample(
-    ///    client: &ApiGatewayService, resource_name: &str
+    ///    client: &ApiGatewayService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_gateway()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -253,10 +253,10 @@ impl ApiGatewayService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_apigateway_v1::Result;
     /// async fn sample(
-    ///    client: &ApiGatewayService, resource_name: &str
+    ///    client: &ApiGatewayService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_gateway()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -295,10 +295,10 @@ impl ApiGatewayService {
     /// # use google_cloud_apigateway_v1::client::ApiGatewayService;
     /// use google_cloud_apigateway_v1::Result;
     /// async fn sample(
-    ///    client: &ApiGatewayService, resource_name: &str
+    ///    client: &ApiGatewayService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_api()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -399,10 +399,10 @@ impl ApiGatewayService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_apigateway_v1::Result;
     /// async fn sample(
-    ///    client: &ApiGatewayService, resource_name: &str
+    ///    client: &ApiGatewayService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_api()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -441,10 +441,10 @@ impl ApiGatewayService {
     /// # use google_cloud_apigateway_v1::client::ApiGatewayService;
     /// use google_cloud_apigateway_v1::Result;
     /// async fn sample(
-    ///    client: &ApiGatewayService, resource_name: &str
+    ///    client: &ApiGatewayService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_api_config()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -544,10 +544,10 @@ impl ApiGatewayService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_apigateway_v1::Result;
     /// async fn sample(
-    ///    client: &ApiGatewayService, resource_name: &str
+    ///    client: &ApiGatewayService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_api_config()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }

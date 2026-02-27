@@ -153,10 +153,10 @@ impl Workflows {
     /// # use google_cloud_workflows_v1::client::Workflows;
     /// use google_cloud_workflows_v1::Result;
     /// async fn sample(
-    ///    client: &Workflows, resource_name: &str
+    ///    client: &Workflows, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_workflow()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -224,10 +224,10 @@ impl Workflows {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_workflows_v1::Result;
     /// async fn sample(
-    ///    client: &Workflows, resource_name: &str
+    ///    client: &Workflows, name: &str
     /// ) -> Result<()> {
     ///     client.delete_workflow()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }

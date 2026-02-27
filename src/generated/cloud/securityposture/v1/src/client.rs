@@ -182,10 +182,10 @@ impl SecurityPosture {
     /// # use google_cloud_securityposture_v1::client::SecurityPosture;
     /// use google_cloud_securityposture_v1::Result;
     /// async fn sample(
-    ///    client: &SecurityPosture, resource_name: &str
+    ///    client: &SecurityPosture, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_posture()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -302,10 +302,10 @@ impl SecurityPosture {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_securityposture_v1::Result;
     /// async fn sample(
-    ///    client: &SecurityPosture, resource_name: &str
+    ///    client: &SecurityPosture, name: &str
     /// ) -> Result<()> {
     ///     client.delete_posture()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -380,10 +380,10 @@ impl SecurityPosture {
     /// # use google_cloud_securityposture_v1::client::SecurityPosture;
     /// use google_cloud_securityposture_v1::Result;
     /// async fn sample(
-    ///    client: &SecurityPosture, resource_name: &str
+    ///    client: &SecurityPosture, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_posture_deployment()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -487,10 +487,10 @@ impl SecurityPosture {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_securityposture_v1::Result;
     /// async fn sample(
-    ///    client: &SecurityPosture, resource_name: &str
+    ///    client: &SecurityPosture, name: &str
     /// ) -> Result<()> {
     ///     client.delete_posture_deployment()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -537,10 +537,10 @@ impl SecurityPosture {
     /// # use google_cloud_securityposture_v1::client::SecurityPosture;
     /// use google_cloud_securityposture_v1::Result;
     /// async fn sample(
-    ///    client: &SecurityPosture, resource_name: &str
+    ///    client: &SecurityPosture, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_posture_template()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
