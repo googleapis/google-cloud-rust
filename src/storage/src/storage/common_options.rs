@@ -27,6 +27,7 @@ pub struct CommonOptions {
     pub read_resume_policy: Arc<dyn ReadResumePolicy>,
     pub resumable_upload_threshold: usize,
     pub resumable_upload_buffer_size: usize,
+    pub user_agent: Option<String>,
 }
 
 impl CommonOptions {
@@ -36,6 +37,7 @@ impl CommonOptions {
             read_resume_policy,
             resumable_upload_threshold: RESUMABLE_UPLOAD_THRESHOLD,
             resumable_upload_buffer_size: RESUMABLE_UPLOAD_TARGET_CHUNK,
+            user_agent: None,
         }
     }
 }
@@ -54,5 +56,6 @@ mod tests {
             0,
             "{got:?}"
         );
+        assert!(got.user_agent.is_none(), "{got:?}");
     }
 }

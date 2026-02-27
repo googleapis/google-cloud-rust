@@ -681,6 +681,25 @@ impl ClientBuilder {
         self
     }
 
+    /// Configures the user-agent header.
+    ///
+    /// Sets the `User-Agent` header for all requests.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// let client = Storage::builder()
+    ///     .with_user_agent("my-application/1.0.0")
+    ///     .build()
+    ///     .await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn with_user_agent(mut self, user_agent: impl Into<String>) -> Self {
+        self.common_options.user_agent = Some(user_agent.into());
+        self
+    }
+
     pub(crate) fn apply_default_credentials(&mut self) -> BuilderResult<()> {
         if self.config.cred.is_some() {
             return Ok(());
@@ -799,6 +818,20 @@ pub(crate) mod tests {
         assert!(
             config.grpc_subchannel_count.is_some_and(|v| v == 42),
             "{config:?}"
+        );
+    }
+
+    #[test]
+    fn user_agent() {
+        let user_agent = "my-application/1.0.0";
+        let builder = ClientBuilder::new()
+            .with_credentials(Anonymous::new().build())
+            .with_user_agent(user_agent);
+        let (_, options) = builder.into_parts().expect("should get parts");
+        assert_eq!(
+            options.common_options.user_agent.as_deref(),
+            Some(user_agent),
+            "{options:?}",
         );
     }
 
