@@ -12,7 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#[cfg(all(test, feature = "_internal-grpc-client", google_cloud_unstable_grpc_server_streaming))]
+#[cfg(all(
+    test,
+    feature = "_internal-grpc-client",
+    google_cloud_unstable_grpc_server_streaming
+))]
 mod tests {
     use google_cloud_auth::credentials::{
         Credentials, anonymous::Builder as Anonymous, testing::error_credentials,
@@ -157,8 +161,8 @@ mod tests {
                 "{err:?}"
             );
         } else {
-             // If it's not a Status, it should be a local Timeout error
-             assert!(err.is_timeout(), "expected timeout error, got {err:?}");
+            // If it's not a Status, it should be a local Timeout error
+            assert!(err.is_timeout(), "expected timeout error, got {err:?}");
         }
 
         Ok(())
