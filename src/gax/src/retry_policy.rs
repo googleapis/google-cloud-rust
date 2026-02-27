@@ -196,17 +196,17 @@ pub trait RetryPolicyExt: RetryPolicy + Sized {
     /// status code "429 - TOO_MANY_REQUESTS" **or** where the service returns
     /// an error with code [ResourceExhausted].
     ///
-    /// For other errors it returns thesame value as the inner policy.
+    /// For other errors it returns the same value as the inner policy.
     ///
     /// Note that [ResourceExhausted] is ambiguous and may cause problems with
-    /// some services. The code is used for both "too many requests" or for
-    /// and for "quota exceeded" problems. If the quota in question is some
-    /// kind of rate limit, then using this policy may be helpful. If the quota
-    /// is not a rate limit, then this retry policy may needlessly send the
-    /// same RPC multiple times.
+    /// some services. The code is used for both "too many requests"  and for
+    /// "quota exceeded" problems. If the quota in question is some kind of rate
+    /// limit, then using this policy may be helpful. If the quota is not a rate
+    /// limit, then this retry policy may needlessly send the same RPC multiple
+    /// times.
     ///
-    /// You **MUST** consult the documentation for the service and RPC in
-    /// question before using this policy.
+    /// You should consult the documentation for the service and RPC in question
+    /// before using this policy.
     ///
     /// # Example
     /// ```

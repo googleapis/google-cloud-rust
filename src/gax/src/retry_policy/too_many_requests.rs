@@ -16,7 +16,8 @@ use super::{Error, RetryPolicy, RetryResult, RetryState, ThrottleResult};
 use crate::error::rpc::Code;
 use std::time::Duration;
 
-/// A retry policy decorator continues on `ResourceExhausted` or `TOO_MANY_REQUESTS`.
+/// A retry policy decorator that continues on `ResourceExhausted` or
+/// `TOO_MANY_REQUESTS`.
 ///
 /// This policy returns [RetryResult::Continue] when the error is a
 /// `ResourceExhausted` (or `TOO_MANY_REQUESTS` if received from the HTTP layer).
