@@ -161,11 +161,12 @@ blocking, so you need to run them on a dedicated thread:
 
 The performance of these downloads depends on:
 
-- The I/O subsystem: if your local storage is not fast enough the downloads will
-  the writes to disk will throttle the downloads.
-- The configuration of your VM: if you do not have enough CPUs, the downloads
-  trying to decrypt the on data will throttle the downloads, as Cloud Storage
-  and the client library always encrypt the data in transit.
+- The I/O subsystem: if your local storage is not fast enough writing to disk
+  may be the rate limiting step for these downloads.
+- The configuration of your VM: if the VM does not have enough CPUs, descrypting
+  the data may be the rate limiting step for these downloads. Recall that Cloud
+  Storage always encrypt the data in transit, and the client must always
+  decrypt.
 - The location of the bucket and the particular object: the bucket may store all
   of the objects (or some objects) in a region different from your VM's
   location. In this case, you may be throttled by the wide-area network

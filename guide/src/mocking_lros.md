@@ -205,8 +205,9 @@ Set expectations to return the `Operation` from `get_operation` as before.
 {{#rustdoc_include ../samples/tests/mocking_lros_error.rs:expectation-final}}
 ```
 
-The `PollingResult::Completed` branch returns an LRO ending in an error. This
-ends the polling loop.
+To simulate a LRO that completes with an error outcome set the
+`PollingResult::Completed` branch to contain the error. This ends the polling
+loop.
 
 ```rust,ignore,noplayground
 {{#rustdoc_include ../samples/tests/mocking_lros_error.rs:completed-branch}}
@@ -218,14 +219,15 @@ Polling loops can also exit because the polling policy has been exhausted. When
 this happens, the client library can not say definitively whether the LRO has
 completed or not.
 
-If your application has custom logic to deal with this case, you can exercise it
-by returning an error from the `get_operation` expectation.
+If your application has custom logic to deal with this case, you can exercise
+this logic by returning an error from the `get_operation` expectation.
 
 ```rust,ignore,noplayground
 {{#rustdoc_include ../samples/tests/mocking_lros_error.rs:expectation-polling-error}}
 ```
 
-The polling error branch returns an LRO ending with a polling error.
+To simulate a LRO polling error, set the `PollingResult::PollingError` branch
+with the error you want to simulate.
 
 ```rust,ignore,noplayground
 {{#rustdoc_include ../samples/tests/mocking_lros_error.rs:polling-error-branch}}
