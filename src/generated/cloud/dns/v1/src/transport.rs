@@ -92,6 +92,25 @@ impl super::stub::Changes for Changes {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = if let Some(resource_name) = (|| {
+            Some(format!(
+                "//dns.googleapis.com/projects/{}/managedZones/{}",
+                Some(&req)
+                    .map(|m| &m.project)
+                    .map(|s| s.as_str())
+                    .filter(|s| !s.is_empty())?,
+                Some(&req)
+                    .map(|m| &m.managed_zone)
+                    .map(|s| s.as_str())
+                    .filter(|s| !s.is_empty())?,
+            ))
+        })() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -166,6 +185,29 @@ impl super::stub::Changes for Changes {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = if let Some(resource_name) = (|| {
+            Some(format!(
+                "//dns.googleapis.com/projects/{}/managedZones/{}/changes/{}",
+                Some(&req)
+                    .map(|m| &m.project)
+                    .map(|s| s.as_str())
+                    .filter(|s| !s.is_empty())?,
+                Some(&req)
+                    .map(|m| &m.managed_zone)
+                    .map(|s| s.as_str())
+                    .filter(|s| !s.is_empty())?,
+                Some(&req)
+                    .map(|m| &m.change_id)
+                    .map(|s| s.as_str())
+                    .filter(|s| !s.is_empty())?,
+            ))
+        })() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -243,6 +285,25 @@ impl super::stub::Changes for Changes {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = if let Some(resource_name) = (|| {
+            Some(format!(
+                "//dns.googleapis.com/projects/{}/managedZones/{}",
+                Some(&req)
+                    .map(|m| &m.project)
+                    .map(|s| s.as_str())
+                    .filter(|s| !s.is_empty())?,
+                Some(&req)
+                    .map(|m| &m.managed_zone)
+                    .map(|s| s.as_str())
+                    .filter(|s| !s.is_empty())?,
+            ))
+        })() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -344,6 +405,29 @@ impl super::stub::DnsKeys for DnsKeys {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = if let Some(resource_name) = (|| {
+            Some(format!(
+                "//dns.googleapis.com/projects/{}/managedZones/{}/dnsKeys/{}",
+                Some(&req)
+                    .map(|m| &m.project)
+                    .map(|s| s.as_str())
+                    .filter(|s| !s.is_empty())?,
+                Some(&req)
+                    .map(|m| &m.managed_zone)
+                    .map(|s| s.as_str())
+                    .filter(|s| !s.is_empty())?,
+                Some(&req)
+                    .map(|m| &m.dns_key_id)
+                    .map(|s| s.as_str())
+                    .filter(|s| !s.is_empty())?,
+            ))
+        })() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -417,6 +501,25 @@ impl super::stub::DnsKeys for DnsKeys {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = if let Some(resource_name) = (|| {
+            Some(format!(
+                "//dns.googleapis.com/projects/{}/managedZones/{}",
+                Some(&req)
+                    .map(|m| &m.project)
+                    .map(|s| s.as_str())
+                    .filter(|s| !s.is_empty())?,
+                Some(&req)
+                    .map(|m| &m.managed_zone)
+                    .map(|s| s.as_str())
+                    .filter(|s| !s.is_empty())?,
+            ))
+        })() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -514,6 +617,29 @@ impl super::stub::ManagedZoneOperations for ManagedZoneOperations {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = if let Some(resource_name) = (|| {
+            Some(format!(
+                "//dns.googleapis.com/projects/{}/managedZones/{}/operations/{}",
+                Some(&req)
+                    .map(|m| &m.project)
+                    .map(|s| s.as_str())
+                    .filter(|s| !s.is_empty())?,
+                Some(&req)
+                    .map(|m| &m.managed_zone)
+                    .map(|s| s.as_str())
+                    .filter(|s| !s.is_empty())?,
+                Some(&req)
+                    .map(|m| &m.operation)
+                    .map(|s| s.as_str())
+                    .filter(|s| !s.is_empty())?,
+            ))
+        })() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -587,6 +713,25 @@ impl super::stub::ManagedZoneOperations for ManagedZoneOperations {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = if let Some(resource_name) = (|| {
+            Some(format!(
+                "//dns.googleapis.com/projects/{}/managedZones/{}",
+                Some(&req)
+                    .map(|m| &m.project)
+                    .map(|s| s.as_str())
+                    .filter(|s| !s.is_empty())?,
+                Some(&req)
+                    .map(|m| &m.managed_zone)
+                    .map(|s| s.as_str())
+                    .filter(|s| !s.is_empty())?,
+            ))
+        })() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -661,6 +806,21 @@ impl super::stub::ManagedZones for ManagedZones {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = if let Some(resource_name) = (|| {
+            Some(format!(
+                "//dns.googleapis.com/projects/{}",
+                Some(&req)
+                    .map(|m| &m.project)
+                    .map(|s| s.as_str())
+                    .filter(|s| !s.is_empty())?,
+            ))
+        })() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -725,6 +885,25 @@ impl super::stub::ManagedZones for ManagedZones {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = if let Some(resource_name) = (|| {
+            Some(format!(
+                "//dns.googleapis.com/projects/{}/managedZones/{}",
+                Some(&req)
+                    .map(|m| &m.project)
+                    .map(|s| s.as_str())
+                    .filter(|s| !s.is_empty())?,
+                Some(&req)
+                    .map(|m| &m.managed_zone)
+                    .map(|s| s.as_str())
+                    .filter(|s| !s.is_empty())?,
+            ))
+        })() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -795,6 +974,25 @@ impl super::stub::ManagedZones for ManagedZones {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = if let Some(resource_name) = (|| {
+            Some(format!(
+                "//dns.googleapis.com/projects/{}/managedZones/{}",
+                Some(&req)
+                    .map(|m| &m.project)
+                    .map(|s| s.as_str())
+                    .filter(|s| !s.is_empty())?,
+                Some(&req)
+                    .map(|m| &m.managed_zone)
+                    .map(|s| s.as_str())
+                    .filter(|s| !s.is_empty())?,
+            ))
+        })() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -903,6 +1101,21 @@ impl super::stub::ManagedZones for ManagedZones {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = if let Some(resource_name) = (|| {
+            Some(format!(
+                "//dns.googleapis.com/projects/{}",
+                Some(&req)
+                    .map(|m| &m.project)
+                    .map(|s| s.as_str())
+                    .filter(|s| !s.is_empty())?,
+            ))
+        })() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -967,6 +1180,25 @@ impl super::stub::ManagedZones for ManagedZones {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = if let Some(resource_name) = (|| {
+            Some(format!(
+                "//dns.googleapis.com/projects/{}/managedZones/{}",
+                Some(&req)
+                    .map(|m| &m.project)
+                    .map(|s| s.as_str())
+                    .filter(|s| !s.is_empty())?,
+                Some(&req)
+                    .map(|m| &m.managed_zone)
+                    .map(|s| s.as_str())
+                    .filter(|s| !s.is_empty())?,
+            ))
+        })() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1127,6 +1359,25 @@ impl super::stub::ManagedZones for ManagedZones {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = if let Some(resource_name) = (|| {
+            Some(format!(
+                "//dns.googleapis.com/projects/{}/managedZones/{}",
+                Some(&req)
+                    .map(|m| &m.project)
+                    .map(|s| s.as_str())
+                    .filter(|s| !s.is_empty())?,
+                Some(&req)
+                    .map(|m| &m.managed_zone)
+                    .map(|s| s.as_str())
+                    .filter(|s| !s.is_empty())?,
+            ))
+        })() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1201,6 +1452,29 @@ impl super::stub::ManagedZones for ManagedZones {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = if let Some(resource_name) = (|| {
+            Some(format!(
+                "//dns.googleapis.com/projects/{}/managedZones/{}/operations/{}",
+                Some(&req)
+                    .map(|m| &m.project)
+                    .map(|s| s.as_str())
+                    .filter(|s| !s.is_empty())?,
+                Some(&req)
+                    .map(|m| &m.managed_zone)
+                    .map(|s| s.as_str())
+                    .filter(|s| !s.is_empty())?,
+                Some(&req)
+                    .map(|m| &m.operation)
+                    .map(|s| s.as_str())
+                    .filter(|s| !s.is_empty())?,
+            ))
+        })() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1289,6 +1563,21 @@ impl super::stub::Policies for Policies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = if let Some(resource_name) = (|| {
+            Some(format!(
+                "//dns.googleapis.com/projects/{}",
+                Some(&req)
+                    .map(|m| &m.project)
+                    .map(|s| s.as_str())
+                    .filter(|s| !s.is_empty())?,
+            ))
+        })() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1350,6 +1639,25 @@ impl super::stub::Policies for Policies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = if let Some(resource_name) = (|| {
+            Some(format!(
+                "//dns.googleapis.com/projects/{}/policies/{}",
+                Some(&req)
+                    .map(|m| &m.project)
+                    .map(|s| s.as_str())
+                    .filter(|s| !s.is_empty())?,
+                Some(&req)
+                    .map(|m| &m.policy)
+                    .map(|s| s.as_str())
+                    .filter(|s| !s.is_empty())?,
+            ))
+        })() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1417,6 +1725,25 @@ impl super::stub::Policies for Policies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = if let Some(resource_name) = (|| {
+            Some(format!(
+                "//dns.googleapis.com/projects/{}/policies/{}",
+                Some(&req)
+                    .map(|m| &m.project)
+                    .map(|s| s.as_str())
+                    .filter(|s| !s.is_empty())?,
+                Some(&req)
+                    .map(|m| &m.policy)
+                    .map(|s| s.as_str())
+                    .filter(|s| !s.is_empty())?,
+            ))
+        })() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1473,6 +1800,21 @@ impl super::stub::Policies for Policies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = if let Some(resource_name) = (|| {
+            Some(format!(
+                "//dns.googleapis.com/projects/{}",
+                Some(&req)
+                    .map(|m| &m.project)
+                    .map(|s| s.as_str())
+                    .filter(|s| !s.is_empty())?,
+            ))
+        })() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1534,6 +1876,25 @@ impl super::stub::Policies for Policies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = if let Some(resource_name) = (|| {
+            Some(format!(
+                "//dns.googleapis.com/projects/{}/policies/{}",
+                Some(&req)
+                    .map(|m| &m.project)
+                    .map(|s| s.as_str())
+                    .filter(|s| !s.is_empty())?,
+                Some(&req)
+                    .map(|m| &m.policy)
+                    .map(|s| s.as_str())
+                    .filter(|s| !s.is_empty())?,
+            ))
+        })() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1595,6 +1956,25 @@ impl super::stub::Policies for Policies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = if let Some(resource_name) = (|| {
+            Some(format!(
+                "//dns.googleapis.com/projects/{}/policies/{}",
+                Some(&req)
+                    .map(|m| &m.project)
+                    .map(|s| s.as_str())
+                    .filter(|s| !s.is_empty())?,
+                Some(&req)
+                    .map(|m| &m.policy)
+                    .map(|s| s.as_str())
+                    .filter(|s| !s.is_empty())?,
+            ))
+        })() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1669,6 +2049,21 @@ impl super::stub::Projects for Projects {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = if let Some(resource_name) = (|| {
+            Some(format!(
+                "//dns.googleapis.com/projects/{}",
+                Some(&req)
+                    .map(|m| &m.project)
+                    .map(|s| s.as_str())
+                    .filter(|s| !s.is_empty())?,
+            ))
+        })() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1756,6 +2151,25 @@ impl super::stub::ResourceRecordSets for ResourceRecordSets {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = if let Some(resource_name) = (|| {
+            Some(format!(
+                "//dns.googleapis.com/projects/{}/managedZones/{}",
+                Some(&req)
+                    .map(|m| &m.project)
+                    .map(|s| s.as_str())
+                    .filter(|s| !s.is_empty())?,
+                Some(&req)
+                    .map(|m| &m.managed_zone)
+                    .map(|s| s.as_str())
+                    .filter(|s| !s.is_empty())?,
+            ))
+        })() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1840,6 +2254,29 @@ impl super::stub::ResourceRecordSets for ResourceRecordSets {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = if let Some(resource_name) = (|| {
+            Some(format!(
+                "//dns.googleapis.com/projects/{}/managedZones/{}/rrsets/{}",
+                Some(&req)
+                    .map(|m| &m.project)
+                    .map(|s| s.as_str())
+                    .filter(|s| !s.is_empty())?,
+                Some(&req)
+                    .map(|m| &m.managed_zone)
+                    .map(|s| s.as_str())
+                    .filter(|s| !s.is_empty())?,
+                Some(&req)
+                    .map(|m| &m.name)
+                    .map(|s| s.as_str())
+                    .filter(|s| !s.is_empty())?,
+            ))
+        })() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1924,6 +2361,29 @@ impl super::stub::ResourceRecordSets for ResourceRecordSets {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = if let Some(resource_name) = (|| {
+            Some(format!(
+                "//dns.googleapis.com/projects/{}/managedZones/{}/rrsets/{}",
+                Some(&req)
+                    .map(|m| &m.project)
+                    .map(|s| s.as_str())
+                    .filter(|s| !s.is_empty())?,
+                Some(&req)
+                    .map(|m| &m.managed_zone)
+                    .map(|s| s.as_str())
+                    .filter(|s| !s.is_empty())?,
+                Some(&req)
+                    .map(|m| &m.name)
+                    .map(|s| s.as_str())
+                    .filter(|s| !s.is_empty())?,
+            ))
+        })() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2005,6 +2465,25 @@ impl super::stub::ResourceRecordSets for ResourceRecordSets {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = if let Some(resource_name) = (|| {
+            Some(format!(
+                "//dns.googleapis.com/projects/{}/managedZones/{}",
+                Some(&req)
+                    .map(|m| &m.project)
+                    .map(|s| s.as_str())
+                    .filter(|s| !s.is_empty())?,
+                Some(&req)
+                    .map(|m| &m.managed_zone)
+                    .map(|s| s.as_str())
+                    .filter(|s| !s.is_empty())?,
+            ))
+        })() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2089,6 +2568,29 @@ impl super::stub::ResourceRecordSets for ResourceRecordSets {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = if let Some(resource_name) = (|| {
+            Some(format!(
+                "//dns.googleapis.com/projects/{}/managedZones/{}/rrsets/{}",
+                Some(&req)
+                    .map(|m| &m.project)
+                    .map(|s| s.as_str())
+                    .filter(|s| !s.is_empty())?,
+                Some(&req)
+                    .map(|m| &m.managed_zone)
+                    .map(|s| s.as_str())
+                    .filter(|s| !s.is_empty())?,
+                Some(&req)
+                    .map(|m| &m.name)
+                    .map(|s| s.as_str())
+                    .filter(|s| !s.is_empty())?,
+            ))
+        })() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2163,6 +2665,21 @@ impl super::stub::ResponsePolicies for ResponsePolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = if let Some(resource_name) = (|| {
+            Some(format!(
+                "//dns.googleapis.com/projects/{}",
+                Some(&req)
+                    .map(|m| &m.project)
+                    .map(|s| s.as_str())
+                    .filter(|s| !s.is_empty())?,
+            ))
+        })() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2227,6 +2744,25 @@ impl super::stub::ResponsePolicies for ResponsePolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = if let Some(resource_name) = (|| {
+            Some(format!(
+                "//dns.googleapis.com/projects/{}/responsePolicies/{}",
+                Some(&req)
+                    .map(|m| &m.project)
+                    .map(|s| s.as_str())
+                    .filter(|s| !s.is_empty())?,
+                Some(&req)
+                    .map(|m| &m.response_policy)
+                    .map(|s| s.as_str())
+                    .filter(|s| !s.is_empty())?,
+            ))
+        })() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2297,6 +2833,25 @@ impl super::stub::ResponsePolicies for ResponsePolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = if let Some(resource_name) = (|| {
+            Some(format!(
+                "//dns.googleapis.com/projects/{}/responsePolicies/{}",
+                Some(&req)
+                    .map(|m| &m.project)
+                    .map(|s| s.as_str())
+                    .filter(|s| !s.is_empty())?,
+                Some(&req)
+                    .map(|m| &m.response_policy)
+                    .map(|s| s.as_str())
+                    .filter(|s| !s.is_empty())?,
+            ))
+        })() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2353,6 +2908,21 @@ impl super::stub::ResponsePolicies for ResponsePolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = if let Some(resource_name) = (|| {
+            Some(format!(
+                "//dns.googleapis.com/projects/{}",
+                Some(&req)
+                    .map(|m| &m.project)
+                    .map(|s| s.as_str())
+                    .filter(|s| !s.is_empty())?,
+            ))
+        })() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2417,6 +2987,25 @@ impl super::stub::ResponsePolicies for ResponsePolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = if let Some(resource_name) = (|| {
+            Some(format!(
+                "//dns.googleapis.com/projects/{}/responsePolicies/{}",
+                Some(&req)
+                    .map(|m| &m.project)
+                    .map(|s| s.as_str())
+                    .filter(|s| !s.is_empty())?,
+                Some(&req)
+                    .map(|m| &m.response_policy)
+                    .map(|s| s.as_str())
+                    .filter(|s| !s.is_empty())?,
+            ))
+        })() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2481,6 +3070,25 @@ impl super::stub::ResponsePolicies for ResponsePolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = if let Some(resource_name) = (|| {
+            Some(format!(
+                "//dns.googleapis.com/projects/{}/responsePolicies/{}",
+                Some(&req)
+                    .map(|m| &m.project)
+                    .map(|s| s.as_str())
+                    .filter(|s| !s.is_empty())?,
+                Some(&req)
+                    .map(|m| &m.response_policy)
+                    .map(|s| s.as_str())
+                    .filter(|s| !s.is_empty())?,
+            ))
+        })() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2568,6 +3176,25 @@ impl super::stub::ResponsePolicyRules for ResponsePolicyRules {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = if let Some(resource_name) = (|| {
+            Some(format!(
+                "//dns.googleapis.com/projects/{}/responsePolicies/{}",
+                Some(&req)
+                    .map(|m| &m.project)
+                    .map(|s| s.as_str())
+                    .filter(|s| !s.is_empty())?,
+                Some(&req)
+                    .map(|m| &m.response_policy)
+                    .map(|s| s.as_str())
+                    .filter(|s| !s.is_empty())?,
+            ))
+        })() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2646,6 +3273,29 @@ impl super::stub::ResponsePolicyRules for ResponsePolicyRules {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = if let Some(resource_name) = (|| {
+            Some(format!(
+                "//dns.googleapis.com/projects/{}/responsePolicies/{}/rules/{}",
+                Some(&req)
+                    .map(|m| &m.project)
+                    .map(|s| s.as_str())
+                    .filter(|s| !s.is_empty())?,
+                Some(&req)
+                    .map(|m| &m.response_policy)
+                    .map(|s| s.as_str())
+                    .filter(|s| !s.is_empty())?,
+                Some(&req)
+                    .map(|m| &m.response_policy_rule)
+                    .map(|s| s.as_str())
+                    .filter(|s| !s.is_empty())?,
+            ))
+        })() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2730,6 +3380,29 @@ impl super::stub::ResponsePolicyRules for ResponsePolicyRules {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = if let Some(resource_name) = (|| {
+            Some(format!(
+                "//dns.googleapis.com/projects/{}/responsePolicies/{}/rules/{}",
+                Some(&req)
+                    .map(|m| &m.project)
+                    .map(|s| s.as_str())
+                    .filter(|s| !s.is_empty())?,
+                Some(&req)
+                    .map(|m| &m.response_policy)
+                    .map(|s| s.as_str())
+                    .filter(|s| !s.is_empty())?,
+                Some(&req)
+                    .map(|m| &m.response_policy_rule)
+                    .map(|s| s.as_str())
+                    .filter(|s| !s.is_empty())?,
+            ))
+        })() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2799,6 +3472,25 @@ impl super::stub::ResponsePolicyRules for ResponsePolicyRules {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = if let Some(resource_name) = (|| {
+            Some(format!(
+                "//dns.googleapis.com/projects/{}/responsePolicies/{}",
+                Some(&req)
+                    .map(|m| &m.project)
+                    .map(|s| s.as_str())
+                    .filter(|s| !s.is_empty())?,
+                Some(&req)
+                    .map(|m| &m.response_policy)
+                    .map(|s| s.as_str())
+                    .filter(|s| !s.is_empty())?,
+            ))
+        })() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2877,6 +3569,29 @@ impl super::stub::ResponsePolicyRules for ResponsePolicyRules {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = if let Some(resource_name) = (|| {
+            Some(format!(
+                "//dns.googleapis.com/projects/{}/responsePolicies/{}/rules/{}",
+                Some(&req)
+                    .map(|m| &m.project)
+                    .map(|s| s.as_str())
+                    .filter(|s| !s.is_empty())?,
+                Some(&req)
+                    .map(|m| &m.response_policy)
+                    .map(|s| s.as_str())
+                    .filter(|s| !s.is_empty())?,
+                Some(&req)
+                    .map(|m| &m.response_policy_rule)
+                    .map(|s| s.as_str())
+                    .filter(|s| !s.is_empty())?,
+            ))
+        })() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2955,6 +3670,29 @@ impl super::stub::ResponsePolicyRules for ResponsePolicyRules {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        #[cfg(google_cloud_unstable_tracing)]
+        let options = if let Some(resource_name) = (|| {
+            Some(format!(
+                "//dns.googleapis.com/projects/{}/responsePolicies/{}/rules/{}",
+                Some(&req)
+                    .map(|m| &m.project)
+                    .map(|s| s.as_str())
+                    .filter(|s| !s.is_empty())?,
+                Some(&req)
+                    .map(|m| &m.response_policy)
+                    .map(|s| s.as_str())
+                    .filter(|s| !s.is_empty())?,
+                Some(&req)
+                    .map(|m| &m.response_policy_rule)
+                    .map(|s| s.as_str())
+                    .filter(|s| !s.is_empty())?,
+            ))
+        })() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
