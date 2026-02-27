@@ -44,7 +44,7 @@ can list all the VMs in a project using the `list()` function of this type:
 {{#rustdoc_include ../samples/src/compute/quickstart.rs:all}}
 ```
 
-## Next Steps
+## Next steps
 
 - [Compute Engine client libraries]
 - [Working with long-running operations]

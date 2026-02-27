@@ -17,7 +17,7 @@ limitations under the License.
 # How to write tests using a client
 
 The Google Cloud Client Libraries for Rust provide a way to stub out the real
-client implementations, so a mock can be injected for testing.
+client implementations, so you can inject a mock for testing.
 
 Applications can use mocks to write controlled, reliable unit tests that do not
 involve network calls, and do not incur billing.
@@ -36,8 +36,7 @@ cargo add --dev mockall
 This guide will use a [`Speech`][speech-client] client. Note that the same ideas
 in this guide apply to all of the clients, not just the `Speech` client.
 
-We declare the dependency in our `Cargo.toml`. Yours will be similar, but
-without the custom `path`.
+Add the dependency to your `Cargo.toml` file:
 
 ```shell
 cargo add google-cloud-speech-v2 google-cloud-lro
@@ -51,46 +50,46 @@ First, some `use` declarations to simplify the code:
 {{#include ../samples/tests/mocking.rs:use}}
 ```
 
-Let's assume our application has a function that uses the `Speech` client to
-make an RPC, and process the response from the server.
+Assume the application has a function that uses the `Speech` client to make an
+RPC, and process the response from the server.
 
 ```rust,ignore
 {{#include ../samples/tests/mocking.rs:my_application_function}}
 ```
 
-We want to test how our code handles different responses from the service.
+To test how the code handles different responses from the service.
 
-First we will define the mock class. This class implements the
+First, define the mock class. This class implements the
 [`speech::stub::Speech`][speech-stub] trait.
 
 ```rust,ignore
 {{#include ../samples/tests/mocking.rs:mockall_macro}}
 ```
 
-Next, we create an instance of the mock. Note that the
-[`mockall::mock!`][mock-macro] macro prepends a `Mock` prefix to the name of our
-struct from above.
+Next, create an instance of the mock. Note that the
+[`mockall::mock!`][mock-macro] macro prepends a `Mock` prefix to the name of the
+previously defined struct.
 
 ```rust,ignore
 {{#include ../samples/tests/mocking.rs:mock_new}}
 ```
 
-Next we will set expectations on the mock. We expect `GetRecognizer` to be
-called, with a particular name.
+Next, set expectations on the mock. Expect the code to call `GetRecognizer` with
+a particular name.
 
-If that happens, we will simulate a successful response from the service.
+If that happens, simulate a successful response from the service.
 
 ```rust,ignore
 {{#include ../samples/tests/mocking.rs:mock_expectation}}
 ```
 
-Now we are ready to create a `Speech` client with our mock.
+Now, create a `Speech` client with the mock.
 
 ```rust,ignore
 {{#include ../samples/tests/mocking.rs:client_from_mock}}
 ```
 
-Finally, we are ready to call our function...
+Finally, call the function...
 
 ```rust,ignore
 {{#include ../samples/tests/mocking.rs:call_fn}}
@@ -104,8 +103,8 @@ Finally, we are ready to call our function...
 
 ### Simulating errors
 
-Simulating errors is no different than simulating successes. We just need to
-modify the result returned by our mock.
+Simulating errors is no different than simulating successes. You just need to
+modify the result returned by the mock.
 
 ```rust,ignore
 {{#include ../samples/tests/mocking.rs:error}}
