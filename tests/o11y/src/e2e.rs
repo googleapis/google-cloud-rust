@@ -97,11 +97,7 @@ pub async fn try_get_metric(
     let response = client
         .list_time_series()
         .set_name(format!("projects/{project_id}"))
-        .set_interval(
-            TimeInterval::new()
-                .set_end_time(end.clone())
-                .set_start_time(start.clone()),
-        )
+        .set_interval(TimeInterval::new().set_end_time(end).set_start_time(start))
         .set_filter(format!(
             r#"metric.type = "{metric_name}" AND metric.label.{key} = "{value}""#
         ))
@@ -197,8 +193,9 @@ where
         .build()
         .await?;
 
-    // Install subscriber, ignore any other subscriber already installed.
-    let _ = opentelemetry::global::set_meter_provider(provider.clone());
+    // Install the provider, making it available to tests and the client
+    // libraries.
+    opentelemetry::global::set_meter_provider(provider.clone());
 
     Ok(provider)
 }

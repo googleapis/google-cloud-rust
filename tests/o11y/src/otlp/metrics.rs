@@ -204,13 +204,13 @@ impl Builder {
         const P: &str = "projects";
         const D: &str = "metricDescriptors";
         let mut s = name.split('/');
-        match (s.next(), s.next(), s.next(), s.next(), s.next()) {
-            (Some(P), Some(_), Some(D), Some(W), Some(_)) => false,
-            (Some(P), Some(_), Some(D), Some(C), Some(_)) => false,
-            (Some(W), Some(_), _, _, _) => false,
-            (Some(C), Some(_), _, _, _) => false,
-            _ => true,
-        }
+        !matches!(
+            (s.next(), s.next(), s.next(), s.next(), s.next()),
+            (Some(P), Some(_), Some(D), Some(W), Some(_))
+                | (Some(P), Some(_), Some(D), Some(C), Some(_))
+                | (Some(W), Some(_), _, _, _)
+                | (Some(C), Some(_), _, _, _)
+        )
     }
 }
 
