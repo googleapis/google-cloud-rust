@@ -117,15 +117,15 @@ Now perform the rewrite loop until the operation is done.
 {{#rustdoc_include ../../samples/tests/storage/rewrite_object.rs:loop}}
 ```
 
-If the operation is incomplete, then supply the rewrite token returned by
-the server to the next request.
+If the operation is incomplete, then supply the rewrite token returned by the
+server to the next request.
 
 ```rust,ignore,noplayground
 {{#rustdoc_include ../../samples/tests/storage/rewrite_object.rs:set-rewrite-token}}
 ```
 
-Note that you can use the rewrite token to continue the operation from
-another process. Rewrite tokens are valid for up to one week.
+Note that you can use the rewrite token to continue the operation from another
+process. Rewrite tokens are valid for up to one week.
 
 ## Full program
 
