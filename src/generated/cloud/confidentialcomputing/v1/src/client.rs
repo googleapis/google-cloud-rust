@@ -20,10 +20,18 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_confidentialcomputing_v1::client::ConfidentialComputing;
-/// let client = ConfidentialComputing::builder().build().await?;
-/// // use `client` to make requests to the Confidential Computing API.
+/// use google_cloud_confidentialcomputing_v1::model::Challenge;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = ConfidentialComputing::builder().build().await?;
+///     let parent = "parent_value";
+///     let response = client.create_challenge()
+///         .set_parent(parent)
+///         .set_challenge(
+///             Challenge::new()/* set fields */
+///         )
+///         .send().await?;
+///     println!("response {:?}", response);
 /// # Ok(()) }
 /// ```
 ///

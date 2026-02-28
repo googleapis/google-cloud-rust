@@ -20,10 +20,17 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_apiregistry_v1::client::CloudApiRegistry;
-/// let client = CloudApiRegistry::builder().build().await?;
-/// // use `client` to make requests to the Cloud API Registry API.
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = CloudApiRegistry::builder().build().await?;
+///     let parent = "parent_value";
+///     let mut list = client.list_mcp_servers()
+///         .set_parent(parent)
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
 /// # Ok(()) }
 /// ```
 ///

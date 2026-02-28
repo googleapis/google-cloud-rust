@@ -20,10 +20,13 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_vision_v1::client::ImageAnnotator;
-/// let client = ImageAnnotator::builder().build().await?;
-/// // use `client` to make requests to the Cloud Vision API.
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = ImageAnnotator::builder().build().await?;
+///     let response = client.batch_annotate_images()
+///         /* set fields */
+///         .send().await?;
+///     println!("response {:?}", response);
 /// # Ok(()) }
 /// ```
 ///
@@ -272,10 +275,17 @@ impl ImageAnnotator {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_vision_v1::client::ProductSearch;
-/// let client = ProductSearch::builder().build().await?;
-/// // use `client` to make requests to the Cloud Vision API.
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = ProductSearch::builder().build().await?;
+///     let parent = "parent_value";
+///     let mut list = client.list_product_sets()
+///         .set_parent(parent)
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
 /// # Ok(()) }
 /// ```
 ///
