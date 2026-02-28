@@ -1,0 +1,495 @@
+// Copyright 2026 Google LLC
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     https://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+use crate::generated::gapic_dataplane::client::Spanner as GapicSpanner;
+use gaxi::options::{ClientConfig, Credentials};
+
+/// A client for the [Spanner] API.
+///
+/// Use this client to interact with the Spanner service.
+///
+/// [Spanner]: https://docs.cloud.google.com/spanner/docs
+#[derive(Clone, Debug)]
+pub struct Spanner {
+    inner: GapicSpanner,
+}
+
+pub struct Factory;
+
+impl google_cloud_gax::client_builder::internal::ClientFactory for Factory {
+    type Client = Spanner;
+    type Credentials = Credentials;
+
+    async fn build(
+        self,
+        config: ClientConfig,
+    ) -> google_cloud_gax::client_builder::Result<Self::Client> {
+        let transport =
+            crate::generated::gapic_dataplane::transport::Spanner::new(config.clone()).await?;
+
+        let inner = if gaxi::options::tracing_enabled(&config) {
+            GapicSpanner::from_stub(crate::generated::gapic_dataplane::tracing::Spanner::new(
+                transport,
+            ))
+        } else {
+            GapicSpanner::from_stub(transport)
+        };
+        Ok(Spanner { inner })
+    }
+}
+
+/// A builder for the Spanner client.
+pub type ClientBuilder = google_cloud_gax::client_builder::ClientBuilder<Factory, Credentials>;
+
+#[allow(dead_code)]
+impl Spanner {
+    pub fn builder() -> ClientBuilder {
+        google_cloud_gax::client_builder::internal::new_builder(Factory)
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: T) -> Self
+    where
+        T: crate::generated::gapic_dataplane::stub::Spanner + 'static,
+    {
+        Self {
+            inner: GapicSpanner::from_stub(stub),
+        }
+    }
+
+    pub(crate) async fn create_session(
+        &self,
+        request: crate::model::CreateSessionRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::model::Session> {
+        self.inner
+            .create_session()
+            .with_request(request)
+            .with_options(options)
+            .send()
+            .await
+    }
+
+    pub(crate) async fn execute_sql(
+        &self,
+        request: crate::model::ExecuteSqlRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::model::ResultSet> {
+        self.inner
+            .execute_sql()
+            .with_request(request)
+            .with_options(options)
+            .send()
+            .await
+    }
+
+    pub(crate) async fn execute_batch_dml(
+        &self,
+        request: crate::model::ExecuteBatchDmlRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::model::ExecuteBatchDmlResponse> {
+        self.inner
+            .execute_batch_dml()
+            .with_request(request)
+            .with_options(options)
+            .send()
+            .await
+    }
+
+    pub(crate) async fn read(
+        &self,
+        request: crate::model::ReadRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::model::ResultSet> {
+        self.inner
+            .read()
+            .with_request(request)
+            .with_options(options)
+            .send()
+            .await
+    }
+
+    pub(crate) async fn begin_transaction(
+        &self,
+        request: crate::model::BeginTransactionRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::model::Transaction> {
+        self.inner
+            .begin_transaction()
+            .with_request(request)
+            .with_options(options)
+            .send()
+            .await
+    }
+
+    pub(crate) async fn commit(
+        &self,
+        request: crate::model::CommitRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::model::CommitResponse> {
+        self.inner
+            .commit()
+            .with_request(request)
+            .with_options(options)
+            .send()
+            .await
+    }
+
+    pub(crate) async fn rollback(
+        &self,
+        request: crate::model::RollbackRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<()> {
+        self.inner
+            .rollback()
+            .with_request(request)
+            .with_options(options)
+            .send()
+            .await
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::model::CreateSessionRequest;
+    use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
+    extern crate spanner_grpc_mock;
+    use spanner_grpc_mock::google::rpc as mock_rpc;
+    use spanner_grpc_mock::google::spanner::v1 as mock_v1;
+    use spanner_grpc_mock::{MockSpanner, start};
+    use static_assertions::{assert_impl_all, assert_not_impl_any};
+
+    #[test]
+    fn auto_traits() {
+        assert_impl_all!(Spanner: std::fmt::Debug, Clone, Send, Sync);
+        assert_not_impl_any!(Spanner: std::panic::RefUnwindSafe, std::panic::UnwindSafe);
+    }
+
+    #[tokio::test]
+    async fn test_create_session() {
+        // 1. Setup Mock Server
+        let mut mock = MockSpanner::new();
+        mock.expect_create_session().once().returning(|_| {
+            Ok(gaxi::grpc::tonic::Response::new(mock_v1::Session {
+                name:
+                    "projects/test-project/instances/test-instance/databases/test-db/sessions/123"
+                        .to_string(),
+                ..Default::default()
+            }))
+        });
+
+        // 2. Start mock server
+        let (address, _server) = start("0.0.0.0:0", mock)
+            .await
+            .expect("Failed to start mock server");
+
+        // 3. Configure Client to use mock endpoint
+        let client = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await
+            .expect("Failed to build client");
+
+        // 4. Call CreateSession
+        let mut req = CreateSessionRequest::new();
+        req.database =
+            "projects/test-project/instances/test-instance/databases/test-db".to_string();
+
+        let session = client
+            .create_session(req, crate::RequestOptions::default())
+            .await
+            .expect("Failed to call create_session");
+
+        // 5. Verify Response
+        assert_eq!(
+            session.name,
+            "projects/test-project/instances/test-instance/databases/test-db/sessions/123"
+        );
+    }
+
+    #[tokio::test]
+    async fn test_create_session_retry() {
+        use google_cloud_gax::options::RequestOptionsBuilder;
+        use google_cloud_gax::retry_policy::{Aip194Strict, RetryPolicyExt};
+
+        // 1. Setup Mock Server
+        let mut mock = MockSpanner::new();
+        let mut seq = mockall::Sequence::new();
+        mock.expect_create_session()
+            .once()
+            .in_sequence(&mut seq)
+            .returning(|_| {
+                Err(gaxi::grpc::tonic::Status::unavailable(
+                    "server is unavailable",
+                ))
+            });
+        mock.expect_create_session().once().in_sequence(&mut seq).returning(|_| {
+            Ok(gaxi::grpc::tonic::Response::new(mock_v1::Session {
+                name: "projects/test-project/instances/test-instance/databases/test-db/sessions/456".to_string(),
+                ..Default::default()
+            }))
+        });
+
+        // 2. Start mock server
+        let (address, _server) = start("0.0.0.0:0", mock)
+            .await
+            .expect("Failed to start mock server");
+
+        // 3. Configure Client to use mock endpoint
+        // NOTE: Default retry policy is assigned automatically for GAPIC methods.
+        let client = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await
+            .expect("Failed to build client");
+
+        // 4. Call CreateSession with intentional retry configurations
+        let mut req = CreateSessionRequest::new();
+        req.database =
+            "projects/test-project/instances/test-instance/databases/test-db".to_string();
+
+        let session = client
+            .inner
+            .create_session()
+            .with_request(req)
+            .with_idempotency(true)
+            .with_retry_policy(Aip194Strict.with_attempt_limit(3))
+            .send()
+            .await
+            .expect("Failed to call create_session");
+
+        // 5. Verify Response
+        assert_eq!(
+            session.name,
+            "projects/test-project/instances/test-instance/databases/test-db/sessions/456"
+        );
+    }
+
+    #[tokio::test]
+    async fn test_execute_sql() {
+        use crate::model::ExecuteSqlRequest;
+
+        let mut mock = MockSpanner::new();
+        mock.expect_execute_sql().once().returning(|_| {
+            Ok(gaxi::grpc::tonic::Response::new(mock_v1::ResultSet {
+                metadata: Some(mock_v1::ResultSetMetadata {
+                    row_type: Some(mock_v1::StructType { fields: vec![] }),
+                    transaction: None,
+                    undeclared_parameters: None,
+                }),
+                rows: vec![],
+                stats: None,
+                precommit_token: None,
+                cache_update: None,
+            }))
+        });
+
+        let (address, _server) = start("0.0.0.0:0", mock)
+            .await
+            .expect("Failed to start mock server");
+        let client = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await
+            .expect("Failed to build client");
+
+        let mut req = ExecuteSqlRequest::new();
+        req.sql = "SELECT 1".to_string();
+
+        let result_set = client
+            .execute_sql(req, crate::RequestOptions::default())
+            .await
+            .expect("Failed to call execute_sql");
+        assert!(result_set.metadata.is_some());
+    }
+
+    #[tokio::test]
+    async fn test_execute_batch_dml() {
+        use crate::model::ExecuteBatchDmlRequest;
+
+        let mut mock = MockSpanner::new();
+        mock.expect_execute_batch_dml().once().returning(|_| {
+            Ok(gaxi::grpc::tonic::Response::new(
+                mock_v1::ExecuteBatchDmlResponse {
+                    result_sets: vec![],
+                    status: Some(mock_rpc::Status {
+                        code: 0,
+                        message: "OK".to_string(),
+                        details: vec![],
+                    }),
+                    precommit_token: None,
+                },
+            ))
+        });
+
+        let (address, _server) = start("0.0.0.0:0", mock)
+            .await
+            .expect("Failed to start mock server");
+        let client = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await
+            .expect("Failed to build client");
+
+        let mut req = ExecuteBatchDmlRequest::new();
+        req.session = "test_session".to_string();
+
+        let response = client
+            .execute_batch_dml(req, crate::RequestOptions::default())
+            .await
+            .expect("Failed to call execute_batch_dml");
+        assert!(response.status.is_some());
+    }
+
+    #[tokio::test]
+    async fn test_read() {
+        use crate::model::ReadRequest;
+
+        let mut mock = MockSpanner::new();
+        mock.expect_read().once().returning(|_| {
+            Ok(gaxi::grpc::tonic::Response::new(mock_v1::ResultSet {
+                metadata: None,
+                rows: vec![],
+                stats: None,
+                precommit_token: None,
+                cache_update: None,
+            }))
+        });
+
+        let (address, _server) = start("0.0.0.0:0", mock)
+            .await
+            .expect("Failed to start mock server");
+        let client = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await
+            .expect("Failed to build client");
+
+        let mut req = ReadRequest::new();
+        req.table = "test_table".to_string();
+
+        let result_set = client
+            .read(req, crate::RequestOptions::default())
+            .await
+            .expect("Failed to call read");
+        assert!(result_set.metadata.is_none());
+    }
+
+    #[tokio::test]
+    async fn test_begin_transaction() {
+        use crate::model::BeginTransactionRequest;
+
+        let mut mock = MockSpanner::new();
+        mock.expect_begin_transaction().once().returning(|_| {
+            Ok(gaxi::grpc::tonic::Response::new(mock_v1::Transaction {
+                id: vec![1, 2, 3],
+                read_timestamp: None,
+                precommit_token: None,
+            }))
+        });
+
+        let (address, _server) = start("0.0.0.0:0", mock)
+            .await
+            .expect("Failed to start mock server");
+        let client = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await
+            .expect("Failed to build client");
+
+        let mut req = BeginTransactionRequest::new();
+        req.session = "test_session".to_string();
+
+        let tx = client
+            .begin_transaction(req, crate::RequestOptions::default())
+            .await
+            .expect("Failed to call begin_transaction");
+        assert_eq!(tx.id, vec![1, 2, 3]);
+    }
+
+    #[tokio::test]
+    async fn test_commit() {
+        use crate::model::CommitRequest;
+
+        let mut mock = MockSpanner::new();
+        mock.expect_commit().once().returning(|_| {
+            Ok(gaxi::grpc::tonic::Response::new(mock_v1::CommitResponse {
+                commit_timestamp: Some(prost_types::Timestamp {
+                    seconds: 12345,
+                    nanos: 0,
+                }),
+                commit_stats: None,
+                multiplexed_session_retry: None,
+                snapshot_timestamp: None,
+            }))
+        });
+
+        let (address, _server) = start("0.0.0.0:0", mock)
+            .await
+            .expect("Failed to start mock server");
+        let client = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await
+            .expect("Failed to build client");
+
+        let mut req = CommitRequest::new();
+        req.session = "test_session".to_string();
+
+        let response = client
+            .commit(req, crate::RequestOptions::default())
+            .await
+            .expect("Failed to call commit");
+        assert!(response.commit_timestamp.is_some());
+    }
+
+    #[tokio::test]
+    async fn test_rollback() {
+        use crate::model::RollbackRequest;
+
+        let mut mock = MockSpanner::new();
+        mock.expect_rollback()
+            .once()
+            .returning(|_| Ok(gaxi::grpc::tonic::Response::new(())));
+
+        let (address, _server) = start("0.0.0.0:0", mock)
+            .await
+            .expect("Failed to start mock server");
+        let client = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await
+            .expect("Failed to build client");
+
+        let mut req = RollbackRequest::new();
+        req.session = "test_session".to_string();
+
+        client
+            .rollback(req, crate::RequestOptions::default())
+            .await
+            .expect("Failed to call rollback");
+    }
+}
