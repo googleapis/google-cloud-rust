@@ -60,24 +60,23 @@ pub(super) enum LeaseInfo {
     // TODO(#3964) - support exactly once delivery
 }
 
-impl LeaseInfo {
-    fn receive_time(&self) -> Instant {
-        match self {
-            LeaseInfo::AtLeastOnce(t) => *t,
-        }
-    }
-}
-
 #[derive(Debug)]
 pub(super) struct LeaseState<L>
 where
     L: Leaser + Clone,
 {
-    // A map of ack IDs to the time they were first received.
-    under_lease: HashMap<String, LeaseInfo>,
+    // Ack IDs with at-least-once semantics that are under lease management. The
+    // `Instant` denotes the time they were received.
+    under_lease: HashMap<String, Instant>,
+    // Ack IDs we need to acknowledge with at-least-once semantics.
     to_ack: Vec<String>,
+    // Ack IDs we need to nack. These are fire-and-forget, regardless of the
+    // delivery type.
     to_nack: Vec<String>,
     // TODO(#3964) - support exactly once acks
+
+    // The leaser, which performs lease operations - (acks, nacks, lease
+    // extensions).
     leaser: L,
 
     // A timer for flushing acks/nacks
@@ -139,7 +138,11 @@ where
 
     /// Accept a new ack ID under lease management
     pub(super) fn add(&mut self, ack_id: String, info: LeaseInfo) {
-        self.under_lease.insert(ack_id, info);
+        match info {
+            LeaseInfo::AtLeastOnce(i) => {
+                self.under_lease.insert(ack_id, i);
+            }
+        }
     }
 
     /// Process an ack from the application
@@ -181,11 +184,11 @@ where
         let now = Instant::now();
         let mut batches = Vec::new();
         let mut batch = Vec::new();
-        self.under_lease.retain(|ack_id, info| {
+        self.under_lease.retain(|ack_id, receive_time| {
             // Note that using `HashMap::retain` allows us to iterate over the
             // map and conditionally drop elements in one pass.
 
-            if info.receive_time() + self.max_lease_extension < now {
+            if *receive_time + self.max_lease_extension < now {
                 // Drop messages that have been held for too long.
                 false
             } else {
