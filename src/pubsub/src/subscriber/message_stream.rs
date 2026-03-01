@@ -92,11 +92,14 @@ pub struct MessageStream {
     _lease_loop: tokio::task::JoinHandle<()>,
 }
 
+// We would rather always allocate enough space to hold the stream on the stack
+// than add a layer of indirection by `Box`ing it.
+#[allow(clippy::large_enum_variant)]
 #[derive(Debug)]
 enum StreamState {
     Unstarted,
-    Active(Stream<Transport>),
     Failed,
+    Active(Stream<Transport>),
 }
 
 impl MessageStream {
@@ -225,8 +228,8 @@ impl MessageStream {
             StreamState::Unstarted => {
                 unreachable!("we must transition to Active, or return an error above.")
             }
-            StreamState::Active(s) => Some(Ok(s)),
             StreamState::Failed => None,
+            StreamState::Active(s) => Some(Ok(s)),
         }
     }
 
@@ -376,14 +379,14 @@ mod tests {
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
         let mut stream = client.stream("projects/p/subscriptions/s").build();
-        let err = stream.next().await;
+        let next = stream.next().await;
         assert!(
-            matches!(err, Some(Err(_))),
-            "expected permanent error, got {err:?}"
+            matches!(next, Some(Err(_))),
+            "expected permanent error, got {next:?}"
         );
 
-        let none = stream.next().await;
-        assert!(matches!(none, None), "expected end of stream, got {none:?}");
+        let next = stream.next().await;
+        assert!(next.is_none(), "expected end of stream, got {next:?}");
 
         Ok(())
     }
