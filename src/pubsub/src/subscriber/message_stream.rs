@@ -67,7 +67,7 @@ pub struct MessageStream {
     /// of `MessageStream` is blocked on the first message being available.
     ///
     /// [^1]: <https://github.com/hyperium/tonic/issues/515>
-    stream: Option<Stream<Transport>>,
+    stream: StreamState,
 
     /// Applications ask for messages one at a time. Individual stream responses
     /// can contain multiple messages. We use `pool` to hold the extra messages
@@ -90,6 +90,13 @@ pub struct MessageStream {
     /// lease operations is useful for setting expectations in our unit tests, it is not that
     /// helpful to applications in practice.
     _lease_loop: tokio::task::JoinHandle<()>,
+}
+
+#[derive(Debug)]
+enum StreamState {
+    Unstarted,
+    Active(Stream<Transport>),
+    Failed,
 }
 
 impl MessageStream {
@@ -126,7 +133,7 @@ impl MessageStream {
         Self {
             inner,
             initial_req,
-            stream: None,
+            stream: StreamState::Unstarted,
             pool: VecDeque::new(),
             message_tx,
             ack_tx,
@@ -173,11 +180,12 @@ impl MessageStream {
                 match StreamRetryPolicy::on_midstream_error(e) {
                     RetryResult::Continue(_) => {
                         // The stream failed with a transient error. Reset the stream.
-                        self.stream = None;
+                        self.stream = StreamState::Unstarted;
                         continue;
                     }
                     RetryResult::Permanent(e) | RetryResult::Exhausted(e) => {
                         // The stream failed with a permanent error. Return the error.
+                        self.stream = StreamState::Failed;
                         return Some(Err(e));
                     }
                 }
@@ -203,16 +211,23 @@ impl MessageStream {
     /// Returns a mutable reference to the underlying stream.
     ///
     /// If a stream is not yet open, this method opens the stream.
-    async fn mut_stream(&mut self) -> Result<&mut Stream<Transport>> {
-        if self.stream.is_none() {
+    async fn mut_stream(&mut self) -> Option<Result<&mut Stream<Transport>>> {
+        if let StreamState::Unstarted = self.stream {
             let stream =
-                Stream::<Transport>::new(self.inner.clone(), self.initial_req.clone()).await?;
-            self.stream = Some(stream);
+                Stream::<Transport>::new(self.inner.clone(), self.initial_req.clone()).await;
+            match stream {
+                Ok(s) => self.stream = StreamState::Active(s),
+                Err(e) => return Some(Err(e)),
+            }
         }
-        Ok(self
-            .stream
-            .as_mut()
-            .expect("`self.stream.is_some()` must be true"))
+
+        match &mut self.stream {
+            StreamState::Unstarted => {
+                unreachable!("we must transition to Active, or return an error above.")
+            }
+            StreamState::Active(s) => Some(Ok(s)),
+            StreamState::Failed => None,
+        }
     }
 
     /// Reads the next response from the stream.
@@ -223,7 +238,7 @@ impl MessageStream {
     /// If we receive an error reading from the stream, we return it.
     async fn read_from_stream(&mut self) -> Option<Result<()>> {
         let resp = {
-            let stream = match self.mut_stream().await {
+            let stream = match self.mut_stream().await? {
                 Ok(s) => s,
                 Err(e) => return Some(Err(e)),
             };
@@ -349,6 +364,26 @@ mod tests {
             google_cloud_gax::error::rpc::Code::FailedPrecondition
         );
         assert_eq!(status.message, "fail");
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn permanent_error_ends_stream() -> anyhow::Result<()> {
+        let mut mock = MockSubscriber::new();
+        mock.expect_streaming_pull()
+            .returning(|_| Err(TonicStatus::failed_precondition("fail")));
+        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
+        let client = test_client(endpoint).await?;
+        let mut stream = client.stream("projects/p/subscriptions/s").build();
+        let err = stream.next().await;
+        assert!(
+            matches!(err, Some(Err(_))),
+            "expected permanent error, got {err:?}"
+        );
+
+        let none = stream.next().await;
+        assert!(matches!(none, None), "expected end of stream, got {none:?}");
 
         Ok(())
     }
