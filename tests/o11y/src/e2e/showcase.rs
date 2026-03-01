@@ -74,7 +74,9 @@ pub async fn run() -> anyhow::Result<()> {
     );
 
     // 4. Force flush to ensure spans are sent.
-    provider.force_flush()?;
+    if let Err(e) = provider.force_flush() {
+        tracing::error!("error flushing provider: {e:}");
+    }
 
     // 5. Verify (Poll Cloud Trace API)
     let trace = wait_for_trace(&project_id, &trace_id).await?;

@@ -43,7 +43,9 @@ pub async fn run() -> anyhow::Result<()> {
             metric.record(d.as_secs_f64(), &[KeyValue::new("testId", id.clone())]);
         }
         // Ignore errors because it may have flushed recently.
-        let _ = provider.force_flush();
+        if let Err(e) = provider.force_flush() {
+            tracing::warn!("error flushing provider: {e:}");
+        }
         found = try_get_metric(&client, &project_id, METRIC_NAME, ("testId", id.as_str())).await?;
         if found.is_some() {
             break;

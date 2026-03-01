@@ -80,7 +80,9 @@ async fn send_trace(project_id: &str) -> anyhow::Result<String> {
     );
 
     // 4. Force flush to ensure spans are sent.
-    provider.force_flush()?;
+    if let Err(e) = provider.force_flush() {
+        tracing::error!("error flushing provider: {e:}");
+    }
     Ok(trace_id)
 }
 
