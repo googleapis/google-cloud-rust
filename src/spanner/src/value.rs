@@ -213,7 +213,7 @@ mod tests {
         });
         assert_eq!(v_bool.kind(), Kind::Bool);
         assert_eq!(v_bool.try_as_bool(), Some(true));
-        assert_eq!(v_bool.as_bool(), true);
+        assert!(v_bool.as_bool());
 
         let v_number = Value(ProtoValue {
             kind: Some(prost_types::value::Kind::NumberValue(42.0)),

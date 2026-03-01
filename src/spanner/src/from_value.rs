@@ -420,7 +420,7 @@ mod tests {
     fn test_from_value_bool() {
         let v = true.to_value();
         let b = bool::from_value(&v, &types::bool()).unwrap();
-        assert_eq!(b, true);
+        assert!(b);
     }
 
     #[test]

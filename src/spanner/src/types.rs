@@ -17,15 +17,9 @@ use gaxi::prost::ConvertError;
 use std::sync::LazyLock;
 
 /// Spanner type definition.
-#[derive(Clone, Debug, PartialEq)]
+#[derive(Clone, Debug, PartialEq, Default)]
 #[repr(transparent)]
 pub struct Type(pub(crate) crate::generated::gapic_dataplane::model::Type);
-
-impl Default for Type {
-    fn default() -> Self {
-        Type(crate::generated::gapic_dataplane::model::Type::default())
-    }
-}
 
 macro_rules! define_type_code {
     ($($variant:ident = $val:expr),* $(,)?) => {
@@ -325,7 +319,7 @@ mod tests {
         assert_eq!(t.code(), TypeCode::Unspecified);
         assert_eq!(
             t.0.code,
-            crate::generated::gapic_dataplane::model::TypeCode::Unspecified.into()
+            crate::generated::gapic_dataplane::model::TypeCode::Unspecified
         );
     }
 
@@ -336,7 +330,7 @@ mod tests {
         let proto: crate::generated::gapic_dataplane::model::Type = t.clone().to_proto().unwrap();
         assert_eq!(
             proto.code,
-            crate::generated::gapic_dataplane::model::TypeCode::Int64.into()
+            crate::generated::gapic_dataplane::model::TypeCode::Int64
         );
 
         let code = TypeCode::Int64;
@@ -347,7 +341,7 @@ mod tests {
     #[test]
     fn test_from_type_traits() {
         let internal_type = crate::generated::gapic_dataplane::model::Type {
-            code: crate::generated::gapic_dataplane::model::TypeCode::Bool.into(),
+            code: crate::generated::gapic_dataplane::model::TypeCode::Bool,
             ..Default::default()
         };
         let t: Type = internal_type.clone().into();
@@ -363,7 +357,7 @@ mod tests {
         assert_eq!(t.code(), TypeCode::Array);
         assert_eq!(
             t.0.array_element_type.unwrap().code,
-            crate::generated::gapic_dataplane::model::TypeCode::Int64.into()
+            crate::generated::gapic_dataplane::model::TypeCode::Int64
         );
     }
 

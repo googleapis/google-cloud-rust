@@ -4652,6 +4652,7 @@ dependencies = [
  "static_assertions",
  "tokio",
  "tracing",
+ "uuid",
 ]
 
 [[package]]

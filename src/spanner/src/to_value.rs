@@ -198,11 +198,11 @@ mod tests {
     fn test_to_value_bool() {
         let v = true.to_value();
         assert_eq!(v.kind(), Kind::Bool);
-        assert_eq!(v.as_bool(), true);
+        assert!(v.as_bool());
 
         let v = false.to_value();
         assert_eq!(v.kind(), Kind::Bool);
-        assert_eq!(v.as_bool(), false);
+        assert!(!v.as_bool());
     }
 
     #[test]
@@ -267,6 +267,6 @@ mod tests {
         };
         let v = v_proto.to_value();
         assert_eq!(v.kind(), Kind::Bool);
-        assert_eq!(v.as_bool(), true);
+        assert!(v.as_bool());
     }
 }

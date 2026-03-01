@@ -53,3 +53,4 @@ google-cloud-auth.workspace = true
 spanner-grpc-mock           = { path = "grpc-mock" }
 static_assertions           = "1.1.0"
 tokio.workspace             = true
+uuid.workspace              = true

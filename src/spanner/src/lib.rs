@@ -44,9 +44,11 @@ mod status;
 #[allow(dead_code)]
 #[allow(rustdoc::broken_intra_doc_links)]
 #[allow(rustdoc::private_intra_doc_links)]
+#[allow(clippy::all)]
 pub(crate) mod generated;
 
 #[allow(dead_code)]
+#[allow(clippy::all)]
 pub(crate) mod google {
     pub mod api {
         include!("generated/protos/spanner/google.api.rs");
