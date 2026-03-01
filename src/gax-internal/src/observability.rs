@@ -30,9 +30,7 @@ mod errors;
 mod http_tracing;
 
 #[cfg(all(google_cloud_unstable_tracing, feature = "_internal-http-client"))]
-pub(crate) use http_tracing::{
-    create_http_attempt_span, record_http_response_attributes, record_intermediate_client_request,
-};
+pub(crate) use http_tracing::{ResultExt as HttpResultExt, create_http_attempt_span};
 
 #[cfg(all(google_cloud_unstable_tracing, feature = "_internal-grpc-client"))]
 pub mod grpc_tracing;
