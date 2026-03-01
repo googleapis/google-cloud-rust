@@ -161,6 +161,18 @@ impl Spanner {
             .send()
             .await
     }
+
+    /// Returns a new [DatabaseClientBuilder](crate::database_client::DatabaseClientBuilder) for
+    /// interacting with a specific database.
+    ///
+    /// The returned `DatabaseClient` is intended to be a long-lived object and should be reused
+    /// for all operations on the database.
+    pub fn database_client(
+        &self,
+        database: impl Into<String>,
+    ) -> crate::database_client::DatabaseClientBuilder {
+        crate::database_client::DatabaseClientBuilder::new(self.clone(), database.into())
+    }
 }
 
 #[cfg(test)]

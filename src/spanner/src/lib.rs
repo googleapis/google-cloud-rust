@@ -30,6 +30,7 @@ pub(crate) use google_cloud_gax::response::Response;
 
 pub mod client;
 pub mod builder {}
+pub mod database_client;
 pub mod model {
     pub use crate::generated::gapic_dataplane::model::*;
 }
