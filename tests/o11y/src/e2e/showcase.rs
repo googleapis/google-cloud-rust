@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use super::{set_up_otel_provider, wait_for_trace};
+use super::{set_up_tracer_provider, wait_for_trace};
 use crate::Anonymous;
 use google_cloud_showcase_v1beta1::client::Echo;
 use google_cloud_test_utils::runtime_config::project_id;
@@ -37,7 +37,7 @@ pub async fn run() -> anyhow::Result<()> {
     // 2. Setup Telemetry (Real Google Cloud Destination)
     // This requires GOOGLE_CLOUD_PROJECT to be set.
     let project_id = project_id()?;
-    let provider = set_up_otel_provider(&project_id).await?;
+    let provider = set_up_tracer_provider(&project_id).await?;
 
     // 3. Generate Trace
     // Start a root span

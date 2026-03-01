@@ -15,6 +15,11 @@
 #[cfg(all(test, feature = "run-integration-tests", google_cloud_unstable_tracing))]
 mod telemetry {
     #[tokio::test(flavor = "multi_thread")]
+    async fn metrics() -> anyhow::Result<()> {
+        integration_tests_o11y::e2e::metrics::run().await
+    }
+
+    #[tokio::test(flavor = "multi_thread")]
     async fn showcase() -> anyhow::Result<()> {
         integration_tests_o11y::e2e::showcase::run().await
     }

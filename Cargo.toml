@@ -496,12 +496,13 @@ google-cloud-iam-credentials-v1      = { default-features = false, path = "src/g
 google-cloud-language-v2             = { default-features = false, path = "src/generated/cloud/language/v2" }
 google-cloud-dns-v1                  = { default-features = false, path = "src/generated/cloud/dns/v1" }
 google-cloud-firestore               = { default-features = false, path = "src/firestore" }
+google-cloud-monitoring-v3           = { default-features = false, path = "src/generated/monitoring/v3" }
 google-cloud-showcase-v1beta1        = { default-features = false, path = "src/generated/showcase" }
 google-cloud-telcoautomation-v1      = { default-features = false, path = "src/generated/cloud/telcoautomation/v1" }
 google-cloud-trace-v1                = { default-features = false, path = "src/generated/devtools/cloudtrace/v1" }
-secretmanager-openapi-v1             = { default-features = false, path = "src/generated/openapi-validation" }
 google-cloud-workflows-v1            = { default-features = false, path = "src/generated/cloud/workflows/v1" }
 google-cloud-workflows-executions-v1 = { default-features = false, path = "src/generated/cloud/workflows/executions/v1" }
+secretmanager-openapi-v1             = { default-features = false, path = "src/generated/openapi-validation" }
 # Local test packages (never add a version)
 google-cloud-test-macros = { path = "src/test-macros" }
 google-cloud-test-utils  = { default-features = false, path = "src/test-utils" }
