@@ -176,10 +176,10 @@ impl Executions {
     /// # use google_cloud_workflows_executions_v1::client::Executions;
     /// use google_cloud_workflows_executions_v1::Result;
     /// async fn sample(
-    ///    client: &Executions, resource_name: &str
+    ///    client: &Executions, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_execution()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())

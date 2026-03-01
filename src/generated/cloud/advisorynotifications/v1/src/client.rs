@@ -152,10 +152,10 @@ impl AdvisoryNotificationsService {
     /// # use google_cloud_advisorynotifications_v1::client::AdvisoryNotificationsService;
     /// use google_cloud_advisorynotifications_v1::Result;
     /// async fn sample(
-    ///    client: &AdvisoryNotificationsService, resource_name: &str
+    ///    client: &AdvisoryNotificationsService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_notification()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -174,10 +174,10 @@ impl AdvisoryNotificationsService {
     /// # use google_cloud_advisorynotifications_v1::client::AdvisoryNotificationsService;
     /// use google_cloud_advisorynotifications_v1::Result;
     /// async fn sample(
-    ///    client: &AdvisoryNotificationsService, resource_name: &str
+    ///    client: &AdvisoryNotificationsService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_settings()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())

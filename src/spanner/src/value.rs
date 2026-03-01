@@ -253,4 +253,11 @@ mod tests {
         assert_eq!(map.get("a").unwrap().try_as_f64(), Some(1.0));
         assert_eq!(v_struct.as_struct().len(), 1);
     }
+
+    #[test]
+    fn test_auto_traits() {
+        static_assertions::assert_impl_all!(Value: Send, Sync, Clone, std::fmt::Debug);
+        static_assertions::assert_impl_all!(Struct: Send, Sync, Clone, std::fmt::Debug);
+        static_assertions::assert_impl_all!(List: Send, Sync, Clone, std::fmt::Debug);
+    }
 }

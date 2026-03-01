@@ -148,10 +148,10 @@ impl ServiceHealth {
     /// # use google_cloud_servicehealth_v1::client::ServiceHealth;
     /// use google_cloud_servicehealth_v1::Result;
     /// async fn sample(
-    ///    client: &ServiceHealth, resource_name: &str
+    ///    client: &ServiceHealth, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_event()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -194,10 +194,10 @@ impl ServiceHealth {
     /// # use google_cloud_servicehealth_v1::client::ServiceHealth;
     /// use google_cloud_servicehealth_v1::Result;
     /// async fn sample(
-    ///    client: &ServiceHealth, resource_name: &str
+    ///    client: &ServiceHealth, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_organization_event()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -241,10 +241,10 @@ impl ServiceHealth {
     /// # use google_cloud_servicehealth_v1::client::ServiceHealth;
     /// use google_cloud_servicehealth_v1::Result;
     /// async fn sample(
-    ///    client: &ServiceHealth, resource_name: &str
+    ///    client: &ServiceHealth, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_organization_impact()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())

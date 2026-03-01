@@ -195,10 +195,10 @@ impl ApiKeys {
     /// # use google_cloud_apikeys_v2::client::ApiKeys;
     /// use google_cloud_apikeys_v2::Result;
     /// async fn sample(
-    ///    client: &ApiKeys, resource_name: &str
+    ///    client: &ApiKeys, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_key()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -294,10 +294,10 @@ impl ApiKeys {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_apikeys_v2::Result;
     /// async fn sample(
-    ///    client: &ApiKeys, resource_name: &str
+    ///    client: &ApiKeys, name: &str
     /// ) -> Result<()> {
     ///     let response = client.delete_key()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -328,10 +328,10 @@ impl ApiKeys {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_apikeys_v2::Result;
     /// async fn sample(
-    ///    client: &ApiKeys, resource_name: &str
+    ///    client: &ApiKeys, name: &str
     /// ) -> Result<()> {
     ///     let response = client.undelete_key()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())

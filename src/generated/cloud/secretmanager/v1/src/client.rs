@@ -216,10 +216,10 @@ impl SecretManagerService {
     /// # use google_cloud_secretmanager_v1::client::SecretManagerService;
     /// use google_cloud_secretmanager_v1::Result;
     /// async fn sample(
-    ///    client: &SecretManagerService, resource_name: &str
+    ///    client: &SecretManagerService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_secret()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -267,10 +267,10 @@ impl SecretManagerService {
     /// # use google_cloud_secretmanager_v1::client::SecretManagerService;
     /// use google_cloud_secretmanager_v1::Result;
     /// async fn sample(
-    ///    client: &SecretManagerService, resource_name: &str
+    ///    client: &SecretManagerService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_secret()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -320,10 +320,10 @@ impl SecretManagerService {
     /// # use google_cloud_secretmanager_v1::client::SecretManagerService;
     /// use google_cloud_secretmanager_v1::Result;
     /// async fn sample(
-    ///    client: &SecretManagerService, resource_name: &str
+    ///    client: &SecretManagerService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_secret_version()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())

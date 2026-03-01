@@ -151,10 +151,10 @@ impl ApiHub {
     /// # use google_cloud_apihub_v1::client::ApiHub;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &ApiHub, resource_name: &str
+    ///    client: &ApiHub, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_api()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -253,10 +253,10 @@ impl ApiHub {
     /// # use google_cloud_apihub_v1::client::ApiHub;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &ApiHub, resource_name: &str
+    ///    client: &ApiHub, name: &str
     /// ) -> Result<()> {
     ///     client.delete_api()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -299,10 +299,10 @@ impl ApiHub {
     /// # use google_cloud_apihub_v1::client::ApiHub;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &ApiHub, resource_name: &str
+    ///    client: &ApiHub, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_version()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -394,10 +394,10 @@ impl ApiHub {
     /// # use google_cloud_apihub_v1::client::ApiHub;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &ApiHub, resource_name: &str
+    ///    client: &ApiHub, name: &str
     /// ) -> Result<()> {
     ///     client.delete_version()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -467,10 +467,10 @@ impl ApiHub {
     /// # use google_cloud_apihub_v1::client::ApiHub;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &ApiHub, resource_name: &str
+    ///    client: &ApiHub, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_spec()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -589,10 +589,10 @@ impl ApiHub {
     /// # use google_cloud_apihub_v1::client::ApiHub;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &ApiHub, resource_name: &str
+    ///    client: &ApiHub, name: &str
     /// ) -> Result<()> {
     ///     client.delete_spec()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -634,10 +634,10 @@ impl ApiHub {
     /// # use google_cloud_apihub_v1::client::ApiHub;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &ApiHub, resource_name: &str
+    ///    client: &ApiHub, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_api_operation()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -728,10 +728,10 @@ impl ApiHub {
     /// # use google_cloud_apihub_v1::client::ApiHub;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &ApiHub, resource_name: &str
+    ///    client: &ApiHub, name: &str
     /// ) -> Result<()> {
     ///     client.delete_api_operation()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -747,10 +747,10 @@ impl ApiHub {
     /// # use google_cloud_apihub_v1::client::ApiHub;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &ApiHub, resource_name: &str
+    ///    client: &ApiHub, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_definition()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -794,10 +794,10 @@ impl ApiHub {
     /// # use google_cloud_apihub_v1::client::ApiHub;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &ApiHub, resource_name: &str
+    ///    client: &ApiHub, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_deployment()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -897,10 +897,10 @@ impl ApiHub {
     /// # use google_cloud_apihub_v1::client::ApiHub;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &ApiHub, resource_name: &str
+    ///    client: &ApiHub, name: &str
     /// ) -> Result<()> {
     ///     client.delete_deployment()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -950,10 +950,10 @@ impl ApiHub {
     /// # use google_cloud_apihub_v1::client::ApiHub;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &ApiHub, resource_name: &str
+    ///    client: &ApiHub, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_attribute()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1029,10 +1029,10 @@ impl ApiHub {
     /// # use google_cloud_apihub_v1::client::ApiHub;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &ApiHub, resource_name: &str
+    ///    client: &ApiHub, name: &str
     /// ) -> Result<()> {
     ///     client.delete_attribute()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -1118,10 +1118,10 @@ impl ApiHub {
     /// # use google_cloud_apihub_v1::client::ApiHub;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &ApiHub, resource_name: &str
+    ///    client: &ApiHub, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_external_api()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1182,10 +1182,10 @@ impl ApiHub {
     /// # use google_cloud_apihub_v1::client::ApiHub;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &ApiHub, resource_name: &str
+    ///    client: &ApiHub, name: &str
     /// ) -> Result<()> {
     ///     client.delete_external_api()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -1488,10 +1488,10 @@ impl ApiHubDependencies {
     /// # use google_cloud_apihub_v1::client::ApiHubDependencies;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &ApiHubDependencies, resource_name: &str
+    ///    client: &ApiHubDependencies, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_dependency()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1545,10 +1545,10 @@ impl ApiHubDependencies {
     /// # use google_cloud_apihub_v1::client::ApiHubDependencies;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &ApiHubDependencies, resource_name: &str
+    ///    client: &ApiHubDependencies, name: &str
     /// ) -> Result<()> {
     ///     client.delete_dependency()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -2117,10 +2117,10 @@ impl ApiHubCurate {
     /// # use google_cloud_apihub_v1::client::ApiHubCurate;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &ApiHubCurate, resource_name: &str
+    ///    client: &ApiHubCurate, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_curation()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -2200,10 +2200,10 @@ impl ApiHubCurate {
     /// # use google_cloud_apihub_v1::client::ApiHubCurate;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &ApiHubCurate, resource_name: &str
+    ///    client: &ApiHubCurate, name: &str
     /// ) -> Result<()> {
     ///     client.delete_curation()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -2481,10 +2481,10 @@ impl ApiHubDiscovery {
     /// # use google_cloud_apihub_v1::client::ApiHubDiscovery;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &ApiHubDiscovery, resource_name: &str
+    ///    client: &ApiHubDiscovery, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_discovered_api_observation()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -2530,10 +2530,10 @@ impl ApiHubDiscovery {
     /// # use google_cloud_apihub_v1::client::ApiHubDiscovery;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &ApiHubDiscovery, resource_name: &str
+    ///    client: &ApiHubDiscovery, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_discovered_api_operation()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -2823,10 +2823,10 @@ impl HostProjectRegistrationService {
     /// # use google_cloud_apihub_v1::client::HostProjectRegistrationService;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &HostProjectRegistrationService, resource_name: &str
+    ///    client: &HostProjectRegistrationService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_host_project_registration()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -3117,10 +3117,10 @@ impl LintingService {
     /// # use google_cloud_apihub_v1::client::LintingService;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &LintingService, resource_name: &str
+    ///    client: &LintingService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_style_guide()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -3441,10 +3441,10 @@ impl ApiHubPlugin {
     /// # use google_cloud_apihub_v1::client::ApiHubPlugin;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &ApiHubPlugin, resource_name: &str
+    ///    client: &ApiHubPlugin, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_plugin()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -3564,10 +3564,10 @@ impl ApiHubPlugin {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &ApiHubPlugin, resource_name: &str
+    ///    client: &ApiHubPlugin, name: &str
     /// ) -> Result<()> {
     ///     client.delete_plugin()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -3651,10 +3651,10 @@ impl ApiHubPlugin {
     /// # use google_cloud_apihub_v1::client::ApiHubPlugin;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &ApiHubPlugin, resource_name: &str
+    ///    client: &ApiHubPlugin, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_plugin_instance()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -3821,10 +3821,10 @@ impl ApiHubPlugin {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &ApiHubPlugin, resource_name: &str
+    ///    client: &ApiHubPlugin, name: &str
     /// ) -> Result<()> {
     ///     client.delete_plugin_instance()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -4121,10 +4121,10 @@ impl Provisioning {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &Provisioning, resource_name: &str
+    ///    client: &Provisioning, name: &str
     /// ) -> Result<()> {
     ///     client.delete_api_hub_instance()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -4140,10 +4140,10 @@ impl Provisioning {
     /// # use google_cloud_apihub_v1::client::Provisioning;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &Provisioning, resource_name: &str
+    ///    client: &Provisioning, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_api_hub_instance()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -4448,10 +4448,10 @@ impl RuntimeProjectAttachmentService {
     /// # use google_cloud_apihub_v1::client::RuntimeProjectAttachmentService;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &RuntimeProjectAttachmentService, resource_name: &str
+    ///    client: &RuntimeProjectAttachmentService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_runtime_project_attachment()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -4500,10 +4500,10 @@ impl RuntimeProjectAttachmentService {
     /// # use google_cloud_apihub_v1::client::RuntimeProjectAttachmentService;
     /// use google_cloud_apihub_v1::Result;
     /// async fn sample(
-    ///    client: &RuntimeProjectAttachmentService, resource_name: &str
+    ///    client: &RuntimeProjectAttachmentService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_runtime_project_attachment()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }

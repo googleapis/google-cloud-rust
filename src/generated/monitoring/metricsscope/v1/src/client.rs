@@ -126,10 +126,10 @@ impl MetricsScopes {
     /// # use google_cloud_monitoring_metricsscope_v1::client::MetricsScopes;
     /// use google_cloud_monitoring_metricsscope_v1::Result;
     /// async fn sample(
-    ///    client: &MetricsScopes, resource_name: &str
+    ///    client: &MetricsScopes, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_metrics_scope()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -219,10 +219,10 @@ impl MetricsScopes {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_monitoring_metricsscope_v1::Result;
     /// async fn sample(
-    ///    client: &MetricsScopes, resource_name: &str
+    ///    client: &MetricsScopes, name: &str
     /// ) -> Result<()> {
     ///     client.delete_monitored_project()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }

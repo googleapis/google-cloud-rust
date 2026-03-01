@@ -150,10 +150,10 @@ impl Tpu {
     /// # use google_cloud_tpu_v2::client::Tpu;
     /// use google_cloud_tpu_v2::Result;
     /// async fn sample(
-    ///    client: &Tpu, resource_name: &str
+    ///    client: &Tpu, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_node()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -217,10 +217,10 @@ impl Tpu {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_tpu_v2::Result;
     /// async fn sample(
-    ///    client: &Tpu, resource_name: &str
+    ///    client: &Tpu, name: &str
     /// ) -> Result<()> {
     ///     client.delete_node()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -358,10 +358,10 @@ impl Tpu {
     /// # use google_cloud_tpu_v2::client::Tpu;
     /// use google_cloud_tpu_v2::Result;
     /// async fn sample(
-    ///    client: &Tpu, resource_name: &str
+    ///    client: &Tpu, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_queued_resource()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -424,10 +424,10 @@ impl Tpu {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_tpu_v2::Result;
     /// async fn sample(
-    ///    client: &Tpu, resource_name: &str
+    ///    client: &Tpu, name: &str
     /// ) -> Result<()> {
     ///     client.delete_queued_resource()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -517,10 +517,10 @@ impl Tpu {
     /// # use google_cloud_tpu_v2::client::Tpu;
     /// use google_cloud_tpu_v2::Result;
     /// async fn sample(
-    ///    client: &Tpu, resource_name: &str
+    ///    client: &Tpu, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_accelerator_type()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -560,10 +560,10 @@ impl Tpu {
     /// # use google_cloud_tpu_v2::client::Tpu;
     /// use google_cloud_tpu_v2::Result;
     /// async fn sample(
-    ///    client: &Tpu, resource_name: &str
+    ///    client: &Tpu, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_runtime_version()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())

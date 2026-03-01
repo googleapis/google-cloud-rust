@@ -188,10 +188,10 @@ impl DirectAccessService {
     /// # use google_cloud_devicestreaming_v1::client::DirectAccessService;
     /// use google_cloud_devicestreaming_v1::Result;
     /// async fn sample(
-    ///    client: &DirectAccessService, resource_name: &str
+    ///    client: &DirectAccessService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_device_session()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())

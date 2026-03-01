@@ -174,10 +174,10 @@ impl DataFusion {
     /// # use google_cloud_datafusion_v1::client::DataFusion;
     /// use google_cloud_datafusion_v1::Result;
     /// async fn sample(
-    ///    client: &DataFusion, resource_name: &str
+    ///    client: &DataFusion, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_instance()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -241,10 +241,10 @@ impl DataFusion {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_datafusion_v1::Result;
     /// async fn sample(
-    ///    client: &DataFusion, resource_name: &str
+    ///    client: &DataFusion, name: &str
     /// ) -> Result<()> {
     ///     client.delete_instance()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }

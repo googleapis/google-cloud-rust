@@ -234,6 +234,18 @@ pub fn array(element_type: Type) -> Type {
     t
 }
 
+/// Returns a `Type` representing `UUID` (GoogleSQL) or `uuid` (PostgreSQL).
+pub fn uuid() -> Type {
+    static TYPE_UUID: LazyLock<Type> = LazyLock::new(|| create_type(TypeCode::Uuid));
+    TYPE_UUID.clone()
+}
+
+/// Returns a `Type` representing `INTERVAL` (GoogleSQL).
+pub fn interval() -> Type {
+    static TYPE_INTERVAL: LazyLock<Type> = LazyLock::new(|| create_type(TypeCode::Interval));
+    TYPE_INTERVAL.clone()
+}
+
 pub(crate) fn create_type(code: TypeCode) -> Type {
     Type(crate::generated::gapic_dataplane::model::Type {
         code: code.into(),
@@ -301,6 +313,48 @@ mod tests {
         assert_eq!(date().code(), TypeCode::Date);
         assert_eq!(numeric().code(), TypeCode::Numeric);
         assert_eq!(json().code(), TypeCode::Json);
+        assert_eq!(float32().code(), TypeCode::Float32);
+        assert_eq!(uuid().code(), TypeCode::Uuid);
+        assert_eq!(interval().code(), TypeCode::Interval);
+        // PG types are tested in test_pg_types
+    }
+
+    #[test]
+    fn test_default_type() {
+        let t = Type::default();
+        assert_eq!(t.code(), TypeCode::Unspecified);
+        assert_eq!(
+            t.0.code,
+            crate::generated::gapic_dataplane::model::TypeCode::Unspecified.into()
+        );
+    }
+
+    #[test]
+    fn test_to_proto_traits() {
+        use gaxi::prost::ToProto;
+        let t = int64();
+        let proto: crate::generated::gapic_dataplane::model::Type = t.clone().to_proto().unwrap();
+        assert_eq!(
+            proto.code,
+            crate::generated::gapic_dataplane::model::TypeCode::Int64.into()
+        );
+
+        let code = TypeCode::Int64;
+        let proto_code: i32 = code.to_proto().unwrap();
+        assert_eq!(proto_code, 2);
+    }
+
+    #[test]
+    fn test_from_type_traits() {
+        let internal_type = crate::generated::gapic_dataplane::model::Type {
+            code: crate::generated::gapic_dataplane::model::TypeCode::Bool.into(),
+            ..Default::default()
+        };
+        let t: Type = internal_type.clone().into();
+        assert_eq!(t.code(), TypeCode::Bool);
+
+        let back: crate::generated::gapic_dataplane::model::Type = t.into();
+        assert_eq!(back.code, internal_type.code);
     }
 
     #[test]
@@ -326,5 +380,11 @@ mod tests {
 
         assert_eq!(pg_oid().code(), TypeCode::Int64);
         assert_eq!(pg_oid().0.type_annotation, TypeAnnotationCode::PgOid);
+    }
+
+    #[test]
+    fn test_auto_traits() {
+        static_assertions::assert_impl_all!(Type: Send, Sync, Clone, std::fmt::Debug);
+        static_assertions::assert_impl_all!(TypeCode: Send, Sync, Clone, std::fmt::Debug);
     }
 }

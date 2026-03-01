@@ -149,10 +149,10 @@ impl Aml {
     /// # use google_cloud_financialservices_v1::client::Aml;
     /// use google_cloud_financialservices_v1::Result;
     /// async fn sample(
-    ///    client: &Aml, resource_name: &str
+    ///    client: &Aml, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_instance()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -253,10 +253,10 @@ impl Aml {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_financialservices_v1::Result;
     /// async fn sample(
-    ///    client: &Aml, resource_name: &str
+    ///    client: &Aml, name: &str
     /// ) -> Result<()> {
     ///     client.delete_instance()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -363,10 +363,10 @@ impl Aml {
     /// # use google_cloud_financialservices_v1::client::Aml;
     /// use google_cloud_financialservices_v1::Result;
     /// async fn sample(
-    ///    client: &Aml, resource_name: &str
+    ///    client: &Aml, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_dataset()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -467,10 +467,10 @@ impl Aml {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_financialservices_v1::Result;
     /// async fn sample(
-    ///    client: &Aml, resource_name: &str
+    ///    client: &Aml, name: &str
     /// ) -> Result<()> {
     ///     client.delete_dataset()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -509,10 +509,10 @@ impl Aml {
     /// # use google_cloud_financialservices_v1::client::Aml;
     /// use google_cloud_financialservices_v1::Result;
     /// async fn sample(
-    ///    client: &Aml, resource_name: &str
+    ///    client: &Aml, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_model()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -647,10 +647,10 @@ impl Aml {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_financialservices_v1::Result;
     /// async fn sample(
-    ///    client: &Aml, resource_name: &str
+    ///    client: &Aml, name: &str
     /// ) -> Result<()> {
     ///     client.delete_model()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -689,10 +689,10 @@ impl Aml {
     /// # use google_cloud_financialservices_v1::client::Aml;
     /// use google_cloud_financialservices_v1::Result;
     /// async fn sample(
-    ///    client: &Aml, resource_name: &str
+    ///    client: &Aml, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_engine_config()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -826,10 +826,10 @@ impl Aml {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_financialservices_v1::Result;
     /// async fn sample(
-    ///    client: &Aml, resource_name: &str
+    ///    client: &Aml, name: &str
     /// ) -> Result<()> {
     ///     client.delete_engine_config()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -845,10 +845,10 @@ impl Aml {
     /// # use google_cloud_financialservices_v1::client::Aml;
     /// use google_cloud_financialservices_v1::Result;
     /// async fn sample(
-    ///    client: &Aml, resource_name: &str
+    ///    client: &Aml, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_engine_version()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -911,10 +911,10 @@ impl Aml {
     /// # use google_cloud_financialservices_v1::client::Aml;
     /// use google_cloud_financialservices_v1::Result;
     /// async fn sample(
-    ///    client: &Aml, resource_name: &str
+    ///    client: &Aml, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_prediction_result()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1050,10 +1050,10 @@ impl Aml {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_financialservices_v1::Result;
     /// async fn sample(
-    ///    client: &Aml, resource_name: &str
+    ///    client: &Aml, name: &str
     /// ) -> Result<()> {
     ///     client.delete_prediction_result()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1092,10 +1092,10 @@ impl Aml {
     /// # use google_cloud_financialservices_v1::client::Aml;
     /// use google_cloud_financialservices_v1::Result;
     /// async fn sample(
-    ///    client: &Aml, resource_name: &str
+    ///    client: &Aml, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_backtest_result()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1231,10 +1231,10 @@ impl Aml {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_financialservices_v1::Result;
     /// async fn sample(
-    ///    client: &Aml, resource_name: &str
+    ///    client: &Aml, name: &str
     /// ) -> Result<()> {
     ///     client.delete_backtest_result()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }

@@ -1184,10 +1184,10 @@ impl Identity {
     /// # use google_cloud_showcase_v1beta1::client::Identity;
     /// use google_cloud_showcase_v1beta1::Result;
     /// async fn sample(
-    ///    client: &Identity, resource_name: &str
+    ///    client: &Identity, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_user()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1230,10 +1230,10 @@ impl Identity {
     /// # use google_cloud_showcase_v1beta1::client::Identity;
     /// use google_cloud_showcase_v1beta1::Result;
     /// async fn sample(
-    ///    client: &Identity, resource_name: &str
+    ///    client: &Identity, name: &str
     /// ) -> Result<()> {
     ///     client.delete_user()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -1600,10 +1600,10 @@ impl Messaging {
     /// # use google_cloud_showcase_v1beta1::client::Messaging;
     /// use google_cloud_showcase_v1beta1::Result;
     /// async fn sample(
-    ///    client: &Messaging, resource_name: &str
+    ///    client: &Messaging, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_room()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1646,10 +1646,10 @@ impl Messaging {
     /// # use google_cloud_showcase_v1beta1::client::Messaging;
     /// use google_cloud_showcase_v1beta1::Result;
     /// async fn sample(
-    ///    client: &Messaging, resource_name: &str
+    ///    client: &Messaging, name: &str
     /// ) -> Result<()> {
     ///     client.delete_room()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -1714,10 +1714,10 @@ impl Messaging {
     /// # use google_cloud_showcase_v1beta1::client::Messaging;
     /// use google_cloud_showcase_v1beta1::Result;
     /// async fn sample(
-    ///    client: &Messaging, resource_name: &str
+    ///    client: &Messaging, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_blurb()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1760,10 +1760,10 @@ impl Messaging {
     /// # use google_cloud_showcase_v1beta1::client::Messaging;
     /// use google_cloud_showcase_v1beta1::Result;
     /// async fn sample(
-    ///    client: &Messaging, resource_name: &str
+    ///    client: &Messaging, name: &str
     /// ) -> Result<()> {
     ///     client.delete_blurb()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -2185,10 +2185,10 @@ impl SequenceService {
     /// # use google_cloud_showcase_v1beta1::client::SequenceService;
     /// use google_cloud_showcase_v1beta1::Result;
     /// async fn sample(
-    ///    client: &SequenceService, resource_name: &str
+    ///    client: &SequenceService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_sequence_report()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -2206,10 +2206,10 @@ impl SequenceService {
     /// # use google_cloud_showcase_v1beta1::client::SequenceService;
     /// use google_cloud_showcase_v1beta1::Result;
     /// async fn sample(
-    ///    client: &SequenceService, resource_name: &str
+    ///    client: &SequenceService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_streaming_sequence_report()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -2583,10 +2583,10 @@ impl Testing {
     /// # use google_cloud_showcase_v1beta1::client::Testing;
     /// use google_cloud_showcase_v1beta1::Result;
     /// async fn sample(
-    ///    client: &Testing, resource_name: &str
+    ///    client: &Testing, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_session()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -2626,10 +2626,10 @@ impl Testing {
     /// # use google_cloud_showcase_v1beta1::client::Testing;
     /// use google_cloud_showcase_v1beta1::Result;
     /// async fn sample(
-    ///    client: &Testing, resource_name: &str
+    ///    client: &Testing, name: &str
     /// ) -> Result<()> {
     ///     client.delete_session()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -2695,10 +2695,10 @@ impl Testing {
     /// # use google_cloud_showcase_v1beta1::client::Testing;
     /// use google_cloud_showcase_v1beta1::Result;
     /// async fn sample(
-    ///    client: &Testing, resource_name: &str
+    ///    client: &Testing, name: &str
     /// ) -> Result<()> {
     ///     client.delete_test()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }

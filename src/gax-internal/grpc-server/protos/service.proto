@@ -21,6 +21,7 @@ import "google/protobuf/empty.proto";
 service EchoService {
   rpc Echo(EchoRequest) returns (EchoResponse);
   rpc Chat(stream EchoRequest) returns (stream EchoResponse);
+  rpc Expand(EchoRequest) returns (stream EchoResponse);
 }
 
 message EchoRequest {

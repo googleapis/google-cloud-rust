@@ -28,12 +28,12 @@ pub(crate) use google_cloud_gax::options::RequestOptions;
 pub(crate) use google_cloud_gax::options::internal::RequestBuilder;
 pub(crate) use google_cloud_gax::response::Response;
 
-pub mod client {}
+pub mod client;
 pub mod builder {}
-pub mod types;
-pub mod value;
 pub mod from_value;
 pub mod to_value;
+pub mod types;
+pub mod value;
 
 pub(crate) mod model {
     pub use crate::generated::gapic_dataplane::model::*;

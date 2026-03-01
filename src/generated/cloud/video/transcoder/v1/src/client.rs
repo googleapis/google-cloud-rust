@@ -178,10 +178,10 @@ impl TranscoderService {
     /// # use google_cloud_video_transcoder_v1::client::TranscoderService;
     /// use google_cloud_video_transcoder_v1::Result;
     /// async fn sample(
-    ///    client: &TranscoderService, resource_name: &str
+    ///    client: &TranscoderService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_job()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -198,10 +198,10 @@ impl TranscoderService {
     /// # use google_cloud_video_transcoder_v1::client::TranscoderService;
     /// use google_cloud_video_transcoder_v1::Result;
     /// async fn sample(
-    ///    client: &TranscoderService, resource_name: &str
+    ///    client: &TranscoderService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_job()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -264,10 +264,10 @@ impl TranscoderService {
     /// # use google_cloud_video_transcoder_v1::client::TranscoderService;
     /// use google_cloud_video_transcoder_v1::Result;
     /// async fn sample(
-    ///    client: &TranscoderService, resource_name: &str
+    ///    client: &TranscoderService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_job_template()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -284,10 +284,10 @@ impl TranscoderService {
     /// # use google_cloud_video_transcoder_v1::client::TranscoderService;
     /// use google_cloud_video_transcoder_v1::Result;
     /// async fn sample(
-    ///    client: &TranscoderService, resource_name: &str
+    ///    client: &TranscoderService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_job_template()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }

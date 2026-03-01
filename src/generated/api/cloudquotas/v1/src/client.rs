@@ -154,10 +154,10 @@ impl CloudQuotas {
     /// # use google_cloud_api_cloudquotas_v1::client::CloudQuotas;
     /// use google_cloud_api_cloudquotas_v1::Result;
     /// async fn sample(
-    ///    client: &CloudQuotas, resource_name: &str
+    ///    client: &CloudQuotas, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_quota_info()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -197,10 +197,10 @@ impl CloudQuotas {
     /// # use google_cloud_api_cloudquotas_v1::client::CloudQuotas;
     /// use google_cloud_api_cloudquotas_v1::Result;
     /// async fn sample(
-    ///    client: &CloudQuotas, resource_name: &str
+    ///    client: &CloudQuotas, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_quota_preference()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())

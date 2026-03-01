@@ -148,10 +148,10 @@ impl LicenseManager {
     /// # use google_cloud_licensemanager_v1::client::LicenseManager;
     /// use google_cloud_licensemanager_v1::Result;
     /// async fn sample(
-    ///    client: &LicenseManager, resource_name: &str
+    ///    client: &LicenseManager, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_configuration()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -252,10 +252,10 @@ impl LicenseManager {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_licensemanager_v1::Result;
     /// async fn sample(
-    ///    client: &LicenseManager, resource_name: &str
+    ///    client: &LicenseManager, name: &str
     /// ) -> Result<()> {
     ///     client.delete_configuration()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -294,10 +294,10 @@ impl LicenseManager {
     /// # use google_cloud_licensemanager_v1::client::LicenseManager;
     /// use google_cloud_licensemanager_v1::Result;
     /// async fn sample(
-    ///    client: &LicenseManager, resource_name: &str
+    ///    client: &LicenseManager, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_instance()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -448,10 +448,10 @@ impl LicenseManager {
     /// # use google_cloud_licensemanager_v1::client::LicenseManager;
     /// use google_cloud_licensemanager_v1::Result;
     /// async fn sample(
-    ///    client: &LicenseManager, resource_name: &str
+    ///    client: &LicenseManager, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_product()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())

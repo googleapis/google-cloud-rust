@@ -145,10 +145,10 @@ impl BinauthzManagementServiceV1 {
     /// # use google_cloud_binaryauthorization_v1::client::BinauthzManagementServiceV1;
     /// use google_cloud_binaryauthorization_v1::Result;
     /// async fn sample(
-    ///    client: &BinauthzManagementServiceV1, resource_name: &str
+    ///    client: &BinauthzManagementServiceV1, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_policy()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -229,10 +229,10 @@ impl BinauthzManagementServiceV1 {
     /// # use google_cloud_binaryauthorization_v1::client::BinauthzManagementServiceV1;
     /// use google_cloud_binaryauthorization_v1::Result;
     /// async fn sample(
-    ///    client: &BinauthzManagementServiceV1, resource_name: &str
+    ///    client: &BinauthzManagementServiceV1, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_attestor()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -306,10 +306,10 @@ impl BinauthzManagementServiceV1 {
     /// # use google_cloud_binaryauthorization_v1::client::BinauthzManagementServiceV1;
     /// use google_cloud_binaryauthorization_v1::Result;
     /// async fn sample(
-    ///    client: &BinauthzManagementServiceV1, resource_name: &str
+    ///    client: &BinauthzManagementServiceV1, name: &str
     /// ) -> Result<()> {
     ///     client.delete_attestor()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -430,10 +430,10 @@ impl SystemPolicyV1 {
     /// # use google_cloud_binaryauthorization_v1::client::SystemPolicyV1;
     /// use google_cloud_binaryauthorization_v1::Result;
     /// async fn sample(
-    ///    client: &SystemPolicyV1, resource_name: &str
+    ///    client: &SystemPolicyV1, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_system_policy()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())

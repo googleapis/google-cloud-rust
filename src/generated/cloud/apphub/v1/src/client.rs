@@ -210,10 +210,10 @@ impl AppHub {
     /// # use google_cloud_apphub_v1::client::AppHub;
     /// use google_cloud_apphub_v1::Result;
     /// async fn sample(
-    ///    client: &AppHub, resource_name: &str
+    ///    client: &AppHub, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_service_project_attachment()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -243,10 +243,10 @@ impl AppHub {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_apphub_v1::Result;
     /// async fn sample(
-    ///    client: &AppHub, resource_name: &str
+    ///    client: &AppHub, name: &str
     /// ) -> Result<()> {
     ///     client.delete_service_project_attachment()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -312,10 +312,10 @@ impl AppHub {
     /// # use google_cloud_apphub_v1::client::AppHub;
     /// use google_cloud_apphub_v1::Result;
     /// async fn sample(
-    ///    client: &AppHub, resource_name: &str
+    ///    client: &AppHub, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_discovered_service()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -412,10 +412,10 @@ impl AppHub {
     /// # use google_cloud_apphub_v1::client::AppHub;
     /// use google_cloud_apphub_v1::Result;
     /// async fn sample(
-    ///    client: &AppHub, resource_name: &str
+    ///    client: &AppHub, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_service()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -480,10 +480,10 @@ impl AppHub {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_apphub_v1::Result;
     /// async fn sample(
-    ///    client: &AppHub, resource_name: &str
+    ///    client: &AppHub, name: &str
     /// ) -> Result<()> {
     ///     client.delete_service()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -523,10 +523,10 @@ impl AppHub {
     /// # use google_cloud_apphub_v1::client::AppHub;
     /// use google_cloud_apphub_v1::Result;
     /// async fn sample(
-    ///    client: &AppHub, resource_name: &str
+    ///    client: &AppHub, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_discovered_workload()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -623,10 +623,10 @@ impl AppHub {
     /// # use google_cloud_apphub_v1::client::AppHub;
     /// use google_cloud_apphub_v1::Result;
     /// async fn sample(
-    ///    client: &AppHub, resource_name: &str
+    ///    client: &AppHub, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_workload()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -691,10 +691,10 @@ impl AppHub {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_apphub_v1::Result;
     /// async fn sample(
-    ///    client: &AppHub, resource_name: &str
+    ///    client: &AppHub, name: &str
     /// ) -> Result<()> {
     ///     client.delete_workload()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -769,10 +769,10 @@ impl AppHub {
     /// # use google_cloud_apphub_v1::client::AppHub;
     /// use google_cloud_apphub_v1::Result;
     /// async fn sample(
-    ///    client: &AppHub, resource_name: &str
+    ///    client: &AppHub, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_application()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -837,10 +837,10 @@ impl AppHub {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_apphub_v1::Result;
     /// async fn sample(
-    ///    client: &AppHub, resource_name: &str
+    ///    client: &AppHub, name: &str
     /// ) -> Result<()> {
     ///     client.delete_application()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }

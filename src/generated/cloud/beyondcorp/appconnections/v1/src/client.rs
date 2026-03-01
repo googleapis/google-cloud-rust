@@ -164,10 +164,10 @@ impl AppConnectionsService {
     /// # use google_cloud_beyondcorp_appconnections_v1::client::AppConnectionsService;
     /// use google_cloud_beyondcorp_appconnections_v1::Result;
     /// async fn sample(
-    ///    client: &AppConnectionsService, resource_name: &str
+    ///    client: &AppConnectionsService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_app_connection()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -271,10 +271,10 @@ impl AppConnectionsService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_beyondcorp_appconnections_v1::Result;
     /// async fn sample(
-    ///    client: &AppConnectionsService, resource_name: &str
+    ///    client: &AppConnectionsService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_app_connection()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }

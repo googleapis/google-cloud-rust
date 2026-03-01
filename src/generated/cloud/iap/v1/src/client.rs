@@ -334,10 +334,10 @@ impl IdentityAwareProxyAdminService {
     /// # use google_cloud_iap_v1::client::IdentityAwareProxyAdminService;
     /// use google_cloud_iap_v1::Result;
     /// async fn sample(
-    ///    client: &IdentityAwareProxyAdminService, resource_name: &str
+    ///    client: &IdentityAwareProxyAdminService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_tunnel_dest_group()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -358,10 +358,10 @@ impl IdentityAwareProxyAdminService {
     /// # use google_cloud_iap_v1::client::IdentityAwareProxyAdminService;
     /// use google_cloud_iap_v1::Result;
     /// async fn sample(
-    ///    client: &IdentityAwareProxyAdminService, resource_name: &str
+    ///    client: &IdentityAwareProxyAdminService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_tunnel_dest_group()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }

@@ -191,10 +191,10 @@ impl TimeseriesInsightsController {
     /// # use google_cloud_timeseriesinsights_v1::client::TimeseriesInsightsController;
     /// use google_cloud_timeseriesinsights_v1::Result;
     /// async fn sample(
-    ///    client: &TimeseriesInsightsController, resource_name: &str
+    ///    client: &TimeseriesInsightsController, name: &str
     /// ) -> Result<()> {
     ///     client.delete_data_set()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }

@@ -335,10 +335,10 @@ impl SqlBackupsService {
     /// # use google_cloud_sql_v1::client::SqlBackupsService;
     /// use google_cloud_sql_v1::Result;
     /// async fn sample(
-    ///    client: &SqlBackupsService, resource_name: &str
+    ///    client: &SqlBackupsService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_backup()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -399,10 +399,10 @@ impl SqlBackupsService {
     /// # use google_cloud_sql_v1::client::SqlBackupsService;
     /// use google_cloud_sql_v1::Result;
     /// async fn sample(
-    ///    client: &SqlBackupsService, resource_name: &str
+    ///    client: &SqlBackupsService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.delete_backup()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())

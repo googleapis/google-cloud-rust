@@ -151,10 +151,10 @@ impl CloudLocationFinder {
     /// # use google_cloud_locationfinder_v1::client::CloudLocationFinder;
     /// use google_cloud_locationfinder_v1::Result;
     /// async fn sample(
-    ///    client: &CloudLocationFinder, resource_name: &str
+    ///    client: &CloudLocationFinder, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_cloud_location()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())

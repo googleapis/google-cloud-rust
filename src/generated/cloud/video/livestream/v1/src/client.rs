@@ -190,10 +190,10 @@ impl LivestreamService {
     /// # use google_cloud_video_livestream_v1::client::LivestreamService;
     /// use google_cloud_video_livestream_v1::Result;
     /// async fn sample(
-    ///    client: &LivestreamService, resource_name: &str
+    ///    client: &LivestreamService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_channel()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -221,10 +221,10 @@ impl LivestreamService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_video_livestream_v1::Result;
     /// async fn sample(
-    ///    client: &LivestreamService, resource_name: &str
+    ///    client: &LivestreamService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_channel()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -463,10 +463,10 @@ impl LivestreamService {
     /// # use google_cloud_video_livestream_v1::client::LivestreamService;
     /// use google_cloud_video_livestream_v1::Result;
     /// async fn sample(
-    ///    client: &LivestreamService, resource_name: &str
+    ///    client: &LivestreamService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_input()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -494,10 +494,10 @@ impl LivestreamService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_video_livestream_v1::Result;
     /// async fn sample(
-    ///    client: &LivestreamService, resource_name: &str
+    ///    client: &LivestreamService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_input()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -618,10 +618,10 @@ impl LivestreamService {
     /// # use google_cloud_video_livestream_v1::client::LivestreamService;
     /// use google_cloud_video_livestream_v1::Result;
     /// async fn sample(
-    ///    client: &LivestreamService, resource_name: &str
+    ///    client: &LivestreamService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_event()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -638,10 +638,10 @@ impl LivestreamService {
     /// # use google_cloud_video_livestream_v1::client::LivestreamService;
     /// use google_cloud_video_livestream_v1::Result;
     /// async fn sample(
-    ///    client: &LivestreamService, resource_name: &str
+    ///    client: &LivestreamService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_event()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -680,10 +680,10 @@ impl LivestreamService {
     /// # use google_cloud_video_livestream_v1::client::LivestreamService;
     /// use google_cloud_video_livestream_v1::Result;
     /// async fn sample(
-    ///    client: &LivestreamService, resource_name: &str
+    ///    client: &LivestreamService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_clip()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -748,10 +748,10 @@ impl LivestreamService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_video_livestream_v1::Result;
     /// async fn sample(
-    ///    client: &LivestreamService, resource_name: &str
+    ///    client: &LivestreamService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_clip()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -825,10 +825,10 @@ impl LivestreamService {
     /// # use google_cloud_video_livestream_v1::client::LivestreamService;
     /// use google_cloud_video_livestream_v1::Result;
     /// async fn sample(
-    ///    client: &LivestreamService, resource_name: &str
+    ///    client: &LivestreamService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_dvr_session()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -856,10 +856,10 @@ impl LivestreamService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_video_livestream_v1::Result;
     /// async fn sample(
-    ///    client: &LivestreamService, resource_name: &str
+    ///    client: &LivestreamService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_dvr_session()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -960,10 +960,10 @@ impl LivestreamService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_video_livestream_v1::Result;
     /// async fn sample(
-    ///    client: &LivestreamService, resource_name: &str
+    ///    client: &LivestreamService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_asset()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -979,10 +979,10 @@ impl LivestreamService {
     /// # use google_cloud_video_livestream_v1::client::LivestreamService;
     /// use google_cloud_video_livestream_v1::Result;
     /// async fn sample(
-    ///    client: &LivestreamService, resource_name: &str
+    ///    client: &LivestreamService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_asset()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1022,10 +1022,10 @@ impl LivestreamService {
     /// # use google_cloud_video_livestream_v1::client::LivestreamService;
     /// use google_cloud_video_livestream_v1::Result;
     /// async fn sample(
-    ///    client: &LivestreamService, resource_name: &str
+    ///    client: &LivestreamService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_pool()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())

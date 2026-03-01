@@ -175,10 +175,10 @@ impl CertificateManager {
     /// # use google_cloud_certificatemanager_v1::client::CertificateManager;
     /// use google_cloud_certificatemanager_v1::Result;
     /// async fn sample(
-    ///    client: &CertificateManager, resource_name: &str
+    ///    client: &CertificateManager, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_certificate()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -279,10 +279,10 @@ impl CertificateManager {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_certificatemanager_v1::Result;
     /// async fn sample(
-    ///    client: &CertificateManager, resource_name: &str
+    ///    client: &CertificateManager, name: &str
     /// ) -> Result<()> {
     ///     client.delete_certificate()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -323,10 +323,10 @@ impl CertificateManager {
     /// # use google_cloud_certificatemanager_v1::client::CertificateManager;
     /// use google_cloud_certificatemanager_v1::Result;
     /// async fn sample(
-    ///    client: &CertificateManager, resource_name: &str
+    ///    client: &CertificateManager, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_certificate_map()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -432,10 +432,10 @@ impl CertificateManager {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_certificatemanager_v1::Result;
     /// async fn sample(
-    ///    client: &CertificateManager, resource_name: &str
+    ///    client: &CertificateManager, name: &str
     /// ) -> Result<()> {
     ///     client.delete_certificate_map()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -478,10 +478,10 @@ impl CertificateManager {
     /// # use google_cloud_certificatemanager_v1::client::CertificateManager;
     /// use google_cloud_certificatemanager_v1::Result;
     /// async fn sample(
-    ///    client: &CertificateManager, resource_name: &str
+    ///    client: &CertificateManager, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_certificate_map_entry()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -587,10 +587,10 @@ impl CertificateManager {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_certificatemanager_v1::Result;
     /// async fn sample(
-    ///    client: &CertificateManager, resource_name: &str
+    ///    client: &CertificateManager, name: &str
     /// ) -> Result<()> {
     ///     client.delete_certificate_map_entry()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -633,10 +633,10 @@ impl CertificateManager {
     /// # use google_cloud_certificatemanager_v1::client::CertificateManager;
     /// use google_cloud_certificatemanager_v1::Result;
     /// async fn sample(
-    ///    client: &CertificateManager, resource_name: &str
+    ///    client: &CertificateManager, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_dns_authorization()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -742,10 +742,10 @@ impl CertificateManager {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_certificatemanager_v1::Result;
     /// async fn sample(
-    ///    client: &CertificateManager, resource_name: &str
+    ///    client: &CertificateManager, name: &str
     /// ) -> Result<()> {
     ///     client.delete_dns_authorization()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -788,10 +788,10 @@ impl CertificateManager {
     /// # use google_cloud_certificatemanager_v1::client::CertificateManager;
     /// use google_cloud_certificatemanager_v1::Result;
     /// async fn sample(
-    ///    client: &CertificateManager, resource_name: &str
+    ///    client: &CertificateManager, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_certificate_issuance_config()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -860,10 +860,10 @@ impl CertificateManager {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_certificatemanager_v1::Result;
     /// async fn sample(
-    ///    client: &CertificateManager, resource_name: &str
+    ///    client: &CertificateManager, name: &str
     /// ) -> Result<()> {
     ///     client.delete_certificate_issuance_config()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -906,10 +906,10 @@ impl CertificateManager {
     /// # use google_cloud_certificatemanager_v1::client::CertificateManager;
     /// use google_cloud_certificatemanager_v1::Result;
     /// async fn sample(
-    ///    client: &CertificateManager, resource_name: &str
+    ///    client: &CertificateManager, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_trust_config()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1009,10 +1009,10 @@ impl CertificateManager {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_certificatemanager_v1::Result;
     /// async fn sample(
-    ///    client: &CertificateManager, resource_name: &str
+    ///    client: &CertificateManager, name: &str
     /// ) -> Result<()> {
     ///     client.delete_trust_config()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }

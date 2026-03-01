@@ -149,10 +149,10 @@ impl CompanyService {
     /// # use google_cloud_talent_v4::client::CompanyService;
     /// use google_cloud_talent_v4::Result;
     /// async fn sample(
-    ///    client: &CompanyService, resource_name: &str
+    ///    client: &CompanyService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_company()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -196,10 +196,10 @@ impl CompanyService {
     /// # use google_cloud_talent_v4::client::CompanyService;
     /// use google_cloud_talent_v4::Result;
     /// async fn sample(
-    ///    client: &CompanyService, resource_name: &str
+    ///    client: &CompanyService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_company()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -719,10 +719,10 @@ impl JobService {
     /// # use google_cloud_talent_v4::client::JobService;
     /// use google_cloud_talent_v4::Result;
     /// async fn sample(
-    ///    client: &JobService, resource_name: &str
+    ///    client: &JobService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_job()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -802,10 +802,10 @@ impl JobService {
     /// # use google_cloud_talent_v4::client::JobService;
     /// use google_cloud_talent_v4::Result;
     /// async fn sample(
-    ///    client: &JobService, resource_name: &str
+    ///    client: &JobService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_job()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -1087,10 +1087,10 @@ impl TenantService {
     /// # use google_cloud_talent_v4::client::TenantService;
     /// use google_cloud_talent_v4::Result;
     /// async fn sample(
-    ///    client: &TenantService, resource_name: &str
+    ///    client: &TenantService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_tenant()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1133,10 +1133,10 @@ impl TenantService {
     /// # use google_cloud_talent_v4::client::TenantService;
     /// use google_cloud_talent_v4::Result;
     /// async fn sample(
-    ///    client: &TenantService, resource_name: &str
+    ///    client: &TenantService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_tenant()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }

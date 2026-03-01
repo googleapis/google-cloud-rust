@@ -188,10 +188,10 @@ impl VideoStitcherService {
     /// # use google_cloud_video_stitcher_v1::client::VideoStitcherService;
     /// use google_cloud_video_stitcher_v1::Result;
     /// async fn sample(
-    ///    client: &VideoStitcherService, resource_name: &str
+    ///    client: &VideoStitcherService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_cdn_key()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -219,10 +219,10 @@ impl VideoStitcherService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_video_stitcher_v1::Result;
     /// async fn sample(
-    ///    client: &VideoStitcherService, resource_name: &str
+    ///    client: &VideoStitcherService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_cdn_key()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -302,10 +302,10 @@ impl VideoStitcherService {
     /// # use google_cloud_video_stitcher_v1::client::VideoStitcherService;
     /// use google_cloud_video_stitcher_v1::Result;
     /// async fn sample(
-    ///    client: &VideoStitcherService, resource_name: &str
+    ///    client: &VideoStitcherService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_vod_session()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -348,10 +348,10 @@ impl VideoStitcherService {
     /// # use google_cloud_video_stitcher_v1::client::VideoStitcherService;
     /// use google_cloud_video_stitcher_v1::Result;
     /// async fn sample(
-    ///    client: &VideoStitcherService, resource_name: &str
+    ///    client: &VideoStitcherService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_vod_stitch_detail()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -395,10 +395,10 @@ impl VideoStitcherService {
     /// # use google_cloud_video_stitcher_v1::client::VideoStitcherService;
     /// use google_cloud_video_stitcher_v1::Result;
     /// async fn sample(
-    ///    client: &VideoStitcherService, resource_name: &str
+    ///    client: &VideoStitcherService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_vod_ad_tag_detail()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -442,10 +442,10 @@ impl VideoStitcherService {
     /// # use google_cloud_video_stitcher_v1::client::VideoStitcherService;
     /// use google_cloud_video_stitcher_v1::Result;
     /// async fn sample(
-    ///    client: &VideoStitcherService, resource_name: &str
+    ///    client: &VideoStitcherService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_live_ad_tag_detail()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -523,10 +523,10 @@ impl VideoStitcherService {
     /// # use google_cloud_video_stitcher_v1::client::VideoStitcherService;
     /// use google_cloud_video_stitcher_v1::Result;
     /// async fn sample(
-    ///    client: &VideoStitcherService, resource_name: &str
+    ///    client: &VideoStitcherService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_slate()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -591,10 +591,10 @@ impl VideoStitcherService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_video_stitcher_v1::Result;
     /// async fn sample(
-    ///    client: &VideoStitcherService, resource_name: &str
+    ///    client: &VideoStitcherService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_slate()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -634,10 +634,10 @@ impl VideoStitcherService {
     /// # use google_cloud_video_stitcher_v1::client::VideoStitcherService;
     /// use google_cloud_video_stitcher_v1::Result;
     /// async fn sample(
-    ///    client: &VideoStitcherService, resource_name: &str
+    ///    client: &VideoStitcherService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_live_session()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -715,10 +715,10 @@ impl VideoStitcherService {
     /// # use google_cloud_video_stitcher_v1::client::VideoStitcherService;
     /// use google_cloud_video_stitcher_v1::Result;
     /// async fn sample(
-    ///    client: &VideoStitcherService, resource_name: &str
+    ///    client: &VideoStitcherService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_live_config()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -746,10 +746,10 @@ impl VideoStitcherService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_video_stitcher_v1::Result;
     /// async fn sample(
-    ///    client: &VideoStitcherService, resource_name: &str
+    ///    client: &VideoStitcherService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_live_config()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -864,10 +864,10 @@ impl VideoStitcherService {
     /// # use google_cloud_video_stitcher_v1::client::VideoStitcherService;
     /// use google_cloud_video_stitcher_v1::Result;
     /// async fn sample(
-    ///    client: &VideoStitcherService, resource_name: &str
+    ///    client: &VideoStitcherService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_vod_config()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -895,10 +895,10 @@ impl VideoStitcherService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_video_stitcher_v1::Result;
     /// async fn sample(
-    ///    client: &VideoStitcherService, resource_name: &str
+    ///    client: &VideoStitcherService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_vod_config()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }

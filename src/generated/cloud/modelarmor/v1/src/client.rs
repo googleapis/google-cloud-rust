@@ -148,10 +148,10 @@ impl ModelArmor {
     /// # use google_cloud_modelarmor_v1::client::ModelArmor;
     /// use google_cloud_modelarmor_v1::Result;
     /// async fn sample(
-    ///    client: &ModelArmor, resource_name: &str
+    ///    client: &ModelArmor, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_template()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -219,10 +219,10 @@ impl ModelArmor {
     /// # use google_cloud_modelarmor_v1::client::ModelArmor;
     /// use google_cloud_modelarmor_v1::Result;
     /// async fn sample(
-    ///    client: &ModelArmor, resource_name: &str
+    ///    client: &ModelArmor, name: &str
     /// ) -> Result<()> {
     ///     client.delete_template()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -238,10 +238,10 @@ impl ModelArmor {
     /// # use google_cloud_modelarmor_v1::client::ModelArmor;
     /// use google_cloud_modelarmor_v1::Result;
     /// async fn sample(
-    ///    client: &ModelArmor, resource_name: &str
+    ///    client: &ModelArmor, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_floor_setting()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())

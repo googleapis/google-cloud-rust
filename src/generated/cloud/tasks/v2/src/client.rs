@@ -151,10 +151,10 @@ impl CloudTasks {
     /// # use google_cloud_tasks_v2::client::CloudTasks;
     /// use google_cloud_tasks_v2::Result;
     /// async fn sample(
-    ///    client: &CloudTasks, resource_name: &str
+    ///    client: &CloudTasks, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_queue()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -258,10 +258,10 @@ impl CloudTasks {
     /// # use google_cloud_tasks_v2::client::CloudTasks;
     /// use google_cloud_tasks_v2::Result;
     /// async fn sample(
-    ///    client: &CloudTasks, resource_name: &str
+    ///    client: &CloudTasks, name: &str
     /// ) -> Result<()> {
     ///     client.delete_queue()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -496,10 +496,10 @@ impl CloudTasks {
     /// # use google_cloud_tasks_v2::client::CloudTasks;
     /// use google_cloud_tasks_v2::Result;
     /// async fn sample(
-    ///    client: &CloudTasks, resource_name: &str
+    ///    client: &CloudTasks, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_task()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -548,10 +548,10 @@ impl CloudTasks {
     /// # use google_cloud_tasks_v2::client::CloudTasks;
     /// use google_cloud_tasks_v2::Result;
     /// async fn sample(
-    ///    client: &CloudTasks, resource_name: &str
+    ///    client: &CloudTasks, name: &str
     /// ) -> Result<()> {
     ///     client.delete_task()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }

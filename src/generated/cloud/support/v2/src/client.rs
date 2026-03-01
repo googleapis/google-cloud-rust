@@ -252,10 +252,10 @@ impl CaseService {
     /// # use google_cloud_support_v2::client::CaseService;
     /// use google_cloud_support_v2::Result;
     /// async fn sample(
-    ///    client: &CaseService, resource_name: &str
+    ///    client: &CaseService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_case()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())

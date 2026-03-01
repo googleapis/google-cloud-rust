@@ -127,10 +127,10 @@ impl CloudControlsPartnerCore {
     /// # use google_cloud_cloudcontrolspartner_v1::client::CloudControlsPartnerCore;
     /// use google_cloud_cloudcontrolspartner_v1::Result;
     /// async fn sample(
-    ///    client: &CloudControlsPartnerCore, resource_name: &str
+    ///    client: &CloudControlsPartnerCore, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_workload()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -170,10 +170,10 @@ impl CloudControlsPartnerCore {
     /// # use google_cloud_cloudcontrolspartner_v1::client::CloudControlsPartnerCore;
     /// use google_cloud_cloudcontrolspartner_v1::Result;
     /// async fn sample(
-    ///    client: &CloudControlsPartnerCore, resource_name: &str
+    ///    client: &CloudControlsPartnerCore, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_customer()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -213,10 +213,10 @@ impl CloudControlsPartnerCore {
     /// # use google_cloud_cloudcontrolspartner_v1::client::CloudControlsPartnerCore;
     /// use google_cloud_cloudcontrolspartner_v1::Result;
     /// async fn sample(
-    ///    client: &CloudControlsPartnerCore, resource_name: &str
+    ///    client: &CloudControlsPartnerCore, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_ekm_connections()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -235,10 +235,10 @@ impl CloudControlsPartnerCore {
     /// # use google_cloud_cloudcontrolspartner_v1::client::CloudControlsPartnerCore;
     /// use google_cloud_cloudcontrolspartner_v1::Result;
     /// async fn sample(
-    ///    client: &CloudControlsPartnerCore, resource_name: &str
+    ///    client: &CloudControlsPartnerCore, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_partner_permissions()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -286,10 +286,10 @@ impl CloudControlsPartnerCore {
     /// # use google_cloud_cloudcontrolspartner_v1::client::CloudControlsPartnerCore;
     /// use google_cloud_cloudcontrolspartner_v1::Result;
     /// async fn sample(
-    ///    client: &CloudControlsPartnerCore, resource_name: &str
+    ///    client: &CloudControlsPartnerCore, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_partner()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -357,10 +357,10 @@ impl CloudControlsPartnerCore {
     /// # use google_cloud_cloudcontrolspartner_v1::client::CloudControlsPartnerCore;
     /// use google_cloud_cloudcontrolspartner_v1::Result;
     /// async fn sample(
-    ///    client: &CloudControlsPartnerCore, resource_name: &str
+    ///    client: &CloudControlsPartnerCore, name: &str
     /// ) -> Result<()> {
     ///     client.delete_customer()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -514,10 +514,10 @@ impl CloudControlsPartnerMonitoring {
     /// # use google_cloud_cloudcontrolspartner_v1::client::CloudControlsPartnerMonitoring;
     /// use google_cloud_cloudcontrolspartner_v1::Result;
     /// async fn sample(
-    ///    client: &CloudControlsPartnerMonitoring, resource_name: &str
+    ///    client: &CloudControlsPartnerMonitoring, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_violation()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())

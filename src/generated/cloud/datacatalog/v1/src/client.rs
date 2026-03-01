@@ -218,10 +218,10 @@ impl DataCatalog {
     /// # use google_cloud_datacatalog_v1::client::DataCatalog;
     /// use google_cloud_datacatalog_v1::Result;
     /// async fn sample(
-    ///    client: &DataCatalog, resource_name: &str
+    ///    client: &DataCatalog, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_entry_group()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -276,10 +276,10 @@ impl DataCatalog {
     /// # use google_cloud_datacatalog_v1::client::DataCatalog;
     /// use google_cloud_datacatalog_v1::Result;
     /// async fn sample(
-    ///    client: &DataCatalog, resource_name: &str
+    ///    client: &DataCatalog, name: &str
     /// ) -> Result<()> {
     ///     client.delete_entry_group()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -399,10 +399,10 @@ impl DataCatalog {
     /// # use google_cloud_datacatalog_v1::client::DataCatalog;
     /// use google_cloud_datacatalog_v1::Result;
     /// async fn sample(
-    ///    client: &DataCatalog, resource_name: &str
+    ///    client: &DataCatalog, name: &str
     /// ) -> Result<()> {
     ///     client.delete_entry()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -419,10 +419,10 @@ impl DataCatalog {
     /// # use google_cloud_datacatalog_v1::client::DataCatalog;
     /// use google_cloud_datacatalog_v1::Result;
     /// async fn sample(
-    ///    client: &DataCatalog, resource_name: &str
+    ///    client: &DataCatalog, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_entry()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -577,10 +577,10 @@ impl DataCatalog {
     /// # use google_cloud_datacatalog_v1::client::DataCatalog;
     /// use google_cloud_datacatalog_v1::Result;
     /// async fn sample(
-    ///    client: &DataCatalog, resource_name: &str
+    ///    client: &DataCatalog, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_tag_template()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -637,10 +637,10 @@ impl DataCatalog {
     /// # use google_cloud_datacatalog_v1::client::DataCatalog;
     /// use google_cloud_datacatalog_v1::Result;
     /// async fn sample(
-    ///    client: &DataCatalog, resource_name: &str
+    ///    client: &DataCatalog, name: &str
     /// ) -> Result<()> {
     ///     client.delete_tag_template()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -781,10 +781,10 @@ impl DataCatalog {
     /// # use google_cloud_datacatalog_v1::client::DataCatalog;
     /// use google_cloud_datacatalog_v1::Result;
     /// async fn sample(
-    ///    client: &DataCatalog, resource_name: &str
+    ///    client: &DataCatalog, name: &str
     /// ) -> Result<()> {
     ///     client.delete_tag_template_field()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -1475,10 +1475,10 @@ impl PolicyTagManager {
     /// # use google_cloud_datacatalog_v1::client::PolicyTagManager;
     /// use google_cloud_datacatalog_v1::Result;
     /// async fn sample(
-    ///    client: &PolicyTagManager, resource_name: &str
+    ///    client: &PolicyTagManager, name: &str
     /// ) -> Result<()> {
     ///     client.delete_taxonomy()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -1545,10 +1545,10 @@ impl PolicyTagManager {
     /// # use google_cloud_datacatalog_v1::client::PolicyTagManager;
     /// use google_cloud_datacatalog_v1::Result;
     /// async fn sample(
-    ///    client: &PolicyTagManager, resource_name: &str
+    ///    client: &PolicyTagManager, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_taxonomy()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1594,10 +1594,10 @@ impl PolicyTagManager {
     /// # use google_cloud_datacatalog_v1::client::PolicyTagManager;
     /// use google_cloud_datacatalog_v1::Result;
     /// async fn sample(
-    ///    client: &PolicyTagManager, resource_name: &str
+    ///    client: &PolicyTagManager, name: &str
     /// ) -> Result<()> {
     ///     client.delete_policy_tag()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -1663,10 +1663,10 @@ impl PolicyTagManager {
     /// # use google_cloud_datacatalog_v1::client::PolicyTagManager;
     /// use google_cloud_datacatalog_v1::Result;
     /// async fn sample(
-    ///    client: &PolicyTagManager, resource_name: &str
+    ///    client: &PolicyTagManager, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_policy_tag()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())

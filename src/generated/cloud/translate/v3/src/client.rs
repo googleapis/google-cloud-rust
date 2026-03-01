@@ -403,10 +403,10 @@ impl TranslationService {
     /// # use google_cloud_translation_v3::client::TranslationService;
     /// use google_cloud_translation_v3::Result;
     /// async fn sample(
-    ///    client: &TranslationService, resource_name: &str
+    ///    client: &TranslationService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_glossary()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -436,10 +436,10 @@ impl TranslationService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_translation_v3::Result;
     /// async fn sample(
-    ///    client: &TranslationService, resource_name: &str
+    ///    client: &TranslationService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.delete_glossary()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -456,10 +456,10 @@ impl TranslationService {
     /// # use google_cloud_translation_v3::client::TranslationService;
     /// use google_cloud_translation_v3::Result;
     /// async fn sample(
-    ///    client: &TranslationService, resource_name: &str
+    ///    client: &TranslationService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_glossary_entry()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -552,10 +552,10 @@ impl TranslationService {
     /// # use google_cloud_translation_v3::client::TranslationService;
     /// use google_cloud_translation_v3::Result;
     /// async fn sample(
-    ///    client: &TranslationService, resource_name: &str
+    ///    client: &TranslationService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_glossary_entry()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -608,10 +608,10 @@ impl TranslationService {
     /// # use google_cloud_translation_v3::client::TranslationService;
     /// use google_cloud_translation_v3::Result;
     /// async fn sample(
-    ///    client: &TranslationService, resource_name: &str
+    ///    client: &TranslationService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_dataset()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -662,10 +662,10 @@ impl TranslationService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_translation_v3::Result;
     /// async fn sample(
-    ///    client: &TranslationService, resource_name: &str
+    ///    client: &TranslationService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_dataset()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -708,10 +708,10 @@ impl TranslationService {
     /// # use google_cloud_translation_v3::client::TranslationService;
     /// use google_cloud_translation_v3::Result;
     /// async fn sample(
-    ///    client: &TranslationService, resource_name: &str
+    ///    client: &TranslationService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_adaptive_mt_dataset()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -729,10 +729,10 @@ impl TranslationService {
     /// # use google_cloud_translation_v3::client::TranslationService;
     /// use google_cloud_translation_v3::Result;
     /// async fn sample(
-    ///    client: &TranslationService, resource_name: &str
+    ///    client: &TranslationService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_adaptive_mt_dataset()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -798,10 +798,10 @@ impl TranslationService {
     /// # use google_cloud_translation_v3::client::TranslationService;
     /// use google_cloud_translation_v3::Result;
     /// async fn sample(
-    ///    client: &TranslationService, resource_name: &str
+    ///    client: &TranslationService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_adaptive_mt_file()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -818,10 +818,10 @@ impl TranslationService {
     /// # use google_cloud_translation_v3::client::TranslationService;
     /// use google_cloud_translation_v3::Result;
     /// async fn sample(
-    ///    client: &TranslationService, resource_name: &str
+    ///    client: &TranslationService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_adaptive_mt_file()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -1053,10 +1053,10 @@ impl TranslationService {
     /// # use google_cloud_translation_v3::client::TranslationService;
     /// use google_cloud_translation_v3::Result;
     /// async fn sample(
-    ///    client: &TranslationService, resource_name: &str
+    ///    client: &TranslationService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_model()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1084,10 +1084,10 @@ impl TranslationService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_translation_v3::Result;
     /// async fn sample(
-    ///    client: &TranslationService, resource_name: &str
+    ///    client: &TranslationService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_model()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }

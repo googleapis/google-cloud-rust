@@ -314,10 +314,10 @@ impl Domains {
     /// # use google_cloud_domains_v1::client::Domains;
     /// use google_cloud_domains_v1::Result;
     /// async fn sample(
-    ///    client: &Domains, resource_name: &str
+    ///    client: &Domains, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_registration()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -540,10 +540,10 @@ impl Domains {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_domains_v1::Result;
     /// async fn sample(
-    ///    client: &Domains, resource_name: &str
+    ///    client: &Domains, name: &str
     /// ) -> Result<()> {
     ///     client.delete_registration()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }

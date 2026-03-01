@@ -66,7 +66,7 @@ Using the storage client, you create a 1MiB object:
 
 Then you use the storage control client to concatenate 32 copies of this object
 into a larger object. This operation does not require transferring any object
-data to the client, it is performed by the service:
+data to the client; the service performs it:
 
 ```rust,ignore,noplayground
 {{#rustdoc_include ../../samples/tests/storage/striped.rs:compose-32}}
@@ -96,9 +96,9 @@ includes the object size and the current generation:
 {{#rustdoc_include ../../samples/tests/storage/striped.rs:get-metadata}}
 ```
 
-We will split the download of each stripe to a separate function. You will see
-the details of this function in a moment, for now just note that it is `async`,
-so it returns a `Future`:
+Split the download of each stripe to a separate function. You will see the
+details of this function in a moment, for now just note that it is `async`, so
+it returns a `Future`:
 
 ```rust,ignore,noplayground
 {{#rustdoc_include ../../samples/tests/storage/striped.rs:write-stripe-function}}
@@ -147,7 +147,7 @@ get inconsistent reads:
 Then you read the data and write it to the local file. This example uses
 `write_all_at` on Unix, and `seek_write` on Windows, as Rust lacks a portable
 function to atomically write at an specific offset. Both these functions are
-blocking, so we need to run them on a dedicated thread:
+blocking, so you need to run them on a dedicated thread:
 
 ```rust,ignore,noplayground
 {{#rustdoc_include ../../samples/tests/storage/striped.rs:write-stripe-loop}}
@@ -161,11 +161,12 @@ blocking, so we need to run them on a dedicated thread:
 
 The performance of these downloads depends on:
 
-- The I/O subsystem: if your local storage is not fast enough the downloads will
-  be throttled by the writes to disk.
-- The configuration of your VM: if you do not have enough CPUs, the downloads
-  will be throttled on trying to decrypt the on data, as Cloud Storage and the
-  client library always encrypt the data in transit.
+- The I/O subsystem: if your local storage is not fast enough writing to disk
+  may be the rate limiting step for these downloads.
+- The configuration of your VM: if the VM does not have enough CPUs, descrypting
+  the data may be the rate limiting step for these downloads. Recall that Cloud
+  Storage always encrypt the data in transit, and the client must always
+  decrypt.
 - The location of the bucket and the particular object: the bucket may store all
   of the objects (or some objects) in a region different from your VM's
   location. In this case, you may be throttled by the wide-area network

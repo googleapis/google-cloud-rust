@@ -269,10 +269,10 @@ impl KeyTrackingService {
     /// # use google_cloud_kms_inventory_v1::client::KeyTrackingService;
     /// use google_cloud_kms_inventory_v1::Result;
     /// async fn sample(
-    ///    client: &KeyTrackingService, resource_name: &str
+    ///    client: &KeyTrackingService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_protected_resources_summary()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())

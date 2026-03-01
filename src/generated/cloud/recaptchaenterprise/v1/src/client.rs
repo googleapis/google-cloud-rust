@@ -249,10 +249,10 @@ impl RecaptchaEnterpriseService {
     /// # use google_cloud_recaptchaenterprise_v1::client::RecaptchaEnterpriseService;
     /// use google_cloud_recaptchaenterprise_v1::Result;
     /// async fn sample(
-    ///    client: &RecaptchaEnterpriseService, resource_name: &str
+    ///    client: &RecaptchaEnterpriseService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_key()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -295,10 +295,10 @@ impl RecaptchaEnterpriseService {
     /// # use google_cloud_recaptchaenterprise_v1::client::RecaptchaEnterpriseService;
     /// use google_cloud_recaptchaenterprise_v1::Result;
     /// async fn sample(
-    ///    client: &RecaptchaEnterpriseService, resource_name: &str
+    ///    client: &RecaptchaEnterpriseService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_key()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -416,10 +416,10 @@ impl RecaptchaEnterpriseService {
     /// # use google_cloud_recaptchaenterprise_v1::client::RecaptchaEnterpriseService;
     /// use google_cloud_recaptchaenterprise_v1::Result;
     /// async fn sample(
-    ///    client: &RecaptchaEnterpriseService, resource_name: &str
+    ///    client: &RecaptchaEnterpriseService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_metrics()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -489,10 +489,10 @@ impl RecaptchaEnterpriseService {
     /// # use google_cloud_recaptchaenterprise_v1::client::RecaptchaEnterpriseService;
     /// use google_cloud_recaptchaenterprise_v1::Result;
     /// async fn sample(
-    ///    client: &RecaptchaEnterpriseService, resource_name: &str
+    ///    client: &RecaptchaEnterpriseService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_firewall_policy()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -539,10 +539,10 @@ impl RecaptchaEnterpriseService {
     /// # use google_cloud_recaptchaenterprise_v1::client::RecaptchaEnterpriseService;
     /// use google_cloud_recaptchaenterprise_v1::Result;
     /// async fn sample(
-    ///    client: &RecaptchaEnterpriseService, resource_name: &str
+    ///    client: &RecaptchaEnterpriseService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_firewall_policy()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }

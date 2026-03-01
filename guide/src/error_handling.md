@@ -86,8 +86,8 @@ The request may have failed for many reasons: because the connection dropped
 before the request was fully sent, or the connection dropped before the response
 was received, or because it was impossible to create the authentication tokens.
 
-The retry policies can deal with most of these errors. Here we are interested
-only in errors returned by the service:
+The retry policies can deal with most of these errors. This guide focuses only
+on errors returned by the service:
 
 ```rust,ignore
 {{#include ../samples/src/error_handling/update_secret.rs:update-secret-svc-error}}

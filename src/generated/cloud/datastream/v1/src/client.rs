@@ -149,10 +149,10 @@ impl Datastream {
     /// # use google_cloud_datastream_v1::client::Datastream;
     /// use google_cloud_datastream_v1::Result;
     /// async fn sample(
-    ///    client: &Datastream, resource_name: &str
+    ///    client: &Datastream, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_connection_profile()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -252,10 +252,10 @@ impl Datastream {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_datastream_v1::Result;
     /// async fn sample(
-    ///    client: &Datastream, resource_name: &str
+    ///    client: &Datastream, name: &str
     /// ) -> Result<()> {
     ///     client.delete_connection_profile()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -319,10 +319,10 @@ impl Datastream {
     /// # use google_cloud_datastream_v1::client::Datastream;
     /// use google_cloud_datastream_v1::Result;
     /// async fn sample(
-    ///    client: &Datastream, resource_name: &str
+    ///    client: &Datastream, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_stream()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -423,10 +423,10 @@ impl Datastream {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_datastream_v1::Result;
     /// async fn sample(
-    ///    client: &Datastream, resource_name: &str
+    ///    client: &Datastream, name: &str
     /// ) -> Result<()> {
     ///     client.delete_stream()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -474,10 +474,10 @@ impl Datastream {
     /// # use google_cloud_datastream_v1::client::Datastream;
     /// use google_cloud_datastream_v1::Result;
     /// async fn sample(
-    ///    client: &Datastream, resource_name: &str
+    ///    client: &Datastream, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_stream_object()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -633,10 +633,10 @@ impl Datastream {
     /// # use google_cloud_datastream_v1::client::Datastream;
     /// use google_cloud_datastream_v1::Result;
     /// async fn sample(
-    ///    client: &Datastream, resource_name: &str
+    ///    client: &Datastream, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_private_connection()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -688,10 +688,10 @@ impl Datastream {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_datastream_v1::Result;
     /// async fn sample(
-    ///    client: &Datastream, resource_name: &str
+    ///    client: &Datastream, name: &str
     /// ) -> Result<()> {
     ///     client.delete_private_connection()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -744,10 +744,10 @@ impl Datastream {
     /// # use google_cloud_datastream_v1::client::Datastream;
     /// use google_cloud_datastream_v1::Result;
     /// async fn sample(
-    ///    client: &Datastream, resource_name: &str
+    ///    client: &Datastream, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_route()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -799,10 +799,10 @@ impl Datastream {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_datastream_v1::Result;
     /// async fn sample(
-    ///    client: &Datastream, resource_name: &str
+    ///    client: &Datastream, name: &str
     /// ) -> Result<()> {
     ///     client.delete_route()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }

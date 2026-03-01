@@ -67,7 +67,7 @@ the nested response objects:
 {{#include ../samples/src/gemini/text_prompt.rs:text-prompt-response}}
 ```
 
-See [below](#text-prompt-complete-code) for the complete code.
+Review the [complete code](#text-prompt-complete-code).
 
 ## Send a prompt and an image to the Vertex AI Gemini API
 
@@ -107,7 +107,7 @@ As in the previous example, print the full response:
 {{#include ../samples/src/gemini/prompt_and_image.rs:prompt-and-image-response}}
 ```
 
-See [below](#prompt-and-image-complete-code) for the complete code.
+Review the [complete code](#prompt-and-image-complete-code).
 
 ______________________________________________________________________
 

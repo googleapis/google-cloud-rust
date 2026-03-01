@@ -40,7 +40,7 @@ The key idea is to use a queue to separate the task pushing new data from the
 task pulling the payload. This tutorial uses a Tokio [mpsc queue], but you can
 use any queue that integrates with Tokio's async runtime.
 
-First wrap the receiver in our own type:
+First wrap the receiver in your own type:
 
 ```rust,ignore,noplayground
 {{#rustdoc_include ../../samples/tests/storage/queue.rs:wrapper-struct}}
@@ -74,7 +74,7 @@ Create a queue, obtaining the receiver and sender:
 ```
 
 Use the client to write an object with the data received from this queue. Note
-that we do not `await` the future created in the `write_object()` method.
+that you do not `await` the future created in the `write_object()` method.
 
 ```rust,ignore,noplayground
 {{#rustdoc_include ../../samples/tests/storage/queue.rs:create-writer}}

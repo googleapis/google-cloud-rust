@@ -201,10 +201,10 @@ impl RapidMigrationAssessment {
     /// # use google_cloud_rapidmigrationassessment_v1::client::RapidMigrationAssessment;
     /// use google_cloud_rapidmigrationassessment_v1::Result;
     /// async fn sample(
-    ///    client: &RapidMigrationAssessment, resource_name: &str
+    ///    client: &RapidMigrationAssessment, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_annotation()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -244,10 +244,10 @@ impl RapidMigrationAssessment {
     /// # use google_cloud_rapidmigrationassessment_v1::client::RapidMigrationAssessment;
     /// use google_cloud_rapidmigrationassessment_v1::Result;
     /// async fn sample(
-    ///    client: &RapidMigrationAssessment, resource_name: &str
+    ///    client: &RapidMigrationAssessment, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_collector()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -313,10 +313,10 @@ impl RapidMigrationAssessment {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_rapidmigrationassessment_v1::Result;
     /// async fn sample(
-    ///    client: &RapidMigrationAssessment, resource_name: &str
+    ///    client: &RapidMigrationAssessment, name: &str
     /// ) -> Result<()> {
     ///     let response = client.delete_collector()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())

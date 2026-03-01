@@ -166,10 +166,10 @@ impl ClientConnectorServicesService {
     /// # use google_cloud_beyondcorp_clientconnectorservices_v1::client::ClientConnectorServicesService;
     /// use google_cloud_beyondcorp_clientconnectorservices_v1::Result;
     /// async fn sample(
-    ///    client: &ClientConnectorServicesService, resource_name: &str
+    ///    client: &ClientConnectorServicesService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_client_connector_service()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -281,10 +281,10 @@ impl ClientConnectorServicesService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_beyondcorp_clientconnectorservices_v1::Result;
     /// async fn sample(
-    ///    client: &ClientConnectorServicesService, resource_name: &str
+    ///    client: &ClientConnectorServicesService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_client_connector_service()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }

@@ -306,10 +306,10 @@ impl SecurityCenter {
     /// # use google_cloud_securitycenter_v2::client::SecurityCenter;
     /// use google_cloud_securitycenter_v2::Result;
     /// async fn sample(
-    ///    client: &SecurityCenter, resource_name: &str
+    ///    client: &SecurityCenter, name: &str
     /// ) -> Result<()> {
     ///     client.delete_big_query_export()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -326,10 +326,10 @@ impl SecurityCenter {
     /// # use google_cloud_securitycenter_v2::client::SecurityCenter;
     /// use google_cloud_securitycenter_v2::Result;
     /// async fn sample(
-    ///    client: &SecurityCenter, resource_name: &str
+    ///    client: &SecurityCenter, name: &str
     /// ) -> Result<()> {
     ///     client.delete_mute_config()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -345,10 +345,10 @@ impl SecurityCenter {
     /// # use google_cloud_securitycenter_v2::client::SecurityCenter;
     /// use google_cloud_securitycenter_v2::Result;
     /// async fn sample(
-    ///    client: &SecurityCenter, resource_name: &str
+    ///    client: &SecurityCenter, name: &str
     /// ) -> Result<()> {
     ///     client.delete_notification_config()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -366,10 +366,10 @@ impl SecurityCenter {
     /// # use google_cloud_securitycenter_v2::client::SecurityCenter;
     /// use google_cloud_securitycenter_v2::Result;
     /// async fn sample(
-    ///    client: &SecurityCenter, resource_name: &str
+    ///    client: &SecurityCenter, name: &str
     /// ) -> Result<()> {
     ///     client.delete_resource_value_config()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -387,10 +387,10 @@ impl SecurityCenter {
     /// # use google_cloud_securitycenter_v2::client::SecurityCenter;
     /// use google_cloud_securitycenter_v2::Result;
     /// async fn sample(
-    ///    client: &SecurityCenter, resource_name: &str
+    ///    client: &SecurityCenter, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_big_query_export()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -408,10 +408,10 @@ impl SecurityCenter {
     /// # use google_cloud_securitycenter_v2::client::SecurityCenter;
     /// use google_cloud_securitycenter_v2::Result;
     /// async fn sample(
-    ///    client: &SecurityCenter, resource_name: &str
+    ///    client: &SecurityCenter, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_simulation()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -428,10 +428,10 @@ impl SecurityCenter {
     /// # use google_cloud_securitycenter_v2::client::SecurityCenter;
     /// use google_cloud_securitycenter_v2::Result;
     /// async fn sample(
-    ///    client: &SecurityCenter, resource_name: &str
+    ///    client: &SecurityCenter, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_valued_resource()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -469,10 +469,10 @@ impl SecurityCenter {
     /// # use google_cloud_securitycenter_v2::client::SecurityCenter;
     /// use google_cloud_securitycenter_v2::Result;
     /// async fn sample(
-    ///    client: &SecurityCenter, resource_name: &str
+    ///    client: &SecurityCenter, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_mute_config()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -489,10 +489,10 @@ impl SecurityCenter {
     /// # use google_cloud_securitycenter_v2::client::SecurityCenter;
     /// use google_cloud_securitycenter_v2::Result;
     /// async fn sample(
-    ///    client: &SecurityCenter, resource_name: &str
+    ///    client: &SecurityCenter, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_notification_config()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -511,10 +511,10 @@ impl SecurityCenter {
     /// # use google_cloud_securitycenter_v2::client::SecurityCenter;
     /// use google_cloud_securitycenter_v2::Result;
     /// async fn sample(
-    ///    client: &SecurityCenter, resource_name: &str
+    ///    client: &SecurityCenter, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_resource_value_config()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -533,10 +533,10 @@ impl SecurityCenter {
     /// # use google_cloud_securitycenter_v2::client::SecurityCenter;
     /// use google_cloud_securitycenter_v2::Result;
     /// async fn sample(
-    ///    client: &SecurityCenter, resource_name: &str
+    ///    client: &SecurityCenter, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_source()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
