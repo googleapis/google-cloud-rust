@@ -253,7 +253,7 @@ impl ReqwestClient {
                 .execute_http_traced(request, options, attempt_info)
                 .await;
         }
-        self.execute_http_untraced(request).await
+        self.execute_http_inner(request).await
     }
 
     #[cfg(google_cloud_unstable_tracing)]
@@ -271,13 +271,13 @@ impl ReqwestClient {
             attempt_info.attempt_count,
         );
         let (method, url) = (request.method().clone(), request.url().clone());
-        self.execute_http_untraced(request)
+        self.execute_http_inner(request)
             .instrument(span.clone())
             .await
             .record_http(&span, attempt_info.attempt_count, method, url)
     }
 
-    async fn execute_http_untraced(&self, request: reqwest::Request) -> Result<reqwest::Response> {
+    async fn execute_http_inner(&self, request: reqwest::Request) -> Result<reqwest::Response> {
         self.inner.execute(request).await.map_err(map_send_error)
     }
 
@@ -402,7 +402,7 @@ impl ReqwestClient {
                 .request_attempt_traced(request, options, _attempt_count)
                 .await;
         }
-        self.request_attempt_untraced(request).await
+        self.request_attempt_inner(request).await
     }
 
     #[cfg(google_cloud_unstable_tracing)]
@@ -415,16 +415,13 @@ impl ReqwestClient {
         use crate::observability::HttpResultExt;
         let span = create_http_attempt_span(&request, options, self.instrumentation, attempt_count);
         let (method, url) = (request.method().clone(), request.url().clone());
-        self.request_attempt_untraced(request)
+        self.request_attempt_inner(request)
             .instrument(span.clone())
             .await
             .record_http(&span, attempt_count, method, url)
     }
 
-    async fn request_attempt_untraced(
-        &self,
-        request: reqwest::Request,
-    ) -> Result<reqwest::Response> {
+    async fn request_attempt_inner(&self, request: reqwest::Request) -> Result<reqwest::Response> {
         let response = self.inner.execute(request).await.map_err(map_send_error)?;
         if !response.status().is_success() {
             return self::to_http_error(response).await;

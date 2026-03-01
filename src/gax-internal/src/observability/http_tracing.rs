@@ -160,15 +160,17 @@ pub fn record_intermediate_client_request(
     request_url: &reqwest::Url,
 ) {
     let span = Span::current();
-    // Only enrich spans that are explicitly marked as GAX client spans.
-    // This prevents accidental enrichment of user-provided spans that happen to have the same fields.
     if span.is_disabled() {
+        // Skip disabled traces because this function adds a small amount of
+        // overhead.
         return;
     }
     if span
         .metadata()
         .is_none_or(|m| m.fields().field("gax.client.span").is_none())
     {
+        // Only enrich spans that are explicitly marked as GAX client spans.
+        // This prevents accidental enrichment of user-provided spans that happen to have the same fields.
         return;
     }
 
@@ -402,18 +404,14 @@ mod tests {
     #[test_case(StatusCode::OK; "OK")]
     #[test_case(StatusCode::CREATED; "Created")]
     #[tokio::test]
-    async fn record_http_ok(status_code: StatusCode) {
+    async fn record_http_ok(status_code: StatusCode) -> anyhow::Result<()> {
         let guard = TestLayer::initialize();
-        let request =
-            reqwest::Request::new(Method::GET, "https://example.com/test".parse().unwrap());
+        let request = reqwest::Request::new(Method::GET, "https://example.com/test".parse()?);
         let options = RequestOptions::default();
         let span = create_http_attempt_span(&request, &options, None, 0);
         let _enter = span.enter();
 
-        let response = http::Response::builder()
-            .status(status_code)
-            .body("")
-            .unwrap();
+        let response = http::Response::builder().status(status_code).body("")?;
         let response: reqwest::Response = response.into();
         let _ = Ok(response).record_http(&span, 123, Method::GET, request.url().clone());
 
@@ -440,6 +438,7 @@ mod tests {
 
         let got = http_request_attributes(&guard);
         assert_eq!(got, want);
+        Ok(())
     }
 
     #[tokio::test]
@@ -661,11 +660,11 @@ mod tests {
         let _ = Ok(response).record_http(&t4, 1, Method::GET, url);
 
         let captured = TestLayer::capture(&guard);
-        let _ = captured
+        let test = captured
             .iter()
             .find(|s| s.name == "client_request")
             .unwrap_or_else(|| panic!("cannot find `client_request` span: {captured:?}"));
-        let attributes = &captured[0].attributes;
+        let attributes = &test.attributes;
 
         assert_eq!(
             attributes.get(otel_trace::HTTP_RESPONSE_STATUS_CODE),
