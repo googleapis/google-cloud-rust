@@ -198,8 +198,8 @@ impl Builder {
     /// Google Cloud Monitoring only accepts metric names in these formats:
     ///     custom.googleapis.com/{name}
     ///     workload.googleapis.com/{name}
-    ///     project/{projectId}/metriDescriptors/custom.googleapis.com/{name}
-    ///     project/{projectId}/metriDescriptors/workload.googleapis.com/{name}
+    ///     project/{projectId}/metricDescriptors/custom.googleapis.com/{name}
+    ///     project/{projectId}/metricDescriptors/workload.googleapis.com/{name}
     fn name_missing_prefix(name: &str) -> bool {
         const W: &str = "workload.googleapis.com";
         const C: &str = "custom.googleapis.com";
@@ -401,8 +401,10 @@ mod tests {
     #[test_case("plain", true)]
     #[test_case("custom.googleapis.com/plain", false)]
     #[test_case("workload.googleapis.com/plain", false)]
+    #[test_case("workload.googleapis.com/with/complex/name", false)]
     #[test_case("projects/p/metricDescriptors/custom.googleapis.com/plain", false)]
     #[test_case("projects/p/metricDescriptors/workload.googleapis.com/plain", false)]
+    #[test_case("projects/p/metricDescriptors/workload.googleapis.com/a/b/c", false)]
     #[test_case("projects/p/custom.googleapis.com/plain", true)]
     #[test_case("projects/p/workload.googleapis.com/plain", true)]
     #[test_case("projects/p/D/custom.googleapis.com/plain", true)]

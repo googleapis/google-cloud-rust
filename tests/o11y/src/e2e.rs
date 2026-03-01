@@ -101,7 +101,6 @@ pub async fn try_get_metric(
         .set_filter(format!(
             r#"metric.type = "{metric_name}" AND metric.label.{key} = "{value}""#
         ))
-        .set_order_by("")
         .send()
         .await?;
     Ok(Some(response))
@@ -124,11 +123,11 @@ pub async fn set_up_tracer_provider(project_id: &str) -> anyhow::Result<&SdkTrac
 
 /// Creates a new tracer provider for the tests.
 ///
-/// This uses ADC, and configure a quota project for user credentials because
+/// This uses ADC, and configures a quota project for user credentials because
 /// telemetry endpoint rejects user credentials without the quota user project.
 ///
 /// Note that some other services reject requests *with* a quota user project.
-/// Therefore, we cannot require that the credentials have a quota user prorject
+/// Therefore, we cannot require that the credentials have a quota user project
 /// set.
 async fn new_tracer_provider(project_id: &str) -> anyhow::Result<SdkTracerProvider> {
     let credentials = CREDENTIALS
@@ -170,13 +169,13 @@ where
         .map_err(|e| anyhow::anyhow!("badly initialized provider: {e:?}"))
 }
 
-/// Creates a new tracer provider for the tests.
+/// Creates a new meter provider for the tests.
 ///
-/// This uses ADC, and configure a quota project for user credentials because
+/// This uses ADC, and configures a quota project for user credentials because
 /// telemetry endpoint rejects user credentials without the quota user project.
 ///
 /// Note that some other services reject requests *with* a quota user project.
-/// Therefore, we cannot require that the credentials have a quota user prorject
+/// Therefore, we cannot require that the credentials have a quota user project
 /// set.
 async fn new_meter_provider<D>(project_id: &str, detector: D) -> anyhow::Result<SdkMeterProvider>
 where

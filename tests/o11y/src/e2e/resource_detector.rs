@@ -30,11 +30,12 @@ impl ResourceDetector for TestResourceDetector {
         // have a `location`, `namespace`, and `node_id`:
         //     https://docs.cloud.google.com/monitoring/api/resources#tag_generic_node
         //
-        // I tried using the [global] resource type, it did not work.
-        //     https://docs.cloud.google.com/monitoring/api/resources#tag_global
+        // Using the [global] resource type, does not seem to work.
+        //
+        // [global]: https://docs.cloud.google.com/monitoring/api/resources#tag_global
         Resource::builder_empty()
             .with_attributes([
-                // It seems that `opentelemetry.googleapis.com` rejects locations
+                // It seems that `telemetry.googleapis.com` rejects locations
                 // that are not a valid region or zone. Since these tests may run
                 // on laptops and workstations, we hard-code a value.
                 KeyValue::new("location", "us-central1"),

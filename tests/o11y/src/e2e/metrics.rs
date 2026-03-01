@@ -41,7 +41,6 @@ pub async fn run() -> anyhow::Result<()> {
         tokio::time::sleep(delay).await;
         for d in rand::rng().sample_iter(&generator).take(5_000) {
             metric.record(d.as_secs_f64(), &[KeyValue::new("testId", id.clone())]);
-            tokio::time::sleep(Duration::from_millis(1)).await;
         }
         // Ignore errors because it may have flushed recently.
         let _ = provider.force_flush();
