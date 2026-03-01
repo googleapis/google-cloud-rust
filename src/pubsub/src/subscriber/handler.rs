@@ -48,7 +48,8 @@ use tokio::sync::mpsc::UnboundedSender;
 pub(super) enum Action {
     Ack(String),
     Nack(String),
-    // TODO(#3964) - support exactly once acking
+    ExactlyOnceAck(String),
+    ExactlyOnceNack(String),
 }
 
 /// A handler for acknowledging or rejecting messages.
@@ -223,11 +224,11 @@ struct ExactlyOnceImpl {
 
 impl ExactlyOnceImpl {
     pub fn ack(self) {
-        let _ = self.ack_tx.send(Action::Ack(self.ack_id));
+        let _ = self.ack_tx.send(Action::ExactlyOnceAck(self.ack_id));
     }
 
     pub fn nack(self) {
-        let _ = self.ack_tx.send(Action::Nack(self.ack_id));
+        let _ = self.ack_tx.send(Action::ExactlyOnceNack(self.ack_id));
     }
 
     // TODO(#3964): add confirmed_ack()
@@ -303,7 +304,7 @@ mod tests {
 
         h.ack();
         let ack = ack_rx.try_recv()?;
-        assert_eq!(ack, Action::Ack(test_id(1)));
+        assert_eq!(ack, Action::ExactlyOnceAck(test_id(1)));
 
         Ok(())
     }
@@ -316,7 +317,7 @@ mod tests {
 
         drop(h);
         let ack = ack_rx.try_recv()?;
-        assert_eq!(ack, Action::Nack(test_id(1)));
+        assert_eq!(ack, Action::ExactlyOnceNack(test_id(1)));
 
         Ok(())
     }
