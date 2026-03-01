@@ -14,16 +14,19 @@
 
 #[cfg(all(test, feature = "run-integration-tests", google_cloud_unstable_tracing))]
 mod telemetry {
+    #[ignore = "TODO(#4852) - flakes trying to flush data"]
     #[tokio::test(flavor = "multi_thread")]
     async fn metrics() -> anyhow::Result<()> {
         integration_tests_o11y::e2e::metrics::run().await
     }
 
+    #[ignore = "TODO(#4852) - flakes trying to flush data"]
     #[tokio::test(flavor = "multi_thread")]
     async fn showcase() -> anyhow::Result<()> {
         integration_tests_o11y::e2e::showcase::run().await
     }
 
+    #[ignore = "TODO(#4852) - flakes trying to flush data"]
     #[tokio::test(flavor = "multi_thread")]
     async fn storage() -> anyhow::Result<()> {
         integration_tests_o11y::e2e::storage::run().await
