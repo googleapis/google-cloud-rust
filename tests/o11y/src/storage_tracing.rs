@@ -24,8 +24,8 @@ pub async fn success_testlayer() -> anyhow::Result<()> {
     let (guard, mut server, client) = setup_fake_storage().await;
 
     // Test each method. Each one requires a different server set up and
-    // different expectations. Better to refactor them.
-    // so we need to
+    // different expectations. Better to refactor them and reset the
+    // server expectations after each.
     read_object(&guard, &server, client.clone()).await?;
     server.verify_and_clear();
     write_object_single_shot(&guard, &server, client.clone()).await?;
@@ -381,7 +381,6 @@ async fn write_object_resumable(
             ("url.full", upload_url.to_string().into()),
             ("http.response.status_code", 200_i64.into()),
             ("http.response.body.size", ("{}".len() as i64).into()),
-            ("http.request.resend_count", 1_i64.into()),
         ],
     );
     let unexpected = find_unexpected(&put.attributes, &want);

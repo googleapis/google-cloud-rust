@@ -124,9 +124,8 @@ where
                 self.resource().bucket
             )));
         let builder = builder.body(payload);
-        let response = builder
-            .send(options, AttemptInfo::new(attempt_count))
-            .await?;
+        // TODO(#4862) - maybe this should also use attempt_count ?
+        let response = builder.send(options, AttemptInfo::new(0)).await?;
         let object = self::handle_object_response(response).await?;
         self.validate_response_object(object).await
     }

@@ -100,7 +100,6 @@ where
             };
         }
 
-        let mut count = 0;
         loop {
             progress
                 .next_buffer(&mut *self.payload.lock().await)
@@ -114,8 +113,8 @@ where
                     self.resource().bucket
                 )));
             let builder = self.partial_upload_request(upload_url, progress).await?;
-            let response = builder.send(options, AttemptInfo::new(count)).await?;
-            count += 1;
+            // TODO(#4862) - maybe this should also use attempt_count ?
+            let response = builder.send(options, AttemptInfo::new(0)).await?;
             match super::query_resumable_upload_handle_response(response).await {
                 Err(e) => {
                     progress.handle_error();
