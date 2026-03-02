@@ -377,7 +377,7 @@ percent-encoding      = { default-features = false, version = "2.3" }
 pin-project           = { default-features = false, version = "1.0.11" }
 rand                  = { default-features = false, version = "0.10" }
 p256                  = { default-features = false, version = "0.13" }
-rustls                = { default-features = false, version = "0.23.27" }
+rustls                = { default-features = false, version = "0.23.37" }
 rustls-pki-types      = { default-features = false, version = "1.14" }
 semver                = { default-features = false, version = "1.0.26" }
 serde                 = { default-features = false, version = "1.0.228", features = ["serde_derive"] }
