@@ -78,7 +78,7 @@ pub(super) enum Action {
 /// To acknowledge (ack) a message, you call [`Handler::ack()`].
 ///
 /// To reject (nack) a message, you [`drop()`][Drop::drop] the handler. The
-/// message will be redelivered.
+/// service will redeliver the message.
 ///
 /// ## Exactly-once delivery
 ///
