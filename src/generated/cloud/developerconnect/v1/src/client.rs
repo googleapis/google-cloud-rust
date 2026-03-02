@@ -149,10 +149,10 @@ impl DeveloperConnect {
     /// # use google_cloud_developerconnect_v1::client::DeveloperConnect;
     /// use google_cloud_developerconnect_v1::Result;
     /// async fn sample(
-    ///    client: &DeveloperConnect, resource_name: &str
+    ///    client: &DeveloperConnect, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_connection()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -184,7 +184,8 @@ impl DeveloperConnect {
     ///    client: &DeveloperConnect, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_connection()
-    ///         .set_parent(parent).set_connection_id("connection_id_value")
+    ///         .set_parent(parent)
+    ///         .set_connection_id("connection_id_value")
     ///         .set_connection(
     ///             Connection::new()/* set fields */
     ///         )
@@ -252,10 +253,10 @@ impl DeveloperConnect {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_developerconnect_v1::Result;
     /// async fn sample(
-    ///    client: &DeveloperConnect, resource_name: &str
+    ///    client: &DeveloperConnect, name: &str
     /// ) -> Result<()> {
     ///     client.delete_connection()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -267,8 +268,9 @@ impl DeveloperConnect {
     /// Creates a GitRepositoryLink. Upon linking a Git Repository, Developer
     /// Connect will configure the Git Repository to send webhook events to
     /// Developer Connect. Connections that use Firebase GitHub Application will
-    /// have events forwarded to the Firebase service. All other Connections will
-    /// have events forwarded to Cloud Build.
+    /// have events forwarded to the Firebase service. Connections that use Gemini
+    /// Code Assist will have events forwarded to Gemini Code Assist service. All
+    /// other Connections will have events forwarded to Cloud Build.
     ///
     /// # Long running operations
     ///
@@ -323,10 +325,10 @@ impl DeveloperConnect {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_developerconnect_v1::Result;
     /// async fn sample(
-    ///    client: &DeveloperConnect, resource_name: &str
+    ///    client: &DeveloperConnect, name: &str
     /// ) -> Result<()> {
     ///     client.delete_git_repository_link()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -369,10 +371,10 @@ impl DeveloperConnect {
     /// # use google_cloud_developerconnect_v1::client::DeveloperConnect;
     /// use google_cloud_developerconnect_v1::Result;
     /// async fn sample(
-    ///    client: &DeveloperConnect, resource_name: &str
+    ///    client: &DeveloperConnect, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_git_repository_link()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -527,10 +529,10 @@ impl DeveloperConnect {
     /// # use google_cloud_developerconnect_v1::client::DeveloperConnect;
     /// use google_cloud_developerconnect_v1::Result;
     /// async fn sample(
-    ///    client: &DeveloperConnect, resource_name: &str
+    ///    client: &DeveloperConnect, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_account_connector()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -634,10 +636,10 @@ impl DeveloperConnect {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_developerconnect_v1::Result;
     /// async fn sample(
-    ///    client: &DeveloperConnect, resource_name: &str
+    ///    client: &DeveloperConnect, name: &str
     /// ) -> Result<()> {
     ///     client.delete_account_connector()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -709,10 +711,10 @@ impl DeveloperConnect {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_developerconnect_v1::Result;
     /// async fn sample(
-    ///    client: &DeveloperConnect, resource_name: &str
+    ///    client: &DeveloperConnect, name: &str
     /// ) -> Result<()> {
     ///     client.delete_user()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -771,7 +773,54 @@ impl DeveloperConnect {
         super::builder::developer_connect::DeleteSelf::new(self.inner.clone())
     }
 
+    /// Starts OAuth flow for an account connector.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_developerconnect_v1::client::DeveloperConnect;
+    /// use google_cloud_developerconnect_v1::Result;
+    /// async fn sample(
+    ///    client: &DeveloperConnect
+    /// ) -> Result<()> {
+    ///     let response = client.start_o_auth()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn start_o_auth(&self) -> super::builder::developer_connect::StartOAuth {
+        super::builder::developer_connect::StartOAuth::new(self.inner.clone())
+    }
+
+    /// Finishes OAuth flow for an account connector.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_developerconnect_v1::client::DeveloperConnect;
+    /// use google_cloud_developerconnect_v1::Result;
+    /// async fn sample(
+    ///    client: &DeveloperConnect
+    /// ) -> Result<()> {
+    ///     let response = client.finish_o_auth()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn finish_o_auth(&self) -> super::builder::developer_connect::FinishOAuth {
+        super::builder::developer_connect::FinishOAuth::new(self.inner.clone())
+    }
+
     /// Lists information about the supported locations for this service.
+    /// This method can be called in two ways:
+    ///
+    /// * **List all public locations:** Use the path `GET /v1/locations`.
+    /// * **List project-visible locations:** Use the path
+    ///   `GET /v1/projects/{project_id}/locations`. This may include public
+    ///   locations as well as private or other locations specifically visible
+    ///   to the project.
     ///
     /// # Example
     /// ```
@@ -921,7 +970,7 @@ impl DeveloperConnect {
 ///
 /// The InsightsConfig resource is the core configuration object to capture
 /// events from your Software Development Lifecycle. It acts as the central hub
-/// for managing how Developer connect understands your application, its runtime
+/// for managing how Developer Connect understands your application, its runtime
 /// environments, and the artifacts deployed within them.
 /// A user can create an InsightsConfig, list previously-requested
 /// InsightsConfigs or get InsightsConfigs by their ID to determine the status of
@@ -1084,10 +1133,10 @@ impl InsightsConfigService {
     /// # use google_cloud_developerconnect_v1::client::InsightsConfigService;
     /// use google_cloud_developerconnect_v1::Result;
     /// async fn sample(
-    ///    client: &InsightsConfigService, resource_name: &str
+    ///    client: &InsightsConfigService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_insights_config()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1135,7 +1184,7 @@ impl InsightsConfigService {
         super::builder::insights_config_service::UpdateInsightsConfig::new(self.inner.clone())
     }
 
-    /// Delete a single Insight.
+    /// Deletes a single Insight.
     ///
     /// # Long running operations
     ///
@@ -1153,10 +1202,10 @@ impl InsightsConfigService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_developerconnect_v1::Result;
     /// async fn sample(
-    ///    client: &InsightsConfigService, resource_name: &str
+    ///    client: &InsightsConfigService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_insights_config()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1167,7 +1216,61 @@ impl InsightsConfigService {
         super::builder::insights_config_service::DeleteInsightsConfig::new(self.inner.clone())
     }
 
+    /// Gets a single Deployment Event.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_developerconnect_v1::client::InsightsConfigService;
+    /// use google_cloud_developerconnect_v1::Result;
+    /// async fn sample(
+    ///    client: &InsightsConfigService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_deployment_event()
+    ///         .set_name(name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_deployment_event(
+        &self,
+    ) -> super::builder::insights_config_service::GetDeploymentEvent {
+        super::builder::insights_config_service::GetDeploymentEvent::new(self.inner.clone())
+    }
+
+    /// Lists Deployment Events in a given insights config.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_developerconnect_v1::client::InsightsConfigService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_developerconnect_v1::Result;
+    /// async fn sample(
+    ///    client: &InsightsConfigService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_deployment_events()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_deployment_events(
+        &self,
+    ) -> super::builder::insights_config_service::ListDeploymentEvents {
+        super::builder::insights_config_service::ListDeploymentEvents::new(self.inner.clone())
+    }
+
     /// Lists information about the supported locations for this service.
+    /// This method can be called in two ways:
+    ///
+    /// * **List all public locations:** Use the path `GET /v1/locations`.
+    /// * **List project-visible locations:** Use the path
+    ///   `GET /v1/projects/{project_id}/locations`. This may include public
+    ///   locations as well as private or other locations specifically visible
+    ///   to the project.
     ///
     /// # Example
     /// ```

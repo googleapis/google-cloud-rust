@@ -1202,6 +1202,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Job {
             __delete_object,
             __put_metadata,
             __rewrite_object,
+            __update_object_custom_context,
             __logging_config,
             __create_time,
             __schedule_time,
@@ -1243,6 +1244,12 @@ impl<'de> serde::de::Deserialize<'de> for super::Job {
                             "put_metadata" => Ok(__FieldTag::__put_metadata),
                             "rewriteObject" => Ok(__FieldTag::__rewrite_object),
                             "rewrite_object" => Ok(__FieldTag::__rewrite_object),
+                            "updateObjectCustomContext" => {
+                                Ok(__FieldTag::__update_object_custom_context)
+                            }
+                            "update_object_custom_context" => {
+                                Ok(__FieldTag::__update_object_custom_context)
+                            }
                             "loggingConfig" => Ok(__FieldTag::__logging_config),
                             "logging_config" => Ok(__FieldTag::__logging_config),
                             "createTime" => Ok(__FieldTag::__create_time),
@@ -1403,6 +1410,26 @@ impl<'de> serde::de::Deserialize<'de> for super::Job {
                                 ),
                             );
                         }
+                        __FieldTag::__update_object_custom_context => {
+                            if !fields.insert(__FieldTag::__update_object_custom_context) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for update_object_custom_context",
+                                ));
+                            }
+                            if result.transformation.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `transformation`, a oneof with full ID .google.cloud.storagebatchoperations.v1.Job.update_object_custom_context, latest field was updateObjectCustomContext",
+                                ));
+                            }
+                            result.transformation = std::option::Option::Some(
+                                crate::model::job::Transformation::UpdateObjectCustomContext(
+                                    map.next_value::<std::option::Option<
+                                        std::boxed::Box<crate::model::UpdateObjectCustomContext>,
+                                    >>()?
+                                    .unwrap_or_default(),
+                                ),
+                            );
+                        }
                         __FieldTag::__logging_config => {
                             if !fields.insert(__FieldTag::__logging_config) {
                                 return std::result::Result::Err(A::Error::duplicate_field(
@@ -1517,6 +1544,7 @@ impl<'de> serde::de::Deserialize<'de> for super::BucketOperation {
             __delete_object,
             __put_metadata,
             __rewrite_object,
+            __update_object_custom_context,
             __create_time,
             __start_time,
             __complete_time,
@@ -1557,6 +1585,12 @@ impl<'de> serde::de::Deserialize<'de> for super::BucketOperation {
                             "put_metadata" => Ok(__FieldTag::__put_metadata),
                             "rewriteObject" => Ok(__FieldTag::__rewrite_object),
                             "rewrite_object" => Ok(__FieldTag::__rewrite_object),
+                            "updateObjectCustomContext" => {
+                                Ok(__FieldTag::__update_object_custom_context)
+                            }
+                            "update_object_custom_context" => {
+                                Ok(__FieldTag::__update_object_custom_context)
+                            }
                             "createTime" => Ok(__FieldTag::__create_time),
                             "create_time" => Ok(__FieldTag::__create_time),
                             "startTime" => Ok(__FieldTag::__start_time),
@@ -1729,6 +1763,23 @@ impl<'de> serde::de::Deserialize<'de> for super::BucketOperation {
                                         std::boxed::Box<crate::model::RewriteObject>,
                                     >>()?
                                     .unwrap_or_default(),
+                                ),
+                            );
+                        }
+                        __FieldTag::__update_object_custom_context => {
+                            if !fields.insert(__FieldTag::__update_object_custom_context) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for update_object_custom_context",
+                                ));
+                            }
+                            if result.transformation.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `transformation`, a oneof with full ID .google.cloud.storagebatchoperations.v1.BucketOperation.update_object_custom_context, latest field was updateObjectCustomContext",
+                                ));
+                            }
+                            result.transformation = std::option::Option::Some(
+                                crate::model::bucket_operation::Transformation::UpdateObjectCustomContext(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::model::UpdateObjectCustomContext>>>()?.unwrap_or_default()
                                 ),
                             );
                         }
@@ -2671,6 +2722,290 @@ impl<'de> serde::de::Deserialize<'de> for super::PutMetadata {
                             result.object_retention = map
                                 .next_value::<std::option::Option<crate::model::ObjectRetention>>(
                                 )?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::ObjectCustomContextPayload {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __value,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ObjectCustomContextPayload")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "value" => Ok(__FieldTag::__value),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::ObjectCustomContextPayload;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ObjectCustomContextPayload")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__value => {
+                            if !fields.insert(__FieldTag::__value) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for value",
+                                ));
+                            }
+                            result.value =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::CustomContextUpdates {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __updates,
+            __keys_to_clear,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for CustomContextUpdates")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "updates" => Ok(__FieldTag::__updates),
+                            "keysToClear" => Ok(__FieldTag::__keys_to_clear),
+                            "keys_to_clear" => Ok(__FieldTag::__keys_to_clear),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::CustomContextUpdates;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct CustomContextUpdates")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__updates => {
+                            if !fields.insert(__FieldTag::__updates) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for updates",
+                                ));
+                            }
+                            result.updates = map
+                                .next_value::<std::option::Option<
+                                    std::collections::HashMap<
+                                        std::string::String,
+                                        crate::model::ObjectCustomContextPayload,
+                                    >,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__keys_to_clear => {
+                            if !fields.insert(__FieldTag::__keys_to_clear) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for keys_to_clear",
+                                ));
+                            }
+                            result.keys_to_clear = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::UpdateObjectCustomContext {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __custom_context_updates,
+            __clear_all,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for UpdateObjectCustomContext")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "customContextUpdates" => Ok(__FieldTag::__custom_context_updates),
+                            "custom_context_updates" => Ok(__FieldTag::__custom_context_updates),
+                            "clearAll" => Ok(__FieldTag::__clear_all),
+                            "clear_all" => Ok(__FieldTag::__clear_all),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::UpdateObjectCustomContext;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct UpdateObjectCustomContext")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__custom_context_updates => {
+                            if !fields.insert(__FieldTag::__custom_context_updates) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for custom_context_updates",
+                                ));
+                            }
+                            if result.action.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `action`, a oneof with full ID .google.cloud.storagebatchoperations.v1.UpdateObjectCustomContext.custom_context_updates, latest field was customContextUpdates",
+                                ));
+                            }
+                            result.action = std::option::Option::Some(
+                                crate::model::update_object_custom_context::Action::CustomContextUpdates(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::model::CustomContextUpdates>>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__clear_all => {
+                            if !fields.insert(__FieldTag::__clear_all) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for clear_all",
+                                ));
+                            }
+                            if result.action.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `action`, a oneof with full ID .google.cloud.storagebatchoperations.v1.UpdateObjectCustomContext.clear_all, latest field was clearAll",
+                                ));
+                            }
+                            result.action = std::option::Option::Some(
+                                crate::model::update_object_custom_context::Action::ClearAll(
+                                    map.next_value::<std::option::Option<bool>>()?
+                                        .unwrap_or_default(),
+                                ),
+                            );
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

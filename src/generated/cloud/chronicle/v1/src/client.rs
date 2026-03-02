@@ -159,10 +159,10 @@ impl DataAccessControlService {
     /// # use google_cloud_chronicle_v1::client::DataAccessControlService;
     /// use google_cloud_chronicle_v1::Result;
     /// async fn sample(
-    ///    client: &DataAccessControlService, resource_name: &str
+    ///    client: &DataAccessControlService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_data_access_label()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -236,10 +236,10 @@ impl DataAccessControlService {
     /// # use google_cloud_chronicle_v1::client::DataAccessControlService;
     /// use google_cloud_chronicle_v1::Result;
     /// async fn sample(
-    ///    client: &DataAccessControlService, resource_name: &str
+    ///    client: &DataAccessControlService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_data_access_label()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -288,10 +288,10 @@ impl DataAccessControlService {
     /// # use google_cloud_chronicle_v1::client::DataAccessControlService;
     /// use google_cloud_chronicle_v1::Result;
     /// async fn sample(
-    ///    client: &DataAccessControlService, resource_name: &str
+    ///    client: &DataAccessControlService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_data_access_scope()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -363,10 +363,10 @@ impl DataAccessControlService {
     /// # use google_cloud_chronicle_v1::client::DataAccessControlService;
     /// use google_cloud_chronicle_v1::Result;
     /// async fn sample(
-    ///    client: &DataAccessControlService, resource_name: &str
+    ///    client: &DataAccessControlService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_data_access_scope()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -576,10 +576,10 @@ impl EntityService {
     /// # use google_cloud_chronicle_v1::client::EntityService;
     /// use google_cloud_chronicle_v1::Result;
     /// async fn sample(
-    ///    client: &EntityService, resource_name: &str
+    ///    client: &EntityService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_watchlist()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -624,7 +624,8 @@ impl EntityService {
     ///    client: &EntityService, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_watchlist()
-    ///         .set_parent(parent).set_watchlist_id("watchlist_id_value")
+    ///         .set_parent(parent)
+    ///         .set_watchlist_id("watchlist_id_value")
     ///         .set_watchlist(
     ///             Watchlist::new()/* set fields */
     ///         )
@@ -670,10 +671,10 @@ impl EntityService {
     /// # use google_cloud_chronicle_v1::client::EntityService;
     /// use google_cloud_chronicle_v1::Result;
     /// async fn sample(
-    ///    client: &EntityService, resource_name: &str
+    ///    client: &EntityService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_watchlist()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -881,10 +882,10 @@ impl InstanceService {
     /// # use google_cloud_chronicle_v1::client::InstanceService;
     /// use google_cloud_chronicle_v1::Result;
     /// async fn sample(
-    ///    client: &InstanceService, resource_name: &str
+    ///    client: &InstanceService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_instance()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1094,10 +1095,10 @@ impl ReferenceListService {
     /// # use google_cloud_chronicle_v1::client::ReferenceListService;
     /// use google_cloud_chronicle_v1::Result;
     /// async fn sample(
-    ///    client: &ReferenceListService, resource_name: &str
+    ///    client: &ReferenceListService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_reference_list()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1409,10 +1410,10 @@ impl RuleService {
     /// # use google_cloud_chronicle_v1::client::RuleService;
     /// use google_cloud_chronicle_v1::Result;
     /// async fn sample(
-    ///    client: &RuleService, resource_name: &str
+    ///    client: &RuleService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_rule()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1478,10 +1479,10 @@ impl RuleService {
     /// # use google_cloud_chronicle_v1::client::RuleService;
     /// use google_cloud_chronicle_v1::Result;
     /// async fn sample(
-    ///    client: &RuleService, resource_name: &str
+    ///    client: &RuleService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_rule()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -1555,10 +1556,10 @@ impl RuleService {
     /// # use google_cloud_chronicle_v1::client::RuleService;
     /// use google_cloud_chronicle_v1::Result;
     /// async fn sample(
-    ///    client: &RuleService, resource_name: &str
+    ///    client: &RuleService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_retrohunt()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1598,10 +1599,10 @@ impl RuleService {
     /// # use google_cloud_chronicle_v1::client::RuleService;
     /// use google_cloud_chronicle_v1::Result;
     /// async fn sample(
-    ///    client: &RuleService, resource_name: &str
+    ///    client: &RuleService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_rule_deployment()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())

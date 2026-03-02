@@ -154,10 +154,10 @@ impl Config {
     /// # use google_cloud_config_v1::client::Config;
     /// use google_cloud_config_v1::Result;
     /// async fn sample(
-    ///    client: &Config, resource_name: &str
+    ///    client: &Config, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_deployment()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -191,7 +191,8 @@ impl Config {
     ///    client: &Config, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_deployment()
-    ///         .set_parent(parent).set_deployment_id("deployment_id_value")
+    ///         .set_parent(parent)
+    ///         .set_deployment_id("deployment_id_value")
     ///         .set_deployment(
     ///             Deployment::new()/* set fields */
     ///         )
@@ -263,10 +264,10 @@ impl Config {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_config_v1::Result;
     /// async fn sample(
-    ///    client: &Config, resource_name: &str
+    ///    client: &Config, name: &str
     /// ) -> Result<()> {
     ///     let response = client.delete_deployment()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -310,10 +311,10 @@ impl Config {
     /// # use google_cloud_config_v1::client::Config;
     /// use google_cloud_config_v1::Result;
     /// async fn sample(
-    ///    client: &Config, resource_name: &str
+    ///    client: &Config, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_revision()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -333,10 +334,10 @@ impl Config {
     /// # use google_cloud_config_v1::client::Config;
     /// use google_cloud_config_v1::Result;
     /// async fn sample(
-    ///    client: &Config, resource_name: &str
+    ///    client: &Config, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_resource()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -439,10 +440,10 @@ impl Config {
     /// # use google_cloud_config_v1::client::Config;
     /// use google_cloud_config_v1::Result;
     /// async fn sample(
-    ///    client: &Config, resource_name: &str
+    ///    client: &Config, name: &str
     /// ) -> Result<()> {
     ///     client.delete_statefile()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -557,7 +558,8 @@ impl Config {
     ///    client: &Config, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_preview()
-    ///         .set_parent(parent).set_preview_id("preview_id_value")
+    ///         .set_parent(parent)
+    ///         .set_preview_id("preview_id_value")
     ///         .set_preview(
     ///             Preview::new()/* set fields */
     ///         )
@@ -579,10 +581,10 @@ impl Config {
     /// # use google_cloud_config_v1::client::Config;
     /// use google_cloud_config_v1::Result;
     /// async fn sample(
-    ///    client: &Config, resource_name: &str
+    ///    client: &Config, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_preview()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -638,10 +640,10 @@ impl Config {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_config_v1::Result;
     /// async fn sample(
-    ///    client: &Config, resource_name: &str
+    ///    client: &Config, name: &str
     /// ) -> Result<()> {
     ///     let response = client.delete_preview()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -709,10 +711,10 @@ impl Config {
     /// # use google_cloud_config_v1::client::Config;
     /// use google_cloud_config_v1::Result;
     /// async fn sample(
-    ///    client: &Config, resource_name: &str
+    ///    client: &Config, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_terraform_version()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -752,10 +754,10 @@ impl Config {
     /// # use google_cloud_config_v1::client::Config;
     /// use google_cloud_config_v1::Result;
     /// async fn sample(
-    ///    client: &Config, resource_name: &str
+    ///    client: &Config, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_resource_change()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -795,10 +797,10 @@ impl Config {
     /// # use google_cloud_config_v1::client::Config;
     /// use google_cloud_config_v1::Result;
     /// async fn sample(
-    ///    client: &Config, resource_name: &str
+    ///    client: &Config, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_resource_drift()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -815,10 +817,10 @@ impl Config {
     /// # use google_cloud_config_v1::client::Config;
     /// use google_cloud_config_v1::Result;
     /// async fn sample(
-    ///    client: &Config, resource_name: &str
+    ///    client: &Config, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_auto_migration_config()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())

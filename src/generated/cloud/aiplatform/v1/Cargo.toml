@@ -124,6 +124,8 @@ reasoning-engine-execution-service = []
 reasoning-engine-service = []
 # Enables `client::ScheduleService` and all the types it depends on.
 schedule-service = []
+# Enables `client::SessionService` and all the types it depends on.
+session-service = []
 # Enables `client::SpecialistPoolService` and all the types it depends on.
 specialist-pool-service = []
 # Enables `client::TensorboardService` and all the types it depends on.

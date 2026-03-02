@@ -130,7 +130,8 @@ impl ConnectionService {
     ///    client: &ConnectionService, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_connection()
-    ///         .set_parent(parent).set_connection_id("connection_id_value")
+    ///         .set_parent(parent)
+    ///         .set_connection_id("connection_id_value")
     ///         .set_connection(
     ///             Connection::new()/* set fields */
     ///         )
@@ -150,10 +151,10 @@ impl ConnectionService {
     /// # use google_cloud_bigquery_connection_v1::client::ConnectionService;
     /// use google_cloud_bigquery_connection_v1::Result;
     /// async fn sample(
-    ///    client: &ConnectionService, resource_name: &str
+    ///    client: &ConnectionService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_connection()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -220,10 +221,10 @@ impl ConnectionService {
     /// # use google_cloud_bigquery_connection_v1::client::ConnectionService;
     /// use google_cloud_bigquery_connection_v1::Result;
     /// async fn sample(
-    ///    client: &ConnectionService, resource_name: &str
+    ///    client: &ConnectionService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_connection()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }

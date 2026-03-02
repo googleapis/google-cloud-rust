@@ -148,10 +148,10 @@ impl BackupDR {
     /// # use google_cloud_backupdr_v1::client::BackupDR;
     /// use google_cloud_backupdr_v1::Result;
     /// async fn sample(
-    ///    client: &BackupDR, resource_name: &str
+    ///    client: &BackupDR, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_management_server()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -214,10 +214,10 @@ impl BackupDR {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_backupdr_v1::Result;
     /// async fn sample(
-    ///    client: &BackupDR, resource_name: &str
+    ///    client: &BackupDR, name: &str
     /// ) -> Result<()> {
     ///     client.delete_management_server()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -316,10 +316,10 @@ impl BackupDR {
     /// # use google_cloud_backupdr_v1::client::BackupDR;
     /// use google_cloud_backupdr_v1::Result;
     /// async fn sample(
-    ///    client: &BackupDR, resource_name: &str
+    ///    client: &BackupDR, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_backup_vault()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -384,10 +384,10 @@ impl BackupDR {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_backupdr_v1::Result;
     /// async fn sample(
-    ///    client: &BackupDR, resource_name: &str
+    ///    client: &BackupDR, name: &str
     /// ) -> Result<()> {
     ///     client.delete_backup_vault()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -426,10 +426,10 @@ impl BackupDR {
     /// # use google_cloud_backupdr_v1::client::BackupDR;
     /// use google_cloud_backupdr_v1::Result;
     /// async fn sample(
-    ///    client: &BackupDR, resource_name: &str
+    ///    client: &BackupDR, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_data_source()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -531,10 +531,10 @@ impl BackupDR {
     /// # use google_cloud_backupdr_v1::client::BackupDR;
     /// use google_cloud_backupdr_v1::Result;
     /// async fn sample(
-    ///    client: &BackupDR, resource_name: &str
+    ///    client: &BackupDR, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_backup()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -599,10 +599,10 @@ impl BackupDR {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_backupdr_v1::Result;
     /// async fn sample(
-    ///    client: &BackupDR, resource_name: &str
+    ///    client: &BackupDR, name: &str
     /// ) -> Result<()> {
     ///     let response = client.delete_backup()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -722,10 +722,10 @@ impl BackupDR {
     /// # use google_cloud_backupdr_v1::client::BackupDR;
     /// use google_cloud_backupdr_v1::Result;
     /// async fn sample(
-    ///    client: &BackupDR, resource_name: &str
+    ///    client: &BackupDR, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_backup_plan()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -776,10 +776,10 @@ impl BackupDR {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_backupdr_v1::Result;
     /// async fn sample(
-    ///    client: &BackupDR, resource_name: &str
+    ///    client: &BackupDR, name: &str
     /// ) -> Result<()> {
     ///     client.delete_backup_plan()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -795,10 +795,10 @@ impl BackupDR {
     /// # use google_cloud_backupdr_v1::client::BackupDR;
     /// use google_cloud_backupdr_v1::Result;
     /// async fn sample(
-    ///    client: &BackupDR, resource_name: &str
+    ///    client: &BackupDR, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_backup_plan_revision()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -914,10 +914,10 @@ impl BackupDR {
     /// # use google_cloud_backupdr_v1::client::BackupDR;
     /// use google_cloud_backupdr_v1::Result;
     /// async fn sample(
-    ///    client: &BackupDR, resource_name: &str
+    ///    client: &BackupDR, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_backup_plan_association()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -999,10 +999,10 @@ impl BackupDR {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_backupdr_v1::Result;
     /// async fn sample(
-    ///    client: &BackupDR, resource_name: &str
+    ///    client: &BackupDR, name: &str
     /// ) -> Result<()> {
     ///     client.delete_backup_plan_association()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1051,10 +1051,10 @@ impl BackupDR {
     /// # use google_cloud_backupdr_v1::client::BackupDR;
     /// use google_cloud_backupdr_v1::Result;
     /// async fn sample(
-    ///    client: &BackupDR, resource_name: &str
+    ///    client: &BackupDR, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_data_source_reference()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())

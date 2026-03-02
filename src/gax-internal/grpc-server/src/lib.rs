@@ -150,6 +150,51 @@ impl google::test::v1::echo_service_server::EchoService for Echo {
         let stream = Self::ChatStream::new(rx);
         Ok(tonic::Response::from(stream))
     }
+
+    type ExpandStream = tokio_stream::wrappers::ReceiverStream<tonic::Result<EchoResponse>>;
+    async fn expand(
+        &self,
+        request: tonic::Request<EchoRequest>,
+    ) -> tonic::Result<tonic::Response<Self::ExpandStream>> {
+        let (metadata, _, request) = request.into_parts();
+        if metadata
+            .get("x-goog-request-params")
+            .is_some_and(|h| h.as_bytes() == b"resource=error")
+        {
+            return Err(tonic::Status::aborted("test with initial error"));
+        }
+
+        let (tx, rx) = tokio::sync::mpsc::channel(100);
+        let _handler = tokio::spawn(run_expand(tx, metadata, request));
+
+        let stream = Self::ExpandStream::new(rx);
+        Ok(tonic::Response::from(stream))
+    }
+}
+
+async fn run_expand(
+    tx: tokio::sync::mpsc::Sender<tonic::Result<EchoResponse>>,
+    metadata: MetadataMap,
+    request: EchoRequest,
+) {
+    let mut headers = headers(metadata);
+    let parts = request.message.split(' ').collect::<Vec<_>>();
+    for part in parts {
+        if let Some(delay) = request.delay_ms.map(tokio::time::Duration::from_millis) {
+            tokio::time::sleep(delay).await;
+        }
+        if part.is_empty() {
+            let status = tonic::Status::invalid_argument("empty message");
+            let _ = tx.send(Err(status)).await;
+            return;
+        }
+        let response = EchoResponse {
+            message: part.to_string(),
+            metadata: std::mem::take(&mut headers),
+            ..EchoResponse::default()
+        };
+        let _ = tx.send(Ok(response)).await;
+    }
 }
 
 async fn run_chat(
@@ -230,6 +275,14 @@ impl google::test::v1::echo_service_server::EchoService for FixedResponses {
         &self,
         _request: tonic::Request<tonic::Streaming<EchoRequest>>,
     ) -> tonic::Result<tonic::Response<Self::ChatStream>> {
+        Err(tonic::Status::internal("not implemented".to_string()))
+    }
+
+    type ExpandStream = tokio_stream::wrappers::ReceiverStream<tonic::Result<EchoResponse>>;
+    async fn expand(
+        &self,
+        _request: tonic::Request<EchoRequest>,
+    ) -> tonic::Result<tonic::Response<Self::ExpandStream>> {
         Err(tonic::Status::internal("not implemented".to_string()))
     }
 }

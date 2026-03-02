@@ -148,10 +148,10 @@ impl Connectors {
     /// # use google_cloud_connectors_v1::client::Connectors;
     /// use google_cloud_connectors_v1::Result;
     /// async fn sample(
-    ///    client: &Connectors, resource_name: &str
+    ///    client: &Connectors, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_connection()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -183,7 +183,8 @@ impl Connectors {
     ///    client: &Connectors, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_connection()
-    ///         .set_parent(parent).set_connection_id("connection_id_value")
+    ///         .set_parent(parent)
+    ///         .set_connection_id("connection_id_value")
     ///         .set_connection(
     ///             Connection::new()/* set fields */
     ///         )
@@ -251,10 +252,10 @@ impl Connectors {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_connectors_v1::Result;
     /// async fn sample(
-    ///    client: &Connectors, resource_name: &str
+    ///    client: &Connectors, name: &str
     /// ) -> Result<()> {
     ///     client.delete_connection()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -293,10 +294,10 @@ impl Connectors {
     /// # use google_cloud_connectors_v1::client::Connectors;
     /// use google_cloud_connectors_v1::Result;
     /// async fn sample(
-    ///    client: &Connectors, resource_name: &str
+    ///    client: &Connectors, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_provider()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -336,10 +337,10 @@ impl Connectors {
     /// # use google_cloud_connectors_v1::client::Connectors;
     /// use google_cloud_connectors_v1::Result;
     /// async fn sample(
-    ///    client: &Connectors, resource_name: &str
+    ///    client: &Connectors, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_connector()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -379,10 +380,10 @@ impl Connectors {
     /// # use google_cloud_connectors_v1::client::Connectors;
     /// use google_cloud_connectors_v1::Result;
     /// async fn sample(
-    ///    client: &Connectors, resource_name: &str
+    ///    client: &Connectors, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_connector_version()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -400,10 +401,10 @@ impl Connectors {
     /// # use google_cloud_connectors_v1::client::Connectors;
     /// use google_cloud_connectors_v1::Result;
     /// async fn sample(
-    ///    client: &Connectors, resource_name: &str
+    ///    client: &Connectors, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_connection_schema_metadata()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -506,10 +507,10 @@ impl Connectors {
     /// # use google_cloud_connectors_v1::client::Connectors;
     /// use google_cloud_connectors_v1::Result;
     /// async fn sample(
-    ///    client: &Connectors, resource_name: &str
+    ///    client: &Connectors, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_runtime_config()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -527,10 +528,10 @@ impl Connectors {
     /// # use google_cloud_connectors_v1::client::Connectors;
     /// use google_cloud_connectors_v1::Result;
     /// async fn sample(
-    ///    client: &Connectors, resource_name: &str
+    ///    client: &Connectors, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_global_settings()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())

@@ -152,10 +152,10 @@ impl StorageBatchOperations {
     /// # use google_cloud_storagebatchoperations_v1::client::StorageBatchOperations;
     /// use google_cloud_storagebatchoperations_v1::Result;
     /// async fn sample(
-    ///    client: &StorageBatchOperations, resource_name: &str
+    ///    client: &StorageBatchOperations, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_job()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -187,7 +187,8 @@ impl StorageBatchOperations {
     ///    client: &StorageBatchOperations, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_job()
-    ///         .set_parent(parent).set_job_id("job_id_value")
+    ///         .set_parent(parent)
+    ///         .set_job_id("job_id_value")
     ///         .set_job(
     ///             Job::new()/* set fields */
     ///         )
@@ -207,10 +208,10 @@ impl StorageBatchOperations {
     /// # use google_cloud_storagebatchoperations_v1::client::StorageBatchOperations;
     /// use google_cloud_storagebatchoperations_v1::Result;
     /// async fn sample(
-    ///    client: &StorageBatchOperations, resource_name: &str
+    ///    client: &StorageBatchOperations, name: &str
     /// ) -> Result<()> {
     ///     client.delete_job()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -271,10 +272,10 @@ impl StorageBatchOperations {
     /// # use google_cloud_storagebatchoperations_v1::client::StorageBatchOperations;
     /// use google_cloud_storagebatchoperations_v1::Result;
     /// async fn sample(
-    ///    client: &StorageBatchOperations, resource_name: &str
+    ///    client: &StorageBatchOperations, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_bucket_operation()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())

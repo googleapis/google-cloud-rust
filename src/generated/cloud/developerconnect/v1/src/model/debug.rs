@@ -84,6 +84,7 @@ impl std::fmt::Debug for super::GitProxyConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GitProxyConfig");
         debug_struct.field("enabled", &self.enabled);
+        debug_struct.field("http_proxy_base_uri", &self.http_proxy_base_uri);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -97,6 +98,43 @@ impl std::fmt::Debug for super::InstallationState {
         debug_struct.field("stage", &self.stage);
         debug_struct.field("message", &self.message);
         debug_struct.field("action_uri", &self.action_uri);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GenericHTTPEndpointConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GenericHTTPEndpointConfig");
+        debug_struct.field("host_uri", &self.host_uri);
+        debug_struct.field("service_directory_config", &self.service_directory_config);
+        debug_struct.field("ssl_ca_certificate", &self.ssl_ca_certificate);
+        debug_struct.field("authentication", &self.authentication);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::generic_http_endpoint_config::BasicAuthentication {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BasicAuthentication");
+        debug_struct.field("username", &self.username);
+        debug_struct.field("password", &self.password);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::generic_http_endpoint_config::BearerTokenAuthentication {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BearerTokenAuthentication");
+        debug_struct.field("token", &self.token);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -137,6 +175,7 @@ impl std::fmt::Debug for super::GitHubEnterpriseConfig {
         debug_struct.field("service_directory_config", &self.service_directory_config);
         debug_struct.field("server_version", &self.server_version);
         debug_struct.field("ssl_ca_certificate", &self.ssl_ca_certificate);
+        debug_struct.field("organization", &self.organization);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -260,6 +299,17 @@ impl std::fmt::Debug for super::BitbucketCloudConfig {
             &self.read_authorizer_credential,
         );
         debug_struct.field("authorizer_credential", &self.authorizer_credential);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::SecureSourceManagerInstanceConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SecureSourceManagerInstanceConfig");
+        debug_struct.field("instance", &self.instance);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -504,6 +554,82 @@ impl std::fmt::Debug for super::FetchAccessTokenResponse {
         debug_struct.field("token", &self.token);
         debug_struct.field("expiration_time", &self.expiration_time);
         debug_struct.field("scopes", &self.scopes);
+        debug_struct.field("exchange_error", &self.exchange_error);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::StartOAuthRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StartOAuthRequest");
+        debug_struct.field("account_connector", &self.account_connector);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::StartOAuthResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StartOAuthResponse");
+        debug_struct.field("ticket", &self.ticket);
+        debug_struct.field("code_challenge", &self.code_challenge);
+        debug_struct.field("code_challenge_method", &self.code_challenge_method);
+        debug_struct.field("client_id", &self.client_id);
+        debug_struct.field("scopes", &self.scopes);
+        debug_struct.field("auth_uri", &self.auth_uri);
+        debug_struct.field("id", &self.id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::FinishOAuthRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FinishOAuthRequest");
+        debug_struct.field("account_connector", &self.account_connector);
+        debug_struct.field("params", &self.params);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::finish_o_auth_request::OAuthParams {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OAuthParams");
+        debug_struct.field("code", &self.code);
+        debug_struct.field("ticket", &self.ticket);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::finish_o_auth_request::GoogleOAuthParams {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GoogleOAuthParams");
+        debug_struct.field("scopes", &self.scopes);
+        debug_struct.field("version_info", &self.version_info);
+        debug_struct.field("ticket", &self.ticket);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::FinishOAuthResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FinishOAuthResponse");
         debug_struct.field("exchange_error", &self.exchange_error);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -824,6 +950,17 @@ impl std::fmt::Debug for super::InsightsConfig {
     }
 }
 
+impl std::fmt::Debug for super::Projects {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Projects");
+        debug_struct.field("project_ids", &self.project_ids);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::RuntimeConfig {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RuntimeConfig");
@@ -850,10 +987,34 @@ impl std::fmt::Debug for super::GKEWorkload {
     }
 }
 
+impl std::fmt::Debug for super::GoogleCloudRun {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GoogleCloudRun");
+        debug_struct.field("service_uri", &self.service_uri);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::AppHubWorkload {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("AppHubWorkload");
         debug_struct.field("workload", &self.workload);
+        debug_struct.field("criticality", &self.criticality);
+        debug_struct.field("environment", &self.environment);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::AppHubService {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AppHubService");
+        debug_struct.field("apphub_service", &self.apphub_service);
         debug_struct.field("criticality", &self.criticality);
         debug_struct.field("environment", &self.environment);
         if !self._unknown_fields.is_empty() {
@@ -892,6 +1053,79 @@ impl std::fmt::Debug for super::GoogleArtifactRegistry {
         let mut debug_struct = f.debug_struct("GoogleArtifactRegistry");
         debug_struct.field("project_id", &self.project_id);
         debug_struct.field("artifact_registry_package", &self.artifact_registry_package);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::DeploymentEvent {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeploymentEvent");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("runtime_config", &self.runtime_config);
+        debug_struct.field("runtime_deployment_uri", &self.runtime_deployment_uri);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("artifact_deployments", &self.artifact_deployments);
+        debug_struct.field("deploy_time", &self.deploy_time);
+        debug_struct.field("undeploy_time", &self.undeploy_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GetDeploymentEventRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetDeploymentEventRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ListDeploymentEventsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListDeploymentEventsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ListDeploymentEventsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListDeploymentEventsResponse");
+        debug_struct.field("deployment_events", &self.deployment_events);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ArtifactDeployment {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ArtifactDeployment");
+        debug_struct.field("id", &self.id);
+        debug_struct.field("artifact_reference", &self.artifact_reference);
+        debug_struct.field("artifact_alias", &self.artifact_alias);
+        debug_struct.field("source_commit_uris", &self.source_commit_uris);
+        debug_struct.field("deploy_time", &self.deploy_time);
+        debug_struct.field("undeploy_time", &self.undeploy_time);
+        debug_struct.field("container_status_summary", &self.container_status_summary);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

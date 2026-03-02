@@ -125,10 +125,10 @@ impl Workstations {
     /// # use google_cloud_workstations_v1::client::Workstations;
     /// use google_cloud_workstations_v1::Result;
     /// async fn sample(
-    ///    client: &Workstations, resource_name: &str
+    ///    client: &Workstations, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_workstation_cluster()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -257,10 +257,10 @@ impl Workstations {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_workstations_v1::Result;
     /// async fn sample(
-    ///    client: &Workstations, resource_name: &str
+    ///    client: &Workstations, name: &str
     /// ) -> Result<()> {
     ///     let response = client.delete_workstation_cluster()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -279,10 +279,10 @@ impl Workstations {
     /// # use google_cloud_workstations_v1::client::Workstations;
     /// use google_cloud_workstations_v1::Result;
     /// async fn sample(
-    ///    client: &Workstations, resource_name: &str
+    ///    client: &Workstations, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_workstation_config()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -435,10 +435,10 @@ impl Workstations {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_workstations_v1::Result;
     /// async fn sample(
-    ///    client: &Workstations, resource_name: &str
+    ///    client: &Workstations, name: &str
     /// ) -> Result<()> {
     ///     let response = client.delete_workstation_config()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -457,10 +457,10 @@ impl Workstations {
     /// # use google_cloud_workstations_v1::client::Workstations;
     /// use google_cloud_workstations_v1::Result;
     /// async fn sample(
-    ///    client: &Workstations, resource_name: &str
+    ///    client: &Workstations, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_workstation()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -539,7 +539,8 @@ impl Workstations {
     ///    client: &Workstations, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_workstation()
-    ///         .set_parent(parent).set_workstation_id("workstation_id_value")
+    ///         .set_parent(parent)
+    ///         .set_workstation_id("workstation_id_value")
     ///         .set_workstation(
     ///             Workstation::new()/* set fields */
     ///         )
@@ -607,10 +608,10 @@ impl Workstations {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_workstations_v1::Result;
     /// async fn sample(
-    ///    client: &Workstations, resource_name: &str
+    ///    client: &Workstations, name: &str
     /// ) -> Result<()> {
     ///     let response = client.delete_workstation()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())

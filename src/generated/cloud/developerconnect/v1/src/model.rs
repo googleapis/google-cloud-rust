@@ -642,6 +642,8 @@ impl Connection {
     /// assert!(x.gitlab_enterprise_config().is_none());
     /// assert!(x.bitbucket_data_center_config().is_none());
     /// assert!(x.bitbucket_cloud_config().is_none());
+    /// assert!(x.secure_source_manager_instance_config().is_none());
+    /// assert!(x.http_config().is_none());
     /// ```
     pub fn set_github_config<T: std::convert::Into<std::boxed::Box<crate::model::GitHubConfig>>>(
         mut self,
@@ -685,6 +687,8 @@ impl Connection {
     /// assert!(x.gitlab_enterprise_config().is_none());
     /// assert!(x.bitbucket_data_center_config().is_none());
     /// assert!(x.bitbucket_cloud_config().is_none());
+    /// assert!(x.secure_source_manager_instance_config().is_none());
+    /// assert!(x.http_config().is_none());
     /// ```
     pub fn set_github_enterprise_config<
         T: std::convert::Into<std::boxed::Box<crate::model::GitHubEnterpriseConfig>>,
@@ -730,6 +734,8 @@ impl Connection {
     /// assert!(x.gitlab_enterprise_config().is_none());
     /// assert!(x.bitbucket_data_center_config().is_none());
     /// assert!(x.bitbucket_cloud_config().is_none());
+    /// assert!(x.secure_source_manager_instance_config().is_none());
+    /// assert!(x.http_config().is_none());
     /// ```
     pub fn set_gitlab_config<T: std::convert::Into<std::boxed::Box<crate::model::GitLabConfig>>>(
         mut self,
@@ -773,6 +779,8 @@ impl Connection {
     /// assert!(x.gitlab_config().is_none());
     /// assert!(x.bitbucket_data_center_config().is_none());
     /// assert!(x.bitbucket_cloud_config().is_none());
+    /// assert!(x.secure_source_manager_instance_config().is_none());
+    /// assert!(x.http_config().is_none());
     /// ```
     pub fn set_gitlab_enterprise_config<
         T: std::convert::Into<std::boxed::Box<crate::model::GitLabEnterpriseConfig>>,
@@ -818,6 +826,8 @@ impl Connection {
     /// assert!(x.gitlab_config().is_none());
     /// assert!(x.gitlab_enterprise_config().is_none());
     /// assert!(x.bitbucket_cloud_config().is_none());
+    /// assert!(x.secure_source_manager_instance_config().is_none());
+    /// assert!(x.http_config().is_none());
     /// ```
     pub fn set_bitbucket_data_center_config<
         T: std::convert::Into<std::boxed::Box<crate::model::BitbucketDataCenterConfig>>,
@@ -863,6 +873,8 @@ impl Connection {
     /// assert!(x.gitlab_config().is_none());
     /// assert!(x.gitlab_enterprise_config().is_none());
     /// assert!(x.bitbucket_data_center_config().is_none());
+    /// assert!(x.secure_source_manager_instance_config().is_none());
+    /// assert!(x.http_config().is_none());
     /// ```
     pub fn set_bitbucket_cloud_config<
         T: std::convert::Into<std::boxed::Box<crate::model::BitbucketCloudConfig>>,
@@ -872,6 +884,101 @@ impl Connection {
     ) -> Self {
         self.connection_config = std::option::Option::Some(
             crate::model::connection::ConnectionConfig::BitbucketCloudConfig(v.into()),
+        );
+        self
+    }
+
+    /// The value of [connection_config][crate::model::Connection::connection_config]
+    /// if it holds a `SecureSourceManagerInstanceConfig`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn secure_source_manager_instance_config(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::SecureSourceManagerInstanceConfig>>
+    {
+        #[allow(unreachable_patterns)]
+        self.connection_config.as_ref().and_then(|v| match v {
+            crate::model::connection::ConnectionConfig::SecureSourceManagerInstanceConfig(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [connection_config][crate::model::Connection::connection_config]
+    /// to hold a `SecureSourceManagerInstanceConfig`.
+    ///
+    /// Note that all the setters affecting `connection_config` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_developerconnect_v1::model::Connection;
+    /// use google_cloud_developerconnect_v1::model::SecureSourceManagerInstanceConfig;
+    /// let x = Connection::new().set_secure_source_manager_instance_config(SecureSourceManagerInstanceConfig::default()/* use setters */);
+    /// assert!(x.secure_source_manager_instance_config().is_some());
+    /// assert!(x.github_config().is_none());
+    /// assert!(x.github_enterprise_config().is_none());
+    /// assert!(x.gitlab_config().is_none());
+    /// assert!(x.gitlab_enterprise_config().is_none());
+    /// assert!(x.bitbucket_data_center_config().is_none());
+    /// assert!(x.bitbucket_cloud_config().is_none());
+    /// assert!(x.http_config().is_none());
+    /// ```
+    pub fn set_secure_source_manager_instance_config<
+        T: std::convert::Into<std::boxed::Box<crate::model::SecureSourceManagerInstanceConfig>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.connection_config = std::option::Option::Some(
+            crate::model::connection::ConnectionConfig::SecureSourceManagerInstanceConfig(v.into()),
+        );
+        self
+    }
+
+    /// The value of [connection_config][crate::model::Connection::connection_config]
+    /// if it holds a `HttpConfig`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn http_config(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::GenericHTTPEndpointConfig>> {
+        #[allow(unreachable_patterns)]
+        self.connection_config.as_ref().and_then(|v| match v {
+            crate::model::connection::ConnectionConfig::HttpConfig(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [connection_config][crate::model::Connection::connection_config]
+    /// to hold a `HttpConfig`.
+    ///
+    /// Note that all the setters affecting `connection_config` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_developerconnect_v1::model::Connection;
+    /// use google_cloud_developerconnect_v1::model::GenericHTTPEndpointConfig;
+    /// let x = Connection::new().set_http_config(GenericHTTPEndpointConfig::default()/* use setters */);
+    /// assert!(x.http_config().is_some());
+    /// assert!(x.github_config().is_none());
+    /// assert!(x.github_enterprise_config().is_none());
+    /// assert!(x.gitlab_config().is_none());
+    /// assert!(x.gitlab_enterprise_config().is_none());
+    /// assert!(x.bitbucket_data_center_config().is_none());
+    /// assert!(x.bitbucket_cloud_config().is_none());
+    /// assert!(x.secure_source_manager_instance_config().is_none());
+    /// ```
+    pub fn set_http_config<
+        T: std::convert::Into<std::boxed::Box<crate::model::GenericHTTPEndpointConfig>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.connection_config = std::option::Option::Some(
+            crate::model::connection::ConnectionConfig::HttpConfig(v.into()),
         );
         self
     }
@@ -904,6 +1011,12 @@ pub mod connection {
         BitbucketDataCenterConfig(std::boxed::Box<crate::model::BitbucketDataCenterConfig>),
         /// Configuration for connections to an instance of Bitbucket Clouds.
         BitbucketCloudConfig(std::boxed::Box<crate::model::BitbucketCloudConfig>),
+        /// Configuration for connections to an instance of Secure Source Manager.
+        SecureSourceManagerInstanceConfig(
+            std::boxed::Box<crate::model::SecureSourceManagerInstanceConfig>,
+        ),
+        /// Optional. Configuration for connections to an HTTP service provider.
+        HttpConfig(std::boxed::Box<crate::model::GenericHTTPEndpointConfig>),
     }
 }
 
@@ -952,6 +1065,14 @@ pub struct GitProxyConfig {
     /// performing git operations on the repositories linked in the connection.
     pub enabled: bool,
 
+    /// Output only. The base URI for the HTTP proxy endpoint. Has
+    /// the format
+    /// `https://{generatedID}-c-h-{shortRegion}.developerconnect.dev`
+    /// Populated only when enabled is set to true.
+    /// This endpoint is used by other Google services that integrate with
+    /// Developer Connect.
+    pub http_proxy_base_uri: std::string::String,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -969,6 +1090,21 @@ impl GitProxyConfig {
     /// ```
     pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enabled = v.into();
+        self
+    }
+
+    /// Sets the value of [http_proxy_base_uri][crate::model::GitProxyConfig::http_proxy_base_uri].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_developerconnect_v1::model::GitProxyConfig;
+    /// let x = GitProxyConfig::new().set_http_proxy_base_uri("example");
+    /// ```
+    pub fn set_http_proxy_base_uri<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.http_proxy_base_uri = v.into();
         self
     }
 }
@@ -1206,6 +1342,446 @@ pub mod installation_state {
     }
 }
 
+/// Defines the configuration for connections to an HTTP service provider.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GenericHTTPEndpointConfig {
+    /// Required. Immutable. The service provider's https endpoint.
+    pub host_uri: std::string::String,
+
+    /// Optional. Configuration for using Service Directory to privately connect to
+    /// a HTTP service provider. This should only be set if the Http service
+    /// provider is hosted on-premises and not reachable by public internet. If
+    /// this field is left empty, calls to the HTTP service provider will be made
+    /// over the public internet.
+    pub service_directory_config: std::option::Option<crate::model::ServiceDirectoryConfig>,
+
+    /// Optional. The SSL certificate to use for requests to the HTTP service
+    /// provider.
+    pub ssl_ca_certificate: std::string::String,
+
+    /// The authentication mechanism to use for requests to the HTTP service
+    /// provider.
+    pub authentication:
+        std::option::Option<crate::model::generic_http_endpoint_config::Authentication>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GenericHTTPEndpointConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [host_uri][crate::model::GenericHTTPEndpointConfig::host_uri].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_developerconnect_v1::model::GenericHTTPEndpointConfig;
+    /// let x = GenericHTTPEndpointConfig::new().set_host_uri("example");
+    /// ```
+    pub fn set_host_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.host_uri = v.into();
+        self
+    }
+
+    /// Sets the value of [service_directory_config][crate::model::GenericHTTPEndpointConfig::service_directory_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_developerconnect_v1::model::GenericHTTPEndpointConfig;
+    /// use google_cloud_developerconnect_v1::model::ServiceDirectoryConfig;
+    /// let x = GenericHTTPEndpointConfig::new().set_service_directory_config(ServiceDirectoryConfig::default()/* use setters */);
+    /// ```
+    pub fn set_service_directory_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ServiceDirectoryConfig>,
+    {
+        self.service_directory_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [service_directory_config][crate::model::GenericHTTPEndpointConfig::service_directory_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_developerconnect_v1::model::GenericHTTPEndpointConfig;
+    /// use google_cloud_developerconnect_v1::model::ServiceDirectoryConfig;
+    /// let x = GenericHTTPEndpointConfig::new().set_or_clear_service_directory_config(Some(ServiceDirectoryConfig::default()/* use setters */));
+    /// let x = GenericHTTPEndpointConfig::new().set_or_clear_service_directory_config(None::<ServiceDirectoryConfig>);
+    /// ```
+    pub fn set_or_clear_service_directory_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ServiceDirectoryConfig>,
+    {
+        self.service_directory_config = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [ssl_ca_certificate][crate::model::GenericHTTPEndpointConfig::ssl_ca_certificate].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_developerconnect_v1::model::GenericHTTPEndpointConfig;
+    /// let x = GenericHTTPEndpointConfig::new().set_ssl_ca_certificate("example");
+    /// ```
+    pub fn set_ssl_ca_certificate<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.ssl_ca_certificate = v.into();
+        self
+    }
+
+    /// Sets the value of [authentication][crate::model::GenericHTTPEndpointConfig::authentication].
+    ///
+    /// Note that all the setters affecting `authentication` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_developerconnect_v1::model::GenericHTTPEndpointConfig;
+    /// use google_cloud_developerconnect_v1::model::generic_http_endpoint_config::BasicAuthentication;
+    /// let x = GenericHTTPEndpointConfig::new().set_authentication(Some(
+    ///     google_cloud_developerconnect_v1::model::generic_http_endpoint_config::Authentication::BasicAuthentication(BasicAuthentication::default().into())));
+    /// ```
+    pub fn set_authentication<
+        T: std::convert::Into<
+                std::option::Option<crate::model::generic_http_endpoint_config::Authentication>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.authentication = v.into();
+        self
+    }
+
+    /// The value of [authentication][crate::model::GenericHTTPEndpointConfig::authentication]
+    /// if it holds a `BasicAuthentication`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn basic_authentication(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::model::generic_http_endpoint_config::BasicAuthentication>,
+    > {
+        #[allow(unreachable_patterns)]
+        self.authentication.as_ref().and_then(|v| match v {
+            crate::model::generic_http_endpoint_config::Authentication::BasicAuthentication(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [authentication][crate::model::GenericHTTPEndpointConfig::authentication]
+    /// to hold a `BasicAuthentication`.
+    ///
+    /// Note that all the setters affecting `authentication` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_developerconnect_v1::model::GenericHTTPEndpointConfig;
+    /// use google_cloud_developerconnect_v1::model::generic_http_endpoint_config::BasicAuthentication;
+    /// let x = GenericHTTPEndpointConfig::new().set_basic_authentication(BasicAuthentication::default()/* use setters */);
+    /// assert!(x.basic_authentication().is_some());
+    /// assert!(x.bearer_token_authentication().is_none());
+    /// ```
+    pub fn set_basic_authentication<
+        T: std::convert::Into<
+                std::boxed::Box<crate::model::generic_http_endpoint_config::BasicAuthentication>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.authentication = std::option::Option::Some(
+            crate::model::generic_http_endpoint_config::Authentication::BasicAuthentication(
+                v.into(),
+            ),
+        );
+        self
+    }
+
+    /// The value of [authentication][crate::model::GenericHTTPEndpointConfig::authentication]
+    /// if it holds a `BearerTokenAuthentication`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn bearer_token_authentication(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::model::generic_http_endpoint_config::BearerTokenAuthentication>,
+    > {
+        #[allow(unreachable_patterns)]
+        self.authentication.as_ref().and_then(|v| match v {
+            crate::model::generic_http_endpoint_config::Authentication::BearerTokenAuthentication(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [authentication][crate::model::GenericHTTPEndpointConfig::authentication]
+    /// to hold a `BearerTokenAuthentication`.
+    ///
+    /// Note that all the setters affecting `authentication` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_developerconnect_v1::model::GenericHTTPEndpointConfig;
+    /// use google_cloud_developerconnect_v1::model::generic_http_endpoint_config::BearerTokenAuthentication;
+    /// let x = GenericHTTPEndpointConfig::new().set_bearer_token_authentication(BearerTokenAuthentication::default()/* use setters */);
+    /// assert!(x.bearer_token_authentication().is_some());
+    /// assert!(x.basic_authentication().is_none());
+    /// ```
+    pub fn set_bearer_token_authentication<
+        T: std::convert::Into<
+                std::boxed::Box<
+                    crate::model::generic_http_endpoint_config::BearerTokenAuthentication,
+                >,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.authentication = std::option::Option::Some(
+            crate::model::generic_http_endpoint_config::Authentication::BearerTokenAuthentication(
+                v.into(),
+            ),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for GenericHTTPEndpointConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.developerconnect.v1.GenericHTTPEndpointConfig"
+    }
+}
+
+/// Defines additional types related to [GenericHTTPEndpointConfig].
+pub mod generic_http_endpoint_config {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Basic authentication with username and password.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct BasicAuthentication {
+        /// Required. The username to authenticate as.
+        pub username: std::string::String,
+
+        /// The password to authenticate as.
+        pub password: std::option::Option<
+            crate::model::generic_http_endpoint_config::basic_authentication::Password,
+        >,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl BasicAuthentication {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [username][crate::model::generic_http_endpoint_config::BasicAuthentication::username].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_developerconnect_v1::model::generic_http_endpoint_config::BasicAuthentication;
+        /// let x = BasicAuthentication::new().set_username("example");
+        /// ```
+        pub fn set_username<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.username = v.into();
+            self
+        }
+
+        /// Sets the value of [password][crate::model::generic_http_endpoint_config::BasicAuthentication::password].
+        ///
+        /// Note that all the setters affecting `password` are mutually
+        /// exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_developerconnect_v1::model::generic_http_endpoint_config::BasicAuthentication;
+        /// use google_cloud_developerconnect_v1::model::generic_http_endpoint_config::basic_authentication::Password;
+        /// let x = BasicAuthentication::new().set_password(Some(Password::PasswordSecretVersion("example".to_string())));
+        /// ```
+        pub fn set_password<
+            T: std::convert::Into<
+                    std::option::Option<
+                        crate::model::generic_http_endpoint_config::basic_authentication::Password,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.password = v.into();
+            self
+        }
+
+        /// The value of [password][crate::model::generic_http_endpoint_config::BasicAuthentication::password]
+        /// if it holds a `PasswordSecretVersion`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn password_secret_version(&self) -> std::option::Option<&std::string::String> {
+            #[allow(unreachable_patterns)]
+            self.password.as_ref().and_then(|v| match v {
+                crate::model::generic_http_endpoint_config::basic_authentication::Password::PasswordSecretVersion(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [password][crate::model::generic_http_endpoint_config::BasicAuthentication::password]
+        /// to hold a `PasswordSecretVersion`.
+        ///
+        /// Note that all the setters affecting `password` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_developerconnect_v1::model::generic_http_endpoint_config::BasicAuthentication;
+        /// let x = BasicAuthentication::new().set_password_secret_version("example");
+        /// assert!(x.password_secret_version().is_some());
+        /// ```
+        pub fn set_password_secret_version<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.password = std::option::Option::Some(
+                crate::model::generic_http_endpoint_config::basic_authentication::Password::PasswordSecretVersion(
+                    v.into()
+                )
+            );
+            self
+        }
+    }
+
+    impl wkt::message::Message for BasicAuthentication {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.developerconnect.v1.GenericHTTPEndpointConfig.BasicAuthentication"
+        }
+    }
+
+    /// Defines additional types related to [BasicAuthentication].
+    pub mod basic_authentication {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// The password to authenticate as.
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum Password {
+            /// The password SecretManager secret version to authenticate as.
+            PasswordSecretVersion(std::string::String),
+        }
+    }
+
+    /// Bearer token authentication with a token.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct BearerTokenAuthentication {
+        /// The token to authenticate as.
+        pub token: std::option::Option<
+            crate::model::generic_http_endpoint_config::bearer_token_authentication::Token,
+        >,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl BearerTokenAuthentication {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [token][crate::model::generic_http_endpoint_config::BearerTokenAuthentication::token].
+        ///
+        /// Note that all the setters affecting `token` are mutually
+        /// exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_developerconnect_v1::model::generic_http_endpoint_config::BearerTokenAuthentication;
+        /// use google_cloud_developerconnect_v1::model::generic_http_endpoint_config::bearer_token_authentication::Token;
+        /// let x = BearerTokenAuthentication::new().set_token(Some(Token::TokenSecretVersion("example".to_string())));
+        /// ```
+        pub fn set_token<T: std::convert::Into<std::option::Option<crate::model::generic_http_endpoint_config::bearer_token_authentication::Token>>>(mut self, v: T) -> Self
+        {
+            self.token = v.into();
+            self
+        }
+
+        /// The value of [token][crate::model::generic_http_endpoint_config::BearerTokenAuthentication::token]
+        /// if it holds a `TokenSecretVersion`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn token_secret_version(&self) -> std::option::Option<&std::string::String> {
+            #[allow(unreachable_patterns)]
+            self.token.as_ref().and_then(|v| match v {
+                crate::model::generic_http_endpoint_config::bearer_token_authentication::Token::TokenSecretVersion(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [token][crate::model::generic_http_endpoint_config::BearerTokenAuthentication::token]
+        /// to hold a `TokenSecretVersion`.
+        ///
+        /// Note that all the setters affecting `token` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_developerconnect_v1::model::generic_http_endpoint_config::BearerTokenAuthentication;
+        /// let x = BearerTokenAuthentication::new().set_token_secret_version("example");
+        /// assert!(x.token_secret_version().is_some());
+        /// ```
+        pub fn set_token_secret_version<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.token = std::option::Option::Some(
+                crate::model::generic_http_endpoint_config::bearer_token_authentication::Token::TokenSecretVersion(
+                    v.into()
+                )
+            );
+            self
+        }
+    }
+
+    impl wkt::message::Message for BearerTokenAuthentication {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.developerconnect.v1.GenericHTTPEndpointConfig.BearerTokenAuthentication"
+        }
+    }
+
+    /// Defines additional types related to [BearerTokenAuthentication].
+    pub mod bearer_token_authentication {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// The token to authenticate as.
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum Token {
+            /// Optional. The token SecretManager secret version to authenticate as.
+            TokenSecretVersion(std::string::String),
+        }
+    }
+
+    /// The authentication mechanism to use for requests to the HTTP service
+    /// provider.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Authentication {
+        /// Optional. Basic authentication with username and password.
+        BasicAuthentication(
+            std::boxed::Box<crate::model::generic_http_endpoint_config::BasicAuthentication>,
+        ),
+        /// Optional. Bearer token authentication with a token.
+        BearerTokenAuthentication(
+            std::boxed::Box<crate::model::generic_http_endpoint_config::BearerTokenAuthentication>,
+        ),
+    }
+}
+
 /// Configuration for connections to github.com.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -1242,6 +1818,7 @@ impl GitHubConfig {
     /// use google_cloud_developerconnect_v1::model::git_hub_config::GitHubApp;
     /// let x0 = GitHubConfig::new().set_github_app(GitHubApp::DeveloperConnect);
     /// let x1 = GitHubConfig::new().set_github_app(GitHubApp::Firebase);
+    /// let x2 = GitHubConfig::new().set_github_app(GitHubApp::GeminiCodeAssist);
     /// ```
     pub fn set_github_app<T: std::convert::Into<crate::model::git_hub_config::GitHubApp>>(
         mut self,
@@ -1348,6 +1925,8 @@ pub mod git_hub_config {
         DeveloperConnect,
         /// The Firebase GitHub Application.
         Firebase,
+        /// The Gemini Code Assist Application.
+        GeminiCodeAssist,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [GitHubApp::value] or
@@ -1373,6 +1952,7 @@ pub mod git_hub_config {
                 Self::Unspecified => std::option::Option::Some(0),
                 Self::DeveloperConnect => std::option::Option::Some(1),
                 Self::Firebase => std::option::Option::Some(2),
+                Self::GeminiCodeAssist => std::option::Option::Some(3),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -1386,6 +1966,7 @@ pub mod git_hub_config {
                 Self::Unspecified => std::option::Option::Some("GIT_HUB_APP_UNSPECIFIED"),
                 Self::DeveloperConnect => std::option::Option::Some("DEVELOPER_CONNECT"),
                 Self::Firebase => std::option::Option::Some("FIREBASE"),
+                Self::GeminiCodeAssist => std::option::Option::Some("GEMINI_CODE_ASSIST"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -1410,6 +1991,7 @@ pub mod git_hub_config {
                 0 => Self::Unspecified,
                 1 => Self::DeveloperConnect,
                 2 => Self::Firebase,
+                3 => Self::GeminiCodeAssist,
                 _ => Self::UnknownValue(git_hub_app::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -1424,6 +2006,7 @@ pub mod git_hub_config {
                 "GIT_HUB_APP_UNSPECIFIED" => Self::Unspecified,
                 "DEVELOPER_CONNECT" => Self::DeveloperConnect,
                 "FIREBASE" => Self::Firebase,
+                "GEMINI_CODE_ASSIST" => Self::GeminiCodeAssist,
                 _ => Self::UnknownValue(git_hub_app::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -1440,6 +2023,7 @@ pub mod git_hub_config {
                 Self::Unspecified => serializer.serialize_i32(0),
                 Self::DeveloperConnect => serializer.serialize_i32(1),
                 Self::Firebase => serializer.serialize_i32(2),
+                Self::GeminiCodeAssist => serializer.serialize_i32(3),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -1471,11 +2055,15 @@ pub struct GitHubEnterpriseConfig {
     pub app_slug: std::string::String,
 
     /// Optional. SecretManager resource containing the private key of the GitHub
-    /// App, formatted as `projects/*/secrets/*/versions/*`.
+    /// App, formatted as `projects/*/secrets/*/versions/*` or
+    /// `projects/*/locations/*/secrets/*/versions/*` (if regional secrets are
+    /// supported in that location).
     pub private_key_secret_version: std::string::String,
 
     /// Optional. SecretManager resource containing the webhook secret of the
-    /// GitHub App, formatted as `projects/*/secrets/*/versions/*`.
+    /// GitHub App, formatted as `projects/*/secrets/*/versions/*` or
+    /// `projects/*/locations/*/secrets/*/versions/*` (if regional secrets are
+    /// supported in that location).
     pub webhook_secret_secret_version: std::string::String,
 
     /// Optional. ID of the installation of the GitHub App.
@@ -1497,6 +2085,10 @@ pub struct GitHubEnterpriseConfig {
 
     /// Optional. SSL certificate to use for requests to GitHub Enterprise.
     pub ssl_ca_certificate: std::string::String,
+
+    /// Optional. Immutable. GitHub Enterprise organization in which the GitHub App
+    /// is created.
+    pub organization: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -1658,6 +2250,18 @@ impl GitHubEnterpriseConfig {
         self.ssl_ca_certificate = v.into();
         self
     }
+
+    /// Sets the value of [organization][crate::model::GitHubEnterpriseConfig::organization].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_developerconnect_v1::model::GitHubEnterpriseConfig;
+    /// let x = GitHubEnterpriseConfig::new().set_organization("example");
+    /// ```
+    pub fn set_organization<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.organization = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for GitHubEnterpriseConfig {
@@ -1709,7 +2313,9 @@ impl wkt::message::Message for ServiceDirectoryConfig {
 #[non_exhaustive]
 pub struct OAuthCredential {
     /// Required. A SecretManager resource containing the OAuth token that
-    /// authorizes the connection. Format: `projects/*/secrets/*/versions/*`.
+    /// authorizes the connection. Format: `projects/*/secrets/*/versions/*` or
+    /// `projects/*/locations/*/secrets/*/versions/*` (if regional secrets are
+    /// supported in that location).
     pub oauth_token_secret_version: std::string::String,
 
     /// Output only. The username associated with this token.
@@ -1762,8 +2368,9 @@ impl wkt::message::Message for OAuthCredential {
 #[non_exhaustive]
 pub struct GitLabConfig {
     /// Required. Immutable. SecretManager resource containing the webhook secret
-    /// of a GitLab project, formatted as `projects/*/secrets/*/versions/*`. This
-    /// is used to validate webhooks.
+    /// of a GitLab project, formatted as `projects/*/secrets/*/versions/*` or
+    /// `projects/*/locations/*/secrets/*/versions/*` (if regional secrets are
+    /// supported in that location). This is used to validate webhooks.
     pub webhook_secret_secret_version: std::string::String,
 
     /// Required. A GitLab personal access token with the minimum `read_api` scope
@@ -1881,7 +2488,9 @@ impl wkt::message::Message for GitLabConfig {
 pub struct UserCredential {
     /// Required. A SecretManager resource containing the user token that
     /// authorizes the Developer Connect connection. Format:
-    /// `projects/*/secrets/*/versions/*`.
+    /// `projects/*/secrets/*/versions/*` or
+    /// `projects/*/locations/*/secrets/*/versions/*` (if regional secrets are
+    /// supported in that location).
     pub user_token_secret_version: std::string::String,
 
     /// Output only. The username associated with this token.
@@ -1937,8 +2546,9 @@ pub struct GitLabEnterpriseConfig {
     pub host_uri: std::string::String,
 
     /// Required. Immutable. SecretManager resource containing the webhook secret
-    /// of a GitLab project, formatted as `projects/*/secrets/*/versions/*`. This
-    /// is used to validate webhooks.
+    /// of a GitLab project, formatted as `projects/*/secrets/*/versions/*` or
+    /// `projects/*/locations/*/secrets/*/versions/*` (if regional secrets are
+    /// supported in that location). This is used to validate webhooks.
     pub webhook_secret_secret_version: std::string::String,
 
     /// Required. A GitLab personal access token with the minimum `read_api` scope
@@ -2145,7 +2755,9 @@ pub struct BitbucketDataCenterConfig {
 
     /// Required. Immutable. SecretManager resource containing the webhook secret
     /// used to verify webhook events, formatted as
-    /// `projects/*/secrets/*/versions/*`. This is used to validate webhooks.
+    /// `projects/*/secrets/*/versions/*` or
+    /// `projects/*/locations/*/secrets/*/versions/*` (if regional secrets are
+    /// supported in that location). This is used to validate webhooks.
     pub webhook_secret_secret_version: std::string::String,
 
     /// Required. An http access token with the minimum `Repository read` access.
@@ -2350,8 +2962,9 @@ pub struct BitbucketCloudConfig {
 
     /// Required. Immutable. SecretManager resource containing the webhook secret
     /// used to verify webhook events, formatted as
-    /// `projects/*/secrets/*/versions/*`. This is used to validate and create
-    /// webhooks.
+    /// `projects/*/secrets/*/versions/*` or
+    /// `projects/*/locations/*/secrets/*/versions/*` (if regional secrets are
+    /// supported in that location). This is used to validate and create webhooks.
     pub webhook_secret_secret_version: std::string::String,
 
     /// Required. An access token with the minimum `repository` access.
@@ -2470,6 +3083,41 @@ impl BitbucketCloudConfig {
 impl wkt::message::Message for BitbucketCloudConfig {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.developerconnect.v1.BitbucketCloudConfig"
+    }
+}
+
+/// Configuration for connections to Secure Source Manager instance
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct SecureSourceManagerInstanceConfig {
+    /// Required. Immutable. Secure Source Manager instance resource, formatted as
+    /// `projects/*/locations/*/instances/*`
+    pub instance: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl SecureSourceManagerInstanceConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [instance][crate::model::SecureSourceManagerInstanceConfig::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_developerconnect_v1::model::SecureSourceManagerInstanceConfig;
+    /// let x = SecureSourceManagerInstanceConfig::new().set_instance("example");
+    /// ```
+    pub fn set_instance<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.instance = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for SecureSourceManagerInstanceConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.developerconnect.v1.SecureSourceManagerInstanceConfig"
     }
 }
 
@@ -4185,6 +4833,586 @@ impl FetchAccessTokenResponse {
 impl wkt::message::Message for FetchAccessTokenResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.developerconnect.v1.FetchAccessTokenResponse"
+    }
+}
+
+/// Message for starting an OAuth flow.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct StartOAuthRequest {
+    /// Required. The resource name of the AccountConnector in the format
+    /// `projects/*/locations/*/accountConnectors/*`.
+    pub account_connector: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl StartOAuthRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [account_connector][crate::model::StartOAuthRequest::account_connector].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_developerconnect_v1::model::StartOAuthRequest;
+    /// let x = StartOAuthRequest::new().set_account_connector("example");
+    /// ```
+    pub fn set_account_connector<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.account_connector = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for StartOAuthRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.developerconnect.v1.StartOAuthRequest"
+    }
+}
+
+/// Message for responding to starting an OAuth flow.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct StartOAuthResponse {
+    /// The ticket to be used for post processing the callback from the service
+    /// provider.
+    pub ticket: std::string::String,
+
+    /// Please refer to <https://datatracker.ietf.org/doc/html/rfc7636#section-4.1>
+    pub code_challenge: std::string::String,
+
+    /// Please refer to <https://datatracker.ietf.org/doc/html/rfc7636#section-4.2>
+    pub code_challenge_method: std::string::String,
+
+    /// The client ID to the OAuth App of the service provider.
+    pub client_id: std::string::String,
+
+    /// The list of scopes requested by the application.
+    pub scopes: std::vec::Vec<std::string::String>,
+
+    /// The authorization server URL to the OAuth flow of the service provider.
+    pub auth_uri: std::string::String,
+
+    /// The ID of the service provider.
+    pub id: std::option::Option<crate::model::start_o_auth_response::Id>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl StartOAuthResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [ticket][crate::model::StartOAuthResponse::ticket].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_developerconnect_v1::model::StartOAuthResponse;
+    /// let x = StartOAuthResponse::new().set_ticket("example");
+    /// ```
+    pub fn set_ticket<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.ticket = v.into();
+        self
+    }
+
+    /// Sets the value of [code_challenge][crate::model::StartOAuthResponse::code_challenge].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_developerconnect_v1::model::StartOAuthResponse;
+    /// let x = StartOAuthResponse::new().set_code_challenge("example");
+    /// ```
+    pub fn set_code_challenge<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.code_challenge = v.into();
+        self
+    }
+
+    /// Sets the value of [code_challenge_method][crate::model::StartOAuthResponse::code_challenge_method].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_developerconnect_v1::model::StartOAuthResponse;
+    /// let x = StartOAuthResponse::new().set_code_challenge_method("example");
+    /// ```
+    pub fn set_code_challenge_method<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.code_challenge_method = v.into();
+        self
+    }
+
+    /// Sets the value of [client_id][crate::model::StartOAuthResponse::client_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_developerconnect_v1::model::StartOAuthResponse;
+    /// let x = StartOAuthResponse::new().set_client_id("example");
+    /// ```
+    pub fn set_client_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.client_id = v.into();
+        self
+    }
+
+    /// Sets the value of [scopes][crate::model::StartOAuthResponse::scopes].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_developerconnect_v1::model::StartOAuthResponse;
+    /// let x = StartOAuthResponse::new().set_scopes(["a", "b", "c"]);
+    /// ```
+    pub fn set_scopes<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.scopes = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [auth_uri][crate::model::StartOAuthResponse::auth_uri].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_developerconnect_v1::model::StartOAuthResponse;
+    /// let x = StartOAuthResponse::new().set_auth_uri("example");
+    /// ```
+    pub fn set_auth_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.auth_uri = v.into();
+        self
+    }
+
+    /// Sets the value of [id][crate::model::StartOAuthResponse::id].
+    ///
+    /// Note that all the setters affecting `id` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_developerconnect_v1::model::StartOAuthResponse;
+    /// use google_cloud_developerconnect_v1::model::SystemProvider;
+    /// let x0 = StartOAuthResponse::new().set_id(Some(
+    ///     google_cloud_developerconnect_v1::model::start_o_auth_response::Id::SystemProviderId(SystemProvider::Github)));
+    /// let x1 = StartOAuthResponse::new().set_id(Some(
+    ///     google_cloud_developerconnect_v1::model::start_o_auth_response::Id::SystemProviderId(SystemProvider::Gitlab)));
+    /// let x2 = StartOAuthResponse::new().set_id(Some(
+    ///     google_cloud_developerconnect_v1::model::start_o_auth_response::Id::SystemProviderId(SystemProvider::Google)));
+    /// ```
+    pub fn set_id<
+        T: std::convert::Into<std::option::Option<crate::model::start_o_auth_response::Id>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.id = v.into();
+        self
+    }
+
+    /// The value of [id][crate::model::StartOAuthResponse::id]
+    /// if it holds a `SystemProviderId`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn system_provider_id(&self) -> std::option::Option<&crate::model::SystemProvider> {
+        #[allow(unreachable_patterns)]
+        self.id.as_ref().and_then(|v| match v {
+            crate::model::start_o_auth_response::Id::SystemProviderId(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [id][crate::model::StartOAuthResponse::id]
+    /// to hold a `SystemProviderId`.
+    ///
+    /// Note that all the setters affecting `id` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_developerconnect_v1::model::StartOAuthResponse;
+    /// use google_cloud_developerconnect_v1::model::SystemProvider;
+    /// let x0 = StartOAuthResponse::new().set_system_provider_id(SystemProvider::Github);
+    /// let x1 = StartOAuthResponse::new().set_system_provider_id(SystemProvider::Gitlab);
+    /// let x2 = StartOAuthResponse::new().set_system_provider_id(SystemProvider::Google);
+    /// assert!(x0.system_provider_id().is_some());
+    /// assert!(x1.system_provider_id().is_some());
+    /// assert!(x2.system_provider_id().is_some());
+    /// ```
+    pub fn set_system_provider_id<T: std::convert::Into<crate::model::SystemProvider>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.id = std::option::Option::Some(
+            crate::model::start_o_auth_response::Id::SystemProviderId(v.into()),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for StartOAuthResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.developerconnect.v1.StartOAuthResponse"
+    }
+}
+
+/// Defines additional types related to [StartOAuthResponse].
+pub mod start_o_auth_response {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The ID of the service provider.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Id {
+        /// The ID of the system provider.
+        SystemProviderId(crate::model::SystemProvider),
+    }
+}
+
+/// Message for finishing an OAuth flow.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct FinishOAuthRequest {
+    /// Required. The resource name of the AccountConnector in the format
+    /// `projects/*/locations/*/accountConnectors/*`.
+    pub account_connector: std::string::String,
+
+    /// The params returned by OAuth flow redirect.
+    pub params: std::option::Option<crate::model::finish_o_auth_request::Params>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl FinishOAuthRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [account_connector][crate::model::FinishOAuthRequest::account_connector].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_developerconnect_v1::model::FinishOAuthRequest;
+    /// let x = FinishOAuthRequest::new().set_account_connector("example");
+    /// ```
+    pub fn set_account_connector<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.account_connector = v.into();
+        self
+    }
+
+    /// Sets the value of [params][crate::model::FinishOAuthRequest::params].
+    ///
+    /// Note that all the setters affecting `params` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_developerconnect_v1::model::FinishOAuthRequest;
+    /// use google_cloud_developerconnect_v1::model::finish_o_auth_request::OAuthParams;
+    /// let x = FinishOAuthRequest::new().set_params(Some(
+    ///     google_cloud_developerconnect_v1::model::finish_o_auth_request::Params::OauthParams(OAuthParams::default().into())));
+    /// ```
+    pub fn set_params<
+        T: std::convert::Into<std::option::Option<crate::model::finish_o_auth_request::Params>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.params = v.into();
+        self
+    }
+
+    /// The value of [params][crate::model::FinishOAuthRequest::params]
+    /// if it holds a `OauthParams`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn oauth_params(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::finish_o_auth_request::OAuthParams>>
+    {
+        #[allow(unreachable_patterns)]
+        self.params.as_ref().and_then(|v| match v {
+            crate::model::finish_o_auth_request::Params::OauthParams(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [params][crate::model::FinishOAuthRequest::params]
+    /// to hold a `OauthParams`.
+    ///
+    /// Note that all the setters affecting `params` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_developerconnect_v1::model::FinishOAuthRequest;
+    /// use google_cloud_developerconnect_v1::model::finish_o_auth_request::OAuthParams;
+    /// let x = FinishOAuthRequest::new().set_oauth_params(OAuthParams::default()/* use setters */);
+    /// assert!(x.oauth_params().is_some());
+    /// assert!(x.google_oauth_params().is_none());
+    /// ```
+    pub fn set_oauth_params<
+        T: std::convert::Into<std::boxed::Box<crate::model::finish_o_auth_request::OAuthParams>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.params = std::option::Option::Some(
+            crate::model::finish_o_auth_request::Params::OauthParams(v.into()),
+        );
+        self
+    }
+
+    /// The value of [params][crate::model::FinishOAuthRequest::params]
+    /// if it holds a `GoogleOauthParams`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn google_oauth_params(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::finish_o_auth_request::GoogleOAuthParams>>
+    {
+        #[allow(unreachable_patterns)]
+        self.params.as_ref().and_then(|v| match v {
+            crate::model::finish_o_auth_request::Params::GoogleOauthParams(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [params][crate::model::FinishOAuthRequest::params]
+    /// to hold a `GoogleOauthParams`.
+    ///
+    /// Note that all the setters affecting `params` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_developerconnect_v1::model::FinishOAuthRequest;
+    /// use google_cloud_developerconnect_v1::model::finish_o_auth_request::GoogleOAuthParams;
+    /// let x = FinishOAuthRequest::new().set_google_oauth_params(GoogleOAuthParams::default()/* use setters */);
+    /// assert!(x.google_oauth_params().is_some());
+    /// assert!(x.oauth_params().is_none());
+    /// ```
+    pub fn set_google_oauth_params<
+        T: std::convert::Into<std::boxed::Box<crate::model::finish_o_auth_request::GoogleOAuthParams>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.params = std::option::Option::Some(
+            crate::model::finish_o_auth_request::Params::GoogleOauthParams(v.into()),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for FinishOAuthRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.developerconnect.v1.FinishOAuthRequest"
+    }
+}
+
+/// Defines additional types related to [FinishOAuthRequest].
+pub mod finish_o_auth_request {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The params returned by non-Google OAuth 2.0 flow redirect.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct OAuthParams {
+        /// Required. The code to be used for getting the token from SCM provider.
+        pub code: std::string::String,
+
+        /// Required. The ticket to be used for post processing the callback from SCM
+        /// provider.
+        pub ticket: std::string::String,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl OAuthParams {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [code][crate::model::finish_o_auth_request::OAuthParams::code].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_developerconnect_v1::model::finish_o_auth_request::OAuthParams;
+        /// let x = OAuthParams::new().set_code("example");
+        /// ```
+        pub fn set_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.code = v.into();
+            self
+        }
+
+        /// Sets the value of [ticket][crate::model::finish_o_auth_request::OAuthParams::ticket].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_developerconnect_v1::model::finish_o_auth_request::OAuthParams;
+        /// let x = OAuthParams::new().set_ticket("example");
+        /// ```
+        pub fn set_ticket<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.ticket = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for OAuthParams {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.developerconnect.v1.FinishOAuthRequest.OAuthParams"
+        }
+    }
+
+    /// The params returned by Google OAuth flow redirects.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct GoogleOAuthParams {
+        /// Required. The scopes returned by Google OAuth flow.
+        pub scopes: std::vec::Vec<std::string::String>,
+
+        /// Optional. The version info returned by Google OAuth flow.
+        pub version_info: std::string::String,
+
+        /// Required. The ticket to be used for post processing the callback from
+        /// Google OAuth flow.
+        pub ticket: std::string::String,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl GoogleOAuthParams {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [scopes][crate::model::finish_o_auth_request::GoogleOAuthParams::scopes].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_developerconnect_v1::model::finish_o_auth_request::GoogleOAuthParams;
+        /// let x = GoogleOAuthParams::new().set_scopes(["a", "b", "c"]);
+        /// ```
+        pub fn set_scopes<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.scopes = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [version_info][crate::model::finish_o_auth_request::GoogleOAuthParams::version_info].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_developerconnect_v1::model::finish_o_auth_request::GoogleOAuthParams;
+        /// let x = GoogleOAuthParams::new().set_version_info("example");
+        /// ```
+        pub fn set_version_info<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.version_info = v.into();
+            self
+        }
+
+        /// Sets the value of [ticket][crate::model::finish_o_auth_request::GoogleOAuthParams::ticket].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_developerconnect_v1::model::finish_o_auth_request::GoogleOAuthParams;
+        /// let x = GoogleOAuthParams::new().set_ticket("example");
+        /// ```
+        pub fn set_ticket<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.ticket = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for GoogleOAuthParams {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.developerconnect.v1.FinishOAuthRequest.GoogleOAuthParams"
+        }
+    }
+
+    /// The params returned by OAuth flow redirect.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Params {
+        /// The params returned by non-Google OAuth 2.0 flow redirect.
+        OauthParams(std::boxed::Box<crate::model::finish_o_auth_request::OAuthParams>),
+        /// The params returned by Google OAuth flow redirects.
+        GoogleOauthParams(std::boxed::Box<crate::model::finish_o_auth_request::GoogleOAuthParams>),
+    }
+}
+
+/// Message for responding to finishing an OAuth flow.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct FinishOAuthResponse {
+    /// The error resulted from exchanging OAuth tokens from the service provider.
+    pub exchange_error: std::option::Option<crate::model::ExchangeError>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl FinishOAuthResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [exchange_error][crate::model::FinishOAuthResponse::exchange_error].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_developerconnect_v1::model::FinishOAuthResponse;
+    /// use google_cloud_developerconnect_v1::model::ExchangeError;
+    /// let x = FinishOAuthResponse::new().set_exchange_error(ExchangeError::default()/* use setters */);
+    /// ```
+    pub fn set_exchange_error<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ExchangeError>,
+    {
+        self.exchange_error = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [exchange_error][crate::model::FinishOAuthResponse::exchange_error].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_developerconnect_v1::model::FinishOAuthResponse;
+    /// use google_cloud_developerconnect_v1::model::ExchangeError;
+    /// let x = FinishOAuthResponse::new().set_or_clear_exchange_error(Some(ExchangeError::default()/* use setters */));
+    /// let x = FinishOAuthResponse::new().set_or_clear_exchange_error(None::<ExchangeError>);
+    /// ```
+    pub fn set_or_clear_exchange_error<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ExchangeError>,
+    {
+        self.exchange_error = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for FinishOAuthResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.developerconnect.v1.FinishOAuthResponse"
     }
 }
 
@@ -6097,7 +7325,7 @@ pub mod account_connector {
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum AccountConnectorConfig {
-        /// Provider OAuth config.
+        /// Optional. Provider OAuth config.
         ProviderOauthConfig(std::boxed::Box<crate::model::ProviderOAuthConfig>),
     }
 }
@@ -6350,14 +7578,14 @@ pub mod provider_o_auth_config {
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum OauthProviderId {
-        /// Immutable. Developer Connect provided OAuth.
+        /// Optional. Immutable. Developer Connect provided OAuth.
         SystemProviderId(crate::model::SystemProvider),
     }
 }
 
 /// The InsightsConfig resource is the core configuration object to capture
 /// events from your Software Development Lifecycle. It acts as the central hub
-/// for managing how Developer connect understands your application, its runtime
+/// for managing how Developer Connect understands your application, its runtime
 /// environments, and the artifacts deployed within them.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -6367,10 +7595,10 @@ pub struct InsightsConfig {
     /// projects/{project}/locations/{location}/insightsConfigs/{insightsConfig}
     pub name: std::string::String,
 
-    /// Output only. [Output only] Create timestamp
+    /// Output only. Create timestamp.
     pub create_time: std::option::Option<wkt::Timestamp>,
 
-    /// Output only. [Output only] Update timestamp
+    /// Output only. Update timestamp.
     pub update_time: std::option::Option<wkt::Timestamp>,
 
     /// Output only. The runtime configurations where the application is deployed.
@@ -6678,6 +7906,7 @@ impl InsightsConfig {
     /// # use google_cloud_developerconnect_v1::model::InsightsConfig;
     /// let x = InsightsConfig::new().set_app_hub_application("example");
     /// assert!(x.app_hub_application().is_some());
+    /// assert!(x.projects().is_none());
     /// ```
     pub fn set_app_hub_application<T: std::convert::Into<std::string::String>>(
         mut self,
@@ -6685,6 +7914,43 @@ impl InsightsConfig {
     ) -> Self {
         self.insights_config_context = std::option::Option::Some(
             crate::model::insights_config::InsightsConfigContext::AppHubApplication(v.into()),
+        );
+        self
+    }
+
+    /// The value of [insights_config_context][crate::model::InsightsConfig::insights_config_context]
+    /// if it holds a `Projects`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn projects(&self) -> std::option::Option<&std::boxed::Box<crate::model::Projects>> {
+        #[allow(unreachable_patterns)]
+        self.insights_config_context.as_ref().and_then(|v| match v {
+            crate::model::insights_config::InsightsConfigContext::Projects(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [insights_config_context][crate::model::InsightsConfig::insights_config_context]
+    /// to hold a `Projects`.
+    ///
+    /// Note that all the setters affecting `insights_config_context` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_developerconnect_v1::model::InsightsConfig;
+    /// use google_cloud_developerconnect_v1::model::Projects;
+    /// let x = InsightsConfig::new().set_projects(Projects::default()/* use setters */);
+    /// assert!(x.projects().is_some());
+    /// assert!(x.app_hub_application().is_none());
+    /// ```
+    pub fn set_projects<T: std::convert::Into<std::boxed::Box<crate::model::Projects>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.insights_config_context = std::option::Option::Some(
+            crate::model::insights_config::InsightsConfigContext::Projects(v.into()),
         );
         self
     }
@@ -6848,6 +8114,48 @@ pub mod insights_config {
         /// Format:
         /// projects/{project}/locations/{location}/applications/{application}
         AppHubApplication(std::string::String),
+        /// Optional. The projects to track with the InsightsConfig.
+        Projects(std::boxed::Box<crate::model::Projects>),
+    }
+}
+
+/// Projects represents the projects to track with the InsightsConfig.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct Projects {
+    /// Optional. The project IDs.
+    /// Format: {project}
+    pub project_ids: std::vec::Vec<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl Projects {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [project_ids][crate::model::Projects::project_ids].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_developerconnect_v1::model::Projects;
+    /// let x = Projects::new().set_project_ids(["a", "b", "c"]);
+    /// ```
+    pub fn set_project_ids<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.project_ids = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for Projects {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.developerconnect.v1.Projects"
     }
 }
 
@@ -6952,6 +8260,7 @@ impl RuntimeConfig {
     /// use google_cloud_developerconnect_v1::model::GKEWorkload;
     /// let x = RuntimeConfig::new().set_gke_workload(GKEWorkload::default()/* use setters */);
     /// assert!(x.gke_workload().is_some());
+    /// assert!(x.google_cloud_run().is_none());
     /// ```
     pub fn set_gke_workload<T: std::convert::Into<std::boxed::Box<crate::model::GKEWorkload>>>(
         mut self,
@@ -6959,6 +8268,47 @@ impl RuntimeConfig {
     ) -> Self {
         self.runtime =
             std::option::Option::Some(crate::model::runtime_config::Runtime::GkeWorkload(v.into()));
+        self
+    }
+
+    /// The value of [runtime][crate::model::RuntimeConfig::runtime]
+    /// if it holds a `GoogleCloudRun`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn google_cloud_run(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::GoogleCloudRun>> {
+        #[allow(unreachable_patterns)]
+        self.runtime.as_ref().and_then(|v| match v {
+            crate::model::runtime_config::Runtime::GoogleCloudRun(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [runtime][crate::model::RuntimeConfig::runtime]
+    /// to hold a `GoogleCloudRun`.
+    ///
+    /// Note that all the setters affecting `runtime` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_developerconnect_v1::model::RuntimeConfig;
+    /// use google_cloud_developerconnect_v1::model::GoogleCloudRun;
+    /// let x = RuntimeConfig::new().set_google_cloud_run(GoogleCloudRun::default()/* use setters */);
+    /// assert!(x.google_cloud_run().is_some());
+    /// assert!(x.gke_workload().is_none());
+    /// ```
+    pub fn set_google_cloud_run<
+        T: std::convert::Into<std::boxed::Box<crate::model::GoogleCloudRun>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.runtime = std::option::Option::Some(
+            crate::model::runtime_config::Runtime::GoogleCloudRun(v.into()),
+        );
         self
     }
 
@@ -7011,6 +8361,7 @@ impl RuntimeConfig {
     /// use google_cloud_developerconnect_v1::model::AppHubWorkload;
     /// let x = RuntimeConfig::new().set_app_hub_workload(AppHubWorkload::default()/* use setters */);
     /// assert!(x.app_hub_workload().is_some());
+    /// assert!(x.app_hub_service().is_none());
     /// ```
     pub fn set_app_hub_workload<
         T: std::convert::Into<std::boxed::Box<crate::model::AppHubWorkload>>,
@@ -7020,6 +8371,47 @@ impl RuntimeConfig {
     ) -> Self {
         self.derived_from = std::option::Option::Some(
             crate::model::runtime_config::DerivedFrom::AppHubWorkload(v.into()),
+        );
+        self
+    }
+
+    /// The value of [derived_from][crate::model::RuntimeConfig::derived_from]
+    /// if it holds a `AppHubService`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn app_hub_service(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::AppHubService>> {
+        #[allow(unreachable_patterns)]
+        self.derived_from.as_ref().and_then(|v| match v {
+            crate::model::runtime_config::DerivedFrom::AppHubService(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [derived_from][crate::model::RuntimeConfig::derived_from]
+    /// to hold a `AppHubService`.
+    ///
+    /// Note that all the setters affecting `derived_from` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_developerconnect_v1::model::RuntimeConfig;
+    /// use google_cloud_developerconnect_v1::model::AppHubService;
+    /// let x = RuntimeConfig::new().set_app_hub_service(AppHubService::default()/* use setters */);
+    /// assert!(x.app_hub_service().is_some());
+    /// assert!(x.app_hub_workload().is_none());
+    /// ```
+    pub fn set_app_hub_service<
+        T: std::convert::Into<std::boxed::Box<crate::model::AppHubService>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.derived_from = std::option::Option::Some(
+            crate::model::runtime_config::DerivedFrom::AppHubService(v.into()),
         );
         self
     }
@@ -7175,6 +8567,8 @@ pub mod runtime_config {
     pub enum Runtime {
         /// Output only. Google Kubernetes Engine runtime.
         GkeWorkload(std::boxed::Box<crate::model::GKEWorkload>),
+        /// Output only. Cloud Run runtime.
+        GoogleCloudRun(std::boxed::Box<crate::model::GoogleCloudRun>),
     }
 
     /// Where the runtime is derived from.
@@ -7183,6 +8577,8 @@ pub mod runtime_config {
     pub enum DerivedFrom {
         /// Output only. App Hub Workload.
         AppHubWorkload(std::boxed::Box<crate::model::AppHubWorkload>),
+        /// Output only. App Hub Service.
+        AppHubService(std::boxed::Box<crate::model::AppHubService>),
     }
 }
 
@@ -7236,6 +8632,42 @@ impl GKEWorkload {
 impl wkt::message::Message for GKEWorkload {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.developerconnect.v1.GKEWorkload"
+    }
+}
+
+/// GoogleCloudRun represents the Cloud Run runtime.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GoogleCloudRun {
+    /// Required. Immutable. The name of the Cloud Run service.
+    /// Format:
+    /// `projects/{project}/locations/{location}/services/{service}`.
+    pub service_uri: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GoogleCloudRun {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [service_uri][crate::model::GoogleCloudRun::service_uri].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_developerconnect_v1::model::GoogleCloudRun;
+    /// let x = GoogleCloudRun::new().set_service_uri("example");
+    /// ```
+    pub fn set_service_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.service_uri = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GoogleCloudRun {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.developerconnect.v1.GoogleCloudRun"
     }
 }
 
@@ -7302,6 +8734,72 @@ impl AppHubWorkload {
 impl wkt::message::Message for AppHubWorkload {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.developerconnect.v1.AppHubWorkload"
+    }
+}
+
+/// AppHubService represents the App Hub Service.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct AppHubService {
+    /// Required. Output only. Immutable. The name of the App Hub Service.
+    /// Format:
+    /// `projects/{project}/locations/{location}/applications/{application}/services/{service}`.
+    pub apphub_service: std::string::String,
+
+    /// Output only. The criticality of the App Hub Service.
+    pub criticality: std::string::String,
+
+    /// Output only. The environment of the App Hub Service.
+    pub environment: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl AppHubService {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [apphub_service][crate::model::AppHubService::apphub_service].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_developerconnect_v1::model::AppHubService;
+    /// let x = AppHubService::new().set_apphub_service("example");
+    /// ```
+    pub fn set_apphub_service<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.apphub_service = v.into();
+        self
+    }
+
+    /// Sets the value of [criticality][crate::model::AppHubService::criticality].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_developerconnect_v1::model::AppHubService;
+    /// let x = AppHubService::new().set_criticality("example");
+    /// ```
+    pub fn set_criticality<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.criticality = v.into();
+        self
+    }
+
+    /// Sets the value of [environment][crate::model::AppHubService::environment].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_developerconnect_v1::model::AppHubService;
+    /// let x = AppHubService::new().set_environment("example");
+    /// ```
+    pub fn set_environment<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.environment = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for AppHubService {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.developerconnect.v1.AppHubService"
     }
 }
 
@@ -7584,6 +9082,817 @@ impl GoogleArtifactRegistry {
 impl wkt::message::Message for GoogleArtifactRegistry {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.developerconnect.v1.GoogleArtifactRegistry"
+    }
+}
+
+/// The DeploymentEvent resource represents the deployment of the artifact within
+/// the InsightsConfig resource.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeploymentEvent {
+    /// Identifier. The name of the DeploymentEvent. This name is provided by
+    /// Developer Connect insights. Format:
+    /// projects/{project}/locations/{location}/insightsConfigs/{insights_config}/deploymentEvents/{uuid}
+    pub name: std::string::String,
+
+    /// Output only. The create time of the DeploymentEvent.
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The update time of the DeploymentEvent.
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The runtime configurations where the DeploymentEvent happened.
+    pub runtime_config: std::option::Option<crate::model::RuntimeConfig>,
+
+    /// Output only. The runtime assigned URI of the DeploymentEvent.
+    /// For GKE, this is the fully qualified replica set uri.
+    /// e.g.
+    /// container.googleapis.com/projects/{project}/locations/{location}/clusters/{cluster}/k8s/namespaces/{namespace}/apps/replicasets/{replica-set-id}
+    /// For Cloud Run, this is the revision name.
+    pub runtime_deployment_uri: std::string::String,
+
+    /// Output only. The state of the DeploymentEvent.
+    pub state: crate::model::deployment_event::State,
+
+    /// Output only. The artifact deployments of the DeploymentEvent. Each artifact
+    /// deployment contains the artifact uri and the runtime configuration uri. For
+    /// GKE, this would be all the containers images that are deployed in the pod.
+    pub artifact_deployments: std::vec::Vec<crate::model::ArtifactDeployment>,
+
+    /// Output only. The time at which the DeploymentEvent was deployed.
+    /// This would be the min of all ArtifactDeployment deploy_times.
+    pub deploy_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The time at which the DeploymentEvent was undeployed, all
+    /// artifacts are considered undeployed once this time is set. This would be
+    /// the max of all ArtifactDeployment undeploy_times. If any ArtifactDeployment
+    /// is still active (i.e. does not have an undeploy_time), this field will be
+    /// empty.
+    pub undeploy_time: std::option::Option<wkt::Timestamp>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeploymentEvent {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeploymentEvent::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_developerconnect_v1::model::DeploymentEvent;
+    /// let x = DeploymentEvent::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::DeploymentEvent::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_developerconnect_v1::model::DeploymentEvent;
+    /// use wkt::Timestamp;
+    /// let x = DeploymentEvent::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::DeploymentEvent::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_developerconnect_v1::model::DeploymentEvent;
+    /// use wkt::Timestamp;
+    /// let x = DeploymentEvent::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DeploymentEvent::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::DeploymentEvent::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_developerconnect_v1::model::DeploymentEvent;
+    /// use wkt::Timestamp;
+    /// let x = DeploymentEvent::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::DeploymentEvent::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_developerconnect_v1::model::DeploymentEvent;
+    /// use wkt::Timestamp;
+    /// let x = DeploymentEvent::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DeploymentEvent::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [runtime_config][crate::model::DeploymentEvent::runtime_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_developerconnect_v1::model::DeploymentEvent;
+    /// use google_cloud_developerconnect_v1::model::RuntimeConfig;
+    /// let x = DeploymentEvent::new().set_runtime_config(RuntimeConfig::default()/* use setters */);
+    /// ```
+    pub fn set_runtime_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::RuntimeConfig>,
+    {
+        self.runtime_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [runtime_config][crate::model::DeploymentEvent::runtime_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_developerconnect_v1::model::DeploymentEvent;
+    /// use google_cloud_developerconnect_v1::model::RuntimeConfig;
+    /// let x = DeploymentEvent::new().set_or_clear_runtime_config(Some(RuntimeConfig::default()/* use setters */));
+    /// let x = DeploymentEvent::new().set_or_clear_runtime_config(None::<RuntimeConfig>);
+    /// ```
+    pub fn set_or_clear_runtime_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::RuntimeConfig>,
+    {
+        self.runtime_config = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [runtime_deployment_uri][crate::model::DeploymentEvent::runtime_deployment_uri].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_developerconnect_v1::model::DeploymentEvent;
+    /// let x = DeploymentEvent::new().set_runtime_deployment_uri("example");
+    /// ```
+    pub fn set_runtime_deployment_uri<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.runtime_deployment_uri = v.into();
+        self
+    }
+
+    /// Sets the value of [state][crate::model::DeploymentEvent::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_developerconnect_v1::model::DeploymentEvent;
+    /// use google_cloud_developerconnect_v1::model::deployment_event::State;
+    /// let x0 = DeploymentEvent::new().set_state(State::Active);
+    /// let x1 = DeploymentEvent::new().set_state(State::Inactive);
+    /// ```
+    pub fn set_state<T: std::convert::Into<crate::model::deployment_event::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.state = v.into();
+        self
+    }
+
+    /// Sets the value of [artifact_deployments][crate::model::DeploymentEvent::artifact_deployments].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_developerconnect_v1::model::DeploymentEvent;
+    /// use google_cloud_developerconnect_v1::model::ArtifactDeployment;
+    /// let x = DeploymentEvent::new()
+    ///     .set_artifact_deployments([
+    ///         ArtifactDeployment::default()/* use setters */,
+    ///         ArtifactDeployment::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_artifact_deployments<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::ArtifactDeployment>,
+    {
+        use std::iter::Iterator;
+        self.artifact_deployments = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [deploy_time][crate::model::DeploymentEvent::deploy_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_developerconnect_v1::model::DeploymentEvent;
+    /// use wkt::Timestamp;
+    /// let x = DeploymentEvent::new().set_deploy_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_deploy_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.deploy_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [deploy_time][crate::model::DeploymentEvent::deploy_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_developerconnect_v1::model::DeploymentEvent;
+    /// use wkt::Timestamp;
+    /// let x = DeploymentEvent::new().set_or_clear_deploy_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DeploymentEvent::new().set_or_clear_deploy_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_deploy_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.deploy_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [undeploy_time][crate::model::DeploymentEvent::undeploy_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_developerconnect_v1::model::DeploymentEvent;
+    /// use wkt::Timestamp;
+    /// let x = DeploymentEvent::new().set_undeploy_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_undeploy_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.undeploy_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [undeploy_time][crate::model::DeploymentEvent::undeploy_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_developerconnect_v1::model::DeploymentEvent;
+    /// use wkt::Timestamp;
+    /// let x = DeploymentEvent::new().set_or_clear_undeploy_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DeploymentEvent::new().set_or_clear_undeploy_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_undeploy_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.undeploy_time = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for DeploymentEvent {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.developerconnect.v1.DeploymentEvent"
+    }
+}
+
+/// Defines additional types related to [DeploymentEvent].
+pub mod deployment_event {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The state of the DeploymentEvent.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
+        /// No state specified.
+        Unspecified,
+        /// The deployment is active in the runtime.
+        Active,
+        /// The deployment is not in the runtime.
+        Inactive,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl State {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Active => std::option::Option::Some(1),
+                Self::Inactive => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Active => std::option::Option::Some("STATE_ACTIVE"),
+                Self::Inactive => std::option::Option::Some("STATE_INACTIVE"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Active,
+                2 => Self::Inactive,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "STATE_ACTIVE" => Self::Active,
+                "STATE_INACTIVE" => Self::Inactive,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Active => serializer.serialize_i32(1),
+                Self::Inactive => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.developerconnect.v1.DeploymentEvent.State",
+            ))
+        }
+    }
+}
+
+/// Request for getting a DeploymentEvent.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetDeploymentEventRequest {
+    /// Required. The name of the deployment event to retrieve.
+    /// Format:
+    /// projects/{project}/locations/{location}/insightsConfigs/{insights_config}/deploymentEvents/{uuid}
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetDeploymentEventRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetDeploymentEventRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_developerconnect_v1::model::GetDeploymentEventRequest;
+    /// let x = GetDeploymentEventRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetDeploymentEventRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.developerconnect.v1.GetDeploymentEventRequest"
+    }
+}
+
+/// Request for requesting list of DeploymentEvents.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListDeploymentEventsRequest {
+    /// Required. The parent insights config that owns this collection of
+    /// deployment events. Format:
+    /// projects/{project}/locations/{location}/insightsConfigs/{insights_config}
+    pub parent: std::string::String,
+
+    /// Optional. The maximum number of deployment events to return. The service
+    /// may return fewer than this value. If unspecified, at most 50 deployment
+    /// events will be returned. The maximum value is 1000; values above 1000 will
+    /// be coerced to 1000.
+    pub page_size: i32,
+
+    /// Optional. A page token, received from a previous `ListDeploymentEvents`
+    /// call. Provide this to retrieve the subsequent page.
+    ///
+    /// When paginating, all other parameters provided to `ListDeploymentEvents`
+    /// must match the call that provided the page token.
+    pub page_token: std::string::String,
+
+    /// Optional. Filter expression that matches a subset of the DeploymentEvents.
+    /// <https://google.aip.dev/160>.
+    pub filter: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListDeploymentEventsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListDeploymentEventsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_developerconnect_v1::model::ListDeploymentEventsRequest;
+    /// let x = ListDeploymentEventsRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListDeploymentEventsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_developerconnect_v1::model::ListDeploymentEventsRequest;
+    /// let x = ListDeploymentEventsRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListDeploymentEventsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_developerconnect_v1::model::ListDeploymentEventsRequest;
+    /// let x = ListDeploymentEventsRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::ListDeploymentEventsRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_developerconnect_v1::model::ListDeploymentEventsRequest;
+    /// let x = ListDeploymentEventsRequest::new().set_filter("example");
+    /// ```
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListDeploymentEventsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.developerconnect.v1.ListDeploymentEventsRequest"
+    }
+}
+
+/// Response to listing DeploymentEvents.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListDeploymentEventsResponse {
+    /// The list of DeploymentEvents.
+    pub deployment_events: std::vec::Vec<crate::model::DeploymentEvent>,
+
+    /// A token, which can be sent as `page_token` to retrieve the next page.
+    /// If this field is omitted, there are no subsequent pages.
+    pub next_page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListDeploymentEventsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [deployment_events][crate::model::ListDeploymentEventsResponse::deployment_events].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_developerconnect_v1::model::ListDeploymentEventsResponse;
+    /// use google_cloud_developerconnect_v1::model::DeploymentEvent;
+    /// let x = ListDeploymentEventsResponse::new()
+    ///     .set_deployment_events([
+    ///         DeploymentEvent::default()/* use setters */,
+    ///         DeploymentEvent::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_deployment_events<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::DeploymentEvent>,
+    {
+        use std::iter::Iterator;
+        self.deployment_events = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListDeploymentEventsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_developerconnect_v1::model::ListDeploymentEventsResponse;
+    /// let x = ListDeploymentEventsResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListDeploymentEventsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.developerconnect.v1.ListDeploymentEventsResponse"
+    }
+}
+
+#[doc(hidden)]
+impl google_cloud_gax::paginator::internal::PageableResponse for ListDeploymentEventsResponse {
+    type PageItem = crate::model::DeploymentEvent;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.deployment_events
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// The ArtifactDeployment resource represents the deployment of the artifact
+/// within the InsightsConfig resource.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ArtifactDeployment {
+    /// Output only. Unique identifier of `ArtifactDeployment`.
+    pub id: std::string::String,
+
+    /// Output only. The artifact that is deployed.
+    pub artifact_reference: std::string::String,
+
+    /// Output only. The artifact alias in the deployment spec, with Tag/SHA.
+    /// e.g. us-docker.pkg.dev/my-project/my-repo/image:1.0.0
+    pub artifact_alias: std::string::String,
+
+    /// Output only. The source commits at which this artifact was built. Extracted
+    /// from provenance.
+    pub source_commit_uris: std::vec::Vec<std::string::String>,
+
+    /// Output only. The time at which the deployment was deployed.
+    pub deploy_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The time at which the deployment was undeployed, all artifacts
+    /// are considered undeployed once this time is set.
+    pub undeploy_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The summary of container status of the artifact deployment.
+    /// Format as `ContainerStatusState-Reason : restartCount`
+    /// e.g. "Waiting-ImagePullBackOff : 3"
+    pub container_status_summary: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ArtifactDeployment {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [id][crate::model::ArtifactDeployment::id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_developerconnect_v1::model::ArtifactDeployment;
+    /// let x = ArtifactDeployment::new().set_id("example");
+    /// ```
+    pub fn set_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.id = v.into();
+        self
+    }
+
+    /// Sets the value of [artifact_reference][crate::model::ArtifactDeployment::artifact_reference].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_developerconnect_v1::model::ArtifactDeployment;
+    /// let x = ArtifactDeployment::new().set_artifact_reference("example");
+    /// ```
+    pub fn set_artifact_reference<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.artifact_reference = v.into();
+        self
+    }
+
+    /// Sets the value of [artifact_alias][crate::model::ArtifactDeployment::artifact_alias].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_developerconnect_v1::model::ArtifactDeployment;
+    /// let x = ArtifactDeployment::new().set_artifact_alias("example");
+    /// ```
+    pub fn set_artifact_alias<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.artifact_alias = v.into();
+        self
+    }
+
+    /// Sets the value of [source_commit_uris][crate::model::ArtifactDeployment::source_commit_uris].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_developerconnect_v1::model::ArtifactDeployment;
+    /// let x = ArtifactDeployment::new().set_source_commit_uris(["a", "b", "c"]);
+    /// ```
+    pub fn set_source_commit_uris<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.source_commit_uris = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [deploy_time][crate::model::ArtifactDeployment::deploy_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_developerconnect_v1::model::ArtifactDeployment;
+    /// use wkt::Timestamp;
+    /// let x = ArtifactDeployment::new().set_deploy_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_deploy_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.deploy_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [deploy_time][crate::model::ArtifactDeployment::deploy_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_developerconnect_v1::model::ArtifactDeployment;
+    /// use wkt::Timestamp;
+    /// let x = ArtifactDeployment::new().set_or_clear_deploy_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ArtifactDeployment::new().set_or_clear_deploy_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_deploy_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.deploy_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [undeploy_time][crate::model::ArtifactDeployment::undeploy_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_developerconnect_v1::model::ArtifactDeployment;
+    /// use wkt::Timestamp;
+    /// let x = ArtifactDeployment::new().set_undeploy_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_undeploy_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.undeploy_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [undeploy_time][crate::model::ArtifactDeployment::undeploy_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_developerconnect_v1::model::ArtifactDeployment;
+    /// use wkt::Timestamp;
+    /// let x = ArtifactDeployment::new().set_or_clear_undeploy_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ArtifactDeployment::new().set_or_clear_undeploy_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_undeploy_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.undeploy_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [container_status_summary][crate::model::ArtifactDeployment::container_status_summary].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_developerconnect_v1::model::ArtifactDeployment;
+    /// let x = ArtifactDeployment::new().set_container_status_summary("example");
+    /// ```
+    pub fn set_container_status_summary<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.container_status_summary = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ArtifactDeployment {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.developerconnect.v1.ArtifactDeployment"
     }
 }
 

@@ -149,10 +149,10 @@ impl ManagedKafka {
     /// # use google_cloud_managedkafka_v1::client::ManagedKafka;
     /// use google_cloud_managedkafka_v1::Result;
     /// async fn sample(
-    ///    client: &ManagedKafka, resource_name: &str
+    ///    client: &ManagedKafka, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_cluster()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -184,7 +184,8 @@ impl ManagedKafka {
     ///    client: &ManagedKafka, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_cluster()
-    ///         .set_parent(parent).set_cluster_id("cluster_id_value")
+    ///         .set_parent(parent)
+    ///         .set_cluster_id("cluster_id_value")
     ///         .set_cluster(
     ///             Cluster::new()/* set fields */
     ///         )
@@ -252,10 +253,10 @@ impl ManagedKafka {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_managedkafka_v1::Result;
     /// async fn sample(
-    ///    client: &ManagedKafka, resource_name: &str
+    ///    client: &ManagedKafka, name: &str
     /// ) -> Result<()> {
     ///     client.delete_cluster()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -294,10 +295,10 @@ impl ManagedKafka {
     /// # use google_cloud_managedkafka_v1::client::ManagedKafka;
     /// use google_cloud_managedkafka_v1::Result;
     /// async fn sample(
-    ///    client: &ManagedKafka, resource_name: &str
+    ///    client: &ManagedKafka, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_topic()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -318,7 +319,8 @@ impl ManagedKafka {
     ///    client: &ManagedKafka, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_topic()
-    ///         .set_parent(parent).set_topic_id("topic_id_value")
+    ///         .set_parent(parent)
+    ///         .set_topic_id("topic_id_value")
     ///         .set_topic(
     ///             Topic::new()/* set fields */
     ///         )
@@ -364,10 +366,10 @@ impl ManagedKafka {
     /// # use google_cloud_managedkafka_v1::client::ManagedKafka;
     /// use google_cloud_managedkafka_v1::Result;
     /// async fn sample(
-    ///    client: &ManagedKafka, resource_name: &str
+    ///    client: &ManagedKafka, name: &str
     /// ) -> Result<()> {
     ///     client.delete_topic()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -406,10 +408,10 @@ impl ManagedKafka {
     /// # use google_cloud_managedkafka_v1::client::ManagedKafka;
     /// use google_cloud_managedkafka_v1::Result;
     /// async fn sample(
-    ///    client: &ManagedKafka, resource_name: &str
+    ///    client: &ManagedKafka, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_consumer_group()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -452,10 +454,10 @@ impl ManagedKafka {
     /// # use google_cloud_managedkafka_v1::client::ManagedKafka;
     /// use google_cloud_managedkafka_v1::Result;
     /// async fn sample(
-    ///    client: &ManagedKafka, resource_name: &str
+    ///    client: &ManagedKafka, name: &str
     /// ) -> Result<()> {
     ///     client.delete_consumer_group()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -494,10 +496,10 @@ impl ManagedKafka {
     /// # use google_cloud_managedkafka_v1::client::ManagedKafka;
     /// use google_cloud_managedkafka_v1::Result;
     /// async fn sample(
-    ///    client: &ManagedKafka, resource_name: &str
+    ///    client: &ManagedKafka, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_acl()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -518,7 +520,8 @@ impl ManagedKafka {
     ///    client: &ManagedKafka, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_acl()
-    ///         .set_parent(parent).set_acl_id("acl_id_value")
+    ///         .set_parent(parent)
+    ///         .set_acl_id("acl_id_value")
     ///         .set_acl(
     ///             Acl::new()/* set fields */
     ///         )
@@ -564,10 +567,10 @@ impl ManagedKafka {
     /// # use google_cloud_managedkafka_v1::client::ManagedKafka;
     /// use google_cloud_managedkafka_v1::Result;
     /// async fn sample(
-    ///    client: &ManagedKafka, resource_name: &str
+    ///    client: &ManagedKafka, name: &str
     /// ) -> Result<()> {
     ///     client.delete_acl()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -888,10 +891,10 @@ impl ManagedKafkaConnect {
     /// # use google_cloud_managedkafka_v1::client::ManagedKafkaConnect;
     /// use google_cloud_managedkafka_v1::Result;
     /// async fn sample(
-    ///    client: &ManagedKafkaConnect, resource_name: &str
+    ///    client: &ManagedKafkaConnect, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_connect_cluster()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -995,10 +998,10 @@ impl ManagedKafkaConnect {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_managedkafka_v1::Result;
     /// async fn sample(
-    ///    client: &ManagedKafkaConnect, resource_name: &str
+    ///    client: &ManagedKafkaConnect, name: &str
     /// ) -> Result<()> {
     ///     client.delete_connect_cluster()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1039,10 +1042,10 @@ impl ManagedKafkaConnect {
     /// # use google_cloud_managedkafka_v1::client::ManagedKafkaConnect;
     /// use google_cloud_managedkafka_v1::Result;
     /// async fn sample(
-    ///    client: &ManagedKafkaConnect, resource_name: &str
+    ///    client: &ManagedKafkaConnect, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_connector()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1063,7 +1066,8 @@ impl ManagedKafkaConnect {
     ///    client: &ManagedKafkaConnect, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_connector()
-    ///         .set_parent(parent).set_connector_id("connector_id_value")
+    ///         .set_parent(parent)
+    ///         .set_connector_id("connector_id_value")
     ///         .set_connector(
     ///             Connector::new()/* set fields */
     ///         )
@@ -1109,10 +1113,10 @@ impl ManagedKafkaConnect {
     /// # use google_cloud_managedkafka_v1::client::ManagedKafkaConnect;
     /// use google_cloud_managedkafka_v1::Result;
     /// async fn sample(
-    ///    client: &ManagedKafkaConnect, resource_name: &str
+    ///    client: &ManagedKafkaConnect, name: &str
     /// ) -> Result<()> {
     ///     client.delete_connector()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }

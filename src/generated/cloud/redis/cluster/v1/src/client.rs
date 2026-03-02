@@ -173,10 +173,10 @@ impl CloudRedisCluster {
     /// # use google_cloud_redis_cluster_v1::client::CloudRedisCluster;
     /// use google_cloud_redis_cluster_v1::Result;
     /// async fn sample(
-    ///    client: &CloudRedisCluster, resource_name: &str
+    ///    client: &CloudRedisCluster, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_cluster()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -246,10 +246,10 @@ impl CloudRedisCluster {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_redis_cluster_v1::Result;
     /// async fn sample(
-    ///    client: &CloudRedisCluster, resource_name: &str
+    ///    client: &CloudRedisCluster, name: &str
     /// ) -> Result<()> {
     ///     client.delete_cluster()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -287,7 +287,8 @@ impl CloudRedisCluster {
     ///    client: &CloudRedisCluster, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_cluster()
-    ///         .set_parent(parent).set_cluster_id("cluster_id_value")
+    ///         .set_parent(parent)
+    ///         .set_cluster_id("cluster_id_value")
     ///         .set_cluster(
     ///             Cluster::new()/* set fields */
     ///         )
@@ -391,10 +392,10 @@ impl CloudRedisCluster {
     /// # use google_cloud_redis_cluster_v1::client::CloudRedisCluster;
     /// use google_cloud_redis_cluster_v1::Result;
     /// async fn sample(
-    ///    client: &CloudRedisCluster, resource_name: &str
+    ///    client: &CloudRedisCluster, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_backup_collection()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -436,10 +437,10 @@ impl CloudRedisCluster {
     /// # use google_cloud_redis_cluster_v1::client::CloudRedisCluster;
     /// use google_cloud_redis_cluster_v1::Result;
     /// async fn sample(
-    ///    client: &CloudRedisCluster, resource_name: &str
+    ///    client: &CloudRedisCluster, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_backup()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -467,10 +468,10 @@ impl CloudRedisCluster {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_redis_cluster_v1::Result;
     /// async fn sample(
-    ///    client: &CloudRedisCluster, resource_name: &str
+    ///    client: &CloudRedisCluster, name: &str
     /// ) -> Result<()> {
     ///     client.delete_backup()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }

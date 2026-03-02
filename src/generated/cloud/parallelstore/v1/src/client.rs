@@ -164,10 +164,10 @@ impl Parallelstore {
     /// # use google_cloud_parallelstore_v1::client::Parallelstore;
     /// use google_cloud_parallelstore_v1::Result;
     /// async fn sample(
-    ///    client: &Parallelstore, resource_name: &str
+    ///    client: &Parallelstore, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_instance()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -199,7 +199,8 @@ impl Parallelstore {
     ///    client: &Parallelstore, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_instance()
-    ///         .set_parent(parent).set_instance_id("instance_id_value")
+    ///         .set_parent(parent)
+    ///         .set_instance_id("instance_id_value")
     ///         .set_instance(
     ///             Instance::new()/* set fields */
     ///         )
@@ -267,10 +268,10 @@ impl Parallelstore {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_parallelstore_v1::Result;
     /// async fn sample(
-    ///    client: &Parallelstore, resource_name: &str
+    ///    client: &Parallelstore, name: &str
     /// ) -> Result<()> {
     ///     client.delete_instance()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }

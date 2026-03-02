@@ -149,10 +149,10 @@ impl EdgeContainer {
     /// # use google_cloud_edgecontainer_v1::client::EdgeContainer;
     /// use google_cloud_edgecontainer_v1::Result;
     /// async fn sample(
-    ///    client: &EdgeContainer, resource_name: &str
+    ///    client: &EdgeContainer, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_cluster()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -184,7 +184,8 @@ impl EdgeContainer {
     ///    client: &EdgeContainer, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_cluster()
-    ///         .set_parent(parent).set_cluster_id("cluster_id_value")
+    ///         .set_parent(parent)
+    ///         .set_cluster_id("cluster_id_value")
     ///         .set_cluster(
     ///             Cluster::new()/* set fields */
     ///         )
@@ -283,10 +284,10 @@ impl EdgeContainer {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_edgecontainer_v1::Result;
     /// async fn sample(
-    ///    client: &EdgeContainer, resource_name: &str
+    ///    client: &EdgeContainer, name: &str
     /// ) -> Result<()> {
     ///     client.delete_cluster()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -367,10 +368,10 @@ impl EdgeContainer {
     /// # use google_cloud_edgecontainer_v1::client::EdgeContainer;
     /// use google_cloud_edgecontainer_v1::Result;
     /// async fn sample(
-    ///    client: &EdgeContainer, resource_name: &str
+    ///    client: &EdgeContainer, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_node_pool()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -470,10 +471,10 @@ impl EdgeContainer {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_edgecontainer_v1::Result;
     /// async fn sample(
-    ///    client: &EdgeContainer, resource_name: &str
+    ///    client: &EdgeContainer, name: &str
     /// ) -> Result<()> {
     ///     client.delete_node_pool()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -512,10 +513,10 @@ impl EdgeContainer {
     /// # use google_cloud_edgecontainer_v1::client::EdgeContainer;
     /// use google_cloud_edgecontainer_v1::Result;
     /// async fn sample(
-    ///    client: &EdgeContainer, resource_name: &str
+    ///    client: &EdgeContainer, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_machine()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -555,10 +556,10 @@ impl EdgeContainer {
     /// # use google_cloud_edgecontainer_v1::client::EdgeContainer;
     /// use google_cloud_edgecontainer_v1::Result;
     /// async fn sample(
-    ///    client: &EdgeContainer, resource_name: &str
+    ///    client: &EdgeContainer, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_vpn_connection()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -621,10 +622,10 @@ impl EdgeContainer {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_edgecontainer_v1::Result;
     /// async fn sample(
-    ///    client: &EdgeContainer, resource_name: &str
+    ///    client: &EdgeContainer, name: &str
     /// ) -> Result<()> {
     ///     client.delete_vpn_connection()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }

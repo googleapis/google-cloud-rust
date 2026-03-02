@@ -300,6 +300,28 @@ pub trait DeveloperConnect: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::DeveloperConnect::start_o_auth].
+    fn start_o_auth(
+        &self,
+        _req: crate::model::StartOAuthRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::StartOAuthResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::DeveloperConnect::finish_o_auth].
+    fn finish_o_auth(
+        &self,
+        _req: crate::model::FinishOAuthRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::FinishOAuthResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::DeveloperConnect::list_locations].
     fn list_locations(
         &self,
@@ -452,6 +474,28 @@ pub trait InsightsConfigService: std::fmt::Debug + Send + Sync {
         _options: crate::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::InsightsConfigService::get_deployment_event].
+    fn get_deployment_event(
+        &self,
+        _req: crate::model::GetDeploymentEventRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::DeploymentEvent>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::InsightsConfigService::list_deployment_events].
+    fn list_deployment_events(
+        &self,
+        _req: crate::model::ListDeploymentEventsRequest,
+        _options: crate::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<crate::Response<crate::model::ListDeploymentEventsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }

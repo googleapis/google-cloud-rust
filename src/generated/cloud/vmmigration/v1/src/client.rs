@@ -148,10 +148,10 @@ impl VmMigration {
     /// # use google_cloud_vmmigration_v1::client::VmMigration;
     /// use google_cloud_vmmigration_v1::Result;
     /// async fn sample(
-    ///    client: &VmMigration, resource_name: &str
+    ///    client: &VmMigration, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_source()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -183,7 +183,8 @@ impl VmMigration {
     ///    client: &VmMigration, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_source()
-    ///         .set_parent(parent).set_source_id("source_id_value")
+    ///         .set_parent(parent)
+    ///         .set_source_id("source_id_value")
     ///         .set_source(
     ///             Source::new()/* set fields */
     ///         )
@@ -251,10 +252,10 @@ impl VmMigration {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_vmmigration_v1::Result;
     /// async fn sample(
-    ///    client: &VmMigration, resource_name: &str
+    ///    client: &VmMigration, name: &str
     /// ) -> Result<()> {
     ///     client.delete_source()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -345,10 +346,10 @@ impl VmMigration {
     /// # use google_cloud_vmmigration_v1::client::VmMigration;
     /// use google_cloud_vmmigration_v1::Result;
     /// async fn sample(
-    ///    client: &VmMigration, resource_name: &str
+    ///    client: &VmMigration, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_utilization_report()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -413,10 +414,10 @@ impl VmMigration {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_vmmigration_v1::Result;
     /// async fn sample(
-    ///    client: &VmMigration, resource_name: &str
+    ///    client: &VmMigration, name: &str
     /// ) -> Result<()> {
     ///     client.delete_utilization_report()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -459,10 +460,10 @@ impl VmMigration {
     /// # use google_cloud_vmmigration_v1::client::VmMigration;
     /// use google_cloud_vmmigration_v1::Result;
     /// async fn sample(
-    ///    client: &VmMigration, resource_name: &str
+    ///    client: &VmMigration, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_datacenter_connector()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -527,10 +528,10 @@ impl VmMigration {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_vmmigration_v1::Result;
     /// async fn sample(
-    ///    client: &VmMigration, resource_name: &str
+    ///    client: &VmMigration, name: &str
     /// ) -> Result<()> {
     ///     client.delete_datacenter_connector()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -638,10 +639,10 @@ impl VmMigration {
     /// # use google_cloud_vmmigration_v1::client::VmMigration;
     /// use google_cloud_vmmigration_v1::Result;
     /// async fn sample(
-    ///    client: &VmMigration, resource_name: &str
+    ///    client: &VmMigration, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_migrating_vm()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -706,10 +707,10 @@ impl VmMigration {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_vmmigration_v1::Result;
     /// async fn sample(
-    ///    client: &VmMigration, resource_name: &str
+    ///    client: &VmMigration, name: &str
     /// ) -> Result<()> {
     ///     client.delete_migrating_vm()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -977,10 +978,10 @@ impl VmMigration {
     /// # use google_cloud_vmmigration_v1::client::VmMigration;
     /// use google_cloud_vmmigration_v1::Result;
     /// async fn sample(
-    ///    client: &VmMigration, resource_name: &str
+    ///    client: &VmMigration, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_clone_job()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1089,10 +1090,10 @@ impl VmMigration {
     /// # use google_cloud_vmmigration_v1::client::VmMigration;
     /// use google_cloud_vmmigration_v1::Result;
     /// async fn sample(
-    ///    client: &VmMigration, resource_name: &str
+    ///    client: &VmMigration, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_cutover_job()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1132,10 +1133,10 @@ impl VmMigration {
     /// # use google_cloud_vmmigration_v1::client::VmMigration;
     /// use google_cloud_vmmigration_v1::Result;
     /// async fn sample(
-    ///    client: &VmMigration, resource_name: &str
+    ///    client: &VmMigration, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_group()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1167,7 +1168,8 @@ impl VmMigration {
     ///    client: &VmMigration, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_group()
-    ///         .set_parent(parent).set_group_id("group_id_value")
+    ///         .set_parent(parent)
+    ///         .set_group_id("group_id_value")
     ///         .set_group(
     ///             Group::new()/* set fields */
     ///         )
@@ -1235,10 +1237,10 @@ impl VmMigration {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_vmmigration_v1::Result;
     /// async fn sample(
-    ///    client: &VmMigration, resource_name: &str
+    ///    client: &VmMigration, name: &str
     /// ) -> Result<()> {
     ///     client.delete_group()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1345,10 +1347,10 @@ impl VmMigration {
     /// # use google_cloud_vmmigration_v1::client::VmMigration;
     /// use google_cloud_vmmigration_v1::Result;
     /// async fn sample(
-    ///    client: &VmMigration, resource_name: &str
+    ///    client: &VmMigration, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_target_project()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1457,10 +1459,10 @@ impl VmMigration {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_vmmigration_v1::Result;
     /// async fn sample(
-    ///    client: &VmMigration, resource_name: &str
+    ///    client: &VmMigration, name: &str
     /// ) -> Result<()> {
     ///     client.delete_target_project()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1499,10 +1501,10 @@ impl VmMigration {
     /// # use google_cloud_vmmigration_v1::client::VmMigration;
     /// use google_cloud_vmmigration_v1::Result;
     /// async fn sample(
-    ///    client: &VmMigration, resource_name: &str
+    ///    client: &VmMigration, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_replication_cycle()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1542,10 +1544,10 @@ impl VmMigration {
     /// # use google_cloud_vmmigration_v1::client::VmMigration;
     /// use google_cloud_vmmigration_v1::Result;
     /// async fn sample(
-    ///    client: &VmMigration, resource_name: &str
+    ///    client: &VmMigration, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_image_import()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1608,10 +1610,10 @@ impl VmMigration {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_vmmigration_v1::Result;
     /// async fn sample(
-    ///    client: &VmMigration, resource_name: &str
+    ///    client: &VmMigration, name: &str
     /// ) -> Result<()> {
     ///     client.delete_image_import()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1650,10 +1652,10 @@ impl VmMigration {
     /// # use google_cloud_vmmigration_v1::client::VmMigration;
     /// use google_cloud_vmmigration_v1::Result;
     /// async fn sample(
-    ///    client: &VmMigration, resource_name: &str
+    ///    client: &VmMigration, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_image_import_job()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1761,10 +1763,10 @@ impl VmMigration {
     /// # use google_cloud_vmmigration_v1::client::VmMigration;
     /// use google_cloud_vmmigration_v1::Result;
     /// async fn sample(
-    ///    client: &VmMigration, resource_name: &str
+    ///    client: &VmMigration, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_disk_migration_job()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1831,10 +1833,10 @@ impl VmMigration {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_vmmigration_v1::Result;
     /// async fn sample(
-    ///    client: &VmMigration, resource_name: &str
+    ///    client: &VmMigration, name: &str
     /// ) -> Result<()> {
     ///     client.delete_disk_migration_job()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }

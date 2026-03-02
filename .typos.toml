@@ -22,6 +22,9 @@ extend-exclude = [
   "/go.work.sum",
   "src/*/src/generated/**",
   "src/generated/**",
+  # The protos that are used for generating the Spanner grpc-mock source code
+  # contain typos.
+  "src/spanner/grpc-mock/**",
   # This file contains fixes for typos and therefore has the original typo in it.
   "librarian.yaml",
 ]

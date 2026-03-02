@@ -210,10 +210,10 @@ impl AppHub {
     /// # use google_cloud_apphub_v1::client::AppHub;
     /// use google_cloud_apphub_v1::Result;
     /// async fn sample(
-    ///    client: &AppHub, resource_name: &str
+    ///    client: &AppHub, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_service_project_attachment()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -243,10 +243,10 @@ impl AppHub {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_apphub_v1::Result;
     /// async fn sample(
-    ///    client: &AppHub, resource_name: &str
+    ///    client: &AppHub, name: &str
     /// ) -> Result<()> {
     ///     client.delete_service_project_attachment()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -312,10 +312,10 @@ impl AppHub {
     /// # use google_cloud_apphub_v1::client::AppHub;
     /// use google_cloud_apphub_v1::Result;
     /// async fn sample(
-    ///    client: &AppHub, resource_name: &str
+    ///    client: &AppHub, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_discovered_service()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -391,7 +391,8 @@ impl AppHub {
     ///    client: &AppHub, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_service()
-    ///         .set_parent(parent).set_service_id("service_id_value")
+    ///         .set_parent(parent)
+    ///         .set_service_id("service_id_value")
     ///         .set_service(
     ///             Service::new()/* set fields */
     ///         )
@@ -411,10 +412,10 @@ impl AppHub {
     /// # use google_cloud_apphub_v1::client::AppHub;
     /// use google_cloud_apphub_v1::Result;
     /// async fn sample(
-    ///    client: &AppHub, resource_name: &str
+    ///    client: &AppHub, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_service()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -479,10 +480,10 @@ impl AppHub {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_apphub_v1::Result;
     /// async fn sample(
-    ///    client: &AppHub, resource_name: &str
+    ///    client: &AppHub, name: &str
     /// ) -> Result<()> {
     ///     client.delete_service()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -522,10 +523,10 @@ impl AppHub {
     /// # use google_cloud_apphub_v1::client::AppHub;
     /// use google_cloud_apphub_v1::Result;
     /// async fn sample(
-    ///    client: &AppHub, resource_name: &str
+    ///    client: &AppHub, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_discovered_workload()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -601,7 +602,8 @@ impl AppHub {
     ///    client: &AppHub, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_workload()
-    ///         .set_parent(parent).set_workload_id("workload_id_value")
+    ///         .set_parent(parent)
+    ///         .set_workload_id("workload_id_value")
     ///         .set_workload(
     ///             Workload::new()/* set fields */
     ///         )
@@ -621,10 +623,10 @@ impl AppHub {
     /// # use google_cloud_apphub_v1::client::AppHub;
     /// use google_cloud_apphub_v1::Result;
     /// async fn sample(
-    ///    client: &AppHub, resource_name: &str
+    ///    client: &AppHub, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_workload()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -689,10 +691,10 @@ impl AppHub {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_apphub_v1::Result;
     /// async fn sample(
-    ///    client: &AppHub, resource_name: &str
+    ///    client: &AppHub, name: &str
     /// ) -> Result<()> {
     ///     client.delete_workload()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -746,7 +748,8 @@ impl AppHub {
     ///    client: &AppHub, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_application()
-    ///         .set_parent(parent).set_application_id("application_id_value")
+    ///         .set_parent(parent)
+    ///         .set_application_id("application_id_value")
     ///         .set_application(
     ///             Application::new()/* set fields */
     ///         )
@@ -766,10 +769,10 @@ impl AppHub {
     /// # use google_cloud_apphub_v1::client::AppHub;
     /// use google_cloud_apphub_v1::Result;
     /// async fn sample(
-    ///    client: &AppHub, resource_name: &str
+    ///    client: &AppHub, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_application()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -834,10 +837,10 @@ impl AppHub {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_apphub_v1::Result;
     /// async fn sample(
-    ///    client: &AppHub, resource_name: &str
+    ///    client: &AppHub, name: &str
     /// ) -> Result<()> {
     ///     client.delete_application()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }

@@ -96,10 +96,10 @@ impl StorageControl {
     /// # use google_cloud_storage::client::StorageControl;
     /// use google_cloud_storage::Result;
     /// async fn sample(
-    ///    client: &StorageControl, resource_name: &str
+    ///    client: &StorageControl, name: &str
     /// ) -> Result<()> {
     ///     client.delete_bucket()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -125,10 +125,10 @@ impl StorageControl {
     /// # use google_cloud_storage::client::StorageControl;
     /// use google_cloud_storage::Result;
     /// async fn sample(
-    ///    client: &StorageControl, resource_name: &str
+    ///    client: &StorageControl, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_bucket()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -159,7 +159,8 @@ impl StorageControl {
     ///    client: &StorageControl, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_bucket()
-    ///         .set_parent(parent).set_bucket_id("bucket_id_value")
+    ///         .set_parent(parent)
+    ///         .set_bucket_id("bucket_id_value")
     ///         .set_bucket(
     ///             Bucket::new()/* set fields */
     ///         )

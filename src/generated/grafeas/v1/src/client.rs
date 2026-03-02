@@ -138,10 +138,10 @@ impl Grafeas {
     /// # use google_cloud_grafeas_v1::client::Grafeas;
     /// use google_cloud_grafeas_v1::Result;
     /// async fn sample(
-    ///    client: &Grafeas, resource_name: &str
+    ///    client: &Grafeas, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_occurrence()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -183,10 +183,10 @@ impl Grafeas {
     /// # use google_cloud_grafeas_v1::client::Grafeas;
     /// use google_cloud_grafeas_v1::Result;
     /// async fn sample(
-    ///    client: &Grafeas, resource_name: &str
+    ///    client: &Grafeas, name: &str
     /// ) -> Result<()> {
     ///     client.delete_occurrence()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -293,10 +293,10 @@ impl Grafeas {
     /// # use google_cloud_grafeas_v1::client::Grafeas;
     /// use google_cloud_grafeas_v1::Result;
     /// async fn sample(
-    ///    client: &Grafeas, resource_name: &str
+    ///    client: &Grafeas, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_note()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -336,10 +336,10 @@ impl Grafeas {
     /// # use google_cloud_grafeas_v1::client::Grafeas;
     /// use google_cloud_grafeas_v1::Result;
     /// async fn sample(
-    ///    client: &Grafeas, resource_name: &str
+    ///    client: &Grafeas, name: &str
     /// ) -> Result<()> {
     ///     client.delete_note()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -359,7 +359,8 @@ impl Grafeas {
     ///    client: &Grafeas, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_note()
-    ///         .set_parent(parent).set_note_id("note_id_value")
+    ///         .set_parent(parent)
+    ///         .set_note_id("note_id_value")
     ///         .set_note(
     ///             Note::new()/* set fields */
     ///         )

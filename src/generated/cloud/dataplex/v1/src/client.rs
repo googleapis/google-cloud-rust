@@ -147,7 +147,8 @@ impl BusinessGlossaryService {
     ///    client: &BusinessGlossaryService, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_glossary()
-    ///         .set_parent(parent).set_glossary_id("glossary_id_value")
+    ///         .set_parent(parent)
+    ///         .set_glossary_id("glossary_id_value")
     ///         .set_glossary(
     ///             Glossary::new()/* set fields */
     ///         )
@@ -216,10 +217,10 @@ impl BusinessGlossaryService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &BusinessGlossaryService, resource_name: &str
+    ///    client: &BusinessGlossaryService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_glossary()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -235,10 +236,10 @@ impl BusinessGlossaryService {
     /// # use google_cloud_dataplex_v1::client::BusinessGlossaryService;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &BusinessGlossaryService, resource_name: &str
+    ///    client: &BusinessGlossaryService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_glossary()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -897,10 +898,10 @@ impl CatalogService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &CatalogService, resource_name: &str
+    ///    client: &CatalogService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_entry_type()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -939,10 +940,10 @@ impl CatalogService {
     /// # use google_cloud_dataplex_v1::client::CatalogService;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &CatalogService, resource_name: &str
+    ///    client: &CatalogService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_entry_type()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1042,10 +1043,10 @@ impl CatalogService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &CatalogService, resource_name: &str
+    ///    client: &CatalogService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_aspect_type()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1084,10 +1085,10 @@ impl CatalogService {
     /// # use google_cloud_dataplex_v1::client::CatalogService;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &CatalogService, resource_name: &str
+    ///    client: &CatalogService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_aspect_type()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1187,10 +1188,10 @@ impl CatalogService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &CatalogService, resource_name: &str
+    ///    client: &CatalogService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_entry_group()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1229,10 +1230,10 @@ impl CatalogService {
     /// # use google_cloud_dataplex_v1::client::CatalogService;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &CatalogService, resource_name: &str
+    ///    client: &CatalogService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_entry_group()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1253,7 +1254,8 @@ impl CatalogService {
     ///    client: &CatalogService, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_entry()
-    ///         .set_parent(parent).set_entry_id("entry_id_value")
+    ///         .set_parent(parent)
+    ///         .set_entry_id("entry_id_value")
     ///         .set_entry(
     ///             Entry::new()/* set fields */
     ///         )
@@ -1299,10 +1301,10 @@ impl CatalogService {
     /// # use google_cloud_dataplex_v1::client::CatalogService;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &CatalogService, resource_name: &str
+    ///    client: &CatalogService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.delete_entry()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1352,10 +1354,10 @@ impl CatalogService {
     /// # use google_cloud_dataplex_v1::client::CatalogService;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &CatalogService, resource_name: &str
+    ///    client: &CatalogService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_entry()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1456,10 +1458,10 @@ impl CatalogService {
     /// # use google_cloud_dataplex_v1::client::CatalogService;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &CatalogService, resource_name: &str
+    ///    client: &CatalogService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_metadata_job()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1547,10 +1549,10 @@ impl CatalogService {
     /// # use google_cloud_dataplex_v1::client::CatalogService;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &CatalogService, resource_name: &str
+    ///    client: &CatalogService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.delete_entry_link()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1567,10 +1569,10 @@ impl CatalogService {
     /// # use google_cloud_dataplex_v1::client::CatalogService;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &CatalogService, resource_name: &str
+    ///    client: &CatalogService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_entry_link()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1976,10 +1978,10 @@ impl CmekService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &CmekService, resource_name: &str
+    ///    client: &CmekService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_encryption_config()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -2018,10 +2020,10 @@ impl CmekService {
     /// # use google_cloud_dataplex_v1::client::CmekService;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &CmekService, resource_name: &str
+    ///    client: &CmekService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_encryption_config()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -2395,10 +2397,10 @@ impl ContentService {
     /// # use google_cloud_dataplex_v1::client::ContentService;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &ContentService, resource_name: &str
+    ///    client: &ContentService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_content()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -2414,10 +2416,10 @@ impl ContentService {
     /// # use google_cloud_dataplex_v1::client::ContentService;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &ContentService, resource_name: &str
+    ///    client: &ContentService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_content()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -2863,10 +2865,10 @@ impl DataTaxonomyService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &DataTaxonomyService, resource_name: &str
+    ///    client: &DataTaxonomyService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_data_taxonomy()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -2911,10 +2913,10 @@ impl DataTaxonomyService {
     /// # use google_cloud_dataplex_v1::client::DataTaxonomyService;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &DataTaxonomyService, resource_name: &str
+    ///    client: &DataTaxonomyService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_data_taxonomy()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -3023,10 +3025,10 @@ impl DataTaxonomyService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &DataTaxonomyService, resource_name: &str
+    ///    client: &DataTaxonomyService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_data_attribute_binding()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -3071,10 +3073,10 @@ impl DataTaxonomyService {
     /// # use google_cloud_dataplex_v1::client::DataTaxonomyService;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &DataTaxonomyService, resource_name: &str
+    ///    client: &DataTaxonomyService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_data_attribute_binding()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -3183,10 +3185,10 @@ impl DataTaxonomyService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &DataTaxonomyService, resource_name: &str
+    ///    client: &DataTaxonomyService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_data_attribute()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -3231,10 +3233,10 @@ impl DataTaxonomyService {
     /// # use google_cloud_dataplex_v1::client::DataTaxonomyService;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &DataTaxonomyService, resource_name: &str
+    ///    client: &DataTaxonomyService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_data_attribute()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -3645,10 +3647,10 @@ impl DataScanService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &DataScanService, resource_name: &str
+    ///    client: &DataScanService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_data_scan()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -3664,10 +3666,10 @@ impl DataScanService {
     /// # use google_cloud_dataplex_v1::client::DataScanService;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &DataScanService, resource_name: &str
+    ///    client: &DataScanService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_data_scan()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -3727,10 +3729,10 @@ impl DataScanService {
     /// # use google_cloud_dataplex_v1::client::DataScanService;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &DataScanService, resource_name: &str
+    ///    client: &DataScanService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_data_scan_job()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -4149,10 +4151,10 @@ impl MetadataService {
     /// # use google_cloud_dataplex_v1::client::MetadataService;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &MetadataService, resource_name: &str
+    ///    client: &MetadataService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_entity()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -4168,10 +4170,10 @@ impl MetadataService {
     /// # use google_cloud_dataplex_v1::client::MetadataService;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &MetadataService, resource_name: &str
+    ///    client: &MetadataService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_entity()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -4235,10 +4237,10 @@ impl MetadataService {
     /// # use google_cloud_dataplex_v1::client::MetadataService;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &MetadataService, resource_name: &str
+    ///    client: &MetadataService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_partition()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -4254,10 +4256,10 @@ impl MetadataService {
     /// # use google_cloud_dataplex_v1::client::MetadataService;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &MetadataService, resource_name: &str
+    ///    client: &MetadataService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_partition()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -4622,7 +4624,8 @@ impl DataplexService {
     ///    client: &DataplexService, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_lake()
-    ///         .set_parent(parent).set_lake_id("lake_id_value")
+    ///         .set_parent(parent)
+    ///         .set_lake_id("lake_id_value")
     ///         .set_lake(
     ///             Lake::new()/* set fields */
     ///         )
@@ -4691,10 +4694,10 @@ impl DataplexService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &DataplexService, resource_name: &str
+    ///    client: &DataplexService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_lake()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -4733,10 +4736,10 @@ impl DataplexService {
     /// # use google_cloud_dataplex_v1::client::DataplexService;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &DataplexService, resource_name: &str
+    ///    client: &DataplexService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_lake()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -4791,7 +4794,8 @@ impl DataplexService {
     ///    client: &DataplexService, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_zone()
-    ///         .set_parent(parent).set_zone_id("zone_id_value")
+    ///         .set_parent(parent)
+    ///         .set_zone_id("zone_id_value")
     ///         .set_zone(
     ///             Zone::new()/* set fields */
     ///         )
@@ -4860,10 +4864,10 @@ impl DataplexService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &DataplexService, resource_name: &str
+    ///    client: &DataplexService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_zone()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -4902,10 +4906,10 @@ impl DataplexService {
     /// # use google_cloud_dataplex_v1::client::DataplexService;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &DataplexService, resource_name: &str
+    ///    client: &DataplexService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_zone()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -4960,7 +4964,8 @@ impl DataplexService {
     ///    client: &DataplexService, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_asset()
-    ///         .set_parent(parent).set_asset_id("asset_id_value")
+    ///         .set_parent(parent)
+    ///         .set_asset_id("asset_id_value")
     ///         .set_asset(
     ///             Asset::new()/* set fields */
     ///         )
@@ -5029,10 +5034,10 @@ impl DataplexService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &DataplexService, resource_name: &str
+    ///    client: &DataplexService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_asset()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -5071,10 +5076,10 @@ impl DataplexService {
     /// # use google_cloud_dataplex_v1::client::DataplexService;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &DataplexService, resource_name: &str
+    ///    client: &DataplexService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_asset()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -5129,7 +5134,8 @@ impl DataplexService {
     ///    client: &DataplexService, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_task()
-    ///         .set_parent(parent).set_task_id("task_id_value")
+    ///         .set_parent(parent)
+    ///         .set_task_id("task_id_value")
     ///         .set_task(
     ///             Task::new()/* set fields */
     ///         )
@@ -5197,10 +5203,10 @@ impl DataplexService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &DataplexService, resource_name: &str
+    ///    client: &DataplexService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_task()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -5239,10 +5245,10 @@ impl DataplexService {
     /// # use google_cloud_dataplex_v1::client::DataplexService;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &DataplexService, resource_name: &str
+    ///    client: &DataplexService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_task()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -5302,10 +5308,10 @@ impl DataplexService {
     /// # use google_cloud_dataplex_v1::client::DataplexService;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &DataplexService, resource_name: &str
+    ///    client: &DataplexService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_job()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -5356,7 +5362,8 @@ impl DataplexService {
     ///    client: &DataplexService, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_environment()
-    ///         .set_parent(parent).set_environment_id("environment_id_value")
+    ///         .set_parent(parent)
+    ///         .set_environment_id("environment_id_value")
     ///         .set_environment(
     ///             Environment::new()/* set fields */
     ///         )
@@ -5425,10 +5432,10 @@ impl DataplexService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &DataplexService, resource_name: &str
+    ///    client: &DataplexService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_environment()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -5467,10 +5474,10 @@ impl DataplexService {
     /// # use google_cloud_dataplex_v1::client::DataplexService;
     /// use google_cloud_dataplex_v1::Result;
     /// async fn sample(
-    ///    client: &DataplexService, resource_name: &str
+    ///    client: &DataplexService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_environment()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())

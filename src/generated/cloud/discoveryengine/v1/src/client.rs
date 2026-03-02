@@ -343,10 +343,10 @@ impl CmekConfigService {
     /// # use google_cloud_discoveryengine_v1::client::CmekConfigService;
     /// use google_cloud_discoveryengine_v1::Result;
     /// async fn sample(
-    ///    client: &CmekConfigService, resource_name: &str
+    ///    client: &CmekConfigService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_cmek_config()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -397,10 +397,10 @@ impl CmekConfigService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_discoveryengine_v1::Result;
     /// async fn sample(
-    ///    client: &CmekConfigService, resource_name: &str
+    ///    client: &CmekConfigService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_cmek_config()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -947,7 +947,8 @@ impl ControlService {
     ///    client: &ControlService, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_control()
-    ///         .set_parent(parent).set_control_id("control_id_value")
+    ///         .set_parent(parent)
+    ///         .set_control_id("control_id_value")
     ///         .set_control(
     ///             Control::new()/* set fields */
     ///         )
@@ -972,10 +973,10 @@ impl ControlService {
     /// # use google_cloud_discoveryengine_v1::client::ControlService;
     /// use google_cloud_discoveryengine_v1::Result;
     /// async fn sample(
-    ///    client: &ControlService, resource_name: &str
+    ///    client: &ControlService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_control()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -1023,10 +1024,10 @@ impl ControlService {
     /// # use google_cloud_discoveryengine_v1::client::ControlService;
     /// use google_cloud_discoveryengine_v1::Result;
     /// async fn sample(
-    ///    client: &ControlService, resource_name: &str
+    ///    client: &ControlService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_control()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1303,10 +1304,10 @@ impl ConversationalSearchService {
     /// # use google_cloud_discoveryengine_v1::client::ConversationalSearchService;
     /// use google_cloud_discoveryengine_v1::Result;
     /// async fn sample(
-    ///    client: &ConversationalSearchService, resource_name: &str
+    ///    client: &ConversationalSearchService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_conversation()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -1359,10 +1360,10 @@ impl ConversationalSearchService {
     /// # use google_cloud_discoveryengine_v1::client::ConversationalSearchService;
     /// use google_cloud_discoveryengine_v1::Result;
     /// async fn sample(
-    ///    client: &ConversationalSearchService, resource_name: &str
+    ///    client: &ConversationalSearchService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_conversation()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1429,10 +1430,10 @@ impl ConversationalSearchService {
     /// # use google_cloud_discoveryengine_v1::client::ConversationalSearchService;
     /// use google_cloud_discoveryengine_v1::Result;
     /// async fn sample(
-    ///    client: &ConversationalSearchService, resource_name: &str
+    ///    client: &ConversationalSearchService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_answer()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1483,10 +1484,10 @@ impl ConversationalSearchService {
     /// # use google_cloud_discoveryengine_v1::client::ConversationalSearchService;
     /// use google_cloud_discoveryengine_v1::Result;
     /// async fn sample(
-    ///    client: &ConversationalSearchService, resource_name: &str
+    ///    client: &ConversationalSearchService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_session()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -1534,10 +1535,10 @@ impl ConversationalSearchService {
     /// # use google_cloud_discoveryengine_v1::client::ConversationalSearchService;
     /// use google_cloud_discoveryengine_v1::Result;
     /// async fn sample(
-    ///    client: &ConversationalSearchService, resource_name: &str
+    ///    client: &ConversationalSearchService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_session()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1807,10 +1808,10 @@ impl DataStoreService {
     /// # use google_cloud_discoveryengine_v1::client::DataStoreService;
     /// use google_cloud_discoveryengine_v1::Result;
     /// async fn sample(
-    ///    client: &DataStoreService, resource_name: &str
+    ///    client: &DataStoreService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_data_store()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1866,10 +1867,10 @@ impl DataStoreService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_discoveryengine_v1::Result;
     /// async fn sample(
-    ///    client: &DataStoreService, resource_name: &str
+    ///    client: &DataStoreService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_data_store()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -2092,10 +2093,10 @@ impl DocumentService {
     /// # use google_cloud_discoveryengine_v1::client::DocumentService;
     /// use google_cloud_discoveryengine_v1::Result;
     /// async fn sample(
-    ///    client: &DocumentService, resource_name: &str
+    ///    client: &DocumentService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_document()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -2143,7 +2144,8 @@ impl DocumentService {
     ///    client: &DocumentService, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_document()
-    ///         .set_parent(parent).set_document_id("document_id_value")
+    ///         .set_parent(parent)
+    ///         .set_document_id("document_id_value")
     ///         .set_document(
     ///             Document::new()/* set fields */
     ///         )
@@ -2193,10 +2195,10 @@ impl DocumentService {
     /// # use google_cloud_discoveryengine_v1::client::DocumentService;
     /// use google_cloud_discoveryengine_v1::Result;
     /// async fn sample(
-    ///    client: &DocumentService, resource_name: &str
+    ///    client: &DocumentService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_document()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -2522,7 +2524,8 @@ impl EngineService {
     ///    client: &EngineService, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_engine()
-    ///         .set_parent(parent).set_engine_id("engine_id_value")
+    ///         .set_parent(parent)
+    ///         .set_engine_id("engine_id_value")
     ///         .set_engine(
     ///             Engine::new()/* set fields */
     ///         )
@@ -2555,10 +2558,10 @@ impl EngineService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_discoveryengine_v1::Result;
     /// async fn sample(
-    ///    client: &EngineService, resource_name: &str
+    ///    client: &EngineService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_engine()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -2604,10 +2607,10 @@ impl EngineService {
     /// # use google_cloud_discoveryengine_v1::client::EngineService;
     /// use google_cloud_discoveryengine_v1::Result;
     /// async fn sample(
-    ///    client: &EngineService, resource_name: &str
+    ///    client: &EngineService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_engine()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -3074,10 +3077,10 @@ impl IdentityMappingStoreService {
     /// # use google_cloud_discoveryengine_v1::client::IdentityMappingStoreService;
     /// use google_cloud_discoveryengine_v1::Result;
     /// async fn sample(
-    ///    client: &IdentityMappingStoreService, resource_name: &str
+    ///    client: &IdentityMappingStoreService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_identity_mapping_store()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -3109,10 +3112,10 @@ impl IdentityMappingStoreService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_discoveryengine_v1::Result;
     /// async fn sample(
-    ///    client: &IdentityMappingStoreService, resource_name: &str
+    ///    client: &IdentityMappingStoreService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_identity_mapping_store()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -4040,10 +4043,10 @@ impl SchemaService {
     /// # use google_cloud_discoveryengine_v1::client::SchemaService;
     /// use google_cloud_discoveryengine_v1::Result;
     /// async fn sample(
-    ///    client: &SchemaService, resource_name: &str
+    ///    client: &SchemaService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_schema()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -4102,7 +4105,8 @@ impl SchemaService {
     ///    client: &SchemaService, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_schema()
-    ///         .set_parent(parent).set_schema_id("schema_id_value")
+    ///         .set_parent(parent)
+    ///         .set_schema_id("schema_id_value")
     ///         .set_schema(
     ///             Schema::new()/* set fields */
     ///         )
@@ -4171,10 +4175,10 @@ impl SchemaService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_discoveryengine_v1::Result;
     /// async fn sample(
-    ///    client: &SchemaService, resource_name: &str
+    ///    client: &SchemaService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_schema()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -5066,10 +5070,10 @@ impl SessionService {
     /// # use google_cloud_discoveryengine_v1::client::SessionService;
     /// use google_cloud_discoveryengine_v1::Result;
     /// async fn sample(
-    ///    client: &SessionService, resource_name: &str
+    ///    client: &SessionService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_session()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -5117,10 +5121,10 @@ impl SessionService {
     /// # use google_cloud_discoveryengine_v1::client::SessionService;
     /// use google_cloud_discoveryengine_v1::Result;
     /// async fn sample(
-    ///    client: &SessionService, resource_name: &str
+    ///    client: &SessionService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_session()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -5341,10 +5345,10 @@ impl SiteSearchEngineService {
     /// # use google_cloud_discoveryengine_v1::client::SiteSearchEngineService;
     /// use google_cloud_discoveryengine_v1::Result;
     /// async fn sample(
-    ///    client: &SiteSearchEngineService, resource_name: &str
+    ///    client: &SiteSearchEngineService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_site_search_engine()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -5440,10 +5444,10 @@ impl SiteSearchEngineService {
     /// # use google_cloud_discoveryengine_v1::client::SiteSearchEngineService;
     /// use google_cloud_discoveryengine_v1::Result;
     /// async fn sample(
-    ///    client: &SiteSearchEngineService, resource_name: &str
+    ///    client: &SiteSearchEngineService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_target_site()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -5511,10 +5515,10 @@ impl SiteSearchEngineService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_discoveryengine_v1::Result;
     /// async fn sample(
-    ///    client: &SiteSearchEngineService, resource_name: &str
+    ///    client: &SiteSearchEngineService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_target_site()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -5607,10 +5611,10 @@ impl SiteSearchEngineService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_discoveryengine_v1::Result;
     /// async fn sample(
-    ///    client: &SiteSearchEngineService, resource_name: &str
+    ///    client: &SiteSearchEngineService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_sitemap()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }

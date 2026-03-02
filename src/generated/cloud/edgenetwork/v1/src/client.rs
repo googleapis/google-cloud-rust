@@ -174,10 +174,10 @@ impl EdgeNetwork {
     /// # use google_cloud_edgenetwork_v1::client::EdgeNetwork;
     /// use google_cloud_edgenetwork_v1::Result;
     /// async fn sample(
-    ///    client: &EdgeNetwork, resource_name: &str
+    ///    client: &EdgeNetwork, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_zone()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -218,10 +218,10 @@ impl EdgeNetwork {
     /// # use google_cloud_edgenetwork_v1::client::EdgeNetwork;
     /// use google_cloud_edgenetwork_v1::Result;
     /// async fn sample(
-    ///    client: &EdgeNetwork, resource_name: &str
+    ///    client: &EdgeNetwork, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_network()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -273,7 +273,8 @@ impl EdgeNetwork {
     ///    client: &EdgeNetwork, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_network()
-    ///         .set_parent(parent).set_network_id("network_id_value")
+    ///         .set_parent(parent)
+    ///         .set_network_id("network_id_value")
     ///         .set_network(
     ///             Network::new()/* set fields */
     ///         )
@@ -304,10 +305,10 @@ impl EdgeNetwork {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_edgenetwork_v1::Result;
     /// async fn sample(
-    ///    client: &EdgeNetwork, resource_name: &str
+    ///    client: &EdgeNetwork, name: &str
     /// ) -> Result<()> {
     ///     client.delete_network()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -346,10 +347,10 @@ impl EdgeNetwork {
     /// # use google_cloud_edgenetwork_v1::client::EdgeNetwork;
     /// use google_cloud_edgenetwork_v1::Result;
     /// async fn sample(
-    ///    client: &EdgeNetwork, resource_name: &str
+    ///    client: &EdgeNetwork, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_subnet()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -381,7 +382,8 @@ impl EdgeNetwork {
     ///    client: &EdgeNetwork, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_subnet()
-    ///         .set_parent(parent).set_subnet_id("subnet_id_value")
+    ///         .set_parent(parent)
+    ///         .set_subnet_id("subnet_id_value")
     ///         .set_subnet(
     ///             Subnet::new()/* set fields */
     ///         )
@@ -449,10 +451,10 @@ impl EdgeNetwork {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_edgenetwork_v1::Result;
     /// async fn sample(
-    ///    client: &EdgeNetwork, resource_name: &str
+    ///    client: &EdgeNetwork, name: &str
     /// ) -> Result<()> {
     ///     client.delete_subnet()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -491,10 +493,10 @@ impl EdgeNetwork {
     /// # use google_cloud_edgenetwork_v1::client::EdgeNetwork;
     /// use google_cloud_edgenetwork_v1::Result;
     /// async fn sample(
-    ///    client: &EdgeNetwork, resource_name: &str
+    ///    client: &EdgeNetwork, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_interconnect()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -556,10 +558,10 @@ impl EdgeNetwork {
     /// # use google_cloud_edgenetwork_v1::client::EdgeNetwork;
     /// use google_cloud_edgenetwork_v1::Result;
     /// async fn sample(
-    ///    client: &EdgeNetwork, resource_name: &str
+    ///    client: &EdgeNetwork, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_interconnect_attachment()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -626,10 +628,10 @@ impl EdgeNetwork {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_edgenetwork_v1::Result;
     /// async fn sample(
-    ///    client: &EdgeNetwork, resource_name: &str
+    ///    client: &EdgeNetwork, name: &str
     /// ) -> Result<()> {
     ///     client.delete_interconnect_attachment()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -670,10 +672,10 @@ impl EdgeNetwork {
     /// # use google_cloud_edgenetwork_v1::client::EdgeNetwork;
     /// use google_cloud_edgenetwork_v1::Result;
     /// async fn sample(
-    ///    client: &EdgeNetwork, resource_name: &str
+    ///    client: &EdgeNetwork, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_router()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -725,7 +727,8 @@ impl EdgeNetwork {
     ///    client: &EdgeNetwork, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_router()
-    ///         .set_parent(parent).set_router_id("router_id_value")
+    ///         .set_parent(parent)
+    ///         .set_router_id("router_id_value")
     ///         .set_router(
     ///             Router::new()/* set fields */
     ///         )
@@ -793,10 +796,10 @@ impl EdgeNetwork {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_edgenetwork_v1::Result;
     /// async fn sample(
-    ///    client: &EdgeNetwork, resource_name: &str
+    ///    client: &EdgeNetwork, name: &str
     /// ) -> Result<()> {
     ///     client.delete_router()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }

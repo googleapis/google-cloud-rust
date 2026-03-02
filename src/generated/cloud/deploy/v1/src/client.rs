@@ -149,10 +149,10 @@ impl CloudDeploy {
     /// # use google_cloud_deploy_v1::client::CloudDeploy;
     /// use google_cloud_deploy_v1::Result;
     /// async fn sample(
-    ///    client: &CloudDeploy, resource_name: &str
+    ///    client: &CloudDeploy, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_delivery_pipeline()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -252,10 +252,10 @@ impl CloudDeploy {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_deploy_v1::Result;
     /// async fn sample(
-    ///    client: &CloudDeploy, resource_name: &str
+    ///    client: &CloudDeploy, name: &str
     /// ) -> Result<()> {
     ///     client.delete_delivery_pipeline()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -314,10 +314,10 @@ impl CloudDeploy {
     /// # use google_cloud_deploy_v1::client::CloudDeploy;
     /// use google_cloud_deploy_v1::Result;
     /// async fn sample(
-    ///    client: &CloudDeploy, resource_name: &str
+    ///    client: &CloudDeploy, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_target()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -349,7 +349,8 @@ impl CloudDeploy {
     ///    client: &CloudDeploy, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_target()
-    ///         .set_parent(parent).set_target_id("target_id_value")
+    ///         .set_parent(parent)
+    ///         .set_target_id("target_id_value")
     ///         .set_target(
     ///             Target::new()/* set fields */
     ///         )
@@ -417,10 +418,10 @@ impl CloudDeploy {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_deploy_v1::Result;
     /// async fn sample(
-    ///    client: &CloudDeploy, resource_name: &str
+    ///    client: &CloudDeploy, name: &str
     /// ) -> Result<()> {
     ///     client.delete_target()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -459,10 +460,10 @@ impl CloudDeploy {
     /// # use google_cloud_deploy_v1::client::CloudDeploy;
     /// use google_cloud_deploy_v1::Result;
     /// async fn sample(
-    ///    client: &CloudDeploy, resource_name: &str
+    ///    client: &CloudDeploy, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_custom_target_type()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -566,10 +567,10 @@ impl CloudDeploy {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_deploy_v1::Result;
     /// async fn sample(
-    ///    client: &CloudDeploy, resource_name: &str
+    ///    client: &CloudDeploy, name: &str
     /// ) -> Result<()> {
     ///     client.delete_custom_target_type()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -610,10 +611,10 @@ impl CloudDeploy {
     /// # use google_cloud_deploy_v1::client::CloudDeploy;
     /// use google_cloud_deploy_v1::Result;
     /// async fn sample(
-    ///    client: &CloudDeploy, resource_name: &str
+    ///    client: &CloudDeploy, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_release()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -645,7 +646,8 @@ impl CloudDeploy {
     ///    client: &CloudDeploy, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_release()
-    ///         .set_parent(parent).set_release_id("release_id_value")
+    ///         .set_parent(parent)
+    ///         .set_release_id("release_id_value")
     ///         .set_release(
     ///             Release::new()/* set fields */
     ///         )
@@ -768,10 +770,10 @@ impl CloudDeploy {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_deploy_v1::Result;
     /// async fn sample(
-    ///    client: &CloudDeploy, resource_name: &str
+    ///    client: &CloudDeploy, name: &str
     /// ) -> Result<()> {
     ///     client.delete_deploy_policy()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -810,10 +812,10 @@ impl CloudDeploy {
     /// # use google_cloud_deploy_v1::client::CloudDeploy;
     /// use google_cloud_deploy_v1::Result;
     /// async fn sample(
-    ///    client: &CloudDeploy, resource_name: &str
+    ///    client: &CloudDeploy, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_deploy_policy()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -913,10 +915,10 @@ impl CloudDeploy {
     /// # use google_cloud_deploy_v1::client::CloudDeploy;
     /// use google_cloud_deploy_v1::Result;
     /// async fn sample(
-    ///    client: &CloudDeploy, resource_name: &str
+    ///    client: &CloudDeploy, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_rollout()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -948,7 +950,8 @@ impl CloudDeploy {
     ///    client: &CloudDeploy, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_rollout()
-    ///         .set_parent(parent).set_rollout_id("rollout_id_value")
+    ///         .set_parent(parent)
+    ///         .set_rollout_id("rollout_id_value")
     ///         .set_rollout(
     ///             Rollout::new()/* set fields */
     ///         )
@@ -1031,10 +1034,10 @@ impl CloudDeploy {
     /// # use google_cloud_deploy_v1::client::CloudDeploy;
     /// use google_cloud_deploy_v1::Result;
     /// async fn sample(
-    ///    client: &CloudDeploy, resource_name: &str
+    ///    client: &CloudDeploy, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_job_run()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1071,10 +1074,10 @@ impl CloudDeploy {
     /// # use google_cloud_deploy_v1::client::CloudDeploy;
     /// use google_cloud_deploy_v1::Result;
     /// async fn sample(
-    ///    client: &CloudDeploy, resource_name: &str
+    ///    client: &CloudDeploy, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_config()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1106,7 +1109,8 @@ impl CloudDeploy {
     ///    client: &CloudDeploy, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_automation()
-    ///         .set_parent(parent).set_automation_id("automation_id_value")
+    ///         .set_parent(parent)
+    ///         .set_automation_id("automation_id_value")
     ///         .set_automation(
     ///             Automation::new()/* set fields */
     ///         )
@@ -1174,10 +1178,10 @@ impl CloudDeploy {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_deploy_v1::Result;
     /// async fn sample(
-    ///    client: &CloudDeploy, resource_name: &str
+    ///    client: &CloudDeploy, name: &str
     /// ) -> Result<()> {
     ///     client.delete_automation()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1193,10 +1197,10 @@ impl CloudDeploy {
     /// # use google_cloud_deploy_v1::client::CloudDeploy;
     /// use google_cloud_deploy_v1::Result;
     /// async fn sample(
-    ///    client: &CloudDeploy, resource_name: &str
+    ///    client: &CloudDeploy, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_automation()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1236,10 +1240,10 @@ impl CloudDeploy {
     /// # use google_cloud_deploy_v1::client::CloudDeploy;
     /// use google_cloud_deploy_v1::Result;
     /// async fn sample(
-    ///    client: &CloudDeploy, resource_name: &str
+    ///    client: &CloudDeploy, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_automation_run()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())

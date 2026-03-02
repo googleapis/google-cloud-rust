@@ -17,7 +17,7 @@ mod tests {
     use google_cloud_compute_v1::client::{Images, Instances, Projects};
     use google_cloud_lro::Poller;
     use google_cloud_test_utils::resource_names::{random_bucket_id, random_vm_id};
-    use user_guide_samples::compute::{compute_usage_report_set, *};
+    use user_guide_samples::compute::{compute_usage_report_set, quickstart, *};
 
     #[tokio::test]
     async fn images_samples() -> anyhow::Result<()> {
@@ -50,7 +50,7 @@ mod tests {
         let name = random_vm_id();
         compute_instances_create::sample(&client, &project_id, &name).await?;
         compute_instances_list_all::sample(&client, &project_id).await?;
-        quickstart::quickstart(&project_id).await?;
+        quickstart::sample(&project_id).await?;
         compute_instances_delete::sample(&client, &project_id, &name).await?;
 
         let name = random_vm_id();

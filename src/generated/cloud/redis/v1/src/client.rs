@@ -172,10 +172,10 @@ impl CloudRedis {
     /// # use google_cloud_redis_v1::client::CloudRedis;
     /// use google_cloud_redis_v1::Result;
     /// async fn sample(
-    ///    client: &CloudRedis, resource_name: &str
+    ///    client: &CloudRedis, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_instance()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -240,7 +240,8 @@ impl CloudRedis {
     ///    client: &CloudRedis, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_instance()
-    ///         .set_parent(parent).set_instance_id("instance_id_value")
+    ///         .set_parent(parent)
+    ///         .set_instance_id("instance_id_value")
     ///         .set_instance(
     ///             Instance::new()/* set fields */
     ///         )
@@ -451,10 +452,10 @@ impl CloudRedis {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_redis_v1::Result;
     /// async fn sample(
-    ///    client: &CloudRedis, resource_name: &str
+    ///    client: &CloudRedis, name: &str
     /// ) -> Result<()> {
     ///     client.delete_instance()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }

@@ -150,10 +150,10 @@ impl DepService {
     /// # use google_cloud_networkservices_v1::client::DepService;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &DepService, resource_name: &str
+    ///    client: &DepService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_lb_traffic_extension()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -258,10 +258,10 @@ impl DepService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &DepService, resource_name: &str
+    ///    client: &DepService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_lb_traffic_extension()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -302,10 +302,10 @@ impl DepService {
     /// # use google_cloud_networkservices_v1::client::DepService;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &DepService, resource_name: &str
+    ///    client: &DepService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_lb_route_extension()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -405,10 +405,10 @@ impl DepService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &DepService, resource_name: &str
+    ///    client: &DepService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_lb_route_extension()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -447,10 +447,10 @@ impl DepService {
     /// # use google_cloud_networkservices_v1::client::DepService;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &DepService, resource_name: &str
+    ///    client: &DepService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_lb_edge_extension()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -550,10 +550,10 @@ impl DepService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &DepService, resource_name: &str
+    ///    client: &DepService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_lb_edge_extension()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -592,10 +592,10 @@ impl DepService {
     /// # use google_cloud_networkservices_v1::client::DepService;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &DepService, resource_name: &str
+    ///    client: &DepService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_authz_extension()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -697,10 +697,10 @@ impl DepService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &DepService, resource_name: &str
+    ///    client: &DepService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_authz_extension()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1045,10 +1045,10 @@ impl NetworkServices {
     /// # use google_cloud_networkservices_v1::client::NetworkServices;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkServices, resource_name: &str
+    ///    client: &NetworkServices, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_endpoint_policy()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1148,10 +1148,10 @@ impl NetworkServices {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkServices, resource_name: &str
+    ///    client: &NetworkServices, name: &str
     /// ) -> Result<()> {
     ///     client.delete_endpoint_policy()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1193,10 +1193,10 @@ impl NetworkServices {
     /// # use google_cloud_networkservices_v1::client::NetworkServices;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkServices, resource_name: &str
+    ///    client: &NetworkServices, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_wasm_plugin_version()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1264,10 +1264,10 @@ impl NetworkServices {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkServices, resource_name: &str
+    ///    client: &NetworkServices, name: &str
     /// ) -> Result<()> {
     ///     client.delete_wasm_plugin_version()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1309,10 +1309,10 @@ impl NetworkServices {
     /// # use google_cloud_networkservices_v1::client::NetworkServices;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkServices, resource_name: &str
+    ///    client: &NetworkServices, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_wasm_plugin()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1413,10 +1413,10 @@ impl NetworkServices {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkServices, resource_name: &str
+    ///    client: &NetworkServices, name: &str
     /// ) -> Result<()> {
     ///     client.delete_wasm_plugin()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1455,10 +1455,10 @@ impl NetworkServices {
     /// # use google_cloud_networkservices_v1::client::NetworkServices;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkServices, resource_name: &str
+    ///    client: &NetworkServices, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_gateway()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1490,7 +1490,8 @@ impl NetworkServices {
     ///    client: &NetworkServices, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_gateway()
-    ///         .set_parent(parent).set_gateway_id("gateway_id_value")
+    ///         .set_parent(parent)
+    ///         .set_gateway_id("gateway_id_value")
     ///         .set_gateway(
     ///             Gateway::new()/* set fields */
     ///         )
@@ -1558,10 +1559,10 @@ impl NetworkServices {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkServices, resource_name: &str
+    ///    client: &NetworkServices, name: &str
     /// ) -> Result<()> {
     ///     client.delete_gateway()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1600,10 +1601,10 @@ impl NetworkServices {
     /// # use google_cloud_networkservices_v1::client::NetworkServices;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkServices, resource_name: &str
+    ///    client: &NetworkServices, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_grpc_route()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1703,10 +1704,10 @@ impl NetworkServices {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkServices, resource_name: &str
+    ///    client: &NetworkServices, name: &str
     /// ) -> Result<()> {
     ///     client.delete_grpc_route()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1745,10 +1746,10 @@ impl NetworkServices {
     /// # use google_cloud_networkservices_v1::client::NetworkServices;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkServices, resource_name: &str
+    ///    client: &NetworkServices, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_http_route()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1848,10 +1849,10 @@ impl NetworkServices {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkServices, resource_name: &str
+    ///    client: &NetworkServices, name: &str
     /// ) -> Result<()> {
     ///     client.delete_http_route()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1890,10 +1891,10 @@ impl NetworkServices {
     /// # use google_cloud_networkservices_v1::client::NetworkServices;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkServices, resource_name: &str
+    ///    client: &NetworkServices, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_tcp_route()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1993,10 +1994,10 @@ impl NetworkServices {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkServices, resource_name: &str
+    ///    client: &NetworkServices, name: &str
     /// ) -> Result<()> {
     ///     client.delete_tcp_route()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -2035,10 +2036,10 @@ impl NetworkServices {
     /// # use google_cloud_networkservices_v1::client::NetworkServices;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkServices, resource_name: &str
+    ///    client: &NetworkServices, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_tls_route()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -2138,10 +2139,10 @@ impl NetworkServices {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkServices, resource_name: &str
+    ///    client: &NetworkServices, name: &str
     /// ) -> Result<()> {
     ///     client.delete_tls_route()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -2180,10 +2181,10 @@ impl NetworkServices {
     /// # use google_cloud_networkservices_v1::client::NetworkServices;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkServices, resource_name: &str
+    ///    client: &NetworkServices, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_service_binding()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -2283,10 +2284,10 @@ impl NetworkServices {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkServices, resource_name: &str
+    ///    client: &NetworkServices, name: &str
     /// ) -> Result<()> {
     ///     client.delete_service_binding()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -2325,10 +2326,10 @@ impl NetworkServices {
     /// # use google_cloud_networkservices_v1::client::NetworkServices;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkServices, resource_name: &str
+    ///    client: &NetworkServices, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_mesh()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -2360,7 +2361,8 @@ impl NetworkServices {
     ///    client: &NetworkServices, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_mesh()
-    ///         .set_parent(parent).set_mesh_id("mesh_id_value")
+    ///         .set_parent(parent)
+    ///         .set_mesh_id("mesh_id_value")
     ///         .set_mesh(
     ///             Mesh::new()/* set fields */
     ///         )
@@ -2428,10 +2430,10 @@ impl NetworkServices {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkServices, resource_name: &str
+    ///    client: &NetworkServices, name: &str
     /// ) -> Result<()> {
     ///     client.delete_mesh()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -2472,10 +2474,10 @@ impl NetworkServices {
     /// # use google_cloud_networkservices_v1::client::NetworkServices;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkServices, resource_name: &str
+    ///    client: &NetworkServices, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_service_lb_policy()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -2579,10 +2581,10 @@ impl NetworkServices {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkServices, resource_name: &str
+    ///    client: &NetworkServices, name: &str
     /// ) -> Result<()> {
     ///     client.delete_service_lb_policy()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -2600,10 +2602,10 @@ impl NetworkServices {
     /// # use google_cloud_networkservices_v1::client::NetworkServices;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkServices, resource_name: &str
+    ///    client: &NetworkServices, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_gateway_route_view()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -2620,10 +2622,10 @@ impl NetworkServices {
     /// # use google_cloud_networkservices_v1::client::NetworkServices;
     /// use google_cloud_networkservices_v1::Result;
     /// async fn sample(
-    ///    client: &NetworkServices, resource_name: &str
+    ///    client: &NetworkServices, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_mesh_route_view()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())

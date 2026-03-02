@@ -205,10 +205,10 @@ impl Audit {
     /// # use google_cloud_cloudsecuritycompliance_v1::client::Audit;
     /// use google_cloud_cloudsecuritycompliance_v1::Result;
     /// async fn sample(
-    ///    client: &Audit, resource_name: &str
+    ///    client: &Audit, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_framework_audit()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -786,10 +786,10 @@ impl Config {
     /// # use google_cloud_cloudsecuritycompliance_v1::client::Config;
     /// use google_cloud_cloudsecuritycompliance_v1::Result;
     /// async fn sample(
-    ///    client: &Config, resource_name: &str
+    ///    client: &Config, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_framework()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -812,7 +812,8 @@ impl Config {
     ///    client: &Config, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_framework()
-    ///         .set_parent(parent).set_framework_id("framework_id_value")
+    ///         .set_parent(parent)
+    ///         .set_framework_id("framework_id_value")
     ///         .set_framework(
     ///             Framework::new()/* set fields */
     ///         )
@@ -875,10 +876,10 @@ impl Config {
     /// # use google_cloud_cloudsecuritycompliance_v1::client::Config;
     /// use google_cloud_cloudsecuritycompliance_v1::Result;
     /// async fn sample(
-    ///    client: &Config, resource_name: &str
+    ///    client: &Config, name: &str
     /// ) -> Result<()> {
     ///     client.delete_framework()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -926,10 +927,10 @@ impl Config {
     /// # use google_cloud_cloudsecuritycompliance_v1::client::Config;
     /// use google_cloud_cloudsecuritycompliance_v1::Result;
     /// async fn sample(
-    ///    client: &Config, resource_name: &str
+    ///    client: &Config, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_cloud_control()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1017,10 +1018,10 @@ impl Config {
     /// # use google_cloud_cloudsecuritycompliance_v1::client::Config;
     /// use google_cloud_cloudsecuritycompliance_v1::Result;
     /// async fn sample(
-    ///    client: &Config, resource_name: &str
+    ///    client: &Config, name: &str
     /// ) -> Result<()> {
     ///     client.delete_cloud_control()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -1323,10 +1324,10 @@ impl Deployment {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_cloudsecuritycompliance_v1::Result;
     /// async fn sample(
-    ///    client: &Deployment, resource_name: &str
+    ///    client: &Deployment, name: &str
     /// ) -> Result<()> {
     ///     client.delete_framework_deployment()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1344,10 +1345,10 @@ impl Deployment {
     /// # use google_cloud_cloudsecuritycompliance_v1::client::Deployment;
     /// use google_cloud_cloudsecuritycompliance_v1::Result;
     /// async fn sample(
-    ///    client: &Deployment, resource_name: &str
+    ///    client: &Deployment, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_framework_deployment()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1389,10 +1390,10 @@ impl Deployment {
     /// # use google_cloud_cloudsecuritycompliance_v1::client::Deployment;
     /// use google_cloud_cloudsecuritycompliance_v1::Result;
     /// async fn sample(
-    ///    client: &Deployment, resource_name: &str
+    ///    client: &Deployment, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_cloud_control_deployment()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())

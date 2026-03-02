@@ -135,10 +135,10 @@ impl AlertPolicyService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_monitoring_v3::Result;
     /// async fn sample(
-    ///    client: &AlertPolicyService, parent: &str
+    ///    client: &AlertPolicyService, name: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_alert_policies()
-    ///         .set_name(parent)
+    ///         .set_name(name)
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -157,10 +157,10 @@ impl AlertPolicyService {
     /// # use google_cloud_monitoring_v3::client::AlertPolicyService;
     /// use google_cloud_monitoring_v3::Result;
     /// async fn sample(
-    ///    client: &AlertPolicyService, resource_name: &str
+    ///    client: &AlertPolicyService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_alert_policy()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -182,10 +182,10 @@ impl AlertPolicyService {
     /// use google_cloud_monitoring_v3::model::AlertPolicy;
     /// use google_cloud_monitoring_v3::Result;
     /// async fn sample(
-    ///    client: &AlertPolicyService, parent: &str
+    ///    client: &AlertPolicyService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.create_alert_policy()
-    ///         .set_name(parent)
+    ///         .set_name(name)
     ///         .set_alert_policy(
     ///             AlertPolicy::new()/* set fields */
     ///         )
@@ -209,10 +209,10 @@ impl AlertPolicyService {
     /// # use google_cloud_monitoring_v3::client::AlertPolicyService;
     /// use google_cloud_monitoring_v3::Result;
     /// async fn sample(
-    ///    client: &AlertPolicyService, resource_name: &str
+    ///    client: &AlertPolicyService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_alert_policy()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -376,10 +376,10 @@ impl GroupService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_monitoring_v3::Result;
     /// async fn sample(
-    ///    client: &GroupService, parent: &str
+    ///    client: &GroupService, name: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_groups()
-    ///         .set_name(parent)
+    ///         .set_name(name)
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -398,10 +398,10 @@ impl GroupService {
     /// # use google_cloud_monitoring_v3::client::GroupService;
     /// use google_cloud_monitoring_v3::Result;
     /// async fn sample(
-    ///    client: &GroupService, resource_name: &str
+    ///    client: &GroupService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_group()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -419,10 +419,10 @@ impl GroupService {
     /// use google_cloud_monitoring_v3::model::Group;
     /// use google_cloud_monitoring_v3::Result;
     /// async fn sample(
-    ///    client: &GroupService, parent: &str
+    ///    client: &GroupService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.create_group()
-    ///         .set_name(parent)
+    ///         .set_name(name)
     ///         .set_group(
     ///             Group::new()/* set fields */
     ///         )
@@ -466,10 +466,10 @@ impl GroupService {
     /// # use google_cloud_monitoring_v3::client::GroupService;
     /// use google_cloud_monitoring_v3::Result;
     /// async fn sample(
-    ///    client: &GroupService, resource_name: &str
+    ///    client: &GroupService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_group()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -939,10 +939,10 @@ impl NotificationChannelService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_monitoring_v3::Result;
     /// async fn sample(
-    ///    client: &NotificationChannelService, parent: &str
+    ///    client: &NotificationChannelService, name: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_notification_channel_descriptors()
-    ///         .set_name(parent)
+    ///         .set_name(name)
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -966,10 +966,10 @@ impl NotificationChannelService {
     /// # use google_cloud_monitoring_v3::client::NotificationChannelService;
     /// use google_cloud_monitoring_v3::Result;
     /// async fn sample(
-    ///    client: &NotificationChannelService, resource_name: &str
+    ///    client: &NotificationChannelService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_notification_channel_descriptor()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -993,10 +993,10 @@ impl NotificationChannelService {
     /// use google_cloud_gax::paginator::ItemPaginator as _;
     /// use google_cloud_monitoring_v3::Result;
     /// async fn sample(
-    ///    client: &NotificationChannelService, parent: &str
+    ///    client: &NotificationChannelService, name: &str
     /// ) -> Result<()> {
     ///     let mut list = client.list_notification_channels()
-    ///         .set_name(parent)
+    ///         .set_name(name)
     ///         .by_item();
     ///     while let Some(item) = list.next().await.transpose()? {
     ///         println!("{:?}", item);
@@ -1023,10 +1023,10 @@ impl NotificationChannelService {
     /// # use google_cloud_monitoring_v3::client::NotificationChannelService;
     /// use google_cloud_monitoring_v3::Result;
     /// async fn sample(
-    ///    client: &NotificationChannelService, resource_name: &str
+    ///    client: &NotificationChannelService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_notification_channel()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1054,10 +1054,10 @@ impl NotificationChannelService {
     /// use google_cloud_monitoring_v3::model::NotificationChannel;
     /// use google_cloud_monitoring_v3::Result;
     /// async fn sample(
-    ///    client: &NotificationChannelService, parent: &str
+    ///    client: &NotificationChannelService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.create_notification_channel()
-    ///         .set_name(parent)
+    ///         .set_name(name)
     ///         .set_notification_channel(
     ///             NotificationChannel::new()/* set fields */
     ///         )
@@ -1122,10 +1122,10 @@ impl NotificationChannelService {
     /// # use google_cloud_monitoring_v3::client::NotificationChannelService;
     /// use google_cloud_monitoring_v3::Result;
     /// async fn sample(
-    ///    client: &NotificationChannelService, resource_name: &str
+    ///    client: &NotificationChannelService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_notification_channel()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -1483,7 +1483,8 @@ impl ServiceMonitoringService {
     ///    client: &ServiceMonitoringService, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_service()
-    ///         .set_parent(parent).set_service_id("service_id_value")
+    ///         .set_parent(parent)
+    ///         .set_service_id("service_id_value")
     ///         .set_service(
     ///             Service::new()/* set fields */
     ///         )
@@ -1503,10 +1504,10 @@ impl ServiceMonitoringService {
     /// # use google_cloud_monitoring_v3::client::ServiceMonitoringService;
     /// use google_cloud_monitoring_v3::Result;
     /// async fn sample(
-    ///    client: &ServiceMonitoringService, resource_name: &str
+    ///    client: &ServiceMonitoringService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_service()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1572,10 +1573,10 @@ impl ServiceMonitoringService {
     /// # use google_cloud_monitoring_v3::client::ServiceMonitoringService;
     /// use google_cloud_monitoring_v3::Result;
     /// async fn sample(
-    ///    client: &ServiceMonitoringService, resource_name: &str
+    ///    client: &ServiceMonitoringService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_service()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -1619,10 +1620,10 @@ impl ServiceMonitoringService {
     /// # use google_cloud_monitoring_v3::client::ServiceMonitoringService;
     /// use google_cloud_monitoring_v3::Result;
     /// async fn sample(
-    ///    client: &ServiceMonitoringService, resource_name: &str
+    ///    client: &ServiceMonitoringService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_service_level_objective()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1700,10 +1701,10 @@ impl ServiceMonitoringService {
     /// # use google_cloud_monitoring_v3::client::ServiceMonitoringService;
     /// use google_cloud_monitoring_v3::Result;
     /// async fn sample(
-    ///    client: &ServiceMonitoringService, resource_name: &str
+    ///    client: &ServiceMonitoringService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_service_level_objective()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -1878,10 +1879,10 @@ impl SnoozeService {
     /// # use google_cloud_monitoring_v3::client::SnoozeService;
     /// use google_cloud_monitoring_v3::Result;
     /// async fn sample(
-    ///    client: &SnoozeService, resource_name: &str
+    ///    client: &SnoozeService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_snooze()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -2062,10 +2063,10 @@ impl UptimeCheckService {
     /// # use google_cloud_monitoring_v3::client::UptimeCheckService;
     /// use google_cloud_monitoring_v3::Result;
     /// async fn sample(
-    ///    client: &UptimeCheckService, resource_name: &str
+    ///    client: &UptimeCheckService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_uptime_check_config()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -2143,10 +2144,10 @@ impl UptimeCheckService {
     /// # use google_cloud_monitoring_v3::client::UptimeCheckService;
     /// use google_cloud_monitoring_v3::Result;
     /// async fn sample(
-    ///    client: &UptimeCheckService, resource_name: &str
+    ///    client: &UptimeCheckService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_uptime_check_config()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }

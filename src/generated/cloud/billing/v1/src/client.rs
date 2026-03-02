@@ -128,10 +128,10 @@ impl CloudBilling {
     /// # use google_cloud_billing_v1::client::CloudBilling;
     /// use google_cloud_billing_v1::Result;
     /// async fn sample(
-    ///    client: &CloudBilling, resource_name: &str
+    ///    client: &CloudBilling, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_billing_account()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())

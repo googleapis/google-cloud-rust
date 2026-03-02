@@ -205,10 +205,10 @@ impl Lineage {
     /// # use google_cloud_datacatalog_lineage_v1::client::Lineage;
     /// use google_cloud_datacatalog_lineage_v1::Result;
     /// async fn sample(
-    ///    client: &Lineage, resource_name: &str
+    ///    client: &Lineage, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_process()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -260,10 +260,10 @@ impl Lineage {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_datacatalog_lineage_v1::Result;
     /// async fn sample(
-    ///    client: &Lineage, resource_name: &str
+    ///    client: &Lineage, name: &str
     /// ) -> Result<()> {
     ///     client.delete_process()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -329,10 +329,10 @@ impl Lineage {
     /// # use google_cloud_datacatalog_lineage_v1::client::Lineage;
     /// use google_cloud_datacatalog_lineage_v1::Result;
     /// async fn sample(
-    ///    client: &Lineage, resource_name: &str
+    ///    client: &Lineage, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_run()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -384,10 +384,10 @@ impl Lineage {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_datacatalog_lineage_v1::Result;
     /// async fn sample(
-    ///    client: &Lineage, resource_name: &str
+    ///    client: &Lineage, name: &str
     /// ) -> Result<()> {
     ///     client.delete_run()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -427,10 +427,10 @@ impl Lineage {
     /// # use google_cloud_datacatalog_lineage_v1::client::Lineage;
     /// use google_cloud_datacatalog_lineage_v1::Result;
     /// async fn sample(
-    ///    client: &Lineage, resource_name: &str
+    ///    client: &Lineage, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_lineage_event()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -471,10 +471,10 @@ impl Lineage {
     /// # use google_cloud_datacatalog_lineage_v1::client::Lineage;
     /// use google_cloud_datacatalog_lineage_v1::Result;
     /// async fn sample(
-    ///    client: &Lineage, resource_name: &str
+    ///    client: &Lineage, name: &str
     /// ) -> Result<()> {
     ///     client.delete_lineage_event()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }

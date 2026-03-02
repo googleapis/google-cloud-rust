@@ -458,10 +458,10 @@ impl ProductSearch {
     /// # use google_cloud_vision_v1::client::ProductSearch;
     /// use google_cloud_vision_v1::Result;
     /// async fn sample(
-    ///    client: &ProductSearch, resource_name: &str
+    ///    client: &ProductSearch, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_product_set()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -514,10 +514,10 @@ impl ProductSearch {
     /// # use google_cloud_vision_v1::client::ProductSearch;
     /// use google_cloud_vision_v1::Result;
     /// async fn sample(
-    ///    client: &ProductSearch, resource_name: &str
+    ///    client: &ProductSearch, name: &str
     /// ) -> Result<()> {
     ///     client.delete_product_set()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -544,7 +544,8 @@ impl ProductSearch {
     ///    client: &ProductSearch, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_product()
-    ///         .set_parent(parent).set_product_id("product_id_value")
+    ///         .set_parent(parent)
+    ///         .set_product_id("product_id_value")
     ///         .set_product(
     ///             Product::new()/* set fields */
     ///         )
@@ -595,10 +596,10 @@ impl ProductSearch {
     /// # use google_cloud_vision_v1::client::ProductSearch;
     /// use google_cloud_vision_v1::Result;
     /// async fn sample(
-    ///    client: &ProductSearch, resource_name: &str
+    ///    client: &ProductSearch, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_product()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -659,10 +660,10 @@ impl ProductSearch {
     /// # use google_cloud_vision_v1::client::ProductSearch;
     /// use google_cloud_vision_v1::Result;
     /// async fn sample(
-    ///    client: &ProductSearch, resource_name: &str
+    ///    client: &ProductSearch, name: &str
     /// ) -> Result<()> {
     ///     client.delete_product()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -726,10 +727,10 @@ impl ProductSearch {
     /// # use google_cloud_vision_v1::client::ProductSearch;
     /// use google_cloud_vision_v1::Result;
     /// async fn sample(
-    ///    client: &ProductSearch, resource_name: &str
+    ///    client: &ProductSearch, name: &str
     /// ) -> Result<()> {
     ///     client.delete_reference_image()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -778,10 +779,10 @@ impl ProductSearch {
     /// # use google_cloud_vision_v1::client::ProductSearch;
     /// use google_cloud_vision_v1::Result;
     /// async fn sample(
-    ///    client: &ProductSearch, resource_name: &str
+    ///    client: &ProductSearch, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_reference_image()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())

@@ -170,10 +170,10 @@ impl CloudFilestoreManager {
     /// # use google_cloud_filestore_v1::client::CloudFilestoreManager;
     /// use google_cloud_filestore_v1::Result;
     /// async fn sample(
-    ///    client: &CloudFilestoreManager, resource_name: &str
+    ///    client: &CloudFilestoreManager, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_instance()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -208,7 +208,8 @@ impl CloudFilestoreManager {
     ///    client: &CloudFilestoreManager, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_instance()
-    ///         .set_parent(parent).set_instance_id("instance_id_value")
+    ///         .set_parent(parent)
+    ///         .set_instance_id("instance_id_value")
     ///         .set_instance(
     ///             Instance::new()/* set fields */
     ///         )
@@ -342,10 +343,10 @@ impl CloudFilestoreManager {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_filestore_v1::Result;
     /// async fn sample(
-    ///    client: &CloudFilestoreManager, resource_name: &str
+    ///    client: &CloudFilestoreManager, name: &str
     /// ) -> Result<()> {
     ///     client.delete_instance()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -385,10 +386,10 @@ impl CloudFilestoreManager {
     /// # use google_cloud_filestore_v1::client::CloudFilestoreManager;
     /// use google_cloud_filestore_v1::Result;
     /// async fn sample(
-    ///    client: &CloudFilestoreManager, resource_name: &str
+    ///    client: &CloudFilestoreManager, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_snapshot()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -420,7 +421,8 @@ impl CloudFilestoreManager {
     ///    client: &CloudFilestoreManager, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_snapshot()
-    ///         .set_parent(parent).set_snapshot_id("snapshot_id_value")
+    ///         .set_parent(parent)
+    ///         .set_snapshot_id("snapshot_id_value")
     ///         .set_snapshot(
     ///             Snapshot::new()/* set fields */
     ///         )
@@ -451,10 +453,10 @@ impl CloudFilestoreManager {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_filestore_v1::Result;
     /// async fn sample(
-    ///    client: &CloudFilestoreManager, resource_name: &str
+    ///    client: &CloudFilestoreManager, name: &str
     /// ) -> Result<()> {
     ///     client.delete_snapshot()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -531,10 +533,10 @@ impl CloudFilestoreManager {
     /// # use google_cloud_filestore_v1::client::CloudFilestoreManager;
     /// use google_cloud_filestore_v1::Result;
     /// async fn sample(
-    ///    client: &CloudFilestoreManager, resource_name: &str
+    ///    client: &CloudFilestoreManager, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_backup()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -566,7 +568,8 @@ impl CloudFilestoreManager {
     ///    client: &CloudFilestoreManager, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_backup()
-    ///         .set_parent(parent).set_backup_id("backup_id_value")
+    ///         .set_parent(parent)
+    ///         .set_backup_id("backup_id_value")
     ///         .set_backup(
     ///             Backup::new()/* set fields */
     ///         )
@@ -597,10 +600,10 @@ impl CloudFilestoreManager {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_filestore_v1::Result;
     /// async fn sample(
-    ///    client: &CloudFilestoreManager, resource_name: &str
+    ///    client: &CloudFilestoreManager, name: &str
     /// ) -> Result<()> {
     ///     client.delete_backup()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }

@@ -161,13 +161,11 @@ impl Dispatcher {
                                 }
                                 flush_set.spawn(rx);
                             }
-                            // Wait on all the tasks that exist right now.
-                            // TODO(#4505): We could instead tokio::spawn this as well so the
-                            // publisher can keep working on additional messages. The Dispatcher
-                            // would also need to keep track of any pending flushes, and make sure
-                            // all of those resolve as well.
-                            flush_set.join_all().await;
-                            let _ = tx.send(());
+                            tokio::spawn(async move {
+                                // Wait on all the flush operations.
+                                flush_set.join_all().await;
+                                let _ = tx.send(());
+                            });
                         },
                         Some(ToDispatcher::ResumePublish(ordering_key)) => {
                             if let Some(batch_actor) = batch_actors.get_mut(&ordering_key) {
@@ -308,14 +306,6 @@ impl ConcurrentBatchActor {
         batch: &mut Batch,
         msg: BundledMessage,
     ) {
-        if !batch.can_fit(&msg.msg) {
-            let _ = msg
-                .tx
-                .send(Err(crate::error::PublishError::ExceededByteThresholdError(
-                    (),
-                )));
-            return;
-        }
         if !batch.can_add(&msg) {
             self.flush(inflight, batch);
         }
@@ -462,20 +452,7 @@ impl SequentialBatchActor {
     ) {
         let mut should_flush = false;
         while let Some(next) = self.pending_msgs.front() {
-            if !batch.can_fit(&next.msg) {
-                let _ = self
-                    .pending_msgs
-                    .pop_front()
-                    .expect("front should contain an element")
-                    .tx
-                    .send(Err(crate::error::PublishError::ExceededByteThresholdError(
-                        (),
-                    )));
-                self.pause();
-                should_flush = true;
-                break;
-            }
-            if !batch.can_add(next) {
+            if !batch.can_add(next) && !batch.is_empty() {
                 should_flush = true;
                 break;
             }
@@ -1096,6 +1073,74 @@ mod tests {
         // We flush here otherwise the last message will await forever since it never exceed the byte threshold.
         assert_flush!(actor_tx);
         assert_publish_data!(publish_rxs);
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics(start_paused = true)]
+    async fn sequential_actor_send_large_message() -> anyhow::Result<()> {
+        let mut mock = MockGapicPublisher::new();
+        mock.expect_publish()
+            .withf(|req, _o| {
+                // Recreate the batch from req to calculate the batch size.
+                let mut batch = Batch::new(req.topic.len() as u32, BatchingOptions::default());
+                req.messages.iter().for_each(|msg| {
+                    let (tx, _rx) = tokio::sync::oneshot::channel();
+                    batch.push(BundledMessage {
+                        msg: msg.clone(),
+                        tx,
+                    });
+                });
+                req.topic == TOPIC && batch.size() >= 23_u32
+            })
+            .returning(publish_ok);
+        let (actor_tx, actor_rx) = tokio::sync::mpsc::unbounded_channel();
+        tokio::spawn(
+            SequentialBatchActor::new(
+                TOPIC.to_string(),
+                GapicPublisher::from_stub(mock),
+                BatchingOptions::default()
+                    .set_message_count_threshold(MAX_MESSAGES)
+                    .set_byte_threshold(1_u32), // The current test generates 24 byte single message batches.
+                actor_rx,
+            )
+            .run(),
+        );
+        assert_publish_is_ok!(actor_tx, 10);
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics(start_paused = true)]
+    async fn concurrent_actor_send_large_message() -> anyhow::Result<()> {
+        let mut mock = MockGapicPublisher::new();
+        mock.expect_publish()
+            .withf(|req, _o| {
+                // Recreate the batch from req to calculate the batch size.
+                let mut batch = Batch::new(req.topic.len() as u32, BatchingOptions::default());
+                req.messages.iter().for_each(|msg| {
+                    let (tx, _rx) = tokio::sync::oneshot::channel();
+                    batch.push(BundledMessage {
+                        msg: msg.clone(),
+                        tx,
+                    });
+                });
+                req.topic == TOPIC && batch.size() >= 23_u32
+            })
+            .returning(publish_ok);
+        let (actor_tx, actor_rx) = tokio::sync::mpsc::unbounded_channel();
+        tokio::spawn(
+            ConcurrentBatchActor::new(
+                TOPIC.to_string(),
+                GapicPublisher::from_stub(mock),
+                BatchingOptions::default()
+                    .set_message_count_threshold(MAX_MESSAGES)
+                    .set_byte_threshold(1_u32), // The current test generates 24 byte single message batches.
+                actor_rx,
+            )
+            .run(),
+        );
+        assert_publish_is_ok!(actor_tx, 10);
 
         Ok(())
     }

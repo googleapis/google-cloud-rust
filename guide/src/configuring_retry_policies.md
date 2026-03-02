@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-# Configuring Retry Policies
+# Configuring retry policies
 
 The Google Cloud client libraries for Rust can automatically retry operations
 that fail due to transient errors.
@@ -64,8 +64,7 @@ Then use the service as usual:
 {{#include ../samples/src/retry_policies/client_retry.rs:client-retry-request}}
 ```
 
-See [below](#configuring-the-default-retry-policy-complete-code) for the
-complete code.
+Review the [complete code](#configuring-the-default-retry-policy-complete-code).
 
 ## Configuring the default retry policy with limits
 
@@ -84,8 +83,8 @@ Requests work as usual too:
 {{#include ../samples/src/retry_policies/client_retry_full.rs:client-retry-full-request}}
 ```
 
-See [below](#configuring-the-default-retry-policy-with-limits-complete-code) for
-the complete code.
+Review the
+[complete code](#configuring-the-default-retry-policy-with-limits-complete-code).
 
 ## Override the retry policy for one request
 
@@ -101,8 +100,8 @@ can override the policy for one request:
 {{#include ../samples/src/retry_policies/request_retry.rs:request-retry-request}}
 ```
 
-See [below](#configuring-the-default-retry-policy-with-limits-complete-code) for
-the complete code.
+Review the
+[complete code](#configuring-the-default-retry-policy-with-limits-complete-code).
 
 ## Configuring the default retry policy: complete code
 

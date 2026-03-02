@@ -130,10 +130,10 @@ impl FunctionService {
     /// # use google_cloud_functions_v2::client::FunctionService;
     /// use google_cloud_functions_v2::Result;
     /// async fn sample(
-    ///    client: &FunctionService, resource_name: &str
+    ///    client: &FunctionService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_function()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -190,7 +190,8 @@ impl FunctionService {
     ///    client: &FunctionService, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_function()
-    ///         .set_parent(parent).set_function_id("function_id_value")
+    ///         .set_parent(parent)
+    ///         .set_function_id("function_id_value")
     ///         .set_function(
     ///             Function::new()/* set fields */
     ///         )
@@ -260,10 +261,10 @@ impl FunctionService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_functions_v2::Result;
     /// async fn sample(
-    ///    client: &FunctionService, resource_name: &str
+    ///    client: &FunctionService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_function()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }

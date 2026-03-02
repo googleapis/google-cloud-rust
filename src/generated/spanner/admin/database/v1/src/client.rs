@@ -199,10 +199,10 @@ impl DatabaseAdmin {
     /// # use google_cloud_spanner_admin_database_v1::client::DatabaseAdmin;
     /// use google_cloud_spanner_admin_database_v1::Result;
     /// async fn sample(
-    ///    client: &DatabaseAdmin, resource_name: &str
+    ///    client: &DatabaseAdmin, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_database()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -505,7 +505,8 @@ impl DatabaseAdmin {
     ///    client: &DatabaseAdmin, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_backup()
-    ///         .set_parent(parent).set_backup_id("backup_id_value")
+    ///         .set_parent(parent)
+    ///         .set_backup_id("backup_id_value")
     ///         .set_backup(
     ///             Backup::new()/* set fields */
     ///         )
@@ -577,10 +578,10 @@ impl DatabaseAdmin {
     /// # use google_cloud_spanner_admin_database_v1::client::DatabaseAdmin;
     /// use google_cloud_spanner_admin_database_v1::Result;
     /// async fn sample(
-    ///    client: &DatabaseAdmin, resource_name: &str
+    ///    client: &DatabaseAdmin, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_backup()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -629,10 +630,10 @@ impl DatabaseAdmin {
     /// # use google_cloud_spanner_admin_database_v1::client::DatabaseAdmin;
     /// use google_cloud_spanner_admin_database_v1::Result;
     /// async fn sample(
-    ///    client: &DatabaseAdmin, resource_name: &str
+    ///    client: &DatabaseAdmin, name: &str
     /// ) -> Result<()> {
     ///     client.delete_backup()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -863,10 +864,10 @@ impl DatabaseAdmin {
     /// # use google_cloud_spanner_admin_database_v1::client::DatabaseAdmin;
     /// use google_cloud_spanner_admin_database_v1::Result;
     /// async fn sample(
-    ///    client: &DatabaseAdmin, resource_name: &str
+    ///    client: &DatabaseAdmin, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_backup_schedule()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -909,10 +910,10 @@ impl DatabaseAdmin {
     /// # use google_cloud_spanner_admin_database_v1::client::DatabaseAdmin;
     /// use google_cloud_spanner_admin_database_v1::Result;
     /// async fn sample(
-    ///    client: &DatabaseAdmin, resource_name: &str
+    ///    client: &DatabaseAdmin, name: &str
     /// ) -> Result<()> {
     ///     client.delete_backup_schedule()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }

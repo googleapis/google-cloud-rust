@@ -31,34 +31,34 @@ This guide assumes you are familiar with the previous chapters:
 
 ## Tests for automatic polling
 
-Let's say our application code awaits `lro::Poller::until_done()`. In previous
-sections, we called this "automatic polling".
+Assume the application code awaits `lro::Poller::until_done()`. In previous
+sections, this was called "automatic polling".
 
 ```rust,ignore
 {{#rustdoc_include ../samples/tests/mocking_lros_auto.rs:app-fn}}
 ```
 
-Note that our application only cares about the final result of the LRO. We do
-not need to test how it handles intermediate results from polling the LRO. Our
+Note that the application only cares about the final result of the LRO. You do
+not need to test how it handles intermediate results from polling the LRO. The
 tests can simply return the final result of the LRO from the mock.
 
 ### Creating the `longrunning::model::Operation`
 
-Let's say we want our call to result in the following response.
+Assume you want the call to result in the following response.
 
 ```rust,ignore
 {{#rustdoc_include ../samples/tests/mocking_lros_auto.rs:expected-response}}
 ```
 
 You may have noticed that the stub returns a `longrunning::model::Operation`,
-not a `BatchRecognizeResponse`. We need to pack our desired response into the
+not a `BatchRecognizeResponse`. You need to pack the desired response into the
 `Operation::result`.
 
 ```rust,ignore
 {{#rustdoc_include ../samples/tests/mocking_lros_auto.rs:finished-op}}
 ```
 
-Note also that we set the `done` field to `true`. This indicates to the `Poller`
+Note also that the `done` field is set to `true`. This indicates to the `Poller`
 that the operation has completed, thus ending the polling loop.
 
 ```rust,ignore
@@ -67,22 +67,22 @@ that the operation has completed, thus ending the polling loop.
 
 ### Test code
 
-Now we are ready to write our test.
+Now you are ready to write the test.
 
-First we define our mock class, which implements the
+First, define the mock class, which implements the
 [`speech::stub::Speech`][speech-stub] trait.
 
 ```rust,ignore
 {{#rustdoc_include ../samples/tests/mocking_lros_auto.rs:mockall-macro}}
 ```
 
-Now in our test we create our mock, and set expectations on it.
+Now in the test, create the mock, and set expectations on it.
 
 ```rust,ignore
 {{#rustdoc_include ../samples/tests/mocking_lros_auto.rs:mock-expectations}}
 ```
 
-Finally, we create a client from the mock, call our function, and verify the
+Finally, create a client from the mock, call the function, and verify the
 response.
 
 ```rust,ignore
@@ -91,21 +91,21 @@ response.
 
 ## Tests for manual polling with intermediate metadata
 
-Let's say our application code manually polls, and does some processing on
-partial updates.
+Assume the application code manually polls, and does some processing on partial
+updates.
 
 ```rust,ignore
 {{#rustdoc_include ../samples/tests/mocking_lros_manual.rs:app-fn}}
 ```
 
-We want to simulate how our application acts when it receives intermediate
-metadata. We can achieve this by returning in-progress operations from our mock.
+Simulate how the application acts when it receives intermediate metadata by
+returning in-progress operations from the mock.
 
 ### Creating the `longrunning::model::Operation`
 
 The `BatchRecognize` RPC returns partial results in the form of a
-`speech::model::OperationMetadata`. Like before, we will need to pack this into
-the returned `longrunning::model::Operation`, but this time into the
+`speech::model::OperationMetadata`. Like before, you need to pack this into the
+returned `longrunning::model::Operation`, but this time into the
 `Operation::metadata` field.
 
 ```rust,ignore
@@ -114,21 +114,21 @@ the returned `longrunning::model::Operation`, but this time into the
 
 ### Test code
 
-First we define our mock class, which implements the
-[`speech::stub::Speech`][speech-stub] trait. Note that we override
-`get_operation()`. We will see why shortly.
+First, define the mock class, which implements the
+[`speech::stub::Speech`][speech-stub] trait. Note that `get_operation()` is
+overridden. The reason for this will be clear shortly.
 
 ```rust,ignore
 {{#rustdoc_include ../samples/tests/mocking_lros_manual.rs:mockall-macro}}
 ```
 
-Now in our test we create our mock, and set expectations on it.
+Now in the test, create the mock, and set expectations on it.
 
 ```rust,ignore
 {{#rustdoc_include ../samples/tests/mocking_lros_manual.rs:mock-expectations}}
 ```
 
-These expectations will return partial results (25%, 50%, 75%), then return our
+These expectations will return partial results (25%, 50%, 75%), then return the
 desired final outcome.
 
 Now a few things you probably noticed.
@@ -143,7 +143,7 @@ Now a few things you probably noticed.
    From then on, the client library just polls the status of that LRO. It does
    this using the `GetOperation` RPC.
 
-   That is why we set expectations on different RPCs for the initial response
+   That is why you set expectations on different RPCs for the initial response
    vs. all subsequent responses.
 
 1. Expectations are set in a [sequence].
@@ -151,7 +151,7 @@ Now a few things you probably noticed.
    This allows `mockall` to verify the order of the calls. It is also necessary
    to determine which `expect_get_operation` is matched.
 
-Finally, we create a client from the mock, call our function, and verify the
+Finally, create a client from the mock, call the function, and verify the
 response.
 
 ```rust,ignore
@@ -181,8 +181,8 @@ an error.
 {{#rustdoc_include ../samples/tests/mocking_lros_error.rs:expectation-initial}}
 ```
 
-For manual polling, an error starting an LRO is returned via the completed
-branch. This ends the polling loop.
+For manual polling, the completed branch returns an error starting an LRO. This
+ends the polling loop.
 
 ```rust,ignore,noplayground
 {{#rustdoc_include ../samples/tests/mocking_lros_error.rs:completed-branch}}
@@ -191,22 +191,22 @@ branch. This ends the polling loop.
 ### Simulating an LRO resulting in an error
 
 If you need to simulate an LRO resulting in an error, after intermediate
-metadata is returned, we need to return the error in the final
+metadata is returned, you need to return the error in the final
 `longrunning::model::Operation`.
 
 ```rust,ignore,noplayground
 {{#rustdoc_include ../samples/tests/mocking_lros_error.rs:error-op}}
 ```
 
-We set our expectations to return the `Operation` from `get_operation` as
-before.
+Set expectations to return the `Operation` from `get_operation` as before.
 
 ```rust,ignore,noplayground
 {{#rustdoc_include ../samples/tests/mocking_lros_error.rs:expectation-final}}
 ```
 
-An LRO ending in an error will be returned via the completed branch. This ends
-the polling loop.
+To simulate a LRO that completes with an error outcome set the
+`PollingResult::Completed` branch to contain the error. This ends the polling
+loop.
 
 ```rust,ignore,noplayground
 {{#rustdoc_include ../samples/tests/mocking_lros_error.rs:completed-branch}}
@@ -218,15 +218,15 @@ Polling loops can also exit because the polling policy has been exhausted. When
 this happens, the client library can not say definitively whether the LRO has
 completed or not.
 
-If your application has custom logic to deal with this case, we can exercise it
-by returning an error from the `get_operation` expectation.
+If your application has custom logic to deal with this case, you can exercise
+this logic by returning an error from the `get_operation` expectation.
 
 ```rust,ignore,noplayground
 {{#rustdoc_include ../samples/tests/mocking_lros_error.rs:expectation-polling-error}}
 ```
 
-An LRO ending with a polling error will be returned via the polling error
-branch.
+To simulate a LRO polling error, set the `PollingResult::PollingError` branch
+with the error you want to simulate.
 
 ```rust,ignore,noplayground
 {{#rustdoc_include ../samples/tests/mocking_lros_error.rs:polling-error-branch}}

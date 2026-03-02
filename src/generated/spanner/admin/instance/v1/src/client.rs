@@ -171,10 +171,10 @@ impl InstanceAdmin {
     /// # use google_cloud_spanner_admin_instance_v1::client::InstanceAdmin;
     /// use google_cloud_spanner_admin_instance_v1::Result;
     /// async fn sample(
-    ///    client: &InstanceAdmin, resource_name: &str
+    ///    client: &InstanceAdmin, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_instance_config()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -356,10 +356,10 @@ impl InstanceAdmin {
     /// # use google_cloud_spanner_admin_instance_v1::client::InstanceAdmin;
     /// use google_cloud_spanner_admin_instance_v1::Result;
     /// async fn sample(
-    ///    client: &InstanceAdmin, resource_name: &str
+    ///    client: &InstanceAdmin, name: &str
     /// ) -> Result<()> {
     ///     client.delete_instance_config()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -458,10 +458,10 @@ impl InstanceAdmin {
     /// # use google_cloud_spanner_admin_instance_v1::client::InstanceAdmin;
     /// use google_cloud_spanner_admin_instance_v1::Result;
     /// async fn sample(
-    ///    client: &InstanceAdmin, resource_name: &str
+    ///    client: &InstanceAdmin, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_instance()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -529,7 +529,8 @@ impl InstanceAdmin {
     ///    client: &InstanceAdmin, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_instance()
-    ///         .set_parent(parent).set_instance_id("instance_id_value")
+    ///         .set_parent(parent)
+    ///         .set_instance_id("instance_id_value")
     ///         .set_instance(
     ///             Instance::new()/* set fields */
     ///         )
@@ -636,10 +637,10 @@ impl InstanceAdmin {
     /// # use google_cloud_spanner_admin_instance_v1::client::InstanceAdmin;
     /// use google_cloud_spanner_admin_instance_v1::Result;
     /// async fn sample(
-    ///    client: &InstanceAdmin, resource_name: &str
+    ///    client: &InstanceAdmin, name: &str
     /// ) -> Result<()> {
     ///     client.delete_instance()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -732,10 +733,10 @@ impl InstanceAdmin {
     /// # use google_cloud_spanner_admin_instance_v1::client::InstanceAdmin;
     /// use google_cloud_spanner_admin_instance_v1::Result;
     /// async fn sample(
-    ///    client: &InstanceAdmin, resource_name: &str
+    ///    client: &InstanceAdmin, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_instance_partition()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -832,10 +833,10 @@ impl InstanceAdmin {
     /// # use google_cloud_spanner_admin_instance_v1::client::InstanceAdmin;
     /// use google_cloud_spanner_admin_instance_v1::Result;
     /// async fn sample(
-    ///    client: &InstanceAdmin, resource_name: &str
+    ///    client: &InstanceAdmin, name: &str
     /// ) -> Result<()> {
     ///     client.delete_instance_partition()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }

@@ -148,10 +148,10 @@ impl Memorystore {
     /// # use google_cloud_memorystore_v1::client::Memorystore;
     /// use google_cloud_memorystore_v1::Result;
     /// async fn sample(
-    ///    client: &Memorystore, resource_name: &str
+    ///    client: &Memorystore, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_instance()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -183,7 +183,8 @@ impl Memorystore {
     ///    client: &Memorystore, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_instance()
-    ///         .set_parent(parent).set_instance_id("instance_id_value")
+    ///         .set_parent(parent)
+    ///         .set_instance_id("instance_id_value")
     ///         .set_instance(
     ///             Instance::new()/* set fields */
     ///         )
@@ -251,10 +252,10 @@ impl Memorystore {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_memorystore_v1::Result;
     /// async fn sample(
-    ///    client: &Memorystore, resource_name: &str
+    ///    client: &Memorystore, name: &str
     /// ) -> Result<()> {
     ///     client.delete_instance()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -350,10 +351,10 @@ impl Memorystore {
     /// # use google_cloud_memorystore_v1::client::Memorystore;
     /// use google_cloud_memorystore_v1::Result;
     /// async fn sample(
-    ///    client: &Memorystore, resource_name: &str
+    ///    client: &Memorystore, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_backup_collection()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -393,10 +394,10 @@ impl Memorystore {
     /// # use google_cloud_memorystore_v1::client::Memorystore;
     /// use google_cloud_memorystore_v1::Result;
     /// async fn sample(
-    ///    client: &Memorystore, resource_name: &str
+    ///    client: &Memorystore, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_backup()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -424,10 +425,10 @@ impl Memorystore {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_memorystore_v1::Result;
     /// async fn sample(
-    ///    client: &Memorystore, resource_name: &str
+    ///    client: &Memorystore, name: &str
     /// ) -> Result<()> {
     ///     client.delete_backup()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }

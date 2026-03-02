@@ -201,10 +201,10 @@ impl EssentialContactsService {
     /// # use google_cloud_essentialcontacts_v1::client::EssentialContactsService;
     /// use google_cloud_essentialcontacts_v1::Result;
     /// async fn sample(
-    ///    client: &EssentialContactsService, resource_name: &str
+    ///    client: &EssentialContactsService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_contact()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -221,10 +221,10 @@ impl EssentialContactsService {
     /// # use google_cloud_essentialcontacts_v1::client::EssentialContactsService;
     /// use google_cloud_essentialcontacts_v1::Result;
     /// async fn sample(
-    ///    client: &EssentialContactsService, resource_name: &str
+    ///    client: &EssentialContactsService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_contact()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }

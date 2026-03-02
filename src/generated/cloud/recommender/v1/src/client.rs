@@ -153,10 +153,10 @@ impl Recommender {
     /// # use google_cloud_recommender_v1::client::Recommender;
     /// use google_cloud_recommender_v1::Result;
     /// async fn sample(
-    ///    client: &Recommender, resource_name: &str
+    ///    client: &Recommender, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_insight()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -223,10 +223,10 @@ impl Recommender {
     /// # use google_cloud_recommender_v1::client::Recommender;
     /// use google_cloud_recommender_v1::Result;
     /// async fn sample(
-    ///    client: &Recommender, resource_name: &str
+    ///    client: &Recommender, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_recommendation()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -369,10 +369,10 @@ impl Recommender {
     /// # use google_cloud_recommender_v1::client::Recommender;
     /// use google_cloud_recommender_v1::Result;
     /// async fn sample(
-    ///    client: &Recommender, resource_name: &str
+    ///    client: &Recommender, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_recommender_config()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -419,10 +419,10 @@ impl Recommender {
     /// # use google_cloud_recommender_v1::client::Recommender;
     /// use google_cloud_recommender_v1::Result;
     /// async fn sample(
-    ///    client: &Recommender, resource_name: &str
+    ///    client: &Recommender, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_insight_type_config()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())

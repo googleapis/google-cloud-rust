@@ -183,10 +183,10 @@ impl NetApp {
     /// # use google_cloud_netapp_v1::client::NetApp;
     /// use google_cloud_netapp_v1::Result;
     /// async fn sample(
-    ///    client: &NetApp, resource_name: &str
+    ///    client: &NetApp, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_storage_pool()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -251,10 +251,10 @@ impl NetApp {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_netapp_v1::Result;
     /// async fn sample(
-    ///    client: &NetApp, resource_name: &str
+    ///    client: &NetApp, name: &str
     /// ) -> Result<()> {
     ///     client.delete_storage_pool()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -356,10 +356,10 @@ impl NetApp {
     /// # use google_cloud_netapp_v1::client::NetApp;
     /// use google_cloud_netapp_v1::Result;
     /// async fn sample(
-    ///    client: &NetApp, resource_name: &str
+    ///    client: &NetApp, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_volume()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -391,7 +391,8 @@ impl NetApp {
     ///    client: &NetApp, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_volume()
-    ///         .set_parent(parent).set_volume_id("volume_id_value")
+    ///         .set_parent(parent)
+    ///         .set_volume_id("volume_id_value")
     ///         .set_volume(
     ///             Volume::new()/* set fields */
     ///         )
@@ -459,10 +460,10 @@ impl NetApp {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_netapp_v1::Result;
     /// async fn sample(
-    ///    client: &NetApp, resource_name: &str
+    ///    client: &NetApp, name: &str
     /// ) -> Result<()> {
     ///     client.delete_volume()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -534,10 +535,10 @@ impl NetApp {
     /// # use google_cloud_netapp_v1::client::NetApp;
     /// use google_cloud_netapp_v1::Result;
     /// async fn sample(
-    ///    client: &NetApp, resource_name: &str
+    ///    client: &NetApp, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_snapshot()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -569,7 +570,8 @@ impl NetApp {
     ///    client: &NetApp, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_snapshot()
-    ///         .set_parent(parent).set_snapshot_id("snapshot_id_value")
+    ///         .set_parent(parent)
+    ///         .set_snapshot_id("snapshot_id_value")
     ///         .set_snapshot(
     ///             Snapshot::new()/* set fields */
     ///         )
@@ -600,10 +602,10 @@ impl NetApp {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_netapp_v1::Result;
     /// async fn sample(
-    ///    client: &NetApp, resource_name: &str
+    ///    client: &NetApp, name: &str
     /// ) -> Result<()> {
     ///     client.delete_snapshot()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -679,10 +681,10 @@ impl NetApp {
     /// # use google_cloud_netapp_v1::client::NetApp;
     /// use google_cloud_netapp_v1::Result;
     /// async fn sample(
-    ///    client: &NetApp, resource_name: &str
+    ///    client: &NetApp, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_active_directory()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -783,10 +785,10 @@ impl NetApp {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_netapp_v1::Result;
     /// async fn sample(
-    ///    client: &NetApp, resource_name: &str
+    ///    client: &NetApp, name: &str
     /// ) -> Result<()> {
     ///     client.delete_active_directory()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -860,10 +862,10 @@ impl NetApp {
     /// # use google_cloud_netapp_v1::client::NetApp;
     /// use google_cloud_netapp_v1::Result;
     /// async fn sample(
-    ///    client: &NetApp, resource_name: &str
+    ///    client: &NetApp, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_kms_config()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -980,10 +982,10 @@ impl NetApp {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_netapp_v1::Result;
     /// async fn sample(
-    ///    client: &NetApp, resource_name: &str
+    ///    client: &NetApp, name: &str
     /// ) -> Result<()> {
     ///     client.delete_kms_config()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1022,10 +1024,10 @@ impl NetApp {
     /// # use google_cloud_netapp_v1::client::NetApp;
     /// use google_cloud_netapp_v1::Result;
     /// async fn sample(
-    ///    client: &NetApp, resource_name: &str
+    ///    client: &NetApp, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_replication()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1057,7 +1059,8 @@ impl NetApp {
     ///    client: &NetApp, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_replication()
-    ///         .set_parent(parent).set_replication_id("replication_id_value")
+    ///         .set_parent(parent)
+    ///         .set_replication_id("replication_id_value")
     ///         .set_replication(
     ///             Replication::new()/* set fields */
     ///         )
@@ -1088,10 +1091,10 @@ impl NetApp {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_netapp_v1::Result;
     /// async fn sample(
-    ///    client: &NetApp, resource_name: &str
+    ///    client: &NetApp, name: &str
     /// ) -> Result<()> {
     ///     client.delete_replication()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1338,10 +1341,10 @@ impl NetApp {
     /// # use google_cloud_netapp_v1::client::NetApp;
     /// use google_cloud_netapp_v1::Result;
     /// async fn sample(
-    ///    client: &NetApp, resource_name: &str
+    ///    client: &NetApp, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_backup_vault()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1429,10 +1432,10 @@ impl NetApp {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_netapp_v1::Result;
     /// async fn sample(
-    ///    client: &NetApp, resource_name: &str
+    ///    client: &NetApp, name: &str
     /// ) -> Result<()> {
     ///     client.delete_backup_vault()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1466,7 +1469,8 @@ impl NetApp {
     ///    client: &NetApp, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_backup()
-    ///         .set_parent(parent).set_backup_id("backup_id_value")
+    ///         .set_parent(parent)
+    ///         .set_backup_id("backup_id_value")
     ///         .set_backup(
     ///             Backup::new()/* set fields */
     ///         )
@@ -1486,10 +1490,10 @@ impl NetApp {
     /// # use google_cloud_netapp_v1::client::NetApp;
     /// use google_cloud_netapp_v1::Result;
     /// async fn sample(
-    ///    client: &NetApp, resource_name: &str
+    ///    client: &NetApp, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_backup()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1540,10 +1544,10 @@ impl NetApp {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_netapp_v1::Result;
     /// async fn sample(
-    ///    client: &NetApp, resource_name: &str
+    ///    client: &NetApp, name: &str
     /// ) -> Result<()> {
     ///     client.delete_backup()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1631,10 +1635,10 @@ impl NetApp {
     /// # use google_cloud_netapp_v1::client::NetApp;
     /// use google_cloud_netapp_v1::Result;
     /// async fn sample(
-    ///    client: &NetApp, resource_name: &str
+    ///    client: &NetApp, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_backup_policy()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1722,10 +1726,10 @@ impl NetApp {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_netapp_v1::Result;
     /// async fn sample(
-    ///    client: &NetApp, resource_name: &str
+    ///    client: &NetApp, name: &str
     /// ) -> Result<()> {
     ///     client.delete_backup_policy()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1764,10 +1768,10 @@ impl NetApp {
     /// # use google_cloud_netapp_v1::client::NetApp;
     /// use google_cloud_netapp_v1::Result;
     /// async fn sample(
-    ///    client: &NetApp, resource_name: &str
+    ///    client: &NetApp, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_quota_rule()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1867,10 +1871,10 @@ impl NetApp {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_netapp_v1::Result;
     /// async fn sample(
-    ///    client: &NetApp, resource_name: &str
+    ///    client: &NetApp, name: &str
     /// ) -> Result<()> {
     ///     client.delete_quota_rule()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1941,10 +1945,10 @@ impl NetApp {
     /// # use google_cloud_netapp_v1::client::NetApp;
     /// use google_cloud_netapp_v1::Result;
     /// async fn sample(
-    ///    client: &NetApp, resource_name: &str
+    ///    client: &NetApp, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_host_group()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -2044,10 +2048,10 @@ impl NetApp {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_netapp_v1::Result;
     /// async fn sample(
-    ///    client: &NetApp, resource_name: &str
+    ///    client: &NetApp, name: &str
     /// ) -> Result<()> {
     ///     client.delete_host_group()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }

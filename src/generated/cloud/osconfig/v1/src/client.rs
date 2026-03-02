@@ -151,10 +151,10 @@ impl OsConfigService {
     /// # use google_cloud_osconfig_v1::client::OsConfigService;
     /// use google_cloud_osconfig_v1::Result;
     /// async fn sample(
-    ///    client: &OsConfigService, resource_name: &str
+    ///    client: &OsConfigService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_patch_job()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -266,10 +266,10 @@ impl OsConfigService {
     /// # use google_cloud_osconfig_v1::client::OsConfigService;
     /// use google_cloud_osconfig_v1::Result;
     /// async fn sample(
-    ///    client: &OsConfigService, resource_name: &str
+    ///    client: &OsConfigService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_patch_deployment()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -311,10 +311,10 @@ impl OsConfigService {
     /// # use google_cloud_osconfig_v1::client::OsConfigService;
     /// use google_cloud_osconfig_v1::Result;
     /// async fn sample(
-    ///    client: &OsConfigService, resource_name: &str
+    ///    client: &OsConfigService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_patch_deployment()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -652,10 +652,10 @@ impl OsConfigZonalService {
     /// # use google_cloud_osconfig_v1::client::OsConfigZonalService;
     /// use google_cloud_osconfig_v1::Result;
     /// async fn sample(
-    ///    client: &OsConfigZonalService, resource_name: &str
+    ///    client: &OsConfigZonalService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_os_policy_assignment()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -750,10 +750,10 @@ impl OsConfigZonalService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_osconfig_v1::Result;
     /// async fn sample(
-    ///    client: &OsConfigZonalService, resource_name: &str
+    ///    client: &OsConfigZonalService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_os_policy_assignment()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -772,10 +772,10 @@ impl OsConfigZonalService {
     /// # use google_cloud_osconfig_v1::client::OsConfigZonalService;
     /// use google_cloud_osconfig_v1::Result;
     /// async fn sample(
-    ///    client: &OsConfigZonalService, resource_name: &str
+    ///    client: &OsConfigZonalService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_os_policy_assignment_report()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -825,10 +825,10 @@ impl OsConfigZonalService {
     /// # use google_cloud_osconfig_v1::client::OsConfigZonalService;
     /// use google_cloud_osconfig_v1::Result;
     /// async fn sample(
-    ///    client: &OsConfigZonalService, resource_name: &str
+    ///    client: &OsConfigZonalService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_inventory()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -869,10 +869,10 @@ impl OsConfigZonalService {
     /// # use google_cloud_osconfig_v1::client::OsConfigZonalService;
     /// use google_cloud_osconfig_v1::Result;
     /// async fn sample(
-    ///    client: &OsConfigZonalService, resource_name: &str
+    ///    client: &OsConfigZonalService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_vulnerability_report()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())

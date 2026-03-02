@@ -141,7 +141,8 @@ impl RepositoryManager {
     ///    client: &RepositoryManager, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_connection()
-    ///         .set_parent(parent).set_connection_id("connection_id_value")
+    ///         .set_parent(parent)
+    ///         .set_connection_id("connection_id_value")
     ///         .set_connection(
     ///             Connection::new()/* set fields */
     ///         )
@@ -161,10 +162,10 @@ impl RepositoryManager {
     /// # use google_cloud_build_v2::client::RepositoryManager;
     /// use google_cloud_build_v2::Result;
     /// async fn sample(
-    ///    client: &RepositoryManager, resource_name: &str
+    ///    client: &RepositoryManager, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_connection()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -252,10 +253,10 @@ impl RepositoryManager {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_build_v2::Result;
     /// async fn sample(
-    ///    client: &RepositoryManager, resource_name: &str
+    ///    client: &RepositoryManager, name: &str
     /// ) -> Result<()> {
     ///     client.delete_connection()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -286,7 +287,8 @@ impl RepositoryManager {
     ///    client: &RepositoryManager, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_repository()
-    ///         .set_parent(parent).set_repository_id("repository_id_value")
+    ///         .set_parent(parent)
+    ///         .set_repository_id("repository_id_value")
     ///         .set_repository(
     ///             Repository::new()/* set fields */
     ///         )
@@ -339,10 +341,10 @@ impl RepositoryManager {
     /// # use google_cloud_build_v2::client::RepositoryManager;
     /// use google_cloud_build_v2::Result;
     /// async fn sample(
-    ///    client: &RepositoryManager, resource_name: &str
+    ///    client: &RepositoryManager, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_repository()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -393,10 +395,10 @@ impl RepositoryManager {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_build_v2::Result;
     /// async fn sample(
-    ///    client: &RepositoryManager, resource_name: &str
+    ///    client: &RepositoryManager, name: &str
     /// ) -> Result<()> {
     ///     client.delete_repository()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }

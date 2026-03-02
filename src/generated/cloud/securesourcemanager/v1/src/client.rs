@@ -151,10 +151,10 @@ impl SecureSourceManager {
     /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
     /// use google_cloud_securesourcemanager_v1::Result;
     /// async fn sample(
-    ///    client: &SecureSourceManager, resource_name: &str
+    ///    client: &SecureSourceManager, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_instance()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -186,7 +186,8 @@ impl SecureSourceManager {
     ///    client: &SecureSourceManager, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_instance()
-    ///         .set_parent(parent).set_instance_id("instance_id_value")
+    ///         .set_parent(parent)
+    ///         .set_instance_id("instance_id_value")
     ///         .set_instance(
     ///             Instance::new()/* set fields */
     ///         )
@@ -217,10 +218,10 @@ impl SecureSourceManager {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_securesourcemanager_v1::Result;
     /// async fn sample(
-    ///    client: &SecureSourceManager, resource_name: &str
+    ///    client: &SecureSourceManager, name: &str
     /// ) -> Result<()> {
     ///     client.delete_instance()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -262,10 +263,10 @@ impl SecureSourceManager {
     /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
     /// use google_cloud_securesourcemanager_v1::Result;
     /// async fn sample(
-    ///    client: &SecureSourceManager, resource_name: &str
+    ///    client: &SecureSourceManager, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_repository()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -300,7 +301,8 @@ impl SecureSourceManager {
     ///    client: &SecureSourceManager, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_repository()
-    ///         .set_parent(parent).set_repository_id("repository_id_value")
+    ///         .set_parent(parent)
+    ///         .set_repository_id("repository_id_value")
     ///         .set_repository(
     ///             Repository::new()/* set fields */
     ///         )
@@ -368,10 +370,10 @@ impl SecureSourceManager {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_securesourcemanager_v1::Result;
     /// async fn sample(
-    ///    client: &SecureSourceManager, resource_name: &str
+    ///    client: &SecureSourceManager, name: &str
     /// ) -> Result<()> {
     ///     client.delete_repository()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -410,10 +412,10 @@ impl SecureSourceManager {
     /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
     /// use google_cloud_securesourcemanager_v1::Result;
     /// async fn sample(
-    ///    client: &SecureSourceManager, resource_name: &str
+    ///    client: &SecureSourceManager, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_hook()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -445,7 +447,8 @@ impl SecureSourceManager {
     ///    client: &SecureSourceManager, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_hook()
-    ///         .set_parent(parent).set_hook_id("hook_id_value")
+    ///         .set_parent(parent)
+    ///         .set_hook_id("hook_id_value")
     ///         .set_hook(
     ///             Hook::new()/* set fields */
     ///         )
@@ -513,10 +516,10 @@ impl SecureSourceManager {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_securesourcemanager_v1::Result;
     /// async fn sample(
-    ///    client: &SecureSourceManager, resource_name: &str
+    ///    client: &SecureSourceManager, name: &str
     /// ) -> Result<()> {
     ///     client.delete_hook()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -653,10 +656,10 @@ impl SecureSourceManager {
     /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
     /// use google_cloud_securesourcemanager_v1::Result;
     /// async fn sample(
-    ///    client: &SecureSourceManager, resource_name: &str
+    ///    client: &SecureSourceManager, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_branch_rule()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -721,10 +724,10 @@ impl SecureSourceManager {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_securesourcemanager_v1::Result;
     /// async fn sample(
-    ///    client: &SecureSourceManager, resource_name: &str
+    ///    client: &SecureSourceManager, name: &str
     /// ) -> Result<()> {
     ///     client.delete_branch_rule()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -775,10 +778,10 @@ impl SecureSourceManager {
     /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
     /// use google_cloud_securesourcemanager_v1::Result;
     /// async fn sample(
-    ///    client: &SecureSourceManager, resource_name: &str
+    ///    client: &SecureSourceManager, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_pull_request()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1051,10 +1054,10 @@ impl SecureSourceManager {
     /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
     /// use google_cloud_securesourcemanager_v1::Result;
     /// async fn sample(
-    ///    client: &SecureSourceManager, resource_name: &str
+    ///    client: &SecureSourceManager, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_issue()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1142,10 +1145,10 @@ impl SecureSourceManager {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_securesourcemanager_v1::Result;
     /// async fn sample(
-    ///    client: &SecureSourceManager, resource_name: &str
+    ///    client: &SecureSourceManager, name: &str
     /// ) -> Result<()> {
     ///     client.delete_issue()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1223,10 +1226,10 @@ impl SecureSourceManager {
     /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
     /// use google_cloud_securesourcemanager_v1::Result;
     /// async fn sample(
-    ///    client: &SecureSourceManager, resource_name: &str
+    ///    client: &SecureSourceManager, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_pull_request_comment()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1361,10 +1364,10 @@ impl SecureSourceManager {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_securesourcemanager_v1::Result;
     /// async fn sample(
-    ///    client: &SecureSourceManager, resource_name: &str
+    ///    client: &SecureSourceManager, name: &str
     /// ) -> Result<()> {
     ///     client.delete_pull_request_comment()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1530,10 +1533,10 @@ impl SecureSourceManager {
     /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
     /// use google_cloud_securesourcemanager_v1::Result;
     /// async fn sample(
-    ///    client: &SecureSourceManager, resource_name: &str
+    ///    client: &SecureSourceManager, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_issue_comment()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1623,10 +1626,10 @@ impl SecureSourceManager {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_securesourcemanager_v1::Result;
     /// async fn sample(
-    ///    client: &SecureSourceManager, resource_name: &str
+    ///    client: &SecureSourceManager, name: &str
     /// ) -> Result<()> {
     ///     client.delete_issue_comment()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }

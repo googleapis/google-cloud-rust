@@ -161,10 +161,10 @@ impl ArtifactRegistry {
     /// # use google_cloud_artifactregistry_v1::client::ArtifactRegistry;
     /// use google_cloud_artifactregistry_v1::Result;
     /// async fn sample(
-    ///    client: &ArtifactRegistry, resource_name: &str
+    ///    client: &ArtifactRegistry, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_docker_image()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -204,10 +204,10 @@ impl ArtifactRegistry {
     /// # use google_cloud_artifactregistry_v1::client::ArtifactRegistry;
     /// use google_cloud_artifactregistry_v1::Result;
     /// async fn sample(
-    ///    client: &ArtifactRegistry, resource_name: &str
+    ///    client: &ArtifactRegistry, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_maven_artifact()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -247,10 +247,10 @@ impl ArtifactRegistry {
     /// # use google_cloud_artifactregistry_v1::client::ArtifactRegistry;
     /// use google_cloud_artifactregistry_v1::Result;
     /// async fn sample(
-    ///    client: &ArtifactRegistry, resource_name: &str
+    ///    client: &ArtifactRegistry, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_npm_package()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -290,10 +290,10 @@ impl ArtifactRegistry {
     /// # use google_cloud_artifactregistry_v1::client::ArtifactRegistry;
     /// use google_cloud_artifactregistry_v1::Result;
     /// async fn sample(
-    ///    client: &ArtifactRegistry, resource_name: &str
+    ///    client: &ArtifactRegistry, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_python_package()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -401,10 +401,10 @@ impl ArtifactRegistry {
     /// # use google_cloud_artifactregistry_v1::client::ArtifactRegistry;
     /// use google_cloud_artifactregistry_v1::Result;
     /// async fn sample(
-    ///    client: &ArtifactRegistry, resource_name: &str
+    ///    client: &ArtifactRegistry, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_repository()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -437,7 +437,8 @@ impl ArtifactRegistry {
     ///    client: &ArtifactRegistry, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_repository()
-    ///         .set_parent(parent).set_repository_id("repository_id_value")
+    ///         .set_parent(parent)
+    ///         .set_repository_id("repository_id_value")
     ///         .set_repository(
     ///             Repository::new()/* set fields */
     ///         )
@@ -496,10 +497,10 @@ impl ArtifactRegistry {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_artifactregistry_v1::Result;
     /// async fn sample(
-    ///    client: &ArtifactRegistry, resource_name: &str
+    ///    client: &ArtifactRegistry, name: &str
     /// ) -> Result<()> {
     ///     client.delete_repository()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -538,10 +539,10 @@ impl ArtifactRegistry {
     /// # use google_cloud_artifactregistry_v1::client::ArtifactRegistry;
     /// use google_cloud_artifactregistry_v1::Result;
     /// async fn sample(
-    ///    client: &ArtifactRegistry, resource_name: &str
+    ///    client: &ArtifactRegistry, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_package()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -570,10 +571,10 @@ impl ArtifactRegistry {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_artifactregistry_v1::Result;
     /// async fn sample(
-    ///    client: &ArtifactRegistry, resource_name: &str
+    ///    client: &ArtifactRegistry, name: &str
     /// ) -> Result<()> {
     ///     client.delete_package()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -743,10 +744,10 @@ impl ArtifactRegistry {
     /// # use google_cloud_artifactregistry_v1::client::ArtifactRegistry;
     /// use google_cloud_artifactregistry_v1::Result;
     /// async fn sample(
-    ///    client: &ArtifactRegistry, resource_name: &str
+    ///    client: &ArtifactRegistry, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_file()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -776,10 +777,10 @@ impl ArtifactRegistry {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_artifactregistry_v1::Result;
     /// async fn sample(
-    ///    client: &ArtifactRegistry, resource_name: &str
+    ///    client: &ArtifactRegistry, name: &str
     /// ) -> Result<()> {
     ///     client.delete_file()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -868,7 +869,8 @@ impl ArtifactRegistry {
     ///    client: &ArtifactRegistry, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_tag()
-    ///         .set_parent(parent).set_tag_id("tag_id_value")
+    ///         .set_parent(parent)
+    ///         .set_tag_id("tag_id_value")
     ///         .set_tag(
     ///             Tag::new()/* set fields */
     ///         )
@@ -937,7 +939,8 @@ impl ArtifactRegistry {
     ///    client: &ArtifactRegistry, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_rule()
-    ///         .set_parent(parent).set_rule_id("rule_id_value")
+    ///         .set_parent(parent)
+    ///         .set_rule_id("rule_id_value")
     ///         .set_rule(
     ///             Rule::new()/* set fields */
     ///         )
@@ -980,10 +983,10 @@ impl ArtifactRegistry {
     /// # use google_cloud_artifactregistry_v1::client::ArtifactRegistry;
     /// use google_cloud_artifactregistry_v1::Result;
     /// async fn sample(
-    ///    client: &ArtifactRegistry, resource_name: &str
+    ///    client: &ArtifactRegistry, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_rule()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1026,10 +1029,10 @@ impl ArtifactRegistry {
     /// # use google_cloud_artifactregistry_v1::client::ArtifactRegistry;
     /// use google_cloud_artifactregistry_v1::Result;
     /// async fn sample(
-    ///    client: &ArtifactRegistry, resource_name: &str
+    ///    client: &ArtifactRegistry, name: &str
     /// ) -> Result<()> {
     ///     client.delete_rule()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -1105,10 +1108,10 @@ impl ArtifactRegistry {
     /// # use google_cloud_artifactregistry_v1::client::ArtifactRegistry;
     /// use google_cloud_artifactregistry_v1::Result;
     /// async fn sample(
-    ///    client: &ArtifactRegistry, resource_name: &str
+    ///    client: &ArtifactRegistry, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_project_settings()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1153,10 +1156,10 @@ impl ArtifactRegistry {
     /// # use google_cloud_artifactregistry_v1::client::ArtifactRegistry;
     /// use google_cloud_artifactregistry_v1::Result;
     /// async fn sample(
-    ///    client: &ArtifactRegistry, resource_name: &str
+    ///    client: &ArtifactRegistry, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_vpcsc_config()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1248,10 +1251,10 @@ impl ArtifactRegistry {
     /// # use google_cloud_artifactregistry_v1::client::ArtifactRegistry;
     /// use google_cloud_artifactregistry_v1::Result;
     /// async fn sample(
-    ///    client: &ArtifactRegistry, resource_name: &str
+    ///    client: &ArtifactRegistry, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_attachment()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1284,7 +1287,8 @@ impl ArtifactRegistry {
     ///    client: &ArtifactRegistry, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_attachment()
-    ///         .set_parent(parent).set_attachment_id("attachment_id_value")
+    ///         .set_parent(parent)
+    ///         .set_attachment_id("attachment_id_value")
     ///         .set_attachment(
     ///             Attachment::new()/* set fields */
     ///         )
@@ -1317,10 +1321,10 @@ impl ArtifactRegistry {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_artifactregistry_v1::Result;
     /// async fn sample(
-    ///    client: &ArtifactRegistry, resource_name: &str
+    ///    client: &ArtifactRegistry, name: &str
     /// ) -> Result<()> {
     ///     client.delete_attachment()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }

@@ -169,10 +169,10 @@ impl DataprocMetastore {
     /// # use google_cloud_metastore_v1::client::DataprocMetastore;
     /// use google_cloud_metastore_v1::Result;
     /// async fn sample(
-    ///    client: &DataprocMetastore, resource_name: &str
+    ///    client: &DataprocMetastore, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_service()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -204,7 +204,8 @@ impl DataprocMetastore {
     ///    client: &DataprocMetastore, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_service()
-    ///         .set_parent(parent).set_service_id("service_id_value")
+    ///         .set_parent(parent)
+    ///         .set_service_id("service_id_value")
     ///         .set_service(
     ///             Service::new()/* set fields */
     ///         )
@@ -272,10 +273,10 @@ impl DataprocMetastore {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_metastore_v1::Result;
     /// async fn sample(
-    ///    client: &DataprocMetastore, resource_name: &str
+    ///    client: &DataprocMetastore, name: &str
     /// ) -> Result<()> {
     ///     client.delete_service()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -314,10 +315,10 @@ impl DataprocMetastore {
     /// # use google_cloud_metastore_v1::client::DataprocMetastore;
     /// use google_cloud_metastore_v1::Result;
     /// async fn sample(
-    ///    client: &DataprocMetastore, resource_name: &str
+    ///    client: &DataprocMetastore, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_metadata_import()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -496,10 +497,10 @@ impl DataprocMetastore {
     /// # use google_cloud_metastore_v1::client::DataprocMetastore;
     /// use google_cloud_metastore_v1::Result;
     /// async fn sample(
-    ///    client: &DataprocMetastore, resource_name: &str
+    ///    client: &DataprocMetastore, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_backup()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -531,7 +532,8 @@ impl DataprocMetastore {
     ///    client: &DataprocMetastore, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_backup()
-    ///         .set_parent(parent).set_backup_id("backup_id_value")
+    ///         .set_parent(parent)
+    ///         .set_backup_id("backup_id_value")
     ///         .set_backup(
     ///             Backup::new()/* set fields */
     ///         )
@@ -562,10 +564,10 @@ impl DataprocMetastore {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_metastore_v1::Result;
     /// async fn sample(
-    ///    client: &DataprocMetastore, resource_name: &str
+    ///    client: &DataprocMetastore, name: &str
     /// ) -> Result<()> {
     ///     client.delete_backup()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1027,10 +1029,10 @@ impl DataprocMetastoreFederation {
     /// # use google_cloud_metastore_v1::client::DataprocMetastoreFederation;
     /// use google_cloud_metastore_v1::Result;
     /// async fn sample(
-    ///    client: &DataprocMetastoreFederation, resource_name: &str
+    ///    client: &DataprocMetastoreFederation, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_federation()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1062,7 +1064,8 @@ impl DataprocMetastoreFederation {
     ///    client: &DataprocMetastoreFederation, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_federation()
-    ///         .set_parent(parent).set_federation_id("federation_id_value")
+    ///         .set_parent(parent)
+    ///         .set_federation_id("federation_id_value")
     ///         .set_federation(
     ///             Federation::new()/* set fields */
     ///         )
@@ -1134,10 +1137,10 @@ impl DataprocMetastoreFederation {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_metastore_v1::Result;
     /// async fn sample(
-    ///    client: &DataprocMetastoreFederation, resource_name: &str
+    ///    client: &DataprocMetastoreFederation, name: &str
     /// ) -> Result<()> {
     ///     client.delete_federation()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }

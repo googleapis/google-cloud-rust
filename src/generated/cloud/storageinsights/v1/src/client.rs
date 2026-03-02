@@ -148,10 +148,10 @@ impl StorageInsights {
     /// # use google_cloud_storageinsights_v1::client::StorageInsights;
     /// use google_cloud_storageinsights_v1::Result;
     /// async fn sample(
-    ///    client: &StorageInsights, resource_name: &str
+    ///    client: &StorageInsights, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_report_config()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -218,10 +218,10 @@ impl StorageInsights {
     /// # use google_cloud_storageinsights_v1::client::StorageInsights;
     /// use google_cloud_storageinsights_v1::Result;
     /// async fn sample(
-    ///    client: &StorageInsights, resource_name: &str
+    ///    client: &StorageInsights, name: &str
     /// ) -> Result<()> {
     ///     client.delete_report_config()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -260,10 +260,10 @@ impl StorageInsights {
     /// # use google_cloud_storageinsights_v1::client::StorageInsights;
     /// use google_cloud_storageinsights_v1::Result;
     /// async fn sample(
-    ///    client: &StorageInsights, resource_name: &str
+    ///    client: &StorageInsights, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_report_detail()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -303,10 +303,10 @@ impl StorageInsights {
     /// # use google_cloud_storageinsights_v1::client::StorageInsights;
     /// use google_cloud_storageinsights_v1::Result;
     /// async fn sample(
-    ///    client: &StorageInsights, resource_name: &str
+    ///    client: &StorageInsights, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_dataset_config()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -406,10 +406,10 @@ impl StorageInsights {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_storageinsights_v1::Result;
     /// async fn sample(
-    ///    client: &StorageInsights, resource_name: &str
+    ///    client: &StorageInsights, name: &str
     /// ) -> Result<()> {
     ///     client.delete_dataset_config()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }

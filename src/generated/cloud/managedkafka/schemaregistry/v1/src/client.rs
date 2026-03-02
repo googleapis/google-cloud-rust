@@ -175,10 +175,10 @@ impl ManagedSchemaRegistry {
     /// # use google_cloud_managedkafka_schemaregistry_v1::client::ManagedSchemaRegistry;
     /// use google_cloud_managedkafka_schemaregistry_v1::Result;
     /// async fn sample(
-    ///    client: &ManagedSchemaRegistry, resource_name: &str
+    ///    client: &ManagedSchemaRegistry, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_schema_registry()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -241,10 +241,10 @@ impl ManagedSchemaRegistry {
     /// # use google_cloud_managedkafka_schemaregistry_v1::client::ManagedSchemaRegistry;
     /// use google_cloud_managedkafka_schemaregistry_v1::Result;
     /// async fn sample(
-    ///    client: &ManagedSchemaRegistry, resource_name: &str
+    ///    client: &ManagedSchemaRegistry, name: &str
     /// ) -> Result<()> {
     ///     client.delete_schema_registry()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -262,10 +262,10 @@ impl ManagedSchemaRegistry {
     /// # use google_cloud_managedkafka_schemaregistry_v1::client::ManagedSchemaRegistry;
     /// use google_cloud_managedkafka_schemaregistry_v1::Result;
     /// async fn sample(
-    ///    client: &ManagedSchemaRegistry, resource_name: &str
+    ///    client: &ManagedSchemaRegistry, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_context()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -302,10 +302,10 @@ impl ManagedSchemaRegistry {
     /// # use google_cloud_managedkafka_schemaregistry_v1::client::ManagedSchemaRegistry;
     /// use google_cloud_managedkafka_schemaregistry_v1::Result;
     /// async fn sample(
-    ///    client: &ManagedSchemaRegistry, resource_name: &str
+    ///    client: &ManagedSchemaRegistry, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_schema()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -433,10 +433,10 @@ impl ManagedSchemaRegistry {
     /// # use google_cloud_managedkafka_schemaregistry_v1::client::ManagedSchemaRegistry;
     /// use google_cloud_managedkafka_schemaregistry_v1::Result;
     /// async fn sample(
-    ///    client: &ManagedSchemaRegistry, resource_name: &str
+    ///    client: &ManagedSchemaRegistry, name: &str
     /// ) -> Result<()> {
     ///     let response = client.delete_subject()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -473,10 +473,10 @@ impl ManagedSchemaRegistry {
     /// # use google_cloud_managedkafka_schemaregistry_v1::client::ManagedSchemaRegistry;
     /// use google_cloud_managedkafka_schemaregistry_v1::Result;
     /// async fn sample(
-    ///    client: &ManagedSchemaRegistry, resource_name: &str
+    ///    client: &ManagedSchemaRegistry, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_version()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -558,10 +558,10 @@ impl ManagedSchemaRegistry {
     /// # use google_cloud_managedkafka_schemaregistry_v1::client::ManagedSchemaRegistry;
     /// use google_cloud_managedkafka_schemaregistry_v1::Result;
     /// async fn sample(
-    ///    client: &ManagedSchemaRegistry, resource_name: &str
+    ///    client: &ManagedSchemaRegistry, name: &str
     /// ) -> Result<()> {
     ///     let response = client.delete_version()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())

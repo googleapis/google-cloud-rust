@@ -174,10 +174,10 @@ impl CloudBuild {
     /// # use google_cloud_build_v1::client::CloudBuild;
     /// use google_cloud_build_v1::Result;
     /// async fn sample(
-    ///    client: &CloudBuild, resource_name: &str
+    ///    client: &CloudBuild, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_build()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -528,10 +528,10 @@ impl CloudBuild {
     /// # use google_cloud_build_v1::client::CloudBuild;
     /// use google_cloud_build_v1::Result;
     /// async fn sample(
-    ///    client: &CloudBuild, resource_name: &str
+    ///    client: &CloudBuild, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_worker_pool()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -559,10 +559,10 @@ impl CloudBuild {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_build_v1::Result;
     /// async fn sample(
-    ///    client: &CloudBuild, resource_name: &str
+    ///    client: &CloudBuild, name: &str
     /// ) -> Result<()> {
     ///     client.delete_worker_pool()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -638,10 +638,10 @@ impl CloudBuild {
     /// # use google_cloud_build_v1::client::CloudBuild;
     /// use google_cloud_build_v1::Result;
     /// async fn sample(
-    ///    client: &CloudBuild, resource_name: &str
+    ///    client: &CloudBuild, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_default_service_account()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())

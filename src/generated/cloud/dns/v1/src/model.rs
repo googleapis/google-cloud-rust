@@ -14450,6 +14450,9 @@ pub mod resource_record_sets {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ListRequest {
+        /// Specify a filter expression to view records that exactly match the specified domain. Both the name and type parameters are not supported when you use filter and must be omitted. Your filter expression must conform to AIP-160 and you must specify a domain in the name field. Optionally, you can include the type field to filter records by type. You can also include the has_suffix function to view records that match by domain suffix. Examples: - name="example.com." - name="example.com." AND type="A" - name=has_suffix("example.com.") - name=has_suffix("example.com.") AND type="A"
+        pub filter: std::option::Option<std::string::String>,
+
         /// Identifies the managed zone addressed by this request. Can be the managed zone name or ID.
         pub managed_zone: std::string::String,
 
@@ -14474,6 +14477,37 @@ pub mod resource_record_sets {
     impl ListRequest {
         pub fn new() -> Self {
             std::default::Default::default()
+        }
+
+        /// Sets the value of [filter][crate::model::resource_record_sets::ListRequest::filter].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dns_v1::model::resource_record_sets::ListRequest;
+        /// let x = ListRequest::new().set_filter("example");
+        /// ```
+        pub fn set_filter<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.filter = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [filter][crate::model::resource_record_sets::ListRequest::filter].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dns_v1::model::resource_record_sets::ListRequest;
+        /// let x = ListRequest::new().set_or_clear_filter(Some("example"));
+        /// let x = ListRequest::new().set_or_clear_filter(None::<String>);
+        /// ```
+        pub fn set_or_clear_filter<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.filter = v.map(|x| x.into());
+            self
         }
 
         /// Sets the value of [managed_zone][crate::model::resource_record_sets::ListRequest::managed_zone].

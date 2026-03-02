@@ -13,17 +13,17 @@
 # limitations under the License.
 
 language: rust
-version: v0.8.4-0.20260224172937-39ac98873227
+version: v0.8.4-0.20260227165934-e799a3e235e3
 sources:
   conformance:
     commit: b407e8416e3893036aee5af9a12bd9b6a0e2b2e6
     sha256: 55912546338433f465a552e9ef09930c63b9eb697053937416890cff83a8622d
   discovery:
-    commit: 77b614e64b487d8ecc01f67004dfeeb56a5c7747
-    sha256: f7778419310aec0139fcd337a6cc3d28b8e20acb3cc8ecef547191dd2addeed7
+    commit: fd631c33fb627a0de9c682c40635d87c11485147
+    sha256: 9b208d1daa6fda3a401809b039bf1e8ac7181d238627034145266f82bb066f75
   googleapis:
-    commit: 3be416e51c2610e96dcc1915c8c2640be72c7be6
-    sha256: 9509ec1c3743818f38828d9e722875ad17f4db846be3734b7b5e181592c85ece
+    commit: c83d354f79b02e3dc98f22248e22851fcf9b961d
+    sha256: 0be31168e2f38d0e076c518286256522406e622f25d3457125fa168facc34ed5
   protobuf:
     commit: b407e8416e3893036aee5af9a12bd9b6a0e2b2e6
     sha256: 55912546338433f465a552e9ef09930c63b9eb697053937416890cff83a8622d
@@ -658,11 +658,6 @@ libraries:
   - name: google-cloud-developerconnect-v1
     version: 1.7.0
     copyright_year: "2025"
-    rust:
-      documentation_overrides:
-        - id: .google.cloud.developerconnect.v1.ArtifactConfig.google_artifact_registry
-          match: regsitry
-          replace: registry
   - name: google-cloud-devicestreaming-v1
     version: 1.6.0
     copyright_year: "2025"
@@ -1375,10 +1370,28 @@ libraries:
     rust:
       detailed_tracing_attributes: true
   - name: google-cloud-spanner
-    copyright_year: "2025"
+    copyright_year: "2026"
     output: src/spanner
     skip_release: true
     veneer: true
+    rust:
+      modules:
+        - module_path: crate::generated::gapic_dataplane::model
+          output: src/spanner/src/generated/convert/spanner
+          api_path: google/spanner/v1
+          template: convert-prost
+        - extend_grpc_transport: true
+          generate_setter_samples: "false"
+          generate_rpc_samples: "false"
+          has_veneer: true
+          internal_builders: true
+          output: src/spanner/src/generated/gapic_dataplane
+          service_config: google/spanner/v1/spanner.yaml
+          api_path: google/spanner/v1
+          template: grpc-client
+        - output: src/spanner/src/generated/protos/spanner
+          api_path: google/spanner/v1
+          template: prost
   - name: google-cloud-spanner-admin-database-v1
     version: 1.7.0
     apis:

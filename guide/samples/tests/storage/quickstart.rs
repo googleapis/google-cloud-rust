@@ -13,7 +13,7 @@
 // limitations under the License.
 
 // ANCHOR: quickstart
-pub async fn quickstart(project_id: &str, bucket_id: &str) -> anyhow::Result<()> {
+pub async fn sample(project_id: &str, bucket_id: &str) -> anyhow::Result<()> {
     // ANCHOR: control-client
     use google_cloud_storage as gcs;
     use google_cloud_storage::client::StorageControl;

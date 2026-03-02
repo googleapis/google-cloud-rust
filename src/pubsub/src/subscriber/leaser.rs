@@ -12,11 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use super::handler::AckResult;
 use super::retry_policy::at_least_once_options;
 use super::stub::Stub;
 use crate::RequestOptions;
+use crate::error::AckError;
 use crate::model::{AcknowledgeRequest, ModifyAckDeadlineRequest};
+use std::collections::HashMap;
 use std::sync::Arc;
+use tokio::sync::mpsc::UnboundedSender;
 
 /// A trait representing leaser actions.
 ///
@@ -29,13 +33,23 @@ pub(super) trait Leaser {
     async fn nack(&self, ack_ids: Vec<String>);
     /// Extend lease deadlines for a batch of messages.
     async fn extend(&self, ack_ids: Vec<String>);
+
+    /// Acknowledge a batch of messages with exactly-once semantics.
+    ///
+    /// The caller should spawn a task for this operation, as retries can take
+    /// arbitrarily long.
+    async fn confirmed_ack(&self, ack_ids: Vec<String>);
 }
+
+/// A map of exactly-once ack IDs to their final result.
+pub(super) type ConfirmedAcks = HashMap<String, AckResult>;
 
 pub(super) struct DefaultLeaser<T>
 where
     T: Stub,
 {
     inner: Arc<T>,
+    confirmed_tx: UnboundedSender<ConfirmedAcks>,
     options: RequestOptions,
     subscription: String,
     ack_deadline_seconds: i32,
@@ -48,6 +62,7 @@ where
     fn clone(&self) -> Self {
         Self {
             inner: self.inner.clone(),
+            confirmed_tx: self.confirmed_tx.clone(),
             options: self.options.clone(),
             // TODO(#3975) - We can save some clones of the subscription if we
             // make the `Leaser` API functional.
@@ -63,12 +78,14 @@ where
 {
     pub(super) fn new(
         inner: Arc<T>,
+        confirmed_tx: UnboundedSender<ConfirmedAcks>,
         subscription: String,
         ack_deadline_seconds: i32,
         grpc_subchannel_count: usize,
     ) -> Self {
         DefaultLeaser {
             inner,
+            confirmed_tx,
             options: at_least_once_options(grpc_subchannel_count),
             subscription,
             ack_deadline_seconds,
@@ -87,6 +104,7 @@ where
             .set_ack_ids(ack_ids);
         let _ = self.inner.acknowledge(req, self.options.clone()).await;
     }
+
     async fn nack(&self, ack_ids: Vec<String>) {
         let req = ModifyAckDeadlineRequest::new()
             .set_subscription(self.subscription.clone())
@@ -97,6 +115,7 @@ where
             .modify_ack_deadline(req, self.options.clone())
             .await;
     }
+
     async fn extend(&self, ack_ids: Vec<String>) {
         let req = ModifyAckDeadlineRequest::new()
             .set_subscription(self.subscription.clone())
@@ -107,17 +126,53 @@ where
             .modify_ack_deadline(req, self.options.clone())
             .await;
     }
+
+    /// The exactly-once ack retry loop.
+    ///
+    /// The request has N ack IDs. The server can tell us the result of
+    /// individual acks in the response metadata.
+    ///
+    /// If the result for an ack ID is a success or permanent error, we can
+    /// report it, and remove that ack ID from subsequent attempts of the RPC.
+    ///
+    /// Results are reported via the channel, as they are known. This lets us
+    /// keep the retry logic in the leaser, while allowing for partial results
+    /// to be reported before the entire operation completes.
+    async fn confirmed_ack(&self, ack_ids: Vec<String>) {
+        // TODO(#4804): implement retries
+        let req = AcknowledgeRequest::new()
+            .set_subscription(self.subscription.clone())
+            .set_ack_ids(ack_ids.clone());
+        let response = self.inner.acknowledge(req, self.options.clone()).await;
+        let shared_result = response.map(|_| ()).map_err(Arc::new);
+        let confirmed_acks = ack_ids
+            .into_iter()
+            .map(|id| {
+                (
+                    id,
+                    shared_result.clone().map_err(|source| AckError::Rpc {
+                        // TODO(#4804): capture error details
+                        details: None,
+                        source,
+                    }),
+                )
+            })
+            .collect();
+        let _ = self.confirmed_tx.send(confirmed_acks);
+    }
 }
 
 #[cfg(test)]
 pub(super) mod tests {
-    use super::super::lease_state::tests::test_ids;
+    use super::super::lease_state::tests::{sorted, test_ids};
     use super::super::retry_policy::tests::verify_policies;
     use super::super::stub::tests::MockStub;
     use super::*;
-    use crate::Response;
+    use crate::{Error, Response};
+    use google_cloud_gax::error::rpc::{Code, Status};
     use std::sync::Arc;
     use tokio::sync::Mutex;
+    use tokio::sync::mpsc::unbounded_channel;
 
     mockall::mock! {
         #[derive(Debug)]
@@ -127,6 +182,7 @@ pub(super) mod tests {
             async fn ack(&self, ack_ids: Vec<String>);
             async fn nack(&self, ack_ids: Vec<String>);
             async fn extend(&self, ack_ids: Vec<String>);
+            async fn confirmed_ack(&self, ack_ids: Vec<String>);
         }
     }
 
@@ -141,6 +197,9 @@ pub(super) mod tests {
         async fn extend(&self, ack_ids: Vec<String>) {
             MockLeaser::extend(self, ack_ids).await
         }
+        async fn confirmed_ack(&self, ack_ids: Vec<String>) {
+            MockLeaser::confirmed_ack(self, ack_ids).await
+        }
     }
 
     #[async_trait::async_trait]
@@ -154,12 +213,17 @@ pub(super) mod tests {
         async fn extend(&self, ack_ids: Vec<String>) {
             self.lock().await.extend(ack_ids).await
         }
+        async fn confirmed_ack(&self, ack_ids: Vec<String>) {
+            self.lock().await.confirmed_ack(ack_ids).await
+        }
     }
 
     #[test]
     fn clone() {
+        let (confirmed_tx, _confirmed_rx) = unbounded_channel();
         let leaser = DefaultLeaser::new(
             Arc::new(MockStub::new()),
+            confirmed_tx,
             "projects/my-project/subscriptions/my-subscription".to_string(),
             10,
             1_usize,
@@ -167,12 +231,14 @@ pub(super) mod tests {
 
         let clone = leaser.clone();
         assert!(Arc::ptr_eq(&leaser.inner, &clone.inner));
+        assert!(leaser.confirmed_tx.same_channel(&clone.confirmed_tx));
         assert_eq!(leaser.subscription, clone.subscription);
         assert_eq!(leaser.ack_deadline_seconds, clone.ack_deadline_seconds);
     }
 
     #[tokio::test]
     async fn ack() {
+        let (confirmed_tx, _confirmed_rx) = unbounded_channel();
         let mut mock = MockStub::new();
         mock.expect_acknowledge().times(1).return_once(|r, o| {
             assert_eq!(
@@ -186,6 +252,7 @@ pub(super) mod tests {
 
         let leaser = DefaultLeaser::new(
             Arc::new(mock),
+            confirmed_tx,
             "projects/my-project/subscriptions/my-subscription".to_string(),
             10,
             16_usize,
@@ -195,6 +262,7 @@ pub(super) mod tests {
 
     #[tokio::test]
     async fn nack() {
+        let (confirmed_tx, _confirmed_rx) = unbounded_channel();
         let mut mock = MockStub::new();
         mock.expect_modify_ack_deadline()
             .times(1)
@@ -211,6 +279,7 @@ pub(super) mod tests {
 
         let leaser = DefaultLeaser::new(
             Arc::new(mock),
+            confirmed_tx,
             "projects/my-project/subscriptions/my-subscription".to_string(),
             10,
             16_usize,
@@ -220,6 +289,7 @@ pub(super) mod tests {
 
     #[tokio::test]
     async fn extend() {
+        let (confirmed_tx, _confirmed_rx) = unbounded_channel();
         let mut mock = MockStub::new();
         mock.expect_modify_ack_deadline()
             .times(1)
@@ -236,10 +306,97 @@ pub(super) mod tests {
 
         let leaser = DefaultLeaser::new(
             Arc::new(mock),
+            confirmed_tx,
             "projects/my-project/subscriptions/my-subscription".to_string(),
             10,
             16_usize,
         );
         leaser.extend(test_ids(0..10)).await;
+    }
+
+    #[tokio::test]
+    async fn confirmed_ack_success() -> anyhow::Result<()> {
+        let (confirmed_tx, mut confirmed_rx) = unbounded_channel();
+        let mut mock = MockStub::new();
+        mock.expect_acknowledge().times(1).return_once(|r, o| {
+            assert_eq!(
+                r.subscription,
+                "projects/my-project/subscriptions/my-subscription"
+            );
+            assert_eq!(r.ack_ids, test_ids(0..10));
+            verify_policies(o, 16);
+            Ok(Response::from(()))
+        });
+
+        let leaser = DefaultLeaser::new(
+            Arc::new(mock),
+            confirmed_tx,
+            "projects/my-project/subscriptions/my-subscription".to_string(),
+            10,
+            16_usize,
+        );
+        leaser.confirmed_ack(test_ids(0..10)).await;
+
+        let confirmed_acks = confirmed_rx.recv().await.expect("results were not sent");
+
+        // Verify all ack IDs have a result.
+        let ack_ids: Vec<_> = confirmed_acks.keys().cloned().collect();
+        assert_eq!(sorted(&ack_ids), test_ids(0..10));
+
+        // Verify all acks were successful.
+        for (ack_id, result) in &confirmed_acks {
+            assert!(
+                result.is_ok(),
+                "Expected success for {ack_id}, got {result:?}"
+            );
+        }
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn confirmed_ack_failure() -> anyhow::Result<()> {
+        let (confirmed_tx, mut confirmed_rx) = unbounded_channel();
+        let mut mock = MockStub::new();
+        mock.expect_acknowledge().times(1).return_once(|r, o| {
+            assert_eq!(
+                r.subscription,
+                "projects/my-project/subscriptions/my-subscription"
+            );
+            assert_eq!(r.ack_ids, test_ids(0..10));
+            verify_policies(o, 16);
+            Err(Error::service(
+                Status::default()
+                    .set_code(Code::FailedPrecondition)
+                    .set_message("fail"),
+            ))
+        });
+
+        let leaser = DefaultLeaser::new(
+            Arc::new(mock),
+            confirmed_tx,
+            "projects/my-project/subscriptions/my-subscription".to_string(),
+            10,
+            16_usize,
+        );
+        leaser.confirmed_ack(test_ids(0..10)).await;
+
+        let confirmed_acks = confirmed_rx.recv().await.expect("results were not sent");
+
+        // Verify all ack IDs have a result
+        let ack_ids: Vec<_> = confirmed_acks.keys().cloned().collect();
+        assert_eq!(sorted(&ack_ids), test_ids(0..10));
+
+        // Verify all values match the specific error
+        for (ack_id, result) in &confirmed_acks {
+            match result {
+                Err(AckError::Rpc { source, .. }) => {
+                    let status = source.status().expect("RPC source should have a status");
+                    assert_eq!(status.code, Code::FailedPrecondition);
+                    assert_eq!(status.message, "fail");
+                }
+                _ => panic!("Expected RPC error for {ack_id}, got {result:?}"),
+            }
+        }
+        Ok(())
     }
 }

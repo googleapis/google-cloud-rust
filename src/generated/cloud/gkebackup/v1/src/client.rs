@@ -184,10 +184,10 @@ impl BackupForGKE {
     /// # use google_cloud_gkebackup_v1::client::BackupForGKE;
     /// use google_cloud_gkebackup_v1::Result;
     /// async fn sample(
-    ///    client: &BackupForGKE, resource_name: &str
+    ///    client: &BackupForGKE, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_backup_plan()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -252,10 +252,10 @@ impl BackupForGKE {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_gkebackup_v1::Result;
     /// async fn sample(
-    ///    client: &BackupForGKE, resource_name: &str
+    ///    client: &BackupForGKE, name: &str
     /// ) -> Result<()> {
     ///     client.delete_backup_plan()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -329,10 +329,10 @@ impl BackupForGKE {
     /// # use google_cloud_gkebackup_v1::client::BackupForGKE;
     /// use google_cloud_gkebackup_v1::Result;
     /// async fn sample(
-    ///    client: &BackupForGKE, resource_name: &str
+    ///    client: &BackupForGKE, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_backup_channel()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -397,10 +397,10 @@ impl BackupForGKE {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_gkebackup_v1::Result;
     /// async fn sample(
-    ///    client: &BackupForGKE, resource_name: &str
+    ///    client: &BackupForGKE, name: &str
     /// ) -> Result<()> {
     ///     client.delete_backup_channel()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -441,10 +441,10 @@ impl BackupForGKE {
     /// # use google_cloud_gkebackup_v1::client::BackupForGKE;
     /// use google_cloud_gkebackup_v1::Result;
     /// async fn sample(
-    ///    client: &BackupForGKE, resource_name: &str
+    ///    client: &BackupForGKE, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_backup_plan_binding()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -476,7 +476,8 @@ impl BackupForGKE {
     ///    client: &BackupForGKE, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_backup()
-    ///         .set_parent(parent).set_backup_id("backup_id_value")
+    ///         .set_parent(parent)
+    ///         .set_backup_id("backup_id_value")
     ///         .set_backup(
     ///             Backup::new()/* set fields */
     ///         )
@@ -519,10 +520,10 @@ impl BackupForGKE {
     /// # use google_cloud_gkebackup_v1::client::BackupForGKE;
     /// use google_cloud_gkebackup_v1::Result;
     /// async fn sample(
-    ///    client: &BackupForGKE, resource_name: &str
+    ///    client: &BackupForGKE, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_backup()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -587,10 +588,10 @@ impl BackupForGKE {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_gkebackup_v1::Result;
     /// async fn sample(
-    ///    client: &BackupForGKE, resource_name: &str
+    ///    client: &BackupForGKE, name: &str
     /// ) -> Result<()> {
     ///     client.delete_backup()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -629,10 +630,10 @@ impl BackupForGKE {
     /// # use google_cloud_gkebackup_v1::client::BackupForGKE;
     /// use google_cloud_gkebackup_v1::Result;
     /// async fn sample(
-    ///    client: &BackupForGKE, resource_name: &str
+    ///    client: &BackupForGKE, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_volume_backup()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -707,10 +708,10 @@ impl BackupForGKE {
     /// # use google_cloud_gkebackup_v1::client::BackupForGKE;
     /// use google_cloud_gkebackup_v1::Result;
     /// async fn sample(
-    ///    client: &BackupForGKE, resource_name: &str
+    ///    client: &BackupForGKE, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_restore_plan()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -775,10 +776,10 @@ impl BackupForGKE {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_gkebackup_v1::Result;
     /// async fn sample(
-    ///    client: &BackupForGKE, resource_name: &str
+    ///    client: &BackupForGKE, name: &str
     /// ) -> Result<()> {
     ///     client.delete_restore_plan()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -852,10 +853,10 @@ impl BackupForGKE {
     /// # use google_cloud_gkebackup_v1::client::BackupForGKE;
     /// use google_cloud_gkebackup_v1::Result;
     /// async fn sample(
-    ///    client: &BackupForGKE, resource_name: &str
+    ///    client: &BackupForGKE, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_restore_channel()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -920,10 +921,10 @@ impl BackupForGKE {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_gkebackup_v1::Result;
     /// async fn sample(
-    ///    client: &BackupForGKE, resource_name: &str
+    ///    client: &BackupForGKE, name: &str
     /// ) -> Result<()> {
     ///     client.delete_restore_channel()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -964,10 +965,10 @@ impl BackupForGKE {
     /// # use google_cloud_gkebackup_v1::client::BackupForGKE;
     /// use google_cloud_gkebackup_v1::Result;
     /// async fn sample(
-    ///    client: &BackupForGKE, resource_name: &str
+    ///    client: &BackupForGKE, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_restore_plan_binding()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1001,7 +1002,8 @@ impl BackupForGKE {
     ///    client: &BackupForGKE, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_restore()
-    ///         .set_parent(parent).set_restore_id("restore_id_value")
+    ///         .set_parent(parent)
+    ///         .set_restore_id("restore_id_value")
     ///         .set_restore(
     ///             Restore::new()/* set fields */
     ///         )
@@ -1044,10 +1046,10 @@ impl BackupForGKE {
     /// # use google_cloud_gkebackup_v1::client::BackupForGKE;
     /// use google_cloud_gkebackup_v1::Result;
     /// async fn sample(
-    ///    client: &BackupForGKE, resource_name: &str
+    ///    client: &BackupForGKE, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_restore()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1112,10 +1114,10 @@ impl BackupForGKE {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_gkebackup_v1::Result;
     /// async fn sample(
-    ///    client: &BackupForGKE, resource_name: &str
+    ///    client: &BackupForGKE, name: &str
     /// ) -> Result<()> {
     ///     client.delete_restore()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1154,10 +1156,10 @@ impl BackupForGKE {
     /// # use google_cloud_gkebackup_v1::client::BackupForGKE;
     /// use google_cloud_gkebackup_v1::Result;
     /// async fn sample(
-    ///    client: &BackupForGKE, resource_name: &str
+    ///    client: &BackupForGKE, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_volume_restore()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())

@@ -158,10 +158,10 @@ impl ReachabilityService {
     /// # use google_cloud_networkmanagement_v1::client::ReachabilityService;
     /// use google_cloud_networkmanagement_v1::Result;
     /// async fn sample(
-    ///    client: &ReachabilityService, resource_name: &str
+    ///    client: &ReachabilityService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_connectivity_test()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -336,10 +336,10 @@ impl ReachabilityService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_networkmanagement_v1::Result;
     /// async fn sample(
-    ///    client: &ReachabilityService, resource_name: &str
+    ///    client: &ReachabilityService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_connectivity_test()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -351,6 +351,13 @@ impl ReachabilityService {
     }
 
     /// Lists information about the supported locations for this service.
+    /// This method can be called in two ways:
+    ///
+    /// * **List all public locations:** Use the path `GET /v1/locations`.
+    /// * **List project-visible locations:** Use the path
+    ///   `GET /v1/projects/{project_id}/locations`. This may include public
+    ///   locations as well as private or other locations specifically visible
+    ///   to the project.
     ///
     /// # Example
     /// ```
@@ -691,10 +698,10 @@ impl VpcFlowLogsService {
     /// # use google_cloud_networkmanagement_v1::client::VpcFlowLogsService;
     /// use google_cloud_networkmanagement_v1::Result;
     /// async fn sample(
-    ///    client: &VpcFlowLogsService, resource_name: &str
+    ///    client: &VpcFlowLogsService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_vpc_flow_logs_config()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -828,10 +835,10 @@ impl VpcFlowLogsService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_networkmanagement_v1::Result;
     /// async fn sample(
-    ///    client: &VpcFlowLogsService, resource_name: &str
+    ///    client: &VpcFlowLogsService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_vpc_flow_logs_config()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -895,6 +902,13 @@ impl VpcFlowLogsService {
     }
 
     /// Lists information about the supported locations for this service.
+    /// This method can be called in two ways:
+    ///
+    /// * **List all public locations:** Use the path `GET /v1/locations`.
+    /// * **List project-visible locations:** Use the path
+    ///   `GET /v1/projects/{project_id}/locations`. This may include public
+    ///   locations as well as private or other locations specifically visible
+    ///   to the project.
     ///
     /// # Example
     /// ```
@@ -1243,10 +1257,10 @@ impl OrganizationVpcFlowLogsService {
     /// # use google_cloud_networkmanagement_v1::client::OrganizationVpcFlowLogsService;
     /// use google_cloud_networkmanagement_v1::Result;
     /// async fn sample(
-    ///    client: &OrganizationVpcFlowLogsService, resource_name: &str
+    ///    client: &OrganizationVpcFlowLogsService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_vpc_flow_logs_config()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1386,10 +1400,10 @@ impl OrganizationVpcFlowLogsService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_networkmanagement_v1::Result;
     /// async fn sample(
-    ///    client: &OrganizationVpcFlowLogsService, resource_name: &str
+    ///    client: &OrganizationVpcFlowLogsService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_vpc_flow_logs_config()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1403,6 +1417,13 @@ impl OrganizationVpcFlowLogsService {
     }
 
     /// Lists information about the supported locations for this service.
+    /// This method can be called in two ways:
+    ///
+    /// * **List all public locations:** Use the path `GET /v1/locations`.
+    /// * **List project-visible locations:** Use the path
+    ///   `GET /v1/projects/{project_id}/locations`. This may include public
+    ///   locations as well as private or other locations specifically visible
+    ///   to the project.
     ///
     /// # Example
     /// ```

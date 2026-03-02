@@ -955,10 +955,10 @@ impl Contexts {
     /// # use google_cloud_dialogflow_v2::client::Contexts;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &Contexts, resource_name: &str
+    ///    client: &Contexts, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_context()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1027,10 +1027,10 @@ impl Contexts {
     /// # use google_cloud_dialogflow_v2::client::Contexts;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &Contexts, resource_name: &str
+    ///    client: &Contexts, name: &str
     /// ) -> Result<()> {
     ///     client.delete_context()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -1313,7 +1313,8 @@ impl Conversations {
     ///    client: &Conversations, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_conversation()
-    ///         .set_parent(parent).set_conversation_id("conversation_id_value")
+    ///         .set_parent(parent)
+    ///         .set_conversation_id("conversation_id_value")
     ///         .set_conversation(
     ///             Conversation::new()/* set fields */
     ///         )
@@ -1356,10 +1357,10 @@ impl Conversations {
     /// # use google_cloud_dialogflow_v2::client::Conversations;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &Conversations, resource_name: &str
+    ///    client: &Conversations, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_conversation()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1829,10 +1830,10 @@ impl ConversationDatasets {
     /// # use google_cloud_dialogflow_v2::client::ConversationDatasets;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &ConversationDatasets, resource_name: &str
+    ///    client: &ConversationDatasets, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_conversation_dataset()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1899,10 +1900,10 @@ impl ConversationDatasets {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &ConversationDatasets, resource_name: &str
+    ///    client: &ConversationDatasets, name: &str
     /// ) -> Result<()> {
     ///     client.delete_conversation_dataset()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -2747,10 +2748,10 @@ impl ConversationProfiles {
     /// # use google_cloud_dialogflow_v2::client::ConversationProfiles;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &ConversationProfiles, resource_name: &str
+    ///    client: &ConversationProfiles, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_conversation_profile()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -2845,10 +2846,10 @@ impl ConversationProfiles {
     /// # use google_cloud_dialogflow_v2::client::ConversationProfiles;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &ConversationProfiles, resource_name: &str
+    ///    client: &ConversationProfiles, name: &str
     /// ) -> Result<()> {
     ///     client.delete_conversation_profile()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -3208,10 +3209,10 @@ impl Documents {
     /// # use google_cloud_dialogflow_v2::client::Documents;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &Documents, resource_name: &str
+    ///    client: &Documents, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_document()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -3341,10 +3342,10 @@ impl Documents {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &Documents, resource_name: &str
+    ///    client: &Documents, name: &str
     /// ) -> Result<()> {
     ///     client.delete_document()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -3717,10 +3718,10 @@ impl EncryptionSpecService {
     /// # use google_cloud_dialogflow_v2::client::EncryptionSpecService;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &EncryptionSpecService, resource_name: &str
+    ///    client: &EncryptionSpecService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_encryption_spec()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -4018,10 +4019,10 @@ impl EntityTypes {
     /// # use google_cloud_dialogflow_v2::client::EntityTypes;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &EntityTypes, resource_name: &str
+    ///    client: &EntityTypes, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_entity_type()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -4100,10 +4101,10 @@ impl EntityTypes {
     /// # use google_cloud_dialogflow_v2::client::EntityTypes;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &EntityTypes, resource_name: &str
+    ///    client: &EntityTypes, name: &str
     /// ) -> Result<()> {
     ///     client.delete_entity_type()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -4585,10 +4586,10 @@ impl Environments {
     /// # use google_cloud_dialogflow_v2::client::Environments;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &Environments, resource_name: &str
+    ///    client: &Environments, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_environment()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -4609,7 +4610,8 @@ impl Environments {
     ///    client: &Environments, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_environment()
-    ///         .set_parent(parent).set_environment_id("environment_id_value")
+    ///         .set_parent(parent)
+    ///         .set_environment_id("environment_id_value")
     ///         .set_environment(
     ///             Environment::new()/* set fields */
     ///         )
@@ -4666,10 +4668,10 @@ impl Environments {
     /// # use google_cloud_dialogflow_v2::client::Environments;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &Environments, resource_name: &str
+    ///    client: &Environments, name: &str
     /// ) -> Result<()> {
     ///     client.delete_environment()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -4927,10 +4929,10 @@ impl Fulfillments {
     /// # use google_cloud_dialogflow_v2::client::Fulfillments;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &Fulfillments, resource_name: &str
+    ///    client: &Fulfillments, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_fulfillment()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -5198,7 +5200,8 @@ impl Generators {
     ///    client: &Generators, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_generator()
-    ///         .set_parent(parent).set_generator_id("generator_id_value")
+    ///         .set_parent(parent)
+    ///         .set_generator_id("generator_id_value")
     ///         .set_generator(
     ///             Generator::new()/* set fields */
     ///         )
@@ -5218,10 +5221,10 @@ impl Generators {
     /// # use google_cloud_dialogflow_v2::client::Generators;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &Generators, resource_name: &str
+    ///    client: &Generators, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_generator()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -5261,10 +5264,10 @@ impl Generators {
     /// # use google_cloud_dialogflow_v2::client::Generators;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &Generators, resource_name: &str
+    ///    client: &Generators, name: &str
     /// ) -> Result<()> {
     ///     client.delete_generator()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -5561,10 +5564,10 @@ impl GeneratorEvaluations {
     /// # use google_cloud_dialogflow_v2::client::GeneratorEvaluations;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &GeneratorEvaluations, resource_name: &str
+    ///    client: &GeneratorEvaluations, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_generator_evaluation()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -5608,10 +5611,10 @@ impl GeneratorEvaluations {
     /// # use google_cloud_dialogflow_v2::client::GeneratorEvaluations;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &GeneratorEvaluations, resource_name: &str
+    ///    client: &GeneratorEvaluations, name: &str
     /// ) -> Result<()> {
     ///     client.delete_generator_evaluation()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -5871,10 +5874,10 @@ impl Intents {
     /// # use google_cloud_dialogflow_v2::client::Intents;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &Intents, resource_name: &str
+    ///    client: &Intents, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_intent()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -5953,10 +5956,10 @@ impl Intents {
     /// # use google_cloud_dialogflow_v2::client::Intents;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &Intents, resource_name: &str
+    ///    client: &Intents, name: &str
     /// ) -> Result<()> {
     ///     client.delete_intent()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -6304,10 +6307,10 @@ impl KnowledgeBases {
     /// # use google_cloud_dialogflow_v2::client::KnowledgeBases;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &KnowledgeBases, resource_name: &str
+    ///    client: &KnowledgeBases, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_knowledge_base()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -6348,10 +6351,10 @@ impl KnowledgeBases {
     /// # use google_cloud_dialogflow_v2::client::KnowledgeBases;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &KnowledgeBases, resource_name: &str
+    ///    client: &KnowledgeBases, name: &str
     /// ) -> Result<()> {
     ///     client.delete_knowledge_base()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -6636,10 +6639,10 @@ impl Participants {
     /// # use google_cloud_dialogflow_v2::client::Participants;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &Participants, resource_name: &str
+    ///    client: &Participants, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_participant()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -7323,10 +7326,10 @@ impl SessionEntityTypes {
     /// # use google_cloud_dialogflow_v2::client::SessionEntityTypes;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &SessionEntityTypes, resource_name: &str
+    ///    client: &SessionEntityTypes, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_session_entity_type()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -7414,10 +7417,10 @@ impl SessionEntityTypes {
     /// # use google_cloud_dialogflow_v2::client::SessionEntityTypes;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &SessionEntityTypes, resource_name: &str
+    ///    client: &SessionEntityTypes, name: &str
     /// ) -> Result<()> {
     ///     client.delete_session_entity_type()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -7678,10 +7681,10 @@ impl SipTrunks {
     /// # use google_cloud_dialogflow_v2::client::SipTrunks;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &SipTrunks, resource_name: &str
+    ///    client: &SipTrunks, name: &str
     /// ) -> Result<()> {
     ///     client.delete_sip_trunk()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -7720,10 +7723,10 @@ impl SipTrunks {
     /// # use google_cloud_dialogflow_v2::client::SipTrunks;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &SipTrunks, resource_name: &str
+    ///    client: &SipTrunks, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_sip_trunk()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -7989,7 +7992,8 @@ impl Tools {
     ///    client: &Tools, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_tool()
-    ///         .set_parent(parent).set_tool_id("tool_id_value")
+    ///         .set_parent(parent)
+    ///         .set_tool_id("tool_id_value")
     ///         .set_tool(
     ///             Tool::new()/* set fields */
     ///         )
@@ -8009,10 +8013,10 @@ impl Tools {
     /// # use google_cloud_dialogflow_v2::client::Tools;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &Tools, resource_name: &str
+    ///    client: &Tools, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_tool()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -8052,10 +8056,10 @@ impl Tools {
     /// # use google_cloud_dialogflow_v2::client::Tools;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &Tools, resource_name: &str
+    ///    client: &Tools, name: &str
     /// ) -> Result<()> {
     ///     client.delete_tool()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -8339,10 +8343,10 @@ impl Versions {
     /// # use google_cloud_dialogflow_v2::client::Versions;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &Versions, resource_name: &str
+    ///    client: &Versions, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_version()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -8415,10 +8419,10 @@ impl Versions {
     /// # use google_cloud_dialogflow_v2::client::Versions;
     /// use google_cloud_dialogflow_v2::Result;
     /// async fn sample(
-    ///    client: &Versions, resource_name: &str
+    ///    client: &Versions, name: &str
     /// ) -> Result<()> {
     ///     client.delete_version()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }

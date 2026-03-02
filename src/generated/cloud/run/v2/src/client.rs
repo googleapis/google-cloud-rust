@@ -338,10 +338,10 @@ impl Executions {
     /// # use google_cloud_run_v2::client::Executions;
     /// use google_cloud_run_v2::Result;
     /// async fn sample(
-    ///    client: &Executions, resource_name: &str
+    ///    client: &Executions, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_execution()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -393,10 +393,10 @@ impl Executions {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_run_v2::Result;
     /// async fn sample(
-    ///    client: &Executions, resource_name: &str
+    ///    client: &Executions, name: &str
     /// ) -> Result<()> {
     ///     let response = client.delete_execution()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -652,7 +652,8 @@ impl Instances {
     ///    client: &Instances, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_instance()
-    ///         .set_parent(parent).set_instance_id("instance_id_value")
+    ///         .set_parent(parent)
+    ///         .set_instance_id("instance_id_value")
     ///         .set_instance(
     ///             Instance::new()/* set fields */
     ///         )
@@ -683,10 +684,10 @@ impl Instances {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_run_v2::Result;
     /// async fn sample(
-    ///    client: &Instances, resource_name: &str
+    ///    client: &Instances, name: &str
     /// ) -> Result<()> {
     ///     let response = client.delete_instance()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -703,10 +704,10 @@ impl Instances {
     /// # use google_cloud_run_v2::client::Instances;
     /// use google_cloud_run_v2::Result;
     /// async fn sample(
-    ///    client: &Instances, resource_name: &str
+    ///    client: &Instances, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_instance()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1016,7 +1017,8 @@ impl Jobs {
     ///    client: &Jobs, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_job()
-    ///         .set_parent(parent).set_job_id("job_id_value")
+    ///         .set_parent(parent)
+    ///         .set_job_id("job_id_value")
     ///         .set_job(
     ///             Job::new()/* set fields */
     ///         )
@@ -1036,10 +1038,10 @@ impl Jobs {
     /// # use google_cloud_run_v2::client::Jobs;
     /// use google_cloud_run_v2::Result;
     /// async fn sample(
-    ///    client: &Jobs, resource_name: &str
+    ///    client: &Jobs, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_job()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1124,10 +1126,10 @@ impl Jobs {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_run_v2::Result;
     /// async fn sample(
-    ///    client: &Jobs, resource_name: &str
+    ///    client: &Jobs, name: &str
     /// ) -> Result<()> {
     ///     let response = client.delete_job()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1432,10 +1434,10 @@ impl Revisions {
     /// # use google_cloud_run_v2::client::Revisions;
     /// use google_cloud_run_v2::Result;
     /// async fn sample(
-    ///    client: &Revisions, resource_name: &str
+    ///    client: &Revisions, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_revision()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1487,10 +1489,10 @@ impl Revisions {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_run_v2::Result;
     /// async fn sample(
-    ///    client: &Revisions, resource_name: &str
+    ///    client: &Revisions, name: &str
     /// ) -> Result<()> {
     ///     let response = client.delete_revision()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1715,7 +1717,8 @@ impl Services {
     ///    client: &Services, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_service()
-    ///         .set_parent(parent).set_service_id("service_id_value")
+    ///         .set_parent(parent)
+    ///         .set_service_id("service_id_value")
     ///         .set_service(
     ///             Service::new()/* set fields */
     ///         )
@@ -1735,10 +1738,10 @@ impl Services {
     /// # use google_cloud_run_v2::client::Services;
     /// use google_cloud_run_v2::Result;
     /// async fn sample(
-    ///    client: &Services, resource_name: &str
+    ///    client: &Services, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_service()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1828,10 +1831,10 @@ impl Services {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_run_v2::Result;
     /// async fn sample(
-    ///    client: &Services, resource_name: &str
+    ///    client: &Services, name: &str
     /// ) -> Result<()> {
     ///     let response = client.delete_service()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -2105,10 +2108,10 @@ impl Tasks {
     /// # use google_cloud_run_v2::client::Tasks;
     /// use google_cloud_run_v2::Result;
     /// async fn sample(
-    ///    client: &Tasks, resource_name: &str
+    ///    client: &Tasks, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_task()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -2376,10 +2379,10 @@ impl WorkerPools {
     /// # use google_cloud_run_v2::client::WorkerPools;
     /// use google_cloud_run_v2::Result;
     /// async fn sample(
-    ///    client: &WorkerPools, resource_name: &str
+    ///    client: &WorkerPools, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_worker_pool()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -2467,10 +2470,10 @@ impl WorkerPools {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_run_v2::Result;
     /// async fn sample(
-    ///    client: &WorkerPools, resource_name: &str
+    ///    client: &WorkerPools, name: &str
     /// ) -> Result<()> {
     ///     let response = client.delete_worker_pool()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())

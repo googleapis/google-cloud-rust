@@ -132,7 +132,8 @@ impl ContactCenterInsights {
     ///    client: &ContactCenterInsights, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_conversation()
-    ///         .set_parent(parent).set_conversation_id("conversation_id_value")
+    ///         .set_parent(parent)
+    ///         .set_conversation_id("conversation_id_value")
     ///         .set_conversation(
     ///             Conversation::new()/* set fields */
     ///         )
@@ -217,10 +218,10 @@ impl ContactCenterInsights {
     /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
     /// use google_cloud_contactcenterinsights_v1::Result;
     /// async fn sample(
-    ///    client: &ContactCenterInsights, resource_name: &str
+    ///    client: &ContactCenterInsights, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_conversation()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -260,10 +261,10 @@ impl ContactCenterInsights {
     /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
     /// use google_cloud_contactcenterinsights_v1::Result;
     /// async fn sample(
-    ///    client: &ContactCenterInsights, resource_name: &str
+    ///    client: &ContactCenterInsights, name: &str
     /// ) -> Result<()> {
     ///     client.delete_conversation()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -317,10 +318,10 @@ impl ContactCenterInsights {
     /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
     /// use google_cloud_contactcenterinsights_v1::Result;
     /// async fn sample(
-    ///    client: &ContactCenterInsights, resource_name: &str
+    ///    client: &ContactCenterInsights, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_analysis()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -360,10 +361,10 @@ impl ContactCenterInsights {
     /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
     /// use google_cloud_contactcenterinsights_v1::Result;
     /// async fn sample(
-    ///    client: &ContactCenterInsights, resource_name: &str
+    ///    client: &ContactCenterInsights, name: &str
     /// ) -> Result<()> {
     ///     client.delete_analysis()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -573,10 +574,10 @@ impl ContactCenterInsights {
     /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
     /// use google_cloud_contactcenterinsights_v1::Result;
     /// async fn sample(
-    ///    client: &ContactCenterInsights, resource_name: &str
+    ///    client: &ContactCenterInsights, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_issue_model()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -624,10 +625,10 @@ impl ContactCenterInsights {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_contactcenterinsights_v1::Result;
     /// async fn sample(
-    ///    client: &ContactCenterInsights, resource_name: &str
+    ///    client: &ContactCenterInsights, name: &str
     /// ) -> Result<()> {
     ///     client.delete_issue_model()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -771,10 +772,10 @@ impl ContactCenterInsights {
     /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
     /// use google_cloud_contactcenterinsights_v1::Result;
     /// async fn sample(
-    ///    client: &ContactCenterInsights, resource_name: &str
+    ///    client: &ContactCenterInsights, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_issue()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -837,10 +838,10 @@ impl ContactCenterInsights {
     /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
     /// use google_cloud_contactcenterinsights_v1::Result;
     /// async fn sample(
-    ///    client: &ContactCenterInsights, resource_name: &str
+    ///    client: &ContactCenterInsights, name: &str
     /// ) -> Result<()> {
     ///     client.delete_issue()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -904,10 +905,10 @@ impl ContactCenterInsights {
     /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
     /// use google_cloud_contactcenterinsights_v1::Result;
     /// async fn sample(
-    ///    client: &ContactCenterInsights, resource_name: &str
+    ///    client: &ContactCenterInsights, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_phrase_matcher()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -949,10 +950,10 @@ impl ContactCenterInsights {
     /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
     /// use google_cloud_contactcenterinsights_v1::Result;
     /// async fn sample(
-    ///    client: &ContactCenterInsights, resource_name: &str
+    ///    client: &ContactCenterInsights, name: &str
     /// ) -> Result<()> {
     ///     client.delete_phrase_matcher()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -1018,10 +1019,10 @@ impl ContactCenterInsights {
     /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
     /// use google_cloud_contactcenterinsights_v1::Result;
     /// async fn sample(
-    ///    client: &ContactCenterInsights, resource_name: &str
+    ///    client: &ContactCenterInsights, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_settings()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1090,10 +1091,10 @@ impl ContactCenterInsights {
     /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
     /// use google_cloud_contactcenterinsights_v1::Result;
     /// async fn sample(
-    ///    client: &ContactCenterInsights, resource_name: &str
+    ///    client: &ContactCenterInsights, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_analysis_rule()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1163,10 +1164,10 @@ impl ContactCenterInsights {
     /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
     /// use google_cloud_contactcenterinsights_v1::Result;
     /// async fn sample(
-    ///    client: &ContactCenterInsights, resource_name: &str
+    ///    client: &ContactCenterInsights, name: &str
     /// ) -> Result<()> {
     ///     client.delete_analysis_rule()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -1184,10 +1185,10 @@ impl ContactCenterInsights {
     /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
     /// use google_cloud_contactcenterinsights_v1::Result;
     /// async fn sample(
-    ///    client: &ContactCenterInsights, resource_name: &str
+    ///    client: &ContactCenterInsights, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_encryption_spec()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1267,10 +1268,10 @@ impl ContactCenterInsights {
     /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
     /// use google_cloud_contactcenterinsights_v1::Result;
     /// async fn sample(
-    ///    client: &ContactCenterInsights, resource_name: &str
+    ///    client: &ContactCenterInsights, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_view()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1336,10 +1337,10 @@ impl ContactCenterInsights {
     /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
     /// use google_cloud_contactcenterinsights_v1::Result;
     /// async fn sample(
-    ///    client: &ContactCenterInsights, resource_name: &str
+    ///    client: &ContactCenterInsights, name: &str
     /// ) -> Result<()> {
     ///     client.delete_view()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -1410,10 +1411,10 @@ impl ContactCenterInsights {
     /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
     /// use google_cloud_contactcenterinsights_v1::Result;
     /// async fn sample(
-    ///    client: &ContactCenterInsights, resource_name: &str
+    ///    client: &ContactCenterInsights, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_qa_question()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1456,10 +1457,10 @@ impl ContactCenterInsights {
     /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
     /// use google_cloud_contactcenterinsights_v1::Result;
     /// async fn sample(
-    ///    client: &ContactCenterInsights, resource_name: &str
+    ///    client: &ContactCenterInsights, name: &str
     /// ) -> Result<()> {
     ///     client.delete_qa_question()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -1524,10 +1525,10 @@ impl ContactCenterInsights {
     /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
     /// use google_cloud_contactcenterinsights_v1::Result;
     /// async fn sample(
-    ///    client: &ContactCenterInsights, resource_name: &str
+    ///    client: &ContactCenterInsights, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_qa_scorecard()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1572,10 +1573,10 @@ impl ContactCenterInsights {
     /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
     /// use google_cloud_contactcenterinsights_v1::Result;
     /// async fn sample(
-    ///    client: &ContactCenterInsights, resource_name: &str
+    ///    client: &ContactCenterInsights, name: &str
     /// ) -> Result<()> {
     ///     client.delete_qa_scorecard()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -1642,10 +1643,10 @@ impl ContactCenterInsights {
     /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
     /// use google_cloud_contactcenterinsights_v1::Result;
     /// async fn sample(
-    ///    client: &ContactCenterInsights, resource_name: &str
+    ///    client: &ContactCenterInsights, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_qa_scorecard_revision()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1743,10 +1744,10 @@ impl ContactCenterInsights {
     /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
     /// use google_cloud_contactcenterinsights_v1::Result;
     /// async fn sample(
-    ///    client: &ContactCenterInsights, resource_name: &str
+    ///    client: &ContactCenterInsights, name: &str
     /// ) -> Result<()> {
     ///     client.delete_qa_scorecard_revision()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -1840,10 +1841,10 @@ impl ContactCenterInsights {
     /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
     /// use google_cloud_contactcenterinsights_v1::Result;
     /// async fn sample(
-    ///    client: &ContactCenterInsights, resource_name: &str
+    ///    client: &ContactCenterInsights, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_feedback_label()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1888,10 +1889,10 @@ impl ContactCenterInsights {
     /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
     /// use google_cloud_contactcenterinsights_v1::Result;
     /// async fn sample(
-    ///    client: &ContactCenterInsights, resource_name: &str
+    ///    client: &ContactCenterInsights, name: &str
     /// ) -> Result<()> {
     ///     client.delete_feedback_label()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }

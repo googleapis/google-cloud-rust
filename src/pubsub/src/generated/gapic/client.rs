@@ -173,10 +173,10 @@ impl TopicAdmin {
     /// # use google_cloud_pubsub::client::TopicAdmin;
     /// use google_cloud_pubsub::Result;
     /// async fn sample(
-    ///    client: &TopicAdmin, resource_name: &str
+    ///    client: &TopicAdmin, topic: &str
     /// ) -> Result<()> {
     ///     let response = client.get_topic()
-    ///         .set_topic(resource_name)
+    ///         .set_topic(topic)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -267,10 +267,10 @@ impl TopicAdmin {
     /// # use google_cloud_pubsub::client::TopicAdmin;
     /// use google_cloud_pubsub::Result;
     /// async fn sample(
-    ///    client: &TopicAdmin, resource_name: &str
+    ///    client: &TopicAdmin, topic: &str
     /// ) -> Result<()> {
     ///     client.delete_topic()
-    ///         .set_topic(resource_name)
+    ///         .set_topic(topic)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -443,10 +443,10 @@ impl SubscriptionAdmin {
     /// # use google_cloud_pubsub::client::SubscriptionAdmin;
     /// use google_cloud_pubsub::Result;
     /// async fn sample(
-    ///    client: &SubscriptionAdmin, resource_name: &str
+    ///    client: &SubscriptionAdmin, subscription: &str
     /// ) -> Result<()> {
     ///     let response = client.get_subscription()
-    ///         .set_subscription(resource_name)
+    ///         .set_subscription(subscription)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -518,10 +518,10 @@ impl SubscriptionAdmin {
     /// # use google_cloud_pubsub::client::SubscriptionAdmin;
     /// use google_cloud_pubsub::Result;
     /// async fn sample(
-    ///    client: &SubscriptionAdmin, resource_name: &str
+    ///    client: &SubscriptionAdmin, subscription: &str
     /// ) -> Result<()> {
     ///     client.delete_subscription()
-    ///         .set_subscription(resource_name)
+    ///         .set_subscription(subscription)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -565,10 +565,10 @@ impl SubscriptionAdmin {
     /// # use google_cloud_pubsub::client::SubscriptionAdmin;
     /// use google_cloud_pubsub::Result;
     /// async fn sample(
-    ///    client: &SubscriptionAdmin, resource_name: &str
+    ///    client: &SubscriptionAdmin, snapshot: &str
     /// ) -> Result<()> {
     ///     let response = client.get_snapshot()
-    ///         .set_snapshot(resource_name)
+    ///         .set_snapshot(snapshot)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -686,10 +686,10 @@ impl SubscriptionAdmin {
     /// # use google_cloud_pubsub::client::SubscriptionAdmin;
     /// use google_cloud_pubsub::Result;
     /// async fn sample(
-    ///    client: &SubscriptionAdmin, resource_name: &str
+    ///    client: &SubscriptionAdmin, snapshot: &str
     /// ) -> Result<()> {
     ///     client.delete_snapshot()
-    ///         .set_snapshot(resource_name)
+    ///         .set_snapshot(snapshot)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -838,7 +838,8 @@ impl SchemaService {
     ///    client: &SchemaService, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_schema()
-    ///         .set_parent(parent).set_schema_id("schema_id_value")
+    ///         .set_parent(parent)
+    ///         .set_schema_id("schema_id_value")
     ///         .set_schema(
     ///             Schema::new()/* set fields */
     ///         )
@@ -858,10 +859,10 @@ impl SchemaService {
     /// # use google_cloud_pubsub::client::SchemaService;
     /// use google_cloud_pubsub::Result;
     /// async fn sample(
-    ///    client: &SchemaService, resource_name: &str
+    ///    client: &SchemaService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_schema()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -964,10 +965,10 @@ impl SchemaService {
     /// # use google_cloud_pubsub::client::SchemaService;
     /// use google_cloud_pubsub::Result;
     /// async fn sample(
-    ///    client: &SchemaService, resource_name: &str
+    ///    client: &SchemaService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.delete_schema_revision()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -984,10 +985,10 @@ impl SchemaService {
     /// # use google_cloud_pubsub::client::SchemaService;
     /// use google_cloud_pubsub::Result;
     /// async fn sample(
-    ///    client: &SchemaService, resource_name: &str
+    ///    client: &SchemaService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_schema()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }

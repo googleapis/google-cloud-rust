@@ -58,7 +58,7 @@ pub async fn run() -> anyhow::Result<()> {
 
 async fn send_trace(project_id: &str) -> anyhow::Result<String> {
     // 1. Setup Telemetry (Real Google Cloud Destination)
-    let provider = crate::e2e::set_up_otel_provider(project_id).await?;
+    let provider = crate::e2e::set_up_tracer_provider(project_id).await?;
 
     // 2. Generate Trace
     // Start a root span
@@ -80,7 +80,9 @@ async fn send_trace(project_id: &str) -> anyhow::Result<String> {
     );
 
     // 4. Force flush to ensure spans are sent.
-    provider.force_flush()?;
+    if let Err(e) = provider.force_flush() {
+        tracing::error!("error flushing provider: {e:}");
+    }
     Ok(trace_id)
 }
 

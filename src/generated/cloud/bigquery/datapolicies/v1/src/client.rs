@@ -198,10 +198,10 @@ impl DataPolicyService {
     /// # use google_cloud_bigquery_datapolicies_v1::client::DataPolicyService;
     /// use google_cloud_bigquery_datapolicies_v1::Result;
     /// async fn sample(
-    ///    client: &DataPolicyService, resource_name: &str
+    ///    client: &DataPolicyService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_data_policy()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -217,10 +217,10 @@ impl DataPolicyService {
     /// # use google_cloud_bigquery_datapolicies_v1::client::DataPolicyService;
     /// use google_cloud_bigquery_datapolicies_v1::Result;
     /// async fn sample(
-    ///    client: &DataPolicyService, resource_name: &str
+    ///    client: &DataPolicyService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_data_policy()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())

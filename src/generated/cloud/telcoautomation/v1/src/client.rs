@@ -154,10 +154,10 @@ impl TelcoAutomation {
     /// # use google_cloud_telcoautomation_v1::client::TelcoAutomation;
     /// use google_cloud_telcoautomation_v1::Result;
     /// async fn sample(
-    ///    client: &TelcoAutomation, resource_name: &str
+    ///    client: &TelcoAutomation, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_orchestration_cluster()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -224,10 +224,10 @@ impl TelcoAutomation {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_telcoautomation_v1::Result;
     /// async fn sample(
-    ///    client: &TelcoAutomation, resource_name: &str
+    ///    client: &TelcoAutomation, name: &str
     /// ) -> Result<()> {
     ///     client.delete_orchestration_cluster()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -268,10 +268,10 @@ impl TelcoAutomation {
     /// # use google_cloud_telcoautomation_v1::client::TelcoAutomation;
     /// use google_cloud_telcoautomation_v1::Result;
     /// async fn sample(
-    ///    client: &TelcoAutomation, resource_name: &str
+    ///    client: &TelcoAutomation, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_edge_slm()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -334,10 +334,10 @@ impl TelcoAutomation {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_telcoautomation_v1::Result;
     /// async fn sample(
-    ///    client: &TelcoAutomation, resource_name: &str
+    ///    client: &TelcoAutomation, name: &str
     /// ) -> Result<()> {
     ///     client.delete_edge_slm()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -357,7 +357,8 @@ impl TelcoAutomation {
     ///    client: &TelcoAutomation, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_blueprint()
-    ///         .set_parent(parent).set_blueprint_id("blueprint_id_value")
+    ///         .set_parent(parent)
+    ///         .set_blueprint_id("blueprint_id_value")
     ///         .set_blueprint(
     ///             Blueprint::new()/* set fields */
     ///         )
@@ -403,10 +404,10 @@ impl TelcoAutomation {
     /// # use google_cloud_telcoautomation_v1::client::TelcoAutomation;
     /// use google_cloud_telcoautomation_v1::Result;
     /// async fn sample(
-    ///    client: &TelcoAutomation, resource_name: &str
+    ///    client: &TelcoAutomation, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_blueprint()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -423,10 +424,10 @@ impl TelcoAutomation {
     /// # use google_cloud_telcoautomation_v1::client::TelcoAutomation;
     /// use google_cloud_telcoautomation_v1::Result;
     /// async fn sample(
-    ///    client: &TelcoAutomation, resource_name: &str
+    ///    client: &TelcoAutomation, name: &str
     /// ) -> Result<()> {
     ///     client.delete_blueprint()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -648,10 +649,10 @@ impl TelcoAutomation {
     /// # use google_cloud_telcoautomation_v1::client::TelcoAutomation;
     /// use google_cloud_telcoautomation_v1::Result;
     /// async fn sample(
-    ///    client: &TelcoAutomation, resource_name: &str
+    ///    client: &TelcoAutomation, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_public_blueprint()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -672,7 +673,8 @@ impl TelcoAutomation {
     ///    client: &TelcoAutomation, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_deployment()
-    ///         .set_parent(parent).set_deployment_id("deployment_id_value")
+    ///         .set_parent(parent)
+    ///         .set_deployment_id("deployment_id_value")
     ///         .set_deployment(
     ///             Deployment::new()/* set fields */
     ///         )
@@ -718,10 +720,10 @@ impl TelcoAutomation {
     /// # use google_cloud_telcoautomation_v1::client::TelcoAutomation;
     /// use google_cloud_telcoautomation_v1::Result;
     /// async fn sample(
-    ///    client: &TelcoAutomation, resource_name: &str
+    ///    client: &TelcoAutomation, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_deployment()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -893,10 +895,10 @@ impl TelcoAutomation {
     /// # use google_cloud_telcoautomation_v1::client::TelcoAutomation;
     /// use google_cloud_telcoautomation_v1::Result;
     /// async fn sample(
-    ///    client: &TelcoAutomation, resource_name: &str
+    ///    client: &TelcoAutomation, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_hydrated_deployment()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())

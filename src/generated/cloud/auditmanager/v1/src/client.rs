@@ -228,10 +228,10 @@ impl AuditManager {
     /// # use google_cloud_auditmanager_v1::client::AuditManager;
     /// use google_cloud_auditmanager_v1::Result;
     /// async fn sample(
-    ///    client: &AuditManager, resource_name: &str
+    ///    client: &AuditManager, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_audit_report()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -248,10 +248,10 @@ impl AuditManager {
     /// # use google_cloud_auditmanager_v1::client::AuditManager;
     /// use google_cloud_auditmanager_v1::Result;
     /// async fn sample(
-    ///    client: &AuditManager, resource_name: &str
+    ///    client: &AuditManager, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_resource_enrollment_status()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())

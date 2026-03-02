@@ -161,6 +161,18 @@ pub trait DeveloperConnect: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
+    async fn start_o_auth(
+        &self,
+        req: crate::model::StartOAuthRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::StartOAuthResponse>>;
+
+    async fn finish_o_auth(
+        &self,
+        req: crate::model::FinishOAuthRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::FinishOAuthResponse>>;
+
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
@@ -428,6 +440,24 @@ impl<T: super::DeveloperConnect> DeveloperConnect for T {
     }
 
     /// Forwards the call to the implementation provided by `T`.
+    async fn start_o_auth(
+        &self,
+        req: crate::model::StartOAuthRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::StartOAuthResponse>> {
+        T::start_o_auth(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn finish_o_auth(
+        &self,
+        req: crate::model::FinishOAuthRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::FinishOAuthResponse>> {
+        T::finish_o_auth(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
@@ -530,6 +560,18 @@ pub trait InsightsConfigService: std::fmt::Debug + Send + Sync {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>>;
 
+    async fn get_deployment_event(
+        &self,
+        req: crate::model::GetDeploymentEventRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::DeploymentEvent>>;
+
+    async fn list_deployment_events(
+        &self,
+        req: crate::model::ListDeploymentEventsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListDeploymentEventsResponse>>;
+
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
@@ -623,6 +665,24 @@ impl<T: super::InsightsConfigService> InsightsConfigService for T {
         options: crate::RequestOptions,
     ) -> crate::Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         T::delete_insights_config(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_deployment_event(
+        &self,
+        req: crate::model::GetDeploymentEventRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::DeploymentEvent>> {
+        T::get_deployment_event(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_deployment_events(
+        &self,
+        req: crate::model::ListDeploymentEventsRequest,
+        options: crate::RequestOptions,
+    ) -> crate::Result<crate::Response<crate::model::ListDeploymentEventsResponse>> {
+        T::list_deployment_events(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.

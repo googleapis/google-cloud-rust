@@ -180,10 +180,10 @@ impl AnalyticsHubService {
     /// # use google_cloud_bigquery_analyticshub_v1::client::AnalyticsHubService;
     /// use google_cloud_bigquery_analyticshub_v1::Result;
     /// async fn sample(
-    ///    client: &AnalyticsHubService, resource_name: &str
+    ///    client: &AnalyticsHubService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_data_exchange()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -254,10 +254,10 @@ impl AnalyticsHubService {
     /// # use google_cloud_bigquery_analyticshub_v1::client::AnalyticsHubService;
     /// use google_cloud_bigquery_analyticshub_v1::Result;
     /// async fn sample(
-    ///    client: &AnalyticsHubService, resource_name: &str
+    ///    client: &AnalyticsHubService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_data_exchange()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -298,10 +298,10 @@ impl AnalyticsHubService {
     /// # use google_cloud_bigquery_analyticshub_v1::client::AnalyticsHubService;
     /// use google_cloud_bigquery_analyticshub_v1::Result;
     /// async fn sample(
-    ///    client: &AnalyticsHubService, resource_name: &str
+    ///    client: &AnalyticsHubService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_listing()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -322,7 +322,8 @@ impl AnalyticsHubService {
     ///    client: &AnalyticsHubService, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_listing()
-    ///         .set_parent(parent).set_listing_id("listing_id_value")
+    ///         .set_parent(parent)
+    ///         .set_listing_id("listing_id_value")
     ///         .set_listing(
     ///             Listing::new()/* set fields */
     ///         )
@@ -368,10 +369,10 @@ impl AnalyticsHubService {
     /// # use google_cloud_bigquery_analyticshub_v1::client::AnalyticsHubService;
     /// use google_cloud_bigquery_analyticshub_v1::Result;
     /// async fn sample(
-    ///    client: &AnalyticsHubService, resource_name: &str
+    ///    client: &AnalyticsHubService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_listing()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -483,10 +484,10 @@ impl AnalyticsHubService {
     /// # use google_cloud_bigquery_analyticshub_v1::client::AnalyticsHubService;
     /// use google_cloud_bigquery_analyticshub_v1::Result;
     /// async fn sample(
-    ///    client: &AnalyticsHubService, resource_name: &str
+    ///    client: &AnalyticsHubService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_subscription()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -584,10 +585,10 @@ impl AnalyticsHubService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_bigquery_analyticshub_v1::Result;
     /// async fn sample(
-    ///    client: &AnalyticsHubService, resource_name: &str
+    ///    client: &AnalyticsHubService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_subscription()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -691,10 +692,10 @@ impl AnalyticsHubService {
     /// # use google_cloud_bigquery_analyticshub_v1::client::AnalyticsHubService;
     /// use google_cloud_bigquery_analyticshub_v1::Result;
     /// async fn sample(
-    ///    client: &AnalyticsHubService, resource_name: &str
+    ///    client: &AnalyticsHubService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_query_template()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -764,10 +765,10 @@ impl AnalyticsHubService {
     /// # use google_cloud_bigquery_analyticshub_v1::client::AnalyticsHubService;
     /// use google_cloud_bigquery_analyticshub_v1::Result;
     /// async fn sample(
-    ///    client: &AnalyticsHubService, resource_name: &str
+    ///    client: &AnalyticsHubService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_query_template()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }

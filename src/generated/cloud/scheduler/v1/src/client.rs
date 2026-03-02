@@ -149,10 +149,10 @@ impl CloudScheduler {
     /// # use google_cloud_scheduler_v1::client::CloudScheduler;
     /// use google_cloud_scheduler_v1::Result;
     /// async fn sample(
-    ///    client: &CloudScheduler, resource_name: &str
+    ///    client: &CloudScheduler, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_job()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -231,10 +231,10 @@ impl CloudScheduler {
     /// # use google_cloud_scheduler_v1::client::CloudScheduler;
     /// use google_cloud_scheduler_v1::Result;
     /// async fn sample(
-    ///    client: &CloudScheduler, resource_name: &str
+    ///    client: &CloudScheduler, name: &str
     /// ) -> Result<()> {
     ///     client.delete_job()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }

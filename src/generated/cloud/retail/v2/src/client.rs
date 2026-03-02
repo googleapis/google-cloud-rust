@@ -450,10 +450,10 @@ impl CatalogService {
     /// # use google_cloud_retail_v2::client::CatalogService;
     /// use google_cloud_retail_v2::Result;
     /// async fn sample(
-    ///    client: &CatalogService, resource_name: &str
+    ///    client: &CatalogService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_completion_config()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -502,10 +502,10 @@ impl CatalogService {
     /// # use google_cloud_retail_v2::client::CatalogService;
     /// use google_cloud_retail_v2::Result;
     /// async fn sample(
-    ///    client: &CatalogService, resource_name: &str
+    ///    client: &CatalogService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_attributes_config()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1027,7 +1027,8 @@ impl ControlService {
     ///    client: &ControlService, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_control()
-    ///         .set_parent(parent).set_control_id("control_id_value")
+    ///         .set_parent(parent)
+    ///         .set_control_id("control_id_value")
     ///         .set_control(
     ///             Control::new()/* set fields */
     ///         )
@@ -1052,10 +1053,10 @@ impl ControlService {
     /// # use google_cloud_retail_v2::client::ControlService;
     /// use google_cloud_retail_v2::Result;
     /// async fn sample(
-    ///    client: &ControlService, resource_name: &str
+    ///    client: &ControlService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_control()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -1104,10 +1105,10 @@ impl ControlService {
     /// # use google_cloud_retail_v2::client::ControlService;
     /// use google_cloud_retail_v2::Result;
     /// async fn sample(
-    ///    client: &ControlService, resource_name: &str
+    ///    client: &ControlService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_control()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1776,10 +1777,10 @@ impl ModelService {
     /// # use google_cloud_retail_v2::client::ModelService;
     /// use google_cloud_retail_v2::Result;
     /// async fn sample(
-    ///    client: &ModelService, resource_name: &str
+    ///    client: &ModelService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_model()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1836,10 +1837,10 @@ impl ModelService {
     /// # use google_cloud_retail_v2::client::ModelService;
     /// use google_cloud_retail_v2::Result;
     /// async fn sample(
-    ///    client: &ModelService, resource_name: &str
+    ///    client: &ModelService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_model()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -2268,7 +2269,8 @@ impl ProductService {
     ///    client: &ProductService, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_product()
-    ///         .set_parent(parent).set_product_id("product_id_value")
+    ///         .set_parent(parent)
+    ///         .set_product_id("product_id_value")
     ///         .set_product(
     ///             Product::new()/* set fields */
     ///         )
@@ -2290,10 +2292,10 @@ impl ProductService {
     /// # use google_cloud_retail_v2::client::ProductService;
     /// use google_cloud_retail_v2::Result;
     /// async fn sample(
-    ///    client: &ProductService, resource_name: &str
+    ///    client: &ProductService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_product()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -2365,10 +2367,10 @@ impl ProductService {
     /// # use google_cloud_retail_v2::client::ProductService;
     /// use google_cloud_retail_v2::Result;
     /// async fn sample(
-    ///    client: &ProductService, resource_name: &str
+    ///    client: &ProductService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_product()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -3204,10 +3206,10 @@ impl ServingConfigService {
     /// # use google_cloud_retail_v2::client::ServingConfigService;
     /// use google_cloud_retail_v2::Result;
     /// async fn sample(
-    ///    client: &ServingConfigService, resource_name: &str
+    ///    client: &ServingConfigService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_serving_config()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -3255,10 +3257,10 @@ impl ServingConfigService {
     /// # use google_cloud_retail_v2::client::ServingConfigService;
     /// use google_cloud_retail_v2::Result;
     /// async fn sample(
-    ///    client: &ServingConfigService, resource_name: &str
+    ///    client: &ServingConfigService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_serving_config()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())

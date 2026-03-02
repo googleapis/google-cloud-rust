@@ -131,10 +131,10 @@ impl Folders {
     /// # use google_cloud_resourcemanager_v3::client::Folders;
     /// use google_cloud_resourcemanager_v3::Result;
     /// async fn sample(
-    ///    client: &Folders, resource_name: &str
+    ///    client: &Folders, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_folder()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -393,10 +393,10 @@ impl Folders {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_resourcemanager_v3::Result;
     /// async fn sample(
-    ///    client: &Folders, resource_name: &str
+    ///    client: &Folders, name: &str
     /// ) -> Result<()> {
     ///     let response = client.delete_folder()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -437,10 +437,10 @@ impl Folders {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_resourcemanager_v3::Result;
     /// async fn sample(
-    ///    client: &Folders, resource_name: &str
+    ///    client: &Folders, name: &str
     /// ) -> Result<()> {
     ///     let response = client.undelete_folder()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -654,10 +654,10 @@ impl Organizations {
     /// # use google_cloud_resourcemanager_v3::client::Organizations;
     /// use google_cloud_resourcemanager_v3::Result;
     /// async fn sample(
-    ///    client: &Organizations, resource_name: &str
+    ///    client: &Organizations, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_organization()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -906,10 +906,10 @@ impl Projects {
     /// # use google_cloud_resourcemanager_v3::client::Projects;
     /// use google_cloud_resourcemanager_v3::Result;
     /// async fn sample(
-    ///    client: &Projects, resource_name: &str
+    ///    client: &Projects, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_project()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1156,10 +1156,10 @@ impl Projects {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_resourcemanager_v3::Result;
     /// async fn sample(
-    ///    client: &Projects, resource_name: &str
+    ///    client: &Projects, name: &str
     /// ) -> Result<()> {
     ///     let response = client.delete_project()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1195,10 +1195,10 @@ impl Projects {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_resourcemanager_v3::Result;
     /// async fn sample(
-    ///    client: &Projects, resource_name: &str
+    ///    client: &Projects, name: &str
     /// ) -> Result<()> {
     ///     let response = client.undelete_project()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1514,10 +1514,10 @@ impl TagBindings {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_resourcemanager_v3::Result;
     /// async fn sample(
-    ///    client: &TagBindings, resource_name: &str
+    ///    client: &TagBindings, name: &str
     /// ) -> Result<()> {
     ///     client.delete_tag_binding()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1733,10 +1733,10 @@ impl TagHolds {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_resourcemanager_v3::Result;
     /// async fn sample(
-    ///    client: &TagHolds, resource_name: &str
+    ///    client: &TagHolds, name: &str
     /// ) -> Result<()> {
     ///     client.delete_tag_hold()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1924,10 +1924,10 @@ impl TagKeys {
     /// # use google_cloud_resourcemanager_v3::client::TagKeys;
     /// use google_cloud_resourcemanager_v3::Result;
     /// async fn sample(
-    ///    client: &TagKeys, resource_name: &str
+    ///    client: &TagKeys, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_tag_key()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1946,10 +1946,10 @@ impl TagKeys {
     /// # use google_cloud_resourcemanager_v3::client::TagKeys;
     /// use google_cloud_resourcemanager_v3::Result;
     /// async fn sample(
-    ///    client: &TagKeys, resource_name: &str
+    ///    client: &TagKeys, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_namespaced_tag_key()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -2049,10 +2049,10 @@ impl TagKeys {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_resourcemanager_v3::Result;
     /// async fn sample(
-    ///    client: &TagKeys, resource_name: &str
+    ///    client: &TagKeys, name: &str
     /// ) -> Result<()> {
     ///     let response = client.delete_tag_key()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -2291,10 +2291,10 @@ impl TagValues {
     /// # use google_cloud_resourcemanager_v3::client::TagValues;
     /// use google_cloud_resourcemanager_v3::Result;
     /// async fn sample(
-    ///    client: &TagValues, resource_name: &str
+    ///    client: &TagValues, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_tag_value()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -2313,10 +2313,10 @@ impl TagValues {
     /// # use google_cloud_resourcemanager_v3::client::TagValues;
     /// use google_cloud_resourcemanager_v3::Result;
     /// async fn sample(
-    ///    client: &TagValues, resource_name: &str
+    ///    client: &TagValues, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_namespaced_tag_value()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -2416,10 +2416,10 @@ impl TagValues {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_resourcemanager_v3::Result;
     /// async fn sample(
-    ///    client: &TagValues, resource_name: &str
+    ///    client: &TagValues, name: &str
     /// ) -> Result<()> {
     ///     let response = client.delete_tag_value()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())

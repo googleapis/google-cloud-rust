@@ -148,10 +148,10 @@ impl MigrationCenter {
     /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
     /// use google_cloud_migrationcenter_v1::Result;
     /// async fn sample(
-    ///    client: &MigrationCenter, resource_name: &str
+    ///    client: &MigrationCenter, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_asset()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -214,10 +214,10 @@ impl MigrationCenter {
     /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
     /// use google_cloud_migrationcenter_v1::Result;
     /// async fn sample(
-    ///    client: &MigrationCenter, resource_name: &str
+    ///    client: &MigrationCenter, name: &str
     /// ) -> Result<()> {
     ///     client.delete_asset()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -352,10 +352,10 @@ impl MigrationCenter {
     /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
     /// use google_cloud_migrationcenter_v1::Result;
     /// async fn sample(
-    ///    client: &MigrationCenter, resource_name: &str
+    ///    client: &MigrationCenter, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_import_job()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -383,10 +383,10 @@ impl MigrationCenter {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_migrationcenter_v1::Result;
     /// async fn sample(
-    ///    client: &MigrationCenter, resource_name: &str
+    ///    client: &MigrationCenter, name: &str
     /// ) -> Result<()> {
     ///     client.delete_import_job()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -499,10 +499,10 @@ impl MigrationCenter {
     /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
     /// use google_cloud_migrationcenter_v1::Result;
     /// async fn sample(
-    ///    client: &MigrationCenter, resource_name: &str
+    ///    client: &MigrationCenter, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_import_data_file()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -590,10 +590,10 @@ impl MigrationCenter {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_migrationcenter_v1::Result;
     /// async fn sample(
-    ///    client: &MigrationCenter, resource_name: &str
+    ///    client: &MigrationCenter, name: &str
     /// ) -> Result<()> {
     ///     client.delete_import_data_file()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -634,10 +634,10 @@ impl MigrationCenter {
     /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
     /// use google_cloud_migrationcenter_v1::Result;
     /// async fn sample(
-    ///    client: &MigrationCenter, resource_name: &str
+    ///    client: &MigrationCenter, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_group()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -669,7 +669,8 @@ impl MigrationCenter {
     ///    client: &MigrationCenter, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_group()
-    ///         .set_parent(parent).set_group_id("group_id_value")
+    ///         .set_parent(parent)
+    ///         .set_group_id("group_id_value")
     ///         .set_group(
     ///             Group::new()/* set fields */
     ///         )
@@ -737,10 +738,10 @@ impl MigrationCenter {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_migrationcenter_v1::Result;
     /// async fn sample(
-    ///    client: &MigrationCenter, resource_name: &str
+    ///    client: &MigrationCenter, name: &str
     /// ) -> Result<()> {
     ///     client.delete_group()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -843,10 +844,10 @@ impl MigrationCenter {
     /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
     /// use google_cloud_migrationcenter_v1::Result;
     /// async fn sample(
-    ///    client: &MigrationCenter, resource_name: &str
+    ///    client: &MigrationCenter, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_error_frame()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -886,10 +887,10 @@ impl MigrationCenter {
     /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
     /// use google_cloud_migrationcenter_v1::Result;
     /// async fn sample(
-    ///    client: &MigrationCenter, resource_name: &str
+    ///    client: &MigrationCenter, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_source()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -921,7 +922,8 @@ impl MigrationCenter {
     ///    client: &MigrationCenter, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_source()
-    ///         .set_parent(parent).set_source_id("source_id_value")
+    ///         .set_parent(parent)
+    ///         .set_source_id("source_id_value")
     ///         .set_source(
     ///             Source::new()/* set fields */
     ///         )
@@ -989,10 +991,10 @@ impl MigrationCenter {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_migrationcenter_v1::Result;
     /// async fn sample(
-    ///    client: &MigrationCenter, resource_name: &str
+    ///    client: &MigrationCenter, name: &str
     /// ) -> Result<()> {
     ///     client.delete_source()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1031,10 +1033,10 @@ impl MigrationCenter {
     /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
     /// use google_cloud_migrationcenter_v1::Result;
     /// async fn sample(
-    ///    client: &MigrationCenter, resource_name: &str
+    ///    client: &MigrationCenter, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_preference_set()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1134,10 +1136,10 @@ impl MigrationCenter {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_migrationcenter_v1::Result;
     /// async fn sample(
-    ///    client: &MigrationCenter, resource_name: &str
+    ///    client: &MigrationCenter, name: &str
     /// ) -> Result<()> {
     ///     client.delete_preference_set()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1153,10 +1155,10 @@ impl MigrationCenter {
     /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
     /// use google_cloud_migrationcenter_v1::Result;
     /// async fn sample(
-    ///    client: &MigrationCenter, resource_name: &str
+    ///    client: &MigrationCenter, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_settings()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1245,10 +1247,10 @@ impl MigrationCenter {
     /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
     /// use google_cloud_migrationcenter_v1::Result;
     /// async fn sample(
-    ///    client: &MigrationCenter, resource_name: &str
+    ///    client: &MigrationCenter, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_report_config()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1299,10 +1301,10 @@ impl MigrationCenter {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_migrationcenter_v1::Result;
     /// async fn sample(
-    ///    client: &MigrationCenter, resource_name: &str
+    ///    client: &MigrationCenter, name: &str
     /// ) -> Result<()> {
     ///     client.delete_report_config()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1333,7 +1335,8 @@ impl MigrationCenter {
     ///    client: &MigrationCenter, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_report()
-    ///         .set_parent(parent).set_report_id("report_id_value")
+    ///         .set_parent(parent)
+    ///         .set_report_id("report_id_value")
     ///         .set_report(
     ///             Report::new()/* set fields */
     ///         )
@@ -1353,10 +1356,10 @@ impl MigrationCenter {
     /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
     /// use google_cloud_migrationcenter_v1::Result;
     /// async fn sample(
-    ///    client: &MigrationCenter, resource_name: &str
+    ///    client: &MigrationCenter, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_report()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1407,10 +1410,10 @@ impl MigrationCenter {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_migrationcenter_v1::Result;
     /// async fn sample(
-    ///    client: &MigrationCenter, resource_name: &str
+    ///    client: &MigrationCenter, name: &str
     /// ) -> Result<()> {
     ///     client.delete_report()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }

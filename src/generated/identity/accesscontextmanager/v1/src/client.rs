@@ -164,10 +164,10 @@ impl AccessContextManager {
     /// # use google_cloud_identity_accesscontextmanager_v1::client::AccessContextManager;
     /// use google_cloud_identity_accesscontextmanager_v1::Result;
     /// async fn sample(
-    ///    client: &AccessContextManager, resource_name: &str
+    ///    client: &AccessContextManager, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_access_policy()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -280,10 +280,10 @@ impl AccessContextManager {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_identity_accesscontextmanager_v1::Result;
     /// async fn sample(
-    ///    client: &AccessContextManager, resource_name: &str
+    ///    client: &AccessContextManager, name: &str
     /// ) -> Result<()> {
     ///     client.delete_access_policy()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -328,10 +328,10 @@ impl AccessContextManager {
     /// # use google_cloud_identity_accesscontextmanager_v1::client::AccessContextManager;
     /// use google_cloud_identity_accesscontextmanager_v1::Result;
     /// async fn sample(
-    ///    client: &AccessContextManager, resource_name: &str
+    ///    client: &AccessContextManager, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_access_level()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -449,10 +449,10 @@ impl AccessContextManager {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_identity_accesscontextmanager_v1::Result;
     /// async fn sample(
-    ///    client: &AccessContextManager, resource_name: &str
+    ///    client: &AccessContextManager, name: &str
     /// ) -> Result<()> {
     ///     client.delete_access_level()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -546,10 +546,10 @@ impl AccessContextManager {
     /// # use google_cloud_identity_accesscontextmanager_v1::client::AccessContextManager;
     /// use google_cloud_identity_accesscontextmanager_v1::Result;
     /// async fn sample(
-    ///    client: &AccessContextManager, resource_name: &str
+    ///    client: &AccessContextManager, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_service_perimeter()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -674,10 +674,10 @@ impl AccessContextManager {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_identity_accesscontextmanager_v1::Result;
     /// async fn sample(
-    ///    client: &AccessContextManager, resource_name: &str
+    ///    client: &AccessContextManager, name: &str
     /// ) -> Result<()> {
     ///     client.delete_service_perimeter()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -818,10 +818,10 @@ impl AccessContextManager {
     /// # use google_cloud_identity_accesscontextmanager_v1::client::AccessContextManager;
     /// use google_cloud_identity_accesscontextmanager_v1::Result;
     /// async fn sample(
-    ///    client: &AccessContextManager, resource_name: &str
+    ///    client: &AccessContextManager, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_gcp_user_access_binding()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -944,10 +944,10 @@ impl AccessContextManager {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_identity_accesscontextmanager_v1::Result;
     /// async fn sample(
-    ///    client: &AccessContextManager, resource_name: &str
+    ///    client: &AccessContextManager, name: &str
     /// ) -> Result<()> {
     ///     client.delete_gcp_user_access_binding()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }

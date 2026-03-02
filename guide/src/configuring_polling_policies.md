@@ -53,7 +53,7 @@ For complete setup instructions for the Rust libraries, see
 ## Dependencies
 
 As it is usual with Rust, you must declare the dependency in your `Cargo.toml`
-file. We use:
+file. You can use:
 
 ```shell
 cargo add google-cloud-storage google-cloud-lro
@@ -94,15 +94,14 @@ The client library will first wait for 500ms, after the first polling attempt,
 then for 1,000ms (or 1s) for the second attempt, and sub-sequent attempts will
 wait 2s, 4s, 8s and then all attempts will wait 10s.
 
-See
-[below](#configuring-the-polling-frequency-for-all-requests-in-a-client-complete-code)
-for the complete code.
+Review the
+[complete code](#configuring-the-polling-frequency-for-all-requests-in-a-client-complete-code).
 
 ## Configuring the polling frequency for a specific request
 
-As described in the previous section. We need a type implementing the
-[PollingBackoffPolicy] trait to configure the polling frequency. We will also
-use [ExponentialBackoff] in this example:
+As described in the previous section, you need a type implementing the
+[PollingBackoffPolicy] trait to configure the polling frequency. This example
+also uses [ExponentialBackoff]:
 
 ```rust,ignore
 {{#include ../samples/tests/storage/polling_policies.rs:rpc-backoff-use}}
@@ -132,13 +131,12 @@ You can issue this request as usual. For example:
 {{#include ../samples/tests/storage/polling_policies.rs:rpc-backoff-print}}
 ```
 
-See
-[below](#configuring-the-polling-frequency-for-a-specific-request-complete-code)
-for the complete code.
+Review the
+[complete code](#configuring-the-polling-frequency-for-a-specific-request-complete-code).
 
 ## Configuring the retryable polling errors for all requests in a client
 
-To configure the retryable errors we need to use a type implementing the
+To configure the retryable errors, you need to use a type implementing the
 [PollingErrorPolicy] trait. The client libraries provide a number of them, a
 conservative choice is [Aip194Strict]:
 
@@ -177,13 +175,12 @@ The client library will only treat `UNAVAILABLE` (see [AIP-194]) as a retryable
 error, and will stop polling after 100 attempts or 300 seconds, whichever comes
 first.
 
-See
-[below](#configuring-the-retryable-polling-errors-for-all-requests-in-a-client-complete-code)
-for the complete code.
+Review the
+[complete code](#configuring-the-retryable-polling-errors-for-all-requests-in-a-client-complete-code).
 
 ## Configuring the retryable polling errors for a specific request
 
-To configure the retryable errors we need to use a type implementing the
+To configure the retryable errors, you need to use a type implementing the
 [PollingErrorPolicy] trait. The client libraries provide a number of them, a
 conservative choice is [Aip194Strict]:
 
@@ -222,9 +219,8 @@ fails:
 {{#include ../samples/tests/storage/polling_policies.rs:rpc-errors-client}}
 ```
 
-See
-[below](#configuring-the-retryable-polling-errors-for-a-specific-request-complete-code)
-for the complete code.
+Review the
+[complete code](#configuring-the-retryable-polling-errors-for-a-specific-request-complete-code).
 
 ## Configuring the polling frequency for all requests in a client: complete code
 

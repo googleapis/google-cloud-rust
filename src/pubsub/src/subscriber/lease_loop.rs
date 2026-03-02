@@ -58,6 +58,8 @@ impl LeaseLoop {
                             None => break,
                             Some(Action::Ack(ack_id)) => state.ack(ack_id),
                             Some(Action::Nack(ack_id)) => state.nack(ack_id),
+                            // TODO(#3964) - process exactly-once acks/nacks in the lease state
+                            _ => unreachable!("we do not return exactly-once handlers yet."),
                         }
                     },
                 }
@@ -314,6 +316,7 @@ mod tests {
                 assert_eq!(ack_ids, test_ids(10..30));
             }
             async fn extend(&self, _ack_ids: Vec<String>) {}
+            async fn confirmed_ack(&self, _ack_ids: Vec<String>) {}
         }
 
         let lease_loop = LeaseLoop::new(FakeLeaser, LeaseOptions::default());

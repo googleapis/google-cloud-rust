@@ -28,7 +28,7 @@ The functions to delete or list resources almost always have the same interface.
 ## Audience
 
 This guide is intended for Rust developers who are familiar with the language
-and the Rust ecosystem. We will assume you know how to use Rust and its
+and the Rust ecosystem. This guide assumes you know how to use Rust and its
 supporting toolchain.
 
 At the risk of being repetitive, most of the guides do not assume you have used
@@ -49,7 +49,7 @@ are looking for.
 
 ## Reporting bugs
 
-We welcome bugs about the client libraries or their documentation. Please use
+Bug reports about the client libraries or their documentation are welcome. Use
 [GitHub Issues](https://github.com/googleapis/google-cloud-rust/issues).
 
 ## License

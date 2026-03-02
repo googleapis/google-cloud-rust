@@ -214,10 +214,10 @@ impl GkeHub {
     /// # use google_cloud_gkehub_v1::client::GkeHub;
     /// use google_cloud_gkehub_v1::Result;
     /// async fn sample(
-    ///    client: &GkeHub, resource_name: &str
+    ///    client: &GkeHub, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_membership()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -234,10 +234,10 @@ impl GkeHub {
     /// # use google_cloud_gkehub_v1::client::GkeHub;
     /// use google_cloud_gkehub_v1::Result;
     /// async fn sample(
-    ///    client: &GkeHub, resource_name: &str
+    ///    client: &GkeHub, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_feature()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -273,7 +273,8 @@ impl GkeHub {
     ///    client: &GkeHub, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_membership()
-    ///         .set_parent(parent).set_membership_id("membership_id_value")
+    ///         .set_parent(parent)
+    ///         .set_membership_id("membership_id_value")
     ///         .set_resource(
     ///             Membership::new()/* set fields */
     ///         )
@@ -308,7 +309,8 @@ impl GkeHub {
     ///    client: &GkeHub, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_feature()
-    ///         .set_parent(parent).set_feature_id("feature_id_value")
+    ///         .set_parent(parent)
+    ///         .set_feature_id("feature_id_value")
     ///         .set_resource(
     ///             Feature::new()/* set fields */
     ///         )
@@ -343,10 +345,10 @@ impl GkeHub {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_gkehub_v1::Result;
     /// async fn sample(
-    ///    client: &GkeHub, resource_name: &str
+    ///    client: &GkeHub, name: &str
     /// ) -> Result<()> {
     ///     client.delete_membership()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -373,10 +375,10 @@ impl GkeHub {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_gkehub_v1::Result;
     /// async fn sample(
-    ///    client: &GkeHub, resource_name: &str
+    ///    client: &GkeHub, name: &str
     /// ) -> Result<()> {
     ///     client.delete_feature()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -524,10 +526,10 @@ impl GkeHub {
     /// # use google_cloud_gkehub_v1::client::GkeHub;
     /// use google_cloud_gkehub_v1::Result;
     /// async fn sample(
-    ///    client: &GkeHub, resource_name: &str
+    ///    client: &GkeHub, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_fleet()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -592,10 +594,10 @@ impl GkeHub {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_gkehub_v1::Result;
     /// async fn sample(
-    ///    client: &GkeHub, resource_name: &str
+    ///    client: &GkeHub, name: &str
     /// ) -> Result<()> {
     ///     client.delete_fleet()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -635,10 +637,10 @@ impl GkeHub {
     /// # use google_cloud_gkehub_v1::client::GkeHub;
     /// use google_cloud_gkehub_v1::Result;
     /// async fn sample(
-    ///    client: &GkeHub, resource_name: &str
+    ///    client: &GkeHub, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_scope_namespace()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -738,10 +740,10 @@ impl GkeHub {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_gkehub_v1::Result;
     /// async fn sample(
-    ///    client: &GkeHub, resource_name: &str
+    ///    client: &GkeHub, name: &str
     /// ) -> Result<()> {
     ///     client.delete_scope_namespace()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -780,10 +782,10 @@ impl GkeHub {
     /// # use google_cloud_gkehub_v1::client::GkeHub;
     /// use google_cloud_gkehub_v1::Result;
     /// async fn sample(
-    ///    client: &GkeHub, resource_name: &str
+    ///    client: &GkeHub, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_scope_rbac_role_binding()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -887,10 +889,10 @@ impl GkeHub {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_gkehub_v1::Result;
     /// async fn sample(
-    ///    client: &GkeHub, resource_name: &str
+    ///    client: &GkeHub, name: &str
     /// ) -> Result<()> {
     ///     client.delete_scope_rbac_role_binding()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -933,10 +935,10 @@ impl GkeHub {
     /// # use google_cloud_gkehub_v1::client::GkeHub;
     /// use google_cloud_gkehub_v1::Result;
     /// async fn sample(
-    ///    client: &GkeHub, resource_name: &str
+    ///    client: &GkeHub, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_scope()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -968,7 +970,8 @@ impl GkeHub {
     ///    client: &GkeHub, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_scope()
-    ///         .set_parent(parent).set_scope_id("scope_id_value")
+    ///         .set_parent(parent)
+    ///         .set_scope_id("scope_id_value")
     ///         .set_scope(
     ///             Scope::new()/* set fields */
     ///         )
@@ -1036,10 +1039,10 @@ impl GkeHub {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_gkehub_v1::Result;
     /// async fn sample(
-    ///    client: &GkeHub, resource_name: &str
+    ///    client: &GkeHub, name: &str
     /// ) -> Result<()> {
     ///     client.delete_scope()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1101,10 +1104,10 @@ impl GkeHub {
     /// # use google_cloud_gkehub_v1::client::GkeHub;
     /// use google_cloud_gkehub_v1::Result;
     /// async fn sample(
-    ///    client: &GkeHub, resource_name: &str
+    ///    client: &GkeHub, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_membership_binding()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1204,10 +1207,10 @@ impl GkeHub {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_gkehub_v1::Result;
     /// async fn sample(
-    ///    client: &GkeHub, resource_name: &str
+    ///    client: &GkeHub, name: &str
     /// ) -> Result<()> {
     ///     client.delete_membership_binding()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }
@@ -1246,10 +1249,10 @@ impl GkeHub {
     /// # use google_cloud_gkehub_v1::client::GkeHub;
     /// use google_cloud_gkehub_v1::Result;
     /// async fn sample(
-    ///    client: &GkeHub, resource_name: &str
+    ///    client: &GkeHub, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_membership_rbac_role_binding()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -1355,10 +1358,10 @@ impl GkeHub {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_gkehub_v1::Result;
     /// async fn sample(
-    ///    client: &GkeHub, resource_name: &str
+    ///    client: &GkeHub, name: &str
     /// ) -> Result<()> {
     ///     client.delete_membership_rbac_role_binding()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }

@@ -182,10 +182,10 @@ impl AutoscalingPolicyService {
     /// # use google_cloud_dataproc_v1::client::AutoscalingPolicyService;
     /// use google_cloud_dataproc_v1::Result;
     /// async fn sample(
-    ///    client: &AutoscalingPolicyService, resource_name: &str
+    ///    client: &AutoscalingPolicyService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_autoscaling_policy()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -230,10 +230,10 @@ impl AutoscalingPolicyService {
     /// # use google_cloud_dataproc_v1::client::AutoscalingPolicyService;
     /// use google_cloud_dataproc_v1::Result;
     /// async fn sample(
-    ///    client: &AutoscalingPolicyService, resource_name: &str
+    ///    client: &AutoscalingPolicyService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_autoscaling_policy()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -531,7 +531,8 @@ impl BatchController {
     ///    client: &BatchController, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_batch()
-    ///         .set_parent(parent).set_batch_id("batch_id_value")
+    ///         .set_parent(parent)
+    ///         .set_batch_id("batch_id_value")
     ///         .set_batch(
     ///             Batch::new()/* set fields */
     ///         )
@@ -551,10 +552,10 @@ impl BatchController {
     /// # use google_cloud_dataproc_v1::client::BatchController;
     /// use google_cloud_dataproc_v1::Result;
     /// async fn sample(
-    ///    client: &BatchController, resource_name: &str
+    ///    client: &BatchController, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_batch()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -595,10 +596,10 @@ impl BatchController {
     /// # use google_cloud_dataproc_v1::client::BatchController;
     /// use google_cloud_dataproc_v1::Result;
     /// async fn sample(
-    ///    client: &BatchController, resource_name: &str
+    ///    client: &BatchController, name: &str
     /// ) -> Result<()> {
     ///     client.delete_batch()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -1893,10 +1894,10 @@ impl NodeGroupController {
     /// # use google_cloud_dataproc_v1::client::NodeGroupController;
     /// use google_cloud_dataproc_v1::Result;
     /// async fn sample(
-    ///    client: &NodeGroupController, resource_name: &str
+    ///    client: &NodeGroupController, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_node_group()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -2231,10 +2232,10 @@ impl SessionTemplateController {
     /// # use google_cloud_dataproc_v1::client::SessionTemplateController;
     /// use google_cloud_dataproc_v1::Result;
     /// async fn sample(
-    ///    client: &SessionTemplateController, resource_name: &str
+    ///    client: &SessionTemplateController, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_session_template()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -2278,10 +2279,10 @@ impl SessionTemplateController {
     /// # use google_cloud_dataproc_v1::client::SessionTemplateController;
     /// use google_cloud_dataproc_v1::Result;
     /// async fn sample(
-    ///    client: &SessionTemplateController, resource_name: &str
+    ///    client: &SessionTemplateController, name: &str
     /// ) -> Result<()> {
     ///     client.delete_session_template()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }
@@ -2580,7 +2581,8 @@ impl SessionController {
     ///    client: &SessionController, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_session()
-    ///         .set_parent(parent).set_session_id("session_id_value")
+    ///         .set_parent(parent)
+    ///         .set_session_id("session_id_value")
     ///         .set_session(
     ///             Session::new()/* set fields */
     ///         )
@@ -2600,10 +2602,10 @@ impl SessionController {
     /// # use google_cloud_dataproc_v1::client::SessionController;
     /// use google_cloud_dataproc_v1::Result;
     /// async fn sample(
-    ///    client: &SessionController, resource_name: &str
+    ///    client: &SessionController, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_session()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -2686,10 +2688,10 @@ impl SessionController {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_dataproc_v1::Result;
     /// async fn sample(
-    ///    client: &SessionController, resource_name: &str
+    ///    client: &SessionController, name: &str
     /// ) -> Result<()> {
     ///     let response = client.delete_session()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -3000,10 +3002,10 @@ impl WorkflowTemplateService {
     /// # use google_cloud_dataproc_v1::client::WorkflowTemplateService;
     /// use google_cloud_dataproc_v1::Result;
     /// async fn sample(
-    ///    client: &WorkflowTemplateService, resource_name: &str
+    ///    client: &WorkflowTemplateService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_workflow_template()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -3195,10 +3197,10 @@ impl WorkflowTemplateService {
     /// # use google_cloud_dataproc_v1::client::WorkflowTemplateService;
     /// use google_cloud_dataproc_v1::Result;
     /// async fn sample(
-    ///    client: &WorkflowTemplateService, resource_name: &str
+    ///    client: &WorkflowTemplateService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_workflow_template()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }

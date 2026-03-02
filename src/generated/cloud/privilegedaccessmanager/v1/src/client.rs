@@ -218,10 +218,10 @@ impl PrivilegedAccessManager {
     /// # use google_cloud_privilegedaccessmanager_v1::client::PrivilegedAccessManager;
     /// use google_cloud_privilegedaccessmanager_v1::Result;
     /// async fn sample(
-    ///    client: &PrivilegedAccessManager, resource_name: &str
+    ///    client: &PrivilegedAccessManager, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_entitlement()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -254,7 +254,8 @@ impl PrivilegedAccessManager {
     ///    client: &PrivilegedAccessManager, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_entitlement()
-    ///         .set_parent(parent).set_entitlement_id("entitlement_id_value")
+    ///         .set_parent(parent)
+    ///         .set_entitlement_id("entitlement_id_value")
     ///         .set_entitlement(
     ///             Entitlement::new()/* set fields */
     ///         )
@@ -289,10 +290,10 @@ impl PrivilegedAccessManager {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_privilegedaccessmanager_v1::Result;
     /// async fn sample(
-    ///    client: &PrivilegedAccessManager, resource_name: &str
+    ///    client: &PrivilegedAccessManager, name: &str
     /// ) -> Result<()> {
     ///     let response = client.delete_entitlement()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -416,10 +417,10 @@ impl PrivilegedAccessManager {
     /// # use google_cloud_privilegedaccessmanager_v1::client::PrivilegedAccessManager;
     /// use google_cloud_privilegedaccessmanager_v1::Result;
     /// async fn sample(
-    ///    client: &PrivilegedAccessManager, resource_name: &str
+    ///    client: &PrivilegedAccessManager, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_grant()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())

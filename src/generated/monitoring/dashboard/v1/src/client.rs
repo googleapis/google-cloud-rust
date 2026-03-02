@@ -187,10 +187,10 @@ impl DashboardsService {
     /// # use google_cloud_monitoring_dashboard_v1::client::DashboardsService;
     /// use google_cloud_monitoring_dashboard_v1::Result;
     /// async fn sample(
-    ///    client: &DashboardsService, resource_name: &str
+    ///    client: &DashboardsService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_dashboard()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -211,10 +211,10 @@ impl DashboardsService {
     /// # use google_cloud_monitoring_dashboard_v1::client::DashboardsService;
     /// use google_cloud_monitoring_dashboard_v1::Result;
     /// async fn sample(
-    ///    client: &DashboardsService, resource_name: &str
+    ///    client: &DashboardsService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_dashboard()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     Ok(())
     /// }

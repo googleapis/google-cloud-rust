@@ -143,7 +143,8 @@ impl VpcAccessService {
     ///    client: &VpcAccessService, parent: &str
     /// ) -> Result<()> {
     ///     let response = client.create_connector()
-    ///         .set_parent(parent).set_connector_id("connector_id_value")
+    ///         .set_parent(parent)
+    ///         .set_connector_id("connector_id_value")
     ///         .set_connector(
     ///             Connector::new()/* set fields */
     ///         )
@@ -164,10 +165,10 @@ impl VpcAccessService {
     /// # use google_cloud_vpcaccess_v1::client::VpcAccessService;
     /// use google_cloud_vpcaccess_v1::Result;
     /// async fn sample(
-    ///    client: &VpcAccessService, resource_name: &str
+    ///    client: &VpcAccessService, name: &str
     /// ) -> Result<()> {
     ///     let response = client.get_connector()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .send().await?;
     ///     println!("response {:?}", response);
     ///     Ok(())
@@ -219,10 +220,10 @@ impl VpcAccessService {
     /// use google_cloud_lro::Poller;
     /// use google_cloud_vpcaccess_v1::Result;
     /// async fn sample(
-    ///    client: &VpcAccessService, resource_name: &str
+    ///    client: &VpcAccessService, name: &str
     /// ) -> Result<()> {
     ///     client.delete_connector()
-    ///         .set_name(resource_name)
+    ///         .set_name(name)
     ///         .poller().until_done().await?;
     ///     Ok(())
     /// }

@@ -19,7 +19,41 @@
 //! **not** recommend that you use this crate in production. We welcome feedback
 //! about the APIs, documentation, missing features, bugs, etc.
 //!
-//! This crate contains traits, types, and functions to interact with
-//! [Spanner].
-//!
-//! [spanner]: https://cloud.google.com/spanner
+
+pub use google_cloud_gax::Result;
+pub use google_cloud_gax::error::Error;
+
+pub(crate) use google_cloud_gax::client_builder::Result as ClientBuilderResult;
+pub(crate) use google_cloud_gax::options::RequestOptions;
+pub(crate) use google_cloud_gax::options::internal::RequestBuilder;
+pub(crate) use google_cloud_gax::response::Response;
+
+pub mod client;
+pub mod builder {}
+pub mod model {
+    pub use crate::generated::gapic_dataplane::model::*;
+}
+
+mod status;
+
+#[allow(dead_code)]
+#[allow(rustdoc::broken_intra_doc_links)]
+#[allow(rustdoc::private_intra_doc_links)]
+pub(crate) mod generated;
+
+#[allow(dead_code)]
+pub(crate) mod google {
+    pub mod api {
+        include!("generated/protos/spanner/google.api.rs");
+    }
+    pub mod rpc {
+        include!("generated/protos/spanner/google.rpc.rs");
+    }
+    #[allow(clippy::enum_variant_names)]
+    pub mod spanner {
+        pub mod v1 {
+            include!("generated/protos/spanner/google.spanner.v1.rs");
+            include!("generated/convert/spanner/convert.rs");
+        }
+    }
+}
