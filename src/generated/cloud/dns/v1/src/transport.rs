@@ -1971,6 +1971,10 @@ impl super::stub::ResourceRecordSets for ResourceRecordSets {
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
+                    .filter
+                    .iter()
+                    .fold(builder, |builder, p| builder.query(&[("filter", p)]));
+                let builder = req
                     .max_results
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("maxResults", p)]));

@@ -1328,6 +1328,7 @@ impl Job {
     /// assert!(x.delete_object().is_none());
     /// assert!(x.put_metadata().is_none());
     /// assert!(x.rewrite_object().is_none());
+    /// assert!(x.update_object_custom_context().is_none());
     /// ```
     pub fn set_put_object_hold<
         T: std::convert::Into<std::boxed::Box<crate::model::PutObjectHold>>,
@@ -1368,6 +1369,7 @@ impl Job {
     /// assert!(x.put_object_hold().is_none());
     /// assert!(x.put_metadata().is_none());
     /// assert!(x.rewrite_object().is_none());
+    /// assert!(x.update_object_custom_context().is_none());
     /// ```
     pub fn set_delete_object<T: std::convert::Into<std::boxed::Box<crate::model::DeleteObject>>>(
         mut self,
@@ -1404,6 +1406,7 @@ impl Job {
     /// assert!(x.put_object_hold().is_none());
     /// assert!(x.delete_object().is_none());
     /// assert!(x.rewrite_object().is_none());
+    /// assert!(x.update_object_custom_context().is_none());
     /// ```
     pub fn set_put_metadata<T: std::convert::Into<std::boxed::Box<crate::model::PutMetadata>>>(
         mut self,
@@ -1442,6 +1445,7 @@ impl Job {
     /// assert!(x.put_object_hold().is_none());
     /// assert!(x.delete_object().is_none());
     /// assert!(x.put_metadata().is_none());
+    /// assert!(x.update_object_custom_context().is_none());
     /// ```
     pub fn set_rewrite_object<
         T: std::convert::Into<std::boxed::Box<crate::model::RewriteObject>>,
@@ -1451,6 +1455,50 @@ impl Job {
     ) -> Self {
         self.transformation =
             std::option::Option::Some(crate::model::job::Transformation::RewriteObject(v.into()));
+        self
+    }
+
+    /// The value of [transformation][crate::model::Job::transformation]
+    /// if it holds a `UpdateObjectCustomContext`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn update_object_custom_context(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::UpdateObjectCustomContext>> {
+        #[allow(unreachable_patterns)]
+        self.transformation.as_ref().and_then(|v| match v {
+            crate::model::job::Transformation::UpdateObjectCustomContext(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [transformation][crate::model::Job::transformation]
+    /// to hold a `UpdateObjectCustomContext`.
+    ///
+    /// Note that all the setters affecting `transformation` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storagebatchoperations_v1::model::Job;
+    /// use google_cloud_storagebatchoperations_v1::model::UpdateObjectCustomContext;
+    /// let x = Job::new().set_update_object_custom_context(UpdateObjectCustomContext::default()/* use setters */);
+    /// assert!(x.update_object_custom_context().is_some());
+    /// assert!(x.put_object_hold().is_none());
+    /// assert!(x.delete_object().is_none());
+    /// assert!(x.put_metadata().is_none());
+    /// assert!(x.rewrite_object().is_none());
+    /// ```
+    pub fn set_update_object_custom_context<
+        T: std::convert::Into<std::boxed::Box<crate::model::UpdateObjectCustomContext>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.transformation = std::option::Option::Some(
+            crate::model::job::Transformation::UpdateObjectCustomContext(v.into()),
+        );
         self
     }
 }
@@ -1641,6 +1689,8 @@ pub mod job {
         PutMetadata(std::boxed::Box<crate::model::PutMetadata>),
         /// Rewrite the object and updates metadata like KMS key.
         RewriteObject(std::boxed::Box<crate::model::RewriteObject>),
+        /// Update object custom context.
+        UpdateObjectCustomContext(std::boxed::Box<crate::model::UpdateObjectCustomContext>),
     }
 }
 
@@ -2035,6 +2085,7 @@ impl BucketOperation {
     /// assert!(x.delete_object().is_none());
     /// assert!(x.put_metadata().is_none());
     /// assert!(x.rewrite_object().is_none());
+    /// assert!(x.update_object_custom_context().is_none());
     /// ```
     pub fn set_put_object_hold<
         T: std::convert::Into<std::boxed::Box<crate::model::PutObjectHold>>,
@@ -2078,6 +2129,7 @@ impl BucketOperation {
     /// assert!(x.put_object_hold().is_none());
     /// assert!(x.put_metadata().is_none());
     /// assert!(x.rewrite_object().is_none());
+    /// assert!(x.update_object_custom_context().is_none());
     /// ```
     pub fn set_delete_object<T: std::convert::Into<std::boxed::Box<crate::model::DeleteObject>>>(
         mut self,
@@ -2117,6 +2169,7 @@ impl BucketOperation {
     /// assert!(x.put_object_hold().is_none());
     /// assert!(x.delete_object().is_none());
     /// assert!(x.rewrite_object().is_none());
+    /// assert!(x.update_object_custom_context().is_none());
     /// ```
     pub fn set_put_metadata<T: std::convert::Into<std::boxed::Box<crate::model::PutMetadata>>>(
         mut self,
@@ -2158,6 +2211,7 @@ impl BucketOperation {
     /// assert!(x.put_object_hold().is_none());
     /// assert!(x.delete_object().is_none());
     /// assert!(x.put_metadata().is_none());
+    /// assert!(x.update_object_custom_context().is_none());
     /// ```
     pub fn set_rewrite_object<
         T: std::convert::Into<std::boxed::Box<crate::model::RewriteObject>>,
@@ -2167,6 +2221,50 @@ impl BucketOperation {
     ) -> Self {
         self.transformation = std::option::Option::Some(
             crate::model::bucket_operation::Transformation::RewriteObject(v.into()),
+        );
+        self
+    }
+
+    /// The value of [transformation][crate::model::BucketOperation::transformation]
+    /// if it holds a `UpdateObjectCustomContext`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn update_object_custom_context(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::UpdateObjectCustomContext>> {
+        #[allow(unreachable_patterns)]
+        self.transformation.as_ref().and_then(|v| match v {
+            crate::model::bucket_operation::Transformation::UpdateObjectCustomContext(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [transformation][crate::model::BucketOperation::transformation]
+    /// to hold a `UpdateObjectCustomContext`.
+    ///
+    /// Note that all the setters affecting `transformation` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storagebatchoperations_v1::model::BucketOperation;
+    /// use google_cloud_storagebatchoperations_v1::model::UpdateObjectCustomContext;
+    /// let x = BucketOperation::new().set_update_object_custom_context(UpdateObjectCustomContext::default()/* use setters */);
+    /// assert!(x.update_object_custom_context().is_some());
+    /// assert!(x.put_object_hold().is_none());
+    /// assert!(x.delete_object().is_none());
+    /// assert!(x.put_metadata().is_none());
+    /// assert!(x.rewrite_object().is_none());
+    /// ```
+    pub fn set_update_object_custom_context<
+        T: std::convert::Into<std::boxed::Box<crate::model::UpdateObjectCustomContext>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.transformation = std::option::Option::Some(
+            crate::model::bucket_operation::Transformation::UpdateObjectCustomContext(v.into()),
         );
         self
     }
@@ -2360,6 +2458,8 @@ pub mod bucket_operation {
         PutMetadata(std::boxed::Box<crate::model::PutMetadata>),
         /// Rewrite the object and updates metadata like KMS key.
         RewriteObject(std::boxed::Box<crate::model::RewriteObject>),
+        /// Update object custom context.
+        UpdateObjectCustomContext(std::boxed::Box<crate::model::UpdateObjectCustomContext>),
     }
 }
 
@@ -3504,6 +3604,264 @@ impl PutMetadata {
 impl wkt::message::Message for PutMetadata {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.storagebatchoperations.v1.PutMetadata"
+    }
+}
+
+/// Describes the payload of a user defined object custom context.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ObjectCustomContextPayload {
+    /// The value of the object custom context.
+    /// If set, `value` must NOT be an empty string since it is a required field in
+    /// custom context. If unset, `value` will be ignored and no changes will be
+    /// made to the `value` field of the custom context payload.
+    pub value: std::option::Option<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ObjectCustomContextPayload {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [value][crate::model::ObjectCustomContextPayload::value].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storagebatchoperations_v1::model::ObjectCustomContextPayload;
+    /// let x = ObjectCustomContextPayload::new().set_value("example");
+    /// ```
+    pub fn set_value<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.value = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [value][crate::model::ObjectCustomContextPayload::value].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storagebatchoperations_v1::model::ObjectCustomContextPayload;
+    /// let x = ObjectCustomContextPayload::new().set_or_clear_value(Some("example"));
+    /// let x = ObjectCustomContextPayload::new().set_or_clear_value(None::<String>);
+    /// ```
+    pub fn set_or_clear_value<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.value = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for ObjectCustomContextPayload {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.storagebatchoperations.v1.ObjectCustomContextPayload"
+    }
+}
+
+/// Describes a collection of updates to apply to custom contexts identified
+/// by key.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CustomContextUpdates {
+    /// Optional. Insert or update the existing custom contexts.
+    pub updates:
+        std::collections::HashMap<std::string::String, crate::model::ObjectCustomContextPayload>,
+
+    /// Optional. Custom contexts to clear by key.
+    /// A key cannot be present in both `updates` and `keys_to_clear`.
+    pub keys_to_clear: std::vec::Vec<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CustomContextUpdates {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [updates][crate::model::CustomContextUpdates::updates].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storagebatchoperations_v1::model::CustomContextUpdates;
+    /// use google_cloud_storagebatchoperations_v1::model::ObjectCustomContextPayload;
+    /// let x = CustomContextUpdates::new().set_updates([
+    ///     ("key0", ObjectCustomContextPayload::default()/* use setters */),
+    ///     ("key1", ObjectCustomContextPayload::default()/* use (different) setters */),
+    /// ]);
+    /// ```
+    pub fn set_updates<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<crate::model::ObjectCustomContextPayload>,
+    {
+        use std::iter::Iterator;
+        self.updates = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [keys_to_clear][crate::model::CustomContextUpdates::keys_to_clear].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storagebatchoperations_v1::model::CustomContextUpdates;
+    /// let x = CustomContextUpdates::new().set_keys_to_clear(["a", "b", "c"]);
+    /// ```
+    pub fn set_keys_to_clear<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.keys_to_clear = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for CustomContextUpdates {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.storagebatchoperations.v1.CustomContextUpdates"
+    }
+}
+
+/// Describes options to update object custom contexts.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UpdateObjectCustomContext {
+    /// One of the actions must be set.
+    pub action: std::option::Option<crate::model::update_object_custom_context::Action>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateObjectCustomContext {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [action][crate::model::UpdateObjectCustomContext::action].
+    ///
+    /// Note that all the setters affecting `action` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storagebatchoperations_v1::model::UpdateObjectCustomContext;
+    /// use google_cloud_storagebatchoperations_v1::model::update_object_custom_context::Action;
+    /// let x = UpdateObjectCustomContext::new().set_action(Some(Action::ClearAll(true)));
+    /// ```
+    pub fn set_action<
+        T: std::convert::Into<std::option::Option<crate::model::update_object_custom_context::Action>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.action = v.into();
+        self
+    }
+
+    /// The value of [action][crate::model::UpdateObjectCustomContext::action]
+    /// if it holds a `CustomContextUpdates`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn custom_context_updates(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::CustomContextUpdates>> {
+        #[allow(unreachable_patterns)]
+        self.action.as_ref().and_then(|v| match v {
+            crate::model::update_object_custom_context::Action::CustomContextUpdates(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [action][crate::model::UpdateObjectCustomContext::action]
+    /// to hold a `CustomContextUpdates`.
+    ///
+    /// Note that all the setters affecting `action` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storagebatchoperations_v1::model::UpdateObjectCustomContext;
+    /// use google_cloud_storagebatchoperations_v1::model::CustomContextUpdates;
+    /// let x = UpdateObjectCustomContext::new().set_custom_context_updates(CustomContextUpdates::default()/* use setters */);
+    /// assert!(x.custom_context_updates().is_some());
+    /// assert!(x.clear_all().is_none());
+    /// ```
+    pub fn set_custom_context_updates<
+        T: std::convert::Into<std::boxed::Box<crate::model::CustomContextUpdates>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.action = std::option::Option::Some(
+            crate::model::update_object_custom_context::Action::CustomContextUpdates(v.into()),
+        );
+        self
+    }
+
+    /// The value of [action][crate::model::UpdateObjectCustomContext::action]
+    /// if it holds a `ClearAll`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn clear_all(&self) -> std::option::Option<&bool> {
+        #[allow(unreachable_patterns)]
+        self.action.as_ref().and_then(|v| match v {
+            crate::model::update_object_custom_context::Action::ClearAll(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [action][crate::model::UpdateObjectCustomContext::action]
+    /// to hold a `ClearAll`.
+    ///
+    /// Note that all the setters affecting `action` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_storagebatchoperations_v1::model::UpdateObjectCustomContext;
+    /// let x = UpdateObjectCustomContext::new().set_clear_all(true);
+    /// assert!(x.clear_all().is_some());
+    /// assert!(x.custom_context_updates().is_none());
+    /// ```
+    pub fn set_clear_all<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.action = std::option::Option::Some(
+            crate::model::update_object_custom_context::Action::ClearAll(v.into()),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateObjectCustomContext {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.storagebatchoperations.v1.UpdateObjectCustomContext"
+    }
+}
+
+/// Defines additional types related to [UpdateObjectCustomContext].
+pub mod update_object_custom_context {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// One of the actions must be set.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Action {
+        /// A collection of updates to apply to specific custom contexts.
+        /// Use this to add, update or delete individual contexts by key.
+        CustomContextUpdates(std::boxed::Box<crate::model::CustomContextUpdates>),
+        /// If set, must be set to true and all existing object custom contexts will
+        /// be deleted.
+        ClearAll(bool),
     }
 }
 
