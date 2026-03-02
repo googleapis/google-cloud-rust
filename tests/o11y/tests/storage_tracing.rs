@@ -1,4 +1,4 @@
-// Copyright 2025 Google LLC
+// Copyright 2026 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -13,21 +13,9 @@
 // limitations under the License.
 
 #[cfg(google_cloud_unstable_tracing)]
-use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
-
-#[cfg(google_cloud_unstable_tracing)]
-pub mod auth;
-#[cfg(google_cloud_unstable_tracing)]
-pub mod detector;
-#[cfg(google_cloud_unstable_tracing)]
-pub mod e2e;
-#[cfg(google_cloud_unstable_tracing)]
-pub mod http_tracing;
-#[cfg(google_cloud_unstable_tracing)]
-pub mod mock_collector;
-#[cfg(google_cloud_unstable_tracing)]
-pub mod otlp;
-#[cfg(google_cloud_unstable_tracing)]
-pub mod storage_tracing;
-#[cfg(google_cloud_unstable_tracing)]
-pub mod tracing;
+mod storage_tracing {
+    #[tokio::test]
+    async fn success_testlayer() -> anyhow::Result<()> {
+        integration_tests_o11y::storage_tracing::success_testlayer().await
+    }
+}

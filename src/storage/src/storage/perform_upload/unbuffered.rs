@@ -18,13 +18,10 @@ use super::{
     handle_object_response, v1,
 };
 use futures::stream::unfold;
-use gaxi::{
-    attempt_info::AttemptInfo,
-    http::{
-        HttpRequestBuilder,
-        reqwest::{Body, HeaderValue, Method, multipart},
-    },
-};
+use gaxi::attempt_info::AttemptInfo;
+use gaxi::http::HttpRequestBuilder;
+use gaxi::http::reqwest::{Body, HeaderValue, Method, multipart};
+use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt, ResourceName};
 use std::sync::Arc;
 
 impl<S> PerformUpload<S>
@@ -89,7 +86,7 @@ where
                 ResumableUploadStatus::Partial(offset) => (offset, upload_url),
             }
         } else {
-            let upload_url = self.start_resumable_upload_attempt().await?;
+            let upload_url = self.start_resumable_upload_attempt(attempt_count).await?;
             (0_u64, url.insert(upload_url).as_str())
         };
 
@@ -118,10 +115,17 @@ where
             .await
             .map_err(Error::ser)?;
         let payload = self.payload_to_body().await?;
+        let options = self
+            .options
+            .gax()
+            .insert_extension(PathTemplate("/upload/storage/v1/b/{bucket}/o"))
+            .insert_extension(ResourceName(format!(
+                "//storage.googleapis.com/{}",
+                self.resource().bucket
+            )));
         let builder = builder.body(payload);
-        let response = builder
-            .send(self.options.gax(), AttemptInfo::new(attempt_count))
-            .await?;
+        // TODO(#4862) - maybe this should also use attempt_count ?
+        let response = builder.send(options, AttemptInfo::new(0)).await?;
         let object = self::handle_object_response(response).await?;
         self.validate_response_object(object).await
     }
@@ -154,7 +158,14 @@ where
 
     async fn single_shot_attempt(&self, hint: SizeHint, attempt_count: u32) -> Result<Object> {
         let builder = self.single_shot_builder(hint).await?;
-        let options = self.options.gax();
+        let options = self
+            .options
+            .gax()
+            .insert_extension(PathTemplate("/upload/storage/v1/b/{bucket}/o"))
+            .insert_extension(ResourceName(format!(
+                "//storage.googleapis.com/{}",
+                self.resource().bucket
+            )));
         let response = builder
             .send(options, AttemptInfo::new(attempt_count))
             .await?;
