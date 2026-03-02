@@ -702,6 +702,31 @@ impl std::fmt::Debug for super::IpMasqueradingSkippedInfo {
     }
 }
 
+impl std::fmt::Debug for super::GkeNetworkPolicyInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GkeNetworkPolicyInfo");
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("uri", &self.uri);
+        debug_struct.field("direction", &self.direction);
+        debug_struct.field("action", &self.action);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GkeNetworkPolicySkippedInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GkeNetworkPolicySkippedInfo");
+        debug_struct.field("reason", &self.reason);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::CloudSQLInstanceInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CloudSQLInstanceInfo");
@@ -926,6 +951,20 @@ impl std::fmt::Debug for super::ServerlessNegInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ServerlessNegInfo");
         debug_struct.field("neg_uri", &self.neg_uri);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::NgfwPacketInspectionInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("NgfwPacketInspectionInfo");
+        debug_struct.field(
+            "security_profile_group_uri",
+            &self.security_profile_group_uri,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

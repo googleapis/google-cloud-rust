@@ -50,6 +50,7 @@ The main types to work with this crate are the clients:
 - [ReasoningEngineExecutionService]: enabled by the `reasoning-engine-execution-service` feature.
 - [ReasoningEngineService]: enabled by the `reasoning-engine-service` feature.
 - [ScheduleService]: enabled by the `schedule-service` feature.
+- [SessionService]: enabled by the `session-service` feature.
 - [SpecialistPoolService]: enabled by the `specialist-pool-service` feature.
 - [TensorboardService]: enabled by the `tensorboard-service` feature.
 - [VertexRagDataService]: enabled by the `vertex-rag-data-service` feature.
@@ -100,6 +101,7 @@ The main types to work with this crate are the clients:
 [ReasoningEngineExecutionService]: https://docs.rs/google-cloud-aiplatform-v1/1.8.0/google_cloud_aiplatform_v1/client/struct.ReasoningEngineExecutionService.html
 [ReasoningEngineService]: https://docs.rs/google-cloud-aiplatform-v1/1.8.0/google_cloud_aiplatform_v1/client/struct.ReasoningEngineService.html
 [ScheduleService]: https://docs.rs/google-cloud-aiplatform-v1/1.8.0/google_cloud_aiplatform_v1/client/struct.ScheduleService.html
+[SessionService]: https://docs.rs/google-cloud-aiplatform-v1/1.8.0/google_cloud_aiplatform_v1/client/struct.SessionService.html
 [SpecialistPoolService]: https://docs.rs/google-cloud-aiplatform-v1/1.8.0/google_cloud_aiplatform_v1/client/struct.SpecialistPoolService.html
 [TensorboardService]: https://docs.rs/google-cloud-aiplatform-v1/1.8.0/google_cloud_aiplatform_v1/client/struct.TensorboardService.html
 [VertexRagDataService]: https://docs.rs/google-cloud-aiplatform-v1/1.8.0/google_cloud_aiplatform_v1/client/struct.VertexRagDataService.html

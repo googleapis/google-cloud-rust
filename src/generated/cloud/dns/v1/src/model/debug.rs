@@ -1333,6 +1333,7 @@ impl std::fmt::Debug for super::resource_record_sets::GetRequest {
 impl std::fmt::Debug for super::resource_record_sets::ListRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("ListRequest");
+        debug_struct.field("filter", &self.filter);
         debug_struct.field("managed_zone", &self.managed_zone);
         debug_struct.field("max_results", &self.max_results);
         debug_struct.field("name", &self.name);

@@ -662,6 +662,7 @@ impl serde::ser::Serialize for super::CompletionStats {
     feature = "gen-ai-tuning-service",
     feature = "llm-utility-service",
     feature = "prediction-service",
+    feature = "session-service",
     feature = "vertex-rag-service",
 ))]
 #[doc(hidden)]
@@ -695,6 +696,7 @@ impl serde::ser::Serialize for super::Content {
     feature = "gen-ai-tuning-service",
     feature = "llm-utility-service",
     feature = "prediction-service",
+    feature = "session-service",
     feature = "vertex-rag-service",
 ))]
 #[doc(hidden)]
@@ -764,6 +766,7 @@ impl serde::ser::Serialize for super::Part {
     feature = "gen-ai-tuning-service",
     feature = "llm-utility-service",
     feature = "prediction-service",
+    feature = "session-service",
     feature = "vertex-rag-service",
 ))]
 #[doc(hidden)]
@@ -794,6 +797,7 @@ impl serde::ser::Serialize for super::part::MediaResolution {
     feature = "gen-ai-tuning-service",
     feature = "llm-utility-service",
     feature = "prediction-service",
+    feature = "session-service",
     feature = "vertex-rag-service",
 ))]
 #[doc(hidden)]
@@ -836,6 +840,7 @@ impl serde::ser::Serialize for super::Blob {
     feature = "gen-ai-tuning-service",
     feature = "llm-utility-service",
     feature = "prediction-service",
+    feature = "session-service",
     feature = "vertex-rag-service",
 ))]
 #[doc(hidden)]
@@ -869,6 +874,7 @@ impl serde::ser::Serialize for super::FileData {
     feature = "gen-ai-tuning-service",
     feature = "llm-utility-service",
     feature = "prediction-service",
+    feature = "session-service",
     feature = "vertex-rag-service",
 ))]
 #[doc(hidden)]
@@ -1826,7 +1832,7 @@ impl serde::ser::Serialize for super::logprobs_result::TopCandidates {
     }
 }
 
-#[cfg(feature = "prediction-service")]
+#[cfg(any(feature = "prediction-service", feature = "session-service",))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::Segment {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -1885,7 +1891,7 @@ impl serde::ser::Serialize for super::Segment {
     }
 }
 
-#[cfg(feature = "prediction-service")]
+#[cfg(any(feature = "prediction-service", feature = "session-service",))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::GroundingChunk {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -1914,7 +1920,7 @@ impl serde::ser::Serialize for super::GroundingChunk {
     }
 }
 
-#[cfg(feature = "prediction-service")]
+#[cfg(any(feature = "prediction-service", feature = "session-service",))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::grounding_chunk::Web {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -1940,7 +1946,7 @@ impl serde::ser::Serialize for super::grounding_chunk::Web {
     }
 }
 
-#[cfg(feature = "prediction-service")]
+#[cfg(any(feature = "prediction-service", feature = "session-service",))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::grounding_chunk::RetrievedContext {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -1975,7 +1981,7 @@ impl serde::ser::Serialize for super::grounding_chunk::RetrievedContext {
     }
 }
 
-#[cfg(feature = "prediction-service")]
+#[cfg(any(feature = "prediction-service", feature = "session-service",))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::grounding_chunk::Maps {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -2010,7 +2016,7 @@ impl serde::ser::Serialize for super::grounding_chunk::Maps {
     }
 }
 
-#[cfg(feature = "prediction-service")]
+#[cfg(any(feature = "prediction-service", feature = "session-service",))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::grounding_chunk::maps::PlaceAnswerSources {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -2033,7 +2039,7 @@ impl serde::ser::Serialize for super::grounding_chunk::maps::PlaceAnswerSources 
     }
 }
 
-#[cfg(feature = "prediction-service")]
+#[cfg(any(feature = "prediction-service", feature = "session-service",))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::grounding_chunk::maps::place_answer_sources::ReviewSnippet {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -2062,7 +2068,7 @@ impl serde::ser::Serialize for super::grounding_chunk::maps::place_answer_source
     }
 }
 
-#[cfg(feature = "prediction-service")]
+#[cfg(any(feature = "prediction-service", feature = "session-service",))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::GroundingSupport {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -2116,7 +2122,7 @@ impl serde::ser::Serialize for super::GroundingSupport {
     }
 }
 
-#[cfg(feature = "prediction-service")]
+#[cfg(any(feature = "prediction-service", feature = "session-service",))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::GroundingMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -2160,7 +2166,7 @@ impl serde::ser::Serialize for super::GroundingMetadata {
     }
 }
 
-#[cfg(feature = "prediction-service")]
+#[cfg(any(feature = "prediction-service", feature = "session-service",))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::grounding_metadata::SourceFlaggingUri {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -2186,7 +2192,7 @@ impl serde::ser::Serialize for super::grounding_metadata::SourceFlaggingUri {
     }
 }
 
-#[cfg(feature = "prediction-service")]
+#[cfg(any(feature = "prediction-service", feature = "session-service",))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::SearchEntryPoint {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -2221,7 +2227,7 @@ impl serde::ser::Serialize for super::SearchEntryPoint {
     }
 }
 
-#[cfg(feature = "prediction-service")]
+#[cfg(any(feature = "prediction-service", feature = "session-service",))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::RetrievalMetadata {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -12869,6 +12875,7 @@ impl serde::ser::Serialize for super::UpdateFeatureGroupOperationMetadata {
     feature = "reasoning-engine-execution-service",
     feature = "reasoning-engine-service",
     feature = "schedule-service",
+    feature = "session-service",
     feature = "specialist-pool-service",
     feature = "tensorboard-service",
     feature = "vertex-rag-data-service",
@@ -27629,6 +27636,7 @@ impl serde::ser::Serialize for super::Schema {
     feature = "pipeline-service",
     feature = "reasoning-engine-service",
     feature = "schedule-service",
+    feature = "session-service",
     feature = "specialist-pool-service",
     feature = "tensorboard-service",
     feature = "vertex-rag-data-service",
@@ -27679,6 +27687,7 @@ impl serde::ser::Serialize for super::GenericOperationMetadata {
     feature = "pipeline-service",
     feature = "reasoning-engine-service",
     feature = "schedule-service",
+    feature = "session-service",
     feature = "specialist-pool-service",
     feature = "tensorboard-service",
     feature = "vertex-rag-data-service",
@@ -30695,6 +30704,9 @@ impl serde::ser::Serialize for super::reasoning_engine_spec::SourceCodeSpec {
         if let Some(value) = self.python_spec() {
             state.serialize_entry("pythonSpec", value)?;
         }
+        if let Some(value) = self.image_spec() {
+            state.serialize_entry("imageSpec", value)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -30726,6 +30738,29 @@ impl serde::ser::Serialize for super::reasoning_engine_spec::source_code_spec::I
                 }
             }
             state.serialize_entry("sourceArchive", &__With(&self.source_archive))?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "reasoning-engine-service")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::reasoning_engine_spec::source_code_spec::ImageSpec {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.build_args.is_empty() {
+            state.serialize_entry("buildArgs", &self.build_args)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -31799,6 +31834,527 @@ impl serde::ser::Serialize for super::DnsPeeringConfig {
         if !self.target_network.is_empty() {
             state.serialize_entry("targetNetwork", &self.target_network)?;
         }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "session-service")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::Session {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.expire_time() {
+            state.serialize_entry("expireTime", value)?;
+        }
+        if let Some(value) = self.ttl() {
+            state.serialize_entry("ttl", value)?;
+        }
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if self.create_time.is_some() {
+            state.serialize_entry("createTime", &self.create_time)?;
+        }
+        if self.update_time.is_some() {
+            state.serialize_entry("updateTime", &self.update_time)?;
+        }
+        if !self.display_name.is_empty() {
+            state.serialize_entry("displayName", &self.display_name)?;
+        }
+        if !self.labels.is_empty() {
+            state.serialize_entry("labels", &self.labels)?;
+        }
+        if self.session_state.is_some() {
+            state.serialize_entry("sessionState", &self.session_state)?;
+        }
+        if !self.user_id.is_empty() {
+            state.serialize_entry("userId", &self.user_id)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "session-service")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::SessionEvent {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self.author.is_empty() {
+            state.serialize_entry("author", &self.author)?;
+        }
+        if self.content.is_some() {
+            state.serialize_entry("content", &self.content)?;
+        }
+        if !self.invocation_id.is_empty() {
+            state.serialize_entry("invocationId", &self.invocation_id)?;
+        }
+        if self.actions.is_some() {
+            state.serialize_entry("actions", &self.actions)?;
+        }
+        if self.timestamp.is_some() {
+            state.serialize_entry("timestamp", &self.timestamp)?;
+        }
+        if !self.error_code.is_empty() {
+            state.serialize_entry("errorCode", &self.error_code)?;
+        }
+        if !self.error_message.is_empty() {
+            state.serialize_entry("errorMessage", &self.error_message)?;
+        }
+        if self.event_metadata.is_some() {
+            state.serialize_entry("eventMetadata", &self.event_metadata)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "session-service")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::EventMetadata {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.grounding_metadata.is_some() {
+            state.serialize_entry("groundingMetadata", &self.grounding_metadata)?;
+        }
+        if !wkt::internal::is_default(&self.partial) {
+            state.serialize_entry("partial", &self.partial)?;
+        }
+        if !wkt::internal::is_default(&self.turn_complete) {
+            state.serialize_entry("turnComplete", &self.turn_complete)?;
+        }
+        if !wkt::internal::is_default(&self.interrupted) {
+            state.serialize_entry("interrupted", &self.interrupted)?;
+        }
+        if !self.long_running_tool_ids.is_empty() {
+            state.serialize_entry("longRunningToolIds", &self.long_running_tool_ids)?;
+        }
+        if !self.branch.is_empty() {
+            state.serialize_entry("branch", &self.branch)?;
+        }
+        if self.custom_metadata.is_some() {
+            state.serialize_entry("customMetadata", &self.custom_metadata)?;
+        }
+        if self.input_transcription.is_some() {
+            state.serialize_entry("inputTranscription", &self.input_transcription)?;
+        }
+        if self.output_transcription.is_some() {
+            state.serialize_entry("outputTranscription", &self.output_transcription)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "session-service")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::EventActions {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.skip_summarization) {
+            state.serialize_entry("skipSummarization", &self.skip_summarization)?;
+        }
+        if self.state_delta.is_some() {
+            state.serialize_entry("stateDelta", &self.state_delta)?;
+        }
+        if !self.artifact_delta.is_empty() {
+            struct __With<'a>(&'a std::collections::HashMap<std::string::String, i32>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::< std::collections::HashMap<serde_with::Same, wkt::internal::I32> >::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("artifactDelta", &__With(&self.artifact_delta))?;
+        }
+        if !wkt::internal::is_default(&self.escalate) {
+            state.serialize_entry("escalate", &self.escalate)?;
+        }
+        if self.requested_auth_configs.is_some() {
+            state.serialize_entry("requestedAuthConfigs", &self.requested_auth_configs)?;
+        }
+        if !self.transfer_agent.is_empty() {
+            state.serialize_entry("transferAgent", &self.transfer_agent)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "session-service")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::Transcription {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.text.is_empty() {
+            state.serialize_entry("text", &self.text)?;
+        }
+        if !wkt::internal::is_default(&self.finished) {
+            state.serialize_entry("finished", &self.finished)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "session-service")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::CreateSessionRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.parent.is_empty() {
+            state.serialize_entry("parent", &self.parent)?;
+        }
+        if self.session.is_some() {
+            state.serialize_entry("session", &self.session)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "session-service")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::CreateSessionOperationMetadata {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.generic_metadata.is_some() {
+            state.serialize_entry("genericMetadata", &self.generic_metadata)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "session-service")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::GetSessionRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "session-service")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ListSessionsRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.parent.is_empty() {
+            state.serialize_entry("parent", &self.parent)?;
+        }
+        if !wkt::internal::is_default(&self.page_size) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("pageSize", &__With(&self.page_size))?;
+        }
+        if !self.page_token.is_empty() {
+            state.serialize_entry("pageToken", &self.page_token)?;
+        }
+        if !self.filter.is_empty() {
+            state.serialize_entry("filter", &self.filter)?;
+        }
+        if !self.order_by.is_empty() {
+            state.serialize_entry("orderBy", &self.order_by)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "session-service")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ListSessionsResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.sessions.is_empty() {
+            state.serialize_entry("sessions", &self.sessions)?;
+        }
+        if !self.next_page_token.is_empty() {
+            state.serialize_entry("nextPageToken", &self.next_page_token)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "session-service")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::UpdateSessionRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.session.is_some() {
+            state.serialize_entry("session", &self.session)?;
+        }
+        if self.update_mask.is_some() {
+            state.serialize_entry("updateMask", &self.update_mask)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "session-service")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::DeleteSessionRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "session-service")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ListEventsRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.parent.is_empty() {
+            state.serialize_entry("parent", &self.parent)?;
+        }
+        if !wkt::internal::is_default(&self.page_size) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("pageSize", &__With(&self.page_size))?;
+        }
+        if !self.page_token.is_empty() {
+            state.serialize_entry("pageToken", &self.page_token)?;
+        }
+        if !self.filter.is_empty() {
+            state.serialize_entry("filter", &self.filter)?;
+        }
+        if !self.order_by.is_empty() {
+            state.serialize_entry("orderBy", &self.order_by)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "session-service")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ListEventsResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.session_events.is_empty() {
+            state.serialize_entry("sessionEvents", &self.session_events)?;
+        }
+        if !self.next_page_token.is_empty() {
+            state.serialize_entry("nextPageToken", &self.next_page_token)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "session-service")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::AppendEventRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if self.event.is_some() {
+            state.serialize_entry("event", &self.event)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "session-service")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::AppendEventResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -34995,6 +35551,7 @@ impl serde::ser::Serialize for super::FunctionDeclaration {
     feature = "gen-ai-tuning-service",
     feature = "llm-utility-service",
     feature = "prediction-service",
+    feature = "session-service",
     feature = "vertex-rag-service",
 ))]
 #[doc(hidden)]
@@ -35034,6 +35591,7 @@ impl serde::ser::Serialize for super::FunctionCall {
     feature = "gen-ai-tuning-service",
     feature = "llm-utility-service",
     feature = "prediction-service",
+    feature = "session-service",
     feature = "vertex-rag-service",
 ))]
 #[doc(hidden)]
@@ -35088,6 +35646,7 @@ impl serde::ser::Serialize for super::PartialArg {
     feature = "gen-ai-tuning-service",
     feature = "llm-utility-service",
     feature = "prediction-service",
+    feature = "session-service",
     feature = "vertex-rag-service",
 ))]
 #[doc(hidden)]
@@ -35121,6 +35680,7 @@ impl serde::ser::Serialize for super::FunctionResponsePart {
     feature = "gen-ai-tuning-service",
     feature = "llm-utility-service",
     feature = "prediction-service",
+    feature = "session-service",
     feature = "vertex-rag-service",
 ))]
 #[doc(hidden)]
@@ -35166,6 +35726,7 @@ impl serde::ser::Serialize for super::FunctionResponseBlob {
     feature = "gen-ai-tuning-service",
     feature = "llm-utility-service",
     feature = "prediction-service",
+    feature = "session-service",
     feature = "vertex-rag-service",
 ))]
 #[doc(hidden)]
@@ -35202,6 +35763,7 @@ impl serde::ser::Serialize for super::FunctionResponseFileData {
     feature = "gen-ai-tuning-service",
     feature = "llm-utility-service",
     feature = "prediction-service",
+    feature = "session-service",
     feature = "vertex-rag-service",
 ))]
 #[doc(hidden)]
@@ -35238,6 +35800,7 @@ impl serde::ser::Serialize for super::FunctionResponse {
     feature = "gen-ai-tuning-service",
     feature = "llm-utility-service",
     feature = "prediction-service",
+    feature = "session-service",
     feature = "vertex-rag-service",
 ))]
 #[doc(hidden)]
@@ -35271,6 +35834,7 @@ impl serde::ser::Serialize for super::ExecutableCode {
     feature = "gen-ai-tuning-service",
     feature = "llm-utility-service",
     feature = "prediction-service",
+    feature = "session-service",
     feature = "vertex-rag-service",
 ))]
 #[doc(hidden)]
@@ -37801,7 +38365,11 @@ impl serde::ser::Serialize for super::RagFile {
     }
 }
 
-#[cfg(any(feature = "prediction-service", feature = "vertex-rag-service",))]
+#[cfg(any(
+    feature = "prediction-service",
+    feature = "session-service",
+    feature = "vertex-rag-service",
+))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::RagChunk {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -37827,7 +38395,11 @@ impl serde::ser::Serialize for super::RagChunk {
     }
 }
 
-#[cfg(any(feature = "prediction-service", feature = "vertex-rag-service",))]
+#[cfg(any(
+    feature = "prediction-service",
+    feature = "session-service",
+    feature = "vertex-rag-service",
+))]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::rag_chunk::PageSpan {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
