@@ -107,6 +107,13 @@ impl Handler {
             Handler::AtLeastOnce(h) => h.ack(),
         }
     }
+
+    #[cfg(test)]
+    pub(crate) fn ack_id(&self) -> &str {
+        match self {
+            Handler::AtLeastOnce(h) => h.ack_id(),
+        }
+    }
 }
 
 #[derive(Debug)]
