@@ -14,11 +14,12 @@
 
 use crate::google::spanner::v1::BatchWriteResponse;
 use crate::google::spanner::v1::PartialResultSet;
+use gaxi::grpc::from_status::to_gax_error;
 use gaxi::grpc::tonic::Streaming;
 
 /// Representation for the `ExecuteStreamingSql` RPC stream.
 #[derive(Debug)]
-pub struct PartialResultSetStream {
+pub(crate) struct PartialResultSetStream {
     pub(crate) inner: Streaming<crate::google::spanner::v1::PartialResultSet>,
 }
 
@@ -31,24 +32,14 @@ impl PartialResultSetStream {
     ///
     /// Returns `Some(Ok(PartialResultSet))` when a message is successfully received,
     /// `None` when the stream concludes naturally, or `Some(Err(_))` on RPC errors.
-    pub async fn next_message(&mut self) -> Option<crate::Result<PartialResultSet>> {
-        self.inner
-            .message()
-            .await
-            .map_err(|e| {
-                crate::Error::service(
-                    google_cloud_gax::error::rpc::Status::default()
-                        .set_code(e.code() as i32)
-                        .set_message(e.message()),
-                )
-            })
-            .transpose()
+    pub(crate) async fn next_message(&mut self) -> Option<crate::Result<PartialResultSet>> {
+        self.inner.message().await.map_err(to_gax_error).transpose()
     }
 }
 
 /// Representation for the `BatchWrite` RPC stream.
 #[derive(Debug)]
-pub struct BatchWriteStream {
+pub(crate) struct BatchWriteStream {
     pub(crate) inner: Streaming<crate::google::spanner::v1::BatchWriteResponse>,
 }
 
@@ -61,17 +52,7 @@ impl BatchWriteStream {
     ///
     /// Returns `Some(Ok(BatchWriteResponse))` when a message is successfully received,
     /// `None` when the stream concludes naturally, or `Some(Err(_))` on RPC errors.
-    pub async fn next_message(&mut self) -> Option<crate::Result<BatchWriteResponse>> {
-        self.inner
-            .message()
-            .await
-            .map_err(|e| {
-                crate::Error::service(
-                    google_cloud_gax::error::rpc::Status::default()
-                        .set_code(e.code() as i32)
-                        .set_message(e.message()),
-                )
-            })
-            .transpose()
+    pub(crate) async fn next_message(&mut self) -> Option<crate::Result<BatchWriteResponse>> {
+        self.inner.message().await.map_err(to_gax_error).transpose()
     }
 }

@@ -27,7 +27,7 @@ use prost::Message;
 
 /// The request builder for [SpannerImpl::execute_streaming_sql][crate::client::SpannerImpl::execute_streaming_sql] calls.
 #[derive(Clone, Debug)]
-pub struct ExecuteStreamingSql {
+pub(crate) struct ExecuteStreamingSql {
     grpc_client: gaxi::grpc::Client,
     request: ExecuteSqlRequest,
     options: crate::RequestOptions,
@@ -43,19 +43,19 @@ impl ExecuteStreamingSql {
     }
 
     /// Sets the full request, replacing any prior values.
-    pub fn with_request<V: Into<ExecuteSqlRequest>>(mut self, v: V) -> Self {
+    pub(crate) fn with_request<V: Into<ExecuteSqlRequest>>(mut self, v: V) -> Self {
         self.request = v.into();
         self
     }
 
     /// Sets all the options, replacing any prior values.
-    pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+    pub(crate) fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
         self.options = v.into();
         self
     }
 
     /// Start the server streaming request and receive the stream.
-    pub async fn send(self) -> Result<PartialResultSetStream> {
+    pub(crate) async fn send(self) -> Result<PartialResultSetStream> {
         let session = self.request.session.clone();
         let request = self.request.to_proto().map_err(Error::deser)?;
         let stream = make_server_streaming_request(
@@ -64,7 +64,7 @@ impl ExecuteStreamingSql {
             self.options,
             "ExecuteStreamingSql",
             "/google.spanner.v1.Spanner/ExecuteStreamingSql",
-            Some(&session),
+            &session,
         )
         .await?;
         Ok(PartialResultSetStream::new(stream.into_inner()))
@@ -79,7 +79,7 @@ impl crate::RequestBuilder for ExecuteStreamingSql {
 
 /// The request builder for [SpannerImpl::streaming_read][crate::client::SpannerImpl::streaming_read] calls.
 #[derive(Clone, Debug)]
-pub struct StreamingRead {
+pub(crate) struct StreamingRead {
     grpc_client: gaxi::grpc::Client,
     request: ReadRequest,
     options: crate::RequestOptions,
@@ -95,19 +95,19 @@ impl StreamingRead {
     }
 
     /// Sets the full request, replacing any prior values.
-    pub fn with_request<V: Into<ReadRequest>>(mut self, v: V) -> Self {
+    pub(crate) fn with_request<V: Into<ReadRequest>>(mut self, v: V) -> Self {
         self.request = v.into();
         self
     }
 
     /// Sets all the options, replacing any prior values.
-    pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+    pub(crate) fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
         self.options = v.into();
         self
     }
 
     /// Start the server streaming request and receive the stream.
-    pub async fn send(self) -> Result<PartialResultSetStream> {
+    pub(crate) async fn send(self) -> Result<PartialResultSetStream> {
         let session = self.request.session.clone();
         let request = self.request.to_proto().map_err(Error::deser)?;
         let stream = make_server_streaming_request(
@@ -116,7 +116,7 @@ impl StreamingRead {
             self.options,
             "StreamingRead",
             "/google.spanner.v1.Spanner/StreamingRead",
-            Some(&session),
+            &session,
         )
         .await?;
         Ok(PartialResultSetStream::new(stream.into_inner()))
@@ -131,7 +131,7 @@ impl crate::RequestBuilder for StreamingRead {
 
 /// The request builder for [SpannerImpl::batch_write][crate::client::SpannerImpl::batch_write] calls.
 #[derive(Clone, Debug)]
-pub struct BatchWrite {
+pub(crate) struct BatchWrite {
     grpc_client: gaxi::grpc::Client,
     request: BatchWriteRequest,
     options: crate::RequestOptions,
@@ -147,19 +147,19 @@ impl BatchWrite {
     }
 
     /// Sets the full request, replacing any prior values.
-    pub fn with_request<V: Into<BatchWriteRequest>>(mut self, v: V) -> Self {
+    pub(crate) fn with_request<V: Into<BatchWriteRequest>>(mut self, v: V) -> Self {
         self.request = v.into();
         self
     }
 
     /// Sets all the options, replacing any prior values.
-    pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+    pub(crate) fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
         self.options = v.into();
         self
     }
 
     /// Start the server streaming request and receive the stream.
-    pub async fn send(self) -> Result<BatchWriteStream> {
+    pub(crate) async fn send(self) -> Result<BatchWriteStream> {
         let session = self.request.session.clone();
         let request = self.request.to_proto().map_err(Error::deser)?;
         let stream = make_server_streaming_request(
@@ -168,7 +168,7 @@ impl BatchWrite {
             self.options,
             "BatchWrite",
             "/google.spanner.v1.Spanner/BatchWrite",
-            Some(&session),
+            &session,
         )
         .await?;
         Ok(BatchWriteStream::new(stream.into_inner()))
@@ -181,13 +181,24 @@ impl crate::RequestBuilder for BatchWrite {
     }
 }
 
+lazy_static::lazy_static! {
+    static ref X_GOOG_API_CLIENT_HEADER: String = {
+        let ac = gaxi::api_header::XGoogApiClient {
+            name: env!("CARGO_PKG_NAME"),
+            version: env!("CARGO_PKG_VERSION"),
+            library_type: gaxi::api_header::GCCL,
+        };
+        ac.grpc_header_value()
+    };
+}
+
 async fn make_server_streaming_request<Req, Res>(
     grpc_client: &gaxi::grpc::Client,
     request: Req,
     options: crate::RequestOptions,
     method_name: &'static str,
     path_str: &'static str,
-    session: Option<&str>,
+    session: &str,
 ) -> Result<tonic::Response<tonic::Streaming<Res>>>
 where
     Req: Message + Default + Clone + 'static,
@@ -200,17 +211,7 @@ where
         e
     };
     let path = http::uri::PathAndQuery::from_static(path_str);
-    let x_goog_request_params = [session.map(|v| format!("session={v}"))]
-        .into_iter()
-        .flatten()
-        .fold(String::new(), |b, p| b + "&" + &p);
-
-    let ac = gaxi::api_header::XGoogApiClient {
-        name: env!("CARGO_PKG_NAME"),
-        version: env!("CARGO_PKG_VERSION"),
-        library_type: gaxi::api_header::GAPIC,
-    };
-    let api_client_header = Box::leak(ac.grpc_header_value().into_boxed_str());
+    let x_goog_request_params = format!("session={session}");
 
     grpc_client
         .server_streaming(
@@ -218,7 +219,7 @@ where
             path,
             request,
             options,
-            api_client_header,
+            &X_GOOG_API_CLIENT_HEADER,
             &x_goog_request_params,
         )
         .await

@@ -12,11 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::server_streaming::builder;
-
 use crate::generated::gapic_dataplane::client::Spanner as GapicSpanner;
+use crate::server_streaming::builder;
 use gaxi::options::{ClientConfig, Credentials};
-use std::sync::Arc;
 
 /// A client for the [Spanner] API.
 ///
@@ -25,7 +23,7 @@ use std::sync::Arc;
 /// [Spanner]: https://docs.cloud.google.com/spanner/docs
 #[derive(Clone, Debug)]
 pub struct Spanner {
-    inner: Arc<GapicSpanner>,
+    inner: GapicSpanner,
     grpc_client: Option<gaxi::grpc::Client>,
 }
 
@@ -48,7 +46,7 @@ impl google_cloud_gax::client_builder::internal::ClientFactory for Factory {
             GapicSpanner::from_stub(transport)
         };
         Ok(Spanner {
-            inner: Arc::new(inner),
+            inner,
             grpc_client: Some(grpc_client),
         })
     }
@@ -74,7 +72,7 @@ impl Spanner {
         // This method is primarily for testing and doesn't fully initialize grpc_client.
         // For production use, prefer `Spanner::builder().build()`.
         Self {
-            inner: Arc::new(GapicSpanner::from_stub(stub)),
+            inner: GapicSpanner::from_stub(stub),
             grpc_client: None,
         }
     }
@@ -174,7 +172,7 @@ impl Spanner {
     ///
     /// This is a custom streaming implementation over the underlying Spanner gRPC
     /// transport, since streaming responses are not yet auto-generated here.
-    pub fn execute_streaming_sql(
+    pub(crate) fn execute_streaming_sql(
         &self,
         request: crate::model::ExecuteSqlRequest,
         options: crate::RequestOptions,
@@ -192,7 +190,7 @@ impl Spanner {
     ///
     /// This is a custom streaming implementation over the underlying Spanner gRPC
     /// transport, since streaming responses are not yet auto-generated here.
-    pub fn streaming_read(
+    pub(crate) fn streaming_read(
         &self,
         request: crate::model::ReadRequest,
         options: crate::RequestOptions,
@@ -206,7 +204,7 @@ impl Spanner {
             .with_options(options)
     }
 
-    pub fn batch_write(
+    pub(crate) fn batch_write(
         &self,
         request: crate::model::BatchWriteRequest,
         options: crate::RequestOptions,
@@ -688,5 +686,46 @@ mod tests {
         let result = stream.next_message().await;
         assert!(result.is_some());
         assert!(result.unwrap().is_ok());
+    }
+
+    #[tokio::test]
+    async fn test_execute_streaming_sql_error() {
+        use crate::model::ExecuteSqlRequest;
+
+        let mut mock = MockSpanner::new();
+        mock.expect_execute_streaming_sql().once().returning(|_| {
+            Ok(gaxi::grpc::tonic::Response::new(Box::pin(
+                tokio_stream::iter(vec![Err(gaxi::grpc::tonic::Status::internal(
+                    "unexpected internal error",
+                ))]),
+            )))
+        });
+
+        let (address, _server) = start("0.0.0.0:0", mock)
+            .await
+            .expect("Failed to start mock server");
+        let client = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await
+            .expect("Failed to build client");
+
+        let mut req = ExecuteSqlRequest::new();
+        req.sql = "SELECT 1".to_string();
+
+        let mut stream = client
+            .execute_streaming_sql(req, crate::RequestOptions::default())
+            .send()
+            .await
+            .expect("Failed to call execute_streaming_sql");
+
+        let result = stream.next_message().await;
+        assert!(result.is_some());
+        let err = result.unwrap().expect_err("expected error");
+        assert_eq!(
+            err.status().unwrap().code,
+            google_cloud_gax::error::rpc::Code::Internal
+        );
     }
 }
