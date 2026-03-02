@@ -480,8 +480,9 @@ mod tests {
         drop(response_tx);
 
         for i in 1..7 {
-            let (m, Handler::AtLeastOnce(h)) =
-                stream.next().await.transpose()?.expect("message {i}/6");
+            let Some((m, h)) = stream.next().await.transpose()? else {
+                anyhow::bail!("expected message {i}/6")
+            };
             assert_eq!(m.data, test_data(i));
             assert_eq!(h.ack_id(), test_id(i));
             h.ack();
@@ -610,7 +611,7 @@ mod tests {
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
         let mut stream = client.stream("projects/p/subscriptions/s").build();
-        let (m, Handler::AtLeastOnce(h)) = stream
+        let (m, h) = stream
             .next()
             .await
             .transpose()?
@@ -641,8 +642,9 @@ mod tests {
         for i in 1..7 {
             response_tx.send(Ok(test_response(i..i + 1))).await?;
 
-            let (m, Handler::AtLeastOnce(h)) =
-                stream.next().await.transpose()?.expect("message {i}/6");
+            let Some((m, h)) = stream.next().await.transpose()? else {
+                anyhow::bail!("expected message {i}/6")
+            };
             assert_eq!(m.data, test_data(i));
             assert_eq!(h.ack_id(), test_id(i));
         }
@@ -671,8 +673,9 @@ mod tests {
         drop(response_tx);
 
         for i in 1..3 {
-            let (m, Handler::AtLeastOnce(h)) =
-                stream.next().await.transpose()?.expect("message {i}/2");
+            let Some((m, h)) = stream.next().await.transpose()? else {
+                anyhow::bail!("expected message {i}/2")
+            };
             assert_eq!(m.data, test_data(i));
             assert_eq!(h.ack_id(), test_id(i));
         }
@@ -719,8 +722,9 @@ mod tests {
 
         let mut handlers = Vec::new();
         for i in 1..7 {
-            let (m, Handler::AtLeastOnce(h)) =
-                stream.next().await.transpose()?.expect("message {i}/6");
+            let Some((m, h)) = stream.next().await.transpose()? else {
+                anyhow::bail!("expected message {i}/6")
+            };
             assert_eq!(m.data, test_data(i));
             assert_eq!(h.ack_id(), test_id(i));
             handlers.push(h);
@@ -763,8 +767,9 @@ mod tests {
         drop(response_tx);
 
         for i in 1..4 {
-            let (m, Handler::AtLeastOnce(h)) =
-                stream.next().await.transpose()?.expect("message {i}/3");
+            let Some((m, h)) = stream.next().await.transpose()? else {
+                anyhow::bail!("expected message {i}/3")
+            };
             assert_eq!(m.data, test_data(i));
             assert_eq!(h.ack_id(), test_id(i));
         }
