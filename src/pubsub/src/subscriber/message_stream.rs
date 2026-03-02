@@ -221,8 +221,18 @@ impl MessageStream {
 
     /// Reads the next response from the stream.
     ///
-    /// If we receive an error reading from the stream, we return it.
+    /// If necessary, this method will open a new stream.
+    ///
+    /// If we receive an error either opening or reading from the stream, we
+    /// return it.
     async fn next_response(&mut self) -> Option<Result<StreamingPullResponse>> {
+        if self.stream.is_none() {
+            // Open the stream, if necessary.
+            if let Err(e) = self.open_stream().await {
+                return Some(Err(e));
+            }
+        }
+
         let stream = match self.stream.as_mut()? {
             StreamState::Failed => return None,
             StreamState::Active(s) => s,
@@ -244,13 +254,6 @@ impl MessageStream {
     ///
     /// If we receive an error reading from the stream, we return it.
     async fn populate_pool(&mut self) -> Option<Result<()>> {
-        if self.stream.is_none() {
-            // (Re)open the stream, if necessary.
-            if let Err(e) = self.open_stream().await {
-                return Some(Err(e));
-            }
-        }
-
         // Read the next response from the stream.
         let resp = match self.next_response().await? {
             Ok(resp) => resp,
