@@ -54,11 +54,6 @@ pub(super) enum Action {
 
 /// A handler for acknowledging or rejecting messages.
 ///
-/// To acknowledge (ack) a message, you call [`Handler::ack()`].
-///
-/// To reject (nack) a message, you [`drop()`][Drop::drop] the handler. The
-/// message will be redelivered.
-///
 /// # Example
 ///
 /// ```
@@ -79,11 +74,40 @@ pub(super) enum Action {
 ///   # panic!()
 /// }
 /// ```
+///
+/// To acknowledge (ack) a message, you call [`Handler::ack()`].
+///
+/// To reject (nack) a message, you [`drop()`][Drop::drop] the handler. The
+/// service will redeliver the message.
+///
+/// ## Exactly-once delivery
+///
+/// If your subscription has [exactly-once delivery] enabled, you need to
+/// destructure this enum into its [`Handler::ExactlyOnce`] branch.
+///
+/// Only when `ExactlyOnce::confirmed_ack()` returns `Ok` can you be certain
+/// that the message will not be redelivered.
+///
+/// [exactly-once delivery]: https://docs.cloud.google.com/pubsub/docs/exactly-once-delivery
+///
+/// ```no_rust
+/// use google_cloud_pubsub::model::Message;
+/// # use google_cloud_pubsub::subscriber::handler::Handler;
+/// async fn on_message(m: Message, h: Handler) {
+///   let Handler::ExactlyOnce(h) = h else {
+///     panic!("Oops, my subscription does not have exactly-once delivery enabled.")
+///   };
+///   match h.confirmed_ack().await {
+///     Ok(()) => println!("Confirmed ack for message={m:?}. The message will not be redelivered.")
+///     Err(e) => println!("Failed to confirm ack for message={m:?} with error={e:?}"),
+///   }
+/// }
+/// ```
 #[derive(Debug)]
 #[non_exhaustive]
 pub enum Handler {
     AtLeastOnce(AtLeastOnce),
-    // TODO(#3964) - support exactly once acking
+    ExactlyOnce(ExactlyOnce),
 }
 
 impl Handler {
@@ -101,10 +125,12 @@ impl Handler {
     /// ```
     ///
     /// Note that the acknowledgement is best effort. The message may still be
-    /// redelivered to this client, or another client.
+    /// redelivered to this client, or another client, even if exactly-once
+    /// delivery is enabled on the subscription.
     pub fn ack(self) {
         match self {
             Handler::AtLeastOnce(h) => h.ack(),
+            Handler::ExactlyOnce(h) => h.ack(),
         }
     }
 
@@ -112,6 +138,7 @@ impl Handler {
     pub(crate) fn ack_id(&self) -> &str {
         match self {
             Handler::AtLeastOnce(h) => h.ack_id(),
+            Handler::ExactlyOnce(h) => h.ack_id(),
         }
     }
 }
@@ -208,6 +235,14 @@ impl ExactlyOnce {
     }
 
     // TODO(#3964): add confirmed_ack()
+
+    #[cfg(test)]
+    pub(crate) fn ack_id(&self) -> &str {
+        self.inner
+            .as_ref()
+            .map(|i| i.ack_id.as_str())
+            .unwrap_or_default()
+    }
 }
 
 impl Drop for ExactlyOnce {
@@ -252,7 +287,7 @@ mod tests {
     use tokio::sync::mpsc::unbounded_channel;
 
     #[test]
-    fn handler_ack() -> anyhow::Result<()> {
+    fn handler_at_least_once_ack() -> anyhow::Result<()> {
         let (ack_tx, mut ack_rx) = unbounded_channel();
         let h = Handler::AtLeastOnce(AtLeastOnce::new(test_id(1), ack_tx));
         assert_eq!(ack_rx.try_recv(), Err(TryRecvError::Empty));
@@ -265,7 +300,7 @@ mod tests {
     }
 
     #[test]
-    fn handler_nack() -> anyhow::Result<()> {
+    fn handler_at_least_once_nack() -> anyhow::Result<()> {
         let (ack_tx, mut ack_rx) = unbounded_channel();
         let h = Handler::AtLeastOnce(AtLeastOnce::new(test_id(1), ack_tx));
         assert_eq!(ack_rx.try_recv(), Err(TryRecvError::Empty));
@@ -273,6 +308,32 @@ mod tests {
         drop(h);
         let ack = ack_rx.try_recv()?;
         assert_eq!(ack, Action::Nack(test_id(1)));
+
+        Ok(())
+    }
+
+    #[test]
+    fn handler_exactly_once_ack() -> anyhow::Result<()> {
+        let (ack_tx, mut ack_rx) = unbounded_channel();
+        let h = Handler::ExactlyOnce(ExactlyOnce::new(test_id(1), ack_tx));
+        assert_eq!(ack_rx.try_recv(), Err(TryRecvError::Empty));
+
+        h.ack();
+        let ack = ack_rx.try_recv()?;
+        assert_eq!(ack, Action::ExactlyOnceAck(test_id(1)));
+
+        Ok(())
+    }
+
+    #[test]
+    fn handler_exactly_once_nack() -> anyhow::Result<()> {
+        let (ack_tx, mut ack_rx) = unbounded_channel();
+        let h = Handler::ExactlyOnce(ExactlyOnce::new(test_id(1), ack_tx));
+        assert_eq!(ack_rx.try_recv(), Err(TryRecvError::Empty));
+
+        drop(h);
+        let ack = ack_rx.try_recv()?;
+        assert_eq!(ack, Action::ExactlyOnceNack(test_id(1)));
 
         Ok(())
     }
