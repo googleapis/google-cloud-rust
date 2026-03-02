@@ -442,7 +442,7 @@ scoped-env        = { default-features = false, version = "2.1" }
 serial_test       = { default-features = false, version = "3" }
 static_assertions = { default-features = false, version = "1.1" }
 syn               = { default-features = false, version = "2.0.117" }
-tempfile          = { default-features = false, version = "3.24" }
+tempfile          = { default-features = false, version = "3.26" }
 test-case         = { default-features = false, version = "3.3" }
 tokio-stream      = { default-features = false, version = "0.1.16" }
 tokio-test        = { default-features = false, version = "0.4" }
