@@ -20,10 +20,17 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_video_livestream_v1::client::LivestreamService;
-/// let client = LivestreamService::builder().build().await?;
-/// // use `client` to make requests to the Live Stream API.
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = LivestreamService::builder().build().await?;
+///     let parent = "parent_value";
+///     let mut list = client.list_channels()
+///         .set_parent(parent)
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
 /// # Ok(()) }
 /// ```
 ///
