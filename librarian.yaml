@@ -658,11 +658,6 @@ libraries:
   - name: google-cloud-developerconnect-v1
     version: 1.7.0
     copyright_year: "2025"
-    rust:
-      documentation_overrides:
-        - id: .google.cloud.developerconnect.v1.ArtifactConfig.google_artifact_registry
-          match: regsitry
-          replace: registry
   - name: google-cloud-devicestreaming-v1
     version: 1.6.0
     copyright_year: "2025"
