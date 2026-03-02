@@ -387,7 +387,7 @@ sha2                  = { default-features = false, version = "0.10.6" }
 thiserror             = { default-features = false, version = "2.0.12" }
 time                  = { default-features = false, version = "0.3.45" }
 tokio                 = { default-features = false, version = "1.45.1" }
-tokio-metrics         = { default-features = false, version = "0.4.8" }
+tokio-metrics         = { default-features = false, version = "0.4.9" }
 tokio-util            = { default-features = false, version = "0.7.9" }
 toml_edit             = { default-features = false, version = "0.25" }
 tracing-log           = { default-features = false, version = "0.2" }
