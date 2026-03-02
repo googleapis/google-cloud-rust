@@ -21,7 +21,7 @@ use super::retry_policy::StreamRetryPolicy;
 use super::stream::Stream;
 use super::stub::TonicStreaming as _;
 use super::transport::Transport;
-use crate::google::pubsub::v1::StreamingPullRequest;
+use crate::google::pubsub::v1::{StreamingPullRequest, StreamingPullResponse};
 use crate::model::Message;
 use crate::{Error, Result};
 use gaxi::grpc::from_status::to_gax_error;
@@ -67,7 +67,7 @@ pub struct MessageStream {
     /// of `MessageStream` is blocked on the first message being available.
     ///
     /// [^1]: <https://github.com/hyperium/tonic/issues/515>
-    stream: StreamState,
+    stream: Option<StreamState>,
 
     /// Applications ask for messages one at a time. Individual stream responses
     /// can contain multiple messages. We use `pool` to hold the extra messages
@@ -97,8 +97,9 @@ pub struct MessageStream {
 #[allow(clippy::large_enum_variant)]
 #[derive(Debug)]
 enum StreamState {
-    Unstarted,
+    /// The stream failed with a permanent error. It should not be re-opened.
     Failed,
+    /// The stream is active.
     Active(Stream<Transport>),
 }
 
@@ -136,7 +137,7 @@ impl MessageStream {
         Self {
             inner,
             initial_req,
-            stream: StreamState::Unstarted,
+            stream: None,
             pool: VecDeque::new(),
             message_tx,
             ack_tx,
@@ -178,17 +179,17 @@ impl MessageStream {
             // Note that a successful read does not necessarily mean there is a
             // message in the pool. The server occasionally sends heartbeats
             // (responses with an empty message list). Hence the loop.
-            if let Err(e) = self.read_from_stream().await? {
+            if let Err(e) = self.populate_pool().await? {
                 // Handle errors opening or reading from the stream.
                 match StreamRetryPolicy::on_midstream_error(e) {
                     RetryResult::Continue(_) => {
                         // The stream failed with a transient error. Reset the stream.
-                        self.stream = StreamState::Unstarted;
+                        self.stream = None;
                         continue;
                     }
                     RetryResult::Permanent(e) | RetryResult::Exhausted(e) => {
                         // The stream failed with a permanent error. Return the error.
-                        self.stream = StreamState::Failed;
+                        self.stream = Some(StreamState::Failed);
                         return Some(Err(e));
                     }
                 }
@@ -211,47 +212,52 @@ impl MessageStream {
         }))
     }
 
-    /// Returns a mutable reference to the underlying stream.
-    ///
-    /// If a stream is not yet open, this method opens the stream.
-    async fn mut_stream(&mut self) -> Option<Result<&mut Stream<Transport>>> {
-        if let StreamState::Unstarted = self.stream {
-            let stream =
-                Stream::<Transport>::new(self.inner.clone(), self.initial_req.clone()).await;
-            match stream {
-                Ok(s) => self.stream = StreamState::Active(s),
-                Err(e) => return Some(Err(e)),
-            }
-        }
-
-        match &mut self.stream {
-            StreamState::Unstarted => {
-                unreachable!("we must transition to Active, or return an error above.")
-            }
-            StreamState::Failed => None,
-            StreamState::Active(s) => Some(Ok(s)),
-        }
+    /// Make a new attempt to open the underlying gRPC stream.
+    async fn open_stream(&mut self) -> Result<()> {
+        let stream = Stream::<Transport>::new(self.inner.clone(), self.initial_req.clone()).await?;
+        self.stream = Some(StreamState::Active(stream));
+        Ok(())
     }
 
     /// Reads the next response from the stream.
+    ///
+    /// If we receive an error reading from the stream, we return it.
+    async fn next_response(&mut self) -> Option<Result<StreamingPullResponse>> {
+        let stream = match self.stream.as_mut()? {
+            StreamState::Failed => return None,
+            StreamState::Active(s) => s,
+        };
+        stream
+            .next_message()
+            .await
+            .map_err(to_gax_error)
+            .transpose()
+    }
+
+    /// Populate the message pool by reading from the stream.
+    ///
+    /// Read the next response from the stream. If necessary, this method will
+    /// open a new stream.
     ///
     /// If we receive a response, we store the messages in `self.pool` and
     /// forward the ack IDs to the lease management task.
     ///
     /// If we receive an error reading from the stream, we return it.
-    async fn read_from_stream(&mut self) -> Option<Result<()>> {
-        let resp = {
-            let stream = match self.mut_stream().await? {
-                Ok(s) => s,
-                Err(e) => return Some(Err(e)),
-            };
-
-            match stream.next_message().await.transpose()? {
-                Ok(resp) => resp,
-                Err(e) => return Some(Err(to_gax_error(e))),
+    async fn populate_pool(&mut self) -> Option<Result<()>> {
+        if self.stream.is_none() {
+            // (Re)open the stream, if necessary.
+            if let Err(e) = self.open_stream().await {
+                return Some(Err(e));
             }
+        }
+
+        // Read the next response from the stream.
+        let resp = match self.next_response().await? {
+            Ok(resp) => resp,
+            Err(e) => return Some(Err(e)),
         };
 
+        // Process the received messages in the response.
         for rm in resp.received_messages {
             let Some(message) = rm.message else {
                 // The message field should always be present. If not, the proto
