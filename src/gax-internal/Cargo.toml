@@ -96,6 +96,8 @@ _internal-http-stream = ["_internal-http-client", "reqwest?/stream"]
 _internal-common = ["dep:google-cloud-auth", "dep:google-cloud-gax", "dep:percent-encoding", "dep:thiserror"]
 # Enables the default rustls crypto provider for whatever client(s) are enabled.
 _default-rustls-provider = ["google-cloud-auth?/default-rustls-provider", "tonic?/tls-aws-lc"]
+# Enables the unstable server streaming functionality in the gRPC client.
+google_cloud_unstable_grpc_server_streaming = []
 
 [dependencies]
 bytes                              = { workspace = true, optional = true, features = ["serde"] }

@@ -4568,6 +4568,7 @@ dependencies = [
  "spanner-grpc-mock",
  "static_assertions",
  "tokio",
+ "tokio-stream",
  "tracing",
 ]
 
