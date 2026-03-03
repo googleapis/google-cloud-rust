@@ -22,6 +22,6 @@ pub use reqwest::Request;
 pub use reqwest::RequestBuilder;
 pub use reqwest::Response;
 pub use reqwest::StatusCode;
-pub use reqwest::header::{HeaderMap, HeaderName, HeaderValue};
+pub use reqwest::header::{HeaderMap, HeaderName, HeaderValue, USER_AGENT};
 #[cfg(feature = "_internal-http-multipart")]
 pub use reqwest::multipart;
