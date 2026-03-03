@@ -51,22 +51,6 @@ pub use google_cloud_gax::error::Error;
 #[allow(rustdoc::redundant_explicit_links)]
 pub mod stub;
 
-///
-/// # Example
-/// ```
-/// # use google_cloud_api_cloudquotas_v1::client::CloudQuotas;
-/// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = CloudQuotas::builder().build().await?;
-///     let parent = "parent_value";
-///     let mut list = client.list_quota_infos()
-///         .set_parent(parent)
-///         .by_item();
-///     while let Some(item) = list.next().await.transpose()? {
-///         println!("{:?}", item);
-///     }
-/// # Ok(()) }
-/// ```
 /// Concrete implementations of this client library traits.
 pub mod client;
 

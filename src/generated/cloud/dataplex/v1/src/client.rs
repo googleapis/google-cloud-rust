@@ -20,17 +20,10 @@
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dataplex_v1::client::BusinessGlossaryService;
-/// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = BusinessGlossaryService::builder().build().await?;
-///     let parent = "parent_value";
-///     let mut list = client.list_glossaries()
-///         .set_parent(parent)
-///         .by_item();
-///     while let Some(item) = list.next().await.transpose()? {
-///         println!("{:?}", item);
-///     }
+/// let client = BusinessGlossaryService::builder().build().await?;
+/// // use `client` to make requests to the Cloud Dataplex API.
 /// # Ok(()) }
 /// ```
 ///
@@ -713,17 +706,10 @@ impl BusinessGlossaryService {
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dataplex_v1::client::CatalogService;
-/// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = CatalogService::builder().build().await?;
-///     let parent = "parent_value";
-///     let mut list = client.list_entry_types()
-///         .set_parent(parent)
-///         .by_item();
-///     while let Some(item) = list.next().await.transpose()? {
-///         println!("{:?}", item);
-///     }
+/// let client = CatalogService::builder().build().await?;
+/// // use `client` to make requests to the Cloud Dataplex API.
 /// # Ok(()) }
 /// ```
 ///
@@ -1804,17 +1790,10 @@ impl CatalogService {
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dataplex_v1::client::CmekService;
-/// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = CmekService::builder().build().await?;
-///     let parent = "parent_value";
-///     let mut list = client.list_encryption_configs()
-///         .set_parent(parent)
-///         .by_item();
-///     while let Some(item) = list.next().await.transpose()? {
-///         println!("{:?}", item);
-///     }
+/// let client = CmekService::builder().build().await?;
+/// // use `client` to make requests to the Cloud Dataplex API.
 /// # Ok(()) }
 /// ```
 ///
@@ -2262,17 +2241,10 @@ impl CmekService {
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dataplex_v1::client::ContentService;
-/// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = ContentService::builder().build().await?;
-///     let parent = "parent_value";
-///     let mut list = client.list_content()
-///         .set_parent(parent)
-///         .by_item();
-///     while let Some(item) = list.next().await.transpose()? {
-///         println!("{:?}", item);
-///     }
+/// let client = ContentService::builder().build().await?;
+/// // use `client` to make requests to the Cloud Dataplex API.
 /// # Ok(()) }
 /// ```
 ///
@@ -2695,17 +2667,10 @@ impl ContentService {
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dataplex_v1::client::DataTaxonomyService;
-/// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = DataTaxonomyService::builder().build().await?;
-///     let parent = "parent_value";
-///     let mut list = client.list_data_taxonomies()
-///         .set_parent(parent)
-///         .by_item();
-///     while let Some(item) = list.next().await.transpose()? {
-///         println!("{:?}", item);
-///     }
+/// let client = DataTaxonomyService::builder().build().await?;
+/// // use `client` to make requests to the Cloud Dataplex API.
 /// # Ok(()) }
 /// ```
 ///
@@ -3492,17 +3457,10 @@ impl DataTaxonomyService {
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dataplex_v1::client::DataScanService;
-/// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = DataScanService::builder().build().await?;
-///     let parent = "parent_value";
-///     let mut list = client.list_data_scans()
-///         .set_parent(parent)
-///         .by_item();
-///     while let Some(item) = list.next().await.transpose()? {
-///         println!("{:?}", item);
-///     }
+/// let client = DataScanService::builder().build().await?;
+/// // use `client` to make requests to the Cloud Dataplex API.
 /// # Ok(()) }
 /// ```
 ///
@@ -4040,17 +3998,10 @@ impl DataScanService {
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dataplex_v1::client::MetadataService;
-/// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = MetadataService::builder().build().await?;
-///     let parent = "parent_value";
-///     let mut list = client.list_entities()
-///         .set_parent(parent)
-///         .by_item();
-///     while let Some(item) = list.next().await.transpose()? {
-///         println!("{:?}", item);
-///     }
+/// let client = MetadataService::builder().build().await?;
+/// // use `client` to make requests to the Cloud Dataplex API.
 /// # Ok(()) }
 /// ```
 ///
@@ -4549,17 +4500,10 @@ impl MetadataService {
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dataplex_v1::client::DataplexService;
-/// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = DataplexService::builder().build().await?;
-///     let parent = "parent_value";
-///     let mut list = client.list_lakes()
-///         .set_parent(parent)
-///         .by_item();
-///     while let Some(item) = list.next().await.transpose()? {
-///         println!("{:?}", item);
-///     }
+/// let client = DataplexService::builder().build().await?;
+/// // use `client` to make requests to the Cloud Dataplex API.
 /// # Ok(()) }
 /// ```
 ///

@@ -20,20 +20,10 @@
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_commerce_consumer_procurement_v1::client::LicenseManagementService;
-/// # extern crate wkt as google_cloud_wkt;
-/// use google_cloud_wkt::FieldMask;
-/// use google_cloud_commerce_consumer_procurement_v1::model::LicensePool;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = LicenseManagementService::builder().build().await?;
-///     let name = "name_value";
-///     let response = client.update_license_pool()
-///         .set_license_pool(
-///             LicensePool::new().set_name(name)/* set fields */
-///         )
-///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
-///         .send().await?;
-///     println!("response {:?}", response);
+/// let client = LicenseManagementService::builder().build().await?;
+/// // use `client` to make requests to the Cloud Commerce Consumer Procurement API.
 /// # Ok(()) }
 /// ```
 ///
@@ -270,17 +260,10 @@ impl LicenseManagementService {
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_commerce_consumer_procurement_v1::client::ConsumerProcurementService;
-/// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = ConsumerProcurementService::builder().build().await?;
-///     let parent = "parent_value";
-///     let mut list = client.list_orders()
-///         .set_parent(parent)
-///         .by_item();
-///     while let Some(item) = list.next().await.transpose()? {
-///         println!("{:?}", item);
-///     }
+/// let client = ConsumerProcurementService::builder().build().await?;
+/// // use `client` to make requests to the Cloud Commerce Consumer Procurement API.
 /// # Ok(()) }
 /// ```
 ///

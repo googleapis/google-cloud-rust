@@ -20,17 +20,10 @@
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_support_v2::client::CaseAttachmentService;
-/// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = CaseAttachmentService::builder().build().await?;
-///     let parent = "parent_value";
-///     let mut list = client.list_attachments()
-///         .set_parent(parent)
-///         .by_item();
-///     while let Some(item) = list.next().await.transpose()? {
-///         println!("{:?}", item);
-///     }
+/// let client = CaseAttachmentService::builder().build().await?;
+/// // use `client` to make requests to the Google Cloud Support API.
 /// # Ok(()) }
 /// ```
 ///
@@ -154,17 +147,10 @@ impl CaseAttachmentService {
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_support_v2::client::CaseService;
-/// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = CaseService::builder().build().await?;
-///     let parent = "parent_value";
-///     let mut list = client.list_cases()
-///         .set_parent(parent)
-///         .by_item();
-///     while let Some(item) = list.next().await.transpose()? {
-///         println!("{:?}", item);
-///     }
+/// let client = CaseService::builder().build().await?;
+/// // use `client` to make requests to the Google Cloud Support API.
 /// # Ok(()) }
 /// ```
 ///
@@ -468,17 +454,10 @@ impl CaseService {
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_support_v2::client::CommentService;
-/// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = CommentService::builder().build().await?;
-///     let parent = "parent_value";
-///     let mut list = client.list_comments()
-///         .set_parent(parent)
-///         .by_item();
-///     while let Some(item) = list.next().await.transpose()? {
-///         println!("{:?}", item);
-///     }
+/// let client = CommentService::builder().build().await?;
+/// // use `client` to make requests to the Google Cloud Support API.
 /// # Ok(()) }
 /// ```
 ///

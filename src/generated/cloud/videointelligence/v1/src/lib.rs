@@ -53,19 +53,6 @@ pub use google_cloud_gax::error::Error;
 #[allow(rustdoc::redundant_explicit_links)]
 pub mod stub;
 
-///
-/// # Example
-/// ```
-/// # use google_cloud_videointelligence_v1::client::VideoIntelligenceService;
-/// use google_cloud_lro::Poller;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = VideoIntelligenceService::builder().build().await?;
-///     let response = client.annotate_video()
-///         /* set fields */
-///         .poller().until_done().await?;
-///     println!("response {:?}", response);
-/// # Ok(()) }
-/// ```
 /// Concrete implementations of this client library traits.
 pub mod client;
 

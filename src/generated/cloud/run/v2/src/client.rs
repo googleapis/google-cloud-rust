@@ -20,13 +20,10 @@
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_run_v2::client::Builds;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = Builds::builder().build().await?;
-///     let response = client.submit_build()
-///         /* set fields */
-///         .send().await?;
-///     println!("response {:?}", response);
+/// let client = Builds::builder().build().await?;
+/// // use `client` to make requests to the Cloud Run Admin API.
 /// # Ok(()) }
 /// ```
 ///
@@ -236,17 +233,10 @@ impl Builds {
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_run_v2::client::Executions;
-/// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = Executions::builder().build().await?;
-///     let parent = "parent_value";
-///     let mut list = client.list_executions()
-///         .set_parent(parent)
-///         .by_item();
-///     while let Some(item) = list.next().await.transpose()? {
-///         println!("{:?}", item);
-///     }
+/// let client = Executions::builder().build().await?;
+/// // use `client` to make requests to the Cloud Run Admin API.
 /// # Ok(()) }
 /// ```
 ///
@@ -542,17 +532,10 @@ impl Executions {
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_run_v2::client::Instances;
-/// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = Instances::builder().build().await?;
-///     let parent = "parent_value";
-///     let mut list = client.list_instances()
-///         .set_parent(parent)
-///         .by_item();
-///     while let Some(item) = list.next().await.transpose()? {
-///         println!("{:?}", item);
-///     }
+/// let client = Instances::builder().build().await?;
+/// // use `client` to make requests to the Cloud Run Admin API.
 /// # Ok(()) }
 /// ```
 ///
@@ -914,17 +897,10 @@ impl Instances {
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_run_v2::client::Jobs;
-/// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = Jobs::builder().build().await?;
-///     let parent = "parent_value";
-///     let mut list = client.list_jobs()
-///         .set_parent(parent)
-///         .by_item();
-///     while let Some(item) = list.next().await.transpose()? {
-///         println!("{:?}", item);
-///     }
+/// let client = Jobs::builder().build().await?;
+/// // use `client` to make requests to the Cloud Run Admin API.
 /// # Ok(()) }
 /// ```
 ///
@@ -1353,17 +1329,10 @@ impl Jobs {
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_run_v2::client::Revisions;
-/// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = Revisions::builder().build().await?;
-///     let parent = "parent_value";
-///     let mut list = client.list_revisions()
-///         .set_parent(parent)
-///         .by_item();
-///     while let Some(item) = list.next().await.transpose()? {
-///         println!("{:?}", item);
-///     }
+/// let client = Revisions::builder().build().await?;
+/// // use `client` to make requests to the Cloud Run Admin API.
 /// # Ok(()) }
 /// ```
 ///
@@ -1628,17 +1597,10 @@ impl Revisions {
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_run_v2::client::Services;
-/// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = Services::builder().build().await?;
-///     let parent = "parent_value";
-///     let mut list = client.list_services()
-///         .set_parent(parent)
-///         .by_item();
-///     while let Some(item) = list.next().await.transpose()? {
-///         println!("{:?}", item);
-///     }
+/// let client = Services::builder().build().await?;
+/// // use `client` to make requests to the Cloud Run Admin API.
 /// # Ok(()) }
 /// ```
 ///
@@ -2041,17 +2003,10 @@ impl Services {
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_run_v2::client::Tasks;
-/// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = Tasks::builder().build().await?;
-///     let parent = "parent_value";
-///     let mut list = client.list_tasks()
-///         .set_parent(parent)
-///         .by_item();
-///     while let Some(item) = list.next().await.transpose()? {
-///         println!("{:?}", item);
-///     }
+/// let client = Tasks::builder().build().await?;
+/// // use `client` to make requests to the Cloud Run Admin API.
 /// # Ok(()) }
 /// ```
 ///
@@ -2284,17 +2239,10 @@ impl Tasks {
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_run_v2::client::WorkerPools;
-/// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = WorkerPools::builder().build().await?;
-///     let parent = "parent_value";
-///     let mut list = client.list_worker_pools()
-///         .set_parent(parent)
-///         .by_item();
-///     while let Some(item) = list.next().await.transpose()? {
-///         println!("{:?}", item);
-///     }
+/// let client = WorkerPools::builder().build().await?;
+/// // use `client` to make requests to the Cloud Run Admin API.
 /// # Ok(()) }
 /// ```
 ///

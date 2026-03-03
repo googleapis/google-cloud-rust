@@ -20,13 +20,10 @@
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_webrisk_v1::client::WebRiskService;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = WebRiskService::builder().build().await?;
-///     let response = client.compute_threat_list_diff()
-///         /* set fields */
-///         .send().await?;
-///     println!("response {:?}", response);
+/// let client = WebRiskService::builder().build().await?;
+/// // use `client` to make requests to the Web Risk API.
 /// # Ok(()) }
 /// ```
 ///

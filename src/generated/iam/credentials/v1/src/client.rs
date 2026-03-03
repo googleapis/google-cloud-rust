@@ -20,13 +20,10 @@
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_iam_credentials_v1::client::IAMCredentials;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = IAMCredentials::builder().build().await?;
-///     let response = client.generate_access_token()
-///         /* set fields */
-///         .send().await?;
-///     println!("response {:?}", response);
+/// let client = IAMCredentials::builder().build().await?;
+/// // use `client` to make requests to the IAM Service Account Credentials API.
 /// # Ok(()) }
 /// ```
 ///

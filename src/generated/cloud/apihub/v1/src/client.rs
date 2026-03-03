@@ -20,17 +20,10 @@
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_apihub_v1::client::ApiHub;
-/// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = ApiHub::builder().build().await?;
-///     let parent = "parent_value";
-///     let mut list = client.list_apis()
-///         .set_parent(parent)
-///         .by_item();
-///     while let Some(item) = list.next().await.transpose()? {
-///         println!("{:?}", item);
-///     }
+/// let client = ApiHub::builder().build().await?;
+/// // use `client` to make requests to the API hub API.
 /// # Ok(()) }
 /// ```
 ///
@@ -1361,17 +1354,10 @@ impl ApiHub {
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_apihub_v1::client::ApiHubDependencies;
-/// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = ApiHubDependencies::builder().build().await?;
-///     let parent = "parent_value";
-///     let mut list = client.list_dependencies()
-///         .set_parent(parent)
-///         .by_item();
-///     while let Some(item) = list.next().await.transpose()? {
-///         println!("{:?}", item);
-///     }
+/// let client = ApiHubDependencies::builder().build().await?;
+/// // use `client` to make requests to the API hub API.
 /// # Ok(()) }
 /// ```
 ///
@@ -1731,14 +1717,10 @@ impl ApiHubDependencies {
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_apihub_v1::client::ApiHubCollect;
-/// use google_cloud_lro::Poller;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = ApiHubCollect::builder().build().await?;
-///     let response = client.collect_api_data()
-///         /* set fields */
-///         .poller().until_done().await?;
-///     println!("response {:?}", response);
+/// let client = ApiHubCollect::builder().build().await?;
+/// // use `client` to make requests to the API hub API.
 /// # Ok(()) }
 /// ```
 ///
@@ -2003,17 +1985,10 @@ impl ApiHubCollect {
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_apihub_v1::client::ApiHubCurate;
-/// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = ApiHubCurate::builder().build().await?;
-///     let parent = "parent_value";
-///     let mut list = client.list_curations()
-///         .set_parent(parent)
-///         .by_item();
-///     while let Some(item) = list.next().await.transpose()? {
-///         println!("{:?}", item);
-///     }
+/// let client = ApiHubCurate::builder().build().await?;
+/// // use `client` to make requests to the API hub API.
 /// # Ok(()) }
 /// ```
 ///
@@ -2374,17 +2349,10 @@ impl ApiHubCurate {
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_apihub_v1::client::ApiHubDiscovery;
-/// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = ApiHubDiscovery::builder().build().await?;
-///     let parent = "parent_value";
-///     let mut list = client.list_discovered_api_observations()
-///         .set_parent(parent)
-///         .by_item();
-///     while let Some(item) = list.next().await.transpose()? {
-///         println!("{:?}", item);
-///     }
+/// let client = ApiHubDiscovery::builder().build().await?;
+/// // use `client` to make requests to the API hub API.
 /// # Ok(()) }
 /// ```
 ///
@@ -2714,17 +2682,10 @@ impl ApiHubDiscovery {
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_apihub_v1::client::HostProjectRegistrationService;
-/// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = HostProjectRegistrationService::builder().build().await?;
-///     let parent = "parent_value";
-///     let mut list = client.list_host_project_registrations()
-///         .set_parent(parent)
-///         .by_item();
-///     while let Some(item) = list.next().await.transpose()? {
-///         println!("{:?}", item);
-///     }
+/// let client = HostProjectRegistrationService::builder().build().await?;
+/// // use `client` to make requests to the API hub API.
 /// # Ok(()) }
 /// ```
 ///
@@ -3051,14 +3012,10 @@ impl HostProjectRegistrationService {
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_apihub_v1::client::LintingService;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = LintingService::builder().build().await?;
-///     let name = "name_value";
-///     let response = client.get_style_guide()
-///         .set_name(name)
-///         .send().await?;
-///     println!("response {:?}", response);
+/// let client = LintingService::builder().build().await?;
+/// // use `client` to make requests to the API hub API.
 /// # Ok(()) }
 /// ```
 ///
@@ -3379,17 +3336,10 @@ impl LintingService {
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_apihub_v1::client::ApiHubPlugin;
-/// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = ApiHubPlugin::builder().build().await?;
-///     let parent = "parent_value";
-///     let mut list = client.list_plugins()
-///         .set_parent(parent)
-///         .by_item();
-///     while let Some(item) = list.next().await.transpose()? {
-///         println!("{:?}", item);
-///     }
+/// let client = ApiHubPlugin::builder().build().await?;
+/// // use `client` to make requests to the API hub API.
 /// # Ok(()) }
 /// ```
 ///
@@ -4020,14 +3970,10 @@ impl ApiHubPlugin {
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_apihub_v1::client::Provisioning;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = Provisioning::builder().build().await?;
-///     let name = "name_value";
-///     let response = client.get_api_hub_instance()
-///         .set_name(name)
-///         .send().await?;
-///     println!("response {:?}", response);
+/// let client = Provisioning::builder().build().await?;
+/// // use `client` to make requests to the API hub API.
 /// # Ok(()) }
 /// ```
 ///
@@ -4365,17 +4311,10 @@ impl Provisioning {
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_apihub_v1::client::RuntimeProjectAttachmentService;
-/// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = RuntimeProjectAttachmentService::builder().build().await?;
-///     let parent = "parent_value";
-///     let mut list = client.list_runtime_project_attachments()
-///         .set_parent(parent)
-///         .by_item();
-///     while let Some(item) = list.next().await.transpose()? {
-///         println!("{:?}", item);
-///     }
+/// let client = RuntimeProjectAttachmentService::builder().build().await?;
+/// // use `client` to make requests to the API hub API.
 /// # Ok(()) }
 /// ```
 ///

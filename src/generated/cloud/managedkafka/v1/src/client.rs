@@ -20,17 +20,10 @@
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_managedkafka_v1::client::ManagedKafka;
-/// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = ManagedKafka::builder().build().await?;
-///     let parent = "parent_value";
-///     let mut list = client.list_clusters()
-///         .set_parent(parent)
-///         .by_item();
-///     while let Some(item) = list.next().await.transpose()? {
-///         println!("{:?}", item);
-///     }
+/// let client = ManagedKafka::builder().build().await?;
+/// // use `client` to make requests to the Managed Service for Apache Kafka API.
 /// # Ok(()) }
 /// ```
 ///
@@ -766,17 +759,10 @@ impl ManagedKafka {
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_managedkafka_v1::client::ManagedKafkaConnect;
-/// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = ManagedKafkaConnect::builder().build().await?;
-///     let parent = "parent_value";
-///     let mut list = client.list_connect_clusters()
-///         .set_parent(parent)
-///         .by_item();
-///     while let Some(item) = list.next().await.transpose()? {
-///         println!("{:?}", item);
-///     }
+/// let client = ManagedKafkaConnect::builder().build().await?;
+/// // use `client` to make requests to the Managed Service for Apache Kafka API.
 /// # Ok(()) }
 /// ```
 ///

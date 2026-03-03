@@ -20,17 +20,10 @@
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_orchestration_airflow_service_v1::client::Environments;
-/// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = Environments::builder().build().await?;
-///     let parent = "parent_value";
-///     let mut list = client.list_environments()
-///         .set_parent(parent)
-///         .by_item();
-///     while let Some(item) = list.next().await.transpose()? {
-///         println!("{:?}", item);
-///     }
+/// let client = Environments::builder().build().await?;
+/// // use `client` to make requests to the Cloud Composer API.
 /// # Ok(()) }
 /// ```
 ///
@@ -853,16 +846,10 @@ impl Environments {
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_orchestration_airflow_service_v1::client::ImageVersions;
-/// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = ImageVersions::builder().build().await?;
-///     let mut list = client.list_image_versions()
-///         /* set fields */
-///         .by_item();
-///     while let Some(item) = list.next().await.transpose()? {
-///         println!("{:?}", item);
-///     }
+/// let client = ImageVersions::builder().build().await?;
+/// // use `client` to make requests to the Cloud Composer API.
 /// # Ok(()) }
 /// ```
 ///

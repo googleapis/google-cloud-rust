@@ -20,14 +20,10 @@
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_monitoring_metricsscope_v1::client::MetricsScopes;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = MetricsScopes::builder().build().await?;
-///     let name = "name_value";
-///     let response = client.get_metrics_scope()
-///         .set_name(name)
-///         .send().await?;
-///     println!("response {:?}", response);
+/// let client = MetricsScopes::builder().build().await?;
+/// // use `client` to make requests to the Cloud Monitoring API.
 /// # Ok(()) }
 /// ```
 ///

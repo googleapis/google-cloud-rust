@@ -51,18 +51,6 @@ pub use google_cloud_gax::error::Error;
 #[allow(rustdoc::redundant_explicit_links)]
 pub mod stub;
 
-///
-/// # Example
-/// ```
-/// # use google_cloud_gkerecommender_v1::client::GkeInferenceQuickstart;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = GkeInferenceQuickstart::builder().build().await?;
-///     let response = client.fetch_models()
-///         /* set fields */
-///         .send().await?;
-///     println!("response {:?}", response);
-/// # Ok(()) }
-/// ```
 /// Concrete implementations of this client library traits.
 pub mod client;
 

@@ -53,19 +53,6 @@ pub use google_cloud_gax::error::Error;
 #[allow(rustdoc::redundant_explicit_links)]
 pub mod stub;
 
-///
-/// # Example
-/// ```
-/// # use google_cloud_iam_admin_v1::client::Iam;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = Iam::builder().build().await?;
-///     let name = "name_value";
-///     let response = client.get_service_account()
-///         .set_name(name)
-///         .send().await?;
-///     println!("response {:?}", response);
-/// # Ok(()) }
-/// ```
 /// Concrete implementations of this client library traits.
 pub mod client;
 

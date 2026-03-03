@@ -20,18 +20,10 @@
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_security_publicca_v1::client::PublicCertificateAuthorityService;
-/// use google_cloud_security_publicca_v1::model::ExternalAccountKey;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = PublicCertificateAuthorityService::builder().build().await?;
-///     let parent = "parent_value";
-///     let response = client.create_external_account_key()
-///         .set_parent(parent)
-///         .set_external_account_key(
-///             ExternalAccountKey::new()/* set fields */
-///         )
-///         .send().await?;
-///     println!("response {:?}", response);
+/// let client = PublicCertificateAuthorityService::builder().build().await?;
+/// // use `client` to make requests to the Public Certificate Authority API.
 /// # Ok(()) }
 /// ```
 ///

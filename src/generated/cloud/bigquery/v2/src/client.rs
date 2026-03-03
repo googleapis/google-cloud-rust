@@ -20,13 +20,10 @@
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_bigquery_v2::client::DatasetService;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = DatasetService::builder().build().await?;
-///     let response = client.get_dataset()
-///         /* set fields */
-///         .send().await?;
-///     println!("response {:?}", response);
+/// let client = DatasetService::builder().build().await?;
+/// // use `client` to make requests to the BigQuery API.
 /// # Ok(()) }
 /// ```
 ///
@@ -279,13 +276,10 @@ impl DatasetService {
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_bigquery_v2::client::JobService;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = JobService::builder().build().await?;
-///     let response = client.cancel_job()
-///         /* set fields */
-///         .send().await?;
-///     println!("response {:?}", response);
+/// let client = JobService::builder().build().await?;
+/// // use `client` to make requests to the BigQuery API.
 /// # Ok(()) }
 /// ```
 ///
@@ -546,13 +540,10 @@ impl JobService {
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_bigquery_v2::client::ModelService;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = ModelService::builder().build().await?;
-///     let response = client.get_model()
-///         /* set fields */
-///         .send().await?;
-///     println!("response {:?}", response);
+/// let client = ModelService::builder().build().await?;
+/// // use `client` to make requests to the BigQuery API.
 /// # Ok(()) }
 /// ```
 ///
@@ -736,13 +727,10 @@ impl ModelService {
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_bigquery_v2::client::ProjectService;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = ProjectService::builder().build().await?;
-///     let response = client.get_service_account()
-///         /* set fields */
-///         .send().await?;
-///     println!("response {:?}", response);
+/// let client = ProjectService::builder().build().await?;
+/// // use `client` to make requests to the BigQuery API.
 /// # Ok(()) }
 /// ```
 ///
@@ -863,13 +851,10 @@ impl ProjectService {
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_bigquery_v2::client::RoutineService;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = RoutineService::builder().build().await?;
-///     let response = client.get_routine()
-///         /* set fields */
-///         .send().await?;
-///     println!("response {:?}", response);
+/// let client = RoutineService::builder().build().await?;
+/// // use `client` to make requests to the BigQuery API.
 /// # Ok(()) }
 /// ```
 ///
@@ -1073,13 +1058,10 @@ impl RoutineService {
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_bigquery_v2::client::RowAccessPolicyService;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = RowAccessPolicyService::builder().build().await?;
-///     let response = client.get_row_access_policy()
-///         /* set fields */
-///         .send().await?;
-///     println!("response {:?}", response);
+/// let client = RowAccessPolicyService::builder().build().await?;
+/// // use `client` to make requests to the BigQuery API.
 /// # Ok(()) }
 /// ```
 ///
@@ -1315,13 +1297,10 @@ impl RowAccessPolicyService {
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_bigquery_v2::client::TableService;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = TableService::builder().build().await?;
-///     let response = client.get_table()
-///         /* set fields */
-///         .send().await?;
-///     println!("response {:?}", response);
+/// let client = TableService::builder().build().await?;
+/// // use `client` to make requests to the BigQuery API.
 /// # Ok(()) }
 /// ```
 ///

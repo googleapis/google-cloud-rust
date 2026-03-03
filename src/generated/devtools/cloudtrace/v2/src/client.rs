@@ -20,12 +20,10 @@
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_trace_v2::client::TraceService;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = TraceService::builder().build().await?;
-///     client.batch_write_spans()
-///         /* set fields */
-///         .send().await?;
+/// let client = TraceService::builder().build().await?;
+/// // use `client` to make requests to the Cloud Trace API.
 /// # Ok(()) }
 /// ```
 ///

@@ -20,17 +20,10 @@
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_kms_v1::client::Autokey;
-/// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = Autokey::builder().build().await?;
-///     let parent = "parent_value";
-///     let mut list = client.list_key_handles()
-///         .set_parent(parent)
-///         .by_item();
-///     while let Some(item) = list.next().await.transpose()? {
-///         println!("{:?}", item);
-///     }
+/// let client = Autokey::builder().build().await?;
+/// // use `client` to make requests to the Cloud Key Management Service (KMS) API.
 /// # Ok(()) }
 /// ```
 ///
@@ -386,14 +379,10 @@ impl Autokey {
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_kms_v1::client::AutokeyAdmin;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = AutokeyAdmin::builder().build().await?;
-///     let name = "name_value";
-///     let response = client.get_autokey_config()
-///         .set_name(name)
-///         .send().await?;
-///     println!("response {:?}", response);
+/// let client = AutokeyAdmin::builder().build().await?;
+/// // use `client` to make requests to the Cloud Key Management Service (KMS) API.
 /// # Ok(()) }
 /// ```
 ///
@@ -728,17 +717,10 @@ impl AutokeyAdmin {
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_kms_v1::client::EkmService;
-/// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = EkmService::builder().build().await?;
-///     let parent = "parent_value";
-///     let mut list = client.list_ekm_connections()
-///         .set_parent(parent)
-///         .by_item();
-///     while let Some(item) = list.next().await.transpose()? {
-///         println!("{:?}", item);
-///     }
+/// let client = EkmService::builder().build().await?;
+/// // use `client` to make requests to the Cloud Key Management Service (KMS) API.
 /// # Ok(()) }
 /// ```
 ///
@@ -1169,17 +1151,10 @@ impl EkmService {
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_kms_v1::client::HsmManagement;
-/// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = HsmManagement::builder().build().await?;
-///     let parent = "parent_value";
-///     let mut list = client.list_single_tenant_hsm_instances()
-///         .set_parent(parent)
-///         .by_item();
-///     while let Some(item) = list.next().await.transpose()? {
-///         println!("{:?}", item);
-///     }
+/// let client = HsmManagement::builder().build().await?;
+/// // use `client` to make requests to the Cloud Key Management Service (KMS) API.
 /// # Ok(()) }
 /// ```
 ///
@@ -1733,17 +1708,10 @@ impl HsmManagement {
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_kms_v1::client::KeyManagementService;
-/// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = KeyManagementService::builder().build().await?;
-///     let parent = "parent_value";
-///     let mut list = client.list_key_rings()
-///         .set_parent(parent)
-///         .by_item();
-///     while let Some(item) = list.next().await.transpose()? {
-///         println!("{:?}", item);
-///     }
+/// let client = KeyManagementService::builder().build().await?;
+/// // use `client` to make requests to the Cloud Key Management Service (KMS) API.
 /// # Ok(()) }
 /// ```
 ///

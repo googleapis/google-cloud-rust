@@ -20,17 +20,10 @@
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_resourcemanager_v3::client::Folders;
-/// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = Folders::builder().build().await?;
-///     let parent = "parent_value";
-///     let mut list = client.list_folders()
-///         .set_parent(parent)
-///         .by_item();
-///     while let Some(item) = list.next().await.transpose()? {
-///         println!("{:?}", item);
-///     }
+/// let client = Folders::builder().build().await?;
+/// // use `client` to make requests to the Cloud Resource Manager API.
 /// # Ok(()) }
 /// ```
 ///
@@ -556,14 +549,10 @@ impl Folders {
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_resourcemanager_v3::client::Organizations;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = Organizations::builder().build().await?;
-///     let name = "name_value";
-///     let response = client.get_organization()
-///         .set_name(name)
-///         .send().await?;
-///     println!("response {:?}", response);
+/// let client = Organizations::builder().build().await?;
+/// // use `client` to make requests to the Cloud Resource Manager API.
 /// # Ok(()) }
 /// ```
 ///
@@ -808,17 +797,10 @@ impl Organizations {
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_resourcemanager_v3::client::Projects;
-/// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = Projects::builder().build().await?;
-///     let parent = "parent_value";
-///     let mut list = client.list_projects()
-///         .set_parent(parent)
-///         .by_item();
-///     while let Some(item) = list.next().await.transpose()? {
-///         println!("{:?}", item);
-///     }
+/// let client = Projects::builder().build().await?;
+/// // use `client` to make requests to the Cloud Resource Manager API.
 /// # Ok(()) }
 /// ```
 ///
@@ -1357,17 +1339,10 @@ impl Projects {
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_resourcemanager_v3::client::TagBindings;
-/// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = TagBindings::builder().build().await?;
-///     let parent = "parent_value";
-///     let mut list = client.list_tag_bindings()
-///         .set_parent(parent)
-///         .by_item();
-///     while let Some(item) = list.next().await.transpose()? {
-///         println!("{:?}", item);
-///     }
+/// let client = TagBindings::builder().build().await?;
+/// // use `client` to make requests to the Cloud Resource Manager API.
 /// # Ok(()) }
 /// ```
 ///
@@ -1602,17 +1577,10 @@ impl TagBindings {
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_resourcemanager_v3::client::TagHolds;
-/// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = TagHolds::builder().build().await?;
-///     let parent = "parent_value";
-///     let mut list = client.list_tag_holds()
-///         .set_parent(parent)
-///         .by_item();
-///     while let Some(item) = list.next().await.transpose()? {
-///         println!("{:?}", item);
-///     }
+/// let client = TagHolds::builder().build().await?;
+/// // use `client` to make requests to the Cloud Resource Manager API.
 /// # Ok(()) }
 /// ```
 ///
@@ -1827,17 +1795,10 @@ impl TagHolds {
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_resourcemanager_v3::client::TagKeys;
-/// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = TagKeys::builder().build().await?;
-///     let parent = "parent_value";
-///     let mut list = client.list_tag_keys()
-///         .set_parent(parent)
-///         .by_item();
-///     while let Some(item) = list.next().await.transpose()? {
-///         println!("{:?}", item);
-///     }
+/// let client = TagKeys::builder().build().await?;
+/// // use `client` to make requests to the Cloud Resource Manager API.
 /// # Ok(()) }
 /// ```
 ///
@@ -2201,17 +2162,10 @@ impl TagKeys {
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_resourcemanager_v3::client::TagValues;
-/// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = TagValues::builder().build().await?;
-///     let parent = "parent_value";
-///     let mut list = client.list_tag_values()
-///         .set_parent(parent)
-///         .by_item();
-///     while let Some(item) = list.next().await.transpose()? {
-///         println!("{:?}", item);
-///     }
+/// let client = TagValues::builder().build().await?;
+/// // use `client` to make requests to the Cloud Resource Manager API.
 /// # Ok(()) }
 /// ```
 ///

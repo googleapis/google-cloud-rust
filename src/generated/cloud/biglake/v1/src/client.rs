@@ -20,13 +20,10 @@
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_biglake_v1::client::IcebergCatalogService;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = IcebergCatalogService::builder().build().await?;
-///     let response = client.get_iceberg_catalog_config()
-///         /* set fields */
-///         .send().await?;
-///     println!("response {:?}", response);
+/// let client = IcebergCatalogService::builder().build().await?;
+/// // use `client` to make requests to the BigLake API.
 /// # Ok(()) }
 /// ```
 ///

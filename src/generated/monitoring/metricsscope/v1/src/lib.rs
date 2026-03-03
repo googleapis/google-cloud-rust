@@ -51,19 +51,6 @@ pub use google_cloud_gax::error::Error;
 #[allow(rustdoc::redundant_explicit_links)]
 pub mod stub;
 
-///
-/// # Example
-/// ```
-/// # use google_cloud_monitoring_metricsscope_v1::client::MetricsScopes;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = MetricsScopes::builder().build().await?;
-///     let name = "name_value";
-///     let response = client.get_metrics_scope()
-///         .set_name(name)
-///         .send().await?;
-///     println!("response {:?}", response);
-/// # Ok(()) }
-/// ```
 /// Concrete implementations of this client library traits.
 pub mod client;
 

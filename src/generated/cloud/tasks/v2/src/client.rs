@@ -20,17 +20,10 @@
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_tasks_v2::client::CloudTasks;
-/// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = CloudTasks::builder().build().await?;
-///     let parent = "parent_value";
-///     let mut list = client.list_queues()
-///         .set_parent(parent)
-///         .by_item();
-///     while let Some(item) = list.next().await.transpose()? {
-///         println!("{:?}", item);
-///     }
+/// let client = CloudTasks::builder().build().await?;
+/// // use `client` to make requests to the Cloud Tasks API.
 /// # Ok(()) }
 /// ```
 ///

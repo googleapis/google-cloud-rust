@@ -20,17 +20,10 @@
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
-/// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = OracleDatabase::builder().build().await?;
-///     let parent = "parent_value";
-///     let mut list = client.list_cloud_exadata_infrastructures()
-///         .set_parent(parent)
-///         .by_item();
-///     while let Some(item) = list.next().await.transpose()? {
-///         println!("{:?}", item);
-///     }
+/// let client = OracleDatabase::builder().build().await?;
+/// // use `client` to make requests to the Oracle Database@Google Cloud API.
 /// # Ok(()) }
 /// ```
 ///
