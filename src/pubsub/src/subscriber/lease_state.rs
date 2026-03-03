@@ -68,7 +68,7 @@ pub(super) struct LeaseState<L>
 where
     L: Leaser + Clone,
 {
-    // Ack IDs with at-least-once semantics under lease managment.
+    // Ack IDs with at-least-once semantics under lease management.
     leases: Leases,
     // TODO(#3964) - support exactly once acks
 
