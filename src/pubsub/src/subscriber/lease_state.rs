@@ -12,9 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+mod at_least_once;
+
+use super::handler::Action;
 use super::leaser::Leaser;
-use std::collections::HashMap;
 // Use a `tokio::time::Instant` to facilitate time-based unit testing.
+use at_least_once::Leases;
 use tokio::time::{Duration, Instant, Interval, interval_at};
 
 // An ack ID is less than 200 bytes. The limit for a request is 512kB. It should
@@ -65,14 +68,8 @@ pub(super) struct LeaseState<L>
 where
     L: Leaser + Clone,
 {
-    // Ack IDs with at-least-once semantics that are under lease management. The
-    // `Instant` denotes the time they were received.
-    under_lease: HashMap<String, Instant>,
-    // Ack IDs we need to acknowledge with at-least-once semantics.
-    to_ack: Vec<String>,
-    // Ack IDs we need to nack. These are fire-and-forget, regardless of the
-    // delivery type.
-    to_nack: Vec<String>,
+    // Ack IDs with at-least-once semantics under lease managment.
+    leases: Leases,
     // TODO(#3964) - support exactly once acks
 
     // The leaser, which performs lease operations - (acks, nacks, lease
@@ -106,9 +103,7 @@ where
         let extend_interval =
             interval_at(Instant::now() + options.extend_start, options.extend_period);
         Self {
-            under_lease: HashMap::new(),
-            to_ack: Vec::new(),
-            to_nack: Vec::new(),
+            leases: Leases::default(),
             leaser,
             flush_interval,
             extend_interval,
@@ -124,9 +119,7 @@ where
     /// hold one mutable reference to `LeaseState` within its `select!`
     /// statement.
     pub(super) async fn next_event(&mut self) -> LeaseEvent {
-        if self.to_ack.len() >= ACK_IDS_PER_RPC || self.to_nack.len() >= ACK_IDS_PER_RPC {
-            // This is an OR because `Acknowledge` and `ModifyAckDeadline` are
-            // separate RPCs, with separate limits.
+        if self.leases.needs_flush() {
             return LeaseEvent::Flush;
         }
 
@@ -140,33 +133,34 @@ where
     pub(super) fn add(&mut self, ack_id: String, info: LeaseInfo) {
         match info {
             LeaseInfo::AtLeastOnce(i) => {
-                self.under_lease.insert(ack_id, i);
+                self.leases.add(ack_id, i);
             }
         }
     }
 
-    /// Process an ack from the application
+    // TODO(#3964) - delete, in favor of process.
     pub(super) fn ack(&mut self, ack_id: String) {
-        self.under_lease.remove(&ack_id);
-        // Unconditionally add the ack ID to the next ack batch. It doesn't hurt
-        // to optimistically add it, even if its lease has expired.
-        self.to_ack.push(ack_id);
+        self.process(Action::Ack(ack_id));
     }
 
-    /// Process a nack from the application
+    // TODO(#3964) - delete, in favor of process.
     pub(super) fn nack(&mut self, ack_id: String) {
-        if self.under_lease.remove(&ack_id).is_some() {
-            // Only add the ack ID to the nack batch if the message is under our
-            // lease. If the message's lease has already expired, we do not need
-            // to take any additional action.
-            self.to_nack.push(ack_id);
+        self.process(Action::Nack(ack_id));
+    }
+
+    /// Process an action from the application.
+    pub(super) fn process(&mut self, action: Action) {
+        match action {
+            Action::Ack(ack_id) => self.leases.ack(ack_id),
+            Action::Nack(ack_id) => self.leases.nack(ack_id),
+            // TODO(#3964) - process exactly-once acks/nacks in the lease state
+            _ => unreachable!("we do not return exactly-once handlers yet."),
         }
     }
 
     /// Flush pending acks/nacks
     pub(super) async fn flush(&mut self) {
-        let to_ack = std::mem::take(&mut self.to_ack);
-        let to_nack = std::mem::take(&mut self.to_nack);
+        let (to_ack, to_nack) = self.leases.flush();
 
         // TODO(#3975) - await these concurrently.
         if !to_ack.is_empty() {
@@ -181,29 +175,7 @@ where
     ///
     /// Drops messages whose lease deadline cannot be extended any further.
     pub(super) async fn extend(&mut self) {
-        let now = Instant::now();
-        let mut batches = Vec::new();
-        let mut batch = Vec::new();
-        self.under_lease.retain(|ack_id, receive_time| {
-            // Note that using `HashMap::retain` allows us to iterate over the
-            // map and conditionally drop elements in one pass.
-
-            if *receive_time + self.max_lease_extension < now {
-                // Drop messages that have been held for too long.
-                false
-            } else {
-                // Extend leases for all other messages.
-                batch.push(ack_id.clone());
-                if batch.len() == ACK_IDS_PER_RPC {
-                    // Flush the batch when it is full.
-                    batches.push(std::mem::take(&mut batch));
-                }
-                true
-            }
-        });
-        if !batch.is_empty() {
-            batches.push(batch);
-        }
+        let batches = self.leases.retain(self.max_lease_extension);
         for ack_ids in batches {
             // TODO(#3975) - send RPCs concurrently
             self.leaser.extend(ack_ids).await;
@@ -213,15 +185,17 @@ where
     /// Shutdown the leaser
     ///
     /// This flushes all pending acks and nacks all other messages.
-    pub(super) async fn shutdown(self) {
+    pub(super) async fn shutdown(mut self) {
+        // TODO(#4869) - support `WaitForProcessing` shutdown behavior.
+        self.leases.evict();
+
         // TODO(#3975) - await these concurrently.
-        let to_ack = self.to_ack;
+        let (to_ack, to_nack) = self.leases.flush();
         if !to_ack.is_empty() {
             self.leaser.ack(to_ack).await;
         }
 
-        let mut to_nack = self.to_nack;
-        to_nack.extend(self.under_lease.into_keys());
+        // TODO(#4847) - this nack needs to be broken into batches.
         if !to_nack.is_empty() {
             self.leaser.nack(to_nack).await;
         }
@@ -250,26 +224,10 @@ pub(super) mod tests {
     }
 
     #[derive(Debug)]
-    struct TestState {
-        under_lease: Vec<String>,
-        to_ack: Vec<String>,
-        to_nack: Vec<String>,
-    }
-
-    impl<L> PartialEq<LeaseState<L>> for TestState
-    where
-        L: Leaser + Clone,
-    {
-        fn eq(&self, state: &LeaseState<L>) -> bool {
-            let under_lease = {
-                let mut v: Vec<String> = state.under_lease.keys().cloned().collect();
-                v.sort();
-                v
-            };
-            self.under_lease == under_lease
-                && self.to_ack == state.to_ack
-                && self.to_nack == state.to_nack
-        }
+    pub(super) struct TestLeases {
+        pub(super) under_lease: Vec<String>,
+        pub(super) to_ack: Vec<String>,
+        pub(super) to_nack: Vec<String>,
     }
 
     pub(in super::super) fn test_id(v: i32) -> String {
@@ -295,92 +253,92 @@ pub(super) mod tests {
         let mock = MockLeaser::new();
         let mut state = LeaseState::new(Arc::new(mock), LeaseOptions::default());
         assert_eq!(
-            TestState {
+            TestLeases {
                 under_lease: Vec::new(),
                 to_ack: Vec::new(),
                 to_nack: Vec::new(),
             },
-            state
+            state.leases
         );
 
         state.add(test_id(1), test_info());
         assert_eq!(
-            TestState {
+            TestLeases {
                 under_lease: vec![test_id(1)],
                 to_ack: Vec::new(),
                 to_nack: Vec::new(),
             },
-            state
+            state.leases
         );
 
         state.add(test_id(2), test_info());
         assert_eq!(
-            TestState {
+            TestLeases {
                 under_lease: vec![test_id(1), test_id(2)],
                 to_ack: Vec::new(),
                 to_nack: Vec::new(),
             },
-            state
+            state.leases
         );
 
         state.add(test_id(3), test_info());
         assert_eq!(
-            TestState {
+            TestLeases {
                 under_lease: vec![test_id(1), test_id(2), test_id(3)],
                 to_ack: Vec::new(),
                 to_nack: Vec::new(),
             },
-            state
+            state.leases
         );
 
         state.ack(test_id(1));
         assert_eq!(
-            TestState {
+            TestLeases {
                 under_lease: vec![test_id(2), test_id(3)],
                 to_ack: vec![test_id(1)],
                 to_nack: Vec::new(),
             },
-            state
+            state.leases
         );
 
         state.nack(test_id(2));
         assert_eq!(
-            TestState {
+            TestLeases {
                 under_lease: vec![test_id(3)],
                 to_ack: vec![test_id(1)],
                 to_nack: vec![test_id(2)],
             },
-            state
+            state.leases
         );
 
         state.add(test_id(4), test_info());
         assert_eq!(
-            TestState {
+            TestLeases {
                 under_lease: vec![test_id(3), test_id(4)],
                 to_ack: vec![test_id(1)],
                 to_nack: vec![test_id(2)],
             },
-            state
+            state.leases
         );
 
         state.ack(test_id(4));
         assert_eq!(
-            TestState {
+            TestLeases {
                 under_lease: vec![test_id(3)],
                 to_ack: vec![test_id(1), test_id(4)],
                 to_nack: vec![test_id(2)],
             },
-            state
+            state.leases
         );
 
         state.nack(test_id(3));
         assert_eq!(
-            TestState {
+            TestLeases {
                 under_lease: Vec::new(),
                 to_ack: vec![test_id(1), test_id(4)],
                 to_nack: vec![test_id(2), test_id(3)],
             },
-            state
+            state.leases
         );
     }
 
@@ -418,22 +376,22 @@ pub(super) mod tests {
             state.nack(test_id(i));
         }
         assert_eq!(
-            TestState {
+            TestLeases {
                 under_lease: test_ids(20..100),
                 to_ack: test_ids(0..10),
                 to_nack: test_ids(10..20),
             },
-            state
+            state.leases
         );
 
         state.flush().await;
         assert_eq!(
-            TestState {
+            TestLeases {
                 under_lease: test_ids(20..100),
                 to_ack: Vec::new(),
                 to_nack: Vec::new(),
             },
-            state
+            state.leases
         );
     }
 
@@ -519,22 +477,22 @@ pub(super) mod tests {
         let mock = MockLeaser::new();
         let mut state = LeaseState::new(Arc::new(mock), LeaseOptions::default());
         assert_eq!(
-            TestState {
+            TestLeases {
                 under_lease: Vec::new(),
                 to_ack: Vec::new(),
                 to_nack: Vec::new(),
             },
-            state
+            state.leases
         );
 
         state.ack(test_id(1));
         assert_eq!(
-            TestState {
+            TestLeases {
                 under_lease: Vec::new(),
                 to_ack: vec![test_id(1)],
                 to_nack: Vec::new(),
             },
-            state
+            state.leases
         );
     }
 
@@ -543,22 +501,22 @@ pub(super) mod tests {
         let mock = MockLeaser::new();
         let mut state = LeaseState::new(Arc::new(mock), LeaseOptions::default());
         assert_eq!(
-            TestState {
+            TestLeases {
                 under_lease: Vec::new(),
                 to_ack: Vec::new(),
                 to_nack: Vec::new(),
             },
-            state
+            state.leases
         );
 
         state.nack(test_id(1));
         assert_eq!(
-            TestState {
+            TestLeases {
                 under_lease: Vec::new(),
                 to_ack: Vec::new(),
                 to_nack: Vec::new(),
             },
-            state
+            state.leases
         );
     }
 
