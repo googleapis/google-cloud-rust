@@ -25,7 +25,7 @@ use tokio::time::{Duration, Instant, Interval, interval_at};
 // be safe to fit 2500 Ack IDs in a single RPC.
 //
 // https://docs.cloud.google.com/pubsub/quotas
-const ACK_IDS_PER_RPC: usize = 2500;
+const MAX_IDS_PER_RPC: usize = 2500;
 
 pub(super) struct LeaseOptions {
     /// How often we flush acks/nacks
@@ -213,7 +213,7 @@ pub(super) mod tests {
     use tokio::time::interval;
 
     // Cover the constant, converting it to an integer for convenience.
-    const ACK_IDS_PER_RPC: i32 = super::ACK_IDS_PER_RPC as i32;
+    const MAX_IDS_PER_RPC: i32 = super::MAX_IDS_PER_RPC as i32;
 
     // Any valid `Interval` will do.
     fn test_interval() -> Interval {
@@ -571,7 +571,7 @@ pub(super) mod tests {
         let mut mock = MockLeaser::new();
         mock.expect_ack()
             .times(1)
-            .withf(|v| sorted(v) == test_ids(0..ACK_IDS_PER_RPC))
+            .withf(|v| sorted(v) == test_ids(0..MAX_IDS_PER_RPC))
             .returning(|_| ());
         let options = LeaseOptions {
             flush_start: FLUSH_START,
@@ -582,7 +582,7 @@ pub(super) mod tests {
         };
         let mut state = LeaseState::new(Arc::new(mock), options);
 
-        for i in 0..ACK_IDS_PER_RPC {
+        for i in 0..MAX_IDS_PER_RPC {
             state.add(test_id(i), test_info());
             state.ack(test_id(i));
         }
@@ -593,7 +593,7 @@ pub(super) mod tests {
 
         // With 1000 pending acks, the batch is not full. The next event should
         // occur on the interval timer.
-        for i in ACK_IDS_PER_RPC..ACK_IDS_PER_RPC + 1000 {
+        for i in MAX_IDS_PER_RPC..MAX_IDS_PER_RPC + 1000 {
             state.add(test_id(i), test_info());
             state.ack(test_id(i));
         }
@@ -610,7 +610,7 @@ pub(super) mod tests {
         let mut mock = MockLeaser::new();
         mock.expect_nack()
             .times(1)
-            .withf(|v| sorted(v) == test_ids(0..ACK_IDS_PER_RPC))
+            .withf(|v| sorted(v) == test_ids(0..MAX_IDS_PER_RPC))
             .returning(|_| ());
         let options = LeaseOptions {
             flush_start: FLUSH_START,
@@ -621,7 +621,7 @@ pub(super) mod tests {
         };
         let mut state = LeaseState::new(Arc::new(mock), options);
 
-        for i in 0..ACK_IDS_PER_RPC {
+        for i in 0..MAX_IDS_PER_RPC {
             state.add(test_id(i), test_info());
             state.nack(test_id(i));
         }
@@ -632,7 +632,7 @@ pub(super) mod tests {
 
         // With 1000 pending nacks, the batch is not full. The next event should
         // occur on the interval timer.
-        for i in ACK_IDS_PER_RPC..ACK_IDS_PER_RPC + 1000 {
+        for i in MAX_IDS_PER_RPC..MAX_IDS_PER_RPC + 1000 {
             state.add(test_id(i), test_info());
             state.nack(test_id(i));
         }
@@ -656,7 +656,7 @@ pub(super) mod tests {
         };
         let mut state = LeaseState::new(Arc::new(mock), options);
 
-        let over_half_full = ACK_IDS_PER_RPC / 2 + 100;
+        let over_half_full = MAX_IDS_PER_RPC / 2 + 100;
         for i in 0..over_half_full {
             state.add(test_id(i), test_info());
             state.ack(test_id(i));
@@ -665,7 +665,7 @@ pub(super) mod tests {
             state.nack(test_id(over_half_full + i));
         }
 
-        // While there are more than `ACK_IDS_PER_RPC` total messages under
+        // While there are more than `MAX_IDS_PER_RPC` total messages under
         // lease management, neither the ack batch nor the nack batch are full.
         // The next event should occur on the interval timer.
         assert_eq!(state.next_event().await, LeaseEvent::Flush);
@@ -690,7 +690,7 @@ pub(super) mod tests {
         let mut state = LeaseState::new(Arc::new(mock), LeaseOptions::default());
 
         let mut want = HashSet::new();
-        for i in 0..NUM_BATCHES * ACK_IDS_PER_RPC {
+        for i in 0..NUM_BATCHES * MAX_IDS_PER_RPC {
             state.add(test_id(i), test_info());
 
             // All ack IDs should be extended.
@@ -703,7 +703,7 @@ pub(super) mod tests {
             let Some(ack_ids) = ack_id_rx.recv().await else {
                 anyhow::bail!("expected batch {i}/{NUM_BATCHES}");
             };
-            assert_eq!(ack_ids.len(), ACK_IDS_PER_RPC as usize);
+            assert_eq!(ack_ids.len(), MAX_IDS_PER_RPC as usize);
             for ack_id in ack_ids {
                 got.insert(ack_id);
             }
