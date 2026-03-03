@@ -128,7 +128,6 @@ impl Dispatcher {
         // A dictionary of ordering key to outstanding publish operations.
         // We batch publish operations on the same ordering key together.
         // Publish without ordering keys are treated as having the key "".
-        // TODO(#4012): Remove batch actors when there are no outstanding operations on the ordering key.
         let mut batch_actors: HashMap<String, BatchActorHandle> = HashMap::new();
         let mut actor_tasks: JoinMap<String, ()> = JoinMap::new();
         let delay = self.batching_options.delay_threshold;
@@ -137,6 +136,11 @@ impl Dispatcher {
         tokio::pin!(timer);
         loop {
             tokio::select! {
+                _ = actor_tasks.join_next(), if !actor_tasks.is_empty() => {
+                    // TODO(#4012): Remove batch actors when there are no outstanding operations
+                    // on the ordering key.
+                    continue;
+                }
                 // Currently, the Dispatcher periodically flushes all batches on a shared timer.
                 // If needed, this can be moved into the batch actors such that each are running
                 // on a separate timer.
@@ -194,7 +198,7 @@ impl Dispatcher {
                             // so the batch actor is aborted with messages in its receiving channel.
                             // We wait for the batch actors instead of aborting so that it can
                             // gracefully shutdown.
-                            while let Some(_) = actor_tasks.join_next().await {};
+                            while (actor_tasks.join_next().await).is_some() {};
                             break;
                         }
                     }
