@@ -20,6 +20,8 @@ use tokio::sync::oneshot::Sender;
 // Use a `tokio::time::Instant` to facilitate time-based unit testing.
 use tokio::time::{Duration, Instant};
 
+const NACK_SHUTDOWN_ERROR: &str = "subscriber was configured to `NackImmediately`. If this is surprising, you should configure it to `WaitForProcessing` instead.";
+
 #[derive(Debug)]
 pub(super) struct ExactlyOnceInfo {
     receive_time: Instant,
@@ -126,6 +128,20 @@ impl Leases {
                 let _ = info.result_tx.send(Err(AckError::LeaseExpired));
             });
         remaining
+    }
+
+    /// Nacks all messages under lease management that have not been acked by
+    /// the application.
+    ///
+    /// Called during shutdown, if configured to `NackImmediately`.
+    pub fn evict(&mut self) {
+        let under_lease = std::mem::take(&mut self.under_lease);
+        for (ack_id, info) in under_lease {
+            let _ = info
+                .result_tx
+                .send(Err(AckError::Shutdown(NACK_SHUTDOWN_ERROR.into())));
+            self.to_nack.push(ack_id);
+        }
     }
 }
 
@@ -554,6 +570,58 @@ mod tests {
         assert!(matches!(err, AckError::LeaseExpired), "{err:?}");
 
         assert!(result_rx1.is_empty(), "{result_rx1:?}");
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn evict() -> anyhow::Result<()> {
+        let mut leases = Leases::default();
+
+        let (result_tx, result_rx1) = channel();
+        leases.add(
+            test_id(1),
+            ExactlyOnceInfo {
+                receive_time: Instant::now(),
+                result_tx,
+                // Even pending acks will be evicted, and satisfied with
+                // `Shutdown` errors.
+                pending: true,
+            },
+        );
+        let (result_tx, result_rx2) = channel();
+        leases.add(
+            test_id(2),
+            ExactlyOnceInfo {
+                receive_time: Instant::now(),
+                result_tx,
+                pending: false,
+            },
+        );
+        leases.add(test_id(3), test_info());
+        leases.nack(test_id(3));
+        assert_eq!(
+            TestLeases {
+                under_lease: vec![test_id(1), test_id(2)],
+                to_ack: Vec::new(),
+                to_nack: vec![test_id(3)],
+            },
+            leases
+        );
+
+        leases.evict();
+        assert_eq!(
+            TestLeases {
+                under_lease: Vec::new(),
+                to_ack: Vec::new(),
+                to_nack: test_ids(1..4),
+            },
+            leases
+        );
+        let err = result_rx1.await?.expect_err("error should be returned");
+        assert!(matches!(err, AckError::Shutdown(_)), "{err:?}");
+        let err = result_rx2.await?.expect_err("error should be returned");
+        assert!(matches!(err, AckError::Shutdown(_)), "{err:?}");
 
         Ok(())
     }
