@@ -398,7 +398,6 @@ mod tests {
 
         // While there are more than `MAX_IDS_PER_RPC` total messages under
         // lease management, neither the ack batch nor the nack batch are full.
-        // The next event should occur on the interval timer.
         assert!(!leases.needs_flush());
     }
 
