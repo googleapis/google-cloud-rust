@@ -22,7 +22,7 @@ rustup show active-toolchain -v
 set -e
 
 cargo check --profile=ci --workspace
-cargo test --profile=ci --workspace
+cargo test --all-features --profile=ci --workspace
 
 echo "==== DONE ===="
 
