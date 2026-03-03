@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use super::ACK_IDS_PER_RPC;
+use super::MAX_IDS_PER_RPC;
 use std::collections::HashMap;
 // Use a `tokio::time::Instant` to facilitate time-based unit testing.
 use tokio::time::{Duration, Instant};
@@ -57,7 +57,7 @@ impl Leases {
     pub fn needs_flush(&self) -> bool {
         // This is an OR because `Acknowledge` and `ModifyAckDeadline` are
         // separate RPCs, with separate limits.
-        self.to_ack.len() >= ACK_IDS_PER_RPC || self.to_nack.len() >= ACK_IDS_PER_RPC
+        self.to_ack.len() >= MAX_IDS_PER_RPC || self.to_nack.len() >= MAX_IDS_PER_RPC
     }
 
     /// Returns a pair of pending (acks, nacks) to flush.
@@ -85,7 +85,7 @@ impl Leases {
             } else {
                 // Extend leases for all other messages.
                 batch.push(ack_id.clone());
-                if batch.len() == ACK_IDS_PER_RPC {
+                if batch.len() == MAX_IDS_PER_RPC {
                     // Flush the batch when it is full.
                     batches.push(std::mem::take(&mut batch));
                 }
@@ -137,7 +137,7 @@ mod tests {
     use std::collections::HashSet;
 
     // Cover the constant, converting it to an integer for convenience.
-    const ACK_IDS_PER_RPC: i32 = super::ACK_IDS_PER_RPC as i32;
+    const MAX_IDS_PER_RPC: i32 = super::MAX_IDS_PER_RPC as i32;
 
     #[test]
     fn basic_add_ack_nack() {
@@ -356,7 +356,7 @@ mod tests {
         // With 1000 pending acks, the batch is not full.
         assert!(!leases.needs_flush());
 
-        for i in 1000..ACK_IDS_PER_RPC {
+        for i in 1000..MAX_IDS_PER_RPC {
             leases.add(test_id(i), Instant::now());
             leases.ack(test_id(i));
         }
@@ -375,7 +375,7 @@ mod tests {
         // With 1000 pending nacks, the batch is not full.
         assert!(!leases.needs_flush());
 
-        for i in 1000..ACK_IDS_PER_RPC {
+        for i in 1000..MAX_IDS_PER_RPC {
             leases.add(test_id(i), Instant::now());
             leases.nack(test_id(i));
         }
@@ -387,7 +387,7 @@ mod tests {
     fn ack_and_nack_batches_are_independent() {
         let mut leases = Leases::default();
 
-        let over_half_full = ACK_IDS_PER_RPC / 2 + 100;
+        let over_half_full = MAX_IDS_PER_RPC / 2 + 100;
         for i in 0..over_half_full {
             leases.add(test_id(i), Instant::now());
             leases.ack(test_id(i));
@@ -396,7 +396,7 @@ mod tests {
             leases.nack(test_id(over_half_full + i));
         }
 
-        // While there are more than `ACK_IDS_PER_RPC` total messages under
+        // While there are more than `MAX_IDS_PER_RPC` total messages under
         // lease management, neither the ack batch nor the nack batch are full.
         // The next event should occur on the interval timer.
         assert!(!leases.needs_flush());
@@ -409,7 +409,7 @@ mod tests {
         let mut leases = Leases::default();
 
         let mut want = HashSet::new();
-        for i in 0..NUM_BATCHES * ACK_IDS_PER_RPC {
+        for i in 0..NUM_BATCHES * MAX_IDS_PER_RPC {
             leases.add(test_id(i), Instant::now());
             want.insert(test_id(i));
         }
@@ -419,7 +419,7 @@ mod tests {
 
         let mut got = HashSet::new();
         for batch in batches {
-            assert_eq!(batch.len(), ACK_IDS_PER_RPC as usize);
+            assert_eq!(batch.len(), MAX_IDS_PER_RPC as usize);
             got.extend(batch.into_iter());
         }
 
