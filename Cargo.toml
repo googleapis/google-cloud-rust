@@ -397,6 +397,7 @@ url                   = { default-features = false, version = "2.4" }
 uuid                  = { default-features = false, version = "1", features = ["v4"] }
 
 opentelemetry-semantic-conventions = { default-features = false, version = "0.31.0" }
+opentelemetry-appender-tracing     = { default-features = false, version = "0.31.0" }
 
 # WARNING: When this changes to 0.2 we need to bump the google-cloud-gax-internal major version.
 http-body-util = { default-features = false, version = "0.1.3" }

@@ -14,9 +14,12 @@
 
 mod duration_metric;
 mod request_start;
+mod with_client_signals;
 
 pub use duration_metric::DurationMetric;
 pub use request_start::RequestStart;
+#[allow(unused_imports)]
+pub use with_client_signals::WithClientSignals;
 
 /// Creates a new tracing span for a client request.
 ///
