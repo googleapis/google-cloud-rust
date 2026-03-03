@@ -107,7 +107,7 @@ http-body                          = { workspace = true, optional = true }
 http-body-util                     = { workspace = true, optional = true }
 hyper                              = { workspace = true, optional = true }
 lazy_static                        = { workspace = true, optional = true }
-opentelemetry                      = { workspace = true, optional = true, features = ["metrics", "internal-logs"] }
+opentelemetry                      = { workspace = true, optional = true, features = ["internal-logs", "metrics"] }
 opentelemetry-semantic-conventions = { workspace = true, optional = true, features = ["semconv_experimental"] }
 percent-encoding                   = { workspace = true, optional = true }
 pin-project                        = { workspace = true, optional = true }
