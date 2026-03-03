@@ -96,12 +96,22 @@ impl Leases {
         // prefer to just look up expired ack IDs again in the map, over holding
         // the `result_tx` in an `Option<>`.
 
-        let expired: Vec<String> = self
-            .under_lease
-            .iter()
-            .filter(|(_, info)| !info.pending && info.receive_time + max_lease_extension < now)
-            .map(|(id, _)| id.clone())
-            .collect();
+        let mut batches = Vec::new();
+        let mut batch = Vec::new();
+        let mut expired = Vec::new();
+        for (ack_id, info) in &self.under_lease {
+            if !info.pending && info.receive_time + max_lease_extension < now {
+                expired.push(ack_id.clone());
+                continue;
+            }
+
+            // Extend leases for all other messages.
+            batch.push(ack_id.clone());
+            if batch.len() == MAX_IDS_PER_RPC {
+                // Flush the batch when it is full.
+                batches.push(std::mem::take(&mut batch));
+            }
+        }
 
         for ack_id in expired {
             if let Some(info) = self.under_lease.remove(&ack_id) {
@@ -109,13 +119,10 @@ impl Leases {
             }
         }
 
-        self.under_lease
-            .keys()
-            .cloned()
-            .collect::<Vec<_>>()
-            .chunks(MAX_IDS_PER_RPC)
-            .map(|chunk| chunk.to_vec())
-            .collect()
+        if !batch.is_empty() {
+            batches.push(batch);
+        }
+        batches
     }
 }
 
