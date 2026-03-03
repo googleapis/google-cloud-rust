@@ -14,10 +14,11 @@
 
 use super::super::handler::AckResult;
 use super::MAX_IDS_PER_RPC;
+use crate::error::AckError;
 use std::collections::HashMap;
 use tokio::sync::oneshot::Sender;
 // Use a `tokio::time::Instant` to facilitate time-based unit testing.
-use tokio::time::Instant;
+use tokio::time::{Duration, Instant};
 
 #[derive(Debug)]
 pub(super) struct ExactlyOnceInfo {
@@ -84,6 +85,38 @@ impl Leases {
             std::mem::take(&mut self.to_nack),
         )
     }
+
+    /// Returns batches of ack IDs to extend.
+    ///
+    /// Drops messages whose lease deadline cannot be extended any further.
+    pub fn retain(&mut self, max_lease_extension: Duration) -> Vec<Vec<String>> {
+        let now = Instant::now();
+
+        // We cannot satisfy the `result_tx` if we use `HashMap::retain()`. We
+        // prefer to just look up expired ack IDs again in the map, over holding
+        // the `result_tx` in an `Option<>`.
+
+        let expired: Vec<String> = self
+            .under_lease
+            .iter()
+            .filter(|(_, info)| !info.pending && info.receive_time + max_lease_extension < now)
+            .map(|(id, _)| id.clone())
+            .collect();
+
+        for ack_id in expired {
+            if let Some(info) = self.under_lease.remove(&ack_id) {
+                let _ = info.result_tx.send(Err(AckError::LeaseExpired));
+            }
+        }
+
+        self.under_lease
+            .keys()
+            .cloned()
+            .collect::<Vec<_>>()
+            .chunks(MAX_IDS_PER_RPC)
+            .map(|chunk| chunk.to_vec())
+            .collect()
+    }
 }
 
 #[cfg(test)]
@@ -112,6 +145,7 @@ impl PartialEq<Leases> for super::tests::TestLeases {
 mod tests {
     use super::super::tests::{TestLeases, test_id, test_ids};
     use super::*;
+    use std::collections::HashSet;
     use tokio::sync::oneshot::channel;
 
     // Cover the constant, converting it to an integer for convenience.
@@ -373,5 +407,144 @@ mod tests {
         // While there are more than `MAX_IDS_PER_RPC` total messages under
         // lease management, neither the ack batch nor the nack batch are full.
         assert!(!leases.needs_flush());
+    }
+
+    #[test]
+    fn batching() -> anyhow::Result<()> {
+        const NUM_BATCHES: i32 = 5;
+
+        let mut leases = Leases::default();
+
+        let mut want = HashSet::new();
+        for i in 0..NUM_BATCHES * MAX_IDS_PER_RPC {
+            leases.add(test_id(i), test_info());
+            want.insert(test_id(i));
+        }
+
+        let batches = leases.retain(Duration::from_secs(1));
+        assert_eq!(batches.len(), NUM_BATCHES as usize);
+
+        let mut got = HashSet::new();
+        for batch in batches {
+            assert_eq!(batch.len(), MAX_IDS_PER_RPC as usize);
+            got.extend(batch.into_iter());
+        }
+
+        // Make sure all ack IDs are included.
+        assert_eq!(got, want);
+
+        Ok(())
+    }
+
+    #[tokio::test(start_paused = true)]
+    async fn message_expiration() -> anyhow::Result<()> {
+        let mut leases = Leases::default();
+
+        let (result_tx, result_rx1) = channel();
+        leases.add(
+            test_id(1),
+            ExactlyOnceInfo {
+                receive_time: Instant::now() - Duration::from_secs(3),
+                result_tx,
+                pending: false,
+            },
+        );
+
+        let (result_tx, result_rx2) = channel();
+        leases.add(
+            test_id(2),
+            ExactlyOnceInfo {
+                receive_time: Instant::now() - Duration::from_secs(1),
+                result_tx,
+                pending: false,
+            },
+        );
+
+        // No messages expired.
+        let mut batches = leases.retain(Duration::from_secs(4));
+        for batch in &mut batches {
+            batch.sort();
+        }
+        assert_eq!(batches, vec![vec![test_id(1), test_id(2)]]);
+        assert_eq!(
+            TestLeases {
+                under_lease: vec![test_id(1), test_id(2)],
+                to_ack: Vec::new(),
+                to_nack: Vec::new(),
+            },
+            leases
+        );
+
+        // Message 1 expires.
+        let batches = leases.retain(Duration::from_secs(2));
+        assert_eq!(batches, vec![vec![test_id(2)]]);
+        assert_eq!(
+            TestLeases {
+                under_lease: vec![test_id(2)],
+                to_ack: Vec::new(),
+                to_nack: Vec::new(),
+            },
+            leases
+        );
+        let err = result_rx1.await?.expect_err("error should be returned");
+        assert!(matches!(err, AckError::LeaseExpired), "{err:?}");
+
+        // Message 2 expires.
+        let batches = leases.retain(Duration::ZERO);
+        assert!(batches.is_empty(), "{batches:?}");
+        assert_eq!(
+            TestLeases {
+                under_lease: Vec::new(),
+                to_ack: Vec::new(),
+                to_nack: Vec::new(),
+            },
+            leases
+        );
+        let err = result_rx2.await?.expect_err("error should be returned");
+        assert!(matches!(err, AckError::LeaseExpired), "{err:?}");
+
+        Ok(())
+    }
+
+    #[tokio::test(start_paused = true)]
+    async fn pending_acks_do_not_expire() -> anyhow::Result<()> {
+        let mut leases = Leases::default();
+
+        let (result_tx, result_rx1) = channel();
+        leases.add(
+            test_id(1),
+            ExactlyOnceInfo {
+                receive_time: Instant::now() - Duration::from_secs(1),
+                result_tx,
+                pending: true,
+            },
+        );
+
+        let (result_tx, result_rx2) = channel();
+        leases.add(
+            test_id(2),
+            ExactlyOnceInfo {
+                receive_time: Instant::now() - Duration::from_secs(1),
+                result_tx,
+                pending: false,
+            },
+        );
+
+        let batches = leases.retain(Duration::ZERO);
+        assert_eq!(batches, vec![vec![test_id(1)]]);
+        assert_eq!(
+            TestLeases {
+                under_lease: vec![test_id(1)],
+                to_ack: Vec::new(),
+                to_nack: Vec::new(),
+            },
+            leases
+        );
+        let err = result_rx2.await?.expect_err("error should be returned");
+        assert!(matches!(err, AckError::LeaseExpired), "{err:?}");
+
+        assert!(result_rx1.is_empty(), "{result_rx1:?}");
+
+        Ok(())
     }
 }
