@@ -187,16 +187,16 @@ fn is_valid_workforce_pool_audience(audience: &str) -> bool {
         .strip_prefix("//iam.googleapis.com/")
         .unwrap_or(audience);
 
-    let parts: Vec<&str> = path.split('/').collect();
-
-    matches!(&parts[..], [
-            "locations",
-            _location,
-            "workforcePools",
-            pool,
-            "providers",
-            provider,
-        ] if !pool.is_empty() && !provider.is_empty())
+    let mut s = path.split('/');
+    matches!((s.next(), s.next(), s.next(), s.next(), s.next(), s.next(), s.next()), (
+            Some("locations"),
+            Some(_location),
+            Some("workforcePools"),
+            Some(pool),
+            Some("providers"),
+            Some(provider),
+            None,
+        ) if !pool.is_empty() && !provider.is_empty())
 }
 
 /// A representation of a [external account config file].
