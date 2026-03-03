@@ -46,7 +46,7 @@ serde_with.workspace   = true
 thiserror.workspace    = true
 tokio                  = { workspace = true, features = ["sync"] }
 tokio-stream.workspace = true
-tokio-util.workspace   = true
+tokio-util             = { workspace = true, features = ["join-map", "rt"] }
 tracing.workspace      = true
 uuid.workspace         = true
 wkt.workspace          = true

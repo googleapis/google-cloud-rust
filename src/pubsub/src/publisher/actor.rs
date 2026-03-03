@@ -55,7 +55,6 @@ pub(crate) struct BundledMessage {
 pub(crate) struct Dispatcher {
     topic_name: String,
     client: GapicPublisher,
-    #[allow(dead_code)]
     batching_options: BatchingOptions,
     rx: mpsc::UnboundedReceiver<ToDispatcher>,
 }
@@ -81,31 +80,28 @@ impl Dispatcher {
         tasks: &mut JoinMap<String, ()>,
     ) -> BatchActorHandle {
         let (tx, rx) = tokio::sync::mpsc::unbounded_channel();
-        match key.as_str() {
-            "" => {
-                tasks.spawn(
-                    key,
-                    ConcurrentBatchActor::new(
-                        self.topic_name.clone(),
-                        self.client.clone(),
-                        self.batching_options.clone(),
-                        rx,
-                    )
-                    .run(),
-                );
-            }
-            _ => {
-                tasks.spawn(
-                    key,
-                    SequentialBatchActor::new(
-                        self.topic_name.clone(),
-                        self.client.clone(),
-                        self.batching_options.clone(),
-                        rx,
-                    )
-                    .run(),
-                );
-            }
+        if key.is_empty() {
+            tasks.spawn(
+                key,
+                ConcurrentBatchActor::new(
+                    self.topic_name.clone(),
+                    self.client.clone(),
+                    self.batching_options.clone(),
+                    rx,
+                )
+                .run(),
+            );
+        } else {
+            tasks.spawn(
+                key,
+                SequentialBatchActor::new(
+                    self.topic_name.clone(),
+                    self.client.clone(),
+                    self.batching_options.clone(),
+                    rx,
+                )
+                .run(),
+            );
         }
         BatchActorHandle { sender: tx }
     }
@@ -198,7 +194,7 @@ impl Dispatcher {
                             // so the batch actor is aborted with messages in its receiving channel.
                             // We wait for the batch actors instead of aborting so that it can
                             // gracefully shutdown.
-                            while (actor_tasks.join_next().await).is_some() {};
+                            while actor_tasks.join_next().await.is_some() {};
                             break;
                         }
                     }
