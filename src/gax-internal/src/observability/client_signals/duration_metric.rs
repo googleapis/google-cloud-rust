@@ -123,6 +123,35 @@ mod tests {
     use std::time::Duration;
 
     #[tokio::test(start_paused = true)]
+    async fn global_record_ok() -> anyhow::Result<()> {
+        let exporter = InMemoryMetricExporter::default();
+        let provider = SdkMeterProvider::builder()
+            .with_reader(PeriodicReader::builder(exporter.clone()).build())
+            .build();
+        // Use the global provider. We only do this in a single test in this
+        // file, so it should be safe.
+        opentelemetry::global::set_meter_provider(provider.clone());
+        let metric = DurationMetric::new(&TEST_INFO);
+        let options = RequestOptions::default().insert_extension(PathTemplate(URL_TEMPLATE));
+        let start = RequestStart::new(&TEST_INFO, &options, METHOD);
+        // Use a long pause so it gets recorded as such.
+        tokio::time::sleep(Duration::from_millis(500)).await;
+        metric.record_ok(start);
+        provider.force_flush()?;
+        let metrics = exporter.get_finished_metrics()?;
+        check_scope(&metrics);
+        check_data(
+            &metrics,
+            &[
+                ("otel.status_code", "OK"),
+                ("rpc.response.status_code", "OK"),
+                ("http.response.status_code", "200"),
+            ],
+        );
+        Ok(())
+    }
+
+    #[tokio::test(start_paused = true)]
     async fn record_ok() -> anyhow::Result<()> {
         let exporter = InMemoryMetricExporter::default();
         let provider = SdkMeterProvider::builder()
