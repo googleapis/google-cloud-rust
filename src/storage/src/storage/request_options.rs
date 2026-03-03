@@ -43,6 +43,7 @@ pub struct RequestOptions {
     pub(crate) automatic_decompression: bool,
     pub(crate) common_options: CommonOptions,
     pub(crate) bidi_attempt_timeout: Duration,
+    pub(crate) user_agent: Option<String>,
 }
 
 impl RequestOptions {
@@ -107,8 +108,8 @@ impl RequestOptions {
         self.common_options.resumable_upload_buffer_size
     }
 
-    pub fn set_user_agent(&mut self, v: impl Into<String>) {
-        self.common_options.user_agent = Some(v.into());
+    pub fn with_user_agent(&mut self, v: impl Into<String>) {
+        self.user_agent = Some(v.into());
     }
 
     fn new_with_policies(
@@ -129,6 +130,7 @@ impl RequestOptions {
             },
             automatic_decompression: false,
             bidi_attempt_timeout: DEFAULT_BIDI_ATTEMPT_TIMEOUT,
+            user_agent: None,
         }
     }
 
@@ -140,7 +142,7 @@ impl RequestOptions {
         if let Some(i) = &self.idempotency {
             options.set_idempotency(*i);
         }
-        if let Some(s) = &self.common_options.user_agent {
+        if let Some(s) = &self.user_agent {
             options.set_user_agent(s);
         }
         options
@@ -181,9 +183,9 @@ mod tests {
 
     #[test]
     fn gax_user_agent() {
-        let user_agent = "test-user-agent/1.2.3";
+        let user_agent = "quick_foxes_lazy_dogs/1.2.3";
         let mut options = RequestOptions::new();
-        options.set_user_agent(user_agent);
+        options.with_user_agent(user_agent);
         let got = options.gax();
         assert_eq!(got.user_agent().as_deref(), Some(user_agent));
     }
