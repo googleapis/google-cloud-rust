@@ -13,11 +13,12 @@
 // limitations under the License.
 
 mod at_least_once;
+mod exactly_once;
 
 use super::handler::Action;
 use super::leaser::Leaser;
-// Use a `tokio::time::Instant` to facilitate time-based unit testing.
 use at_least_once::Leases;
+// Use a `tokio::time::Instant` to facilitate time-based unit testing.
 use tokio::time::{Duration, Instant, Interval, interval_at};
 
 // An ack ID is less than 200 bytes. The limit for a request is 512kB. It should
