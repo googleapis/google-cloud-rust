@@ -77,8 +77,8 @@ impl Leases {
         self.to_ack.len() >= MAX_IDS_PER_RPC || self.to_nack.len() >= MAX_IDS_PER_RPC
     }
 
-    /// Returns a pair of pending (acks, nacks) to flush.
-    pub fn flush(&mut self) -> (Vec<String>, Vec<String>) {
+    /// Drain the pending (acks, nacks) for the lease state to flush.
+    pub fn drain(&mut self) -> (Vec<String>, Vec<String>) {
         (
             std::mem::take(&mut self.to_ack),
             std::mem::take(&mut self.to_nack),
@@ -285,7 +285,7 @@ mod tests {
     }
 
     #[test]
-    fn flush() {
+    fn drain() {
         let mut leases = Leases::default();
         for i in 0..100 {
             leases.add(test_id(i), test_info());
@@ -305,7 +305,7 @@ mod tests {
             leases
         );
 
-        let (to_ack, to_nack) = leases.flush();
+        let (to_ack, to_nack) = leases.drain();
         assert_eq!(to_ack, test_ids(10..20));
         assert_eq!(to_nack, test_ids(0..10));
 
