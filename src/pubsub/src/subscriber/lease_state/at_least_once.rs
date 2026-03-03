@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use super::ACK_IDS_PER_RPC;
 use std::collections::HashMap;
 // Use a `tokio::time::Instant` to facilitate time-based unit testing.
-use super::ACK_IDS_PER_RPC;
 use tokio::time::{Duration, Instant};
 
 /// Leases for messages with at-least-once delivery semantics.
