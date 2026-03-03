@@ -20,17 +20,10 @@
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_securityposture_v1::client::SecurityPosture;
-/// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = SecurityPosture::builder().build().await?;
-///     let parent = "parent_value";
-///     let mut list = client.list_postures()
-///         .set_parent(parent)
-///         .by_item();
-///     while let Some(item) = list.next().await.transpose()? {
-///         println!("{:?}", item);
-///     }
+/// let client = SecurityPosture::builder().build().await?;
+/// // use `client` to make requests to the Security Posture API.
 /// # Ok(()) }
 /// ```
 ///

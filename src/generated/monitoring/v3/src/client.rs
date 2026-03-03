@@ -20,17 +20,10 @@
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_monitoring_v3::client::AlertPolicyService;
-/// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = AlertPolicyService::builder().build().await?;
-///     let name = "name_value";
-///     let mut list = client.list_alert_policies()
-///         .set_name(name)
-///         .by_item();
-///     while let Some(item) = list.next().await.transpose()? {
-///         println!("{:?}", item);
-///     }
+/// let client = AlertPolicyService::builder().build().await?;
+/// // use `client` to make requests to the Cloud Monitoring API.
 /// # Ok(()) }
 /// ```
 ///
@@ -266,17 +259,10 @@ impl AlertPolicyService {
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_monitoring_v3::client::GroupService;
-/// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = GroupService::builder().build().await?;
-///     let name = "name_value";
-///     let mut list = client.list_groups()
-///         .set_name(name)
-///         .by_item();
-///     while let Some(item) = list.next().await.transpose()? {
-///         println!("{:?}", item);
-///     }
+/// let client = GroupService::builder().build().await?;
+/// // use `client` to make requests to the Cloud Monitoring API.
 /// # Ok(()) }
 /// ```
 ///
@@ -520,16 +506,10 @@ impl GroupService {
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_monitoring_v3::client::MetricService;
-/// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = MetricService::builder().build().await?;
-///     let mut list = client.list_metric_descriptors()
-///         /* set fields */
-///         .by_item();
-///     while let Some(item) = list.next().await.transpose()? {
-///         println!("{:?}", item);
-///     }
+/// let client = MetricService::builder().build().await?;
+/// // use `client` to make requests to the Cloud Monitoring API.
 /// # Ok(()) }
 /// ```
 ///
@@ -849,17 +829,10 @@ impl MetricService {
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_monitoring_v3::client::NotificationChannelService;
-/// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = NotificationChannelService::builder().build().await?;
-///     let name = "name_value";
-///     let mut list = client.list_notification_channel_descriptors()
-///         .set_name(name)
-///         .by_item();
-///     while let Some(item) = list.next().await.transpose()? {
-///         println!("{:?}", item);
-///     }
+/// let client = NotificationChannelService::builder().build().await?;
+/// // use `client` to make requests to the Cloud Monitoring API.
 /// # Ok(()) }
 /// ```
 ///
@@ -1264,16 +1237,10 @@ impl NotificationChannelService {
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_monitoring_v3::client::QueryService;
-/// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = QueryService::builder().build().await?;
-///     let mut list = client.query_time_series()
-///         /* set fields */
-///         .by_item();
-///     while let Some(item) = list.next().await.transpose()? {
-///         println!("{:?}", item);
-///     }
+/// let client = QueryService::builder().build().await?;
+/// // use `client` to make requests to the Cloud Monitoring API.
 /// # Ok(()) }
 /// ```
 ///
@@ -1402,17 +1369,10 @@ impl QueryService {
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_monitoring_v3::client::ServiceMonitoringService;
-/// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = ServiceMonitoringService::builder().build().await?;
-///     let parent = "parent_value";
-///     let mut list = client.list_services()
-///         .set_parent(parent)
-///         .by_item();
-///     while let Some(item) = list.next().await.transpose()? {
-///         println!("{:?}", item);
-///     }
+/// let client = ServiceMonitoringService::builder().build().await?;
+/// // use `client` to make requests to the Cloud Monitoring API.
 /// # Ok(()) }
 /// ```
 ///
@@ -1762,17 +1722,10 @@ impl ServiceMonitoringService {
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_monitoring_v3::client::SnoozeService;
-/// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = SnoozeService::builder().build().await?;
-///     let parent = "parent_value";
-///     let mut list = client.list_snoozes()
-///         .set_parent(parent)
-///         .by_item();
-///     while let Some(item) = list.next().await.transpose()? {
-///         println!("{:?}", item);
-///     }
+/// let client = SnoozeService::builder().build().await?;
+/// // use `client` to make requests to the Cloud Monitoring API.
 /// # Ok(()) }
 /// ```
 ///
@@ -1971,17 +1924,10 @@ impl SnoozeService {
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_monitoring_v3::client::UptimeCheckService;
-/// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = UptimeCheckService::builder().build().await?;
-///     let parent = "parent_value";
-///     let mut list = client.list_uptime_check_configs()
-///         .set_parent(parent)
-///         .by_item();
-///     while let Some(item) = list.next().await.transpose()? {
-///         println!("{:?}", item);
-///     }
+/// let client = UptimeCheckService::builder().build().await?;
+/// // use `client` to make requests to the Cloud Monitoring API.
 /// # Ok(()) }
 /// ```
 ///

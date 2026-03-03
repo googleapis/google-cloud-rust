@@ -52,23 +52,6 @@ pub use google_cloud_gax::error::Error;
 #[allow(rustdoc::redundant_explicit_links)]
 pub mod stub;
 
-///
-/// # Example
-/// ```
-/// # use google_cloud_profiler_v2::client::ProfilerService;
-/// use google_cloud_profiler_v2::model::Profile;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = ProfilerService::builder().build().await?;
-///     let parent = "parent_value";
-///     let response = client.create_offline_profile()
-///         .set_parent(parent)
-///         .set_profile(
-///             Profile::new()/* set fields */
-///         )
-///         .send().await?;
-///     println!("response {:?}", response);
-/// # Ok(()) }
-/// ```
 /// Concrete implementations of this client library traits.
 pub mod client;
 

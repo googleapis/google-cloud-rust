@@ -20,13 +20,10 @@
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dns_v1::client::Changes;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = Changes::builder().build().await?;
-///     let response = client.create()
-///         /* set fields */
-///         .send().await?;
-///     println!("response {:?}", response);
+/// let client = Changes::builder().build().await?;
+/// // use `client` to make requests to the Cloud DNS API.
 /// # Ok(()) }
 /// ```
 ///
@@ -189,13 +186,10 @@ impl Changes {
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dns_v1::client::DnsKeys;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = DnsKeys::builder().build().await?;
-///     let response = client.get()
-///         /* set fields */
-///         .send().await?;
-///     println!("response {:?}", response);
+/// let client = DnsKeys::builder().build().await?;
+/// // use `client` to make requests to the Cloud DNS API.
 /// # Ok(()) }
 /// ```
 ///
@@ -338,13 +332,10 @@ impl DnsKeys {
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dns_v1::client::ManagedZoneOperations;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = ManagedZoneOperations::builder().build().await?;
-///     let response = client.get()
-///         /* set fields */
-///         .send().await?;
-///     println!("response {:?}", response);
+/// let client = ManagedZoneOperations::builder().build().await?;
+/// // use `client` to make requests to the Cloud DNS API.
 /// # Ok(()) }
 /// ```
 ///
@@ -488,13 +479,10 @@ impl ManagedZoneOperations {
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dns_v1::client::ManagedZones;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = ManagedZones::builder().build().await?;
-///     let response = client.create()
-///         /* set fields */
-///         .send().await?;
-///     println!("response {:?}", response);
+/// let client = ManagedZones::builder().build().await?;
+/// // use `client` to make requests to the Cloud DNS API.
 /// # Ok(()) }
 /// ```
 ///
@@ -788,13 +776,10 @@ impl ManagedZones {
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dns_v1::client::Policies;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = Policies::builder().build().await?;
-///     let response = client.create()
-///         /* set fields */
-///         .send().await?;
-///     println!("response {:?}", response);
+/// let client = Policies::builder().build().await?;
+/// // use `client` to make requests to the Cloud DNS API.
 /// # Ok(()) }
 /// ```
 ///
@@ -1016,13 +1001,10 @@ impl Policies {
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dns_v1::client::Projects;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = Projects::builder().build().await?;
-///     let response = client.get()
-///         /* set fields */
-///         .send().await?;
-///     println!("response {:?}", response);
+/// let client = Projects::builder().build().await?;
+/// // use `client` to make requests to the Cloud DNS API.
 /// # Ok(()) }
 /// ```
 ///
@@ -1142,13 +1124,10 @@ impl Projects {
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dns_v1::client::ResourceRecordSets;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = ResourceRecordSets::builder().build().await?;
-///     let response = client.create()
-///         /* set fields */
-///         .send().await?;
-///     println!("response {:?}", response);
+/// let client = ResourceRecordSets::builder().build().await?;
+/// // use `client` to make requests to the Cloud DNS API.
 /// # Ok(()) }
 /// ```
 ///
@@ -1352,13 +1331,10 @@ impl ResourceRecordSets {
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dns_v1::client::ResponsePolicies;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = ResponsePolicies::builder().build().await?;
-///     let response = client.create()
-///         /* set fields */
-///         .send().await?;
-///     println!("response {:?}", response);
+/// let client = ResponsePolicies::builder().build().await?;
+/// // use `client` to make requests to the Cloud DNS API.
 /// # Ok(()) }
 /// ```
 ///
@@ -1581,13 +1557,10 @@ impl ResponsePolicies {
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dns_v1::client::ResponsePolicyRules;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = ResponsePolicyRules::builder().build().await?;
-///     let response = client.create()
-///         /* set fields */
-///         .send().await?;
-///     println!("response {:?}", response);
+/// let client = ResponsePolicyRules::builder().build().await?;
+/// // use `client` to make requests to the Cloud DNS API.
 /// # Ok(()) }
 /// ```
 ///

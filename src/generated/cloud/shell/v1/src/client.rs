@@ -20,14 +20,10 @@
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_shell_v1::client::CloudShellService;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = CloudShellService::builder().build().await?;
-///     let name = "name_value";
-///     let response = client.get_environment()
-///         .set_name(name)
-///         .send().await?;
-///     println!("response {:?}", response);
+/// let client = CloudShellService::builder().build().await?;
+/// // use `client` to make requests to the Cloud Shell API.
 /// # Ok(()) }
 /// ```
 ///

@@ -51,17 +51,6 @@ pub use google_cloud_gax::error::Error;
 #[allow(rustdoc::redundant_explicit_links)]
 pub mod stub;
 
-///
-/// # Example
-/// ```
-/// # use google_cloud_trace_v2::client::TraceService;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = TraceService::builder().build().await?;
-///     client.batch_write_spans()
-///         /* set fields */
-///         .send().await?;
-/// # Ok(()) }
-/// ```
 /// Concrete implementations of this client library traits.
 pub mod client;
 

@@ -20,13 +20,10 @@
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_accessapproval_v1::client::AccessApproval;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = AccessApproval::builder().build().await?;
-///     let response = client.get_access_approval_settings()
-///         /* set fields */
-///         .send().await?;
-///     println!("response {:?}", response);
+/// let client = AccessApproval::builder().build().await?;
+/// // use `client` to make requests to the Access Approval API.
 /// # Ok(()) }
 /// ```
 ///

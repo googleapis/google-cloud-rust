@@ -20,17 +20,10 @@
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_datacatalog_v1::client::DataCatalog;
-/// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = DataCatalog::builder().build().await?;
-///     let parent = "parent_value";
-///     let mut list = client.list_entry_groups()
-///         .set_parent(parent)
-///         .by_item();
-///     while let Some(item) = list.next().await.transpose()? {
-///         println!("{:?}", item);
-///     }
+/// let client = DataCatalog::builder().build().await?;
+/// // use `client` to make requests to the Google Cloud Data Catalog API.
 /// # Ok(()) }
 /// ```
 ///
@@ -1343,17 +1336,10 @@ impl DataCatalog {
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_datacatalog_v1::client::PolicyTagManager;
-/// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = PolicyTagManager::builder().build().await?;
-///     let parent = "parent_value";
-///     let mut list = client.list_taxonomies()
-///         .set_parent(parent)
-///         .by_item();
-///     while let Some(item) = list.next().await.transpose()? {
-///         println!("{:?}", item);
-///     }
+/// let client = PolicyTagManager::builder().build().await?;
+/// // use `client` to make requests to the Google Cloud Data Catalog API.
 /// # Ok(()) }
 /// ```
 ///
@@ -1845,13 +1831,10 @@ impl PolicyTagManager {
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_datacatalog_v1::client::PolicyTagManagerSerialization;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = PolicyTagManagerSerialization::builder().build().await?;
-///     let response = client.replace_taxonomy()
-///         /* set fields */
-///         .send().await?;
-///     println!("response {:?}", response);
+/// let client = PolicyTagManagerSerialization::builder().build().await?;
+/// // use `client` to make requests to the Google Cloud Data Catalog API.
 /// # Ok(()) }
 /// ```
 ///

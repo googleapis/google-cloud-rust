@@ -20,17 +20,10 @@
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dataproc_v1::client::AutoscalingPolicyService;
-/// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = AutoscalingPolicyService::builder().build().await?;
-///     let parent = "parent_value";
-///     let mut list = client.list_autoscaling_policies()
-///         .set_parent(parent)
-///         .by_item();
-///     while let Some(item) = list.next().await.transpose()? {
-///         println!("{:?}", item);
-///     }
+/// let client = AutoscalingPolicyService::builder().build().await?;
+/// // use `client` to make requests to the Cloud Dataproc API.
 /// # Ok(()) }
 /// ```
 ///
@@ -418,17 +411,10 @@ impl AutoscalingPolicyService {
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dataproc_v1::client::BatchController;
-/// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = BatchController::builder().build().await?;
-///     let parent = "parent_value";
-///     let mut list = client.list_batches()
-///         .set_parent(parent)
-///         .by_item();
-///     while let Some(item) = list.next().await.transpose()? {
-///         println!("{:?}", item);
-///     }
+/// let client = BatchController::builder().build().await?;
+/// // use `client` to make requests to the Cloud Dataproc API.
 /// # Ok(()) }
 /// ```
 ///
@@ -787,14 +773,10 @@ impl BatchController {
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dataproc_v1::client::ClusterController;
-/// use google_cloud_lro::Poller;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = ClusterController::builder().build().await?;
-///     let response = client.create_cluster()
-///         /* set fields */
-///         .poller().until_done().await?;
-///     println!("response {:?}", response);
+/// let client = ClusterController::builder().build().await?;
+/// // use `client` to make requests to the Cloud Dataproc API.
 /// # Ok(()) }
 /// ```
 ///
@@ -1309,13 +1291,10 @@ impl ClusterController {
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dataproc_v1::client::JobController;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = JobController::builder().build().await?;
-///     let response = client.submit_job()
-///         /* set fields */
-///         .send().await?;
-///     println!("response {:?}", response);
+/// let client = JobController::builder().build().await?;
+/// // use `client` to make requests to the Cloud Dataproc API.
 /// # Ok(()) }
 /// ```
 ///
@@ -1733,14 +1712,10 @@ impl JobController {
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dataproc_v1::client::NodeGroupController;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = NodeGroupController::builder().build().await?;
-///     let name = "name_value";
-///     let response = client.get_node_group()
-///         .set_name(name)
-///         .send().await?;
-///     println!("response {:?}", response);
+/// let client = NodeGroupController::builder().build().await?;
+/// // use `client` to make requests to the Cloud Dataproc API.
 /// # Ok(()) }
 /// ```
 ///
@@ -2099,17 +2074,10 @@ impl NodeGroupController {
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dataproc_v1::client::SessionTemplateController;
-/// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = SessionTemplateController::builder().build().await?;
-///     let parent = "parent_value";
-///     let mut list = client.list_session_templates()
-///         .set_parent(parent)
-///         .by_item();
-///     while let Some(item) = list.next().await.transpose()? {
-///         println!("{:?}", item);
-///     }
+/// let client = SessionTemplateController::builder().build().await?;
+/// // use `client` to make requests to the Cloud Dataproc API.
 /// # Ok(()) }
 /// ```
 ///
@@ -2492,17 +2460,10 @@ impl SessionTemplateController {
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dataproc_v1::client::SessionController;
-/// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = SessionController::builder().build().await?;
-///     let parent = "parent_value";
-///     let mut list = client.list_sessions()
-///         .set_parent(parent)
-///         .by_item();
-///     while let Some(item) = list.next().await.transpose()? {
-///         println!("{:?}", item);
-///     }
+/// let client = SessionController::builder().build().await?;
+/// // use `client` to make requests to the Cloud Dataproc API.
 /// # Ok(()) }
 /// ```
 ///
@@ -2905,17 +2866,10 @@ impl SessionController {
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dataproc_v1::client::WorkflowTemplateService;
-/// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = WorkflowTemplateService::builder().build().await?;
-///     let parent = "parent_value";
-///     let mut list = client.list_workflow_templates()
-///         .set_parent(parent)
-///         .by_item();
-///     while let Some(item) = list.next().await.transpose()? {
-///         println!("{:?}", item);
-///     }
+/// let client = WorkflowTemplateService::builder().build().await?;
+/// // use `client` to make requests to the Cloud Dataproc API.
 /// # Ok(()) }
 /// ```
 ///

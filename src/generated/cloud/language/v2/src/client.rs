@@ -20,13 +20,10 @@
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_language_v2::client::LanguageService;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = LanguageService::builder().build().await?;
-///     let response = client.analyze_sentiment()
-///         /* set fields */
-///         .send().await?;
-///     println!("response {:?}", response);
+/// let client = LanguageService::builder().build().await?;
+/// // use `client` to make requests to the Cloud Natural Language API.
 /// # Ok(()) }
 /// ```
 ///

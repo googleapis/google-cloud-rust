@@ -20,10 +20,10 @@
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_oslogin_v1::client::OsLoginService;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = OsLoginService::builder().build().await?;
-///     // use `client` to make requests to the Cloud OS Login API.
+/// let client = OsLoginService::builder().build().await?;
+/// // use `client` to make requests to the Cloud OS Login API.
 /// # Ok(()) }
 /// ```
 ///

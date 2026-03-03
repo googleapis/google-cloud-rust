@@ -51,23 +51,6 @@ pub use google_cloud_gax::error::Error;
 #[allow(rustdoc::redundant_explicit_links)]
 pub mod stub;
 
-///
-/// # Example
-/// ```
-/// # use google_cloud_confidentialcomputing_v1::client::ConfidentialComputing;
-/// use google_cloud_confidentialcomputing_v1::model::Challenge;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = ConfidentialComputing::builder().build().await?;
-///     let parent = "parent_value";
-///     let response = client.create_challenge()
-///         .set_parent(parent)
-///         .set_challenge(
-///             Challenge::new()/* set fields */
-///         )
-///         .send().await?;
-///     println!("response {:?}", response);
-/// # Ok(()) }
-/// ```
 /// Concrete implementations of this client library traits.
 pub mod client;
 

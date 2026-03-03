@@ -20,17 +20,10 @@
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_telcoautomation_v1::client::TelcoAutomation;
-/// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = TelcoAutomation::builder().build().await?;
-///     let parent = "parent_value";
-///     let mut list = client.list_orchestration_clusters()
-///         .set_parent(parent)
-///         .by_item();
-///     while let Some(item) = list.next().await.transpose()? {
-///         println!("{:?}", item);
-///     }
+/// let client = TelcoAutomation::builder().build().await?;
+/// // use `client` to make requests to the Telco Automation API.
 /// # Ok(()) }
 /// ```
 ///

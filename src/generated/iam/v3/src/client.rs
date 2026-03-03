@@ -20,17 +20,10 @@
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_iam_v3::client::PolicyBindings;
-/// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = PolicyBindings::builder().build().await?;
-///     let parent = "parent_value";
-///     let mut list = client.list_policy_bindings()
-///         .set_parent(parent)
-///         .by_item();
-///     while let Some(item) = list.next().await.transpose()? {
-///         println!("{:?}", item);
-///     }
+/// let client = PolicyBindings::builder().build().await?;
+/// // use `client` to make requests to the Identity and Access Management (IAM) API.
 /// # Ok(()) }
 /// ```
 ///
@@ -332,17 +325,10 @@ impl PolicyBindings {
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_iam_v3::client::PrincipalAccessBoundaryPolicies;
-/// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = PrincipalAccessBoundaryPolicies::builder().build().await?;
-///     let parent = "parent_value";
-///     let mut list = client.list_principal_access_boundary_policies()
-///         .set_parent(parent)
-///         .by_item();
-///     while let Some(item) = list.next().await.transpose()? {
-///         println!("{:?}", item);
-///     }
+/// let client = PrincipalAccessBoundaryPolicies::builder().build().await?;
+/// // use `client` to make requests to the Identity and Access Management (IAM) API.
 /// # Ok(()) }
 /// ```
 ///

@@ -20,13 +20,10 @@
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_gkerecommender_v1::client::GkeInferenceQuickstart;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = GkeInferenceQuickstart::builder().build().await?;
-///     let response = client.fetch_models()
-///         /* set fields */
-///         .send().await?;
-///     println!("response {:?}", response);
+/// let client = GkeInferenceQuickstart::builder().build().await?;
+/// // use `client` to make requests to the GKE Recommender API.
 /// # Ok(()) }
 /// ```
 ///

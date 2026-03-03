@@ -20,17 +20,10 @@
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_networksecurity_v1::client::AddressGroupService;
-/// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = AddressGroupService::builder().build().await?;
-///     let parent = "parent_value";
-///     let mut list = client.list_address_groups()
-///         .set_parent(parent)
-///         .by_item();
-///     while let Some(item) = list.next().await.transpose()? {
-///         println!("{:?}", item);
-///     }
+/// let client = AddressGroupService::builder().build().await?;
+/// // use `client` to make requests to the Network Security API.
 /// # Ok(()) }
 /// ```
 ///
@@ -613,17 +606,10 @@ impl AddressGroupService {
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_networksecurity_v1::client::OrganizationAddressGroupService;
-/// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = OrganizationAddressGroupService::builder().build().await?;
-///     let parent = "parent_value";
-///     let mut list = client.list_address_groups()
-///         .set_parent(parent)
-///         .by_item();
-///     while let Some(item) = list.next().await.transpose()? {
-///         println!("{:?}", item);
-///     }
+/// let client = OrganizationAddressGroupService::builder().build().await?;
+/// // use `client` to make requests to the Network Security API.
 /// # Ok(()) }
 /// ```
 ///
@@ -1245,17 +1231,10 @@ impl OrganizationAddressGroupService {
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_networksecurity_v1::client::NetworkSecurity;
-/// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = NetworkSecurity::builder().build().await?;
-///     let parent = "parent_value";
-///     let mut list = client.list_authorization_policies()
-///         .set_parent(parent)
-///         .by_item();
-///     while let Some(item) = list.next().await.transpose()? {
-///         println!("{:?}", item);
-///     }
+/// let client = NetworkSecurity::builder().build().await?;
+/// // use `client` to make requests to the Network Security API.
 /// # Ok(()) }
 /// ```
 ///

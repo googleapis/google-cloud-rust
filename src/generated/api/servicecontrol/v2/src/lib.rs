@@ -51,18 +51,6 @@ pub use google_cloud_gax::error::Error;
 #[allow(rustdoc::redundant_explicit_links)]
 pub mod stub;
 
-///
-/// # Example
-/// ```
-/// # use google_cloud_api_servicecontrol_v2::client::ServiceController;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = ServiceController::builder().build().await?;
-///     let response = client.check()
-///         /* set fields */
-///         .send().await?;
-///     println!("response {:?}", response);
-/// # Ok(()) }
-/// ```
 /// Concrete implementations of this client library traits.
 pub mod client;
 

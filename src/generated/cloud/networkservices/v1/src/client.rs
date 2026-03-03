@@ -20,17 +20,10 @@
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_networkservices_v1::client::DepService;
-/// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = DepService::builder().build().await?;
-///     let parent = "parent_value";
-///     let mut list = client.list_lb_traffic_extensions()
-///         .set_parent(parent)
-///         .by_item();
-///     while let Some(item) = list.next().await.transpose()? {
-///         println!("{:?}", item);
-///     }
+/// let client = DepService::builder().build().await?;
+/// // use `client` to make requests to the Network Services API.
 /// # Ok(()) }
 /// ```
 ///
@@ -924,17 +917,10 @@ impl DepService {
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_networkservices_v1::client::NetworkServices;
-/// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = NetworkServices::builder().build().await?;
-///     let parent = "parent_value";
-///     let mut list = client.list_endpoint_policies()
-///         .set_parent(parent)
-///         .by_item();
-///     while let Some(item) = list.next().await.transpose()? {
-///         println!("{:?}", item);
-///     }
+/// let client = NetworkServices::builder().build().await?;
+/// // use `client` to make requests to the Network Services API.
 /// # Ok(()) }
 /// ```
 ///

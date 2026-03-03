@@ -20,13 +20,10 @@
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_policytroubleshooter_v1::client::IamChecker;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = IamChecker::builder().build().await?;
-///     let response = client.troubleshoot_iam_policy()
-///         /* set fields */
-///         .send().await?;
-///     println!("response {:?}", response);
+/// let client = IamChecker::builder().build().await?;
+/// // use `client` to make requests to the Policy Troubleshooter API.
 /// # Ok(()) }
 /// ```
 ///

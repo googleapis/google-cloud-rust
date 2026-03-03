@@ -20,16 +20,10 @@
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_discoveryengine_v1::client::AssistantService;
-/// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = AssistantService::builder().build().await?;
-///     let mut list = client.list_operations()
-///         /* set fields */
-///         .by_item();
-///     while let Some(item) = list.next().await.transpose()? {
-///         println!("{:?}", item);
-///     }
+/// let client = AssistantService::builder().build().await?;
+/// // use `client` to make requests to the Discovery Engine API.
 /// # Ok(()) }
 /// ```
 ///
@@ -201,14 +195,10 @@ impl AssistantService {
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_discoveryengine_v1::client::CmekConfigService;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = CmekConfigService::builder().build().await?;
-///     let name = "name_value";
-///     let response = client.get_cmek_config()
-///         .set_name(name)
-///         .send().await?;
-///     println!("response {:?}", response);
+/// let client = CmekConfigService::builder().build().await?;
+/// // use `client` to make requests to the Discovery Engine API.
 /// # Ok(()) }
 /// ```
 ///
@@ -492,14 +482,10 @@ impl CmekConfigService {
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_discoveryengine_v1::client::CompletionService;
-/// use google_cloud_lro::Poller;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = CompletionService::builder().build().await?;
-///     let response = client.import_completion_suggestions()
-///         /* set fields */
-///         .poller().until_done().await?;
-///     println!("response {:?}", response);
+/// let client = CompletionService::builder().build().await?;
+/// // use `client` to make requests to the Discovery Engine API.
 /// # Ok(()) }
 /// ```
 ///
@@ -839,17 +825,10 @@ impl CompletionService {
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_discoveryengine_v1::client::ControlService;
-/// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = ControlService::builder().build().await?;
-///     let parent = "parent_value";
-///     let mut list = client.list_controls()
-///         .set_parent(parent)
-///         .by_item();
-///     while let Some(item) = list.next().await.transpose()? {
-///         println!("{:?}", item);
-///     }
+/// let client = ControlService::builder().build().await?;
+/// // use `client` to make requests to the Discovery Engine API.
 /// # Ok(()) }
 /// ```
 ///
@@ -1157,17 +1136,10 @@ impl ControlService {
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_discoveryengine_v1::client::ConversationalSearchService;
-/// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = ConversationalSearchService::builder().build().await?;
-///     let parent = "parent_value";
-///     let mut list = client.list_conversations()
-///         .set_parent(parent)
-///         .by_item();
-///     while let Some(item) = list.next().await.transpose()? {
-///         println!("{:?}", item);
-///     }
+/// let client = ConversationalSearchService::builder().build().await?;
+/// // use `client` to make requests to the Discovery Engine API.
 /// # Ok(()) }
 /// ```
 ///
@@ -1677,17 +1649,10 @@ impl ConversationalSearchService {
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_discoveryengine_v1::client::DataStoreService;
-/// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = DataStoreService::builder().build().await?;
-///     let parent = "parent_value";
-///     let mut list = client.list_data_stores()
-///         .set_parent(parent)
-///         .by_item();
-///     while let Some(item) = list.next().await.transpose()? {
-///         println!("{:?}", item);
-///     }
+/// let client = DataStoreService::builder().build().await?;
+/// // use `client` to make requests to the Discovery Engine API.
 /// # Ok(()) }
 /// ```
 ///
@@ -2015,17 +1980,10 @@ impl DataStoreService {
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_discoveryengine_v1::client::DocumentService;
-/// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = DocumentService::builder().build().await?;
-///     let parent = "parent_value";
-///     let mut list = client.list_documents()
-///         .set_parent(parent)
-///         .by_item();
-///     while let Some(item) = list.next().await.transpose()? {
-///         println!("{:?}", item);
-///     }
+/// let client = DocumentService::builder().build().await?;
+/// // use `client` to make requests to the Discovery Engine API.
 /// # Ok(()) }
 /// ```
 ///
@@ -2438,17 +2396,10 @@ impl DocumentService {
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_discoveryengine_v1::client::EngineService;
-/// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = EngineService::builder().build().await?;
-///     let parent = "parent_value";
-///     let mut list = client.list_engines()
-///         .set_parent(parent)
-///         .by_item();
-///     while let Some(item) = list.next().await.transpose()? {
-///         println!("{:?}", item);
-///     }
+/// let client = EngineService::builder().build().await?;
+/// // use `client` to make requests to the Discovery Engine API.
 /// # Ok(()) }
 /// ```
 ///
@@ -2768,13 +2719,10 @@ impl EngineService {
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_discoveryengine_v1::client::GroundedGenerationService;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = GroundedGenerationService::builder().build().await?;
-///     let response = client.generate_grounded_content()
-///         /* set fields */
-///         .send().await?;
-///     println!("response {:?}", response);
+/// let client = GroundedGenerationService::builder().build().await?;
+/// // use `client` to make requests to the Discovery Engine API.
 /// # Ok(()) }
 /// ```
 ///
@@ -2991,17 +2939,10 @@ impl GroundedGenerationService {
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_discoveryengine_v1::client::IdentityMappingStoreService;
-/// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = IdentityMappingStoreService::builder().build().await?;
-///     let parent = "parent_value";
-///     let mut list = client.list_identity_mapping_stores()
-///         .set_parent(parent)
-///         .by_item();
-///     while let Some(item) = list.next().await.transpose()? {
-///         println!("{:?}", item);
-///     }
+/// let client = IdentityMappingStoreService::builder().build().await?;
+/// // use `client` to make requests to the Discovery Engine API.
 /// # Ok(()) }
 /// ```
 ///
@@ -3388,14 +3329,10 @@ impl IdentityMappingStoreService {
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_discoveryengine_v1::client::ProjectService;
-/// use google_cloud_lro::Poller;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = ProjectService::builder().build().await?;
-///     let response = client.provision_project()
-///         /* set fields */
-///         .poller().until_done().await?;
-///     println!("response {:?}", response);
+/// let client = ProjectService::builder().build().await?;
+/// // use `client` to make requests to the Discovery Engine API.
 /// # Ok(()) }
 /// ```
 ///
@@ -3605,13 +3542,10 @@ impl ProjectService {
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_discoveryengine_v1::client::RankService;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = RankService::builder().build().await?;
-///     let response = client.rank()
-///         /* set fields */
-///         .send().await?;
-///     println!("response {:?}", response);
+/// let client = RankService::builder().build().await?;
+/// // use `client` to make requests to the Discovery Engine API.
 /// # Ok(()) }
 /// ```
 ///
@@ -3802,13 +3736,10 @@ impl RankService {
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_discoveryengine_v1::client::RecommendationService;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = RecommendationService::builder().build().await?;
-///     let response = client.recommend()
-///         /* set fields */
-///         .send().await?;
-///     println!("response {:?}", response);
+/// let client = RecommendationService::builder().build().await?;
+/// // use `client` to make requests to the Discovery Engine API.
 /// # Ok(()) }
 /// ```
 ///
@@ -4000,17 +3931,10 @@ impl RecommendationService {
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_discoveryengine_v1::client::SchemaService;
-/// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = SchemaService::builder().build().await?;
-///     let parent = "parent_value";
-///     let mut list = client.list_schemas()
-///         .set_parent(parent)
-///         .by_item();
-///     while let Some(item) = list.next().await.transpose()? {
-///         println!("{:?}", item);
-///     }
+/// let client = SchemaService::builder().build().await?;
+/// // use `client` to make requests to the Discovery Engine API.
 /// # Ok(()) }
 /// ```
 ///
@@ -4336,16 +4260,10 @@ impl SchemaService {
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_discoveryengine_v1::client::SearchService;
-/// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = SearchService::builder().build().await?;
-///     let mut list = client.search()
-///         /* set fields */
-///         .by_item();
-///     while let Some(item) = list.next().await.transpose()? {
-///         println!("{:?}", item);
-///     }
+/// let client = SearchService::builder().build().await?;
+/// // use `client` to make requests to the Discovery Engine API.
 /// # Ok(()) }
 /// ```
 ///
@@ -4576,14 +4494,10 @@ impl SearchService {
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_discoveryengine_v1::client::SearchTuningService;
-/// use google_cloud_lro::Poller;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = SearchTuningService::builder().build().await?;
-///     let response = client.train_custom_model()
-///         /* set fields */
-///         .poller().until_done().await?;
-///     println!("response {:?}", response);
+/// let client = SearchTuningService::builder().build().await?;
+/// // use `client` to make requests to the Discovery Engine API.
 /// # Ok(()) }
 /// ```
 ///
@@ -4806,20 +4720,10 @@ impl SearchTuningService {
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_discoveryengine_v1::client::ServingConfigService;
-/// # extern crate wkt as google_cloud_wkt;
-/// use google_cloud_wkt::FieldMask;
-/// use google_cloud_discoveryengine_v1::model::ServingConfig;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = ServingConfigService::builder().build().await?;
-///     let name = "name_value";
-///     let response = client.update_serving_config()
-///         .set_serving_config(
-///             ServingConfig::new().set_name(name)/* set fields */
-///         )
-///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
-///         .send().await?;
-///     println!("response {:?}", response);
+/// let client = ServingConfigService::builder().build().await?;
+/// // use `client` to make requests to the Discovery Engine API.
 /// # Ok(()) }
 /// ```
 ///
@@ -5024,17 +4928,10 @@ impl ServingConfigService {
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_discoveryengine_v1::client::SessionService;
-/// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = SessionService::builder().build().await?;
-///     let parent = "parent_value";
-///     let mut list = client.list_sessions()
-///         .set_parent(parent)
-///         .by_item();
-///     while let Some(item) = list.next().await.transpose()? {
-///         println!("{:?}", item);
-///     }
+/// let client = SessionService::builder().build().await?;
+/// // use `client` to make requests to the Discovery Engine API.
 /// # Ok(()) }
 /// ```
 ///
@@ -5336,17 +5233,10 @@ impl SessionService {
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_discoveryengine_v1::client::SiteSearchEngineService;
-/// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = SiteSearchEngineService::builder().build().await?;
-///     let parent = "parent_value";
-///     let mut list = client.list_target_sites()
-///         .set_parent(parent)
-///         .by_item();
-///     while let Some(item) = list.next().await.transpose()? {
-///         println!("{:?}", item);
-///     }
+/// let client = SiteSearchEngineService::builder().build().await?;
+/// // use `client` to make requests to the Discovery Engine API.
 /// # Ok(()) }
 /// ```
 ///
@@ -5995,13 +5885,10 @@ impl SiteSearchEngineService {
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_discoveryengine_v1::client::UserEventService;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = UserEventService::builder().build().await?;
-///     let response = client.write_user_event()
-///         /* set fields */
-///         .send().await?;
-///     println!("response {:?}", response);
+/// let client = UserEventService::builder().build().await?;
+/// // use `client` to make requests to the Discovery Engine API.
 /// # Ok(()) }
 /// ```
 ///
@@ -6288,16 +6175,10 @@ impl UserEventService {
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_discoveryengine_v1::client::UserLicenseService;
-/// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = UserLicenseService::builder().build().await?;
-///     let mut list = client.list_user_licenses()
-///         /* set fields */
-///         .by_item();
-///     while let Some(item) = list.next().await.transpose()? {
-///         println!("{:?}", item);
-///     }
+/// let client = UserLicenseService::builder().build().await?;
+/// // use `client` to make requests to the Discovery Engine API.
 /// # Ok(()) }
 /// ```
 ///

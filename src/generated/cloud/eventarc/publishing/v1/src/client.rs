@@ -20,13 +20,10 @@
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_eventarc_publishing_v1::client::Publisher;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = Publisher::builder().build().await?;
-///     let response = client.publish_channel_connection_events()
-///         /* set fields */
-///         .send().await?;
-///     println!("response {:?}", response);
+/// let client = Publisher::builder().build().await?;
+/// // use `client` to make requests to the Eventarc Publishing API.
 /// # Ok(()) }
 /// ```
 ///

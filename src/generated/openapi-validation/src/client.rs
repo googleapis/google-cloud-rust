@@ -20,16 +20,10 @@
 ///
 /// # Example
 /// ```
+/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use secretmanager_openapi_v1::client::SecretManagerService;
-/// use google_cloud_gax::paginator::ItemPaginator as _;
-/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
-///     let client = SecretManagerService::builder().build().await?;
-///     let mut list = client.list_locations()
-///         /* set fields */
-///         .by_item();
-///     while let Some(item) = list.next().await.transpose()? {
-///         println!("{:?}", item);
-///     }
+/// let client = SecretManagerService::builder().build().await?;
+/// // use `client` to make requests to the Secret Manager API.
 /// # Ok(()) }
 /// ```
 ///
