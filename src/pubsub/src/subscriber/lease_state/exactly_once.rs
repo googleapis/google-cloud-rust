@@ -13,6 +13,7 @@
 // limitations under the License.
 
 use super::super::handler::AckResult;
+use super::MAX_IDS_PER_RPC;
 use std::collections::HashMap;
 use tokio::sync::oneshot::Sender;
 // Use a `tokio::time::Instant` to facilitate time-based unit testing.
@@ -68,6 +69,21 @@ impl Leases {
             self.to_nack.push(ack_id);
         }
     }
+
+    /// If true, an ack or nack batch is full. We need to flush it.
+    pub fn needs_flush(&self) -> bool {
+        // This is an OR because `Acknowledge` and `ModifyAckDeadline` are
+        // separate RPCs, with separate limits.
+        self.to_ack.len() >= MAX_IDS_PER_RPC || self.to_nack.len() >= MAX_IDS_PER_RPC
+    }
+
+    /// Drain the pending (acks, nacks) for the lease state to flush.
+    pub fn drain(&mut self) -> (Vec<String>, Vec<String>) {
+        (
+            std::mem::take(&mut self.to_ack),
+            std::mem::take(&mut self.to_nack),
+        )
+    }
 }
 
 #[cfg(test)]
@@ -94,9 +110,12 @@ impl PartialEq<Leases> for super::tests::TestLeases {
 
 #[cfg(test)]
 mod tests {
-    use super::super::tests::{TestLeases, test_id};
+    use super::super::tests::{TestLeases, test_id, test_ids};
     use super::*;
     use tokio::sync::oneshot::channel;
+
+    // Cover the constant, converting it to an integer for convenience.
+    const MAX_IDS_PER_RPC: i32 = super::MAX_IDS_PER_RPC as i32;
 
     fn test_info() -> ExactlyOnceInfo {
         let (result_tx, _result_rx) = channel();
@@ -263,5 +282,96 @@ mod tests {
             },
             leases
         );
+    }
+
+    #[test]
+    fn drain() {
+        let mut leases = Leases::default();
+        for i in 0..100 {
+            leases.add(test_id(i), test_info());
+        }
+        for i in 0..10 {
+            leases.nack(test_id(i));
+        }
+        for i in 10..20 {
+            leases.ack(test_id(i));
+        }
+        assert_eq!(
+            TestLeases {
+                under_lease: test_ids(10..100),
+                to_ack: test_ids(10..20),
+                to_nack: test_ids(0..10),
+            },
+            leases
+        );
+
+        let (to_ack, to_nack) = leases.drain();
+        assert_eq!(to_ack, test_ids(10..20));
+        assert_eq!(to_nack, test_ids(0..10));
+
+        assert_eq!(
+            TestLeases {
+                under_lease: test_ids(10..100),
+                to_ack: Vec::new(),
+                to_nack: Vec::new(),
+            },
+            leases
+        );
+    }
+
+    #[test]
+    fn needs_flush_ack() {
+        let mut leases = Leases::default();
+
+        for i in 0..1000 {
+            leases.add(test_id(i), test_info());
+            leases.ack(test_id(i));
+        }
+        // With 1000 pending acks, the batch is not full.
+        assert!(!leases.needs_flush());
+
+        for i in 1000..MAX_IDS_PER_RPC {
+            leases.add(test_id(i), test_info());
+            leases.ack(test_id(i));
+        }
+        // With 2500 pending acks, the batch is full. We should flush it now.
+        assert!(leases.needs_flush());
+    }
+
+    #[test]
+    fn needs_flush_nack() {
+        let mut leases = Leases::default();
+
+        for i in 0..1000 {
+            leases.add(test_id(i), test_info());
+            leases.nack(test_id(i));
+        }
+        // With 1000 pending nacks, the batch is not full.
+        assert!(!leases.needs_flush());
+
+        for i in 1000..MAX_IDS_PER_RPC {
+            leases.add(test_id(i), test_info());
+            leases.nack(test_id(i));
+        }
+        // With 2500 pending nacks, the batch is full. We should flush it now.
+        assert!(leases.needs_flush());
+    }
+
+    #[test]
+    fn ack_and_nack_batches_are_independent() {
+        let mut leases = Leases::default();
+
+        let over_half_full = MAX_IDS_PER_RPC / 2 + 100;
+        for i in 0..over_half_full {
+            leases.add(test_id(i), test_info());
+            leases.ack(test_id(i));
+
+            leases.add(test_id(over_half_full + i), test_info());
+            leases.nack(test_id(over_half_full + i));
+        }
+
+        // While there are more than `MAX_IDS_PER_RPC` total messages under
+        // lease management, neither the ack batch nor the nack batch are full.
+        assert!(!leases.needs_flush());
     }
 }
