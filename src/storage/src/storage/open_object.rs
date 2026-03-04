@@ -393,6 +393,25 @@ impl<S> OpenObject<S> {
         self.options.set_bidi_attempt_timeout(v);
         self
     }
+
+    /// Sets the `User-Agent` header for this request.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// let mut response = client
+    ///     .open_object("projects/_/buckets/my-bucket", "my-object")
+    ///     .with_user_agent("my-app/1.0.0")
+    ///     .send()
+    ///     .await?;
+    /// println!("response details={response:?}");
+    /// # Ok(()) }
+    /// ```
+    pub fn with_user_agent(mut self, user_agent: impl Into<String>) -> Self {
+        self.options.user_agent = Some(user_agent.into());
+        self
+    }
 }
 
 #[cfg(test)]
@@ -535,6 +554,7 @@ mod tests {
         use google_cloud_gax::retry_policy::Aip194Strict;
         use google_cloud_gax::retry_throttler::CircuitBreaker;
 
+        let user_agent = "quick_foxes_lazy_dogs/1.0.0";
         let options = RequestOptions::new();
         let builder = OpenObject::new(
             "bucket".to_string(),
@@ -551,7 +571,8 @@ mod tests {
         .with_retry_policy(Aip194Strict)
         .with_retry_throttler(CircuitBreaker::default())
         .with_read_resume_policy(NeverResume)
-        .with_attempt_timeout(Duration::from_secs(120));
+        .with_attempt_timeout(Duration::from_secs(120))
+        .with_user_agent(user_agent);
 
         let got = builder.options;
         assert!(
@@ -575,6 +596,7 @@ mod tests {
             Duration::from_secs(120),
             "{got:?}"
         );
+        assert_eq!(got.user_agent.as_deref(), Some(user_agent), "{got:?}");
 
         Ok(())
     }
