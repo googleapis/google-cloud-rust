@@ -20,7 +20,7 @@ pub type ClientConfig = google_cloud_gax::client_builder::internal::ClientConfig
 pub(crate) const LOGGING_VAR: &str = "GOOGLE_CLOUD_RUST_LOGGING";
 
 /// Information about the client library used for instrumentation.
-#[derive(Copy, Clone, Debug, Default)]
+#[derive(Copy, Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InstrumentationClientInfo {
     /// The short service name, e.g., "appengine", "run", "firestore".
