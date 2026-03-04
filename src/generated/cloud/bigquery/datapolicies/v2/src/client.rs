@@ -20,10 +20,17 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_bigquery_datapolicies_v2::client::DataPolicyService;
-/// let client = DataPolicyService::builder().build().await?;
-/// // use `client` to make requests to the BigQuery Data Policy API.
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = DataPolicyService::builder().build().await?;
+///     let parent = "parent_value";
+///     let mut list = client.list_data_policies()
+///         .set_parent(parent)
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
 /// # Ok(()) }
 /// ```
 ///

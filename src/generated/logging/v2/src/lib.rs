@@ -62,6 +62,15 @@ pub use google_cloud_gax::error::Error;
 #[allow(rustdoc::redundant_explicit_links)]
 pub mod stub;
 
+///
+/// # Example
+/// ```
+/// # use google_cloud_logging_v2::client::LoggingServiceV2;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = LoggingServiceV2::builder().build().await?;
+///     // use `client` to make requests to the Cloud Logging API.
+/// # Ok(()) }
+/// ```
 /// Concrete implementations of this client library traits.
 pub mod client;
 

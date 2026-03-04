@@ -20,10 +20,13 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_container_v1::client::ClusterManager;
-/// let client = ClusterManager::builder().build().await?;
-/// // use `client` to make requests to the Kubernetes Engine API.
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = ClusterManager::builder().build().await?;
+///     let response = client.list_clusters()
+///         /* set fields */
+///         .send().await?;
+///     println!("response {:?}", response);
 /// # Ok(()) }
 /// ```
 ///
