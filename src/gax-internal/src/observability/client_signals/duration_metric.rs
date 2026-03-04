@@ -15,9 +15,9 @@
 use super::RequestStart;
 use crate::observability::attributes::keys::{
     GCP_CLIENT_ARTIFACT, GCP_CLIENT_REPO, GCP_CLIENT_SERVICE, GCP_CLIENT_VERSION,
+    RPC_RESPONSE_STATUS_CODE, RPC_SYSTEM_NAME,
 };
-use crate::observability::attributes::{GCP_CLIENT_REPO_GOOGLEAPIS, keys::OTEL_STATUS_CODE};
-use crate::observability::attributes::{RPC_SYSTEM_HTTP, otel_status_codes};
+use crate::observability::attributes::{GCP_CLIENT_REPO_GOOGLEAPIS, RPC_SYSTEM_HTTP};
 use crate::options::InstrumentationClientInfo;
 use google_cloud_gax::error::Error;
 use google_cloud_gax::error::rpc::Code;
@@ -71,12 +71,11 @@ impl DurationMetric {
         self.0.record(
             elapsed.as_secs_f64(),
             &[
-                KeyValue::new("rpc.system.name", RPC_SYSTEM_HTTP),
+                KeyValue::new(RPC_SYSTEM_NAME, RPC_SYSTEM_HTTP),
                 KeyValue::new(attribute::URL_DOMAIN, start.info().default_host),
                 KeyValue::new(attribute::URL_TEMPLATE, start.url_template()),
                 KeyValue::new(attribute::RPC_METHOD, start.method()),
-                KeyValue::new(OTEL_STATUS_CODE, otel_status_codes::OK),
-                KeyValue::new("rpc.response.status_code", Code::Ok.name()),
+                KeyValue::new(RPC_RESPONSE_STATUS_CODE, Code::Ok.name()),
                 KeyValue::new(attribute::HTTP_RESPONSE_STATUS_CODE, 200_i64),
             ],
         );
@@ -85,27 +84,31 @@ impl DurationMetric {
     #[allow(dead_code)]
     pub(crate) fn record_error(&self, start: RequestStart, error: &Error) {
         let elapsed = start.elapsed();
-        self.0.record(
-            elapsed.as_secs_f64(),
-            &[
-                KeyValue::new("rpc.system.name", RPC_SYSTEM_HTTP),
-                KeyValue::new(attribute::URL_DOMAIN, start.info().default_host),
-                KeyValue::new(attribute::URL_TEMPLATE, start.url_template()),
-                KeyValue::new(attribute::RPC_METHOD, start.method()),
-                KeyValue::new(OTEL_STATUS_CODE, otel_status_codes::ERROR),
-                KeyValue::new(
-                    "rpc.response.status_code",
-                    error
-                        .status()
-                        .map(|s| s.code.name())
-                        .unwrap_or(Code::Unknown.name()),
-                ),
-                KeyValue::new(
-                    attribute::HTTP_RESPONSE_STATUS_CODE,
-                    error.http_status_code().unwrap_or_default() as i64,
-                ),
-            ],
-        );
+        // We want to omit the HTTP_RESPONSE_STATUS_CODE attribute if the error
+        // is missing the HTTP status code. We could try to avoid the memory
+        // allocation required for the `Vec`. I (coryan@) do not think it is
+        // worth it: this code path is only invoked on failed requests, which
+        // should be rare.
+        let mut attributes = Vec::from_iter([
+            KeyValue::new("rpc.system.name", RPC_SYSTEM_HTTP),
+            KeyValue::new(attribute::URL_DOMAIN, start.info().default_host),
+            KeyValue::new(attribute::URL_TEMPLATE, start.url_template()),
+            KeyValue::new(attribute::RPC_METHOD, start.method()),
+            KeyValue::new(
+                RPC_RESPONSE_STATUS_CODE,
+                error
+                    .status()
+                    .map(|s| s.code.name())
+                    .unwrap_or(Code::Unknown.name()),
+            ),
+        ]);
+        if let Some(code) = error.http_status_code() {
+            attributes.push(KeyValue::new(
+                attribute::HTTP_RESPONSE_STATUS_CODE,
+                code as i64,
+            ));
+        }
+        self.0.record(elapsed.as_secs_f64(), &attributes);
     }
 }
 
@@ -146,7 +149,6 @@ mod tests {
         check_data(
             &metrics,
             &[
-                ("otel.status_code", "OK"),
                 ("rpc.response.status_code", "OK"),
                 ("http.response.status_code", "200"),
             ],
@@ -172,7 +174,6 @@ mod tests {
         check_data(
             &metrics,
             &[
-                ("otel.status_code", "OK"),
                 ("rpc.response.status_code", "OK"),
                 ("http.response.status_code", "200"),
             ],
@@ -200,14 +201,7 @@ mod tests {
         provider.force_flush()?;
         let metrics = exporter.get_finished_metrics()?;
         check_scope(&metrics);
-        check_data(
-            &metrics,
-            &[
-                ("otel.status_code", "ERROR"),
-                ("rpc.response.status_code", "NOT_FOUND"),
-                ("http.response.status_code", "0"),
-            ],
-        );
+        check_data(&metrics, &[("rpc.response.status_code", "NOT_FOUND")]);
         Ok(())
     }
 
@@ -230,7 +224,6 @@ mod tests {
         check_data(
             &metrics,
             &[
-                ("otel.status_code", "ERROR"),
                 ("rpc.response.status_code", "UNKNOWN"),
                 ("http.response.status_code", "429"),
             ],
