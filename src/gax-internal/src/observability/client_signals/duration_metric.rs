@@ -87,7 +87,7 @@ impl DurationMetric {
         // Use a `Vec` to omit HTTP_RESPONSE_STATUS_CODE. This extra allocation
         // occurs only on error paths, which should be rare.
         let mut attributes = Vec::from_iter([
-            KeyValue::new("rpc.system.name", RPC_SYSTEM_HTTP),
+            KeyValue::new(RPC_SYSTEM_NAME, RPC_SYSTEM_HTTP),
             KeyValue::new(attribute::URL_DOMAIN, start.info().default_host),
             KeyValue::new(attribute::URL_TEMPLATE, start.url_template()),
             KeyValue::new(attribute::RPC_METHOD, start.method()),
