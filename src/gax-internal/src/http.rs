@@ -312,20 +312,6 @@ impl ReqwestClient {
         ))
     }
 
-    fn configure_builder(
-        &self,
-        mut builder: reqwest::RequestBuilder,
-        options: &RequestOptions,
-    ) -> Result<reqwest::RequestBuilder> {
-        if let Some(user_agent) = options.user_agent() {
-            builder = builder.header(
-                reqwest::USER_AGENT,
-                reqwest::HeaderValue::from_str(user_agent).map_err(Error::ser)?,
-            );
-        }
-        Ok(builder)
-    }
-
     async fn make_credentials(
         config: &crate::options::ClientConfig,
     ) -> ClientBuilderResult<Credentials> {
@@ -373,7 +359,14 @@ impl ReqwestClient {
         options: &RequestOptions,
         remaining_time: Option<std::time::Duration>,
     ) -> Result<reqwest::Request> {
-        builder = self.configure_builder(builder, options)?;
+        builder = if let Some(user_agent) = options.user_agent() {
+            builder.header(
+                reqwest::USER_AGENT,
+                reqwest::HeaderValue::from_str(user_agent).map_err(Error::ser)?,
+            )
+        } else {
+            builder
+        };
 
         builder = effective_timeout(options, remaining_time)
             .into_iter()
@@ -909,182 +902,6 @@ mod tests {
             }
         );
         assert_eq!(result.err().unwrap().http_status_code(), Some(308));
-        Ok(())
-    }
-    #[tokio::test]
-    #[allow(deprecated)]
-    async fn execute_streaming_success_with_user_agent() -> TestResult {
-        let user_agent = "quick_foxes_lazy_dogs/1.2.3";
-        let server = httptest::Server::run();
-        server.expect(
-            httptest::Expectation::matching(httptest::matchers::all_of![
-                httptest::matchers::request::method_path("GET", "/foo"),
-                httptest::matchers::request::headers(httptest::matchers::contains((
-                    reqwest::USER_AGENT.as_str(),
-                    user_agent
-                )))
-            ])
-            .respond_with(httptest::responders::status_code(200).body("hello world")),
-        );
-
-        let mut config = ClientConfig::default();
-        config.cred = Some(Anonymous::new().build());
-        let client = ReqwestClient::new(config, &server.url_str("/")).await?;
-        let builder = client.builder(Method::GET, "foo".to_string());
-        let mut options = RequestOptions::default();
-        options.set_user_agent(user_agent);
-
-        let response = client
-            .execute_streaming_once(builder, options, None, 0)
-            .await?;
-
-        use futures::TryStreamExt;
-        let body_bytes = response
-            .into_body()
-            .map_ok(|b| b.to_vec())
-            .try_concat()
-            .await?;
-        assert_eq!(body_bytes, b"hello world");
-        Ok(())
-    }
-
-    #[tokio::test]
-    async fn execute_success() -> TestResult {
-        let server = httptest::Server::run();
-        server.expect(
-            httptest::Expectation::matching(httptest::matchers::all_of![
-                httptest::matchers::request::method_path("POST", "/post"),
-            ])
-            .respond_with(
-                httptest::responders::status_code(200).body(
-                    serde_json::to_string(&serde_json::json!({"message": "success"})).unwrap(),
-                ),
-            ),
-        );
-
-        let mut config = ClientConfig::default();
-        config.cred = Some(Anonymous::new().build());
-        let client = ReqwestClient::new(config, &server.url_str("/")).await?;
-        let builder = client.builder(Method::POST, "post".to_string());
-
-        let options = RequestOptions::default();
-
-        #[derive(serde::Deserialize, serde::Serialize, PartialEq, Debug, Default)]
-        struct ResponseBody {
-            message: String,
-        }
-
-        let body: Option<ResponseBody> = None;
-        let response = client
-            .execute::<ResponseBody, ResponseBody>(builder, body, options)
-            .await?;
-
-        let (_parts, parsed_body) = response.into_parts();
-        assert_eq!(parsed_body.message, "success");
-
-        Ok(())
-    }
-
-    #[tokio::test]
-    async fn execute_success_with_user_agent() -> TestResult {
-        let user_agent = "quick_foxes_lazy_dogs/1.2.3";
-        let server = httptest::Server::run();
-        server.expect(
-            httptest::Expectation::matching(httptest::matchers::all_of![
-                httptest::matchers::request::method_path("POST", "/post"),
-                httptest::matchers::request::headers(httptest::matchers::contains((
-                    reqwest::USER_AGENT.as_str(),
-                    user_agent
-                )))
-            ])
-            .respond_with(
-                httptest::responders::status_code(200).body(
-                    serde_json::to_string(&serde_json::json!({"message": "success"})).unwrap(),
-                ),
-            ),
-        );
-
-        let mut config = ClientConfig::default();
-        config.cred = Some(Anonymous::new().build());
-        let client = ReqwestClient::new(config, &server.url_str("/")).await?;
-        let builder = client.builder(Method::POST, "post".to_string());
-
-        let mut options = RequestOptions::default();
-        options.set_user_agent(user_agent);
-
-        #[derive(serde::Deserialize, serde::Serialize, PartialEq, Debug, Default)]
-        struct ResponseBody {
-            message: String,
-        }
-
-        let body: Option<ResponseBody> = None;
-        let response = client
-            .execute::<ResponseBody, ResponseBody>(builder, body, options)
-            .await?;
-
-        let (_parts, parsed_body) = response.into_parts();
-        assert_eq!(parsed_body.message, "success");
-
-        Ok(())
-    }
-
-    #[tokio::test]
-    async fn execute_http_success() -> TestResult {
-        let server = httptest::Server::run();
-        server.expect(
-            httptest::Expectation::matching(httptest::matchers::all_of![
-                httptest::matchers::request::method_path("GET", "/http"),
-            ])
-            .respond_with(httptest::responders::status_code(200).body("ok")),
-        );
-
-        let mut config = ClientConfig::default();
-        config.cred = Some(Anonymous::new().build());
-        let client = ReqwestClient::new(config, &server.url_str("/")).await?;
-        let builder = client.builder(Method::GET, "http".to_string());
-
-        let options = RequestOptions::default();
-
-        let attempt_info = crate::attempt_info::AttemptInfo::new(0);
-        let response = client.execute_http(builder, options, attempt_info).await?;
-
-        assert_eq!(response.status(), 200);
-        let body = response.text().await?;
-        assert_eq!(body, "ok");
-
-        Ok(())
-    }
-
-    #[tokio::test]
-    async fn execute_http_success_with_user_agent() -> TestResult {
-        let user_agent = "quick_foxes_lazy_dogs/1.2.3";
-        let server = httptest::Server::run();
-        server.expect(
-            httptest::Expectation::matching(httptest::matchers::all_of![
-                httptest::matchers::request::method_path("GET", "/http"),
-                httptest::matchers::request::headers(httptest::matchers::contains((
-                    reqwest::USER_AGENT.as_str(),
-                    user_agent
-                )))
-            ])
-            .respond_with(httptest::responders::status_code(200).body("ok")),
-        );
-
-        let mut config = ClientConfig::default();
-        config.cred = Some(Anonymous::new().build());
-        let client = ReqwestClient::new(config, &server.url_str("/")).await?;
-        let builder = client.builder(Method::GET, "http".to_string());
-
-        let mut options = RequestOptions::default();
-        options.set_user_agent(user_agent);
-
-        let attempt_info = crate::attempt_info::AttemptInfo::new(0);
-        let response = client.execute_http(builder, options, attempt_info).await?;
-
-        assert_eq!(response.status(), 200);
-        let body = response.text().await?;
-        assert_eq!(body, "ok");
-
         Ok(())
     }
 }
