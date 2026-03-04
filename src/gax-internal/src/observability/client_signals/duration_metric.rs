@@ -122,6 +122,9 @@ mod tests {
     use std::sync::Arc;
     use std::time::Duration;
 
+    // This is in the middle of the [0.5, 1.0) bucket defined in `boundaries`.
+    const DELAY: Duration = Duration::from_millis(750);
+
     #[tokio::test(start_paused = true)]
     async fn global_record_ok() -> anyhow::Result<()> {
         let exporter = InMemoryMetricExporter::default();
@@ -135,7 +138,7 @@ mod tests {
         let options = RequestOptions::default().insert_extension(PathTemplate(URL_TEMPLATE));
         let start = RequestStart::new(&TEST_INFO, &options, METHOD);
         // Use a long pause so it gets recorded as such.
-        tokio::time::sleep(Duration::from_millis(500)).await;
+        tokio::time::sleep(DELAY).await;
         metric.record_ok(start);
         provider.force_flush()?;
         let metrics = exporter.get_finished_metrics()?;
@@ -161,7 +164,7 @@ mod tests {
         let options = RequestOptions::default().insert_extension(PathTemplate(URL_TEMPLATE));
         let start = RequestStart::new(&TEST_INFO, &options, METHOD);
         // Use a long pause so it gets recorded as such.
-        tokio::time::sleep(Duration::from_millis(500)).await;
+        tokio::time::sleep(DELAY).await;
         metric.record_ok(start);
         provider.force_flush()?;
         let metrics = exporter.get_finished_metrics()?;
@@ -187,7 +190,7 @@ mod tests {
         let options = RequestOptions::default().insert_extension(PathTemplate(URL_TEMPLATE));
         let start = RequestStart::new(&TEST_INFO, &options, "test-method");
         // Use a long pause so it gets recorded as such.
-        tokio::time::sleep(Duration::from_millis(500)).await;
+        tokio::time::sleep(DELAY).await;
         let error = Error::service(
             Status::default()
                 .set_code(Code::NotFound)
@@ -218,7 +221,7 @@ mod tests {
         let options = RequestOptions::default().insert_extension(PathTemplate(URL_TEMPLATE));
         let start = RequestStart::new(&TEST_INFO, &options, "test-method");
         // Use a long pause so it gets recorded as such.
-        tokio::time::sleep(Duration::from_millis(500)).await;
+        tokio::time::sleep(DELAY).await;
         let error = Error::http(429, http::HeaderMap::new(), bytes::Bytes::new());
         metric.record_error(start, &error);
         provider.force_flush()?;
@@ -303,14 +306,27 @@ mod tests {
         let diff = attr.symmetric_difference(&want).collect::<Vec<_>>();
         assert_eq!(attr, want, "diff={diff:?}");
 
-        // The sample was for 123.456 seconds.
         let bucket = point
             .bucket_counts()
+            // The first bucket is "counting the values below the first boundary".
+            .skip(1)
             .zip(point.bounds())
             .find(|(count, _bound)| *count >= 1_u64);
+        // Find the expected bucket
+        let secs = DELAY.as_secs_f64();
+        let (low, high) = BOUNDARIES
+            .windows(2)
+            .map(|a| (a[0], a[1]))
+            .find(|(a, b)| (*a..*b).contains(&secs))
+            .unwrap_or_else(|| {
+                panic!(
+                    "expected DELAY ({}) to match of the buckets in {BOUNDARIES:?}",
+                    secs
+                )
+            });
         assert!(
-            bucket.is_some_and(|(c, b)| c == 1 && b >= 0.5),
-            "mismatched bucket in {point:?}"
+            bucket.is_some_and(|(c, b)| c == 1 && b == low),
+            "mismatched bucket {bucket:?} want (1, {low})\nfound=[{low}, {high})\n{point:?}"
         );
     }
 }
