@@ -14,17 +14,22 @@
 
 #[cfg(all(test, feature = "run-integration-tests"))]
 mod openapi {
+    use google_cloud_test_utils::errors::anydump;
     use google_cloud_test_utils::tracing::enable_tracing;
 
     #[tokio::test(flavor = "multi_thread")]
     async fn run_global() -> anyhow::Result<()> {
         let _guard = enable_tracing();
-        integration_tests_openapi::global::run().await
+        integration_tests_openapi::global::run()
+            .await
+            .inspect_err(anydump)
     }
 
     #[tokio::test(flavor = "multi_thread")]
     async fn run_locational() -> anyhow::Result<()> {
         let _guard = enable_tracing();
-        integration_tests_openapi::locational::run().await
+        integration_tests_openapi::locational::run()
+            .await
+            .inspect_err(anydump)
     }
 }

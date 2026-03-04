@@ -14,16 +14,15 @@
 
 #[cfg(all(test, feature = "run-integration-tests"))]
 mod compute {
+    use google_cloud_test_utils::errors::anydump;
     use google_cloud_test_utils::tracing::enable_tracing;
-
-    fn dump(error: &anyhow::Error) {
-        tracing::error!("full error: {error:?}");
-    }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_compute_zones() -> anyhow::Result<()> {
         let _guard = enable_tracing();
-        integration_tests_discovery::zones().await.inspect_err(dump)
+        integration_tests_discovery::zones()
+            .await
+            .inspect_err(anydump)
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
@@ -31,7 +30,7 @@ mod compute {
         let _guard = enable_tracing();
         integration_tests_discovery::errors()
             .await
-            .inspect_err(dump)
+            .inspect_err(anydump)
     }
 
     #[ignore = "TODO(#4894) - disabled because it was flaky"]
@@ -40,7 +39,7 @@ mod compute {
         let _guard = enable_tracing();
         integration_tests_discovery::lro_errors()
             .await
-            .inspect_err(dump)
+            .inspect_err(anydump)
     }
 
     #[ignore = "TODO(#4894) - disabled because it was flaky"]
@@ -49,7 +48,7 @@ mod compute {
         let _guard = enable_tracing();
         integration_tests_discovery::machine_types()
             .await
-            .inspect_err(dump)
+            .inspect_err(anydump)
     }
 
     #[ignore = "TODO(#4894) - disabled because it was flaky"]
@@ -58,7 +57,7 @@ mod compute {
         let _guard = enable_tracing();
         integration_tests_discovery::images()
             .await
-            .inspect_err(dump)
+            .inspect_err(anydump)
     }
 
     #[ignore = "TODO(#4894) - disabled because it was flaky"]
@@ -67,7 +66,7 @@ mod compute {
         let _guard = enable_tracing();
         integration_tests_discovery::instances()
             .await
-            .inspect_err(dump)
+            .inspect_err(anydump)
     }
 
     #[ignore = "TODO(#3691) - disabled because it was flaky"]
@@ -76,6 +75,6 @@ mod compute {
         let _guard = enable_tracing();
         integration_tests_discovery::region_instances()
             .await
-            .inspect_err(dump)
+            .inspect_err(anydump)
     }
 }

@@ -14,23 +14,33 @@
 
 #[cfg(google_cloud_unstable_tracing)]
 mod http_tracing {
+    use google_cloud_test_utils::errors::anydump;
+
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn to_otlp() -> anyhow::Result<()> {
-        integration_tests_o11y::http_tracing::to_otlp().await
+        integration_tests_o11y::http_tracing::to_otlp()
+            .await
+            .inspect_err(anydump)
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn success_testlayer() -> anyhow::Result<()> {
-        integration_tests_o11y::http_tracing::success_testlayer().await
+        integration_tests_o11y::http_tracing::success_testlayer()
+            .await
+            .inspect_err(anydump)
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn parse_error() -> anyhow::Result<()> {
-        integration_tests_o11y::http_tracing::parse_error().await
+        integration_tests_o11y::http_tracing::parse_error()
+            .await
+            .inspect_err(anydump)
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn api_error() -> anyhow::Result<()> {
-        integration_tests_o11y::http_tracing::api_error().await
+        integration_tests_o11y::http_tracing::api_error()
+            .await
+            .inspect_err(anydump)
     }
 }

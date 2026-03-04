@@ -14,17 +14,22 @@
 
 #[cfg(all(test, feature = "run-integration-tests"))]
 mod bigquery {
+    use google_cloud_test_utils::errors::anydump;
     use google_cloud_test_utils::tracing::enable_tracing;
 
     #[tokio::test]
     async fn run_dataset_service() -> anyhow::Result<()> {
         let _guard = enable_tracing();
-        integration_tests_bigquery::dataset_admin().await
+        integration_tests_bigquery::dataset_admin()
+            .await
+            .inspect_err(anydump)
     }
 
     #[tokio::test]
     async fn run_job_service() -> anyhow::Result<()> {
         let _guard = enable_tracing();
-        integration_tests_bigquery::job_service().await
+        integration_tests_bigquery::job_service()
+            .await
+            .inspect_err(anydump)
     }
 }
