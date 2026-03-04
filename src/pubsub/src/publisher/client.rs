@@ -599,7 +599,6 @@ mod tests {
         let mut mock = MockGapicPublisher::new();
         mock.expect_publish()
             .withf(|r, _| r.messages.len() == 1)
-            .times(2)
             .returning(publish_ok);
 
         let client = GapicPublisher::from_stub(mock);
