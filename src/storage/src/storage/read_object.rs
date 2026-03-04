@@ -990,13 +990,15 @@ mod tests {
 
     #[tokio::test]
     async fn read_object_with_user_agent() -> Result {
+        use http::header::USER_AGENT;
+
         let user_agent = "quick_fox_lazy_dog/1.2.3";
         let server = Server::run();
         server.expect(
             Expectation::matching(all_of![
                 request::method_path("GET", "/storage/v1/b/test-bucket/o/test-object"),
                 request::headers(contains(("accept-encoding", "gzip"))),
-                request::headers(contains(("user-agent", user_agent))),
+                request::headers(contains((USER_AGENT.as_str(), user_agent))),
                 request::query(url_decoded(contains(("alt", "media")))),
             ])
             .respond_with(
