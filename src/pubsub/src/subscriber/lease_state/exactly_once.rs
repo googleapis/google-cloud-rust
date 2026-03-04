@@ -92,30 +92,40 @@ impl Leases {
     pub fn retain(&mut self, max_lease_extension: Duration) -> Vec<Vec<String>> {
         let now = Instant::now();
 
-        // We cannot satisfy the `result_tx` if we use `HashMap::retain()`. We
-        // prefer to just look up expired ack IDs again in the map, over holding
-        // the `result_tx` in an `Option<>`.
+        // We want to extract some values from `HashMap`, leaving the rest
+        // unchanged.
+        // - `extract_if()` is not available as our MSRV is 1.85 and that appears
+        //   in 1.88.
+        // - `retain` does not work because we need a *value* of `info` to
+        //   change `tx` and that only gives us a `&mut ExactlyOnceInfo`.
+        // - using `Option<Sender>` would complicate the rest of the code.
+        //
+        // We believe the iterations are most of the problem.
 
-        let expired: Vec<String> = self
+        let mut expired = Vec::new();
+        let remaining = self
             .under_lease
             .iter()
-            .filter(|(_, info)| !info.pending && info.receive_time + max_lease_extension < now)
-            .map(|(id, _)| id.clone())
-            .collect();
-
-        for ack_id in expired {
-            if let Some(info) = self.under_lease.remove(&ack_id) {
-                let _ = info.result_tx.send(Err(AckError::LeaseExpired));
-            }
-        }
-
-        self.under_lease
-            .keys()
-            .cloned()
+            .filter_map(|(id, info)| {
+                if !info.pending && info.receive_time + max_lease_extension < now {
+                    expired.push(id.clone());
+                    None
+                } else {
+                    Some(id.clone())
+                }
+            })
             .collect::<Vec<_>>()
             .chunks(MAX_IDS_PER_RPC)
-            .map(|chunk| chunk.to_vec())
-            .collect()
+            .map(|c| c.to_vec())
+            .collect::<Vec<_>>();
+
+        expired
+            .into_iter()
+            .filter_map(|id| self.under_lease.remove_entry(&id))
+            .for_each(|(_id, info)| {
+                let _ = info.result_tx.send(Err(AckError::LeaseExpired));
+            });
+        remaining
     }
 }
 
