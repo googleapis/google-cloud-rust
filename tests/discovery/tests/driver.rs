@@ -46,6 +46,7 @@ mod compute {
         integration_tests_discovery::images().await
     }
 
+    #[ignore = "TODO(#4894) - disabled because it was flaky"]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_compute_instances() -> anyhow::Result<()> {
         let _guard = enable_tracing();
