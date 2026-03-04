@@ -20,7 +20,8 @@ use tokio::sync::oneshot::Sender;
 // Use a `tokio::time::Instant` to facilitate time-based unit testing.
 use tokio::time::{Duration, Instant};
 
-const NACK_SHUTDOWN_ERROR: &str = "subscriber was configured to `NackImmediately`. If this is surprising, you should configure it to `WaitForProcessing` instead.";
+// TODO(#4868) - mention alternative shutdown options, when implemented.
+const NACK_SHUTDOWN_ERROR: &str = "subscriber is configured to nack all pending messages on shutdown.";
 
 #[derive(Debug)]
 pub(super) struct ExactlyOnceInfo {
