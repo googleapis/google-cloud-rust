@@ -84,11 +84,8 @@ impl DurationMetric {
     #[allow(dead_code)]
     pub(crate) fn record_error(&self, start: RequestStart, error: &Error) {
         let elapsed = start.elapsed();
-        // We want to omit the HTTP_RESPONSE_STATUS_CODE attribute if the error
-        // is missing the HTTP status code. We could try to avoid the memory
-        // allocation required for the `Vec`. I (coryan@) do not think it is
-        // worth it: this code path is only invoked on failed requests, which
-        // should be rare.
+        // Use a `Vec` to omit HTTP_RESPONSE_STATUS_CODE. This extra allocation
+        // occurs only on error paths, which should be rare.
         let mut attributes = Vec::from_iter([
             KeyValue::new("rpc.system.name", RPC_SYSTEM_HTTP),
             KeyValue::new(attribute::URL_DOMAIN, start.info().default_host),
