@@ -67,14 +67,7 @@ impl super::stub::Changes for Changes {
 
                 let _resource_name = format!(
                     "//dns.googleapis.com/projects/{}/managedZones/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.managed_zone).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    project, managed_zone,
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -151,18 +144,7 @@ impl super::stub::Changes for Changes {
 
                 let _resource_name = format!(
                     "//dns.googleapis.com/projects/{}/managedZones/{}/changes/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.managed_zone).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.change_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    project, managed_zone, change_id,
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -241,14 +223,7 @@ impl super::stub::Changes for Changes {
 
                 let _resource_name = format!(
                     "//dns.googleapis.com/projects/{}/managedZones/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.managed_zone).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    project, managed_zone,
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -361,18 +336,7 @@ impl super::stub::DnsKeys for DnsKeys {
 
                 let _resource_name = format!(
                     "//dns.googleapis.com/projects/{}/managedZones/{}/dnsKeys/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.managed_zone).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.dns_key_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    project, managed_zone, dns_key_id,
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -455,14 +419,7 @@ impl super::stub::DnsKeys for DnsKeys {
 
                 let _resource_name = format!(
                     "//dns.googleapis.com/projects/{}/managedZones/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.managed_zone).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    project, managed_zone,
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -571,18 +528,7 @@ impl super::stub::ManagedZoneOperations for ManagedZoneOperations {
 
                 let _resource_name = format!(
                     "//dns.googleapis.com/projects/{}/managedZones/{}/operations/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.managed_zone).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.operation).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    project, managed_zone, operation,
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -661,14 +607,7 @@ impl super::stub::ManagedZoneOperations for ManagedZoneOperations {
 
                 let _resource_name = format!(
                     "//dns.googleapis.com/projects/{}/managedZones/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.managed_zone).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    project, managed_zone,
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -764,13 +703,7 @@ impl super::stub::ManagedZones for ManagedZones {
                 )?;
                 let path = format!("/dns/v1/projects/{}/managedZones", var_project,);
 
-                let _resource_name = format!(
-                    "//dns.googleapis.com/projects/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                );
+                let _resource_name = format!("//dns.googleapis.com/projects/{}", project,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req.client_operation_id.iter().fold(builder, |builder, p| {
@@ -836,14 +769,7 @@ impl super::stub::ManagedZones for ManagedZones {
 
                 let _resource_name = format!(
                     "//dns.googleapis.com/projects/{}/managedZones/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.managed_zone).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    project, managed_zone,
                 );
 
                 let builder = self.inner.builder(Method::DELETE, path);
@@ -922,14 +848,7 @@ impl super::stub::ManagedZones for ManagedZones {
 
                 let _resource_name = format!(
                     "//dns.googleapis.com/projects/{}/managedZones/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.managed_zone).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    project, managed_zone,
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -1041,13 +960,7 @@ impl super::stub::ManagedZones for ManagedZones {
                 )?;
                 let path = format!("/dns/v1/projects/{}/managedZones", var_project,);
 
-                let _resource_name = format!(
-                    "//dns.googleapis.com/projects/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                );
+                let _resource_name = format!("//dns.googleapis.com/projects/{}", project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -1122,14 +1035,7 @@ impl super::stub::ManagedZones for ManagedZones {
 
                 let _resource_name = format!(
                     "//dns.googleapis.com/projects/{}/managedZones/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.managed_zone).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    project, managed_zone,
                 );
 
                 let builder = self.inner.builder(Method::PATCH, path);
@@ -1298,14 +1204,7 @@ impl super::stub::ManagedZones for ManagedZones {
 
                 let _resource_name = format!(
                     "//dns.googleapis.com/projects/{}/managedZones/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.managed_zone).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    project, managed_zone,
                 );
 
                 let builder = self.inner.builder(Method::PUT, path);
@@ -1382,18 +1281,7 @@ impl super::stub::ManagedZones for ManagedZones {
 
                 let _resource_name = format!(
                     "//dns.googleapis.com/projects/{}/managedZones/{}/operations/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.managed_zone).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.operation).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    project, managed_zone, operation,
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -1500,13 +1388,7 @@ impl super::stub::Policies for Policies {
                 )?;
                 let path = format!("/dns/v1/projects/{}/policies", var_project,);
 
-                let _resource_name = format!(
-                    "//dns.googleapis.com/projects/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                );
+                let _resource_name = format!("//dns.googleapis.com/projects/{}", project,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req.client_operation_id.iter().fold(builder, |builder, p| {
@@ -1569,14 +1451,7 @@ impl super::stub::Policies for Policies {
 
                 let _resource_name = format!(
                     "//dns.googleapis.com/projects/{}/policies/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.policy).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    project, policy,
                 );
 
                 let builder = self.inner.builder(Method::DELETE, path);
@@ -1652,14 +1527,7 @@ impl super::stub::Policies for Policies {
 
                 let _resource_name = format!(
                     "//dns.googleapis.com/projects/{}/policies/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.policy).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    project, policy,
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -1723,13 +1591,7 @@ impl super::stub::Policies for Policies {
                 )?;
                 let path = format!("/dns/v1/projects/{}/policies", var_project,);
 
-                let _resource_name = format!(
-                    "//dns.googleapis.com/projects/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                );
+                let _resource_name = format!("//dns.googleapis.com/projects/{}", project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -1797,14 +1659,7 @@ impl super::stub::Policies for Policies {
 
                 let _resource_name = format!(
                     "//dns.googleapis.com/projects/{}/policies/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.policy).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    project, policy,
                 );
 
                 let builder = self.inner.builder(Method::PATCH, path);
@@ -1874,14 +1729,7 @@ impl super::stub::Policies for Policies {
 
                 let _resource_name = format!(
                     "//dns.googleapis.com/projects/{}/policies/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.policy).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    project, policy,
                 );
 
                 let builder = self.inner.builder(Method::PUT, path);
@@ -1968,13 +1816,7 @@ impl super::stub::Projects for Projects {
                 )?;
                 let path = format!("/dns/v1/projects/{}", var_project,);
 
-                let _resource_name = format!(
-                    "//dns.googleapis.com/projects/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                );
+                let _resource_name = format!("//dns.googleapis.com/projects/{}", project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req.client_operation_id.iter().fold(builder, |builder, p| {
@@ -2063,14 +1905,7 @@ impl super::stub::ResourceRecordSets for ResourceRecordSets {
 
                 let _resource_name = format!(
                     "//dns.googleapis.com/projects/{}/managedZones/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.managed_zone).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    project, managed_zone,
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -2311,14 +2146,7 @@ impl super::stub::ResourceRecordSets for ResourceRecordSets {
 
                 let _resource_name = format!(
                     "//dns.googleapis.com/projects/{}/managedZones/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.managed_zone).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    project, managed_zone,
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -2506,13 +2334,7 @@ impl super::stub::ResponsePolicies for ResponsePolicies {
                 )?;
                 let path = format!("/dns/v1/projects/{}/responsePolicies", var_project,);
 
-                let _resource_name = format!(
-                    "//dns.googleapis.com/projects/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                );
+                let _resource_name = format!("//dns.googleapis.com/projects/{}", project,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req.client_operation_id.iter().fold(builder, |builder, p| {
@@ -2578,14 +2400,7 @@ impl super::stub::ResponsePolicies for ResponsePolicies {
 
                 let _resource_name = format!(
                     "//dns.googleapis.com/projects/{}/responsePolicies/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.response_policy).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    project, response_policy,
                 );
 
                 let builder = self.inner.builder(Method::DELETE, path);
@@ -2664,14 +2479,7 @@ impl super::stub::ResponsePolicies for ResponsePolicies {
 
                 let _resource_name = format!(
                     "//dns.googleapis.com/projects/{}/responsePolicies/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.response_policy).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    project, response_policy,
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -2735,13 +2543,7 @@ impl super::stub::ResponsePolicies for ResponsePolicies {
                 )?;
                 let path = format!("/dns/v1/projects/{}/responsePolicies", var_project,);
 
-                let _resource_name = format!(
-                    "//dns.googleapis.com/projects/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                );
+                let _resource_name = format!("//dns.googleapis.com/projects/{}", project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -2812,14 +2614,7 @@ impl super::stub::ResponsePolicies for ResponsePolicies {
 
                 let _resource_name = format!(
                     "//dns.googleapis.com/projects/{}/responsePolicies/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.response_policy).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    project, response_policy,
                 );
 
                 let builder = self.inner.builder(Method::PATCH, path);
@@ -2892,14 +2687,7 @@ impl super::stub::ResponsePolicies for ResponsePolicies {
 
                 let _resource_name = format!(
                     "//dns.googleapis.com/projects/{}/responsePolicies/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.response_policy).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    project, response_policy,
                 );
 
                 let builder = self.inner.builder(Method::PUT, path);
@@ -2995,14 +2783,7 @@ impl super::stub::ResponsePolicyRules for ResponsePolicyRules {
 
                 let _resource_name = format!(
                     "//dns.googleapis.com/projects/{}/responsePolicies/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.response_policy).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    project, response_policy,
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -3081,20 +2862,7 @@ impl super::stub::ResponsePolicyRules for ResponsePolicyRules {
 
                 let _resource_name = format!(
                     "//dns.googleapis.com/projects/{}/responsePolicies/{}/rules/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.response_policy).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req)
-                            .map(|m| &m.response_policy_rule)
-                            .map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    project, response_policy, response_policy_rule,
                 );
 
                 let builder = self.inner.builder(Method::DELETE, path);
@@ -3187,20 +2955,7 @@ impl super::stub::ResponsePolicyRules for ResponsePolicyRules {
 
                 let _resource_name = format!(
                     "//dns.googleapis.com/projects/{}/responsePolicies/{}/rules/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.response_policy).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req)
-                            .map(|m| &m.response_policy_rule)
-                            .map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    project, response_policy, response_policy_rule,
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -3281,14 +3036,7 @@ impl super::stub::ResponsePolicyRules for ResponsePolicyRules {
 
                 let _resource_name = format!(
                     "//dns.googleapis.com/projects/{}/responsePolicies/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.response_policy).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    project, response_policy,
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -3372,20 +3120,7 @@ impl super::stub::ResponsePolicyRules for ResponsePolicyRules {
 
                 let _resource_name = format!(
                     "//dns.googleapis.com/projects/{}/responsePolicies/{}/rules/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.response_policy).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req)
-                            .map(|m| &m.response_policy_rule)
-                            .map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    project, response_policy, response_policy_rule,
                 );
 
                 let builder = self.inner.builder(Method::PATCH, path);
@@ -3472,20 +3207,7 @@ impl super::stub::ResponsePolicyRules for ResponsePolicyRules {
 
                 let _resource_name = format!(
                     "//dns.googleapis.com/projects/{}/responsePolicies/{}/rules/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.response_policy).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req)
-                            .map(|m| &m.response_policy_rule)
-                            .map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    project, response_policy, response_policy_rule,
                 );
 
                 let builder = self.inner.builder(Method::PUT, path);
