@@ -418,7 +418,7 @@ tracing = { default-features = false, version = "0.1.44", features = ["attribute
 # Some of our direct dependencies fail to declare the minimum version
 # requirements correctly. Force a higher version so we can test our own minimum
 # version requirements in the minimal-versions build.
-aws-lc-rs = { default-features = false, version = "1.16.0" }
+aws-lc-rs = { default-features = false, version = "1.16.1" }
 
 # Test packages
 anyhow            = { default-features = false, version = "1.0.101", features = ["std"] }
