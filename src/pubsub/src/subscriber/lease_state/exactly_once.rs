@@ -21,7 +21,8 @@ use tokio::sync::oneshot::Sender;
 use tokio::time::{Duration, Instant};
 
 // TODO(#4868) - mention alternative shutdown options, when implemented.
-const NACK_SHUTDOWN_ERROR: &str = "subscriber is configured to nack all pending messages on shutdown.";
+const NACK_SHUTDOWN_ERROR: &str =
+    "subscriber is configured to nack all pending messages on shutdown.";
 
 #[derive(Debug)]
 pub(super) struct ExactlyOnceInfo {
