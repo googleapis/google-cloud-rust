@@ -20,10 +20,14 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_alloydb_v1::client::AlloyDBCSQLAdmin;
-/// let client = AlloyDBCSQLAdmin::builder().build().await?;
-/// // use `client` to make requests to the AlloyDB API.
+/// use google_cloud_lro::Poller;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = AlloyDBCSQLAdmin::builder().build().await?;
+///     let response = client.restore_from_cloud_sql()
+///         /* set fields */
+///         .poller().until_done().await?;
+///     println!("response {:?}", response);
 /// # Ok(()) }
 /// ```
 ///
@@ -289,10 +293,17 @@ impl AlloyDBCSQLAdmin {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_alloydb_v1::client::AlloyDBAdmin;
-/// let client = AlloyDBAdmin::builder().build().await?;
-/// // use `client` to make requests to the AlloyDB API.
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = AlloyDBAdmin::builder().build().await?;
+///     let parent = "parent_value";
+///     let mut list = client.list_clusters()
+///         .set_parent(parent)
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
 /// # Ok(()) }
 /// ```
 ///

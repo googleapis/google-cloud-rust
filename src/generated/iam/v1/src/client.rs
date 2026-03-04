@@ -20,10 +20,13 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_iam_v1::client::IAMPolicy;
-/// let client = IAMPolicy::builder().build().await?;
-/// // use `client` to make requests to the IAM Meta API.
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = IAMPolicy::builder().build().await?;
+///     let response = client.set_iam_policy()
+///         /* set fields */
+///         .send().await?;
+///     println!("response {:?}", response);
 /// # Ok(()) }
 /// ```
 ///

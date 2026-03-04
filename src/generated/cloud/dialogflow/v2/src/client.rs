@@ -20,10 +20,16 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dialogflow_v2::client::Agents;
-/// let client = Agents::builder().build().await?;
-/// // use `client` to make requests to the Dialogflow API.
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = Agents::builder().build().await?;
+///     let mut list = client.search_agents()
+///         /* set fields */
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
 /// # Ok(()) }
 /// ```
 ///
@@ -552,10 +558,17 @@ impl Agents {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dialogflow_v2::client::AnswerRecords;
-/// let client = AnswerRecords::builder().build().await?;
-/// // use `client` to make requests to the Dialogflow API.
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = AnswerRecords::builder().build().await?;
+///     let parent = "parent_value";
+///     let mut list = client.list_answer_records()
+///         .set_parent(parent)
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
 /// # Ok(()) }
 /// ```
 ///
@@ -822,10 +835,17 @@ impl AnswerRecords {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dialogflow_v2::client::Contexts;
-/// let client = Contexts::builder().build().await?;
-/// // use `client` to make requests to the Dialogflow API.
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = Contexts::builder().build().await?;
+///     let parent = "parent_value";
+///     let mut list = client.list_contexts()
+///         .set_parent(parent)
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
 /// # Ok(()) }
 /// ```
 ///
@@ -1174,10 +1194,17 @@ impl Contexts {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dialogflow_v2::client::Conversations;
-/// let client = Conversations::builder().build().await?;
-/// // use `client` to make requests to the Dialogflow API.
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = Conversations::builder().build().await?;
+///     let parent = "parent_value";
+///     let mut list = client.list_conversations()
+///         .set_parent(parent)
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
 /// # Ok(()) }
 /// ```
 ///
@@ -1669,10 +1696,17 @@ impl Conversations {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dialogflow_v2::client::ConversationDatasets;
-/// let client = ConversationDatasets::builder().build().await?;
-/// // use `client` to make requests to the Dialogflow API.
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = ConversationDatasets::builder().build().await?;
+///     let parent = "parent_value";
+///     let mut list = client.list_conversation_datasets()
+///         .set_parent(parent)
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
 /// # Ok(()) }
 /// ```
 ///
@@ -2077,10 +2111,17 @@ impl ConversationDatasets {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dialogflow_v2::client::ConversationModels;
-/// let client = ConversationModels::builder().build().await?;
-/// // use `client` to make requests to the Dialogflow API.
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = ConversationModels::builder().build().await?;
+///     let parent = "parent_value";
+///     let mut list = client.list_conversation_models()
+///         .set_parent(parent)
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
 /// # Ok(()) }
 /// ```
 ///
@@ -2611,10 +2652,17 @@ impl ConversationModels {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dialogflow_v2::client::ConversationProfiles;
-/// let client = ConversationProfiles::builder().build().await?;
-/// // use `client` to make requests to the Dialogflow API.
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = ConversationProfiles::builder().build().await?;
+///     let parent = "parent_value";
+///     let mut list = client.list_conversation_profiles()
+///         .set_parent(parent)
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
 /// # Ok(()) }
 /// ```
 ///
@@ -3075,10 +3123,17 @@ impl ConversationProfiles {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dialogflow_v2::client::Documents;
-/// let client = Documents::builder().build().await?;
-/// // use `client` to make requests to the Dialogflow API.
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = Documents::builder().build().await?;
+///     let parent = "parent_value";
+///     let mut list = client.list_documents()
+///         .set_parent(parent)
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
 /// # Ok(()) }
 /// ```
 ///
@@ -3609,10 +3664,14 @@ impl Documents {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dialogflow_v2::client::EncryptionSpecService;
-/// let client = EncryptionSpecService::builder().build().await?;
-/// // use `client` to make requests to the Dialogflow API.
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = EncryptionSpecService::builder().build().await?;
+///     let name = "name_value";
+///     let response = client.get_encryption_spec()
+///         .set_name(name)
+///         .send().await?;
+///     println!("response {:?}", response);
 /// # Ok(()) }
 /// ```
 ///
@@ -3886,10 +3945,17 @@ impl EncryptionSpecService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dialogflow_v2::client::EntityTypes;
-/// let client = EntityTypes::builder().build().await?;
-/// // use `client` to make requests to the Dialogflow API.
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = EntityTypes::builder().build().await?;
+///     let parent = "parent_value";
+///     let mut list = client.list_entity_types()
+///         .set_parent(parent)
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
 /// # Ok(()) }
 /// ```
 ///
@@ -4453,10 +4519,17 @@ impl EntityTypes {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dialogflow_v2::client::Environments;
-/// let client = Environments::builder().build().await?;
-/// // use `client` to make requests to the Dialogflow API.
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = Environments::builder().build().await?;
+///     let parent = "parent_value";
+///     let mut list = client.list_environments()
+///         .set_parent(parent)
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
 /// # Ok(()) }
 /// ```
 ///
@@ -4819,10 +4892,14 @@ impl Environments {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dialogflow_v2::client::Fulfillments;
-/// let client = Fulfillments::builder().build().await?;
-/// // use `client` to make requests to the Dialogflow API.
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = Fulfillments::builder().build().await?;
+///     let name = "name_value";
+///     let response = client.get_fulfillment()
+///         .set_name(name)
+///         .send().await?;
+///     println!("response {:?}", response);
 /// # Ok(()) }
 /// ```
 ///
@@ -5084,10 +5161,17 @@ impl Fulfillments {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dialogflow_v2::client::Generators;
-/// let client = Generators::builder().build().await?;
-/// // use `client` to make requests to the Dialogflow API.
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = Generators::builder().build().await?;
+///     let parent = "parent_value";
+///     let mut list = client.list_generators()
+///         .set_parent(parent)
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
 /// # Ok(()) }
 /// ```
 ///
@@ -5418,10 +5502,17 @@ impl Generators {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dialogflow_v2::client::GeneratorEvaluations;
-/// let client = GeneratorEvaluations::builder().build().await?;
-/// // use `client` to make requests to the Dialogflow API.
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = GeneratorEvaluations::builder().build().await?;
+///     let parent = "parent_value";
+///     let mut list = client.list_generator_evaluations()
+///         .set_parent(parent)
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
 /// # Ok(()) }
 /// ```
 ///
@@ -5741,10 +5832,17 @@ impl GeneratorEvaluations {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dialogflow_v2::client::Intents;
-/// let client = Intents::builder().build().await?;
-/// // use `client` to make requests to the Dialogflow API.
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = Intents::builder().build().await?;
+///     let parent = "parent_value";
+///     let mut list = client.list_intents()
+///         .set_parent(parent)
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
 /// # Ok(()) }
 /// ```
 ///
@@ -6173,10 +6271,17 @@ impl Intents {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dialogflow_v2::client::KnowledgeBases;
-/// let client = KnowledgeBases::builder().build().await?;
-/// // use `client` to make requests to the Dialogflow API.
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = KnowledgeBases::builder().build().await?;
+///     let parent = "parent_value";
+///     let mut list = client.list_knowledge_bases()
+///         .set_parent(parent)
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
 /// # Ok(()) }
 /// ```
 ///
@@ -6505,10 +6610,17 @@ impl KnowledgeBases {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dialogflow_v2::client::Participants;
-/// let client = Participants::builder().build().await?;
-/// // use `client` to make requests to the Dialogflow API.
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = Participants::builder().build().await?;
+///     let parent = "parent_value";
+///     let mut list = client.list_participants()
+///         .set_parent(parent)
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
 /// # Ok(()) }
 /// ```
 ///
@@ -6925,10 +7037,13 @@ impl Participants {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dialogflow_v2::client::Sessions;
-/// let client = Sessions::builder().build().await?;
-/// // use `client` to make requests to the Dialogflow API.
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = Sessions::builder().build().await?;
+///     let response = client.detect_intent()
+///         /* set fields */
+///         .send().await?;
+///     println!("response {:?}", response);
 /// # Ok(()) }
 /// ```
 ///
@@ -7181,10 +7296,17 @@ impl Sessions {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dialogflow_v2::client::SessionEntityTypes;
-/// let client = SessionEntityTypes::builder().build().await?;
-/// // use `client` to make requests to the Dialogflow API.
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = SessionEntityTypes::builder().build().await?;
+///     let parent = "parent_value";
+///     let mut list = client.list_session_entity_types()
+///         .set_parent(parent)
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
 /// # Ok(()) }
 /// ```
 ///
@@ -7547,10 +7669,17 @@ impl SessionEntityTypes {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dialogflow_v2::client::SipTrunks;
-/// let client = SipTrunks::builder().build().await?;
-/// // use `client` to make requests to the Dialogflow API.
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = SipTrunks::builder().build().await?;
+///     let parent = "parent_value";
+///     let mut list = client.list_sip_trunks()
+///         .set_parent(parent)
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
 /// # Ok(()) }
 /// ```
 ///
@@ -7878,10 +8007,17 @@ impl SipTrunks {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dialogflow_v2::client::Tools;
-/// let client = Tools::builder().build().await?;
-/// // use `client` to make requests to the Dialogflow API.
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = Tools::builder().build().await?;
+///     let parent = "parent_value";
+///     let mut list = client.list_tools()
+///         .set_parent(parent)
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
 /// # Ok(()) }
 /// ```
 ///
@@ -8210,10 +8346,17 @@ impl Tools {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_dialogflow_v2::client::Versions;
-/// let client = Versions::builder().build().await?;
-/// // use `client` to make requests to the Dialogflow API.
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = Versions::builder().build().await?;
+///     let parent = "parent_value";
+///     let mut list = client.list_versions()
+///         .set_parent(parent)
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
 /// # Ok(()) }
 /// ```
 ///

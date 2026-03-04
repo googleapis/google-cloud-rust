@@ -52,6 +52,25 @@ pub use google_cloud_gax::error::Error;
 #[allow(rustdoc::redundant_explicit_links)]
 pub mod stub;
 
+///
+/// # Example
+/// ```
+/// # use google_cloud_commerce_consumer_procurement_v1::client::LicenseManagementService;
+/// # extern crate wkt as google_cloud_wkt;
+/// use google_cloud_wkt::FieldMask;
+/// use google_cloud_commerce_consumer_procurement_v1::model::LicensePool;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = LicenseManagementService::builder().build().await?;
+///     let name = "name_value";
+///     let response = client.update_license_pool()
+///         .set_license_pool(
+///             LicensePool::new().set_name(name)/* set fields */
+///         )
+///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+///         .send().await?;
+///     println!("response {:?}", response);
+/// # Ok(()) }
+/// ```
 /// Concrete implementations of this client library traits.
 pub mod client;
 
