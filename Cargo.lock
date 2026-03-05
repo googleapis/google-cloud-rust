@@ -8545,7 +8545,6 @@ dependencies = [
  "google-cloud-wkt",
  "httptest",
  "mockall",
- "rand 0.10.0",
  "reqwest 0.13.2",
  "serde_json",
  "storage-samples",
