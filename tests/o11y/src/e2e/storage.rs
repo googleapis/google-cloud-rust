@@ -27,14 +27,6 @@ pub async fn run() -> anyhow::Result<()> {
     // Create a trace with a number of interesting spans from the
     // `google-cloud-storage` client.
     let trace_id = send_trace(&project_id).await?;
-    let trace = wait_for_trace(&project_id, &trace_id).await?;
-
-    // Verify the expected spans appear in the trace:
-    let span_names = trace
-        .spans
-        .iter()
-        .map(|s| s.name.as_str())
-        .collect::<BTreeSet<_>>();
     let required = BTreeSet::from_iter([
         ROOT_SPAN_NAME,
         "list_buckets",
@@ -48,6 +40,14 @@ pub async fn run() -> anyhow::Result<()> {
         "google_cloud_storage::client::Storage::write_object",
         "google_cloud_storage::client::Storage::open_object",
     ]);
+    let trace = wait_for_trace(&project_id, &trace_id, required.len() - 2).await?;
+
+    // Verify the expected spans appear in the trace:
+    let span_names = trace
+        .spans
+        .iter()
+        .map(|s| s.name.as_str())
+        .collect::<BTreeSet<_>>();
     let missing = required.difference(&span_names).collect::<Vec<_>>();
     // Sometimes a few traces are not delivered and are reported as "missing":
     //   https://github.com/user-attachments/assets/7a534f6c-930e-4f97-b840-2ed01de2095e

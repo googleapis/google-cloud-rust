@@ -79,7 +79,11 @@ pub async fn run() -> anyhow::Result<()> {
     }
 
     // 5. Verify (Poll Cloud Trace API)
-    let trace = wait_for_trace(&project_id, &trace_id).await?;
+    let required = BTreeSet::from_iter([
+        ROOT_SPAN_NAME,
+        "google_cloud_showcase_v1beta1::client::Echo::echo",
+    ]);
+    let trace = wait_for_trace(&project_id, &trace_id, required.len()).await?;
 
     // Verify the expected spans appear in the trace:
     let span_names = trace
@@ -87,10 +91,6 @@ pub async fn run() -> anyhow::Result<()> {
         .iter()
         .map(|s| s.name.as_str())
         .collect::<BTreeSet<_>>();
-    let required = BTreeSet::from_iter([
-        ROOT_SPAN_NAME,
-        "google_cloud_showcase_v1beta1::client::Echo::echo",
-    ]);
     let missing = required.difference(&span_names).collect::<Vec<_>>();
     assert!(missing.is_empty(), "missing={missing:?}\n\n{trace:?}",);
 
