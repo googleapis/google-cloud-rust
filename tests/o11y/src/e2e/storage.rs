@@ -30,15 +30,30 @@ pub async fn run() -> anyhow::Result<()> {
     let required = BTreeSet::from_iter([
         ROOT_SPAN_NAME,
         "list_buckets",
+        "google.storage.v2.Storage/ListBuckets",
         "create_bucket",
-        "get_bucket",
-        "list_objects",
-        "delete_object",
-        "list_anywhere_caches",
-        "delete_bucket",
-        "google_cloud_storage::client::Storage::read_object",
+        "google.storage.v2.Storage/CreateBucket",
         "google_cloud_storage::client::Storage::write_object",
+        "POST /upload/storage/v1/b/{bucket}/o",
+        "PUT /upload/storage/v1/b/{bucket}/o",
+        // These appear in the spans, but the test does not worry about entries
+        // with the same name
+        //   "google_cloud_storage::client::Storage::write_object",
+        //   "POST /upload/storage/v1/b/{bucket}/o",
+        "google_cloud_storage::client::Storage::read_object",
+        "GET /storage/v1/b/{bucket}/o/{object}",
         "google_cloud_storage::client::Storage::open_object",
+        "google.storage.v2.Storage/BidiReadObject",
+        "get_bucket",
+        "google.storage.v2.Storage/GetBucket",
+        "list_objects",
+        "google.storage.v2.Storage/ListObjects",
+        "delete_object",
+        "google.storage.v2.Storage/DeleteObject",
+        "list_anywhere_caches",
+        "google.storage.control.v2.StorageControl/ListAnywhereCaches",
+        "delete_bucket",
+        "google.storage.v2.Storage/DeleteBucket",
     ]);
     let trace = wait_for_trace(&project_id, &trace_id, required.len() - 2).await?;
 
