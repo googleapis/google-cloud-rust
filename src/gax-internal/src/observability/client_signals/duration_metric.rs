@@ -101,8 +101,7 @@ impl DurationMetric {
     /// Records the latency for a successful request.
     ///
     /// Uses `start` to compute the duration and the method attributes.
-    #[allow(dead_code)]
-    pub(crate) fn record_ok(&self, start: RequestStart) {
+    pub(crate) fn record_ok(&self, start: &RequestStart) {
         let elapsed = start.elapsed();
         self.0.record(
             elapsed.as_secs_f64(),
@@ -122,8 +121,7 @@ impl DurationMetric {
     /// Uses `start` to compute the duration and most of the method attributes,
     /// `error` is summarized in some key parameters, including any status
     /// codes.
-    #[allow(dead_code)]
-    pub(crate) fn record_error(&self, start: RequestStart, error: &Error) {
+    pub(crate) fn record_error(&self, start: &RequestStart, error: &Error) {
         let elapsed = start.elapsed();
         // Use a `Vec` to omit HTTP_RESPONSE_STATUS_CODE. This extra allocation
         // occurs only on error paths, which should be rare.
@@ -180,7 +178,7 @@ mod tests {
         let start = RequestStart::new(&TEST_INFO, &options, METHOD);
         // Use a long pause so it gets recorded as such.
         tokio::time::sleep(DELAY).await;
-        metric.record_ok(start);
+        metric.record_ok(&start);
         provider.force_flush()?;
         let metrics = exporter.get_finished_metrics()?;
         check_scope(&metrics);
@@ -205,7 +203,7 @@ mod tests {
         let start = RequestStart::new(&TEST_INFO, &options, METHOD);
         // Use a long pause so it gets recorded as such.
         tokio::time::sleep(DELAY).await;
-        metric.record_ok(start);
+        metric.record_ok(&start);
         provider.force_flush()?;
         let metrics = exporter.get_finished_metrics()?;
         check_scope(&metrics);
@@ -235,7 +233,7 @@ mod tests {
                 .set_code(Code::NotFound)
                 .set_message("NOT FOUND"),
         );
-        metric.record_error(start, &error);
+        metric.record_error(&start, &error);
         provider.force_flush()?;
         let metrics = exporter.get_finished_metrics()?;
         check_scope(&metrics);
@@ -255,7 +253,7 @@ mod tests {
         // Use a long pause so it gets recorded as such.
         tokio::time::sleep(DELAY).await;
         let error = Error::http(429, http::HeaderMap::new(), bytes::Bytes::new());
-        metric.record_error(start, &error);
+        metric.record_error(&start, &error);
         provider.force_flush()?;
         let metrics = exporter.get_finished_metrics()?;
         check_scope(&metrics);
