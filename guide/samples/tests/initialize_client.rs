@@ -54,10 +54,12 @@ async fn main() -> anyhow::Result<()> {
 #[cfg(all(test, feature = "run-integration-tests"))]
 mod tests {
     use super::*;
+    use google_cloud_test_utils::errors::anydump;
+    use google_cloud_test_utils::runtime_config::project_id;
 
     #[tokio::test(flavor = "multi_thread")]
     async fn driver() -> anyhow::Result<()> {
-        let project_id = std::env::var("GOOGLE_CLOUD_PROJECT").unwrap();
-        initialize_client(&project_id).await
+        let project_id = project_id()?;
+        initialize_client(&project_id).await.inspect_err(anydump)
     }
 }

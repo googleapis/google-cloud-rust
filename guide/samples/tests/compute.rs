@@ -14,85 +14,38 @@
 
 #[cfg(all(test, feature = "run-integration-tests"))]
 mod tests {
-    use google_cloud_compute_v1::client::{Images, Instances, Projects};
-    use google_cloud_lro::Poller;
-    use google_cloud_test_utils::resource_names::{random_bucket_id, random_vm_id};
-    use user_guide_samples::compute::{compute_usage_report_set, quickstart, *};
+    use google_cloud_storage::client::StorageControl;
+    use google_cloud_test_utils::errors::anydump;
+    use google_cloud_test_utils::resource_names::random_bucket_id;
+    use google_cloud_test_utils::runtime_config::project_id;
 
     #[tokio::test]
     async fn images_samples() -> anyhow::Result<()> {
-        let project_id = std::env::var("GOOGLE_CLOUD_PROJECT")?;
-
-        let client = Images::builder().build().await?;
-        compute_images_list::sample(&client, &project_id).await?;
-        compute_images_list_page::sample(&client, &project_id).await?;
-
-        Ok(())
+        user_guide_samples::compute::drive_image_samples()
+            .await
+            .inspect_err(anydump)
     }
 
     #[ignore = "TODO(#3691) - disabled because it was flaky"]
     #[tokio::test]
     async fn instance_samples() -> anyhow::Result<()> {
-        let project_id = std::env::var("GOOGLE_CLOUD_PROJECT")?;
-
-        let client = Instances::builder().build().await?;
-
-        let _cleanup = tokio::spawn({
-            let client = client.clone();
-            let project_id = project_id.clone();
-            async move {
-                if let Err(err) = cleanup_stale_instances(&client, &project_id).await {
-                    eprintln!("Error cleaning up stale instances: {err:?}");
-                }
-            }
-        });
-
-        let name = random_vm_id();
-        compute_instances_create::sample(&client, &project_id, &name).await?;
-        compute_instances_list_all::sample(&client, &project_id).await?;
-        quickstart::sample(&project_id).await?;
-        compute_instances_delete::sample(&client, &project_id, &name).await?;
-
-        let name = random_vm_id();
-        compute_instances_operation_check::sample(&client, &project_id, &name).await?;
-        compute_instances_delete::sample(&client, &project_id, &name).await?;
-
-        Ok(())
+        user_guide_samples::compute::drive_instance_samples()
+            .await
+            .inspect_err(anydump)
     }
 
     #[tokio::test]
     async fn usage_report_samples() -> anyhow::Result<()> {
-        use google_cloud_storage::client::StorageControl;
-
-        let project_id = std::env::var("GOOGLE_CLOUD_PROJECT")?;
-
+        let project_id = project_id()?;
         let control = StorageControl::builder().build().await?;
         let bucket_id = random_bucket_id();
-        create_reports_bucket(&control, &project_id, &bucket_id).await?;
-
-        let result = usage_report_samples_impl(&project_id, &bucket_id).await;
-        if let Err(err) =
-            storage_samples::cleanup_bucket(control, format!("projects/_/buckets/{bucket_id}"))
-                .await
-        {
-            eprintln!("Error cleaning up reports bucket {bucket_id}: {err:?}");
-        };
-        result
-    }
-
-    async fn usage_report_samples_impl(project_id: &str, bucket_id: &str) -> anyhow::Result<()> {
-        use google_cloud_compute_v1::model::UsageExportLocation;
-        let client = Projects::builder().build().await?;
-        compute_usage_report_set::sample(&client, project_id, bucket_id).await?;
-        compute_usage_report_get::sample(&client, project_id).await?;
-        // Disable the reports.
-        let _operation = client
-            .set_usage_export_bucket()
-            .set_project(project_id)
-            .set_body(UsageExportLocation::new())
-            .poller()
-            .until_done()
+        user_guide_samples::compute::create_reports_bucket(&control, &project_id, &bucket_id)
             .await?;
-        Ok(())
+        let result =
+            user_guide_samples::compute::drive_usage_report_samples(&project_id, &bucket_id).await;
+        let _ = storage_samples::cleanup_bucket(control, format!("projects/_/buckets/{bucket_id}"))
+            .await
+            .inspect_err(|e| eprintln!("error cleaning up bucket {bucket_id}: {e:?}"));
+        result.inspect_err(anydump)
     }
 }

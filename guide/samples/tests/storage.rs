@@ -29,28 +29,32 @@ pub mod storage {
     #[cfg(all(test, feature = "run-integration-tests"))]
     mod driver {
         use super::*;
+        use google_cloud_test_utils::errors::anydump;
+        use google_cloud_test_utils::runtime_config::project_id;
         use storage_samples::create_test_hns_bucket;
 
         #[ignore = "TODO(#3916) - disabled because it is flaky"]
         #[tokio::test(flavor = "multi_thread")]
         async fn quickstart() -> anyhow::Result<()> {
-            let project_id = std::env::var("GOOGLE_CLOUD_PROJECT").unwrap();
+            let project_id = project_id()?;
             let bucket_id = random_bucket_id();
             let result = super::quickstart::sample(&project_id, &bucket_id).await;
-            if let Err(e) = super::cleanup_bucket(&bucket_id).await {
-                eprintln!("error cleaning up quickstart bucket {bucket_id}: {e:?}");
-            }
-            result
+            let _ = super::cleanup_bucket(&format!("projects/_/buckets/{bucket_id}"))
+                .await
+                .inspect_err(|e| eprintln!("error cleaning up bucket {bucket_id}: {e:?}"))
+                .inspect_err(anydump);
+            result.inspect_err(anydump)
         }
 
         #[tokio::test(flavor = "multi_thread")]
         async fn run() -> anyhow::Result<()> {
-            let (control, bucket) = create_test_hns_bucket().await?;
+            let (control, bucket) = create_test_hns_bucket().await.inspect_err(anydump)?;
             let result = super::run(&control, &bucket.name).await;
-            if let Err(e) = storage_samples::cleanup_bucket(control, bucket.name.clone()).await {
-                eprintln!("error cleaning up run() bucket {}: {e:?}", bucket.name);
-            }
-            result
+            let _ = super::cleanup_bucket(&bucket.name)
+                .await
+                .inspect_err(|e| eprintln!("error cleaning up bucket {}: {e:?}", bucket.name))
+                .inspect_err(anydump);
+            result.inspect_err(anydump)
         }
     }
 
@@ -80,10 +84,10 @@ pub mod storage {
         Ok(())
     }
 
-    pub async fn cleanup_bucket(bucket_id: &str) -> anyhow::Result<()> {
+    pub async fn cleanup_bucket(bucket_name: &str) -> anyhow::Result<()> {
         let control = google_cloud_storage::client::StorageControl::builder()
             .build()
             .await?;
-        storage_samples::cleanup_bucket(control, format!("projects/_/buckets/{bucket_id}")).await
+        storage_samples::cleanup_bucket(control, bucket_name.to_string()).await
     }
 }
