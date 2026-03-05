@@ -30,12 +30,12 @@ pub async fn roundtrip(topic_name: &str, subscription_name: &str) -> anyhow::Res
         .build()
         .await?;
     let subscriber = Subscriber::builder().build().await?;
-    let mut session = subscriber.stream(subscription_name).build();
+    let mut stream = subscriber.subscribe(subscription_name).build();
 
     let subscribe = tokio::spawn(async move {
         let mut expected_indices = HashMap::new();
         while expected_indices.values().all(|&v| v == MESSAGES_PER_KEY) {
-            let Some((m, h)) = session.next().await.transpose()? else {
+            let Some((m, h)) = stream.next().await.transpose()? else {
                 anyhow::bail!("Stream somehow ended.")
             };
             if !m.ordering_key.starts_with(ORDERING_PREFIX) {
