@@ -435,7 +435,7 @@ mod tests {
     const BUCKET_NAME: &str = "projects/_/buckets/test-bucket";
     const OBJECT_NAME: &str = "test-object";
     const USER_AGENT: &str = "quick_foxes_lazy_dogs/1.2.3";
-    const ENDPOINT: &str = "0.0.0.0:0";
+    const BIND_ADDRESS: &str = "0.0.0.0:0";
 
     // Verify `open_object()` meets normal Send, Sync, requirements.
     #[tokio::test]
@@ -477,7 +477,7 @@ mod tests {
         let mut mock = MockStorage::new();
         mock.expect_bidi_read_object()
             .return_once(|_| Ok(TonicResponse::from(rx)));
-        let (endpoint, _server) = start(ENDPOINT, mock).await?;
+        let (endpoint, _server) = start(BIND_ADDRESS, mock).await?;
 
         let client = Storage::builder()
             .with_endpoint(endpoint)
@@ -614,7 +614,7 @@ mod tests {
         let mut mock = MockStorage::new();
         mock.expect_bidi_read_object()
             .return_once(|_| Ok(TonicResponse::from(rx)));
-        let (endpoint, _server) = start(ENDPOINT, mock).await?;
+        let (endpoint, _server) = start(BIND_ADDRESS, mock).await?;
 
         let client = Storage::builder()
             .with_credentials(Anonymous::new().build())
@@ -666,7 +666,7 @@ mod tests {
         let mut mock = MockStorage::new();
         mock.expect_bidi_read_object()
             .return_once(|_| Ok(TonicResponse::from(rx)));
-        let (endpoint, _server) = start(ENDPOINT, mock).await?;
+        let (endpoint, _server) = start(BIND_ADDRESS, mock).await?;
 
         let client = Storage::builder()
             .with_credentials(Anonymous::new().build())
@@ -705,7 +705,7 @@ mod tests {
         let mut mock = MockStorage::new();
         mock.expect_bidi_read_object()
             .return_once(|_| Ok(TonicResponse::from(rx)));
-        let (endpoint, _server) = start(ENDPOINT, mock).await?;
+        let (endpoint, _server) = start(BIND_ADDRESS, mock).await?;
 
         let client = Storage::builder()
             .with_credentials(Anonymous::new().build())
@@ -756,7 +756,7 @@ mod tests {
 
             Ok(TonicResponse::from(rx))
         });
-        let (endpoint, _server) = start(ENDPOINT, mock).await?;
+        let (endpoint, _server) = start(BIND_ADDRESS, mock).await?;
 
         let client = Storage::builder()
             .with_credentials(Anonymous::new().build())
