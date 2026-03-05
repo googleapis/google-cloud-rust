@@ -53,16 +53,12 @@
 //!
 //! [idempotent]: https://en.wikipedia.org/wiki/Idempotence
 
-mod too_many_requests;
-
 use crate::error::Error;
 use crate::retry_result::RetryResult;
 use crate::retry_state::RetryState;
 use crate::throttle_result::ThrottleResult;
 use std::sync::Arc;
 use std::time::Duration;
-
-pub use too_many_requests::TooManyRequests;
 
 /// Determines how errors are handled in the retry loop.
 ///
@@ -188,42 +184,6 @@ pub trait RetryPolicyExt: RetryPolicy + Sized {
     /// ```
     fn with_attempt_limit(self, maximum_attempts: u32) -> LimitedAttemptCount<Self> {
         LimitedAttemptCount::custom(self, maximum_attempts)
-    }
-
-    /// Decorate a [RetryPolicy] to continue on certain status codes.
-    ///
-    /// This policy decorates an inner policy and retries any errors with HTTP
-    /// status code "429 - TOO_MANY_REQUESTS" **or** where the service returns
-    /// an error with code [ResourceExhausted].
-    ///
-    /// For other errors it returns the same value as the inner policy.
-    ///
-    /// Note that [ResourceExhausted] is ambiguous and may cause problems with
-    /// some services. The code is used for both "too many requests"  and for
-    /// "quota exceeded" problems. If the quota in question is some kind of rate
-    /// limit, then using this policy may be helpful. If the quota is not a rate
-    /// limit, then this retry policy may needlessly send the same RPC multiple
-    /// times.
-    ///
-    /// You should consult the documentation for the service and RPC in question
-    /// before using this policy.
-    ///
-    /// # Example
-    /// ```
-    /// use google_cloud_gax::retry_policy::{Aip194Strict, RetryPolicy, RetryPolicyExt};
-    /// use google_cloud_gax::retry_state::RetryState;
-    /// let policy = Aip194Strict;
-    /// assert!(policy.on_error(&RetryState::new(true).set_attempt_count(0_u32), too_many_requests()).is_permanent());
-    /// let policy = Aip194Strict.continue_on_too_many_requests();
-    /// assert!(policy.on_error(&RetryState::new(true).set_attempt_count(0_u32), too_many_requests()).is_continue());
-    ///
-    /// use google_cloud_gax::error::{Error, rpc::Code, rpc::Status};
-    /// fn too_many_requests() -> Error { Error::service(Status::default().set_code(Code::ResourceExhausted)) }
-    /// ```
-    ///
-    /// [ResourceExhausted]: crate::error::rpc::Code::ResourceExhausted
-    fn continue_on_too_many_requests(self) -> TooManyRequests<Self> {
-        TooManyRequests::new(self)
     }
 }
 
