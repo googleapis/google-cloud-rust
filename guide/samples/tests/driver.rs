@@ -12,13 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#[cfg(all(test, feature = "run-integration-tests"))]
+// #[cfg(all(test, feature = "run-integration-tests"))]
 mod driver {
     use google_cloud_gax::error::rpc::{Code, StatusDetails};
     use google_cloud_secretmanager_v1::client::SecretManagerService;
-    use rand::{RngExt, distr::Alphanumeric};
-
-    const SECRET_ID_LENGTH: usize = 32;
+    use google_cloud_test_utils::resource_names::random_secret_id;
 
     #[tokio::test(flavor = "multi_thread")]
     async fn authentication() -> anyhow::Result<()> {
@@ -159,11 +157,7 @@ mod driver {
     #[tokio::test(flavor = "multi_thread")]
     async fn retry_policies_request() -> user_guide_samples::Result<()> {
         let project_id = std::env::var("GOOGLE_CLOUD_PROJECT").unwrap();
-        let secret_id: String = rand::rng()
-            .sample_iter(&Alphanumeric)
-            .take(SECRET_ID_LENGTH)
-            .map(char::from)
-            .collect();
+        let secret_id = random_secret_id();
 
         let client = SecretManagerService::builder().build().await?;
         // The sample will delete this secret. If that fails, the cleanup step
@@ -186,11 +180,7 @@ mod driver {
         use std::time::Duration;
 
         let project_id = std::env::var("GOOGLE_CLOUD_PROJECT").unwrap();
-        let secret_id: String = rand::rng()
-            .sample_iter(&Alphanumeric)
-            .take(SECRET_ID_LENGTH)
-            .map(char::from)
-            .collect();
+        let secret_id = random_secret_id();
 
         let client = SecretManagerService::builder()
             .with_retry_policy(
@@ -236,11 +226,7 @@ mod driver {
         use std::time::Duration;
 
         let project_id = std::env::var("GOOGLE_CLOUD_PROJECT").unwrap();
-        let secret_id: String = rand::rng()
-            .sample_iter(&Alphanumeric)
-            .take(SECRET_ID_LENGTH)
-            .map(char::from)
-            .collect();
+        let secret_id = random_secret_id();
 
         let version = user_guide_samples::error_handling::update_secret::sample(
             &project_id,
