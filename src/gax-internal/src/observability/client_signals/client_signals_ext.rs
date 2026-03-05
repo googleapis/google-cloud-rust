@@ -19,8 +19,9 @@ use tracing::Span;
 
 /// Extends the `std::future::Future` types to provide client request telemetry.
 ///
-/// Wraps a future representing an client request to associate a span, a
-/// duration metric, and produce a log message on errors.
+/// Wraps a future representing an client request to associate a span with a
+/// duration metric, and produce a log message (also associated to the span) on
+/// errors.
 ///
 /// An instrumented client would use this as part of the tracing layer, for example:
 ///
@@ -34,15 +35,17 @@ use tracing::Span;
 ///     options: crate::RequestOptions,
 /// ) -> Result<crate::Response<crate::model::EchoResponse>> {
 ///     use google_cloud_gax_internal::observability::ClientSignalsExt as _;
+///     use google_cloud_gax_internal::observability::MetricDuration;
 ///     let (start, span) = google_cloud_gax_internal::client_request_signals!(
 ///         "client::Echo",
 ///         "echo",
 ///         &info::INSTRUMENTATION_CLIENT_INFO,
 ///         &options
 ///     );
+///     let duration: MetricDuration  = self.duration.clone();
 ///     self.inner
 ///         .echo(req, options)
-///         .instrument_client(self.duration.clone(), start, span)
+///         .instrument_client(duration, start, span)
 ///         .await
 /// }
 /// # }
