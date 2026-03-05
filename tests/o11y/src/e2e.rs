@@ -43,7 +43,11 @@ static CREDENTIALS: OnceCell<anyhow::Result<Credentials>> = OnceCell::const_new(
 /// Traces may take a few minutes to propagate from the collector endpoints to
 /// the service. This function retrieves the trace, polling if the trace is
 /// not found.
-pub async fn wait_for_trace(project_id: &str, trace_id: &str) -> anyhow::Result<Trace> {
+pub async fn wait_for_trace(
+    project_id: &str,
+    trace_id: &str,
+    required_spans: usize,
+) -> anyhow::Result<Trace> {
     let client = TraceService::builder().build().await?;
 
     // Because we are limited by quota, start with a backoff.
@@ -62,10 +66,14 @@ pub async fn wait_for_trace(project_id: &str, trace_id: &str) -> anyhow::Result<
             .send()
             .await
         {
-            Ok(t) => {
+            Ok(t) if t.spans.len() >= required_spans => {
                 trace = Some(t);
                 break;
             }
+            Ok(t) => println!(
+                "Trace found but only has {} spans, we want at least {required_spans}",
+                t.spans.len()
+            ),
             Err(e) => {
                 if let Some(status) = e.status() {
                     if status.code == Code::NotFound || status.code == Code::Internal {
