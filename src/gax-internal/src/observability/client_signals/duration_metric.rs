@@ -35,15 +35,48 @@ const METRIC_NAME: &str = "test.client.duration";
 // This is seconds in SI units.
 const METRIC_UNIT: &str = "s";
 
+/// Simplify the creation of client request duration metrics.
+///
+/// The generated and hand-crated client libraries will need to capture
+/// per-request duration metrics in a histogram metric. The code to initialize
+/// these histograms and record new values is shared by all the clients, so we
+/// can refactor the code to this struct.
+///
+/// Typically client libraries will use this as:
+///
+/// ```ignore
+/// #[derive(Clone, Debug)]
+/// struct TracingLayer<T> {
+///     inner: T /* where T implements the client trait */
+///     request_duration: DurationMetric
+/// }
+///
+/// impl<T> TracingLayer<T> {
+///     pub fn new(inner: T) -> Self {
+///         Self {
+///             inner,
+///             request_duration: DurationMetric::new(&info::INSTRUMENTATION_CLIENT_INFO),
+///         }
+///     }
+/// }
+/// ```
+///
+/// The the client can use this metric in the implementation of request methods.
 #[derive(Clone, Debug)]
 pub struct DurationMetric(Histogram<f64>);
 
 impl DurationMetric {
+    /// Creates a new instance based on the instrumentation info.
+    ///
+    /// The instrumentation info is used to initialize the OpenTelemetry
+    /// [InstrumentationScope]. Which provides information about the client
+    /// library and target service.
     pub fn new(info: &InstrumentationClientInfo) -> Self {
         let provider = opentelemetry::global::meter_provider();
         Self::new_with_provider(info, provider)
     }
 
+    /// Used in the unit tests to avoid a global meter provider.
     fn new_with_provider(
         info: &InstrumentationClientInfo,
         provider: Arc<dyn MeterProvider + Send + Sync>,
@@ -65,6 +98,9 @@ impl DurationMetric {
         Self(histogram)
     }
 
+    /// Records the latency for a successful request.
+    ///
+    /// Uses `start` to compute the duration and the method attributes.
     #[allow(dead_code)]
     pub(crate) fn record_ok(&self, start: RequestStart) {
         let elapsed = start.elapsed();
@@ -81,6 +117,11 @@ impl DurationMetric {
         );
     }
 
+    /// Records the latency for a request that completed with an error.
+    ///
+    /// Uses `start` to compute the duration and most of the method attributes,
+    /// `error` is summarized in some key parameters, including any status
+    /// codes.
     #[allow(dead_code)]
     pub(crate) fn record_error(&self, start: RequestStart, error: &Error) {
         let elapsed = start.elapsed();
