@@ -76,7 +76,9 @@ const TARGET: &str = "experimental.client.request";
 pub struct WithClientSignals<F> {
     #[pin]
     inner: F,
+    #[pin]
     metric: DurationMetric,
+    #[pin]
     start: RequestStart,
     span: Span,
 }
@@ -104,14 +106,12 @@ where
     type Output = <F as Future>::Output;
     fn poll(self: Pin<&mut Self>, cx: &mut Context<'_>) -> Poll<Self::Output> {
         let span = self.span.clone();
-        let start = self.start;
-        let metric = self.metric.clone();
         let this = self.project();
         let output = futures::ready!(this.inner.poll(cx));
         // Record the metric and log the value in the context of the span.
         let _enter = span.entered();
         match &output {
-            Ok(_) => metric.record_ok(start),
+            Ok(_) => this.metric.record_ok(&this.start),
             Err(error) => {
                 let rpc_status_code = error
                     .status()
@@ -124,9 +124,9 @@ where
                         target: TARGET,
                         tracing::Level::ERROR,
                         { RPC_SYSTEM_NAME } = RPC_SYSTEM_HTTP,
-                        { attribute::URL_DOMAIN } = start.info().default_host,
-                        { attribute::URL_TEMPLATE } = start.url_template(),
-                        { attribute::RPC_METHOD } = start.method(),
+                        { attribute::URL_DOMAIN } = this.start.info().default_host,
+                        { attribute::URL_TEMPLATE } = this.start.url_template(),
+                        { attribute::RPC_METHOD } = this.start.method(),
                         { RPC_RESPONSE_STATUS_CODE } = rpc_status_code,
                         { attribute::HTTP_RESPONSE_STATUS_CODE } = http_code,
                         "{error:?}"
@@ -137,14 +137,14 @@ where
                         target: TARGET,
                         tracing::Level::ERROR,
                         { RPC_SYSTEM_NAME } = RPC_SYSTEM_HTTP,
-                        { attribute::URL_DOMAIN } = start.info().default_host,
-                        { attribute::URL_TEMPLATE } = start.url_template(),
-                        { attribute::RPC_METHOD } = start.method(),
+                        { attribute::URL_DOMAIN } = this.start.info().default_host,
+                        { attribute::URL_TEMPLATE } = this.start.url_template(),
+                        { attribute::RPC_METHOD } = this.start.method(),
                         { RPC_RESPONSE_STATUS_CODE } = rpc_status_code,
                         "{error:?}"
                     );
                 }
-                metric.record_error(start, error)
+                this.metric.record_error(&this.start, error)
             }
         }
         Poll::Ready(output)
