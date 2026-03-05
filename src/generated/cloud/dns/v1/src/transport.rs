@@ -912,7 +912,7 @@ impl super::stub::ManagedZones for ManagedZones {
                 )?;
                 let path = format!("/dns/v1/{}:getIamPolicy", var_resource,);
 
-                let _resource_name = format!("//dns.googleapis.com/v1/{}", resource,);
+                let _resource_name = format!("//dns.googleapis.com/{}", resource,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -1105,7 +1105,7 @@ impl super::stub::ManagedZones for ManagedZones {
                 )?;
                 let path = format!("/dns/v1/{}:setIamPolicy", var_resource,);
 
-                let _resource_name = format!("//dns.googleapis.com/v1/{}", resource,);
+                let _resource_name = format!("//dns.googleapis.com/{}", resource,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -1159,7 +1159,7 @@ impl super::stub::ManagedZones for ManagedZones {
                 )?;
                 let path = format!("/dns/v1/{}:testIamPermissions", var_resource,);
 
-                let _resource_name = format!("//dns.googleapis.com/v1/{}", resource,);
+                let _resource_name = format!("//dns.googleapis.com/{}", resource,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
