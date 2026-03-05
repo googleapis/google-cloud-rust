@@ -14,8 +14,10 @@
 
 #[cfg(all(test, feature = "run-showcase-tests"))]
 mod showcase {
+    use google_cloud_test_utils::errors::anydump;
+
     #[tokio::test]
     async fn run() -> anyhow::Result<()> {
-        integration_tests_showcase::run().await
+        integration_tests_showcase::run().await.inspect_err(anydump)
     }
 }

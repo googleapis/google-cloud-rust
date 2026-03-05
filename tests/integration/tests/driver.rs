@@ -14,29 +14,38 @@
 
 #[cfg(all(test, feature = "run-integration-tests"))]
 mod driver {
+    use google_cloud_test_utils::errors::anydump;
     use google_cloud_test_utils::tracing::enable_tracing;
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_error_details_http() -> anyhow::Result<()> {
         let _guard = enable_tracing();
-        integration_tests::error_details::error_details_http().await
+        integration_tests::error_details::error_details_http()
+            .await
+            .inspect_err(anydump)
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_error_details_grpc() -> anyhow::Result<()> {
         let _guard = enable_tracing();
-        integration_tests::error_details::error_details_grpc().await
+        integration_tests::error_details::error_details_grpc()
+            .await
+            .inspect_err(anydump)
     }
 
     #[tokio::test]
     async fn run_check_code_for_http() -> anyhow::Result<()> {
         let _guard = enable_tracing();
-        integration_tests::error_details::check_code_for_http().await
+        integration_tests::error_details::check_code_for_http()
+            .await
+            .inspect_err(anydump)
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_check_code_for_grpc() -> anyhow::Result<()> {
         let _guard = enable_tracing();
-        integration_tests::error_details::check_code_for_grpc().await
+        integration_tests::error_details::check_code_for_grpc()
+            .await
+            .inspect_err(anydump)
     }
 }

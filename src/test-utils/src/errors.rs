@@ -1,4 +1,4 @@
-// Copyright 2025 Google LLC
+// Copyright 2026 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,14 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#[cfg(all(test, feature = "run-integration-tests", google_cloud_unstable_tracing))]
-mod telemetry {
-    use google_cloud_test_utils::errors::anydump;
-
-    #[tokio::test(flavor = "multi_thread")]
-    async fn showcase() -> anyhow::Result<()> {
-        integration_tests_o11y::e2e::showcase::run()
-            .await
-            .inspect_err(anydump)
-    }
+/// Dumps all the information in a `anyhow::Error`.
+pub fn anydump(error: &anyhow::Error) {
+    eprintln!("full error: {error:?}");
+    error
+        .chain()
+        .for_each(|cause| eprintln!("  because: {cause:?}"));
 }

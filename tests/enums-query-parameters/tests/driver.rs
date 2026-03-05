@@ -14,8 +14,12 @@
 
 #[cfg(all(test, feature = "run-integration-tests"))]
 mod enums_query_parameters {
+    use google_cloud_test_utils::errors::anydump;
+
     #[tokio::test]
     async fn run() -> anyhow::Result<()> {
-        integration_tests_enums_query_parameters::run().await
+        integration_tests_enums_query_parameters::run()
+            .await
+            .inspect_err(anydump)
     }
 }

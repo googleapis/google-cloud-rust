@@ -14,11 +14,14 @@
 
 #[cfg(all(test, feature = "run-integration-tests"))]
 mod locational_endpoints {
+    use google_cloud_test_utils::errors::anydump;
     use google_cloud_test_utils::tracing::enable_tracing;
 
     #[tokio::test]
     async fn run() -> anyhow::Result<()> {
         let _guard = enable_tracing();
-        integration_tests_locational_endpoints::run().await
+        integration_tests_locational_endpoints::run()
+            .await
+            .inspect_err(anydump)
     }
 }
