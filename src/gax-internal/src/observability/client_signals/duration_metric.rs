@@ -37,7 +37,7 @@ const METRIC_UNIT: &str = "s";
 
 /// Simplify the creation of client request duration metrics.
 ///
-/// The generated and hand-crated client libraries will need to capture
+/// The generated and hand-crafted client libraries will need to capture
 /// per-request duration metrics in a histogram metric. The code to initialize
 /// these histograms and record new values is shared by all the clients, so we
 /// can refactor the code to this struct.
@@ -61,7 +61,7 @@ const METRIC_UNIT: &str = "s";
 /// }
 /// ```
 ///
-/// The the client can use this metric in the implementation of request methods.
+/// The client can use this metric in the implementation of request methods.
 #[derive(Clone, Debug)]
 pub struct DurationMetric(Histogram<f64>);
 
