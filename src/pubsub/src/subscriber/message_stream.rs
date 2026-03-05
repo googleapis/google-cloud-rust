@@ -878,12 +878,20 @@ mod tests {
         // Make two requests with the same client. The requests should have the
         // same client ID.
         let c1 = test_client(endpoint.clone()).await?;
-        let _ = c1.subscribe("projects/p/subscriptions/s").build().next().await;
+        let _ = c1
+            .subscribe("projects/p/subscriptions/s")
+            .build()
+            .next()
+            .await;
         let req1 = recover_writes_rx
             .recv()
             .await
             .expect("should receive a request")?;
-        let _ = c1.subscribe("projects/p/subscriptions/s").build().next().await;
+        let _ = c1
+            .subscribe("projects/p/subscriptions/s")
+            .build()
+            .next()
+            .await;
         let req2 = recover_writes_rx
             .recv()
             .await
@@ -893,7 +901,11 @@ mod tests {
         // Make a third request with a different client. This request should
         // have a different client ID.
         let c2 = test_client(endpoint).await?;
-        let _ = c2.subscribe("projects/p/subscriptions/s").build().next().await;
+        let _ = c2
+            .subscribe("projects/p/subscriptions/s")
+            .build()
+            .next()
+            .await;
         let req3 = recover_writes_rx
             .recv()
             .await
