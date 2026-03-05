@@ -87,7 +87,6 @@ impl<F, R> WithClientSignals<Instrumented<F>>
 where
     F: Future<Output = Result<R, Error>>,
 {
-    #[allow(dead_code)]
     pub(crate) fn new(inner: F, metric: DurationMetric, start: RequestStart, span: Span) -> Self {
         let inner = inner.instrument(span.clone());
         Self {
