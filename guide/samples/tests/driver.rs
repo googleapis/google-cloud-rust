@@ -115,49 +115,49 @@ mod driver {
     }
 
     #[tokio::test(flavor = "multi_thread")]
-    async fn pagination_iterate_pages() -> user_guide_samples::Result<()> {
+    async fn pagination_iterate_pages() -> anyhow::Result<()> {
         let project_id = std::env::var("GOOGLE_CLOUD_PROJECT").unwrap();
         user_guide_samples::pagination::paginator_iterate_pages::sample(&project_id).await
     }
 
     #[tokio::test(flavor = "multi_thread")]
-    async fn pagination_iterate_items() -> user_guide_samples::Result<()> {
+    async fn pagination_iterate_items() -> anyhow::Result<()> {
         let project_id = std::env::var("GOOGLE_CLOUD_PROJECT").unwrap();
         user_guide_samples::pagination::paginator_iterate_items::sample(&project_id).await
     }
 
     #[tokio::test(flavor = "multi_thread")]
-    async fn pagination_stream_pages() -> user_guide_samples::Result<()> {
+    async fn pagination_stream_pages() -> anyhow::Result<()> {
         let project_id = std::env::var("GOOGLE_CLOUD_PROJECT").unwrap();
         user_guide_samples::pagination::paginator_stream_pages::sample(&project_id).await
     }
 
     #[tokio::test(flavor = "multi_thread")]
-    async fn pagination_stream_items() -> user_guide_samples::Result<()> {
+    async fn pagination_stream_items() -> anyhow::Result<()> {
         let project_id = std::env::var("GOOGLE_CLOUD_PROJECT").unwrap();
         user_guide_samples::pagination::paginator_stream_items::sample(&project_id).await
     }
 
     #[tokio::test(flavor = "multi_thread")]
-    async fn pagination_page_token() -> user_guide_samples::Result<()> {
+    async fn pagination_page_token() -> anyhow::Result<()> {
         let project_id = std::env::var("GOOGLE_CLOUD_PROJECT").unwrap();
         user_guide_samples::pagination::pagination_page_token::sample(&project_id).await
     }
 
     #[tokio::test(flavor = "multi_thread")]
-    async fn retry_policies_client() -> user_guide_samples::Result<()> {
+    async fn retry_policies_client() -> anyhow::Result<()> {
         let project_id = std::env::var("GOOGLE_CLOUD_PROJECT").unwrap();
         user_guide_samples::retry_policies::client_retry::sample(&project_id).await
     }
 
     #[tokio::test(flavor = "multi_thread")]
-    async fn retry_policies_client_full() -> user_guide_samples::Result<()> {
+    async fn retry_policies_client_full() -> anyhow::Result<()> {
         let project_id = std::env::var("GOOGLE_CLOUD_PROJECT").unwrap();
         user_guide_samples::retry_policies::client_retry_full::sample(&project_id).await
     }
 
     #[tokio::test(flavor = "multi_thread")]
-    async fn retry_policies_request() -> user_guide_samples::Result<()> {
+    async fn retry_policies_request() -> anyhow::Result<()> {
         let project_id = std::env::var("GOOGLE_CLOUD_PROJECT").unwrap();
         let secret_id: String = rand::rng()
             .sample_iter(&Alphanumeric)
@@ -180,7 +180,7 @@ mod driver {
     }
 
     #[tokio::test]
-    async fn error_handling_found() -> user_guide_samples::Result<()> {
+    async fn error_handling_found() -> anyhow::Result<()> {
         use google_cloud_gax::retry_policy::AlwaysRetry;
         use google_cloud_gax::retry_policy::RetryPolicyExt;
         use std::time::Duration;
@@ -229,7 +229,7 @@ mod driver {
     }
 
     #[tokio::test]
-    async fn error_handling_not_found() -> user_guide_samples::Result<()> {
+    async fn error_handling_not_found() -> anyhow::Result<()> {
         use google_cloud_gax::retry_policy::AlwaysRetry;
         use google_cloud_gax::retry_policy::RetryPolicyExt;
         use google_cloud_secretmanager_v1 as sm;
@@ -271,19 +271,19 @@ mod driver {
     }
 
     #[tokio::test]
-    async fn examine_error_details() -> user_guide_samples::Result<()> {
+    async fn examine_error_details() -> anyhow::Result<()> {
         user_guide_samples::examine_error_details::sample().await?;
         Ok(())
     }
 
     #[tokio::test]
-    async fn binding_fail() -> user_guide_samples::Result<()> {
+    async fn binding_fail() -> anyhow::Result<()> {
         user_guide_samples::binding_errors::binding_fail::sample().await?;
         Ok(())
     }
 
     #[tokio::test]
-    async fn binding_success() -> user_guide_samples::Result<()> {
+    async fn binding_success() -> anyhow::Result<()> {
         user_guide_samples::binding_errors::binding_success::sample().await?;
         Ok(())
     }
