@@ -164,9 +164,8 @@ mod tests {
     // This is in the middle of the [0.5, 1.0) bucket defined in `boundaries`.
     const DELAY: Duration = Duration::from_millis(750);
 
-    #[ignore = "TODO(#4916) - disabled because it was flaky"]
     #[tokio::test(start_paused = true)]
-    async fn global_record_ok() -> anyhow::Result<()> {
+    async fn global_record_error() -> anyhow::Result<()> {
         let exporter = InMemoryMetricExporter::default();
         let provider = SdkMeterProvider::builder()
             .with_reader(PeriodicReader::builder(exporter.clone()).build())
@@ -179,15 +178,21 @@ mod tests {
         let start = RequestStart::new(&TEST_INFO, &options, METHOD);
         // Use a long pause so it gets recorded as such.
         tokio::time::sleep(DELAY).await;
-        metric.record_ok(&start);
+        let error = Error::http(408, http::HeaderMap::new(), bytes::Bytes::new());
+        metric.record_error(&start, &error);
         provider.force_flush()?;
         let metrics = exporter.get_finished_metrics()?;
         check_scope(&metrics);
         check_data(
             &metrics,
+            // We cannot predict the exact value as other tests in the crate may
+            // be using the same same global meter provider. The remaining
+            // tests in this module take care of the counts, we can relax the
+            // conditions here.
+            1_u64..,
             &[
-                ("rpc.response.status_code", "OK"),
-                ("http.response.status_code", "200"),
+                ("rpc.response.status_code", "UNKNOWN"),
+                ("http.response.status_code", "408"),
             ],
         );
         Ok(())
@@ -210,6 +215,7 @@ mod tests {
         check_scope(&metrics);
         check_data(
             &metrics,
+            1_u64..=1_u64,
             &[
                 ("rpc.response.status_code", "OK"),
                 ("http.response.status_code", "200"),
@@ -238,7 +244,11 @@ mod tests {
         provider.force_flush()?;
         let metrics = exporter.get_finished_metrics()?;
         check_scope(&metrics);
-        check_data(&metrics, &[("rpc.response.status_code", "NOT_FOUND")]);
+        check_data(
+            &metrics,
+            1_u64..=1_u64,
+            &[("rpc.response.status_code", "NOT_FOUND")],
+        );
         Ok(())
     }
 
@@ -260,6 +270,7 @@ mod tests {
         check_scope(&metrics);
         check_data(
             &metrics,
+            1_u64..=1_u64,
             &[
                 ("rpc.response.status_code", "UNKNOWN"),
                 ("http.response.status_code", "429"),
@@ -293,10 +304,13 @@ mod tests {
     }
 
     #[track_caller]
-    fn check_data(
+    fn check_data<R>(
         metrics: &Vec<ResourceMetrics>,
+        want_count: R,
         want_attributes: &[(&'static str, &'static str)],
-    ) {
+    ) where
+        R: std::ops::RangeBounds<u64>,
+    {
         let mut iter = metrics
             .iter()
             .flat_map(|s| s.scope_metrics())
@@ -355,7 +369,7 @@ mod tests {
                 )
             });
         assert!(
-            bucket.is_some_and(|(c, b)| c == 1 && b == low),
+            bucket.is_some_and(|(c, b)| want_count.contains(&c) && b == low),
             "mismatched bucket {bucket:?} want (1, {low})\nfound=[{low}, {high})\n{point:?}"
         );
     }
