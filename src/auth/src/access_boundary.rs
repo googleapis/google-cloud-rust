@@ -164,24 +164,17 @@ impl<T: PartialEq + Clone> EntityTagCache<T> {
     // and the value matches the one provided by the caller.
     // If the inner etag does not match, it returns a new outer etag.
     fn get_or_update(&self, inner_etag: EntityTag, value: T) -> EntityTag {
-        let get_match = |state: &Option<EntityTagState<T>>| {
-            state
+        if let Ok(lock) = self.state.read() {
+            if let Some(outer) = lock
                 .as_ref()
                 .filter(|s| s.inner_etag == inner_etag && s.value == value)
                 .map(|s| s.outer_etag.clone())
-        };
-
-        if let Ok(lock) = self.state.read() {
-            if let Some(outer) = get_match(&lock) {
+            {
                 return outer;
             }
         }
 
         if let Ok(mut lock) = self.state.write() {
-            if let Some(outer) = get_match(&lock) {
-                return outer;
-            }
-
             let new_outer = EntityTag::new();
             *lock = Some(EntityTagState {
                 outer_etag: new_outer.clone(),
@@ -236,6 +229,9 @@ where
     #[cfg(test)]
     pub(crate) async fn wait_for_boundary(&self) {
         let mut rx = self.access_boundary.rx_header.clone();
+        if rx.borrow().is_some() {
+            return;
+        }
         let _ = rx.changed().await;
     }
 }
@@ -935,9 +931,6 @@ pub(crate) mod tests {
         mock_creds.expect_headers().returning(move |extensions| {
             let user_etag = extensions.get::<EntityTag>().cloned();
             let token_etag = closure_latest_token_etag.read().unwrap();
-            println!(
-                "fetching headers, user_etag: {user_etag:?} latest_token_etag: {token_etag:?}"
-            );
             match user_etag {
                 Some(etag) if etag.eq(&*token_etag) => Ok(CacheableResource::NotModified),
                 _ => Ok(CacheableResource::New {
@@ -972,7 +965,6 @@ pub(crate) mod tests {
         };
         let boundary = get_access_boundary_from_headers(cached_headers);
         assert!(boundary.is_none(), "{boundary:?}");
-        println!("tag1: {tag1:?}");
 
         // Second call with same tag - should be NotModified
         let mut ext = Extensions::new();
@@ -998,7 +990,6 @@ pub(crate) mod tests {
         let boundary = get_access_boundary_from_headers(cached_headers);
         assert_eq!(boundary.as_deref(), Some("0x123"), "{boundary:?}");
         assert_ne!(tag1, tag2, "New boundary should result in new ETags");
-        println!("tag2: {tag2:?}");
 
         // Passing the new tag should return NotModified again
         let mut ext = Extensions::new();
@@ -1025,7 +1016,6 @@ pub(crate) mod tests {
         let boundary = get_access_boundary_from_headers(cached_headers);
         assert_eq!(boundary.as_deref(), Some("0x321"), "{boundary:?}");
         assert_ne!(tag2, tag3, "New boundary should result in new ETags");
-        println!("tag3: {tag3:?}");
 
         // now update the token
         {
@@ -1044,7 +1034,6 @@ pub(crate) mod tests {
         let boundary = get_access_boundary_from_headers(cached_headers);
         assert_eq!(boundary.as_deref(), Some("0x321"), "{boundary:?}");
         assert_ne!(tag3, tag4, "New token should result in new ETags");
-        println!("tag4: {tag4:?}");
 
         // Using random tag - should return token and boundary just fine.
         let mut ext = Extensions::new();
@@ -1060,7 +1049,6 @@ pub(crate) mod tests {
             tag4, tag5,
             "Same token and boundary should result in same ETags"
         );
-        println!("tag5: {tag5:?}");
 
         Ok(())
     }
