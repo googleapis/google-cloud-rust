@@ -14,8 +14,12 @@
 
 #[cfg(all(test, feature = "run-integration-tests"))]
 mod driver {
+    use google_cloud_test_utils::errors::anydump;
+
     #[tokio::test]
     async fn run_all() -> anyhow::Result<()> {
-        integration_tests_dns_v1::run_all().await
+        integration_tests_dns_v1::run_all()
+            .await
+            .inspect_err(anydump)
     }
 }

@@ -16,6 +16,7 @@
 mod protobuf {
     use google_cloud_secretmanager_v1::builder::secret_manager_service::ClientBuilder;
     use google_cloud_secretmanager_v1::client::SecretManagerService;
+    use google_cloud_test_utils::errors::anydump;
     use google_cloud_test_utils::tracing::enable_tracing;
     use integration_tests_protobuf::retry_policy;
     use test_case::test_case;
@@ -27,6 +28,8 @@ mod protobuf {
     #[tokio::test]
     async fn run(builder: ClientBuilder) -> anyhow::Result<()> {
         let _guard = enable_tracing();
-        integration_tests_protobuf::run(builder).await
+        integration_tests_protobuf::run(builder)
+            .await
+            .inspect_err(anydump)
     }
 }

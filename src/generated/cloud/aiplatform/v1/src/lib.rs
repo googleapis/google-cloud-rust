@@ -62,6 +62,7 @@
 //! * [ReasoningEngineExecutionService](client/struct.ReasoningEngineExecutionService.html)
 //! * [ReasoningEngineService](client/struct.ReasoningEngineService.html)
 //! * [ScheduleService](client/struct.ScheduleService.html)
+//! * [SessionService](client/struct.SessionService.html)
 //! * [SpecialistPoolService](client/struct.SpecialistPoolService.html)
 //! * [TensorboardService](client/struct.TensorboardService.html)
 //! * [VertexRagDataService](client/struct.VertexRagDataService.html)
@@ -95,6 +96,18 @@ pub use google_cloud_gax::error::Error;
 #[allow(rustdoc::redundant_explicit_links)]
 pub mod stub;
 
+///
+/// # Example
+/// ```
+/// # use google_cloud_aiplatform_v1::client::PredictionService;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = PredictionService::builder().build().await?;
+///     let response = client.predict()
+///         /* set fields */
+///         .send().await?;
+///     println!("response {:?}", response);
+/// # Ok(()) }
+/// ```
 /// Concrete implementations of this client library traits.
 pub mod client;
 
@@ -137,6 +150,7 @@ pub(crate) mod transport;
     feature = "reasoning-engine-execution-service",
     feature = "reasoning-engine-service",
     feature = "schedule-service",
+    feature = "session-service",
     feature = "specialist-pool-service",
     feature = "tensorboard-service",
     feature = "vertex-rag-data-service",
@@ -174,6 +188,7 @@ const DEFAULT_HOST: &str = "https://aiplatform.googleapis.com/";
     feature = "reasoning-engine-execution-service",
     feature = "reasoning-engine-service",
     feature = "schedule-service",
+    feature = "session-service",
     feature = "specialist-pool-service",
     feature = "tensorboard-service",
     feature = "vertex-rag-data-service",

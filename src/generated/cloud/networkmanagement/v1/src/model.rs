@@ -3534,6 +3534,8 @@ impl Step {
     /// assert!(x.gke_master().is_none());
     /// assert!(x.gke_pod().is_none());
     /// assert!(x.ip_masquerading_skipped().is_none());
+    /// assert!(x.gke_network_policy().is_none());
+    /// assert!(x.gke_network_policy_skipped().is_none());
     /// assert!(x.cloud_sql_instance().is_none());
     /// assert!(x.redis_instance().is_none());
     /// assert!(x.redis_cluster().is_none());
@@ -3545,6 +3547,7 @@ impl Step {
     /// assert!(x.load_balancer_backend_info().is_none());
     /// assert!(x.storage_bucket().is_none());
     /// assert!(x.serverless_neg().is_none());
+    /// assert!(x.ngfw_packet_inspection().is_none());
     /// ```
     pub fn set_instance<T: std::convert::Into<std::boxed::Box<crate::model::InstanceInfo>>>(
         mut self,
@@ -3599,6 +3602,8 @@ impl Step {
     /// assert!(x.gke_master().is_none());
     /// assert!(x.gke_pod().is_none());
     /// assert!(x.ip_masquerading_skipped().is_none());
+    /// assert!(x.gke_network_policy().is_none());
+    /// assert!(x.gke_network_policy_skipped().is_none());
     /// assert!(x.cloud_sql_instance().is_none());
     /// assert!(x.redis_instance().is_none());
     /// assert!(x.redis_cluster().is_none());
@@ -3610,6 +3615,7 @@ impl Step {
     /// assert!(x.load_balancer_backend_info().is_none());
     /// assert!(x.storage_bucket().is_none());
     /// assert!(x.serverless_neg().is_none());
+    /// assert!(x.ngfw_packet_inspection().is_none());
     /// ```
     pub fn set_firewall<T: std::convert::Into<std::boxed::Box<crate::model::FirewallInfo>>>(
         mut self,
@@ -3664,6 +3670,8 @@ impl Step {
     /// assert!(x.gke_master().is_none());
     /// assert!(x.gke_pod().is_none());
     /// assert!(x.ip_masquerading_skipped().is_none());
+    /// assert!(x.gke_network_policy().is_none());
+    /// assert!(x.gke_network_policy_skipped().is_none());
     /// assert!(x.cloud_sql_instance().is_none());
     /// assert!(x.redis_instance().is_none());
     /// assert!(x.redis_cluster().is_none());
@@ -3675,6 +3683,7 @@ impl Step {
     /// assert!(x.load_balancer_backend_info().is_none());
     /// assert!(x.storage_bucket().is_none());
     /// assert!(x.serverless_neg().is_none());
+    /// assert!(x.ngfw_packet_inspection().is_none());
     /// ```
     pub fn set_route<T: std::convert::Into<std::boxed::Box<crate::model::RouteInfo>>>(
         mut self,
@@ -3728,6 +3737,8 @@ impl Step {
     /// assert!(x.gke_master().is_none());
     /// assert!(x.gke_pod().is_none());
     /// assert!(x.ip_masquerading_skipped().is_none());
+    /// assert!(x.gke_network_policy().is_none());
+    /// assert!(x.gke_network_policy_skipped().is_none());
     /// assert!(x.cloud_sql_instance().is_none());
     /// assert!(x.redis_instance().is_none());
     /// assert!(x.redis_cluster().is_none());
@@ -3739,6 +3750,7 @@ impl Step {
     /// assert!(x.load_balancer_backend_info().is_none());
     /// assert!(x.storage_bucket().is_none());
     /// assert!(x.serverless_neg().is_none());
+    /// assert!(x.ngfw_packet_inspection().is_none());
     /// ```
     pub fn set_endpoint<T: std::convert::Into<std::boxed::Box<crate::model::EndpointInfo>>>(
         mut self,
@@ -3795,6 +3807,8 @@ impl Step {
     /// assert!(x.gke_master().is_none());
     /// assert!(x.gke_pod().is_none());
     /// assert!(x.ip_masquerading_skipped().is_none());
+    /// assert!(x.gke_network_policy().is_none());
+    /// assert!(x.gke_network_policy_skipped().is_none());
     /// assert!(x.cloud_sql_instance().is_none());
     /// assert!(x.redis_instance().is_none());
     /// assert!(x.redis_cluster().is_none());
@@ -3806,6 +3820,7 @@ impl Step {
     /// assert!(x.load_balancer_backend_info().is_none());
     /// assert!(x.storage_bucket().is_none());
     /// assert!(x.serverless_neg().is_none());
+    /// assert!(x.ngfw_packet_inspection().is_none());
     /// ```
     pub fn set_google_service<
         T: std::convert::Into<std::boxed::Box<crate::model::GoogleServiceInfo>>,
@@ -3864,6 +3879,8 @@ impl Step {
     /// assert!(x.gke_master().is_none());
     /// assert!(x.gke_pod().is_none());
     /// assert!(x.ip_masquerading_skipped().is_none());
+    /// assert!(x.gke_network_policy().is_none());
+    /// assert!(x.gke_network_policy_skipped().is_none());
     /// assert!(x.cloud_sql_instance().is_none());
     /// assert!(x.redis_instance().is_none());
     /// assert!(x.redis_cluster().is_none());
@@ -3875,6 +3892,7 @@ impl Step {
     /// assert!(x.load_balancer_backend_info().is_none());
     /// assert!(x.storage_bucket().is_none());
     /// assert!(x.serverless_neg().is_none());
+    /// assert!(x.ngfw_packet_inspection().is_none());
     /// ```
     pub fn set_forwarding_rule<
         T: std::convert::Into<std::boxed::Box<crate::model::ForwardingRuleInfo>>,
@@ -3933,6 +3951,8 @@ impl Step {
     /// assert!(x.gke_master().is_none());
     /// assert!(x.gke_pod().is_none());
     /// assert!(x.ip_masquerading_skipped().is_none());
+    /// assert!(x.gke_network_policy().is_none());
+    /// assert!(x.gke_network_policy_skipped().is_none());
     /// assert!(x.cloud_sql_instance().is_none());
     /// assert!(x.redis_instance().is_none());
     /// assert!(x.redis_cluster().is_none());
@@ -3944,6 +3964,7 @@ impl Step {
     /// assert!(x.load_balancer_backend_info().is_none());
     /// assert!(x.storage_bucket().is_none());
     /// assert!(x.serverless_neg().is_none());
+    /// assert!(x.ngfw_packet_inspection().is_none());
     /// ```
     pub fn set_hybrid_subnet<
         T: std::convert::Into<std::boxed::Box<crate::model::HybridSubnetInfo>>,
@@ -4002,6 +4023,8 @@ impl Step {
     /// assert!(x.gke_master().is_none());
     /// assert!(x.gke_pod().is_none());
     /// assert!(x.ip_masquerading_skipped().is_none());
+    /// assert!(x.gke_network_policy().is_none());
+    /// assert!(x.gke_network_policy_skipped().is_none());
     /// assert!(x.cloud_sql_instance().is_none());
     /// assert!(x.redis_instance().is_none());
     /// assert!(x.redis_cluster().is_none());
@@ -4013,6 +4036,7 @@ impl Step {
     /// assert!(x.load_balancer_backend_info().is_none());
     /// assert!(x.storage_bucket().is_none());
     /// assert!(x.serverless_neg().is_none());
+    /// assert!(x.ngfw_packet_inspection().is_none());
     /// ```
     pub fn set_vpn_gateway<T: std::convert::Into<std::boxed::Box<crate::model::VpnGatewayInfo>>>(
         mut self,
@@ -4067,6 +4091,8 @@ impl Step {
     /// assert!(x.gke_master().is_none());
     /// assert!(x.gke_pod().is_none());
     /// assert!(x.ip_masquerading_skipped().is_none());
+    /// assert!(x.gke_network_policy().is_none());
+    /// assert!(x.gke_network_policy_skipped().is_none());
     /// assert!(x.cloud_sql_instance().is_none());
     /// assert!(x.redis_instance().is_none());
     /// assert!(x.redis_cluster().is_none());
@@ -4078,6 +4104,7 @@ impl Step {
     /// assert!(x.load_balancer_backend_info().is_none());
     /// assert!(x.storage_bucket().is_none());
     /// assert!(x.serverless_neg().is_none());
+    /// assert!(x.ngfw_packet_inspection().is_none());
     /// ```
     pub fn set_vpn_tunnel<T: std::convert::Into<std::boxed::Box<crate::model::VpnTunnelInfo>>>(
         mut self,
@@ -4134,6 +4161,8 @@ impl Step {
     /// assert!(x.gke_master().is_none());
     /// assert!(x.gke_pod().is_none());
     /// assert!(x.ip_masquerading_skipped().is_none());
+    /// assert!(x.gke_network_policy().is_none());
+    /// assert!(x.gke_network_policy_skipped().is_none());
     /// assert!(x.cloud_sql_instance().is_none());
     /// assert!(x.redis_instance().is_none());
     /// assert!(x.redis_cluster().is_none());
@@ -4145,6 +4174,7 @@ impl Step {
     /// assert!(x.load_balancer_backend_info().is_none());
     /// assert!(x.storage_bucket().is_none());
     /// assert!(x.serverless_neg().is_none());
+    /// assert!(x.ngfw_packet_inspection().is_none());
     /// ```
     pub fn set_interconnect_attachment<
         T: std::convert::Into<std::boxed::Box<crate::model::InterconnectAttachmentInfo>>,
@@ -4204,6 +4234,8 @@ impl Step {
     /// assert!(x.gke_master().is_none());
     /// assert!(x.gke_pod().is_none());
     /// assert!(x.ip_masquerading_skipped().is_none());
+    /// assert!(x.gke_network_policy().is_none());
+    /// assert!(x.gke_network_policy_skipped().is_none());
     /// assert!(x.cloud_sql_instance().is_none());
     /// assert!(x.redis_instance().is_none());
     /// assert!(x.redis_cluster().is_none());
@@ -4215,6 +4247,7 @@ impl Step {
     /// assert!(x.load_balancer_backend_info().is_none());
     /// assert!(x.storage_bucket().is_none());
     /// assert!(x.serverless_neg().is_none());
+    /// assert!(x.ngfw_packet_inspection().is_none());
     /// ```
     pub fn set_vpc_connector<
         T: std::convert::Into<std::boxed::Box<crate::model::VpcConnectorInfo>>,
@@ -4275,6 +4308,8 @@ impl Step {
     /// assert!(x.gke_master().is_none());
     /// assert!(x.gke_pod().is_none());
     /// assert!(x.ip_masquerading_skipped().is_none());
+    /// assert!(x.gke_network_policy().is_none());
+    /// assert!(x.gke_network_policy_skipped().is_none());
     /// assert!(x.cloud_sql_instance().is_none());
     /// assert!(x.redis_instance().is_none());
     /// assert!(x.redis_cluster().is_none());
@@ -4286,6 +4321,7 @@ impl Step {
     /// assert!(x.load_balancer_backend_info().is_none());
     /// assert!(x.storage_bucket().is_none());
     /// assert!(x.serverless_neg().is_none());
+    /// assert!(x.ngfw_packet_inspection().is_none());
     /// ```
     pub fn set_direct_vpc_egress_connection<
         T: std::convert::Into<std::boxed::Box<crate::model::DirectVpcEgressConnectionInfo>>,
@@ -4347,6 +4383,8 @@ impl Step {
     /// assert!(x.gke_master().is_none());
     /// assert!(x.gke_pod().is_none());
     /// assert!(x.ip_masquerading_skipped().is_none());
+    /// assert!(x.gke_network_policy().is_none());
+    /// assert!(x.gke_network_policy_skipped().is_none());
     /// assert!(x.cloud_sql_instance().is_none());
     /// assert!(x.redis_instance().is_none());
     /// assert!(x.redis_cluster().is_none());
@@ -4358,6 +4396,7 @@ impl Step {
     /// assert!(x.load_balancer_backend_info().is_none());
     /// assert!(x.storage_bucket().is_none());
     /// assert!(x.serverless_neg().is_none());
+    /// assert!(x.ngfw_packet_inspection().is_none());
     /// ```
     pub fn set_serverless_external_connection<
         T: std::convert::Into<std::boxed::Box<crate::model::ServerlessExternalConnectionInfo>>,
@@ -4415,6 +4454,8 @@ impl Step {
     /// assert!(x.gke_master().is_none());
     /// assert!(x.gke_pod().is_none());
     /// assert!(x.ip_masquerading_skipped().is_none());
+    /// assert!(x.gke_network_policy().is_none());
+    /// assert!(x.gke_network_policy_skipped().is_none());
     /// assert!(x.cloud_sql_instance().is_none());
     /// assert!(x.redis_instance().is_none());
     /// assert!(x.redis_cluster().is_none());
@@ -4426,6 +4467,7 @@ impl Step {
     /// assert!(x.load_balancer_backend_info().is_none());
     /// assert!(x.storage_bucket().is_none());
     /// assert!(x.serverless_neg().is_none());
+    /// assert!(x.ngfw_packet_inspection().is_none());
     /// ```
     pub fn set_deliver<T: std::convert::Into<std::boxed::Box<crate::model::DeliverInfo>>>(
         mut self,
@@ -4479,6 +4521,8 @@ impl Step {
     /// assert!(x.gke_master().is_none());
     /// assert!(x.gke_pod().is_none());
     /// assert!(x.ip_masquerading_skipped().is_none());
+    /// assert!(x.gke_network_policy().is_none());
+    /// assert!(x.gke_network_policy_skipped().is_none());
     /// assert!(x.cloud_sql_instance().is_none());
     /// assert!(x.redis_instance().is_none());
     /// assert!(x.redis_cluster().is_none());
@@ -4490,6 +4534,7 @@ impl Step {
     /// assert!(x.load_balancer_backend_info().is_none());
     /// assert!(x.storage_bucket().is_none());
     /// assert!(x.serverless_neg().is_none());
+    /// assert!(x.ngfw_packet_inspection().is_none());
     /// ```
     pub fn set_forward<T: std::convert::Into<std::boxed::Box<crate::model::ForwardInfo>>>(
         mut self,
@@ -4543,6 +4588,8 @@ impl Step {
     /// assert!(x.gke_master().is_none());
     /// assert!(x.gke_pod().is_none());
     /// assert!(x.ip_masquerading_skipped().is_none());
+    /// assert!(x.gke_network_policy().is_none());
+    /// assert!(x.gke_network_policy_skipped().is_none());
     /// assert!(x.cloud_sql_instance().is_none());
     /// assert!(x.redis_instance().is_none());
     /// assert!(x.redis_cluster().is_none());
@@ -4554,6 +4601,7 @@ impl Step {
     /// assert!(x.load_balancer_backend_info().is_none());
     /// assert!(x.storage_bucket().is_none());
     /// assert!(x.serverless_neg().is_none());
+    /// assert!(x.ngfw_packet_inspection().is_none());
     /// ```
     pub fn set_abort<T: std::convert::Into<std::boxed::Box<crate::model::AbortInfo>>>(
         mut self,
@@ -4607,6 +4655,8 @@ impl Step {
     /// assert!(x.gke_master().is_none());
     /// assert!(x.gke_pod().is_none());
     /// assert!(x.ip_masquerading_skipped().is_none());
+    /// assert!(x.gke_network_policy().is_none());
+    /// assert!(x.gke_network_policy_skipped().is_none());
     /// assert!(x.cloud_sql_instance().is_none());
     /// assert!(x.redis_instance().is_none());
     /// assert!(x.redis_cluster().is_none());
@@ -4618,6 +4668,7 @@ impl Step {
     /// assert!(x.load_balancer_backend_info().is_none());
     /// assert!(x.storage_bucket().is_none());
     /// assert!(x.serverless_neg().is_none());
+    /// assert!(x.ngfw_packet_inspection().is_none());
     /// ```
     pub fn set_drop<T: std::convert::Into<std::boxed::Box<crate::model::DropInfo>>>(
         mut self,
@@ -4674,6 +4725,8 @@ impl Step {
     /// assert!(x.gke_master().is_none());
     /// assert!(x.gke_pod().is_none());
     /// assert!(x.ip_masquerading_skipped().is_none());
+    /// assert!(x.gke_network_policy().is_none());
+    /// assert!(x.gke_network_policy_skipped().is_none());
     /// assert!(x.cloud_sql_instance().is_none());
     /// assert!(x.redis_instance().is_none());
     /// assert!(x.redis_cluster().is_none());
@@ -4685,6 +4738,7 @@ impl Step {
     /// assert!(x.load_balancer_backend_info().is_none());
     /// assert!(x.storage_bucket().is_none());
     /// assert!(x.serverless_neg().is_none());
+    /// assert!(x.ngfw_packet_inspection().is_none());
     /// ```
     #[deprecated]
     pub fn set_load_balancer<
@@ -4742,6 +4796,8 @@ impl Step {
     /// assert!(x.gke_master().is_none());
     /// assert!(x.gke_pod().is_none());
     /// assert!(x.ip_masquerading_skipped().is_none());
+    /// assert!(x.gke_network_policy().is_none());
+    /// assert!(x.gke_network_policy_skipped().is_none());
     /// assert!(x.cloud_sql_instance().is_none());
     /// assert!(x.redis_instance().is_none());
     /// assert!(x.redis_cluster().is_none());
@@ -4753,6 +4809,7 @@ impl Step {
     /// assert!(x.load_balancer_backend_info().is_none());
     /// assert!(x.storage_bucket().is_none());
     /// assert!(x.serverless_neg().is_none());
+    /// assert!(x.ngfw_packet_inspection().is_none());
     /// ```
     pub fn set_network<T: std::convert::Into<std::boxed::Box<crate::model::NetworkInfo>>>(
         mut self,
@@ -4806,6 +4863,8 @@ impl Step {
     /// assert!(x.network().is_none());
     /// assert!(x.gke_pod().is_none());
     /// assert!(x.ip_masquerading_skipped().is_none());
+    /// assert!(x.gke_network_policy().is_none());
+    /// assert!(x.gke_network_policy_skipped().is_none());
     /// assert!(x.cloud_sql_instance().is_none());
     /// assert!(x.redis_instance().is_none());
     /// assert!(x.redis_cluster().is_none());
@@ -4817,6 +4876,7 @@ impl Step {
     /// assert!(x.load_balancer_backend_info().is_none());
     /// assert!(x.storage_bucket().is_none());
     /// assert!(x.serverless_neg().is_none());
+    /// assert!(x.ngfw_packet_inspection().is_none());
     /// ```
     pub fn set_gke_master<T: std::convert::Into<std::boxed::Box<crate::model::GKEMasterInfo>>>(
         mut self,
@@ -4871,6 +4931,8 @@ impl Step {
     /// assert!(x.network().is_none());
     /// assert!(x.gke_master().is_none());
     /// assert!(x.ip_masquerading_skipped().is_none());
+    /// assert!(x.gke_network_policy().is_none());
+    /// assert!(x.gke_network_policy_skipped().is_none());
     /// assert!(x.cloud_sql_instance().is_none());
     /// assert!(x.redis_instance().is_none());
     /// assert!(x.redis_cluster().is_none());
@@ -4882,6 +4944,7 @@ impl Step {
     /// assert!(x.load_balancer_backend_info().is_none());
     /// assert!(x.storage_bucket().is_none());
     /// assert!(x.serverless_neg().is_none());
+    /// assert!(x.ngfw_packet_inspection().is_none());
     /// ```
     pub fn set_gke_pod<T: std::convert::Into<std::boxed::Box<crate::model::GkePodInfo>>>(
         mut self,
@@ -4937,6 +5000,8 @@ impl Step {
     /// assert!(x.network().is_none());
     /// assert!(x.gke_master().is_none());
     /// assert!(x.gke_pod().is_none());
+    /// assert!(x.gke_network_policy().is_none());
+    /// assert!(x.gke_network_policy_skipped().is_none());
     /// assert!(x.cloud_sql_instance().is_none());
     /// assert!(x.redis_instance().is_none());
     /// assert!(x.redis_cluster().is_none());
@@ -4948,6 +5013,7 @@ impl Step {
     /// assert!(x.load_balancer_backend_info().is_none());
     /// assert!(x.storage_bucket().is_none());
     /// assert!(x.serverless_neg().is_none());
+    /// assert!(x.ngfw_packet_inspection().is_none());
     /// ```
     pub fn set_ip_masquerading_skipped<
         T: std::convert::Into<std::boxed::Box<crate::model::IpMasqueradingSkippedInfo>>,
@@ -4957,6 +5023,153 @@ impl Step {
     ) -> Self {
         self.step_info = std::option::Option::Some(
             crate::model::step::StepInfo::IpMasqueradingSkipped(v.into()),
+        );
+        self
+    }
+
+    /// The value of [step_info][crate::model::Step::step_info]
+    /// if it holds a `GkeNetworkPolicy`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn gke_network_policy(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::GkeNetworkPolicyInfo>> {
+        #[allow(unreachable_patterns)]
+        self.step_info.as_ref().and_then(|v| match v {
+            crate::model::step::StepInfo::GkeNetworkPolicy(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [step_info][crate::model::Step::step_info]
+    /// to hold a `GkeNetworkPolicy`.
+    ///
+    /// Note that all the setters affecting `step_info` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networkmanagement_v1::model::Step;
+    /// use google_cloud_networkmanagement_v1::model::GkeNetworkPolicyInfo;
+    /// let x = Step::new().set_gke_network_policy(GkeNetworkPolicyInfo::default()/* use setters */);
+    /// assert!(x.gke_network_policy().is_some());
+    /// assert!(x.instance().is_none());
+    /// assert!(x.firewall().is_none());
+    /// assert!(x.route().is_none());
+    /// assert!(x.endpoint().is_none());
+    /// assert!(x.google_service().is_none());
+    /// assert!(x.forwarding_rule().is_none());
+    /// assert!(x.hybrid_subnet().is_none());
+    /// assert!(x.vpn_gateway().is_none());
+    /// assert!(x.vpn_tunnel().is_none());
+    /// assert!(x.interconnect_attachment().is_none());
+    /// assert!(x.vpc_connector().is_none());
+    /// assert!(x.direct_vpc_egress_connection().is_none());
+    /// assert!(x.serverless_external_connection().is_none());
+    /// assert!(x.deliver().is_none());
+    /// assert!(x.forward().is_none());
+    /// assert!(x.abort().is_none());
+    /// assert!(x.drop().is_none());
+    /// assert!(x.load_balancer().is_none());
+    /// assert!(x.network().is_none());
+    /// assert!(x.gke_master().is_none());
+    /// assert!(x.gke_pod().is_none());
+    /// assert!(x.ip_masquerading_skipped().is_none());
+    /// assert!(x.gke_network_policy_skipped().is_none());
+    /// assert!(x.cloud_sql_instance().is_none());
+    /// assert!(x.redis_instance().is_none());
+    /// assert!(x.redis_cluster().is_none());
+    /// assert!(x.cloud_function().is_none());
+    /// assert!(x.app_engine_version().is_none());
+    /// assert!(x.cloud_run_revision().is_none());
+    /// assert!(x.nat().is_none());
+    /// assert!(x.proxy_connection().is_none());
+    /// assert!(x.load_balancer_backend_info().is_none());
+    /// assert!(x.storage_bucket().is_none());
+    /// assert!(x.serverless_neg().is_none());
+    /// assert!(x.ngfw_packet_inspection().is_none());
+    /// ```
+    pub fn set_gke_network_policy<
+        T: std::convert::Into<std::boxed::Box<crate::model::GkeNetworkPolicyInfo>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.step_info =
+            std::option::Option::Some(crate::model::step::StepInfo::GkeNetworkPolicy(v.into()));
+        self
+    }
+
+    /// The value of [step_info][crate::model::Step::step_info]
+    /// if it holds a `GkeNetworkPolicySkipped`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn gke_network_policy_skipped(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::GkeNetworkPolicySkippedInfo>> {
+        #[allow(unreachable_patterns)]
+        self.step_info.as_ref().and_then(|v| match v {
+            crate::model::step::StepInfo::GkeNetworkPolicySkipped(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [step_info][crate::model::Step::step_info]
+    /// to hold a `GkeNetworkPolicySkipped`.
+    ///
+    /// Note that all the setters affecting `step_info` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networkmanagement_v1::model::Step;
+    /// use google_cloud_networkmanagement_v1::model::GkeNetworkPolicySkippedInfo;
+    /// let x = Step::new().set_gke_network_policy_skipped(GkeNetworkPolicySkippedInfo::default()/* use setters */);
+    /// assert!(x.gke_network_policy_skipped().is_some());
+    /// assert!(x.instance().is_none());
+    /// assert!(x.firewall().is_none());
+    /// assert!(x.route().is_none());
+    /// assert!(x.endpoint().is_none());
+    /// assert!(x.google_service().is_none());
+    /// assert!(x.forwarding_rule().is_none());
+    /// assert!(x.hybrid_subnet().is_none());
+    /// assert!(x.vpn_gateway().is_none());
+    /// assert!(x.vpn_tunnel().is_none());
+    /// assert!(x.interconnect_attachment().is_none());
+    /// assert!(x.vpc_connector().is_none());
+    /// assert!(x.direct_vpc_egress_connection().is_none());
+    /// assert!(x.serverless_external_connection().is_none());
+    /// assert!(x.deliver().is_none());
+    /// assert!(x.forward().is_none());
+    /// assert!(x.abort().is_none());
+    /// assert!(x.drop().is_none());
+    /// assert!(x.load_balancer().is_none());
+    /// assert!(x.network().is_none());
+    /// assert!(x.gke_master().is_none());
+    /// assert!(x.gke_pod().is_none());
+    /// assert!(x.ip_masquerading_skipped().is_none());
+    /// assert!(x.gke_network_policy().is_none());
+    /// assert!(x.cloud_sql_instance().is_none());
+    /// assert!(x.redis_instance().is_none());
+    /// assert!(x.redis_cluster().is_none());
+    /// assert!(x.cloud_function().is_none());
+    /// assert!(x.app_engine_version().is_none());
+    /// assert!(x.cloud_run_revision().is_none());
+    /// assert!(x.nat().is_none());
+    /// assert!(x.proxy_connection().is_none());
+    /// assert!(x.load_balancer_backend_info().is_none());
+    /// assert!(x.storage_bucket().is_none());
+    /// assert!(x.serverless_neg().is_none());
+    /// assert!(x.ngfw_packet_inspection().is_none());
+    /// ```
+    pub fn set_gke_network_policy_skipped<
+        T: std::convert::Into<std::boxed::Box<crate::model::GkeNetworkPolicySkippedInfo>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.step_info = std::option::Option::Some(
+            crate::model::step::StepInfo::GkeNetworkPolicySkipped(v.into()),
         );
         self
     }
@@ -5008,6 +5221,8 @@ impl Step {
     /// assert!(x.gke_master().is_none());
     /// assert!(x.gke_pod().is_none());
     /// assert!(x.ip_masquerading_skipped().is_none());
+    /// assert!(x.gke_network_policy().is_none());
+    /// assert!(x.gke_network_policy_skipped().is_none());
     /// assert!(x.redis_instance().is_none());
     /// assert!(x.redis_cluster().is_none());
     /// assert!(x.cloud_function().is_none());
@@ -5018,6 +5233,7 @@ impl Step {
     /// assert!(x.load_balancer_backend_info().is_none());
     /// assert!(x.storage_bucket().is_none());
     /// assert!(x.serverless_neg().is_none());
+    /// assert!(x.ngfw_packet_inspection().is_none());
     /// ```
     pub fn set_cloud_sql_instance<
         T: std::convert::Into<std::boxed::Box<crate::model::CloudSQLInstanceInfo>>,
@@ -5077,6 +5293,8 @@ impl Step {
     /// assert!(x.gke_master().is_none());
     /// assert!(x.gke_pod().is_none());
     /// assert!(x.ip_masquerading_skipped().is_none());
+    /// assert!(x.gke_network_policy().is_none());
+    /// assert!(x.gke_network_policy_skipped().is_none());
     /// assert!(x.cloud_sql_instance().is_none());
     /// assert!(x.redis_cluster().is_none());
     /// assert!(x.cloud_function().is_none());
@@ -5087,6 +5305,7 @@ impl Step {
     /// assert!(x.load_balancer_backend_info().is_none());
     /// assert!(x.storage_bucket().is_none());
     /// assert!(x.serverless_neg().is_none());
+    /// assert!(x.ngfw_packet_inspection().is_none());
     /// ```
     pub fn set_redis_instance<
         T: std::convert::Into<std::boxed::Box<crate::model::RedisInstanceInfo>>,
@@ -5146,6 +5365,8 @@ impl Step {
     /// assert!(x.gke_master().is_none());
     /// assert!(x.gke_pod().is_none());
     /// assert!(x.ip_masquerading_skipped().is_none());
+    /// assert!(x.gke_network_policy().is_none());
+    /// assert!(x.gke_network_policy_skipped().is_none());
     /// assert!(x.cloud_sql_instance().is_none());
     /// assert!(x.redis_instance().is_none());
     /// assert!(x.cloud_function().is_none());
@@ -5156,6 +5377,7 @@ impl Step {
     /// assert!(x.load_balancer_backend_info().is_none());
     /// assert!(x.storage_bucket().is_none());
     /// assert!(x.serverless_neg().is_none());
+    /// assert!(x.ngfw_packet_inspection().is_none());
     /// ```
     pub fn set_redis_cluster<
         T: std::convert::Into<std::boxed::Box<crate::model::RedisClusterInfo>>,
@@ -5215,6 +5437,8 @@ impl Step {
     /// assert!(x.gke_master().is_none());
     /// assert!(x.gke_pod().is_none());
     /// assert!(x.ip_masquerading_skipped().is_none());
+    /// assert!(x.gke_network_policy().is_none());
+    /// assert!(x.gke_network_policy_skipped().is_none());
     /// assert!(x.cloud_sql_instance().is_none());
     /// assert!(x.redis_instance().is_none());
     /// assert!(x.redis_cluster().is_none());
@@ -5225,6 +5449,7 @@ impl Step {
     /// assert!(x.load_balancer_backend_info().is_none());
     /// assert!(x.storage_bucket().is_none());
     /// assert!(x.serverless_neg().is_none());
+    /// assert!(x.ngfw_packet_inspection().is_none());
     /// ```
     pub fn set_cloud_function<
         T: std::convert::Into<std::boxed::Box<crate::model::CloudFunctionInfo>>,
@@ -5284,6 +5509,8 @@ impl Step {
     /// assert!(x.gke_master().is_none());
     /// assert!(x.gke_pod().is_none());
     /// assert!(x.ip_masquerading_skipped().is_none());
+    /// assert!(x.gke_network_policy().is_none());
+    /// assert!(x.gke_network_policy_skipped().is_none());
     /// assert!(x.cloud_sql_instance().is_none());
     /// assert!(x.redis_instance().is_none());
     /// assert!(x.redis_cluster().is_none());
@@ -5294,6 +5521,7 @@ impl Step {
     /// assert!(x.load_balancer_backend_info().is_none());
     /// assert!(x.storage_bucket().is_none());
     /// assert!(x.serverless_neg().is_none());
+    /// assert!(x.ngfw_packet_inspection().is_none());
     /// ```
     pub fn set_app_engine_version<
         T: std::convert::Into<std::boxed::Box<crate::model::AppEngineVersionInfo>>,
@@ -5353,6 +5581,8 @@ impl Step {
     /// assert!(x.gke_master().is_none());
     /// assert!(x.gke_pod().is_none());
     /// assert!(x.ip_masquerading_skipped().is_none());
+    /// assert!(x.gke_network_policy().is_none());
+    /// assert!(x.gke_network_policy_skipped().is_none());
     /// assert!(x.cloud_sql_instance().is_none());
     /// assert!(x.redis_instance().is_none());
     /// assert!(x.redis_cluster().is_none());
@@ -5363,6 +5593,7 @@ impl Step {
     /// assert!(x.load_balancer_backend_info().is_none());
     /// assert!(x.storage_bucket().is_none());
     /// assert!(x.serverless_neg().is_none());
+    /// assert!(x.ngfw_packet_inspection().is_none());
     /// ```
     pub fn set_cloud_run_revision<
         T: std::convert::Into<std::boxed::Box<crate::model::CloudRunRevisionInfo>>,
@@ -5420,6 +5651,8 @@ impl Step {
     /// assert!(x.gke_master().is_none());
     /// assert!(x.gke_pod().is_none());
     /// assert!(x.ip_masquerading_skipped().is_none());
+    /// assert!(x.gke_network_policy().is_none());
+    /// assert!(x.gke_network_policy_skipped().is_none());
     /// assert!(x.cloud_sql_instance().is_none());
     /// assert!(x.redis_instance().is_none());
     /// assert!(x.redis_cluster().is_none());
@@ -5430,6 +5663,7 @@ impl Step {
     /// assert!(x.load_balancer_backend_info().is_none());
     /// assert!(x.storage_bucket().is_none());
     /// assert!(x.serverless_neg().is_none());
+    /// assert!(x.ngfw_packet_inspection().is_none());
     /// ```
     pub fn set_nat<T: std::convert::Into<std::boxed::Box<crate::model::NatInfo>>>(
         mut self,
@@ -5486,6 +5720,8 @@ impl Step {
     /// assert!(x.gke_master().is_none());
     /// assert!(x.gke_pod().is_none());
     /// assert!(x.ip_masquerading_skipped().is_none());
+    /// assert!(x.gke_network_policy().is_none());
+    /// assert!(x.gke_network_policy_skipped().is_none());
     /// assert!(x.cloud_sql_instance().is_none());
     /// assert!(x.redis_instance().is_none());
     /// assert!(x.redis_cluster().is_none());
@@ -5496,6 +5732,7 @@ impl Step {
     /// assert!(x.load_balancer_backend_info().is_none());
     /// assert!(x.storage_bucket().is_none());
     /// assert!(x.serverless_neg().is_none());
+    /// assert!(x.ngfw_packet_inspection().is_none());
     /// ```
     pub fn set_proxy_connection<
         T: std::convert::Into<std::boxed::Box<crate::model::ProxyConnectionInfo>>,
@@ -5557,6 +5794,8 @@ impl Step {
     /// assert!(x.gke_master().is_none());
     /// assert!(x.gke_pod().is_none());
     /// assert!(x.ip_masquerading_skipped().is_none());
+    /// assert!(x.gke_network_policy().is_none());
+    /// assert!(x.gke_network_policy_skipped().is_none());
     /// assert!(x.cloud_sql_instance().is_none());
     /// assert!(x.redis_instance().is_none());
     /// assert!(x.redis_cluster().is_none());
@@ -5567,6 +5806,7 @@ impl Step {
     /// assert!(x.proxy_connection().is_none());
     /// assert!(x.storage_bucket().is_none());
     /// assert!(x.serverless_neg().is_none());
+    /// assert!(x.ngfw_packet_inspection().is_none());
     /// ```
     pub fn set_load_balancer_backend_info<
         T: std::convert::Into<std::boxed::Box<crate::model::LoadBalancerBackendInfo>>,
@@ -5627,6 +5867,8 @@ impl Step {
     /// assert!(x.gke_master().is_none());
     /// assert!(x.gke_pod().is_none());
     /// assert!(x.ip_masquerading_skipped().is_none());
+    /// assert!(x.gke_network_policy().is_none());
+    /// assert!(x.gke_network_policy_skipped().is_none());
     /// assert!(x.cloud_sql_instance().is_none());
     /// assert!(x.redis_instance().is_none());
     /// assert!(x.redis_cluster().is_none());
@@ -5637,6 +5879,7 @@ impl Step {
     /// assert!(x.proxy_connection().is_none());
     /// assert!(x.load_balancer_backend_info().is_none());
     /// assert!(x.serverless_neg().is_none());
+    /// assert!(x.ngfw_packet_inspection().is_none());
     /// ```
     pub fn set_storage_bucket<
         T: std::convert::Into<std::boxed::Box<crate::model::StorageBucketInfo>>,
@@ -5696,6 +5939,8 @@ impl Step {
     /// assert!(x.gke_master().is_none());
     /// assert!(x.gke_pod().is_none());
     /// assert!(x.ip_masquerading_skipped().is_none());
+    /// assert!(x.gke_network_policy().is_none());
+    /// assert!(x.gke_network_policy_skipped().is_none());
     /// assert!(x.cloud_sql_instance().is_none());
     /// assert!(x.redis_instance().is_none());
     /// assert!(x.redis_cluster().is_none());
@@ -5706,6 +5951,7 @@ impl Step {
     /// assert!(x.proxy_connection().is_none());
     /// assert!(x.load_balancer_backend_info().is_none());
     /// assert!(x.storage_bucket().is_none());
+    /// assert!(x.ngfw_packet_inspection().is_none());
     /// ```
     pub fn set_serverless_neg<
         T: std::convert::Into<std::boxed::Box<crate::model::ServerlessNegInfo>>,
@@ -5715,6 +5961,78 @@ impl Step {
     ) -> Self {
         self.step_info =
             std::option::Option::Some(crate::model::step::StepInfo::ServerlessNeg(v.into()));
+        self
+    }
+
+    /// The value of [step_info][crate::model::Step::step_info]
+    /// if it holds a `NgfwPacketInspection`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn ngfw_packet_inspection(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::NgfwPacketInspectionInfo>> {
+        #[allow(unreachable_patterns)]
+        self.step_info.as_ref().and_then(|v| match v {
+            crate::model::step::StepInfo::NgfwPacketInspection(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [step_info][crate::model::Step::step_info]
+    /// to hold a `NgfwPacketInspection`.
+    ///
+    /// Note that all the setters affecting `step_info` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networkmanagement_v1::model::Step;
+    /// use google_cloud_networkmanagement_v1::model::NgfwPacketInspectionInfo;
+    /// let x = Step::new().set_ngfw_packet_inspection(NgfwPacketInspectionInfo::default()/* use setters */);
+    /// assert!(x.ngfw_packet_inspection().is_some());
+    /// assert!(x.instance().is_none());
+    /// assert!(x.firewall().is_none());
+    /// assert!(x.route().is_none());
+    /// assert!(x.endpoint().is_none());
+    /// assert!(x.google_service().is_none());
+    /// assert!(x.forwarding_rule().is_none());
+    /// assert!(x.hybrid_subnet().is_none());
+    /// assert!(x.vpn_gateway().is_none());
+    /// assert!(x.vpn_tunnel().is_none());
+    /// assert!(x.interconnect_attachment().is_none());
+    /// assert!(x.vpc_connector().is_none());
+    /// assert!(x.direct_vpc_egress_connection().is_none());
+    /// assert!(x.serverless_external_connection().is_none());
+    /// assert!(x.deliver().is_none());
+    /// assert!(x.forward().is_none());
+    /// assert!(x.abort().is_none());
+    /// assert!(x.drop().is_none());
+    /// assert!(x.load_balancer().is_none());
+    /// assert!(x.network().is_none());
+    /// assert!(x.gke_master().is_none());
+    /// assert!(x.gke_pod().is_none());
+    /// assert!(x.ip_masquerading_skipped().is_none());
+    /// assert!(x.gke_network_policy().is_none());
+    /// assert!(x.gke_network_policy_skipped().is_none());
+    /// assert!(x.cloud_sql_instance().is_none());
+    /// assert!(x.redis_instance().is_none());
+    /// assert!(x.redis_cluster().is_none());
+    /// assert!(x.cloud_function().is_none());
+    /// assert!(x.app_engine_version().is_none());
+    /// assert!(x.cloud_run_revision().is_none());
+    /// assert!(x.nat().is_none());
+    /// assert!(x.proxy_connection().is_none());
+    /// assert!(x.load_balancer_backend_info().is_none());
+    /// assert!(x.storage_bucket().is_none());
+    /// assert!(x.serverless_neg().is_none());
+    /// ```
+    pub fn set_ngfw_packet_inspection<
+        T: std::convert::Into<std::boxed::Box<crate::model::NgfwPacketInspectionInfo>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.step_info =
+            std::option::Option::Some(crate::model::step::StepInfo::NgfwPacketInspection(v.into()));
         self
     }
 }
@@ -5832,18 +6150,33 @@ pub mod step {
         ArriveAtInterconnectAttachment,
         /// Forwarding state: arriving at a VPC connector.
         ArriveAtVpcConnector,
+        /// Forwarding state: arriving at a GKE Pod.
+        ArriveAtGkePod,
         /// Forwarding state: for packets originating from a serverless endpoint
         /// forwarded through Direct VPC egress.
         DirectVpcEgressConnection,
         /// Forwarding state: for packets originating from a serverless endpoint
         /// forwarded through public (external) connectivity.
         ServerlessExternalConnection,
+        /// Forwarding state: Layer 7 packet inspection by the firewall endpoint
+        /// based on the configured security profile group.
+        NgfwPacketInspection,
         /// Transition state: packet header translated. The `nat` field is populated
         /// with the translation information.
         Nat,
         /// Transition state: GKE Pod IP masquerading is skipped. The
         /// `ip_masquerading_skipped` field is populated with the reason.
         SkipGkePodIpMasquerading,
+        /// Transition state: GKE Ingress Network Policy is skipped. The
+        /// `gke_network_policy_skipped` field is populated with the reason.
+        SkipGkeIngressNetworkPolicy,
+        /// Transition state: GKE Egress Network Policy is skipped. The
+        /// `gke_network_policy_skipped` field is populated with the reason.
+        SkipGkeEgressNetworkPolicy,
+        /// Config checking state: verify ingress GKE network policy.
+        ApplyIngressGkeNetworkPolicy,
+        /// Config checking state: verify egress GKE network policy.
+        ApplyEgressGkeNetworkPolicy,
         /// Transition state: original connection is terminated and a new proxied
         /// connection is initiated.
         ProxyConnection,
@@ -5911,10 +6244,16 @@ pub mod step {
                 Self::ArriveAtVpnTunnel => std::option::Option::Some(13),
                 Self::ArriveAtInterconnectAttachment => std::option::Option::Some(37),
                 Self::ArriveAtVpcConnector => std::option::Option::Some(24),
+                Self::ArriveAtGkePod => std::option::Option::Some(44),
                 Self::DirectVpcEgressConnection => std::option::Option::Some(35),
                 Self::ServerlessExternalConnection => std::option::Option::Some(36),
+                Self::NgfwPacketInspection => std::option::Option::Some(47),
                 Self::Nat => std::option::Option::Some(14),
                 Self::SkipGkePodIpMasquerading => std::option::Option::Some(40),
+                Self::SkipGkeIngressNetworkPolicy => std::option::Option::Some(41),
+                Self::SkipGkeEgressNetworkPolicy => std::option::Option::Some(42),
+                Self::ApplyIngressGkeNetworkPolicy => std::option::Option::Some(45),
+                Self::ApplyEgressGkeNetworkPolicy => std::option::Option::Some(46),
                 Self::ProxyConnection => std::option::Option::Some(15),
                 Self::Deliver => std::option::Option::Some(16),
                 Self::Drop => std::option::Option::Some(17),
@@ -5995,15 +6334,29 @@ pub mod step {
                     std::option::Option::Some("ARRIVE_AT_INTERCONNECT_ATTACHMENT")
                 }
                 Self::ArriveAtVpcConnector => std::option::Option::Some("ARRIVE_AT_VPC_CONNECTOR"),
+                Self::ArriveAtGkePod => std::option::Option::Some("ARRIVE_AT_GKE_POD"),
                 Self::DirectVpcEgressConnection => {
                     std::option::Option::Some("DIRECT_VPC_EGRESS_CONNECTION")
                 }
                 Self::ServerlessExternalConnection => {
                     std::option::Option::Some("SERVERLESS_EXTERNAL_CONNECTION")
                 }
+                Self::NgfwPacketInspection => std::option::Option::Some("NGFW_PACKET_INSPECTION"),
                 Self::Nat => std::option::Option::Some("NAT"),
                 Self::SkipGkePodIpMasquerading => {
                     std::option::Option::Some("SKIP_GKE_POD_IP_MASQUERADING")
+                }
+                Self::SkipGkeIngressNetworkPolicy => {
+                    std::option::Option::Some("SKIP_GKE_INGRESS_NETWORK_POLICY")
+                }
+                Self::SkipGkeEgressNetworkPolicy => {
+                    std::option::Option::Some("SKIP_GKE_EGRESS_NETWORK_POLICY")
+                }
+                Self::ApplyIngressGkeNetworkPolicy => {
+                    std::option::Option::Some("APPLY_INGRESS_GKE_NETWORK_POLICY")
+                }
+                Self::ApplyEgressGkeNetworkPolicy => {
+                    std::option::Option::Some("APPLY_EGRESS_GKE_NETWORK_POLICY")
                 }
                 Self::ProxyConnection => std::option::Option::Some("PROXY_CONNECTION"),
                 Self::Deliver => std::option::Option::Some("DELIVER"),
@@ -6074,6 +6427,12 @@ pub mod step {
                 38 => Self::ArriveAtHybridSubnet,
                 39 => Self::StartFromGkePod,
                 40 => Self::SkipGkePodIpMasquerading,
+                41 => Self::SkipGkeIngressNetworkPolicy,
+                42 => Self::SkipGkeEgressNetworkPolicy,
+                44 => Self::ArriveAtGkePod,
+                45 => Self::ApplyIngressGkeNetworkPolicy,
+                46 => Self::ApplyEgressGkeNetworkPolicy,
+                47 => Self::NgfwPacketInspection,
                 _ => Self::UnknownValue(state::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -6115,10 +6474,16 @@ pub mod step {
                 "ARRIVE_AT_VPN_TUNNEL" => Self::ArriveAtVpnTunnel,
                 "ARRIVE_AT_INTERCONNECT_ATTACHMENT" => Self::ArriveAtInterconnectAttachment,
                 "ARRIVE_AT_VPC_CONNECTOR" => Self::ArriveAtVpcConnector,
+                "ARRIVE_AT_GKE_POD" => Self::ArriveAtGkePod,
                 "DIRECT_VPC_EGRESS_CONNECTION" => Self::DirectVpcEgressConnection,
                 "SERVERLESS_EXTERNAL_CONNECTION" => Self::ServerlessExternalConnection,
+                "NGFW_PACKET_INSPECTION" => Self::NgfwPacketInspection,
                 "NAT" => Self::Nat,
                 "SKIP_GKE_POD_IP_MASQUERADING" => Self::SkipGkePodIpMasquerading,
+                "SKIP_GKE_INGRESS_NETWORK_POLICY" => Self::SkipGkeIngressNetworkPolicy,
+                "SKIP_GKE_EGRESS_NETWORK_POLICY" => Self::SkipGkeEgressNetworkPolicy,
+                "APPLY_INGRESS_GKE_NETWORK_POLICY" => Self::ApplyIngressGkeNetworkPolicy,
+                "APPLY_EGRESS_GKE_NETWORK_POLICY" => Self::ApplyEgressGkeNetworkPolicy,
                 "PROXY_CONNECTION" => Self::ProxyConnection,
                 "DELIVER" => Self::Deliver,
                 "DROP" => Self::Drop,
@@ -6168,10 +6533,16 @@ pub mod step {
                 Self::ArriveAtVpnTunnel => serializer.serialize_i32(13),
                 Self::ArriveAtInterconnectAttachment => serializer.serialize_i32(37),
                 Self::ArriveAtVpcConnector => serializer.serialize_i32(24),
+                Self::ArriveAtGkePod => serializer.serialize_i32(44),
                 Self::DirectVpcEgressConnection => serializer.serialize_i32(35),
                 Self::ServerlessExternalConnection => serializer.serialize_i32(36),
+                Self::NgfwPacketInspection => serializer.serialize_i32(47),
                 Self::Nat => serializer.serialize_i32(14),
                 Self::SkipGkePodIpMasquerading => serializer.serialize_i32(40),
+                Self::SkipGkeIngressNetworkPolicy => serializer.serialize_i32(41),
+                Self::SkipGkeEgressNetworkPolicy => serializer.serialize_i32(42),
+                Self::ApplyIngressGkeNetworkPolicy => serializer.serialize_i32(45),
+                Self::ApplyEgressGkeNetworkPolicy => serializer.serialize_i32(46),
                 Self::ProxyConnection => serializer.serialize_i32(15),
                 Self::Deliver => serializer.serialize_i32(16),
                 Self::Drop => serializer.serialize_i32(17),
@@ -6254,6 +6625,11 @@ pub mod step {
         /// Display information of the reason why GKE Pod IP masquerading was
         /// skipped.
         IpMasqueradingSkipped(std::boxed::Box<crate::model::IpMasqueradingSkippedInfo>),
+        /// Display information of a GKE Network Policy.
+        GkeNetworkPolicy(std::boxed::Box<crate::model::GkeNetworkPolicyInfo>),
+        /// Display information of the reason why GKE Network Policy evaluation was
+        /// skipped.
+        GkeNetworkPolicySkipped(std::boxed::Box<crate::model::GkeNetworkPolicySkippedInfo>),
         /// Display information of a Cloud SQL instance.
         CloudSqlInstance(std::boxed::Box<crate::model::CloudSQLInstanceInfo>),
         /// Display information of a Redis Instance.
@@ -6277,6 +6653,8 @@ pub mod step {
         /// Display information of a Serverless network endpoint group backend. Used
         /// only for return traces.
         ServerlessNeg(std::boxed::Box<crate::model::ServerlessNegInfo>),
+        /// Display information of a layer 7 packet inspection by the firewall.
+        NgfwPacketInspection(std::boxed::Box<crate::model::NgfwPacketInspectionInfo>),
     }
 }
 
@@ -12391,6 +12769,11 @@ pub mod drop_info {
         /// Packet is dropped because no matching route was found in the hybrid
         /// subnet.
         HybridSubnetNoRoute,
+        /// Packet is dropped by GKE Network Policy.
+        GkeNetworkPolicy,
+        /// Packet is dropped because there is no valid matching route from the
+        /// network of the Google-managed service to the destination.
+        NoValidRouteFromGoogleManagedNetworkToDestination,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [Cause::value] or
@@ -12528,6 +12911,10 @@ pub mod drop_info {
                 Self::NccRouteWithinHybridSubnetUnsupported => std::option::Option::Some(104),
                 Self::HybridSubnetRegionMismatch => std::option::Option::Some(105),
                 Self::HybridSubnetNoRoute => std::option::Option::Some(106),
+                Self::GkeNetworkPolicy => std::option::Option::Some(108),
+                Self::NoValidRouteFromGoogleManagedNetworkToDestination => {
+                    std::option::Option::Some(110)
+                }
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -12819,6 +13206,12 @@ pub mod drop_info {
                     std::option::Option::Some("HYBRID_SUBNET_REGION_MISMATCH")
                 }
                 Self::HybridSubnetNoRoute => std::option::Option::Some("HYBRID_SUBNET_NO_ROUTE"),
+                Self::GkeNetworkPolicy => std::option::Option::Some("GKE_NETWORK_POLICY"),
+                Self::NoValidRouteFromGoogleManagedNetworkToDestination => {
+                    std::option::Option::Some(
+                        "NO_VALID_ROUTE_FROM_GOOGLE_MANAGED_NETWORK_TO_DESTINATION",
+                    )
+                }
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -12942,7 +13335,9 @@ pub mod drop_info {
                 105 => Self::HybridSubnetRegionMismatch,
                 106 => Self::HybridSubnetNoRoute,
                 107 => Self::NoConfiguredPrivateNat64Rule,
+                108 => Self::GkeNetworkPolicy,
                 109 => Self::NoRouteFromInternetToPrivateIpv4Address,
+                110 => Self::NoValidRouteFromGoogleManagedNetworkToDestination,
                 _ => Self::UnknownValue(cause::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -13119,6 +13514,10 @@ pub mod drop_info {
                 }
                 "HYBRID_SUBNET_REGION_MISMATCH" => Self::HybridSubnetRegionMismatch,
                 "HYBRID_SUBNET_NO_ROUTE" => Self::HybridSubnetNoRoute,
+                "GKE_NETWORK_POLICY" => Self::GkeNetworkPolicy,
+                "NO_VALID_ROUTE_FROM_GOOGLE_MANAGED_NETWORK_TO_DESTINATION" => {
+                    Self::NoValidRouteFromGoogleManagedNetworkToDestination
+                }
                 _ => Self::UnknownValue(cause::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -13243,6 +13642,10 @@ pub mod drop_info {
                 Self::NccRouteWithinHybridSubnetUnsupported => serializer.serialize_i32(104),
                 Self::HybridSubnetRegionMismatch => serializer.serialize_i32(105),
                 Self::HybridSubnetNoRoute => serializer.serialize_i32(106),
+                Self::GkeNetworkPolicy => serializer.serialize_i32(108),
+                Self::NoValidRouteFromGoogleManagedNetworkToDestination => {
+                    serializer.serialize_i32(110)
+                }
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -13677,6 +14080,305 @@ pub mod ip_masquerading_skipped_info {
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Reason>::new(
                 ".google.cloud.networkmanagement.v1.IpMasqueradingSkippedInfo.Reason",
+            ))
+        }
+    }
+}
+
+/// For display only. Metadata associated with a GKE Network Policy.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GkeNetworkPolicyInfo {
+    /// The name of the Network Policy.
+    pub display_name: std::string::String,
+
+    /// The URI of the Network Policy.
+    /// Format for a Network Policy in a zonal cluster:
+    /// `projects/<project_id>/zones/<zone>/clusters/<cluster>/k8s/namespaces/<namespace>/networking.k8s.io/networkpolicies/<networkpolicy>`
+    /// Format for a Network Policy in a regional cluster:
+    /// `projects/<project_id>/locations/<location>/clusters/<cluster>/k8s/namespaces/<namespace>/networking.k8s.io/networkpolicies/<networkpolicy>`
+    pub uri: std::string::String,
+
+    /// Possible values: INGRESS, EGRESS
+    pub direction: std::string::String,
+
+    /// Possible values: ALLOW, DENY
+    pub action: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GkeNetworkPolicyInfo {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [display_name][crate::model::GkeNetworkPolicyInfo::display_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networkmanagement_v1::model::GkeNetworkPolicyInfo;
+    /// let x = GkeNetworkPolicyInfo::new().set_display_name("example");
+    /// ```
+    pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.display_name = v.into();
+        self
+    }
+
+    /// Sets the value of [uri][crate::model::GkeNetworkPolicyInfo::uri].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networkmanagement_v1::model::GkeNetworkPolicyInfo;
+    /// let x = GkeNetworkPolicyInfo::new().set_uri("example");
+    /// ```
+    pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.uri = v.into();
+        self
+    }
+
+    /// Sets the value of [direction][crate::model::GkeNetworkPolicyInfo::direction].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networkmanagement_v1::model::GkeNetworkPolicyInfo;
+    /// let x = GkeNetworkPolicyInfo::new().set_direction("example");
+    /// ```
+    pub fn set_direction<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.direction = v.into();
+        self
+    }
+
+    /// Sets the value of [action][crate::model::GkeNetworkPolicyInfo::action].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networkmanagement_v1::model::GkeNetworkPolicyInfo;
+    /// let x = GkeNetworkPolicyInfo::new().set_action("example");
+    /// ```
+    pub fn set_action<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.action = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GkeNetworkPolicyInfo {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkmanagement.v1.GkeNetworkPolicyInfo"
+    }
+}
+
+/// For display only. Contains information about why GKE Network Policy
+/// evaluation was skipped.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GkeNetworkPolicySkippedInfo {
+    /// Reason why Network Policy evaluation was skipped.
+    pub reason: crate::model::gke_network_policy_skipped_info::Reason,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GkeNetworkPolicySkippedInfo {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [reason][crate::model::GkeNetworkPolicySkippedInfo::reason].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networkmanagement_v1::model::GkeNetworkPolicySkippedInfo;
+    /// use google_cloud_networkmanagement_v1::model::gke_network_policy_skipped_info::Reason;
+    /// let x0 = GkeNetworkPolicySkippedInfo::new().set_reason(Reason::NetworkPolicyDisabled);
+    /// let x1 = GkeNetworkPolicySkippedInfo::new().set_reason(Reason::IngressSourceOnSameNode);
+    /// let x2 = GkeNetworkPolicySkippedInfo::new().set_reason(Reason::EgressFromNodeNetworkNamespacePod);
+    /// ```
+    pub fn set_reason<
+        T: std::convert::Into<crate::model::gke_network_policy_skipped_info::Reason>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.reason = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GkeNetworkPolicySkippedInfo {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkmanagement.v1.GkeNetworkPolicySkippedInfo"
+    }
+}
+
+/// Defines additional types related to [GkeNetworkPolicySkippedInfo].
+pub mod gke_network_policy_skipped_info {
+    #[allow(unused_imports)]
+    use super::*;
+
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Reason {
+        /// Unused default value.
+        Unspecified,
+        /// Network Policy is disabled on the cluster.
+        NetworkPolicyDisabled,
+        /// Ingress traffic to a Pod from a source on the same Node is always
+        /// allowed.
+        IngressSourceOnSameNode,
+        /// Egress traffic from a Pod that uses the Node's network namespace is not
+        /// subject to Network Policy.
+        EgressFromNodeNetworkNamespacePod,
+        /// Network Policy is not applied to response traffic. This is because GKE
+        /// Network Policy evaluation is stateful in both GKE Dataplane V2 (eBPF) and
+        /// legacy (iptables) implementations.
+        NetworkPolicyNotAppliedToResponseTraffic,
+        /// Network Policy evaluation is currently not supported for clusters with
+        /// FQDN Network Policies enabled.
+        NetworkPolicyAnalysisUnsupported,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Reason::value] or
+        /// [Reason::name].
+        UnknownValue(reason::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod reason {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl Reason {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::NetworkPolicyDisabled => std::option::Option::Some(1),
+                Self::IngressSourceOnSameNode => std::option::Option::Some(2),
+                Self::EgressFromNodeNetworkNamespacePod => std::option::Option::Some(3),
+                Self::NetworkPolicyNotAppliedToResponseTraffic => std::option::Option::Some(4),
+                Self::NetworkPolicyAnalysisUnsupported => std::option::Option::Some(100),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("REASON_UNSPECIFIED"),
+                Self::NetworkPolicyDisabled => std::option::Option::Some("NETWORK_POLICY_DISABLED"),
+                Self::IngressSourceOnSameNode => {
+                    std::option::Option::Some("INGRESS_SOURCE_ON_SAME_NODE")
+                }
+                Self::EgressFromNodeNetworkNamespacePod => {
+                    std::option::Option::Some("EGRESS_FROM_NODE_NETWORK_NAMESPACE_POD")
+                }
+                Self::NetworkPolicyNotAppliedToResponseTraffic => {
+                    std::option::Option::Some("NETWORK_POLICY_NOT_APPLIED_TO_RESPONSE_TRAFFIC")
+                }
+                Self::NetworkPolicyAnalysisUnsupported => {
+                    std::option::Option::Some("NETWORK_POLICY_ANALYSIS_UNSUPPORTED")
+                }
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for Reason {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Reason {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Reason {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::NetworkPolicyDisabled,
+                2 => Self::IngressSourceOnSameNode,
+                3 => Self::EgressFromNodeNetworkNamespacePod,
+                4 => Self::NetworkPolicyNotAppliedToResponseTraffic,
+                100 => Self::NetworkPolicyAnalysisUnsupported,
+                _ => Self::UnknownValue(reason::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Reason {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "REASON_UNSPECIFIED" => Self::Unspecified,
+                "NETWORK_POLICY_DISABLED" => Self::NetworkPolicyDisabled,
+                "INGRESS_SOURCE_ON_SAME_NODE" => Self::IngressSourceOnSameNode,
+                "EGRESS_FROM_NODE_NETWORK_NAMESPACE_POD" => Self::EgressFromNodeNetworkNamespacePod,
+                "NETWORK_POLICY_NOT_APPLIED_TO_RESPONSE_TRAFFIC" => {
+                    Self::NetworkPolicyNotAppliedToResponseTraffic
+                }
+                "NETWORK_POLICY_ANALYSIS_UNSUPPORTED" => Self::NetworkPolicyAnalysisUnsupported,
+                _ => Self::UnknownValue(reason::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Reason {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::NetworkPolicyDisabled => serializer.serialize_i32(1),
+                Self::IngressSourceOnSameNode => serializer.serialize_i32(2),
+                Self::EgressFromNodeNetworkNamespacePod => serializer.serialize_i32(3),
+                Self::NetworkPolicyNotAppliedToResponseTraffic => serializer.serialize_i32(4),
+                Self::NetworkPolicyAnalysisUnsupported => serializer.serialize_i32(100),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Reason {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Reason>::new(
+                ".google.cloud.networkmanagement.v1.GkeNetworkPolicySkippedInfo.Reason",
             ))
         }
     }
@@ -15663,6 +16365,45 @@ impl ServerlessNegInfo {
 impl wkt::message::Message for ServerlessNegInfo {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.networkmanagement.v1.ServerlessNegInfo"
+    }
+}
+
+/// For display only. Metadata associated with a layer 7 packet inspection by the
+/// firewall.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct NgfwPacketInspectionInfo {
+    /// URI of the security profile group associated with this firewall packet
+    /// inspection.
+    pub security_profile_group_uri: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl NgfwPacketInspectionInfo {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [security_profile_group_uri][crate::model::NgfwPacketInspectionInfo::security_profile_group_uri].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networkmanagement_v1::model::NgfwPacketInspectionInfo;
+    /// let x = NgfwPacketInspectionInfo::new().set_security_profile_group_uri("example");
+    /// ```
+    pub fn set_security_profile_group_uri<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.security_profile_group_uri = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for NgfwPacketInspectionInfo {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkmanagement.v1.NgfwPacketInspectionInfo"
     }
 }
 

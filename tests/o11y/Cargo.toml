@@ -37,14 +37,18 @@ google-cloud-lro.workspace    = true
 google-cloud-test-utils       = { workspace = true }
 google-cloud-showcase-v1beta1 = { workspace = true, features = ["default"] }
 google-cloud-storage          = { workspace = true, features = ["default"] }
+google-cloud-wkt              = { workspace = true }
 storage-samples               = { workspace = true }
 google-cloud-trace-v1         = { workspace = true, features = ["default"] }
+google-cloud-monitoring-v3    = { workspace = true, features = ["default"] }
 http.workspace                = true
 httptest.workspace            = true
 opentelemetry                 = { workspace = true, features = ["metrics", "trace"] }
-opentelemetry_sdk             = { workspace = true, features = ["metrics", "rt-tokio", "trace"] }
+opentelemetry_sdk             = { workspace = true, features = ["metrics", "rt-tokio", "spec_unstable_metrics_views", "trace"] }
 opentelemetry-proto           = { workspace = true, features = ["gen-tonic", "metrics", "trace"] }
 thiserror.workspace           = true
+rand.workspace                = true
+reqwest                       = { workspace = true, features = ["json"] }
 serde.workspace               = true
 serde_json.workspace          = true
 tokio                         = { workspace = true, features = ["test-util", "time"] }
@@ -53,12 +57,13 @@ tonic                         = { workspace = true, features = ["codegen", "rout
 tracing.workspace             = true
 tracing-subscriber            = { workspace = true, features = ["fmt"] }
 tracing-opentelemetry         = { workspace = true }
-reqwest                       = { workspace = true, features = ["json"] }
+uuid                          = { workspace = true, features = ["v4"] }
 
 # Separate for cleaner formatting.
+# Enable `internal-logs` to troubleshoot errors.
 [dependencies.opentelemetry-otlp]
 workspace = true
-features  = ["grpc-tonic", "metrics", "tls", "tls-roots", "trace"]
+features  = ["grpc-tonic", "internal-logs", "metrics", "tls", "tls-roots", "trace"]
 
 [dev-dependencies]
 opentelemetry_sdk = { workspace = true, features = ["testing"] }

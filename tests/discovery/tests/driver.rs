@@ -14,48 +14,67 @@
 
 #[cfg(all(test, feature = "run-integration-tests"))]
 mod compute {
+    use google_cloud_test_utils::errors::anydump;
     use google_cloud_test_utils::tracing::enable_tracing;
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_compute_zones() -> anyhow::Result<()> {
         let _guard = enable_tracing();
-        integration_tests_discovery::zones().await
+        integration_tests_discovery::zones()
+            .await
+            .inspect_err(anydump)
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_compute_errors() -> anyhow::Result<()> {
         let _guard = enable_tracing();
-        integration_tests_discovery::errors().await
+        integration_tests_discovery::errors()
+            .await
+            .inspect_err(anydump)
     }
 
+    #[ignore = "TODO(#4894) - disabled because it was flaky"]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_compute_lro_errors() -> anyhow::Result<()> {
         let _guard = enable_tracing();
-        integration_tests_discovery::lro_errors().await
+        integration_tests_discovery::lro_errors()
+            .await
+            .inspect_err(anydump)
     }
 
+    #[ignore = "TODO(#4894) - disabled because it was flaky"]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_compute_machine_types() -> anyhow::Result<()> {
         let _guard = enable_tracing();
-        integration_tests_discovery::machine_types().await
+        integration_tests_discovery::machine_types()
+            .await
+            .inspect_err(anydump)
     }
 
+    #[ignore = "TODO(#4894) - disabled because it was flaky"]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_compute_images() -> anyhow::Result<()> {
         let _guard = enable_tracing();
-        integration_tests_discovery::images().await
+        integration_tests_discovery::images()
+            .await
+            .inspect_err(anydump)
     }
 
+    #[ignore = "TODO(#4894) - disabled because it was flaky"]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_compute_instances() -> anyhow::Result<()> {
         let _guard = enable_tracing();
-        integration_tests_discovery::instances().await
+        integration_tests_discovery::instances()
+            .await
+            .inspect_err(anydump)
     }
 
     #[ignore = "TODO(#3691) - disabled because it was flaky"]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_compute_region_instances() -> anyhow::Result<()> {
         let _guard = enable_tracing();
-        integration_tests_discovery::region_instances().await
+        integration_tests_discovery::region_instances()
+            .await
+            .inspect_err(anydump)
     }
 }

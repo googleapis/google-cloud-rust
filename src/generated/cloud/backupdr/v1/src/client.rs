@@ -20,10 +20,17 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_backupdr_v1::client::BackupDR;
-/// let client = BackupDR::builder().build().await?;
-/// // use `client` to make requests to the Backup and DR Service API.
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = BackupDR::builder().build().await?;
+///     let parent = "parent_value";
+///     let mut list = client.list_management_servers()
+///         .set_parent(parent)
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
 /// # Ok(()) }
 /// ```
 ///
@@ -1353,10 +1360,17 @@ impl BackupDR {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_backupdr_v1::client::BackupDrProtectionSummary;
-/// let client = BackupDrProtectionSummary::builder().build().await?;
-/// // use `client` to make requests to the Backup and DR Service API.
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = BackupDrProtectionSummary::builder().build().await?;
+///     let parent = "parent_value";
+///     let mut list = client.list_resource_backup_configs()
+///         .set_parent(parent)
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
 /// # Ok(()) }
 /// ```
 ///

@@ -20,10 +20,16 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_api_servicemanagement_v1::client::ServiceManager;
-/// let client = ServiceManager::builder().build().await?;
-/// // use `client` to make requests to the Service Management API.
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = ServiceManager::builder().build().await?;
+///     let mut list = client.list_services()
+///         /* set fields */
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
 /// # Ok(()) }
 /// ```
 ///

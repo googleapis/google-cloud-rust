@@ -51,6 +51,23 @@ pub use google_cloud_gax::error::Error;
 #[allow(rustdoc::redundant_explicit_links)]
 pub mod stub;
 
+///
+/// # Example
+/// ```
+/// # use google_cloud_security_publicca_v1::client::PublicCertificateAuthorityService;
+/// use google_cloud_security_publicca_v1::model::ExternalAccountKey;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = PublicCertificateAuthorityService::builder().build().await?;
+///     let parent = "parent_value";
+///     let response = client.create_external_account_key()
+///         .set_parent(parent)
+///         .set_external_account_key(
+///             ExternalAccountKey::new()/* set fields */
+///         )
+///         .send().await?;
+///     println!("response {:?}", response);
+/// # Ok(()) }
+/// ```
 /// Concrete implementations of this client library traits.
 pub mod client;
 

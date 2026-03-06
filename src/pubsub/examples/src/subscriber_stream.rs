@@ -21,14 +21,14 @@ pub async fn sample(project_id: &str, subscription_id: &str) -> anyhow::Result<(
     let subscription_name = format!("projects/{project_id}/subscriptions/{subscription_id}");
     let client = Subscriber::builder().build().await?;
 
-    let session = client.stream(subscription_name).build();
+    let stream = client.subscribe(subscription_name).build();
 
     println!("listening for messages using streams...");
 
     // Terminate the example after 10 seconds. Applications typically process
     // messages indefinitely in a long-running loop.
     let deadline = tokio::time::sleep(Duration::from_secs(10));
-    session
+    stream
         .into_stream()
         .take_until(deadline)
         .try_for_each(|(message, handler)| {

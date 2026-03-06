@@ -20,10 +20,17 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_chronicle_v1::client::DataAccessControlService;
-/// let client = DataAccessControlService::builder().build().await?;
-/// // use `client` to make requests to the Chronicle API.
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = DataAccessControlService::builder().build().await?;
+///     let parent = "parent_value";
+///     let mut list = client.list_data_access_labels()
+///         .set_parent(parent)
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
 /// # Ok(()) }
 /// ```
 ///
@@ -471,10 +478,17 @@ impl DataAccessControlService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_chronicle_v1::client::EntityService;
-/// let client = EntityService::builder().build().await?;
-/// // use `client` to make requests to the Chronicle API.
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = EntityService::builder().build().await?;
+///     let parent = "parent_value";
+///     let mut list = client.list_watchlists()
+///         .set_parent(parent)
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
 /// # Ok(()) }
 /// ```
 ///
@@ -777,10 +791,14 @@ impl EntityService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_chronicle_v1::client::InstanceService;
-/// let client = InstanceService::builder().build().await?;
-/// // use `client` to make requests to the Chronicle API.
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = InstanceService::builder().build().await?;
+///     let name = "name_value";
+///     let response = client.get_instance()
+///         .set_name(name)
+///         .send().await?;
+///     println!("response {:?}", response);
 /// # Ok(()) }
 /// ```
 ///
@@ -989,10 +1007,17 @@ impl InstanceService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_chronicle_v1::client::ReferenceListService;
-/// let client = ReferenceListService::builder().build().await?;
-/// // use `client` to make requests to the Chronicle API.
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = ReferenceListService::builder().build().await?;
+///     let parent = "parent_value";
+///     let mut list = client.list_reference_lists()
+///         .set_parent(parent)
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
 /// # Ok(()) }
 /// ```
 ///
@@ -1281,10 +1306,17 @@ impl ReferenceListService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_chronicle_v1::client::RuleService;
-/// let client = RuleService::builder().build().await?;
-/// // use `client` to make requests to the Chronicle API.
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = RuleService::builder().build().await?;
+///     let parent = "parent_value";
+///     let mut list = client.list_rules()
+///         .set_parent(parent)
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
 /// # Ok(()) }
 /// ```
 ///

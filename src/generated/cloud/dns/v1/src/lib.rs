@@ -16,7 +16,7 @@
 
 //! Google Cloud Client Libraries for Rust - Cloud DNS API
 //!
-//! This client library was generated from the "20260113" revision of the API.
+//! This client library was generated from the "20260219" revision of the API.
 //!
 //! This crate contains traits, types, and functions to interact with Cloud DNS API
 //! Most applications will use the structs defined in the [client] module.
@@ -61,6 +61,18 @@ pub use google_cloud_gax::error::Error;
 #[allow(rustdoc::redundant_explicit_links)]
 pub mod stub;
 
+///
+/// # Example
+/// ```
+/// # use google_cloud_dns_v1::client::DnsKeys;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = DnsKeys::builder().build().await?;
+///     let response = client.get()
+///         /* set fields */
+///         .send().await?;
+///     println!("response {:?}", response);
+/// # Ok(()) }
+/// ```
 /// Concrete implementations of this client library traits.
 pub mod client;
 

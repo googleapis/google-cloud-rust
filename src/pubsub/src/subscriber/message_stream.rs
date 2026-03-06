@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use super::builder::StreamingPull;
+use super::builder::Subscribe;
 use super::handler::{Action, AtLeastOnce, Handler};
 use super::lease_loop::LeaseLoop;
 use super::lease_state::{LeaseInfo, LeaseOptions, NewMessage};
@@ -21,7 +21,7 @@ use super::retry_policy::StreamRetryPolicy;
 use super::stream::Stream;
 use super::stub::TonicStreaming as _;
 use super::transport::Transport;
-use crate::google::pubsub::v1::StreamingPullRequest;
+use crate::google::pubsub::v1::{StreamingPullRequest, StreamingPullResponse};
 use crate::model::Message;
 use crate::{Error, Result};
 use gaxi::grpc::from_status::to_gax_error;
@@ -41,7 +41,7 @@ use tokio::time::Instant;
 /// # use google_cloud_pubsub::client::Subscriber;
 /// # async fn sample(client: Subscriber) -> anyhow::Result<()> {
 /// let mut stream = client
-///     .stream("projects/my-project/subscriptions/my-subscription")
+///     .subscribe("projects/my-project/subscriptions/my-subscription")
 ///     .build();
 /// while let Some((m, h)) = stream.next().await.transpose()? {
 ///     println!("Received message m={m:?}");
@@ -67,7 +67,7 @@ pub struct MessageStream {
     /// of `MessageStream` is blocked on the first message being available.
     ///
     /// [^1]: <https://github.com/hyperium/tonic/issues/515>
-    stream: Option<Stream<Transport>>,
+    stream: Option<StreamState>,
 
     /// Applications ask for messages one at a time. Individual stream responses
     /// can contain multiple messages. We use `pool` to hold the extra messages
@@ -92,8 +92,19 @@ pub struct MessageStream {
     _lease_loop: tokio::task::JoinHandle<()>,
 }
 
+// We would rather always allocate enough space to hold the stream on the stack
+// than add a layer of indirection by `Box`ing it.
+#[allow(clippy::large_enum_variant)]
+#[derive(Debug)]
+enum StreamState {
+    /// The stream failed with a permanent error. It should not be re-opened.
+    Failed,
+    /// The stream is active.
+    Active(Stream<Transport>),
+}
+
 impl MessageStream {
-    pub(super) fn new(builder: StreamingPull) -> Self {
+    pub(super) fn new(builder: Subscribe) -> Self {
         let inner = builder.inner;
         let subscription = builder.subscription;
 
@@ -168,7 +179,7 @@ impl MessageStream {
             // Note that a successful read does not necessarily mean there is a
             // message in the pool. The server occasionally sends heartbeats
             // (responses with an empty message list). Hence the loop.
-            if let Err(e) = self.read_from_stream().await? {
+            if let Err(e) = self.populate_pool().await? {
                 // Handle errors opening or reading from the stream.
                 match StreamRetryPolicy::on_midstream_error(e) {
                     RetryResult::Continue(_) => {
@@ -178,6 +189,7 @@ impl MessageStream {
                     }
                     RetryResult::Permanent(e) | RetryResult::Exhausted(e) => {
                         // The stream failed with a permanent error. Return the error.
+                        self.stream = Some(StreamState::Failed);
                         return Some(Err(e));
                     }
                 }
@@ -200,40 +212,55 @@ impl MessageStream {
         }))
     }
 
-    /// Returns a mutable reference to the underlying stream.
-    ///
-    /// If a stream is not yet open, this method opens the stream.
-    async fn mut_stream(&mut self) -> Result<&mut Stream<Transport>> {
-        if self.stream.is_none() {
-            let stream =
-                Stream::<Transport>::new(self.inner.clone(), self.initial_req.clone()).await?;
-            self.stream = Some(stream);
-        }
-        Ok(self
-            .stream
-            .as_mut()
-            .expect("`self.stream.is_some()` must be true"))
+    /// Make a new attempt to open the underlying gRPC stream.
+    async fn open_stream(&mut self) -> Result<()> {
+        let stream = Stream::<Transport>::new(self.inner.clone(), self.initial_req.clone()).await?;
+        self.stream = Some(StreamState::Active(stream));
+        Ok(())
     }
 
     /// Reads the next response from the stream.
+    ///
+    /// If necessary, this method will open a new stream.
+    ///
+    /// If we receive an error either opening or reading from the stream, we
+    /// return it.
+    async fn next_response(&mut self) -> Option<Result<StreamingPullResponse>> {
+        if self.stream.is_none() {
+            // Open the stream, if necessary.
+            if let Err(e) = self.open_stream().await {
+                return Some(Err(e));
+            }
+        }
+
+        let stream = match self.stream.as_mut()? {
+            StreamState::Failed => return None,
+            StreamState::Active(s) => s,
+        };
+        stream
+            .next_message()
+            .await
+            .map_err(to_gax_error)
+            .transpose()
+    }
+
+    /// Populate the message pool by reading from the stream.
+    ///
+    /// Read the next response from the stream. If necessary, this method will
+    /// open a new stream.
     ///
     /// If we receive a response, we store the messages in `self.pool` and
     /// forward the ack IDs to the lease management task.
     ///
     /// If we receive an error reading from the stream, we return it.
-    async fn read_from_stream(&mut self) -> Option<Result<()>> {
-        let resp = {
-            let stream = match self.mut_stream().await {
-                Ok(s) => s,
-                Err(e) => return Some(Err(e)),
-            };
-
-            match stream.next_message().await.transpose()? {
-                Ok(resp) => resp,
-                Err(e) => return Some(Err(to_gax_error(e))),
-            }
+    async fn populate_pool(&mut self) -> Option<Result<()>> {
+        // Read the next response from the stream.
+        let resp = match self.next_response().await? {
+            Ok(resp) => resp,
+            Err(e) => return Some(Err(e)),
         };
 
+        // Process the received messages in the response.
         for rm in resp.received_messages {
             let Some(message) = rm.message else {
                 // The message field should always be present. If not, the proto
@@ -336,7 +363,7 @@ mod tests {
             .return_once(|_| Err(TonicStatus::failed_precondition("fail")));
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
-        let mut stream = client.stream("projects/p/subscriptions/s").build();
+        let mut stream = client.subscribe("projects/p/subscriptions/s").build();
         let err = stream
             .next()
             .await
@@ -349,6 +376,26 @@ mod tests {
             google_cloud_gax::error::rpc::Code::FailedPrecondition
         );
         assert_eq!(status.message, "fail");
+
+        Ok(())
+    }
+
+    #[tokio_test_no_panics]
+    async fn permanent_error_ends_stream() -> anyhow::Result<()> {
+        let mut mock = MockSubscriber::new();
+        mock.expect_streaming_pull()
+            .returning(|_| Err(TonicStatus::failed_precondition("fail")));
+        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
+        let client = test_client(endpoint).await?;
+        let mut stream = client.subscribe("projects/p/subscriptions/s").build();
+        let next = stream.next().await;
+        assert!(
+            matches!(next, Some(Err(_))),
+            "expected permanent error, got {next:?}"
+        );
+
+        let next = stream.next().await;
+        assert!(next.is_none(), "expected end of stream, got {next:?}");
 
         Ok(())
     }
@@ -380,7 +427,7 @@ mod tests {
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
         let _ = client
-            .stream("projects/p/subscriptions/s")
+            .subscribe("projects/p/subscriptions/s")
             .set_ack_deadline_seconds(20)
             .set_max_outstanding_messages(2000)
             .set_max_outstanding_bytes(200 * MIB)
@@ -425,7 +472,7 @@ mod tests {
         });
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
-        let mut stream = client.stream("projects/p/subscriptions/s").build();
+        let mut stream = client.subscribe("projects/p/subscriptions/s").build();
 
         response_tx.send(Ok(test_response(1..2))).await?;
         response_tx.send(Ok(test_response(2..4))).await?;
@@ -433,8 +480,9 @@ mod tests {
         drop(response_tx);
 
         for i in 1..7 {
-            let (m, Handler::AtLeastOnce(h)) =
-                stream.next().await.transpose()?.expect("message {i}/6");
+            let Some((m, h)) = stream.next().await.transpose()? else {
+                anyhow::bail!("expected message {i}/6")
+            };
             assert_eq!(m.data, test_data(i));
             assert_eq!(h.ack_id(), test_id(i));
             h.ack();
@@ -482,7 +530,7 @@ mod tests {
         });
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
-        let mut stream = client.stream("projects/p/subscriptions/s").build();
+        let mut stream = client.subscribe("projects/p/subscriptions/s").build();
 
         response_tx.send(Ok(test_response(0..30))).await?;
         drop(response_tx);
@@ -562,8 +610,8 @@ mod tests {
             .return_once(|_| Ok(TonicResponse::from(response_rx)));
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
-        let mut stream = client.stream("projects/p/subscriptions/s").build();
-        let (m, Handler::AtLeastOnce(h)) = stream
+        let mut stream = client.subscribe("projects/p/subscriptions/s").build();
+        let (m, h) = stream
             .next()
             .await
             .transpose()?
@@ -589,13 +637,14 @@ mod tests {
             .return_once(|_| Ok(TonicResponse::from(response_rx)));
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
-        let mut stream = client.stream("projects/p/subscriptions/s").build();
+        let mut stream = client.subscribe("projects/p/subscriptions/s").build();
 
         for i in 1..7 {
             response_tx.send(Ok(test_response(i..i + 1))).await?;
 
-            let (m, Handler::AtLeastOnce(h)) =
-                stream.next().await.transpose()?.expect("message {i}/6");
+            let Some((m, h)) = stream.next().await.transpose()? else {
+                anyhow::bail!("expected message {i}/6")
+            };
             assert_eq!(m.data, test_data(i));
             assert_eq!(h.ack_id(), test_id(i));
         }
@@ -615,7 +664,7 @@ mod tests {
             .return_once(|_| Ok(TonicResponse::from(response_rx)));
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
-        let mut stream = client.stream("projects/p/subscriptions/s").build();
+        let mut stream = client.subscribe("projects/p/subscriptions/s").build();
 
         response_tx.send(Ok(test_response(1..2))).await?;
         // See if we can handle an empty range
@@ -624,8 +673,9 @@ mod tests {
         drop(response_tx);
 
         for i in 1..3 {
-            let (m, Handler::AtLeastOnce(h)) =
-                stream.next().await.transpose()?.expect("message {i}/2");
+            let Some((m, h)) = stream.next().await.transpose()? else {
+                anyhow::bail!("expected message {i}/2")
+            };
             assert_eq!(m.data, test_data(i));
             assert_eq!(h.ack_id(), test_id(i));
         }
@@ -662,7 +712,7 @@ mod tests {
         });
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
-        let mut stream = client.stream("projects/p/subscriptions/s").build();
+        let mut stream = client.subscribe("projects/p/subscriptions/s").build();
 
         response_tx.send(Ok(test_response(1..4))).await?;
         // See if we can handle an empty range
@@ -672,8 +722,9 @@ mod tests {
 
         let mut handlers = Vec::new();
         for i in 1..7 {
-            let (m, Handler::AtLeastOnce(h)) =
-                stream.next().await.transpose()?.expect("message {i}/6");
+            let Some((m, h)) = stream.next().await.transpose()? else {
+                anyhow::bail!("expected message {i}/6")
+            };
             assert_eq!(m.data, test_data(i));
             assert_eq!(h.ack_id(), test_id(i));
             handlers.push(h);
@@ -707,7 +758,7 @@ mod tests {
             .return_once(|_| Ok(TonicResponse::from(response_rx)));
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
-        let mut stream = client.stream("projects/p/subscriptions/s").build();
+        let mut stream = client.subscribe("projects/p/subscriptions/s").build();
 
         response_tx.send(Ok(test_response(1..4))).await?;
         response_tx
@@ -716,8 +767,9 @@ mod tests {
         drop(response_tx);
 
         for i in 1..4 {
-            let (m, Handler::AtLeastOnce(h)) =
-                stream.next().await.transpose()?.expect("message {i}/3");
+            let Some((m, h)) = stream.next().await.transpose()? else {
+                anyhow::bail!("expected message {i}/3")
+            };
             assert_eq!(m.data, test_data(i));
             assert_eq!(h.ack_id(), test_id(i));
         }
@@ -764,7 +816,7 @@ mod tests {
 
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
-        let mut stream = client.stream("projects/p/subscriptions/s").build();
+        let mut stream = client.subscribe("projects/p/subscriptions/s").build();
         response_tx.send(Ok(test_response(1..4))).await?;
         let _ = stream.next().await;
 
@@ -826,12 +878,20 @@ mod tests {
         // Make two requests with the same client. The requests should have the
         // same client ID.
         let c1 = test_client(endpoint.clone()).await?;
-        let _ = c1.stream("projects/p/subscriptions/s").build().next().await;
+        let _ = c1
+            .subscribe("projects/p/subscriptions/s")
+            .build()
+            .next()
+            .await;
         let req1 = recover_writes_rx
             .recv()
             .await
             .expect("should receive a request")?;
-        let _ = c1.stream("projects/p/subscriptions/s").build().next().await;
+        let _ = c1
+            .subscribe("projects/p/subscriptions/s")
+            .build()
+            .next()
+            .await;
         let req2 = recover_writes_rx
             .recv()
             .await
@@ -841,7 +901,11 @@ mod tests {
         // Make a third request with a different client. This request should
         // have a different client ID.
         let c2 = test_client(endpoint).await?;
-        let _ = c2.stream("projects/p/subscriptions/s").build().next().await;
+        let _ = c2
+            .subscribe("projects/p/subscriptions/s")
+            .build()
+            .next()
+            .await;
         let req3 = recover_writes_rx
             .recv()
             .await
@@ -863,7 +927,7 @@ mod tests {
 
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
-        let mut stream = client.stream("projects/p/subscriptions/s").build();
+        let mut stream = client.subscribe("projects/p/subscriptions/s").build();
 
         let _ = tokio::time::timeout(TEST_TIMEOUT, stream.next())
             .await
@@ -895,7 +959,7 @@ mod tests {
             .return_once(|_| Err(TonicStatus::failed_precondition("fail")));
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
-        let mut stream = client.stream("projects/p/subscriptions/s").build();
+        let mut stream = client.subscribe("projects/p/subscriptions/s").build();
         let err = stream
             .next()
             .await
@@ -951,7 +1015,7 @@ mod tests {
         });
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
-        let mut stream = client.stream("projects/p/subscriptions/s").build();
+        let mut stream = client.subscribe("projects/p/subscriptions/s").build();
 
         response_tx_1.send(Ok(test_response(0..10))).await?;
         response_tx_1.send(Ok(test_response(10..20))).await?;
@@ -1023,7 +1087,7 @@ mod tests {
         });
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
-        let mut stream = client.stream("projects/p/subscriptions/s").build();
+        let mut stream = client.subscribe("projects/p/subscriptions/s").build();
 
         response_tx.send(Ok(test_response(0..10))).await?;
         response_tx.send(Ok(test_response(10..20))).await?;
@@ -1086,7 +1150,7 @@ mod tests {
         let client = test_client(endpoint).await?;
 
         let _ = client
-            .stream("projects/p/subscriptions/s")
+            .subscribe("projects/p/subscriptions/s")
             .build()
             .next()
             .await;
@@ -1115,7 +1179,7 @@ mod tests {
         let client = test_client(endpoint).await?;
 
         let stream = client
-            .stream("projects/p/subscriptions/s")
+            .subscribe("projects/p/subscriptions/s")
             .build()
             .into_stream();
 

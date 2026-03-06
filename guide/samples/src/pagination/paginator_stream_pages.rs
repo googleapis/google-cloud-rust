@@ -20,7 +20,7 @@ use google_cloud_gax::retry_policy::RetryPolicyExt;
 use google_cloud_secretmanager_v1::client::SecretManagerService;
 use std::time::Duration;
 
-pub async fn sample(project_id: &str) -> crate::Result<()> {
+pub async fn sample(project_id: &str) -> anyhow::Result<()> {
     let client = SecretManagerService::builder()
         .with_retry_policy(
             AlwaysRetry

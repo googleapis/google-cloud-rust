@@ -231,8 +231,6 @@ resource "google_cloudbuild_trigger" "pull-request" {
     }
   }
 
-  include_build_logs = "INCLUDE_BUILD_LOGS_WITH_STATUS"
-
   substitutions = {
     _UNSTABLE_CFG_FLAGS = lookup(each.value, "flags", "")
     _SCRIPT             = lookup(each.value, "script", "")
@@ -265,8 +263,6 @@ resource "google_cloudbuild_trigger" "post-merge" {
       branch = "^main$"
     }
   }
-
-  include_build_logs = "INCLUDE_BUILD_LOGS_WITH_STATUS"
 
   substitutions = {
     _UNSTABLE_CFG_FLAGS = lookup(each.value, "flags", "")

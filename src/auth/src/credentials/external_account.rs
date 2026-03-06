@@ -180,6 +180,25 @@ enum CredentialSourceFile {
     },
 }
 
+/// Check if the audience parameter matches the pattern for a valid workforce pool.
+/// Example: https://iam.googleapis.com/locations/global/workforcePools/pool/providers/provider
+fn is_valid_workforce_pool_audience(audience: &str) -> bool {
+    let path = audience
+        .strip_prefix("//iam.googleapis.com/")
+        .unwrap_or(audience);
+
+    let mut s = path.split('/');
+    matches!((s.next(), s.next(), s.next(), s.next(), s.next(), s.next(), s.next()), (
+            Some("locations"),
+            Some(_location),
+            Some("workforcePools"),
+            Some(pool),
+            Some("providers"),
+            Some(provider),
+            None,
+        ) if !pool.is_empty() && !provider.is_empty())
+}
+
 /// A representation of a [external account config file].
 ///
 /// [external account config file]: https://google.aip.dev/auth/4117#configuration-file-generation-and-usage
@@ -193,6 +212,7 @@ struct ExternalAccountFile {
     client_secret: Option<String>,
     scopes: Option<Vec<String>>,
     credential_source: CredentialSourceFile,
+    workforce_pool_user_project: Option<String>,
 }
 
 impl From<ExternalAccountFile> for ExternalAccountConfig {
@@ -213,6 +233,7 @@ impl From<ExternalAccountFile> for ExternalAccountConfig {
                 &config.audience,
             ),
             scopes: scope,
+            workforce_pool_user_project: config.workforce_pool_user_project,
         }
     }
 }
@@ -258,6 +279,7 @@ struct ExternalAccountConfig {
     client_secret: Option<String>,
     scopes: Vec<String>,
     credential_source: CredentialSource,
+    workforce_pool_user_project: Option<String>,
 }
 
 #[derive(Debug, Default)]
@@ -270,6 +292,7 @@ struct ExternalAccountConfigBuilder {
     client_secret: Option<String>,
     scopes: Option<Vec<String>>,
     credential_source: Option<CredentialSource>,
+    workforce_pool_user_project: Option<String>,
 }
 
 impl ExternalAccountConfigBuilder {
@@ -313,11 +336,27 @@ impl ExternalAccountConfigBuilder {
         self
     }
 
+    fn with_workforce_pool_user_project<S: Into<String>>(mut self, project: S) -> Self {
+        self.workforce_pool_user_project = Some(project.into());
+        self
+    }
+
     fn build(self) -> BuildResult<ExternalAccountConfig> {
+        let audience = self
+            .audience
+            .clone()
+            .ok_or(BuilderError::missing_field("audience"))?;
+
+        if self.workforce_pool_user_project.is_some()
+            && !is_valid_workforce_pool_audience(&audience)
+        {
+            return Err(BuilderError::parsing(
+                "workforce_pool_user_project should not be set for non-workforce pool credentials",
+            ));
+        }
+
         Ok(ExternalAccountConfig {
-            audience: self
-                .audience
-                .ok_or(BuilderError::missing_field("audience"))?,
+            audience,
             subject_token_type: self
                 .subject_token_type
                 .ok_or(BuilderError::missing_field("subject_token_type"))?,
@@ -331,6 +370,7 @@ impl ExternalAccountConfigBuilder {
             service_account_impersonation_url: self.service_account_impersonation_url,
             client_id: self.client_id,
             client_secret: self.client_secret,
+            workforce_pool_user_project: self.workforce_pool_user_project,
         })
     }
 }
@@ -415,6 +455,18 @@ where
         let user_scopes = self.config.scopes.clone();
         let url = self.config.token_url.clone();
 
+        let extra_options =
+            if self.config.client_id.is_none() && self.config.client_secret.is_none() {
+                let workforce_pool_user_project = self.config.workforce_pool_user_project.clone();
+                workforce_pool_user_project.map(|project| {
+                    let mut options = HashMap::new();
+                    options.insert("userProject".to_string(), project);
+                    options
+                })
+            } else {
+                None
+            };
+
         // User provides the scopes to be set on the final token they receive. The scopes they
         // provide does not necessarily have to include the IAM scope or cloud-platform scope
         // which are needed to make the call to `iamcredentials` endpoint. So when minting the
@@ -436,6 +488,7 @@ where
                 client_id: self.config.client_id.clone(),
                 client_secret: self.config.client_secret.clone(),
             },
+            extra_options,
             ..ExchangeTokenRequest::default()
         };
 
@@ -701,6 +754,14 @@ impl Builder {
 
         if let Some(scopes) = self.scopes {
             file.scopes = Some(scopes);
+        }
+
+        if file.workforce_pool_user_project.is_some()
+            && !is_valid_workforce_pool_audience(&file.audience)
+        {
+            return Err(BuilderError::parsing(
+                "workforce_pool_user_project should not be set for non-workforce pool credentials",
+            ));
         }
 
         let config: ExternalAccountConfig = file.into();
@@ -1132,6 +1193,44 @@ impl ProgrammaticBuilder {
             target_principal.into()
         );
         self.config = self.config.with_service_account_impersonation_url(url);
+        self
+    }
+
+    /// Sets the optional workforce pool user project.
+    ///
+    /// This is the project ID used for quota and billing in the workforce pool context.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// # use google_cloud_auth::credentials::external_account::ProgrammaticBuilder;
+    /// # use google_cloud_auth::credentials::subject_token::{SubjectTokenProvider, SubjectToken, Builder as SubjectTokenBuilder};
+    /// # use google_cloud_auth::errors::SubjectTokenProviderError;
+    /// # use std::error::Error;
+    /// # use std::fmt;
+    /// # use std::sync::Arc;
+    /// #
+    /// # #[derive(Debug)]
+    /// # struct MyTokenProvider;
+    /// #
+    /// # #[derive(Debug)]
+    /// # struct MyProviderError;
+    /// # impl fmt::Display for MyProviderError { fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result { write!(f, "MyProviderError") } }
+    /// # impl Error for MyProviderError {}
+    /// # impl SubjectTokenProviderError for MyProviderError { fn is_transient(&self) -> bool { false } }
+    /// #
+    /// # impl SubjectTokenProvider for MyTokenProvider {
+    /// #     type Error = MyProviderError;
+    /// #     async fn subject_token(&self) -> Result<SubjectToken, Self::Error> {
+    /// #         Ok(SubjectTokenBuilder::new("my-programmatic-token".to_string()).build())
+    /// #     }
+    /// # }
+    /// # let provider = Arc::new(MyTokenProvider);
+    /// let builder = ProgrammaticBuilder::new(provider)
+    ///     .with_workforce_pool_user_project("my-project-id");
+    /// ```
+    pub fn with_workforce_pool_user_project<S: Into<String>>(mut self, project: S) -> Self {
+        self.config = self.config.with_workforce_pool_user_project(project);
         self
     }
 
@@ -2395,5 +2494,119 @@ mod tests {
                 unreachable!("expected Aws sourced credential")
             }
         }
+    }
+
+    #[tokio::test]
+    async fn builder_workforce_pool_user_project_fails_without_workforce_pool_audience() {
+        let contents = json!({
+            "type": "external_account",
+            "audience": "not-a-workforce-pool",
+            "subject_token_type": "urn:ietf:params:oauth:token-type:jwt",
+            "token_url": "http://test.com/token",
+            "credential_source": {
+                "url": "http://test.com/subject_token",
+            },
+            "workforce_pool_user_project": "test-project"
+        });
+
+        let result = Builder::new(contents).build();
+
+        assert!(result.is_err(), "{result:?}");
+        let err = result.unwrap_err();
+        assert!(err.is_parsing(), "{err:?}");
+    }
+
+    #[tokio::test]
+    async fn sts_handler_ignores_workforce_pool_user_project_with_client_auth()
+    -> std::result::Result<(), Box<dyn std::error::Error>> {
+        let subject_token_server = Server::run();
+        let sts_server = Server::run();
+
+        let contents = json!({
+            "type": "external_account",
+            "audience": "//iam.googleapis.com/locations/global/workforcePools/pool/providers/provider",
+            "subject_token_type": "urn:ietf:params:oauth:token-type:jwt",
+            "token_url": sts_server.url("/token").to_string(),
+            "client_id": "client-id",
+            "credential_source": {
+                "url": subject_token_server.url("/subject_token").to_string(),
+            },
+            "workforce_pool_user_project": "test-project"
+        });
+
+        subject_token_server.expect(
+            Expectation::matching(request::method_path("GET", "/subject_token")).respond_with(
+                json_encoded(json!({
+                    "access_token": "subject_token",
+                })),
+            ),
+        );
+
+        sts_server.expect(
+            Expectation::matching(all_of![request::method_path("POST", "/token"),]).respond_with(
+                json_encoded(json!({
+                    "access_token": "sts-only-token",
+                    "issued_token_type": "urn:ietf:params:oauth:token-type:access_token",
+                    "token_type": "Bearer",
+                    "expires_in": 3600,
+                })),
+            ),
+        );
+
+        let creds = Builder::new(contents).build()?;
+        let headers = creds.headers(Extensions::new()).await?;
+        let token = get_token_from_headers(headers);
+        assert_eq!(token.as_deref(), Some("sts-only-token"));
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn sts_handler_receives_workforce_pool_user_project()
+    -> std::result::Result<(), Box<dyn std::error::Error>> {
+        let subject_token_server = Server::run();
+        let sts_server = Server::run();
+
+        let contents = json!({
+            "type": "external_account",
+            "audience": "//iam.googleapis.com/locations/global/workforcePools/pool/providers/provider",
+            "subject_token_type": "urn:ietf:params:oauth:token-type:jwt",
+            "token_url": sts_server.url("/token").to_string(),
+            "credential_source": {
+                "url": subject_token_server.url("/subject_token").to_string(),
+            },
+            "workforce_pool_user_project": "test-project-123"
+        });
+
+        subject_token_server.expect(
+            Expectation::matching(request::method_path("GET", "/subject_token")).respond_with(
+                json_encoded(json!({
+                    "access_token": "subject_token",
+                })),
+            ),
+        );
+
+        sts_server.expect(
+            Expectation::matching(all_of![
+                request::method_path("POST", "/token"),
+                request::body(url_decoded(contains((
+                    "options",
+                    "{\"userProject\":\"test-project-123\"}"
+                )))),
+            ])
+            .respond_with(json_encoded(json!({
+                "access_token": "sts-only-token",
+                "issued_token_type": "urn:ietf:params:oauth:token-type:access_token",
+                "token_type": "Bearer",
+                "expires_in": 3600,
+            }))),
+        );
+
+        let creds = Builder::new(contents).build()?;
+        let headers = creds.headers(Extensions::new()).await?;
+        let token = get_token_from_headers(headers);
+        assert_eq!(token.as_deref(), Some("sts-only-token"));
+
+        Ok(())
     }
 }

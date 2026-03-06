@@ -848,6 +848,12 @@ impl serde::ser::Serialize for super::Step {
         if let Some(value) = self.ip_masquerading_skipped() {
             state.serialize_entry("ipMasqueradingSkipped", value)?;
         }
+        if let Some(value) = self.gke_network_policy() {
+            state.serialize_entry("gkeNetworkPolicy", value)?;
+        }
+        if let Some(value) = self.gke_network_policy_skipped() {
+            state.serialize_entry("gkeNetworkPolicySkipped", value)?;
+        }
         if let Some(value) = self.cloud_sql_instance() {
             state.serialize_entry("cloudSqlInstance", value)?;
         }
@@ -880,6 +886,9 @@ impl serde::ser::Serialize for super::Step {
         }
         if let Some(value) = self.serverless_neg() {
             state.serialize_entry("serverlessNeg", value)?;
+        }
+        if let Some(value) = self.ngfw_packet_inspection() {
+            state.serialize_entry("ngfwPacketInspection", value)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -1760,6 +1769,59 @@ impl serde::ser::Serialize for super::IpMasqueradingSkippedInfo {
 }
 
 #[doc(hidden)]
+impl serde::ser::Serialize for super::GkeNetworkPolicyInfo {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.display_name.is_empty() {
+            state.serialize_entry("displayName", &self.display_name)?;
+        }
+        if !self.uri.is_empty() {
+            state.serialize_entry("uri", &self.uri)?;
+        }
+        if !self.direction.is_empty() {
+            state.serialize_entry("direction", &self.direction)?;
+        }
+        if !self.action.is_empty() {
+            state.serialize_entry("action", &self.action)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::GkeNetworkPolicySkippedInfo {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.reason) {
+            state.serialize_entry("reason", &self.reason)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
 impl serde::ser::Serialize for super::CloudSQLInstanceInfo {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -2333,6 +2395,28 @@ impl serde::ser::Serialize for super::ServerlessNegInfo {
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.neg_uri.is_empty() {
             state.serialize_entry("negUri", &self.neg_uri)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::NgfwPacketInspectionInfo {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.security_profile_group_uri.is_empty() {
+            state.serialize_entry("securityProfileGroupUri", &self.security_profile_group_uri)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
