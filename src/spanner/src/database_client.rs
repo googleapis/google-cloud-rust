@@ -53,6 +53,7 @@ pub struct DatabaseClientBuilder {
     spanner: Spanner,
     database_name: String,
     database_role: Option<String>,
+    options: Option<crate::RequestOptions>,
 }
 
 impl DatabaseClientBuilder {
@@ -61,6 +62,7 @@ impl DatabaseClientBuilder {
             spanner,
             database_name,
             database_role: None,
+            options: None,
         }
     }
 
@@ -78,14 +80,40 @@ impl DatabaseClientBuilder {
     ///     let spanner = Spanner::builder().build().await?;
     ///     let database_client = spanner
     ///         .database_client("projects/my-project/instances/my-instance/databases/my-db")
-    ///         .database_role("my-role")
+    ///         .with_database_role("my-role")
     ///         .build()
     ///         .await?;
     ///     Ok(())
     /// # }
     /// ```
-    pub fn database_role(mut self, role: impl Into<String>) -> Self {
+    pub fn with_database_role(mut self, role: impl Into<String>) -> Self {
         self.database_role = Some(role.into());
+        self
+    }
+
+    /// Sets the request options that will be used when creating the multiplexed
+    /// session for the client.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// # use google_cloud_spanner::client::Spanner;
+    /// # use google_cloud_gax::options::RequestOptions;
+    /// # use std::time::Duration;
+    /// # async fn sample() -> anyhow::Result<()> {
+    ///     let spanner = Spanner::builder().build().await?;
+    ///     let mut options = RequestOptions::default();
+    ///     options.set_attempt_timeout(Duration::from_secs(60));
+    ///     let database_client = spanner
+    ///         .database_client("projects/my-project/instances/my-instance/databases/my-db")
+    ///         .with_request_options(options)
+    ///         .build()
+    ///         .await?;
+    ///     Ok(())
+    /// # }
+    /// ```
+    pub fn with_request_options(mut self, options: crate::RequestOptions) -> Self {
+        self.options = Some(options);
         self
     }
 
@@ -102,7 +130,7 @@ impl DatabaseClientBuilder {
 
         let session = self
             .spanner
-            .create_session(request, crate::RequestOptions::default())
+            .create_session(request, self.options.unwrap_or_default())
             .await?;
 
         Ok(DatabaseClient {
@@ -155,7 +183,7 @@ mod tests {
 
         let db_client = spanner
             .database_client("projects/test-project/instances/test-instance/databases/test-db")
-            .database_role("test-role")
+            .with_database_role("test-role")
             .build()
             .await
             .expect("Failed to create DatabaseClient");
@@ -166,6 +194,57 @@ mod tests {
         );
         assert!(db_client.session.multiplexed);
         assert_eq!(db_client.session.creator_role, "test-role");
+    }
+
+    #[tokio::test]
+    async fn test_database_client_builder_with_options() {
+        let mut mock = MockSpanner::new();
+        let mut seq = mockall::Sequence::new();
+        mock.expect_create_session()
+            .once()
+            .in_sequence(&mut seq)
+            .returning(|_| Err(gaxi::grpc::tonic::Status::unavailable("unavailable")));
+        mock.expect_create_session()
+            .once()
+            .in_sequence(&mut seq)
+            .returning(|req| {
+                let req = req.into_inner();
+                let session = req.session.unwrap();
+                assert!(session.multiplexed);
+                Ok(gaxi::grpc::tonic::Response::new(
+                    spanner_grpc_mock::google::spanner::v1::Session {
+                        name: "projects/test-project/instances/test-instance/databases/test-db/sessions/123".to_string(),
+                        multiplexed: true,
+                        ..Default::default()
+                    },
+                ))
+            });
+
+        let (address, _server) = start("0.0.0.0:0", mock)
+            .await
+            .expect("Failed to start mock server");
+        let spanner = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await
+            .expect("Failed to build client");
+
+        let mut options = crate::RequestOptions::default();
+        options.set_retry_policy(google_cloud_gax::retry_policy::Aip194Strict);
+        options.set_idempotency(true);
+
+        let db_client = spanner
+            .database_client("projects/test-project/instances/test-instance/databases/test-db")
+            .with_request_options(options)
+            .build()
+            .await
+            .expect("Failed to create DatabaseClient");
+
+        assert_eq!(
+            db_client.session.name,
+            "projects/test-project/instances/test-instance/databases/test-db/sessions/123"
+        );
     }
 
     #[tokio::test]
