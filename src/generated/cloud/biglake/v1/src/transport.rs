@@ -89,18 +89,16 @@ impl super::stub::IcebergCatalogService for IcebergCatalogService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/iceberg/v1/restcatalog/v1/{}/namespaces",
-                    try_match(
-                        Some(&req).map(|m| &m.api_parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/catalogs/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_api_parent = try_match(
+                    Some(&req).map(|m| &m.api_parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/catalogs/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/iceberg/v1/restcatalog/v1/{}/namespaces", var_api_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
@@ -152,20 +150,18 @@ impl super::stub::IcebergCatalogService for IcebergCatalogService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/iceberg/v1/restcatalog/v1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/catalogs/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/namespaces/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/catalogs/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/namespaces/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/iceberg/v1/restcatalog/v1/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -216,18 +212,16 @@ impl super::stub::IcebergCatalogService for IcebergCatalogService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/iceberg/v1/restcatalog/v1/{}/namespaces",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/catalogs/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/catalogs/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/iceberg/v1/restcatalog/v1/{}/namespaces", var_parent,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -276,20 +270,18 @@ impl super::stub::IcebergCatalogService for IcebergCatalogService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/iceberg/v1/restcatalog/v1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/catalogs/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/namespaces/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/catalogs/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/namespaces/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/iceberg/v1/restcatalog/v1/{}", var_name,);
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
@@ -346,40 +338,36 @@ impl super::stub::IcebergCatalogService for IcebergCatalogService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/iceberg/v1/restcatalog/v1/{}/properties",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/catalogs/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/namespaces/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/catalogs/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/namespaces/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/iceberg/v1/restcatalog/v1/{}/properties", var_name,);
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = Ok(builder);
                 Some(builder.map(|b| (b, Method::PATCH)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/iceberg/v1/restcatalog/v1/{}/properties",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/catalogs/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/namespaces/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/catalogs/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/namespaces/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/iceberg/v1/restcatalog/v1/{}/properties", var_name,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -447,20 +435,18 @@ impl super::stub::IcebergCatalogService for IcebergCatalogService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/iceberg/v1/restcatalog/v1/{}/tables",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/catalogs/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/namespaces/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/catalogs/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/namespaces/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/iceberg/v1/restcatalog/v1/{}/tables", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
@@ -513,20 +499,18 @@ impl super::stub::IcebergCatalogService for IcebergCatalogService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/iceberg/v1/restcatalog/v1/{}/tables",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/catalogs/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/namespaces/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/catalogs/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/namespaces/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/iceberg/v1/restcatalog/v1/{}/tables", var_parent,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -577,22 +561,20 @@ impl super::stub::IcebergCatalogService for IcebergCatalogService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/iceberg/v1/restcatalog/v1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/catalogs/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/namespaces/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/tables/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/catalogs/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/namespaces/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/tables/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/iceberg/v1/restcatalog/v1/{}", var_name,);
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = builder.query(&[("purgeRequested", &req.purge_requested)]);
@@ -652,22 +634,20 @@ impl super::stub::IcebergCatalogService for IcebergCatalogService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/iceberg/v1/restcatalog/v1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/catalogs/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/namespaces/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/tables/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/catalogs/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/namespaces/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/tables/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/iceberg/v1/restcatalog/v1/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("snapshots", &req.snapshots)]);
@@ -721,22 +701,20 @@ impl super::stub::IcebergCatalogService for IcebergCatalogService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/iceberg/v1/restcatalog/v1/{}/credentials",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/catalogs/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/namespaces/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/tables/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/catalogs/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/namespaces/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/tables/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/iceberg/v1/restcatalog/v1/{}/credentials", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("snapshots", &req.snapshots)]);
@@ -790,22 +768,20 @@ impl super::stub::IcebergCatalogService for IcebergCatalogService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/iceberg/v1/restcatalog/v1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/catalogs/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/namespaces/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/tables/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/catalogs/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/namespaces/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/tables/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/iceberg/v1/restcatalog/v1/{}", var_name,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -858,20 +834,18 @@ impl super::stub::IcebergCatalogService for IcebergCatalogService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/iceberg/v1/restcatalog/v1/{}/register",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/catalogs/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/namespaces/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/catalogs/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/namespaces/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/iceberg/v1/restcatalog/v1/{}/register", var_parent,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -922,18 +896,16 @@ impl super::stub::IcebergCatalogService for IcebergCatalogService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/iceberg/v1/restcatalog/extensions/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/catalogs/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/catalogs/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/iceberg/v1/restcatalog/extensions/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -982,13 +954,11 @@ impl super::stub::IcebergCatalogService for IcebergCatalogService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/iceberg/v1/restcatalog/extensions/{}/catalogs",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[Segment::Literal("projects/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[Segment::Literal("projects/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/iceberg/v1/restcatalog/extensions/{}/catalogs", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("view", &req.view)]);
@@ -1035,18 +1005,16 @@ impl super::stub::IcebergCatalogService for IcebergCatalogService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/iceberg/v1/restcatalog/extensions/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/catalogs/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/catalogs/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/iceberg/v1/restcatalog/extensions/{}", var_name,);
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
@@ -1101,20 +1069,21 @@ impl super::stub::IcebergCatalogService for IcebergCatalogService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_iceberg_catalog_name = try_match(
+                    Some(&req)
+                        .and_then(|m| m.iceberg_catalog.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/catalogs/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
                 let path = format!(
                     "/iceberg/v1/restcatalog/extensions/{}",
-                    try_match(
-                        Some(&req)
-                            .and_then(|m| m.iceberg_catalog.as_ref())
-                            .map(|m| &m.name)
-                            .map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/catalogs/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
+                    var_iceberg_catalog_name,
                 );
 
                 let builder = self.inner.builder(Method::PATCH, path);
@@ -1179,13 +1148,11 @@ impl super::stub::IcebergCatalogService for IcebergCatalogService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/iceberg/v1/restcatalog/extensions/{}/catalogs",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[Segment::Literal("projects/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[Segment::Literal("projects/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/iceberg/v1/restcatalog/extensions/{}/catalogs", var_parent,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("iceberg-catalog-id", &req.iceberg_catalog_id)]);
@@ -1230,18 +1197,16 @@ impl super::stub::IcebergCatalogService for IcebergCatalogService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/iceberg/v1/restcatalog/extensions/{}:failover",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/catalogs/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/catalogs/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/iceberg/v1/restcatalog/extensions/{}:failover", var_name,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);

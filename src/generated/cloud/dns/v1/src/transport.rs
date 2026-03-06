@@ -52,16 +52,17 @@ impl super::stub::Changes for Changes {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_managed_zone = try_match(
+                    Some(&req).map(|m| &m.managed_zone).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/dns/v1/projects/{}/managedZones/{}/changes",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.managed_zone).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project, var_managed_zone,
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -115,20 +116,21 @@ impl super::stub::Changes for Changes {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_managed_zone = try_match(
+                    Some(&req).map(|m| &m.managed_zone).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_change_id = try_match(
+                    Some(&req).map(|m| &m.change_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/dns/v1/projects/{}/managedZones/{}/changes/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.managed_zone).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.change_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project, var_managed_zone, var_change_id,
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -188,16 +190,17 @@ impl super::stub::Changes for Changes {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_managed_zone = try_match(
+                    Some(&req).map(|m| &m.managed_zone).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/dns/v1/projects/{}/managedZones/{}/changes",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.managed_zone).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project, var_managed_zone,
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -287,20 +290,21 @@ impl super::stub::DnsKeys for DnsKeys {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_managed_zone = try_match(
+                    Some(&req).map(|m| &m.managed_zone).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_dns_key_id = try_match(
+                    Some(&req).map(|m| &m.dns_key_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/dns/v1/projects/{}/managedZones/{}/dnsKeys/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.managed_zone).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.dns_key_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project, var_managed_zone, var_dns_key_id,
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -364,16 +368,17 @@ impl super::stub::DnsKeys for DnsKeys {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_managed_zone = try_match(
+                    Some(&req).map(|m| &m.managed_zone).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/dns/v1/projects/{}/managedZones/{}/dnsKeys",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.managed_zone).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project, var_managed_zone,
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -459,20 +464,21 @@ impl super::stub::ManagedZoneOperations for ManagedZoneOperations {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_managed_zone = try_match(
+                    Some(&req).map(|m| &m.managed_zone).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_operation = try_match(
+                    Some(&req).map(|m| &m.operation).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/dns/v1/projects/{}/managedZones/{}/operations/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.managed_zone).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.operation).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project, var_managed_zone, var_operation,
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -532,16 +538,17 @@ impl super::stub::ManagedZoneOperations for ManagedZoneOperations {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_managed_zone = try_match(
+                    Some(&req).map(|m| &m.managed_zone).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/dns/v1/projects/{}/managedZones/{}/operations",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.managed_zone).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project, var_managed_zone,
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -627,13 +634,11 @@ impl super::stub::ManagedZones for ManagedZones {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/dns/v1/projects/{}/managedZones",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                );
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let path = format!("/dns/v1/projects/{}/managedZones", var_project,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req.client_operation_id.iter().fold(builder, |builder, p| {
@@ -680,16 +685,17 @@ impl super::stub::ManagedZones for ManagedZones {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_managed_zone = try_match(
+                    Some(&req).map(|m| &m.managed_zone).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/dns/v1/projects/{}/managedZones/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.managed_zone).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project, var_managed_zone,
                 );
 
                 let builder = self.inner.builder(Method::DELETE, path);
@@ -749,16 +755,17 @@ impl super::stub::ManagedZones for ManagedZones {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_managed_zone = try_match(
+                    Some(&req).map(|m| &m.managed_zone).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/dns/v1/projects/{}/managedZones/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.managed_zone).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project, var_managed_zone,
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -812,13 +819,11 @@ impl super::stub::ManagedZones for ManagedZones {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/dns/v1/{}:getIamPolicy",
-                    try_match(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::MultiWildcard]
-                    )?,
-                );
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[Segment::MultiWildcard],
+                )?;
+                let path = format!("/dns/v1/{}:getIamPolicy", var_resource,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -862,13 +867,11 @@ impl super::stub::ManagedZones for ManagedZones {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/dns/v1/projects/{}/managedZones",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                );
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let path = format!("/dns/v1/projects/{}/managedZones", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -924,16 +927,17 @@ impl super::stub::ManagedZones for ManagedZones {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_managed_zone = try_match(
+                    Some(&req).map(|m| &m.managed_zone).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/dns/v1/projects/{}/managedZones/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.managed_zone).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project, var_managed_zone,
                 );
 
                 let builder = self.inner.builder(Method::PATCH, path);
@@ -987,13 +991,11 @@ impl super::stub::ManagedZones for ManagedZones {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/dns/v1/{}:setIamPolicy",
-                    try_match(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::MultiWildcard]
-                    )?,
-                );
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[Segment::MultiWildcard],
+                )?;
+                let path = format!("/dns/v1/{}:setIamPolicy", var_resource,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -1037,13 +1039,11 @@ impl super::stub::ManagedZones for ManagedZones {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/dns/v1/{}:testIamPermissions",
-                    try_match(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::MultiWildcard]
-                    )?,
-                );
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[Segment::MultiWildcard],
+                )?;
+                let path = format!("/dns/v1/{}:testIamPermissions", var_resource,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -1087,16 +1087,17 @@ impl super::stub::ManagedZones for ManagedZones {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_managed_zone = try_match(
+                    Some(&req).map(|m| &m.managed_zone).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/dns/v1/projects/{}/managedZones/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.managed_zone).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project, var_managed_zone,
                 );
 
                 let builder = self.inner.builder(Method::PUT, path);
@@ -1150,20 +1151,21 @@ impl super::stub::ManagedZones for ManagedZones {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_managed_zone = try_match(
+                    Some(&req).map(|m| &m.managed_zone).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_operation = try_match(
+                    Some(&req).map(|m| &m.operation).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/dns/v1/projects/{}/managedZones/{}/operations/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.managed_zone).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.operation).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project, var_managed_zone, var_operation,
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -1260,13 +1262,11 @@ impl super::stub::Policies for Policies {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/dns/v1/projects/{}/policies",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                );
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let path = format!("/dns/v1/projects/{}/policies", var_project,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req.client_operation_id.iter().fold(builder, |builder, p| {
@@ -1313,17 +1313,15 @@ impl super::stub::Policies for Policies {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/dns/v1/projects/{}/policies/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.policy).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                );
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_policy = try_match(
+                    Some(&req).map(|m| &m.policy).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let path = format!("/dns/v1/projects/{}/policies/{}", var_project, var_policy,);
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = req.client_operation_id.iter().fold(builder, |builder, p| {
@@ -1382,17 +1380,15 @@ impl super::stub::Policies for Policies {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/dns/v1/projects/{}/policies/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.policy).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                );
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_policy = try_match(
+                    Some(&req).map(|m| &m.policy).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let path = format!("/dns/v1/projects/{}/policies/{}", var_project, var_policy,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req.client_operation_id.iter().fold(builder, |builder, p| {
@@ -1445,13 +1441,11 @@ impl super::stub::Policies for Policies {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/dns/v1/projects/{}/policies",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                );
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let path = format!("/dns/v1/projects/{}/policies", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -1503,17 +1497,15 @@ impl super::stub::Policies for Policies {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/dns/v1/projects/{}/policies/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.policy).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                );
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_policy = try_match(
+                    Some(&req).map(|m| &m.policy).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let path = format!("/dns/v1/projects/{}/policies/{}", var_project, var_policy,);
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = req.client_operation_id.iter().fold(builder, |builder, p| {
@@ -1566,17 +1558,15 @@ impl super::stub::Policies for Policies {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/dns/v1/projects/{}/policies/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.policy).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                );
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_policy = try_match(
+                    Some(&req).map(|m| &m.policy).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let path = format!("/dns/v1/projects/{}/policies/{}", var_project, var_policy,);
 
                 let builder = self.inner.builder(Method::PUT, path);
                 let builder = req.client_operation_id.iter().fold(builder, |builder, p| {
@@ -1652,13 +1642,11 @@ impl super::stub::Projects for Projects {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/dns/v1/projects/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                );
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let path = format!("/dns/v1/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req.client_operation_id.iter().fold(builder, |builder, p| {
@@ -1728,16 +1716,17 @@ impl super::stub::ResourceRecordSets for ResourceRecordSets {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_managed_zone = try_match(
+                    Some(&req).map(|m| &m.managed_zone).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/dns/v1/projects/{}/managedZones/{}/rrsets",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.managed_zone).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project, var_managed_zone,
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -1791,24 +1780,25 @@ impl super::stub::ResourceRecordSets for ResourceRecordSets {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_managed_zone = try_match(
+                    Some(&req).map(|m| &m.managed_zone).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_type = try_match(
+                    Some(&req).map(|m| &m.r#type).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/dns/v1/projects/{}/managedZones/{}/rrsets/{}/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.managed_zone).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.r#type).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project, var_managed_zone, var_name, var_type,
                 );
 
                 let builder = self.inner.builder(Method::DELETE, path);
@@ -1843,7 +1833,7 @@ impl super::stub::ResourceRecordSets for ResourceRecordSets {
                     let builder = builder.maybe_add(
                         Some(&req).map(|m| &m.r#type).map(|s| s.as_str()),
                         &[Segment::SingleWildcard],
-                        "r#type",
+                        "type",
                         "*",
                     );
                     paths.push(builder.build());
@@ -1874,24 +1864,25 @@ impl super::stub::ResourceRecordSets for ResourceRecordSets {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_managed_zone = try_match(
+                    Some(&req).map(|m| &m.managed_zone).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_type = try_match(
+                    Some(&req).map(|m| &m.r#type).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/dns/v1/projects/{}/managedZones/{}/rrsets/{}/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.managed_zone).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.r#type).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project, var_managed_zone, var_name, var_type,
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -1926,7 +1917,7 @@ impl super::stub::ResourceRecordSets for ResourceRecordSets {
                     let builder = builder.maybe_add(
                         Some(&req).map(|m| &m.r#type).map(|s| s.as_str()),
                         &[Segment::SingleWildcard],
-                        "r#type",
+                        "type",
                         "*",
                     );
                     paths.push(builder.build());
@@ -1957,16 +1948,17 @@ impl super::stub::ResourceRecordSets for ResourceRecordSets {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_managed_zone = try_match(
+                    Some(&req).map(|m| &m.managed_zone).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/dns/v1/projects/{}/managedZones/{}/rrsets",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.managed_zone).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project, var_managed_zone,
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -2037,24 +2029,25 @@ impl super::stub::ResourceRecordSets for ResourceRecordSets {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_managed_zone = try_match(
+                    Some(&req).map(|m| &m.managed_zone).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_type = try_match(
+                    Some(&req).map(|m| &m.r#type).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/dns/v1/projects/{}/managedZones/{}/rrsets/{}/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.managed_zone).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.r#type).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project, var_managed_zone, var_name, var_type,
                 );
 
                 let builder = self.inner.builder(Method::PATCH, path);
@@ -2089,7 +2082,7 @@ impl super::stub::ResourceRecordSets for ResourceRecordSets {
                     let builder = builder.maybe_add(
                         Some(&req).map(|m| &m.r#type).map(|s| s.as_str()),
                         &[Segment::SingleWildcard],
-                        "r#type",
+                        "type",
                         "*",
                     );
                     paths.push(builder.build());
@@ -2143,13 +2136,11 @@ impl super::stub::ResponsePolicies for ResponsePolicies {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/dns/v1/projects/{}/responsePolicies",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                );
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let path = format!("/dns/v1/projects/{}/responsePolicies", var_project,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req.client_operation_id.iter().fold(builder, |builder, p| {
@@ -2196,16 +2187,17 @@ impl super::stub::ResponsePolicies for ResponsePolicies {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_response_policy = try_match(
+                    Some(&req).map(|m| &m.response_policy).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/dns/v1/projects/{}/responsePolicies/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.response_policy).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project, var_response_policy,
                 );
 
                 let builder = self.inner.builder(Method::DELETE, path);
@@ -2265,16 +2257,17 @@ impl super::stub::ResponsePolicies for ResponsePolicies {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_response_policy = try_match(
+                    Some(&req).map(|m| &m.response_policy).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/dns/v1/projects/{}/responsePolicies/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.response_policy).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project, var_response_policy,
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -2328,13 +2321,11 @@ impl super::stub::ResponsePolicies for ResponsePolicies {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/dns/v1/projects/{}/responsePolicies",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                );
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let path = format!("/dns/v1/projects/{}/responsePolicies", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -2386,16 +2377,17 @@ impl super::stub::ResponsePolicies for ResponsePolicies {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_response_policy = try_match(
+                    Some(&req).map(|m| &m.response_policy).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/dns/v1/projects/{}/responsePolicies/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.response_policy).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project, var_response_policy,
                 );
 
                 let builder = self.inner.builder(Method::PATCH, path);
@@ -2449,16 +2441,17 @@ impl super::stub::ResponsePolicies for ResponsePolicies {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_response_policy = try_match(
+                    Some(&req).map(|m| &m.response_policy).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/dns/v1/projects/{}/responsePolicies/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.response_policy).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project, var_response_policy,
                 );
 
                 let builder = self.inner.builder(Method::PUT, path);
@@ -2535,16 +2528,17 @@ impl super::stub::ResponsePolicyRules for ResponsePolicyRules {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_response_policy = try_match(
+                    Some(&req).map(|m| &m.response_policy).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/dns/v1/projects/{}/responsePolicies/{}/rules",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.response_policy).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project, var_response_policy,
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -2598,22 +2592,23 @@ impl super::stub::ResponsePolicyRules for ResponsePolicyRules {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_response_policy = try_match(
+                    Some(&req).map(|m| &m.response_policy).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_response_policy_rule = try_match(
+                    Some(&req)
+                        .map(|m| &m.response_policy_rule)
+                        .map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/dns/v1/projects/{}/responsePolicies/{}/rules/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.response_policy).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req)
-                            .map(|m| &m.response_policy_rule)
-                            .map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project, var_response_policy, var_response_policy_rule,
                 );
 
                 let builder = self.inner.builder(Method::DELETE, path);
@@ -2681,22 +2676,23 @@ impl super::stub::ResponsePolicyRules for ResponsePolicyRules {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_response_policy = try_match(
+                    Some(&req).map(|m| &m.response_policy).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_response_policy_rule = try_match(
+                    Some(&req)
+                        .map(|m| &m.response_policy_rule)
+                        .map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/dns/v1/projects/{}/responsePolicies/{}/rules/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.response_policy).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req)
-                            .map(|m| &m.response_policy_rule)
-                            .map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project, var_response_policy, var_response_policy_rule,
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -2758,16 +2754,17 @@ impl super::stub::ResponsePolicyRules for ResponsePolicyRules {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_response_policy = try_match(
+                    Some(&req).map(|m| &m.response_policy).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/dns/v1/projects/{}/responsePolicies/{}/rules",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.response_policy).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project, var_response_policy,
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -2826,22 +2823,23 @@ impl super::stub::ResponsePolicyRules for ResponsePolicyRules {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_response_policy = try_match(
+                    Some(&req).map(|m| &m.response_policy).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_response_policy_rule = try_match(
+                    Some(&req)
+                        .map(|m| &m.response_policy_rule)
+                        .map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/dns/v1/projects/{}/responsePolicies/{}/rules/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.response_policy).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req)
-                            .map(|m| &m.response_policy_rule)
-                            .map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project, var_response_policy, var_response_policy_rule,
                 );
 
                 let builder = self.inner.builder(Method::PATCH, path);
@@ -2903,22 +2901,23 @@ impl super::stub::ResponsePolicyRules for ResponsePolicyRules {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_response_policy = try_match(
+                    Some(&req).map(|m| &m.response_policy).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_response_policy_rule = try_match(
+                    Some(&req)
+                        .map(|m| &m.response_policy_rule)
+                        .map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/dns/v1/projects/{}/responsePolicies/{}/rules/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.response_policy).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req)
-                            .map(|m| &m.response_policy_rule)
-                            .map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project, var_response_policy, var_response_policy_rule,
                 );
 
                 let builder = self.inner.builder(Method::PUT, path);
