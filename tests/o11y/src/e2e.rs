@@ -12,27 +12,42 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+pub mod metrics;
+pub mod resource_detector;
 pub mod showcase;
 pub mod storage;
 
+use super::otlp::metrics::Builder as MeterProviderBuilder;
 use super::otlp::trace::Builder as TracerProviderBuilder;
-use google_cloud_auth::credentials::Builder as CredentialsBuilder;
+use google_cloud_auth::credentials::{Builder as CredentialsBuilder, Credentials};
 use google_cloud_gax::error::rpc::Code;
+use google_cloud_monitoring_v3::client::MetricService;
+use google_cloud_monitoring_v3::model::{ListTimeSeriesResponse, TimeInterval};
 use google_cloud_trace_v1::client::TraceService;
 use google_cloud_trace_v1::model::Trace;
+use google_cloud_wkt::Timestamp;
+use opentelemetry_sdk::metrics::SdkMeterProvider;
+use opentelemetry_sdk::resource::ResourceDetector;
 use opentelemetry_sdk::trace::SdkTracerProvider;
+use std::time::{Duration, SystemTime};
 use tokio::sync::OnceCell;
 use tracing_subscriber::layer::SubscriberExt;
 
 pub const SERVICE_NAME: &str = "e2e-telemetry-test";
-static PROVIDER: OnceCell<anyhow::Result<SdkTracerProvider>> = OnceCell::const_new();
+static TRACER_PROVIDER: OnceCell<anyhow::Result<SdkTracerProvider>> = OnceCell::const_new();
+static METER_PROVIDER: OnceCell<anyhow::Result<SdkMeterProvider>> = OnceCell::const_new();
+static CREDENTIALS: OnceCell<anyhow::Result<Credentials>> = OnceCell::const_new();
 
 /// Waits for a trace to appear in Cloud Trace.
 ///
 /// Traces may take a few minutes to propagate from the collector endpoints to
 /// the service. This function retrieves the trace, polling if the trace is
 /// not found.
-pub async fn wait_for_trace(project_id: &str, trace_id: &str) -> anyhow::Result<Trace> {
+pub async fn wait_for_trace(
+    project_id: &str,
+    trace_id: &str,
+    required_spans: usize,
+) -> anyhow::Result<Trace> {
     let client = TraceService::builder().build().await?;
 
     // Because we are limited by quota, start with a backoff.
@@ -51,10 +66,14 @@ pub async fn wait_for_trace(project_id: &str, trace_id: &str) -> anyhow::Result<
             .send()
             .await
         {
-            Ok(t) => {
+            Ok(t) if t.spans.len() >= required_spans => {
                 trace = Some(t);
                 break;
             }
+            Ok(t) => println!(
+                "Trace found but only has {} spans, we want at least {required_spans}",
+                t.spans.len()
+            ),
             Err(e) => {
                 if let Some(status) = e.status() {
                     if status.code == Code::NotFound || status.code == Code::Internal {
@@ -74,14 +93,35 @@ pub async fn wait_for_trace(project_id: &str, trace_id: &str) -> anyhow::Result<
     Ok(trace)
 }
 
+pub async fn try_get_metric(
+    client: &MetricService,
+    project_id: &str,
+    metric_name: &str,
+    label: (&str, &str),
+) -> anyhow::Result<Option<ListTimeSeriesResponse>> {
+    let end = Timestamp::try_from(SystemTime::now())?;
+    let start = Timestamp::try_from(SystemTime::now() - Duration::from_secs(300))?;
+    let (key, value) = label;
+    let response = client
+        .list_time_series()
+        .set_name(format!("projects/{project_id}"))
+        .set_interval(TimeInterval::new().set_end_time(end).set_start_time(start))
+        .set_filter(format!(
+            r#"metric.type = "{metric_name}" AND metric.label.{key} = "{value}""#
+        ))
+        .send()
+        .await?;
+    Ok(Some(response))
+}
+
 /// Sets up a OTLP tracing provider to use with Cloud Trace.
 ///
 /// This function configures a global OpenTelemetry provider that sends traces
 /// to Cloud Trace via the OTLP endpoint (telemetry.googleapis.com). Only the
 /// first call creates a provider. All the tests will use the same provider.
-pub async fn set_up_otel_provider(project_id: &str) -> anyhow::Result<&SdkTracerProvider> {
-    PROVIDER
-        .get_or_init(|| self::new_provider(project_id))
+pub async fn set_up_tracer_provider(project_id: &str) -> anyhow::Result<&SdkTracerProvider> {
+    TRACER_PROVIDER
+        .get_or_init(|| self::new_tracer_provider(project_id))
         .await
         // `get_or_init()` returns a `&Result<T>` so we need some mapping.
         .as_ref()
@@ -89,25 +129,22 @@ pub async fn set_up_otel_provider(project_id: &str) -> anyhow::Result<&SdkTracer
         .map_err(|e| anyhow::anyhow!("badly initialized provider: {e:?}"))
 }
 
-/// Creates a new provider for the tests.
+/// Creates a new tracer provider for the tests.
 ///
-/// This uses ADC, and configure a quota project for user credentials because
+/// This uses ADC, and configures a quota project for user credentials because
 /// telemetry endpoint rejects user credentials without the quota user project.
 ///
 /// Note that some other services reject requests *with* a quota user project.
-/// Therefore, we cannot require that the credentials have a quota user prorject
+/// Therefore, we cannot require that the credentials have a quota user project
 /// set.
-async fn new_provider(project_id: &str) -> anyhow::Result<SdkTracerProvider> {
-    let credentials = CredentialsBuilder::default().build()?;
-    let credentials = if format!("{credentials:?}").contains("UserCredentials") {
-        CredentialsBuilder::default()
-            .with_quota_project_id(project_id)
-            .build()?
-    } else {
-        credentials
-    };
+async fn new_tracer_provider(project_id: &str) -> anyhow::Result<SdkTracerProvider> {
+    let credentials = CREDENTIALS
+        .get_or_init(|| self::new_credentials(project_id))
+        .await
+        .as_ref()
+        .map_err(|e| anyhow::anyhow!("cannot create credentials: {e:?}"))?;
     let provider = TracerProviderBuilder::new(project_id, SERVICE_NAME)
-        .with_credentials(credentials)
+        .with_credentials(credentials.clone())
         .build()
         .await?;
 
@@ -117,4 +154,67 @@ async fn new_provider(project_id: &str) -> anyhow::Result<SdkTracerProvider> {
     );
 
     Ok(provider)
+}
+
+/// Sets up a OTLP meter provider to use with Cloud Monitoring.
+///
+/// This function configures a global OpenTelemetry provider that sends metrics
+/// to Cloud Monitoring via the OTLP endpoint (telemetry.googleapis.com). Only
+/// the first call creates a provider. All the tests will use the same provider.
+pub async fn set_up_meter_provider<D>(
+    project_id: &str,
+    detector: D,
+) -> anyhow::Result<&SdkMeterProvider>
+where
+    D: ResourceDetector + 'static,
+{
+    METER_PROVIDER
+        .get_or_init(|| self::new_meter_provider(project_id, detector))
+        .await
+        // `get_or_init()` returns a `&Result<T>` so we need some mapping.
+        .as_ref()
+        // Cannot clone anyhow::Error, so do this instead:
+        .map_err(|e| anyhow::anyhow!("badly initialized provider: {e:?}"))
+}
+
+/// Creates a new meter provider for the tests.
+///
+/// This uses ADC, and configures a quota project for user credentials because
+/// telemetry endpoint rejects user credentials without the quota user project.
+///
+/// Note that some other services reject requests *with* a quota user project.
+/// Therefore, we cannot require that the credentials have a quota user project
+/// set.
+async fn new_meter_provider<D>(project_id: &str, detector: D) -> anyhow::Result<SdkMeterProvider>
+where
+    D: ResourceDetector + 'static,
+{
+    let credentials = CREDENTIALS
+        .get_or_init(|| self::new_credentials(project_id))
+        .await
+        .as_ref()
+        .map_err(|e| anyhow::anyhow!("cannot create credentials: {e:?}"))?;
+    let provider = MeterProviderBuilder::new(project_id, SERVICE_NAME)
+        .with_credentials(credentials.clone())
+        .with_detector(detector)
+        .build()
+        .await?;
+
+    // Install the provider, making it available to tests and the client
+    // libraries.
+    opentelemetry::global::set_meter_provider(provider.clone());
+
+    Ok(provider)
+}
+
+async fn new_credentials(project_id: &str) -> anyhow::Result<Credentials> {
+    let credentials = CredentialsBuilder::default().build()?;
+    let credentials = if format!("{credentials:?}").contains("UserCredentials") {
+        CredentialsBuilder::default()
+            .with_quota_project_id(project_id)
+            .build()?
+    } else {
+        credentials
+    };
+    Ok(credentials)
 }

@@ -21,10 +21,13 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_aiplatform_v1::client::DataFoundryService;
-/// let client = DataFoundryService::builder().build().await?;
-/// // use `client` to make requests to the Vertex AI API.
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = DataFoundryService::builder().build().await?;
+///     let response = client.generate_synthetic_data()
+///         /* set fields */
+///         .send().await?;
+///     println!("response {:?}", response);
 /// # Ok(()) }
 /// ```
 ///
@@ -375,10 +378,17 @@ impl DataFoundryService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_aiplatform_v1::client::DatasetService;
-/// let client = DatasetService::builder().build().await?;
-/// // use `client` to make requests to the Vertex AI API.
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = DatasetService::builder().build().await?;
+///     let parent = "parent_value";
+///     let mut list = client.list_datasets()
+///         .set_parent(parent)
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
 /// # Ok(()) }
 /// ```
 ///
@@ -1211,10 +1221,17 @@ impl DatasetService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_aiplatform_v1::client::DeploymentResourcePoolService;
-/// let client = DeploymentResourcePoolService::builder().build().await?;
-/// // use `client` to make requests to the Vertex AI API.
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = DeploymentResourcePoolService::builder().build().await?;
+///     let parent = "parent_value";
+///     let mut list = client.list_deployment_resource_pools()
+///         .set_parent(parent)
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
 /// # Ok(()) }
 /// ```
 ///
@@ -1746,10 +1763,17 @@ impl DeploymentResourcePoolService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_aiplatform_v1::client::EndpointService;
-/// let client = EndpointService::builder().build().await?;
-/// // use `client` to make requests to the Vertex AI API.
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = EndpointService::builder().build().await?;
+///     let parent = "parent_value";
+///     let mut list = client.list_endpoints()
+///         .set_parent(parent)
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
 /// # Ok(()) }
 /// ```
 ///
@@ -2342,10 +2366,13 @@ impl EndpointService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_aiplatform_v1::client::EvaluationService;
-/// let client = EvaluationService::builder().build().await?;
-/// // use `client` to make requests to the Vertex AI API.
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = EvaluationService::builder().build().await?;
+///     let response = client.evaluate_instances()
+///         /* set fields */
+///         .send().await?;
+///     println!("response {:?}", response);
 /// # Ok(()) }
 /// ```
 ///
@@ -2694,10 +2721,17 @@ impl EvaluationService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_aiplatform_v1::client::FeatureOnlineStoreAdminService;
-/// let client = FeatureOnlineStoreAdminService::builder().build().await?;
-/// // use `client` to make requests to the Vertex AI API.
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = FeatureOnlineStoreAdminService::builder().build().await?;
+///     let parent = "parent_value";
+///     let mut list = client.list_feature_online_stores()
+///         .set_parent(parent)
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
 /// # Ok(()) }
 /// ```
 ///
@@ -3452,10 +3486,13 @@ impl FeatureOnlineStoreAdminService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_aiplatform_v1::client::FeatureOnlineStoreService;
-/// let client = FeatureOnlineStoreService::builder().build().await?;
-/// // use `client` to make requests to the Vertex AI API.
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = FeatureOnlineStoreService::builder().build().await?;
+///     let response = client.fetch_feature_values()
+///         /* set fields */
+///         .send().await?;
+///     println!("response {:?}", response);
 /// # Ok(()) }
 /// ```
 ///
@@ -3862,10 +3899,17 @@ impl FeatureOnlineStoreService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_aiplatform_v1::client::FeatureRegistryService;
-/// let client = FeatureRegistryService::builder().build().await?;
-/// // use `client` to make requests to the Vertex AI API.
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = FeatureRegistryService::builder().build().await?;
+///     let parent = "parent_value";
+///     let mut list = client.list_feature_groups()
+///         .set_parent(parent)
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
 /// # Ok(()) }
 /// ```
 ///
@@ -4529,10 +4573,13 @@ impl FeatureRegistryService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_aiplatform_v1::client::FeaturestoreOnlineServingService;
-/// let client = FeaturestoreOnlineServingService::builder().build().await?;
-/// // use `client` to make requests to the Vertex AI API.
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = FeaturestoreOnlineServingService::builder().build().await?;
+///     let response = client.read_feature_values()
+///         /* set fields */
+///         .send().await?;
+///     println!("response {:?}", response);
 /// # Ok(()) }
 /// ```
 ///
@@ -4942,10 +4989,17 @@ impl FeaturestoreOnlineServingService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_aiplatform_v1::client::FeaturestoreService;
-/// let client = FeaturestoreService::builder().build().await?;
-/// // use `client` to make requests to the Vertex AI API.
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = FeaturestoreService::builder().build().await?;
+///     let parent = "parent_value";
+///     let mut list = client.list_featurestores()
+///         .set_parent(parent)
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
 /// # Ok(()) }
 /// ```
 ///
@@ -5912,10 +5966,17 @@ impl FeaturestoreService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_aiplatform_v1::client::GenAiCacheService;
-/// let client = GenAiCacheService::builder().build().await?;
-/// // use `client` to make requests to the Vertex AI API.
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = GenAiCacheService::builder().build().await?;
+///     let parent = "parent_value";
+///     let mut list = client.list_cached_contents()
+///         .set_parent(parent)
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
 /// # Ok(()) }
 /// ```
 ///
@@ -6363,10 +6424,17 @@ impl GenAiCacheService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_aiplatform_v1::client::GenAiTuningService;
-/// let client = GenAiTuningService::builder().build().await?;
-/// // use `client` to make requests to the Vertex AI API.
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = GenAiTuningService::builder().build().await?;
+///     let parent = "parent_value";
+///     let mut list = client.list_tuning_jobs()
+///         .set_parent(parent)
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
 /// # Ok(()) }
 /// ```
 ///
@@ -6831,10 +6899,17 @@ impl GenAiTuningService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_aiplatform_v1::client::IndexEndpointService;
-/// let client = IndexEndpointService::builder().build().await?;
-/// // use `client` to make requests to the Vertex AI API.
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = IndexEndpointService::builder().build().await?;
+///     let parent = "parent_value";
+///     let mut list = client.list_index_endpoints()
+///         .set_parent(parent)
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
 /// # Ok(()) }
 /// ```
 ///
@@ -7405,10 +7480,17 @@ impl IndexEndpointService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_aiplatform_v1::client::IndexService;
-/// let client = IndexService::builder().build().await?;
-/// // use `client` to make requests to the Vertex AI API.
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = IndexService::builder().build().await?;
+///     let parent = "parent_value";
+///     let mut list = client.list_indexes()
+///         .set_parent(parent)
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
 /// # Ok(()) }
 /// ```
 ///
@@ -7926,10 +8008,17 @@ impl IndexService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_aiplatform_v1::client::JobService;
-/// let client = JobService::builder().build().await?;
-/// // use `client` to make requests to the Vertex AI API.
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = JobService::builder().build().await?;
+///     let parent = "parent_value";
+///     let mut list = client.list_custom_jobs()
+///         .set_parent(parent)
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
 /// # Ok(()) }
 /// ```
 ///
@@ -9188,10 +9277,13 @@ impl JobService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_aiplatform_v1::client::LlmUtilityService;
-/// let client = LlmUtilityService::builder().build().await?;
-/// // use `client` to make requests to the Vertex AI API.
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = LlmUtilityService::builder().build().await?;
+///     let response = client.count_tokens()
+///         /* set fields */
+///         .send().await?;
+///     println!("response {:?}", response);
 /// # Ok(()) }
 /// ```
 ///
@@ -9560,10 +9652,13 @@ impl LlmUtilityService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_aiplatform_v1::client::MatchService;
-/// let client = MatchService::builder().build().await?;
-/// // use `client` to make requests to the Vertex AI API.
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = MatchService::builder().build().await?;
+///     let response = client.find_neighbors()
+///         /* set fields */
+///         .send().await?;
+///     println!("response {:?}", response);
 /// # Ok(()) }
 /// ```
 ///
@@ -9933,10 +10028,17 @@ impl MatchService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_aiplatform_v1::client::MetadataService;
-/// let client = MetadataService::builder().build().await?;
-/// // use `client` to make requests to the Vertex AI API.
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = MetadataService::builder().build().await?;
+///     let parent = "parent_value";
+///     let mut list = client.list_metadata_stores()
+///         .set_parent(parent)
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
 /// # Ok(()) }
 /// ```
 ///
@@ -11070,10 +11172,16 @@ impl MetadataService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_aiplatform_v1::client::MigrationService;
-/// let client = MigrationService::builder().build().await?;
-/// // use `client` to make requests to the Vertex AI API.
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = MigrationService::builder().build().await?;
+///     let mut list = client.search_migratable_resources()
+///         /* set fields */
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
 /// # Ok(()) }
 /// ```
 ///
@@ -11464,10 +11572,14 @@ impl MigrationService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_aiplatform_v1::client::ModelGardenService;
-/// let client = ModelGardenService::builder().build().await?;
-/// // use `client` to make requests to the Vertex AI API.
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = ModelGardenService::builder().build().await?;
+///     let name = "name_value";
+///     let response = client.get_publisher_model()
+///         .set_name(name)
+///         .send().await?;
+///     println!("response {:?}", response);
 /// # Ok(()) }
 /// ```
 ///
@@ -11847,10 +11959,17 @@ impl ModelGardenService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_aiplatform_v1::client::ModelService;
-/// let client = ModelService::builder().build().await?;
-/// // use `client` to make requests to the Vertex AI API.
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = ModelService::builder().build().await?;
+///     let parent = "parent_value";
+///     let mut list = client.list_models()
+///         .set_parent(parent)
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
 /// # Ok(()) }
 /// ```
 ///
@@ -12687,10 +12806,17 @@ impl ModelService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_aiplatform_v1::client::NotebookService;
-/// let client = NotebookService::builder().build().await?;
-/// // use `client` to make requests to the Vertex AI API.
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = NotebookService::builder().build().await?;
+///     let parent = "parent_value";
+///     let mut list = client.list_notebook_runtime_templates()
+///         .set_parent(parent)
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
 /// # Ok(()) }
 /// ```
 ///
@@ -13482,10 +13608,17 @@ impl NotebookService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_aiplatform_v1::client::PersistentResourceService;
-/// let client = PersistentResourceService::builder().build().await?;
-/// // use `client` to make requests to the Vertex AI API.
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = PersistentResourceService::builder().build().await?;
+///     let parent = "parent_value";
+///     let mut list = client.list_persistent_resources()
+///         .set_parent(parent)
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
 /// # Ok(()) }
 /// ```
 ///
@@ -14015,10 +14148,17 @@ impl PersistentResourceService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_aiplatform_v1::client::PipelineService;
-/// let client = PipelineService::builder().build().await?;
-/// // use `client` to make requests to the Vertex AI API.
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = PipelineService::builder().build().await?;
+///     let parent = "parent_value";
+///     let mut list = client.list_training_pipelines()
+///         .set_parent(parent)
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
 /// # Ok(()) }
 /// ```
 ///
@@ -14698,10 +14838,13 @@ impl PipelineService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_aiplatform_v1::client::PredictionService;
-/// let client = PredictionService::builder().build().await?;
-/// // use `client` to make requests to the Vertex AI API.
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = PredictionService::builder().build().await?;
+///     let response = client.predict()
+///         /* set fields */
+///         .send().await?;
+///     println!("response {:?}", response);
 /// # Ok(()) }
 /// ```
 ///
@@ -15199,10 +15342,13 @@ impl PredictionService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_aiplatform_v1::client::ReasoningEngineExecutionService;
-/// let client = ReasoningEngineExecutionService::builder().build().await?;
-/// // use `client` to make requests to the Vertex AI API.
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = ReasoningEngineExecutionService::builder().build().await?;
+///     let response = client.query_reasoning_engine()
+///         /* set fields */
+///         .send().await?;
+///     println!("response {:?}", response);
 /// # Ok(()) }
 /// ```
 ///
@@ -15578,10 +15724,17 @@ impl ReasoningEngineExecutionService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_aiplatform_v1::client::ReasoningEngineService;
-/// let client = ReasoningEngineService::builder().build().await?;
-/// // use `client` to make requests to the Vertex AI API.
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = ReasoningEngineService::builder().build().await?;
+///     let parent = "parent_value";
+///     let mut list = client.list_reasoning_engines()
+///         .set_parent(parent)
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
 /// # Ok(()) }
 /// ```
 ///
@@ -16067,10 +16220,17 @@ impl ReasoningEngineService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_aiplatform_v1::client::ScheduleService;
-/// let client = ScheduleService::builder().build().await?;
-/// // use `client` to make requests to the Vertex AI API.
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = ScheduleService::builder().build().await?;
+///     let parent = "parent_value";
+///     let mut list = client.list_schedules()
+///         .set_parent(parent)
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
 /// # Ok(()) }
 /// ```
 ///
@@ -16582,10 +16742,546 @@ impl ScheduleService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
+/// # use google_cloud_aiplatform_v1::client::SessionService;
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = SessionService::builder().build().await?;
+///     let parent = "parent_value";
+///     let mut list = client.list_sessions()
+///         .set_parent(parent)
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
+/// # Ok(()) }
+/// ```
+///
+/// # Service Description
+///
+/// The service that manages Vertex Session related resources.
+///
+/// # Configuration
+///
+/// To configure `SessionService` use the `with_*` methods in the type returned
+/// by [builder()][SessionService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://aiplatform.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::session_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::session_service::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `SessionService` holds a connection pool internally, it is advised to
+/// create one and the reuse it.  You do not need to wrap `SessionService` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[cfg(feature = "session-service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "session-service")))]
+#[derive(Clone, Debug)]
+pub struct SessionService {
+    inner: std::sync::Arc<dyn super::stub::dynamic::SessionService>,
+}
+
+#[cfg(feature = "session-service")]
+impl SessionService {
+    /// Returns a builder for [SessionService].
+    ///
+    /// ```
+    /// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
+    /// # use google_cloud_aiplatform_v1::client::SessionService;
+    /// let client = SessionService::builder().build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn builder() -> super::builder::session_service::ClientBuilder {
+        crate::new_client_builder(super::builder::session_service::client::Factory)
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: T) -> Self
+    where
+        T: super::stub::SessionService + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<std::sync::Arc<dyn super::stub::dynamic::SessionService>> {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::SessionService> {
+        super::transport::SessionService::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> crate::ClientBuilderResult<impl super::stub::SessionService> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::SessionService::new)
+    }
+
+    /// Creates a new [Session][google.cloud.aiplatform.v1.Session].
+    ///
+    /// [google.cloud.aiplatform.v1.Session]: crate::model::Session
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::SessionService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::model::Session;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &SessionService, parent: &str
+    /// ) -> Result<()> {
+    ///     let response = client.create_session()
+    ///         .set_parent(parent)
+    ///         .set_session(
+    ///             Session::new()/* set fields */
+    ///         )
+    ///         .poller().until_done().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn create_session(&self) -> super::builder::session_service::CreateSession {
+        super::builder::session_service::CreateSession::new(self.inner.clone())
+    }
+
+    /// Gets details of the specific [Session][google.cloud.aiplatform.v1.Session].
+    ///
+    /// [google.cloud.aiplatform.v1.Session]: crate::model::Session
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::SessionService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &SessionService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.get_session()
+    ///         .set_name(name)
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_session(&self) -> super::builder::session_service::GetSession {
+        super::builder::session_service::GetSession::new(self.inner.clone())
+    }
+
+    /// Lists [Sessions][google.cloud.aiplatform.v1.Session] in a given reasoning
+    /// engine.
+    ///
+    /// [google.cloud.aiplatform.v1.Session]: crate::model::Session
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::SessionService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &SessionService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_sessions()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_sessions(&self) -> super::builder::session_service::ListSessions {
+        super::builder::session_service::ListSessions::new(self.inner.clone())
+    }
+
+    /// Updates the specific [Session][google.cloud.aiplatform.v1.Session].
+    ///
+    /// [google.cloud.aiplatform.v1.Session]: crate::model::Session
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::SessionService;
+    /// # extern crate wkt as google_cloud_wkt;
+    /// use google_cloud_wkt::FieldMask;
+    /// use google_cloud_aiplatform_v1::model::Session;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &SessionService, name: &str
+    /// ) -> Result<()> {
+    ///     let response = client.update_session()
+    ///         .set_session(
+    ///             Session::new().set_name(name)/* set fields */
+    ///         )
+    ///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn update_session(&self) -> super::builder::session_service::UpdateSession {
+        super::builder::session_service::UpdateSession::new(self.inner.clone())
+    }
+
+    /// Deletes details of the specific
+    /// [Session][google.cloud.aiplatform.v1.Session].
+    ///
+    /// [google.cloud.aiplatform.v1.Session]: crate::model::Session
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::SessionService;
+    /// use google_cloud_lro::Poller;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &SessionService, name: &str
+    /// ) -> Result<()> {
+    ///     client.delete_session()
+    ///         .set_name(name)
+    ///         .poller().until_done().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_session(&self) -> super::builder::session_service::DeleteSession {
+        super::builder::session_service::DeleteSession::new(self.inner.clone())
+    }
+
+    /// Lists [Events][google.cloud.aiplatform.v1.Event] in a given session.
+    ///
+    /// [google.cloud.aiplatform.v1.Event]: crate::model::Event
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::SessionService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &SessionService, parent: &str
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_events()
+    ///         .set_parent(parent)
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_events(&self) -> super::builder::session_service::ListEvents {
+        super::builder::session_service::ListEvents::new(self.inner.clone())
+    }
+
+    /// Appends an event to a given session.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::SessionService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &SessionService
+    /// ) -> Result<()> {
+    ///     let response = client.append_event()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn append_event(&self) -> super::builder::session_service::AppendEvent {
+        super::builder::session_service::AppendEvent::new(self.inner.clone())
+    }
+
+    /// Lists information about the supported locations for this service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::SessionService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &SessionService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_locations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_locations(&self) -> super::builder::session_service::ListLocations {
+        super::builder::session_service::ListLocations::new(self.inner.clone())
+    }
+
+    /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::SessionService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &SessionService
+    /// ) -> Result<()> {
+    ///     let response = client.get_location()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_location(&self) -> super::builder::session_service::GetLocation {
+        super::builder::session_service::GetLocation::new(self.inner.clone())
+    }
+
+    /// Sets the access control policy on the specified resource. Replaces
+    /// any existing policy.
+    ///
+    /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
+    /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::SessionService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &SessionService
+    /// ) -> Result<()> {
+    ///     let response = client.set_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn set_iam_policy(&self) -> super::builder::session_service::SetIamPolicy {
+        super::builder::session_service::SetIamPolicy::new(self.inner.clone())
+    }
+
+    /// Gets the access control policy for a resource. Returns an empty policy
+    /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::SessionService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &SessionService
+    /// ) -> Result<()> {
+    ///     let response = client.get_iam_policy()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_iam_policy(&self) -> super::builder::session_service::GetIamPolicy {
+        super::builder::session_service::GetIamPolicy::new(self.inner.clone())
+    }
+
+    /// Returns permissions that a caller has on the specified resource. If the
+    /// resource does not exist, this will return an empty set of
+    /// permissions, not a `NOT_FOUND` error.
+    ///
+    /// Note: This operation is designed to be used for building
+    /// permission-aware UIs and command-line tools, not for authorization
+    /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::SessionService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &SessionService
+    /// ) -> Result<()> {
+    ///     let response = client.test_iam_permissions()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn test_iam_permissions(&self) -> super::builder::session_service::TestIamPermissions {
+        super::builder::session_service::TestIamPermissions::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::SessionService;
+    /// use google_cloud_gax::paginator::ItemPaginator as _;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &SessionService
+    /// ) -> Result<()> {
+    ///     let mut list = client.list_operations()
+    ///         /* set fields */
+    ///         .by_item();
+    ///     while let Some(item) = list.next().await.transpose()? {
+    ///         println!("{:?}", item);
+    ///     }
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn list_operations(&self) -> super::builder::session_service::ListOperations {
+        super::builder::session_service::ListOperations::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::SessionService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &SessionService
+    /// ) -> Result<()> {
+    ///     let response = client.get_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn get_operation(&self) -> super::builder::session_service::GetOperation {
+        super::builder::session_service::GetOperation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::SessionService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &SessionService
+    /// ) -> Result<()> {
+    ///     client.delete_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn delete_operation(&self) -> super::builder::session_service::DeleteOperation {
+        super::builder::session_service::DeleteOperation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::SessionService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &SessionService
+    /// ) -> Result<()> {
+    ///     client.cancel_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn cancel_operation(&self) -> super::builder::session_service::CancelOperation {
+        super::builder::session_service::CancelOperation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: google-cloud-longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::SessionService;
+    /// use google_cloud_aiplatform_v1::Result;
+    /// async fn sample(
+    ///    client: &SessionService
+    /// ) -> Result<()> {
+    ///     let response = client.wait_operation()
+    ///         /* set fields */
+    ///         .send().await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
+    pub fn wait_operation(&self) -> super::builder::session_service::WaitOperation {
+        super::builder::session_service::WaitOperation::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the Vertex AI API.
+///
+/// # Example
+/// ```
 /// # use google_cloud_aiplatform_v1::client::SpecialistPoolService;
-/// let client = SpecialistPoolService::builder().build().await?;
-/// // use `client` to make requests to the Vertex AI API.
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = SpecialistPoolService::builder().build().await?;
+///     let parent = "parent_value";
+///     let mut list = client.list_specialist_pools()
+///         .set_parent(parent)
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
 /// # Ok(()) }
 /// ```
 ///
@@ -17076,10 +17772,17 @@ impl SpecialistPoolService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_aiplatform_v1::client::TensorboardService;
-/// let client = TensorboardService::builder().build().await?;
-/// // use `client` to make requests to the Vertex AI API.
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = TensorboardService::builder().build().await?;
+///     let parent = "parent_value";
+///     let mut list = client.list_tensorboards()
+///         .set_parent(parent)
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
 /// # Ok(()) }
 /// ```
 ///
@@ -18168,10 +18871,17 @@ impl TensorboardService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_aiplatform_v1::client::VertexRagDataService;
-/// let client = VertexRagDataService::builder().build().await?;
-/// // use `client` to make requests to the Vertex AI API.
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = VertexRagDataService::builder().build().await?;
+///     let parent = "parent_value";
+///     let mut list = client.list_rag_corpora()
+///         .set_parent(parent)
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
 /// # Ok(()) }
 /// ```
 ///
@@ -18826,10 +19536,13 @@ impl VertexRagDataService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_aiplatform_v1::client::VertexRagService;
-/// let client = VertexRagService::builder().build().await?;
-/// // use `client` to make requests to the Vertex AI API.
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = VertexRagService::builder().build().await?;
+///     let response = client.retrieve_contexts()
+///         /* set fields */
+///         .send().await?;
+///     println!("response {:?}", response);
 /// # Ok(()) }
 /// ```
 ///
@@ -19221,10 +19934,17 @@ impl VertexRagService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_aiplatform_v1::client::VizierService;
-/// let client = VizierService::builder().build().await?;
-/// // use `client` to make requests to the Vertex AI API.
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = VizierService::builder().build().await?;
+///     let parent = "parent_value";
+///     let mut list = client.list_studies()
+///         .set_parent(parent)
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
 /// # Ok(()) }
 /// ```
 ///

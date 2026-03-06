@@ -42,6 +42,7 @@
     feature = "reasoning-engine-execution-service",
     feature = "reasoning-engine-service",
     feature = "schedule-service",
+    feature = "session-service",
     feature = "specialist-pool-service",
     feature = "tensorboard-service",
     feature = "vertex-rag-data-service",
@@ -5843,6 +5844,199 @@ where
         options: crate::RequestOptions,
     ) -> Result<crate::Response<crate::model::Schedule>> {
         self.inner.update_schedule(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn list_locations(
+        &self,
+        req: google_cloud_location::model::ListLocationsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_location::model::ListLocationsResponse>> {
+        self.inner.list_locations(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get_location(
+        &self,
+        req: google_cloud_location::model::GetLocationRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_location::model::Location>> {
+        self.inner.get_location(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn set_iam_policy(
+        &self,
+        req: google_cloud_iam_v1::model::SetIamPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
+        self.inner.set_iam_policy(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get_iam_policy(
+        &self,
+        req: google_cloud_iam_v1::model::GetIamPolicyRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::Policy>> {
+        self.inner.get_iam_policy(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn test_iam_permissions(
+        &self,
+        req: google_cloud_iam_v1::model::TestIamPermissionsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_iam_v1::model::TestIamPermissionsResponse>> {
+        self.inner.test_iam_permissions(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn list_operations(
+        &self,
+        req: google_cloud_longrunning::model::ListOperationsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::ListOperationsResponse>> {
+        self.inner.list_operations(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get_operation(
+        &self,
+        req: google_cloud_longrunning::model::GetOperationRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        self.inner.get_operation(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn delete_operation(
+        &self,
+        req: google_cloud_longrunning::model::DeleteOperationRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
+        self.inner.delete_operation(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn cancel_operation(
+        &self,
+        req: google_cloud_longrunning::model::CancelOperationRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<()>> {
+        self.inner.cancel_operation(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn wait_operation(
+        &self,
+        req: google_cloud_longrunning::model::WaitOperationRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        self.inner.wait_operation(req, options).await
+    }
+
+    fn get_polling_error_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_error_policy::PollingErrorPolicy> {
+        self.inner.get_polling_error_policy(options)
+    }
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &crate::RequestOptions,
+    ) -> std::sync::Arc<dyn google_cloud_gax::polling_backoff_policy::PollingBackoffPolicy> {
+        self.inner.get_polling_backoff_policy(options)
+    }
+}
+
+/// Implements a [SessionService](super::stub::SessionService) decorator for logging and tracing.
+#[cfg(feature = "session-service")]
+#[derive(Clone, Debug)]
+pub struct SessionService<T>
+where
+    T: super::stub::SessionService + std::fmt::Debug + Send + Sync,
+{
+    inner: T,
+}
+
+#[cfg(feature = "session-service")]
+impl<T> SessionService<T>
+where
+    T: super::stub::SessionService + std::fmt::Debug + Send + Sync,
+{
+    pub fn new(inner: T) -> Self {
+        Self { inner }
+    }
+}
+
+#[cfg(feature = "session-service")]
+impl<T> super::stub::SessionService for SessionService<T>
+where
+    T: super::stub::SessionService + std::fmt::Debug + Send + Sync,
+{
+    #[tracing::instrument(ret)]
+    async fn create_session(
+        &self,
+        req: crate::model::CreateSessionRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        self.inner.create_session(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get_session(
+        &self,
+        req: crate::model::GetSessionRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Session>> {
+        self.inner.get_session(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn list_sessions(
+        &self,
+        req: crate::model::ListSessionsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListSessionsResponse>> {
+        self.inner.list_sessions(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn update_session(
+        &self,
+        req: crate::model::UpdateSessionRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::Session>> {
+        self.inner.update_session(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn delete_session(
+        &self,
+        req: crate::model::DeleteSessionRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
+        self.inner.delete_session(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn list_events(
+        &self,
+        req: crate::model::ListEventsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListEventsResponse>> {
+        self.inner.list_events(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn append_event(
+        &self,
+        req: crate::model::AppendEventRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::AppendEventResponse>> {
+        self.inner.append_event(req, options).await
     }
 
     #[tracing::instrument(ret)]

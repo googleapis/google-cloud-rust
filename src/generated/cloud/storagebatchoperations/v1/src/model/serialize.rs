@@ -374,6 +374,9 @@ impl serde::ser::Serialize for super::Job {
         if let Some(value) = self.rewrite_object() {
             state.serialize_entry("rewriteObject", value)?;
         }
+        if let Some(value) = self.update_object_custom_context() {
+            state.serialize_entry("updateObjectCustomContext", value)?;
+        }
         if self.logging_config.is_some() {
             state.serialize_entry("loggingConfig", &self.logging_config)?;
         }
@@ -443,6 +446,9 @@ impl serde::ser::Serialize for super::BucketOperation {
         }
         if let Some(value) = self.rewrite_object() {
             state.serialize_entry("rewriteObject", value)?;
+        }
+        if let Some(value) = self.update_object_custom_context() {
+            state.serialize_entry("updateObjectCustomContext", value)?;
         }
         if self.create_time.is_some() {
             state.serialize_entry("createTime", &self.create_time)?;
@@ -695,6 +701,78 @@ impl serde::ser::Serialize for super::PutMetadata {
         }
         if self.object_retention.is_some() {
             state.serialize_entry("objectRetention", &self.object_retention)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ObjectCustomContextPayload {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.value.is_some() {
+            state.serialize_entry("value", &self.value)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::CustomContextUpdates {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.updates.is_empty() {
+            state.serialize_entry("updates", &self.updates)?;
+        }
+        if !self.keys_to_clear.is_empty() {
+            state.serialize_entry("keysToClear", &self.keys_to_clear)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::UpdateObjectCustomContext {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.custom_context_updates() {
+            state.serialize_entry("customContextUpdates", value)?;
+        }
+        if let Some(value) = self.clear_all() {
+            state.serialize_entry("clearAll", value)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

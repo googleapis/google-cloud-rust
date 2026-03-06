@@ -23,6 +23,7 @@ use crate::{Error, Result};
 use gaxi::attempt_info::AttemptInfo;
 use gaxi::http::HttpRequestBuilder;
 use gaxi::http::reqwest::{HeaderMap, HeaderValue, Method, Response, StatusCode};
+use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt, ResourceName};
 use std::sync::Arc;
 use tokio::sync::Mutex;
 
@@ -69,11 +70,17 @@ impl<S> PerformUpload<S> {
             .expect("resource field initialized in `new()`")
     }
 
-    async fn start_resumable_upload_attempt(&self) -> Result<String> {
+    async fn start_resumable_upload_attempt(&self, attempt_count: u32) -> Result<String> {
         let builder = self.start_resumable_upload_request().await?;
         let options = self.options.gax();
+        let options = options
+            .insert_extension(PathTemplate("/upload/storage/v1/b/{bucket}/o"))
+            .insert_extension(ResourceName(format!(
+                "//storage.googleapis.com/{}",
+                self.resource().bucket
+            )));
         let response = builder
-            .send(options, AttemptInfo::new(0))
+            .send(options, AttemptInfo::new(attempt_count))
             .await
             .map_err(Error::io)?;
         self::handle_start_resumable_upload_response(response).await
@@ -110,7 +117,14 @@ impl<S> PerformUpload<S> {
         upload_url: &str,
         attempt_count: u32,
     ) -> Result<ResumableUploadStatus> {
-        let options = self.options.gax();
+        let options = self
+            .options
+            .gax()
+            .insert_extension(PathTemplate("/upload/storage/v1/b/{bucket}/o"))
+            .insert_extension(ResourceName(format!(
+                "//storage.googleapis.com/{}",
+                self.resource().bucket
+            )));
         let builder = self
             .inner
             .client

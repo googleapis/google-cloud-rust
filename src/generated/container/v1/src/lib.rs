@@ -53,6 +53,18 @@ pub use google_cloud_gax::error::Error;
 #[allow(rustdoc::redundant_explicit_links)]
 pub mod stub;
 
+///
+/// # Example
+/// ```
+/// # use google_cloud_container_v1::client::ClusterManager;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = ClusterManager::builder().build().await?;
+///     let response = client.list_clusters()
+///         /* set fields */
+///         .send().await?;
+///     println!("response {:?}", response);
+/// # Ok(()) }
+/// ```
 /// Concrete implementations of this client library traits.
 pub mod client;
 

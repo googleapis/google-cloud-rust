@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use super::{set_up_otel_provider, wait_for_trace};
+use super::{set_up_tracer_provider, wait_for_trace};
 use crate::Anonymous;
 use google_cloud_showcase_v1beta1::client::Echo;
 use google_cloud_test_utils::runtime_config::project_id;
@@ -37,7 +37,7 @@ pub async fn run() -> anyhow::Result<()> {
     // 2. Setup Telemetry (Real Google Cloud Destination)
     // This requires GOOGLE_CLOUD_PROJECT to be set.
     let project_id = project_id()?;
-    let provider = set_up_otel_provider(&project_id).await?;
+    let provider = set_up_tracer_provider(&project_id).await?;
 
     // 3. Generate Trace
     // Start a root span
@@ -74,10 +74,16 @@ pub async fn run() -> anyhow::Result<()> {
     );
 
     // 4. Force flush to ensure spans are sent.
-    provider.force_flush()?;
+    if let Err(e) = provider.force_flush() {
+        tracing::error!("error flushing provider: {e:}");
+    }
 
     // 5. Verify (Poll Cloud Trace API)
-    let trace = wait_for_trace(&project_id, &trace_id).await?;
+    let required = BTreeSet::from_iter([
+        ROOT_SPAN_NAME,
+        "google_cloud_showcase_v1beta1::client::Echo::echo",
+    ]);
+    let trace = wait_for_trace(&project_id, &trace_id, required.len()).await?;
 
     // Verify the expected spans appear in the trace:
     let span_names = trace
@@ -85,10 +91,6 @@ pub async fn run() -> anyhow::Result<()> {
         .iter()
         .map(|s| s.name.as_str())
         .collect::<BTreeSet<_>>();
-    let required = BTreeSet::from_iter([
-        ROOT_SPAN_NAME,
-        "google_cloud_showcase_v1beta1::client::Echo::echo",
-    ]);
     let missing = required.difference(&span_names).collect::<Vec<_>>();
     assert!(missing.is_empty(), "missing={missing:?}\n\n{trace:?}",);
 

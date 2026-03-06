@@ -20,10 +20,13 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_sql_v1::client::SqlBackupRunsService;
-/// let client = SqlBackupRunsService::builder().build().await?;
-/// // use `client` to make requests to the Cloud SQL Admin API.
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = SqlBackupRunsService::builder().build().await?;
+///     let response = client.delete()
+///         /* set fields */
+///         .send().await?;
+///     println!("response {:?}", response);
 /// # Ok(()) }
 /// ```
 ///
@@ -209,10 +212,17 @@ impl SqlBackupRunsService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_sql_v1::client::SqlBackupsService;
-/// let client = SqlBackupsService::builder().build().await?;
-/// // use `client` to make requests to the Cloud SQL Admin API.
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = SqlBackupsService::builder().build().await?;
+///     let parent = "parent_value";
+///     let mut list = client.list_backups()
+///         .set_parent(parent)
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
 /// # Ok(()) }
 /// ```
 ///
@@ -417,10 +427,13 @@ impl SqlBackupsService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_sql_v1::client::SqlConnectService;
-/// let client = SqlConnectService::builder().build().await?;
-/// // use `client` to make requests to the Cloud SQL Admin API.
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = SqlConnectService::builder().build().await?;
+///     let response = client.get_connect_settings()
+///         /* set fields */
+///         .send().await?;
+///     println!("response {:?}", response);
 /// # Ok(()) }
 /// ```
 ///
@@ -566,10 +579,13 @@ impl SqlConnectService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_sql_v1::client::SqlDatabasesService;
-/// let client = SqlDatabasesService::builder().build().await?;
-/// // use `client` to make requests to the Cloud SQL Admin API.
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = SqlDatabasesService::builder().build().await?;
+///     let response = client.delete()
+///         /* set fields */
+///         .send().await?;
+///     println!("response {:?}", response);
 /// # Ok(()) }
 /// ```
 ///
@@ -796,10 +812,13 @@ impl SqlDatabasesService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_sql_v1::client::SqlFlagsService;
-/// let client = SqlFlagsService::builder().build().await?;
-/// // use `client` to make requests to the Cloud SQL Admin API.
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = SqlFlagsService::builder().build().await?;
+///     let response = client.list()
+///         /* set fields */
+///         .send().await?;
+///     println!("response {:?}", response);
 /// # Ok(()) }
 /// ```
 ///
@@ -919,10 +938,13 @@ impl SqlFlagsService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_sql_v1::client::SqlInstancesService;
-/// let client = SqlInstancesService::builder().build().await?;
-/// // use `client` to make requests to the Cloud SQL Admin API.
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = SqlInstancesService::builder().build().await?;
+///     let response = client.add_server_ca()
+///         /* set fields */
+///         .send().await?;
+///     println!("response {:?}", response);
 /// # Ok(()) }
 /// ```
 ///
@@ -1966,10 +1988,13 @@ impl SqlInstancesService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_sql_v1::client::SqlOperationsService;
-/// let client = SqlOperationsService::builder().build().await?;
-/// // use `client` to make requests to the Cloud SQL Admin API.
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = SqlOperationsService::builder().build().await?;
+///     let response = client.get()
+///         /* set fields */
+///         .send().await?;
+///     println!("response {:?}", response);
 /// # Ok(()) }
 /// ```
 ///
@@ -2133,10 +2158,13 @@ impl SqlOperationsService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_sql_v1::client::SqlSslCertsService;
-/// let client = SqlSslCertsService::builder().build().await?;
-/// // use `client` to make requests to the Cloud SQL Admin API.
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = SqlSslCertsService::builder().build().await?;
+///     let response = client.delete()
+///         /* set fields */
+///         .send().await?;
+///     println!("response {:?}", response);
 /// # Ok(()) }
 /// ```
 ///
@@ -2322,10 +2350,13 @@ impl SqlSslCertsService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_sql_v1::client::SqlTiersService;
-/// let client = SqlTiersService::builder().build().await?;
-/// // use `client` to make requests to the Cloud SQL Admin API.
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = SqlTiersService::builder().build().await?;
+///     let response = client.list()
+///         /* set fields */
+///         .send().await?;
+///     println!("response {:?}", response);
 /// # Ok(()) }
 /// ```
 ///
@@ -2447,10 +2478,13 @@ impl SqlTiersService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_sql_v1::client::SqlUsersService;
-/// let client = SqlUsersService::builder().build().await?;
-/// // use `client` to make requests to the Cloud SQL Admin API.
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = SqlUsersService::builder().build().await?;
+///     let response = client.delete()
+///         /* set fields */
+///         .send().await?;
+///     println!("response {:?}", response);
 /// # Ok(()) }
 /// ```
 ///

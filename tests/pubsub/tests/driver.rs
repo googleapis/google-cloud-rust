@@ -14,27 +14,44 @@
 
 #[cfg(all(test, feature = "run-integration-tests"))]
 mod pubsub {
+    use google_cloud_test_utils::errors::anydump;
     use google_cloud_test_utils::tracing::enable_tracing;
 
     #[tokio::test]
     async fn run_basic_topic() -> anyhow::Result<()> {
         let _guard = enable_tracing();
-        integration_tests_pubsub::basic_topic().await
+        integration_tests_pubsub::basic_topic()
+            .await
+            .inspect_err(anydump)
     }
 
     #[tokio::test]
     async fn run_basic_roundtrip() -> anyhow::Result<()> {
         let _guard = enable_tracing();
-        let (topic_admin, topic) = pubsub_samples::create_test_topic().await?;
-        let (sub_admin, sub) = pubsub_samples::create_test_subscription(&topic.name).await?;
+        let (topic_admin, topic) = pubsub_samples::create_test_topic()
+            .await
+            .inspect_err(anydump)?;
+        let (sub_admin, sub) = pubsub_samples::create_test_subscription(&topic.name)
+            .await
+            .inspect_err(anydump)?;
 
-        integration_tests_pubsub::basic_publisher(topic.name.clone()).await?;
-        integration_tests_pubsub::basic_subscriber(sub.name.clone()).await?;
+        integration_tests_pubsub::basic_publisher(topic.name.clone())
+            .await
+            .inspect_err(anydump)?;
+        integration_tests_pubsub::basic_subscriber(sub.name.clone())
+            .await
+            .inspect_err(anydump)?;
 
-        if let Err(e) = pubsub_samples::cleanup_test_subscription(&sub_admin, &sub.name).await {
+        if let Err(e) = pubsub_samples::cleanup_test_subscription(&sub_admin, &sub.name)
+            .await
+            .inspect_err(anydump)
+        {
             tracing::info!("Error cleaning up test subscription: {e:?}");
         }
-        if let Err(e) = pubsub_samples::cleanup_test_topic(&topic_admin, &topic.name).await {
+        if let Err(e) = pubsub_samples::cleanup_test_topic(&topic_admin, &topic.name)
+            .await
+            .inspect_err(anydump)
+        {
             tracing::info!("Error cleaning up test topic: {e:?}");
         }
         Ok(())
@@ -43,18 +60,25 @@ mod pubsub {
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn run_ordered_roundtrip() -> anyhow::Result<()> {
         let _guard = enable_tracing();
-        let (topic_admin, topic) = pubsub_samples::create_test_topic().await?;
-        let (sub_admin, sub) =
-            pubsub_samples::create_ordered_test_subscription(&topic.name).await?;
+        let (topic_admin, topic) = pubsub_samples::create_test_topic()
+            .await
+            .inspect_err(anydump)?;
+        let (sub_admin, sub) = pubsub_samples::create_ordered_test_subscription(&topic.name)
+            .await
+            .inspect_err(anydump)?;
 
-        let result = integration_tests_pubsub::ordering::roundtrip(&topic.name, &sub.name).await;
+        let result = integration_tests_pubsub::ordering::roundtrip(&topic.name, &sub.name)
+            .await
+            .inspect_err(anydump);
 
-        if let Err(e) = pubsub_samples::cleanup_test_subscription(&sub_admin, &sub.name).await {
-            tracing::info!("Error cleaning up test subscription: {e:?}");
-        }
-        if let Err(e) = pubsub_samples::cleanup_test_topic(&topic_admin, &topic.name).await {
-            tracing::info!("Error cleaning up test topic: {e:?}");
-        }
+        let _ = pubsub_samples::cleanup_test_subscription(&sub_admin, &sub.name)
+            .await
+            .inspect_err(|e| tracing::info!("Error cleaning up test subscription: {e:?}"))
+            .inspect_err(anydump);
+        let _ = pubsub_samples::cleanup_test_topic(&topic_admin, &topic.name)
+            .await
+            .inspect_err(|e| tracing::info!("Error cleaning up test topic: {e:?}"))
+            .inspect_err(anydump);
         result
     }
 }

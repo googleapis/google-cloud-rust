@@ -27,9 +27,7 @@ pub mod reqwest;
 use crate::as_inner::as_inner;
 use crate::attempt_info::AttemptInfo;
 #[cfg(google_cloud_unstable_tracing)]
-use crate::observability::{
-    create_http_attempt_span, record_http_response_attributes, record_intermediate_client_request,
-};
+use crate::observability::create_http_attempt_span;
 use google_cloud_auth::credentials::{
     Builder as CredentialsBuilder, CacheableResource, Credentials,
 };
@@ -232,7 +230,6 @@ impl ReqwestClient {
         body: Option<I>,
         options: RequestOptions,
     ) -> Result<Response<O>> {
-        builder = self.configure_builder(builder, &options)?;
         if let Some(body) = body {
             builder = builder.json(&body);
         }
@@ -241,14 +238,44 @@ impl ReqwestClient {
 
     pub(crate) async fn execute_http(
         &self,
-        mut builder: reqwest::RequestBuilder,
+        builder: reqwest::RequestBuilder,
         options: RequestOptions,
         attempt_info: AttemptInfo,
     ) -> Result<reqwest::Response> {
-        builder = self.configure_builder(builder, &options)?;
         let request = self
             .request(builder, &options, attempt_info.remaining_time)
             .await?;
+        #[cfg(google_cloud_unstable_tracing)]
+        if self._tracing_enabled {
+            return self
+                .execute_http_traced(request, options, attempt_info)
+                .await;
+        }
+        self.execute_http_inner(request).await
+    }
+
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn execute_http_traced(
+        &self,
+        request: reqwest::Request,
+        options: RequestOptions,
+        attempt_info: AttemptInfo,
+    ) -> Result<reqwest::Response> {
+        use crate::observability::HttpResultExt;
+        let span = create_http_attempt_span(
+            &request,
+            &options,
+            self.instrumentation,
+            attempt_info.attempt_count,
+        );
+        let (method, url) = (request.method().clone(), request.url().clone());
+        self.execute_http_inner(request)
+            .instrument(span.clone())
+            .await
+            .record_http(&span, attempt_info.attempt_count, method, url)
+    }
+
+    async fn execute_http_inner(&self, request: reqwest::Request) -> Result<reqwest::Response> {
         self.inner.execute(request).await.map_err(map_send_error)
     }
 
@@ -262,14 +289,13 @@ impl ReqwestClient {
     /// handling retries if necessary.
     pub async fn execute_streaming_once(
         &self,
-        mut builder: reqwest::RequestBuilder,
+        builder: reqwest::RequestBuilder,
         options: RequestOptions,
         remaining_time: Option<std::time::Duration>,
         attempt_count: u32,
     ) -> Result<Response<impl futures::Stream<Item = Result<bytes::Bytes>>>> {
         use futures::TryStreamExt;
 
-        builder = self.configure_builder(builder, &options)?;
         let response = self
             .request_attempt(builder, &options, remaining_time, attempt_count)
             .await?;
@@ -284,20 +310,6 @@ impl ReqwestClient {
             Parts::new().set_headers(parts.headers),
             stream,
         ))
-    }
-
-    fn configure_builder(
-        &self,
-        mut builder: reqwest::RequestBuilder,
-        options: &RequestOptions,
-    ) -> Result<reqwest::RequestBuilder> {
-        if let Some(user_agent) = options.user_agent() {
-            builder = builder.header(
-                ::reqwest::header::USER_AGENT,
-                reqwest::HeaderValue::from_str(user_agent).map_err(Error::ser)?,
-            );
-        }
-        Ok(builder)
     }
 
     async fn make_credentials(
@@ -347,6 +359,15 @@ impl ReqwestClient {
         options: &RequestOptions,
         remaining_time: Option<std::time::Duration>,
     ) -> Result<reqwest::Request> {
+        builder = if let Some(user_agent) = options.user_agent() {
+            builder.header(
+                reqwest::USER_AGENT,
+                reqwest::HeaderValue::from_str(user_agent).map_err(Error::ser)?,
+            )
+        } else {
+            builder
+        };
+
         builder = effective_timeout(options, remaining_time)
             .into_iter()
             .fold(builder, |b, t| b.timeout(t));
@@ -368,45 +389,36 @@ impl ReqwestClient {
     ) -> Result<reqwest::Response> {
         let request = self.request(builder, options, remaining_time).await?;
         #[cfg(google_cloud_unstable_tracing)]
-        let method = request.method().clone();
-        #[cfg(google_cloud_unstable_tracing)]
-        let url = request.url().clone();
-
-        #[cfg(google_cloud_unstable_tracing)]
-        let (reqwest_result, span) = if self._tracing_enabled {
-            let span =
-                create_http_attempt_span(&request, options, self.instrumentation, _attempt_count);
-            // The instrument call ensures the span is entered/exited as the execute future is polled.
-            let result = self.inner.execute(request).instrument(span.clone()).await;
-            (result, Some(span))
-        } else {
-            (self.inner.execute(request).await, None)
-        };
-        #[cfg(not(google_cloud_unstable_tracing))]
-        let reqwest_result = self.inner.execute(request).await;
-
-        let intermediate_result = reqwest_result.map_err(map_send_error);
-        let intermediate_result = match intermediate_result {
-            Ok(response) if !response.status().is_success() => self::to_http_error(response).await,
-            other => other,
-        };
-
-        // Record span before parsing result, after parsing error.
-        #[cfg(google_cloud_unstable_tracing)]
         if self._tracing_enabled {
-            if let Some(s) = span {
-                record_http_response_attributes(&s, intermediate_result.as_ref());
-            }
-            // Record to the client request span after s exits.
-            record_intermediate_client_request(
-                intermediate_result.as_ref(),
-                _attempt_count,
-                &method,
-                &url,
-            );
+            return self
+                .request_attempt_traced(request, options, _attempt_count)
+                .await;
         }
+        self.request_attempt_inner(request).await
+    }
 
-        intermediate_result
+    #[cfg(google_cloud_unstable_tracing)]
+    async fn request_attempt_traced(
+        &self,
+        request: reqwest::Request,
+        options: &RequestOptions,
+        attempt_count: u32,
+    ) -> Result<reqwest::Response> {
+        use crate::observability::HttpResultExt;
+        let span = create_http_attempt_span(&request, options, self.instrumentation, attempt_count);
+        let (method, url) = (request.method().clone(), request.url().clone());
+        self.request_attempt_inner(request)
+            .instrument(span.clone())
+            .await
+            .record_http(&span, attempt_count, method, url)
+    }
+
+    async fn request_attempt_inner(&self, request: reqwest::Request) -> Result<reqwest::Response> {
+        let response = self.inner.execute(request).await.map_err(map_send_error)?;
+        if !response.status().is_success() {
+            return self::to_http_error(response).await;
+        }
+        Ok(response)
     }
 
     fn get_retry_policy(&self, options: &RequestOptions) -> Arc<dyn RetryPolicy> {
@@ -758,8 +770,8 @@ mod tests {
         let t3_span = client_request_span!("Service", "test_method", &TEST_INSTRUMENTATION_INFO);
 
         // Simulate T4 span scope ending before calling to_http_response
+        let t4_span = tracing::info_span!("t4_span");
         {
-            let t4_span = tracing::info_span!("t4_span");
             let _t4_enter = t4_span.enter();
             // T4 work happens here
         } // T4 exit
@@ -768,10 +780,14 @@ mod tests {
         let url = "https://example.com".parse().unwrap();
 
         // Manually call the enrichment function, mimicking request_attempt
-        {
+        let response = {
+            use crate::observability::HttpResultExt;
+
             let _enter = t3_span.enter();
-            record_intermediate_client_request(Ok(&response), 1, &Method::GET, &url);
-        }
+            Ok(response)
+                .record_http(&t4_span, 1, Method::GET, url)
+                .unwrap()
+        };
 
         let _ = super::to_http_response::<wkt::Empty>(response)
             .instrument(t3_span.clone())

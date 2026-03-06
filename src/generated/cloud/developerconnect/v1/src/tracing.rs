@@ -256,6 +256,24 @@ where
     }
 
     #[tracing::instrument(ret)]
+    async fn start_o_auth(
+        &self,
+        req: crate::model::StartOAuthRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::StartOAuthResponse>> {
+        self.inner.start_o_auth(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn finish_o_auth(
+        &self,
+        req: crate::model::FinishOAuthRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::FinishOAuthResponse>> {
+        self.inner.finish_o_auth(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
     async fn list_locations(
         &self,
         req: google_cloud_location::model::ListLocationsRequest,
@@ -389,6 +407,24 @@ where
         options: crate::RequestOptions,
     ) -> Result<crate::Response<google_cloud_longrunning::model::Operation>> {
         self.inner.delete_insights_config(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get_deployment_event(
+        &self,
+        req: crate::model::GetDeploymentEventRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::DeploymentEvent>> {
+        self.inner.get_deployment_event(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn list_deployment_events(
+        &self,
+        req: crate::model::ListDeploymentEventsRequest,
+        options: crate::RequestOptions,
+    ) -> Result<crate::Response<crate::model::ListDeploymentEventsResponse>> {
+        self.inner.list_deployment_events(req, options).await
     }
 
     #[tracing::instrument(ret)]

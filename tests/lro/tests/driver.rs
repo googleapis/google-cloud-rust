@@ -14,23 +14,30 @@
 
 #[cfg(all(test, feature = "run-integration-tests"))]
 mod lro {
+    use google_cloud_test_utils::errors::anydump;
     use google_cloud_test_utils::tracing::enable_tracing;
 
     #[tokio::test]
     async fn workflows_until_done() -> anyhow::Result<()> {
         let _guard = enable_tracing();
-        integration_tests_lro::production::until_done().await
+        integration_tests_lro::production::until_done()
+            .await
+            .inspect_err(anydump)
     }
 
     #[tokio::test]
     async fn workflows_explicit() -> anyhow::Result<()> {
         let _guard = enable_tracing();
-        integration_tests_lro::production::explicit_loop().await
+        integration_tests_lro::production::explicit_loop()
+            .await
+            .inspect_err(anydump)
     }
 
     #[tokio::test]
     async fn workflows_manual() -> anyhow::Result<()> {
         let _guard = enable_tracing();
-        integration_tests_lro::production::until_done().await
+        integration_tests_lro::production::until_done()
+            .await
+            .inspect_err(anydump)
     }
 }

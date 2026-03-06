@@ -20,10 +20,17 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_support_v2::client::CaseAttachmentService;
-/// let client = CaseAttachmentService::builder().build().await?;
-/// // use `client` to make requests to the Google Cloud Support API.
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = CaseAttachmentService::builder().build().await?;
+///     let parent = "parent_value";
+///     let mut list = client.list_attachments()
+///         .set_parent(parent)
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
 /// # Ok(()) }
 /// ```
 ///
@@ -147,10 +154,17 @@ impl CaseAttachmentService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_support_v2::client::CaseService;
-/// let client = CaseService::builder().build().await?;
-/// // use `client` to make requests to the Google Cloud Support API.
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = CaseService::builder().build().await?;
+///     let parent = "parent_value";
+///     let mut list = client.list_cases()
+///         .set_parent(parent)
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
 /// # Ok(()) }
 /// ```
 ///
@@ -454,10 +468,17 @@ impl CaseService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_support_v2::client::CommentService;
-/// let client = CommentService::builder().build().await?;
-/// // use `client` to make requests to the Google Cloud Support API.
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = CommentService::builder().build().await?;
+///     let parent = "parent_value";
+///     let mut list = client.list_comments()
+///         .set_parent(parent)
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
 /// # Ok(()) }
 /// ```
 ///

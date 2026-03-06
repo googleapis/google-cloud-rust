@@ -90,7 +90,7 @@ pub mod builder {
     /// Request and client builders for the [Subscriber][crate::client::Subscriber] client.
     pub mod subscriber {
         pub use crate::subscriber::builder::ClientBuilder;
-        pub use crate::subscriber::builder::StreamingPull;
+        pub use crate::subscriber::builder::Subscribe;
     }
     /// Request and client builders for the [SubscriptionAdmin][crate::client::SubscriptionAdmin] client.
     pub use crate::generated::gapic::builder::subscription_admin;
@@ -151,7 +151,7 @@ pub mod model {
 ///
 /// // Start a message stream from a subscription.
 /// let mut stream = client
-///     .stream("projects/my-project/subscriptions/my-subscription")
+///     .subscribe("projects/my-project/subscriptions/my-subscription")
 ///     .build();
 ///
 /// // Receive messages from the stream.

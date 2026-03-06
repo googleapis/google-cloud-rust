@@ -393,6 +393,25 @@ impl<S> OpenObject<S> {
         self.options.set_bidi_attempt_timeout(v);
         self
     }
+
+    /// Sets the `User-Agent` header for this request.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// let mut response = client
+    ///     .open_object("projects/_/buckets/my-bucket", "my-object")
+    ///     .with_user_agent("my-app/1.0.0")
+    ///     .send()
+    ///     .await?;
+    /// println!("response details={response:?}");
+    /// # Ok(()) }
+    /// ```
+    pub fn with_user_agent(mut self, user_agent: impl Into<String>) -> Self {
+        self.options.user_agent = Some(user_agent.into());
+        self
+    }
 }
 
 #[cfg(test)]
@@ -413,11 +432,15 @@ mod tests {
     };
     use storage_grpc_mock::{MockStorage, start};
 
+    const BUCKET_NAME: &str = "projects/_/buckets/test-bucket";
+    const OBJECT_NAME: &str = "test-object";
+    const USER_AGENT: &str = "quick_foxes_lazy_dogs/1.2.3";
+    const BIND_ADDRESS: &str = "0.0.0.0:0";
+
     // Verify `open_object()` meets normal Send, Sync, requirements.
     #[tokio::test]
     async fn traits() -> Result<()> {
-        assert_impl_all!(OpenObject: Clone, std::fmt::Debug);
-        assert_impl_all!(OpenObject: Send, Sync);
+        assert_impl_all!(OpenObject: Clone, std::fmt::Debug, Send, Sync);
 
         let client = Storage::builder()
             .with_credentials(Anonymous::new().build())
@@ -427,12 +450,10 @@ mod tests {
         fn need_send<T: Send>(_val: &T) {}
         fn need_static<T: 'static>(_val: &T) {}
 
-        let open = client.open_object("projects/_/buckets/test-bucket", "test-object");
+        let open = client.open_object(BUCKET_NAME, OBJECT_NAME);
         need_static(&open);
 
-        let fut = client
-            .open_object("projects/_/buckets/test-bucket", "test-object")
-            .send();
+        let fut = client.open_object(BUCKET_NAME, OBJECT_NAME).send();
         need_send(&fut);
         need_static(&fut);
         Ok(())
@@ -440,40 +461,35 @@ mod tests {
 
     #[tokio::test]
     async fn open_object_normal() -> Result<()> {
-        const BUCKET_NAME: &str = "projects/_/buckets/test-bucket";
-
         let (tx, rx) = tokio::sync::mpsc::channel::<TonicResult<BidiReadObjectResponse>>(1);
         let initial = BidiReadObjectResponse {
             metadata: Some(ProtoObject {
                 bucket: BUCKET_NAME.to_string(),
-                name: "test-object".to_string(),
+                name: OBJECT_NAME.to_string(),
                 generation: 123456,
                 size: 42,
                 ..ProtoObject::default()
             }),
             ..BidiReadObjectResponse::default()
         };
-        tx.send(Ok(initial.clone())).await?;
+        tx.send(Ok(initial)).await?;
 
         let mut mock = MockStorage::new();
         mock.expect_bidi_read_object()
             .return_once(|_| Ok(TonicResponse::from(rx)));
-        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
+        let (endpoint, _server) = start(BIND_ADDRESS, mock).await?;
 
         let client = Storage::builder()
             .with_endpoint(endpoint)
             .with_credentials(Anonymous::new().build())
             .build()
             .await?;
-        let descriptor = client
-            .open_object(BUCKET_NAME, "test-object")
-            .send()
-            .await?;
+        let descriptor = client.open_object(BUCKET_NAME, OBJECT_NAME).send().await?;
 
         let got = descriptor.object();
         let want = Object::new()
             .set_bucket(BUCKET_NAME)
-            .set_name("test-object")
+            .set_name(OBJECT_NAME)
             .set_generation(123456)
             .set_size(42);
         assert_eq!(got, want);
@@ -485,8 +501,8 @@ mod tests {
     async fn attributes() -> Result<()> {
         let options = RequestOptions::new();
         let builder = OpenObject::new(
-            "bucket".to_string(),
-            "object".to_string(),
+            BUCKET_NAME.to_string(),
+            OBJECT_NAME.to_string(),
             Arc::new(StorageStub),
             options,
         )
@@ -496,8 +512,8 @@ mod tests {
         .set_if_metageneration_match(456)
         .set_if_metageneration_not_match(567);
         let want = OpenObjectRequest::default()
-            .set_bucket("bucket")
-            .set_object("object")
+            .set_bucket(BUCKET_NAME)
+            .set_object(OBJECT_NAME)
             .set_generation(123)
             .set_if_generation_match(234)
             .set_if_generation_not_match(345)
@@ -511,8 +527,8 @@ mod tests {
     async fn csek() -> Result<()> {
         let options = RequestOptions::new();
         let builder = OpenObject::new(
-            "bucket".to_string(),
-            "object".to_string(),
+            BUCKET_NAME.to_string(),
+            OBJECT_NAME.to_string(),
             Arc::new(StorageStub),
             options,
         );
@@ -521,8 +537,8 @@ mod tests {
         let key = KeyAes256::new(&raw_key)?;
         let builder = builder.set_key(key.clone());
         let want = OpenObjectRequest::default()
-            .set_bucket("bucket")
-            .set_object("object")
+            .set_bucket(BUCKET_NAME)
+            .set_object(OBJECT_NAME)
             .set_common_object_request_params(CommonObjectRequestParams::from(key));
         assert_eq!(builder.request, want);
         Ok(())
@@ -537,10 +553,10 @@ mod tests {
 
         let options = RequestOptions::new();
         let builder = OpenObject::new(
-            "bucket".to_string(),
-            "object".to_string(),
+            BUCKET_NAME.to_string(),
+            OBJECT_NAME.to_string(),
             Arc::new(StorageStub),
-            options.clone(),
+            options,
         )
         .with_backoff_policy(
             ExponentialBackoffBuilder::default()
@@ -551,7 +567,8 @@ mod tests {
         .with_retry_policy(Aip194Strict)
         .with_retry_throttler(CircuitBreaker::default())
         .with_read_resume_policy(NeverResume)
-        .with_attempt_timeout(Duration::from_secs(120));
+        .with_attempt_timeout(Duration::from_secs(120))
+        .with_user_agent(USER_AGENT);
 
         let got = builder.options;
         assert!(
@@ -575,47 +592,40 @@ mod tests {
             Duration::from_secs(120),
             "{got:?}"
         );
+        assert_eq!(got.user_agent.as_deref(), Some(USER_AGENT), "{got:?}");
 
         Ok(())
     }
 
     #[tokio::test]
     async fn send() -> anyhow::Result<()> {
-        use storage_grpc_mock::google::storage::v2::{
-            BidiReadObjectResponse, Object as ProtoObject,
-        };
-        use storage_grpc_mock::{MockStorage, start};
-
         let (tx, rx) = tokio::sync::mpsc::channel::<TonicResult<BidiReadObjectResponse>>(1);
         let initial = BidiReadObjectResponse {
             metadata: Some(ProtoObject {
-                bucket: "projects/_/buckets/test-bucket".to_string(),
-                name: "test-object".to_string(),
+                bucket: BUCKET_NAME.to_string(),
+                name: OBJECT_NAME.to_string(),
                 generation: 123456,
                 ..ProtoObject::default()
             }),
             ..BidiReadObjectResponse::default()
         };
-        tx.send(Ok(initial.clone())).await?;
+        tx.send(Ok(initial)).await?;
 
         let mut mock = MockStorage::new();
         mock.expect_bidi_read_object()
             .return_once(|_| Ok(TonicResponse::from(rx)));
-        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
+        let (endpoint, _server) = start(BIND_ADDRESS, mock).await?;
 
         let client = Storage::builder()
             .with_credentials(Anonymous::new().build())
-            .with_endpoint(endpoint.clone())
+            .with_endpoint(endpoint)
             .build()
             .await?;
 
-        let descriptor = client
-            .open_object("projects/_/buckets/test-bucket", "test-object")
-            .send()
-            .await?;
+        let descriptor = client.open_object(BUCKET_NAME, OBJECT_NAME).send().await?;
         let want = Object::new()
-            .set_bucket("projects/_/buckets/test-bucket")
-            .set_name("test-object")
+            .set_bucket(BUCKET_NAME)
+            .set_name(OBJECT_NAME)
             .set_generation(123456);
         assert_eq!(descriptor.object(), want, "{descriptor:?}");
         assert_eq!(
@@ -629,14 +639,12 @@ mod tests {
 
     #[tokio::test]
     async fn send_and_read() -> anyhow::Result<()> {
-        use storage_grpc_mock::{MockStorage, start};
-
         let (tx, rx) = tokio::sync::mpsc::channel::<TonicResult<BidiReadObjectResponse>>(1);
         let payload = Vec::from_iter((0..32).map(|i| i as u8));
         let initial = BidiReadObjectResponse {
             metadata: Some(ProtoObject {
-                bucket: "projects/_/buckets/test-bucket".to_string(),
-                name: "test-object".to_string(),
+                bucket: BUCKET_NAME.to_string(),
+                name: OBJECT_NAME.to_string(),
                 generation: 123456,
                 ..ProtoObject::default()
             }),
@@ -653,26 +661,26 @@ mod tests {
             }],
             ..BidiReadObjectResponse::default()
         };
-        tx.send(Ok(initial.clone())).await?;
+        tx.send(Ok(initial)).await?;
 
         let mut mock = MockStorage::new();
         mock.expect_bidi_read_object()
             .return_once(|_| Ok(TonicResponse::from(rx)));
-        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
+        let (endpoint, _server) = start(BIND_ADDRESS, mock).await?;
 
         let client = Storage::builder()
             .with_credentials(Anonymous::new().build())
-            .with_endpoint(endpoint.clone())
+            .with_endpoint(endpoint)
             .build()
             .await?;
 
         let (descriptor, mut reader) = client
-            .open_object("projects/_/buckets/test-bucket", "test-object")
+            .open_object(BUCKET_NAME, OBJECT_NAME)
             .send_and_read(ReadRange::tail(32))
             .await?;
         let want = Object::new()
-            .set_bucket("projects/_/buckets/test-bucket")
-            .set_name("test-object")
+            .set_bucket(BUCKET_NAME)
+            .set_name(OBJECT_NAME)
             .set_generation(123456);
         assert_eq!(descriptor.object(), want, "{descriptor:?}");
         assert_eq!(
@@ -692,19 +700,16 @@ mod tests {
 
     #[tokio::test(start_paused = true)]
     async fn timeout() -> anyhow::Result<()> {
-        use storage_grpc_mock::google::storage::v2::BidiReadObjectResponse;
-        use storage_grpc_mock::{MockStorage, start};
-
         let (_tx, rx) = tokio::sync::mpsc::channel::<TonicResult<BidiReadObjectResponse>>(1);
 
         let mut mock = MockStorage::new();
         mock.expect_bidi_read_object()
             .return_once(|_| Ok(TonicResponse::from(rx)));
-        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
+        let (endpoint, _server) = start(BIND_ADDRESS, mock).await?;
 
         let client = Storage::builder()
             .with_credentials(Anonymous::new().build())
-            .with_endpoint(endpoint.clone())
+            .with_endpoint(endpoint)
             .with_retry_policy(NeverRetry)
             .build()
             .await?;
@@ -713,7 +718,7 @@ mod tests {
         let target = Duration::from_secs(120);
         let start = tokio::time::Instant::now();
         let err = client
-            .open_object("projects/_/buckets/test-bucket", "test-object")
+            .open_object(BUCKET_NAME, OBJECT_NAME)
             .with_attempt_timeout(target)
             .send()
             .await
@@ -721,6 +726,49 @@ mod tests {
         assert!(err.is_timeout(), "{err:?}");
         assert_eq!(start.elapsed(), target);
 
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn user_agent() -> anyhow::Result<()> {
+        let (tx, rx) = tokio::sync::mpsc::channel::<TonicResult<BidiReadObjectResponse>>(1);
+        let initial = BidiReadObjectResponse {
+            metadata: Some(ProtoObject {
+                bucket: BUCKET_NAME.to_string(),
+                name: OBJECT_NAME.to_string(),
+                generation: 123456,
+                ..ProtoObject::default()
+            }),
+            ..BidiReadObjectResponse::default()
+        };
+        tx.send(Ok(initial)).await?;
+
+        let mut mock = MockStorage::new();
+        mock.expect_bidi_read_object().return_once(|request| {
+            let metadata = request.metadata();
+            let user_agent = metadata
+                .get(http::header::USER_AGENT.as_str())
+                .and_then(|v| v.to_str().ok())
+                .expect("user-agent should be set");
+
+            let got = user_agent.split(' ').any(|s| s == USER_AGENT);
+            assert!(got, "{user_agent:?}");
+
+            Ok(TonicResponse::from(rx))
+        });
+        let (endpoint, _server) = start(BIND_ADDRESS, mock).await?;
+
+        let client = Storage::builder()
+            .with_credentials(Anonymous::new().build())
+            .with_endpoint(endpoint)
+            .build()
+            .await?;
+
+        let _descriptor = client
+            .open_object(BUCKET_NAME, OBJECT_NAME)
+            .with_user_agent(USER_AGENT)
+            .send()
+            .await?;
         Ok(())
     }
 

@@ -15,7 +15,18 @@
 #[cfg(all(test, feature = "run-integration-tests"))]
 mod tests {
     use google_cloud_storage::client::StorageControl;
+    use google_cloud_test_utils::errors::anydump;
     use storage_samples::*;
+
+    async fn cleanup_all_buckets(client: StorageControl, buckets: Vec<String>) {
+        // Report, but do not cause a build failure on cleanup errors.
+        for id in buckets.into_iter() {
+            let _ = cleanup_bucket(client.clone(), format!("projects/_/buckets/{id}"))
+                .await
+                .inspect_err(|e| eprintln!("error cleaning up bucket {id}: {e:?}"))
+                .inspect_err(anydump);
+        }
+    }
 
     #[cfg(feature = "skipped-integration-tests")]
     #[tokio::test]
@@ -23,11 +34,10 @@ mod tests {
         let client = StorageControl::builder().build().await?;
 
         let mut buckets = Vec::new();
-        let result = run_anywhere_cache_examples(&mut buckets).await;
-        // Ignore cleanup errors.
-        for id in buckets.into_iter() {
-            let _ = cleanup_bucket(client.clone(), format!("projects/_/buckets/{id}")).await;
-        }
+        let result = run_anywhere_cache_examples(&mut buckets)
+            .await
+            .inspect_err(anydump);
+        cleanup_all_buckets(client, buckets).await;
         result
     }
 
@@ -36,11 +46,8 @@ mod tests {
         let client = StorageControl::builder().build().await?;
 
         let mut buckets = Vec::new();
-        let result = run_bucket_examples(&mut buckets).await;
-        // Ignore cleanup errors.
-        for id in buckets.into_iter() {
-            let _ = cleanup_bucket(client.clone(), format!("projects/_/buckets/{id}")).await;
-        }
+        let result = run_bucket_examples(&mut buckets).await.inspect_err(anydump);
+        cleanup_all_buckets(client, buckets).await;
         result
     }
 
@@ -49,11 +56,10 @@ mod tests {
         let client = StorageControl::builder().build().await?;
 
         let mut buckets = Vec::new();
-        let result = run_managed_folder_examples(&mut buckets).await;
-        // Ignore cleanup errors.
-        for id in buckets.into_iter() {
-            let _ = cleanup_bucket(client.clone(), format!("projects/_/buckets/{id}")).await;
-        }
+        let result = run_managed_folder_examples(&mut buckets)
+            .await
+            .inspect_err(anydump);
+        cleanup_all_buckets(client, buckets).await;
         result
     }
 
@@ -62,17 +68,14 @@ mod tests {
         let client = StorageControl::builder().build().await?;
 
         let mut buckets = Vec::new();
-        let result = run_object_examples(&mut buckets).await;
-        // Ignore cleanup errors.
-        for id in buckets.into_iter() {
-            let _ = cleanup_bucket(client.clone(), format!("projects/_/buckets/{id}")).await;
-        }
+        let result = run_object_examples(&mut buckets).await.inspect_err(anydump);
+        cleanup_all_buckets(client, buckets).await;
         result
     }
 
     #[tokio::test]
     async fn signed_url_examples() -> anyhow::Result<()> {
-        run_signed_url_examples().await
+        run_signed_url_examples().await.inspect_err(anydump)
     }
 
     #[tokio::test]
@@ -80,11 +83,8 @@ mod tests {
         let client = StorageControl::builder().build().await?;
 
         let mut buckets = Vec::new();
-        let result = run_client_examples(&mut buckets).await;
-        // Ignore cleanup errors.
-        for id in buckets.into_iter() {
-            let _ = cleanup_bucket(client.clone(), format!("projects/_/buckets/{id}")).await;
-        }
+        let result = run_client_examples(&mut buckets).await.inspect_err(anydump);
+        cleanup_all_buckets(client, buckets).await;
         result
     }
 }
