@@ -29,6 +29,7 @@ pub(crate) use google_cloud_gax::options::internal::RequestBuilder;
 pub(crate) use google_cloud_gax::response::Response;
 
 pub mod client;
+pub(crate) mod server_streaming;
 pub mod builder {
     pub use crate::database_client::DatabaseClientBuilder;
 }

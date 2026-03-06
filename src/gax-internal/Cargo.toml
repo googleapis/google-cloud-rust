@@ -94,6 +94,8 @@ _internal-common = [
 ]
 # Enables the default rustls crypto provider for whatever client(s) are enabled.
 _default-rustls-provider = ["google-cloud-auth?/default-rustls-provider", "tonic?/tls-aws-lc"]
+# Enables the unstable server streaming functionality in the gRPC client.
+_internal-grpc-server-streaming = []
 
 [dependencies]
 bytes                              = { workspace = true, optional = true, features = ["serde"] }

@@ -13,6 +13,7 @@
 // limitations under the License.
 
 use crate::generated::gapic_dataplane::client::Spanner as GapicSpanner;
+use crate::server_streaming::builder;
 use gaxi::options::{ClientConfig, Credentials};
 
 pub use crate::database_client::DatabaseClient;
@@ -25,6 +26,7 @@ pub use crate::database_client::DatabaseClient;
 #[derive(Clone, Debug)]
 pub struct Spanner {
     inner: GapicSpanner,
+    grpc_client: Option<gaxi::grpc::Client>,
 }
 
 pub struct Factory;
@@ -33,12 +35,10 @@ impl google_cloud_gax::client_builder::internal::ClientFactory for Factory {
     type Client = Spanner;
     type Credentials = Credentials;
 
-    async fn build(
-        self,
-        config: ClientConfig,
-    ) -> google_cloud_gax::client_builder::Result<Self::Client> {
+    async fn build(self, config: ClientConfig) -> crate::ClientBuilderResult<Self::Client> {
         let transport =
             crate::generated::gapic_dataplane::transport::Spanner::new(config.clone()).await?;
+        let grpc_client = transport.inner.clone();
 
         let inner = if gaxi::options::tracing_enabled(&config) {
             GapicSpanner::from_stub(crate::generated::gapic_dataplane::tracing::Spanner::new(
@@ -47,7 +47,10 @@ impl google_cloud_gax::client_builder::internal::ClientFactory for Factory {
         } else {
             GapicSpanner::from_stub(transport)
         };
-        Ok(Spanner { inner })
+        Ok(Spanner {
+            inner,
+            grpc_client: Some(grpc_client),
+        })
     }
 }
 
@@ -93,8 +96,11 @@ impl Spanner {
     where
         T: crate::generated::gapic_dataplane::stub::Spanner + 'static,
     {
+        // This method is primarily for testing and doesn't fully initialize grpc_client.
+        // For production use, prefer `Spanner::builder().build()`.
         Self {
             inner: GapicSpanner::from_stub(stub),
+            grpc_client: None,
         }
     }
 
@@ -187,6 +193,56 @@ impl Spanner {
             .with_options(options)
             .send()
             .await
+    }
+
+    /// Executes an SQL statement, returning a stream of results.
+    ///
+    /// This is a custom streaming implementation over the underlying Spanner gRPC
+    /// transport, since streaming responses are not yet auto-generated here.
+    pub(crate) fn execute_streaming_sql(
+        &self,
+        request: crate::model::ExecuteSqlRequest,
+        options: crate::RequestOptions,
+    ) -> builder::ExecuteStreamingSql {
+        let grpc = self
+            .grpc_client
+            .as_ref()
+            .expect("Streaming RPCs are not supported when using a stub client");
+        builder::ExecuteStreamingSql::new(grpc.clone())
+            .with_request(request)
+            .with_options(options)
+    }
+
+    /// Reads rows from the database, returning a stream of results.
+    ///
+    /// This is a custom streaming implementation over the underlying Spanner gRPC
+    /// transport, since streaming responses are not yet auto-generated here.
+    pub(crate) fn streaming_read(
+        &self,
+        request: crate::model::ReadRequest,
+        options: crate::RequestOptions,
+    ) -> builder::StreamingRead {
+        let grpc = self
+            .grpc_client
+            .as_ref()
+            .expect("Streaming RPCs are not supported when using a stub client");
+        builder::StreamingRead::new(grpc.clone())
+            .with_request(request)
+            .with_options(options)
+    }
+
+    pub(crate) fn batch_write(
+        &self,
+        request: crate::model::BatchWriteRequest,
+        options: crate::RequestOptions,
+    ) -> builder::BatchWrite {
+        let grpc = self
+            .grpc_client
+            .as_ref()
+            .expect("Streaming RPCs are not supported when using a stub client");
+        builder::BatchWrite::new(grpc.clone())
+            .with_request(request)
+            .with_options(options)
     }
 }
 
@@ -518,5 +574,185 @@ mod tests {
             .rollback(req, crate::RequestOptions::default())
             .await
             .expect("Failed to call rollback");
+    }
+
+    #[tokio::test]
+    async fn test_execute_streaming_sql() {
+        use crate::model::ExecuteSqlRequest;
+
+        let mut mock = MockSpanner::new();
+        mock.expect_execute_streaming_sql().once().returning(|_| {
+            let result_set = mock_v1::PartialResultSet {
+                metadata: Some(mock_v1::ResultSetMetadata {
+                    row_type: Some(mock_v1::StructType { fields: vec![] }),
+                    transaction: None,
+                    undeclared_parameters: None,
+                }),
+                values: vec![],
+                chunked_value: false,
+                resume_token: vec![],
+                stats: None,
+                precommit_token: None,
+                cache_update: None,
+                last: false,
+            };
+            Ok(gaxi::grpc::tonic::Response::new(Box::pin(
+                tokio_stream::iter(vec![Ok(result_set)]),
+            )))
+        });
+
+        let (address, _server) = start("0.0.0.0:0", mock)
+            .await
+            .expect("Failed to start mock server");
+        let client = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await
+            .expect("Failed to build client");
+
+        let mut req = ExecuteSqlRequest::new();
+        req.sql = "SELECT 1".to_string();
+
+        let mut stream = client
+            .execute_streaming_sql(req, crate::RequestOptions::default())
+            .send()
+            .await
+            .expect("Failed to call execute_streaming_sql");
+
+        let result = stream.next_message().await;
+        assert!(result.is_some());
+        assert!(result.unwrap().is_ok());
+    }
+
+    #[tokio::test]
+    async fn test_streaming_read() {
+        use crate::model::ReadRequest;
+
+        let mut mock = MockSpanner::new();
+        mock.expect_streaming_read().once().returning(|_| {
+            let result_set = mock_v1::PartialResultSet {
+                metadata: Some(mock_v1::ResultSetMetadata {
+                    row_type: Some(mock_v1::StructType { fields: vec![] }),
+                    transaction: None,
+                    undeclared_parameters: None,
+                }),
+                values: vec![],
+                chunked_value: false,
+                resume_token: vec![],
+                stats: None,
+                precommit_token: None,
+                cache_update: None,
+                last: false,
+            };
+            Ok(gaxi::grpc::tonic::Response::new(Box::pin(
+                tokio_stream::iter(vec![Ok(result_set)]),
+            )))
+        });
+
+        let (address, _server) = start("0.0.0.0:0", mock)
+            .await
+            .expect("Failed to start mock server");
+        let client = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await
+            .expect("Failed to build client");
+
+        let mut req = ReadRequest::new();
+        req.table = "test_table".to_string();
+        req.columns = vec!["col1".to_string()];
+
+        let mut stream = client
+            .streaming_read(req, crate::RequestOptions::default())
+            .send()
+            .await
+            .expect("Failed to call streaming_read");
+
+        let result = stream.next_message().await;
+        assert!(result.is_some());
+        assert!(result.unwrap().is_ok());
+    }
+
+    #[tokio::test]
+    async fn test_batch_write() {
+        use crate::model::BatchWriteRequest;
+
+        let mut mock = MockSpanner::new();
+        mock.expect_batch_write().once().returning(|_| {
+            let response = mock_v1::BatchWriteResponse {
+                indexes: vec![],
+                status: None,
+                commit_timestamp: None,
+            };
+            Ok(gaxi::grpc::tonic::Response::new(Box::pin(
+                tokio_stream::iter(vec![Ok(response)]),
+            )))
+        });
+
+        let (address, _server) = start("0.0.0.0:0", mock)
+            .await
+            .expect("Failed to start mock server");
+        let client = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await
+            .expect("Failed to build client");
+
+        let mut req = BatchWriteRequest::new();
+        req.session = "test_session".to_string();
+
+        let mut stream = client
+            .batch_write(req, crate::RequestOptions::default())
+            .send()
+            .await
+            .expect("Failed to call batch_write");
+
+        let result = stream.next_message().await;
+        assert!(result.is_some());
+        assert!(result.unwrap().is_ok());
+    }
+
+    #[tokio::test]
+    async fn test_execute_streaming_sql_error() {
+        use crate::model::ExecuteSqlRequest;
+
+        let mut mock = MockSpanner::new();
+        mock.expect_execute_streaming_sql().once().returning(|_| {
+            Ok(gaxi::grpc::tonic::Response::new(Box::pin(
+                tokio_stream::iter(vec![Err(gaxi::grpc::tonic::Status::internal(
+                    "unexpected internal error",
+                ))]),
+            )))
+        });
+
+        let (address, _server) = start("0.0.0.0:0", mock)
+            .await
+            .expect("Failed to start mock server");
+        let client = Spanner::builder()
+            .with_endpoint(address)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await
+            .expect("Failed to build client");
+
+        let mut req = ExecuteSqlRequest::new();
+        req.sql = "SELECT 1".to_string();
+
+        let mut stream = client
+            .execute_streaming_sql(req, crate::RequestOptions::default())
+            .send()
+            .await
+            .expect("Failed to call execute_streaming_sql");
+
+        let result = stream.next_message().await;
+        assert!(result.is_some());
+        let err = result.unwrap().expect_err("expected error");
+        assert_eq!(
+            err.status().unwrap().code,
+            google_cloud_gax::error::rpc::Code::Internal
+        );
     }
 }

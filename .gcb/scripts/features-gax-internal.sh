@@ -23,7 +23,7 @@ cargo clean
 echo "==== google-cloud-gax-internal ===="
 cargo test --package google-cloud-gax-internal --no-default-features
 cargo doc  --package google-cloud-gax-internal --no-default-features --no-deps
-for feature in _internal-common _internal-http-client _internal-grpc-client _internal-http-multipart _internal-http-stream; do
+for feature in _internal-common _internal-http-client _internal-grpc-client _internal-http-multipart _internal-http-stream _internal-grpc-server-streaming; do
     cargo test --package google-cloud-gax-internal --no-default-features --features "${feature}"
     cargo doc  --package google-cloud-gax-internal --no-default-features --features "${feature}" --no-deps
 done
