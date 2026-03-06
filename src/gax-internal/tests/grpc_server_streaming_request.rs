@@ -15,7 +15,7 @@
 #[cfg(all(
     test,
     feature = "_internal-grpc-client",
-    google_cloud_unstable_grpc_server_streaming
+    feature = "_internal-grpc-server-streaming"
 ))]
 mod tests {
     use google_cloud_auth::credentials::{

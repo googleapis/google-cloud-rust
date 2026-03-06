@@ -243,6 +243,7 @@ impl Client {
     }
 
     /// Opens a server stream with detailed status.
+    #[allow(dead_code)]
     async fn server_streaming_with_status<Request, Response>(
         &self,
         extensions: tonic::Extensions,
