@@ -13,10 +13,9 @@
 // limitations under the License.
 
 pub use future::PublishFuture;
-/// Request and client builders for the [Publisher][crate::client::Publisher] client.
-pub mod builder;
-/// Clients to publish messages.
-pub mod client;
+
+pub(super) mod builder;
+pub(super) mod client;
 
 mod actor;
 mod backoff_policy;
