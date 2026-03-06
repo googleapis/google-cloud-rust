@@ -43,7 +43,7 @@ pub async fn run() -> anyhow::Result<()> {
     // Start a root span
     let root_span = tracing::info_span!("e2e_root", "otel.name" = ROOT_SPAN_NAME);
     let trace_id = {
-        let _enter = root_span.enter();
+        use tracing::Instrument;
         let trace_id = root_span
             .context()
             .span()
@@ -51,19 +51,23 @@ pub async fn run() -> anyhow::Result<()> {
             .trace_id()
             .to_string();
 
-        // Initialize showcase client pointing to local mock server
-        let client = Echo::builder()
-            .with_endpoint(format!("http://{}", echo_server.addr()))
-            .with_credentials(Anonymous::new().build())
-            .with_tracing()
-            .build()
-            .await?;
+        async {
+            // Initialize showcase client pointing to local mock server
+            let client = Echo::builder()
+                .with_endpoint(format!("http://{}", echo_server.addr()))
+                .with_credentials(Anonymous::new().build())
+                .with_tracing()
+                .build()
+                .await?;
 
-        // Make the API call
-        // This will generate child spans within the library
-        let _ = client.echo().set_content("test").send().await?;
+            // Make the API call
+            // This will generate child spans within the library
+            let _ = client.echo().set_content("test").send().await?;
 
-        trace_id
+            Ok::<_, anyhow::Error>(trace_id)
+        }
+        .instrument(root_span.clone())
+        .await?
     };
     // explicitly drop the span to end it
     drop(root_span);

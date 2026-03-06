@@ -85,8 +85,8 @@ async fn send_trace(project_id: &str) -> anyhow::Result<String> {
         .trace_id()
         .to_string();
     {
-        let _enter = root_span.entered();
-        let _ = client_library_operations().await;
+        use tracing::Instrument;
+        let _ = client_library_operations().instrument(root_span).await;
     }
 
     println!(
