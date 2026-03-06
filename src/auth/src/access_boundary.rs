@@ -322,7 +322,7 @@ where
     let retry_throttler: SharedRetryThrottler = retry_throttler.into();
 
     retry_loop(
-        async move |d| {        
+        async move |d| {
             let headers = credentials
                 .headers(Extensions::new())
                 .await
@@ -330,15 +330,12 @@ where
 
             let attempt = fetch_access_boundary_call(&client, &url, headers);
             match d {
-                Some(timeout) => {
-                    match tokio::time::timeout(timeout, attempt).await {
-                        Ok(r) => r,
-                        Err(e) => Err(GaxError::timeout(e)),
-                    }
-                }
-                None => attempt.await
-
-            }  
+                Some(timeout) => match tokio::time::timeout(timeout, attempt).await {
+                    Ok(r) => r,
+                    Err(e) => Err(GaxError::timeout(e)),
+                },
+                None => attempt.await,
+            }
         },
         sleep,
         true, // fetch access boundary is idempotent
