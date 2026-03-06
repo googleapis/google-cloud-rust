@@ -52,13 +52,11 @@ impl super::stub::KeyDashboardService for KeyDashboardService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}/cryptoKeys",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[Segment::Literal("projects/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[Segment::Literal("projects/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1/{}/cryptoKeys", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -127,22 +125,20 @@ impl super::stub::KeyTrackingService for KeyTrackingService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}/protectedResourcesSummary",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/keyRings/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/cryptoKeys"),
-                            Segment::TrailingMultiWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/keyRings/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/cryptoKeys"),
+                        Segment::TrailingMultiWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/protectedResourcesSummary", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("fallbackScope", &req.fallback_scope)]);
@@ -196,13 +192,11 @@ impl super::stub::KeyTrackingService for KeyTrackingService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}/protectedResources:search",
-                    try_match(
-                        Some(&req).map(|m| &m.scope).map(|s| s.as_str()),
-                        &[Segment::Literal("organizations/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_scope = try_match(
+                    Some(&req).map(|m| &m.scope).map(|s| s.as_str()),
+                    &[Segment::Literal("organizations/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1/{}/protectedResources:search", var_scope,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("cryptoKey", &req.crypto_key)]);
@@ -216,13 +210,11 @@ impl super::stub::KeyTrackingService for KeyTrackingService {
                 Some(builder.map(|b| (b, Method::GET)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}/protectedResources:search",
-                    try_match(
-                        Some(&req).map(|m| &m.scope).map(|s| s.as_str()),
-                        &[Segment::Literal("projects/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_scope = try_match(
+                    Some(&req).map(|m| &m.scope).map(|s| s.as_str()),
+                    &[Segment::Literal("projects/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1/{}/protectedResources:search", var_scope,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("cryptoKey", &req.crypto_key)]);

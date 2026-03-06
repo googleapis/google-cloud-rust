@@ -52,16 +52,17 @@ impl super::stub::DatasetService for DatasetService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project_id = try_match(
+                    Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_dataset_id = try_match(
+                    Some(&req).map(|m| &m.dataset_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/bigquery/v2/projects/{}/datasets/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.dataset_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project_id, var_dataset_id,
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -114,13 +115,11 @@ impl super::stub::DatasetService for DatasetService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/bigquery/v2/projects/{}/datasets",
-                    try_match(
-                        Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                );
+                let var_project_id = try_match(
+                    Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let path = format!("/bigquery/v2/projects/{}/datasets", var_project_id,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("accessPolicyVersion", &req.access_policy_version)]);
@@ -165,16 +164,17 @@ impl super::stub::DatasetService for DatasetService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project_id = try_match(
+                    Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_dataset_id = try_match(
+                    Some(&req).map(|m| &m.dataset_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/bigquery/v2/projects/{}/datasets/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.dataset_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project_id, var_dataset_id,
                 );
 
                 let builder = self.inner.builder(Method::PATCH, path);
@@ -227,16 +227,17 @@ impl super::stub::DatasetService for DatasetService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project_id = try_match(
+                    Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_dataset_id = try_match(
+                    Some(&req).map(|m| &m.dataset_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/bigquery/v2/projects/{}/datasets/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.dataset_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project_id, var_dataset_id,
                 );
 
                 let builder = self.inner.builder(Method::PUT, path);
@@ -289,16 +290,17 @@ impl super::stub::DatasetService for DatasetService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project_id = try_match(
+                    Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_dataset_id = try_match(
+                    Some(&req).map(|m| &m.dataset_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/bigquery/v2/projects/{}/datasets/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.dataset_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project_id, var_dataset_id,
                 );
 
                 let builder = self.inner.builder(Method::DELETE, path);
@@ -356,13 +358,11 @@ impl super::stub::DatasetService for DatasetService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/bigquery/v2/projects/{}/datasets",
-                    try_match(
-                        Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                );
+                let var_project_id = try_match(
+                    Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let path = format!("/bigquery/v2/projects/{}/datasets", var_project_id,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
@@ -421,16 +421,17 @@ impl super::stub::DatasetService for DatasetService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project_id = try_match(
+                    Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_dataset_id = try_match(
+                    Some(&req).map(|m| &m.dataset_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/bigquery/v2/projects/{}/datasets/{}:undelete",
-                    try_match(
-                        Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.dataset_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project_id, var_dataset_id,
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -504,16 +505,17 @@ impl super::stub::JobService for JobService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project_id = try_match(
+                    Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_job_id = try_match(
+                    Some(&req).map(|m| &m.job_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/bigquery/v2/projects/{}/jobs/{}/cancel",
-                    try_match(
-                        Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.job_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project_id, var_job_id,
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -565,16 +567,17 @@ impl super::stub::JobService for JobService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project_id = try_match(
+                    Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_job_id = try_match(
+                    Some(&req).map(|m| &m.job_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/bigquery/v2/projects/{}/jobs/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.job_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project_id, var_job_id,
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -626,13 +629,11 @@ impl super::stub::JobService for JobService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/bigquery/v2/projects/{}/jobs",
-                    try_match(
-                        Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                );
+                let var_project_id = try_match(
+                    Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let path = format!("/bigquery/v2/projects/{}/jobs", var_project_id,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -676,16 +677,17 @@ impl super::stub::JobService for JobService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project_id = try_match(
+                    Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_job_id = try_match(
+                    Some(&req).map(|m| &m.job_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/bigquery/v2/projects/{}/jobs/{}/delete",
-                    try_match(
-                        Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.job_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project_id, var_job_id,
                 );
 
                 let builder = self.inner.builder(Method::DELETE, path);
@@ -743,13 +745,11 @@ impl super::stub::JobService for JobService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/bigquery/v2/projects/{}/jobs",
-                    try_match(
-                        Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                );
+                let var_project_id = try_match(
+                    Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let path = format!("/bigquery/v2/projects/{}/jobs", var_project_id,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
@@ -824,16 +824,17 @@ impl super::stub::JobService for JobService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project_id = try_match(
+                    Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_job_id = try_match(
+                    Some(&req).map(|m| &m.job_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/bigquery/v2/projects/{}/queries/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.job_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project_id, var_job_id,
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -928,13 +929,11 @@ impl super::stub::JobService for JobService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/bigquery/v2/projects/{}/queries",
-                    try_match(
-                        Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                );
+                let var_project_id = try_match(
+                    Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let path = format!("/bigquery/v2/projects/{}/queries", var_project_id,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -1001,20 +1000,21 @@ impl super::stub::ModelService for ModelService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project_id = try_match(
+                    Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_dataset_id = try_match(
+                    Some(&req).map(|m| &m.dataset_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_model_id = try_match(
+                    Some(&req).map(|m| &m.model_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/bigquery/v2/projects/{}/datasets/{}/models/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.dataset_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.model_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project_id, var_dataset_id, var_model_id,
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -1071,16 +1071,17 @@ impl super::stub::ModelService for ModelService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project_id = try_match(
+                    Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_dataset_id = try_match(
+                    Some(&req).map(|m| &m.dataset_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/bigquery/v2/projects/{}/datasets/{}/models",
-                    try_match(
-                        Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.dataset_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project_id, var_dataset_id,
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -1144,20 +1145,21 @@ impl super::stub::ModelService for ModelService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project_id = try_match(
+                    Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_dataset_id = try_match(
+                    Some(&req).map(|m| &m.dataset_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_model_id = try_match(
+                    Some(&req).map(|m| &m.model_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/bigquery/v2/projects/{}/datasets/{}/models/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.dataset_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.model_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project_id, var_dataset_id, var_model_id,
                 );
 
                 let builder = self.inner.builder(Method::PATCH, path);
@@ -1214,20 +1216,21 @@ impl super::stub::ModelService for ModelService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project_id = try_match(
+                    Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_dataset_id = try_match(
+                    Some(&req).map(|m| &m.dataset_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_model_id = try_match(
+                    Some(&req).map(|m| &m.model_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/bigquery/v2/projects/{}/datasets/{}/models/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.dataset_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.model_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project_id, var_dataset_id, var_model_id,
                 );
 
                 let builder = self.inner.builder(Method::DELETE, path);
@@ -1313,13 +1316,11 @@ impl super::stub::ProjectService for ProjectService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/bigquery/v2/projects/{}/serviceAccount",
-                    try_match(
-                        Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                );
+                let var_project_id = try_match(
+                    Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let path = format!("/bigquery/v2/projects/{}/serviceAccount", var_project_id,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -1386,20 +1387,21 @@ impl super::stub::RoutineService for RoutineService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project_id = try_match(
+                    Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_dataset_id = try_match(
+                    Some(&req).map(|m| &m.dataset_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_routine_id = try_match(
+                    Some(&req).map(|m| &m.routine_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/bigquery/v2/projects/{}/datasets/{}/routines/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.dataset_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.routine_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project_id, var_dataset_id, var_routine_id,
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -1456,16 +1458,17 @@ impl super::stub::RoutineService for RoutineService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project_id = try_match(
+                    Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_dataset_id = try_match(
+                    Some(&req).map(|m| &m.dataset_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/bigquery/v2/projects/{}/datasets/{}/routines",
-                    try_match(
-                        Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.dataset_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project_id, var_dataset_id,
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -1516,20 +1519,21 @@ impl super::stub::RoutineService for RoutineService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project_id = try_match(
+                    Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_dataset_id = try_match(
+                    Some(&req).map(|m| &m.dataset_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_routine_id = try_match(
+                    Some(&req).map(|m| &m.routine_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/bigquery/v2/projects/{}/datasets/{}/routines/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.dataset_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.routine_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project_id, var_dataset_id, var_routine_id,
                 );
 
                 let builder = self.inner.builder(Method::PUT, path);
@@ -1586,20 +1590,21 @@ impl super::stub::RoutineService for RoutineService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project_id = try_match(
+                    Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_dataset_id = try_match(
+                    Some(&req).map(|m| &m.dataset_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_routine_id = try_match(
+                    Some(&req).map(|m| &m.routine_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/bigquery/v2/projects/{}/datasets/{}/routines/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.dataset_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.routine_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project_id, var_dataset_id, var_routine_id,
                 );
 
                 let builder = self.inner.builder(Method::DELETE, path);
@@ -1662,16 +1667,17 @@ impl super::stub::RoutineService for RoutineService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project_id = try_match(
+                    Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_dataset_id = try_match(
+                    Some(&req).map(|m| &m.dataset_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/bigquery/v2/projects/{}/datasets/{}/routines",
-                    try_match(
-                        Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.dataset_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project_id, var_dataset_id,
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -1759,20 +1765,21 @@ impl super::stub::RowAccessPolicyService for RowAccessPolicyService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project_id = try_match(
+                    Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_dataset_id = try_match(
+                    Some(&req).map(|m| &m.dataset_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_table_id = try_match(
+                    Some(&req).map(|m| &m.table_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/bigquery/v2/projects/{}/datasets/{}/tables/{}/rowAccessPolicies",
-                    try_match(
-                        Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.dataset_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.table_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project_id, var_dataset_id, var_table_id,
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -1831,24 +1838,25 @@ impl super::stub::RowAccessPolicyService for RowAccessPolicyService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project_id = try_match(
+                    Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_dataset_id = try_match(
+                    Some(&req).map(|m| &m.dataset_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_table_id = try_match(
+                    Some(&req).map(|m| &m.table_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_policy_id = try_match(
+                    Some(&req).map(|m| &m.policy_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/bigquery/v2/projects/{}/datasets/{}/tables/{}/rowAccessPolicies/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.dataset_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.table_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.policy_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project_id, var_dataset_id, var_table_id, var_policy_id,
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -1911,20 +1919,21 @@ impl super::stub::RowAccessPolicyService for RowAccessPolicyService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project_id = try_match(
+                    Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_dataset_id = try_match(
+                    Some(&req).map(|m| &m.dataset_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_table_id = try_match(
+                    Some(&req).map(|m| &m.table_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/bigquery/v2/projects/{}/datasets/{}/tables/{}/rowAccessPolicies",
-                    try_match(
-                        Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.dataset_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.table_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project_id, var_dataset_id, var_table_id,
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -1981,24 +1990,25 @@ impl super::stub::RowAccessPolicyService for RowAccessPolicyService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project_id = try_match(
+                    Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_dataset_id = try_match(
+                    Some(&req).map(|m| &m.dataset_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_table_id = try_match(
+                    Some(&req).map(|m| &m.table_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_policy_id = try_match(
+                    Some(&req).map(|m| &m.policy_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/bigquery/v2/projects/{}/datasets/{}/tables/{}/rowAccessPolicies/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.dataset_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.table_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.policy_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project_id, var_dataset_id, var_table_id, var_policy_id,
                 );
 
                 let builder = self.inner.builder(Method::PUT, path);
@@ -2061,24 +2071,25 @@ impl super::stub::RowAccessPolicyService for RowAccessPolicyService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project_id = try_match(
+                    Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_dataset_id = try_match(
+                    Some(&req).map(|m| &m.dataset_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_table_id = try_match(
+                    Some(&req).map(|m| &m.table_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_policy_id = try_match(
+                    Some(&req).map(|m| &m.policy_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/bigquery/v2/projects/{}/datasets/{}/tables/{}/rowAccessPolicies/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.dataset_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.table_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.policy_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project_id, var_dataset_id, var_table_id, var_policy_id,
                 );
 
                 let builder = self.inner.builder(Method::DELETE, path);
@@ -2151,20 +2162,21 @@ impl super::stub::RowAccessPolicyService for RowAccessPolicyService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project_id = try_match(
+                    Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_dataset_id = try_match(
+                    Some(&req).map(|m| &m.dataset_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_table_id = try_match(
+                    Some(&req).map(|m| &m.table_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/bigquery/v2/projects/{}/datasets/{}/tables/{}/rowAccessPolicies:batchDelete",
-                    try_match(
-                        Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.dataset_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.table_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project_id, var_dataset_id, var_table_id,
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -2250,20 +2262,21 @@ impl super::stub::TableService for TableService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project_id = try_match(
+                    Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_dataset_id = try_match(
+                    Some(&req).map(|m| &m.dataset_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_table_id = try_match(
+                    Some(&req).map(|m| &m.table_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/bigquery/v2/projects/{}/datasets/{}/tables/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.dataset_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.table_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project_id, var_dataset_id, var_table_id,
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -2322,16 +2335,17 @@ impl super::stub::TableService for TableService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project_id = try_match(
+                    Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_dataset_id = try_match(
+                    Some(&req).map(|m| &m.dataset_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/bigquery/v2/projects/{}/datasets/{}/tables",
-                    try_match(
-                        Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.dataset_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project_id, var_dataset_id,
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -2382,20 +2396,21 @@ impl super::stub::TableService for TableService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project_id = try_match(
+                    Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_dataset_id = try_match(
+                    Some(&req).map(|m| &m.dataset_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_table_id = try_match(
+                    Some(&req).map(|m| &m.table_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/bigquery/v2/projects/{}/datasets/{}/tables/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.dataset_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.table_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project_id, var_dataset_id, var_table_id,
                 );
 
                 let builder = self.inner.builder(Method::PATCH, path);
@@ -2453,20 +2468,21 @@ impl super::stub::TableService for TableService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project_id = try_match(
+                    Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_dataset_id = try_match(
+                    Some(&req).map(|m| &m.dataset_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_table_id = try_match(
+                    Some(&req).map(|m| &m.table_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/bigquery/v2/projects/{}/datasets/{}/tables/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.dataset_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.table_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project_id, var_dataset_id, var_table_id,
                 );
 
                 let builder = self.inner.builder(Method::PUT, path);
@@ -2524,20 +2540,21 @@ impl super::stub::TableService for TableService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project_id = try_match(
+                    Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_dataset_id = try_match(
+                    Some(&req).map(|m| &m.dataset_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_table_id = try_match(
+                    Some(&req).map(|m| &m.table_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/bigquery/v2/projects/{}/datasets/{}/tables/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.dataset_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.table_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project_id, var_dataset_id, var_table_id,
                 );
 
                 let builder = self.inner.builder(Method::DELETE, path);
@@ -2600,16 +2617,17 @@ impl super::stub::TableService for TableService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project_id = try_match(
+                    Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_dataset_id = try_match(
+                    Some(&req).map(|m| &m.dataset_id).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/bigquery/v2/projects/{}/datasets/{}/tables",
-                    try_match(
-                        Some(&req).map(|m| &m.project_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.dataset_id).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project_id, var_dataset_id,
                 );
 
                 let builder = self.inner.builder(Method::GET, path);

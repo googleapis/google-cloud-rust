@@ -52,22 +52,20 @@ impl super::stub::Publisher for Publisher {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}:publishEvents",
-                    try_match(
-                        Some(&req)
-                            .map(|m| &m.channel_connection)
-                            .map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/channelConnections/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_channel_connection = try_match(
+                    Some(&req)
+                        .map(|m| &m.channel_connection)
+                        .map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/channelConnections/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:publishEvents", var_channel_connection,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -120,20 +118,18 @@ impl super::stub::Publisher for Publisher {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}:publishEvents",
-                    try_match(
-                        Some(&req).map(|m| &m.channel).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/channels/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_channel = try_match(
+                    Some(&req).map(|m| &m.channel).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/channels/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:publishEvents", var_channel,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -184,20 +180,18 @@ impl super::stub::Publisher for Publisher {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}:publish",
-                    try_match(
-                        Some(&req).map(|m| &m.message_bus).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/messageBuses/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_message_bus = try_match(
+                    Some(&req).map(|m| &m.message_bus).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/messageBuses/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:publish", var_message_bus,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
