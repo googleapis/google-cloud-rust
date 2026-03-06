@@ -20,10 +20,14 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_videointelligence_v1::client::VideoIntelligenceService;
-/// let client = VideoIntelligenceService::builder().build().await?;
-/// // use `client` to make requests to the Cloud Video Intelligence API.
+/// use google_cloud_lro::Poller;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = VideoIntelligenceService::builder().build().await?;
+///     let response = client.annotate_video()
+///         /* set fields */
+///         .poller().until_done().await?;
+///     println!("response {:?}", response);
 /// # Ok(()) }
 /// ```
 ///

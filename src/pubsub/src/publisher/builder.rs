@@ -279,7 +279,7 @@ impl PublisherBuilder {
 /// ```
 /// # async fn sample() -> anyhow::Result<()> {
 /// # use google_cloud_pubsub::*;
-/// # use google_cloud_pubsub::publisher::client::BasePublisher;
+/// # use google_cloud_pubsub::client::BasePublisher;
 /// let client: BasePublisher = BasePublisher::builder().build().await?;
 /// let publisher = client.publisher("projects/my-project/topics/topic").build();
 /// # Ok(()) }
@@ -309,7 +309,7 @@ impl PublisherPartialBuilder {
     /// # Example
     ///
     /// ```
-    /// # use google_cloud_pubsub::publisher::client::BasePublisher;
+    /// # use google_cloud_pubsub::client::BasePublisher;
     /// # async fn sample() -> anyhow::Result<()> {
     /// # let client: BasePublisher = BasePublisher::builder().build().await?;
     /// let publisher = client
@@ -331,7 +331,7 @@ impl PublisherPartialBuilder {
     /// # Example
     ///
     /// ```
-    /// # use google_cloud_pubsub::publisher::client::BasePublisher;
+    /// # use google_cloud_pubsub::client::BasePublisher;
     /// # async fn sample() -> anyhow::Result<()> {
     /// # let client: BasePublisher = BasePublisher::builder().build().await?;
     /// let publisher = client
@@ -353,7 +353,7 @@ impl PublisherPartialBuilder {
     /// # Example
     ///
     /// ```
-    /// # use google_cloud_pubsub::publisher::client::BasePublisher;
+    /// # use google_cloud_pubsub::client::BasePublisher;
     /// # use std::time::Duration;
     /// # async fn sample() -> anyhow::Result<()> {
     /// # let client: BasePublisher = BasePublisher::builder().build().await?;

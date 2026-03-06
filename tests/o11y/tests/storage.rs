@@ -14,8 +14,12 @@
 
 #[cfg(all(test, feature = "run-integration-tests", google_cloud_unstable_tracing))]
 mod storage {
+    use google_cloud_test_utils::errors::anydump;
+
     #[tokio::test(flavor = "multi_thread")]
     async fn run() -> anyhow::Result<()> {
-        integration_tests_o11y::e2e::storage::run().await
+        integration_tests_o11y::e2e::storage::run()
+            .await
+            .inspect_err(anydump)
     }
 }

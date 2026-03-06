@@ -20,10 +20,17 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_binaryauthorization_v1::client::BinauthzManagementServiceV1;
-/// let client = BinauthzManagementServiceV1::builder().build().await?;
-/// // use `client` to make requests to the Binary Authorization API.
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = BinauthzManagementServiceV1::builder().build().await?;
+///     let parent = "parent_value";
+///     let mut list = client.list_attestors()
+///         .set_parent(parent)
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
 /// # Ok(()) }
 /// ```
 ///
@@ -325,10 +332,14 @@ impl BinauthzManagementServiceV1 {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_binaryauthorization_v1::client::SystemPolicyV1;
-/// let client = SystemPolicyV1::builder().build().await?;
-/// // use `client` to make requests to the Binary Authorization API.
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = SystemPolicyV1::builder().build().await?;
+///     let name = "name_value";
+///     let response = client.get_system_policy()
+///         .set_name(name)
+///         .send().await?;
+///     println!("response {:?}", response);
 /// # Ok(()) }
 /// ```
 ///
@@ -448,10 +459,13 @@ impl SystemPolicyV1 {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_binaryauthorization_v1::client::ValidationHelperV1;
-/// let client = ValidationHelperV1::builder().build().await?;
-/// // use `client` to make requests to the Binary Authorization API.
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = ValidationHelperV1::builder().build().await?;
+///     let response = client.validate_attestation_occurrence()
+///         /* set fields */
+///         .send().await?;
+///     println!("response {:?}", response);
 /// # Ok(()) }
 /// ```
 ///

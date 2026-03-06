@@ -230,7 +230,6 @@ impl ReqwestClient {
         body: Option<I>,
         options: RequestOptions,
     ) -> Result<Response<O>> {
-        builder = self.configure_builder(builder, &options)?;
         if let Some(body) = body {
             builder = builder.json(&body);
         }
@@ -239,11 +238,10 @@ impl ReqwestClient {
 
     pub(crate) async fn execute_http(
         &self,
-        mut builder: reqwest::RequestBuilder,
+        builder: reqwest::RequestBuilder,
         options: RequestOptions,
         attempt_info: AttemptInfo,
     ) -> Result<reqwest::Response> {
-        builder = self.configure_builder(builder, &options)?;
         let request = self
             .request(builder, &options, attempt_info.remaining_time)
             .await?;
@@ -291,14 +289,13 @@ impl ReqwestClient {
     /// handling retries if necessary.
     pub async fn execute_streaming_once(
         &self,
-        mut builder: reqwest::RequestBuilder,
+        builder: reqwest::RequestBuilder,
         options: RequestOptions,
         remaining_time: Option<std::time::Duration>,
         attempt_count: u32,
     ) -> Result<Response<impl futures::Stream<Item = Result<bytes::Bytes>>>> {
         use futures::TryStreamExt;
 
-        builder = self.configure_builder(builder, &options)?;
         let response = self
             .request_attempt(builder, &options, remaining_time, attempt_count)
             .await?;
@@ -313,20 +310,6 @@ impl ReqwestClient {
             Parts::new().set_headers(parts.headers),
             stream,
         ))
-    }
-
-    fn configure_builder(
-        &self,
-        mut builder: reqwest::RequestBuilder,
-        options: &RequestOptions,
-    ) -> Result<reqwest::RequestBuilder> {
-        if let Some(user_agent) = options.user_agent() {
-            builder = builder.header(
-                ::reqwest::header::USER_AGENT,
-                reqwest::HeaderValue::from_str(user_agent).map_err(Error::ser)?,
-            );
-        }
-        Ok(builder)
     }
 
     async fn make_credentials(
@@ -376,6 +359,15 @@ impl ReqwestClient {
         options: &RequestOptions,
         remaining_time: Option<std::time::Duration>,
     ) -> Result<reqwest::Request> {
+        builder = if let Some(user_agent) = options.user_agent() {
+            builder.header(
+                reqwest::USER_AGENT,
+                reqwest::HeaderValue::from_str(user_agent).map_err(Error::ser)?,
+            )
+        } else {
+            builder
+        };
+
         builder = effective_timeout(options, remaining_time)
             .into_iter()
             .fold(builder, |b, t| b.timeout(t));

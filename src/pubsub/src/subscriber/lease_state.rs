@@ -161,7 +161,7 @@ where
 
     /// Flush pending acks/nacks
     pub(super) async fn flush(&mut self) {
-        let (to_ack, to_nack) = self.leases.flush();
+        let (to_ack, to_nack) = self.leases.drain();
 
         // TODO(#3975) - await these concurrently.
         if !to_ack.is_empty() {
@@ -191,7 +191,7 @@ where
         self.leases.evict();
 
         // TODO(#3975) - await these concurrently.
-        let (to_ack, to_nack) = self.leases.flush();
+        let (to_ack, to_nack) = self.leases.drain();
         if !to_ack.is_empty() {
             self.leaser.ack(to_ack).await;
         }

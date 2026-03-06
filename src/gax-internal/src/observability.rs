@@ -36,6 +36,12 @@ pub(crate) use http_tracing::{ResultExt as HttpResultExt, create_http_attempt_sp
 pub mod grpc_tracing;
 
 #[cfg(google_cloud_unstable_tracing)]
+mod client_signals;
+
+#[cfg(google_cloud_unstable_tracing)]
+pub use client_signals::{ClientSignalsExt, DurationMetric, RequestStart};
+
+#[cfg(google_cloud_unstable_tracing)]
 mod client_tracing;
 
 #[cfg(google_cloud_unstable_tracing)]

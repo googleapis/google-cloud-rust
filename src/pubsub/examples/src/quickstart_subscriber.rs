@@ -19,7 +19,7 @@ use std::time::{Duration, Instant};
 pub async fn sample(project_id: &str, subscription_id: &str) -> anyhow::Result<()> {
     let subscription_name = format!("projects/{project_id}/subscriptions/{subscription_id}");
     let client = Subscriber::builder().build().await?;
-    let mut session = client.stream(subscription_name).build();
+    let mut stream = client.subscribe(subscription_name).build();
 
     println!("listening for messages...");
 
@@ -27,7 +27,7 @@ pub async fn sample(project_id: &str, subscription_id: &str) -> anyhow::Result<(
     // messages indefinitely in a long-running loop.
     let deadline = Instant::now() + Duration::from_secs(10);
 
-    while let Ok(Some(item)) = tokio::time::timeout_at(deadline.into(), session.next()).await {
+    while let Ok(Some(item)) = tokio::time::timeout_at(deadline.into(), stream.next()).await {
         let (message, handler) = item?;
         println!("received message: {message:?}");
         handler.ack();

@@ -20,10 +20,17 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_api_serviceusage_v1::client::ServiceUsage;
-/// let client = ServiceUsage::builder().build().await?;
-/// // use `client` to make requests to the Service Usage API.
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = ServiceUsage::builder().build().await?;
+///     let parent = "parent_value";
+///     let mut list = client.list_services()
+///         .set_parent(parent)
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
 /// # Ok(()) }
 /// ```
 ///

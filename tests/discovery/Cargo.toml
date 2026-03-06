@@ -42,7 +42,15 @@ tracing.workspace           = true
 
 [dependencies.google-cloud-compute-v1]
 workspace = true
-features  = ["images", "instances", "machine-types", "region-instances", "zone-operations", "zones"]
+features = [
+  "default-rustls-provider",
+  "images",
+  "instances",
+  "machine-types",
+  "region-instances",
+  "zone-operations",
+  "zones",
+]
 
 [lints]
 workspace = true

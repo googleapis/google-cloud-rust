@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+pub mod errors;
 pub mod resource_names;
 pub mod runtime_config;
 pub mod test_layer;

@@ -46,11 +46,11 @@ pub async fn basic_publisher(topic_name: String) -> Result<()> {
 
 pub async fn basic_subscriber(subscription_name: String) -> Result<()> {
     let subscriber = Subscriber::builder().build().await?;
-    let mut session = subscriber.stream(subscription_name).build();
+    let mut stream = subscriber.subscribe(subscription_name).build();
 
     let mut got = HashSet::new();
     for _ in 0..2 {
-        if let Some((m, h)) = session.next().await.transpose()? {
+        if let Some((m, h)) = stream.next().await.transpose()? {
             got.insert(m.data);
             h.ack();
         }

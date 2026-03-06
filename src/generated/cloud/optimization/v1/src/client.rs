@@ -20,10 +20,13 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_optimization_v1::client::FleetRouting;
-/// let client = FleetRouting::builder().build().await?;
-/// // use `client` to make requests to the Cloud Optimization API.
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = FleetRouting::builder().build().await?;
+///     let response = client.optimize_tours()
+///         /* set fields */
+///         .send().await?;
+///     println!("response {:?}", response);
 /// # Ok(()) }
 /// ```
 ///

@@ -15,6 +15,7 @@
 #[cfg(all(test, feature = "run-integration-tests"))]
 mod storage {
     use google_cloud_storage::client::{Storage, StorageControl};
+    use google_cloud_test_utils::errors::anydump;
     use google_cloud_test_utils::tracing::enable_tracing;
     use integration_tests_storage::StorageBuilder;
     use integration_tests_storage::StorageControlBuilder;
@@ -26,35 +27,45 @@ mod storage {
     #[tokio::test(flavor = "multi_thread")]
     async fn run_storage_control_buckets(builder: StorageControlBuilder) -> anyhow::Result<()> {
         let _guard = enable_tracing();
-        integration_tests_storage::buckets(builder).await
+        integration_tests_storage::buckets(builder)
+            .await
+            .inspect_err(anydump)
     }
 
     #[tokio::test(flavor = "multi_thread")]
     async fn run_storage_objects() -> anyhow::Result<()> {
         let _guard = enable_tracing();
-        let (control, bucket) = integration_tests_storage::create_test_bucket().await?;
+        let (control, bucket) = integration_tests_storage::create_test_bucket()
+            .await
+            .inspect_err(anydump)?;
         let variants = || async {
             tracing::info!("default builder");
             let builder = Storage::builder();
-            integration_tests_storage::objects(builder, &bucket.name, "default-endpoint").await?;
+            integration_tests_storage::objects(builder, &bucket.name, "default-endpoint")
+                .await
+                .inspect_err(anydump)?;
             tracing::info!("with global endpoint");
 
             let builder = Storage::builder().with_endpoint("https://www.googleapis.com");
-            integration_tests_storage::objects(builder, &bucket.name, "global endpoint").await?;
+            integration_tests_storage::objects(builder, &bucket.name, "global endpoint")
+                .await
+                .inspect_err(anydump)?;
 
             if std::env::var("GOOGLE_CLOUD_RUST_TEST_RUNNING_ON_GCB").is_ok_and(|s| s == "1") {
                 tracing::info!("with locational endpoint");
                 let builder =
                     Storage::builder().with_endpoint("https://us-central1-storage.googleapis.com");
                 integration_tests_storage::objects(builder, &bucket.name, "locational-endpoint")
-                    .await?;
+                    .await
+                    .inspect_err(anydump)?;
             }
             Ok(())
         };
-        let result = variants().await;
-        if let Err(e) = storage_samples::cleanup_bucket(control, bucket.name.clone()).await {
-            tracing::error!("error cleaning up test bucket {}: {e:?}", bucket.name);
-        };
+        let result = variants().await.inspect_err(anydump);
+        let _ = storage_samples::cleanup_bucket(control, bucket.name.clone())
+            .await
+            .inspect_err(|e| tracing::error!("error cleaning up bucket {}: {e:?}", bucket.name))
+            .inspect_err(anydump);
         result
     }
 
@@ -74,7 +85,9 @@ mod storage {
             }
         };
 
-        let (control, bucket) = integration_tests_storage::create_test_bucket().await?;
+        let (control, bucket) = integration_tests_storage::create_test_bucket()
+            .await
+            .inspect_err(anydump)?;
 
         let builder = Storage::builder();
         let result = integration_tests_storage::signed_urls(
@@ -83,32 +96,44 @@ mod storage {
             &bucket.name,
             "default-endpoint",
         )
-        .await;
-        if let Err(e) = storage_samples::cleanup_bucket(control, bucket.name.clone()).await {
-            tracing::error!("error cleaning up test bucket {}: {e:?}", bucket.name);
-        };
+        .await
+        .inspect_err(anydump);
+        let _ = storage_samples::cleanup_bucket(control, bucket.name.clone())
+            .await
+            .inspect_err(|e| tracing::error!("error cleaning up bucket {}: {e:?}", bucket.name))
+            .inspect_err(anydump);
         result
     }
 
     #[tokio::test(flavor = "multi_thread")]
     async fn run_storage_read_object() -> anyhow::Result<()> {
         let _guard = enable_tracing();
-        let (control, bucket) = integration_tests_storage::create_test_bucket().await?;
-        let result = integration_tests_storage::read_object::run(&bucket.name).await;
-        if let Err(e) = storage_samples::cleanup_bucket(control, bucket.name.clone()).await {
-            tracing::error!("error cleaning up test bucket {}: {e:?}", bucket.name);
-        };
+        let (control, bucket) = integration_tests_storage::create_test_bucket()
+            .await
+            .inspect_err(anydump)?;
+        let result = integration_tests_storage::read_object::run(&bucket.name)
+            .await
+            .inspect_err(anydump);
+        let _ = storage_samples::cleanup_bucket(control, bucket.name.clone())
+            .await
+            .inspect_err(|e| tracing::error!("error cleaning up bucket {}: {e:?}", bucket.name))
+            .inspect_err(anydump);
         result
     }
 
     #[tokio::test(flavor = "multi_thread")]
     async fn run_storage_write_object() -> anyhow::Result<()> {
         let _guard = enable_tracing();
-        let (control, bucket) = integration_tests_storage::create_test_bucket().await?;
-        let result = integration_tests_storage::write_object::run(&bucket.name).await;
-        if let Err(e) = storage_samples::cleanup_bucket(control, bucket.name.clone()).await {
-            tracing::error!("error cleaning up test bucket {}: {e:?}", bucket.name);
-        };
+        let (control, bucket) = integration_tests_storage::create_test_bucket()
+            .await
+            .inspect_err(anydump)?;
+        let result = integration_tests_storage::write_object::run(&bucket.name)
+            .await
+            .inspect_err(anydump);
+        let _ = storage_samples::cleanup_bucket(control, bucket.name.clone())
+            .await
+            .inspect_err(|e| tracing::error!("error cleaning up bucket {}: {e:?}", bucket.name))
+            .inspect_err(anydump);
         result
     }
 
@@ -116,23 +141,33 @@ mod storage {
     #[tokio::test]
     async fn run_storage_object_names(builder: StorageBuilder) -> anyhow::Result<()> {
         let _guard = enable_tracing();
-        let (control, bucket) = integration_tests_storage::create_test_bucket().await?;
+        let (control, bucket) = integration_tests_storage::create_test_bucket()
+            .await
+            .inspect_err(anydump)?;
         let result =
-            integration_tests_storage::object_names(builder, control.clone(), &bucket.name).await;
-        if let Err(e) = storage_samples::cleanup_bucket(control, bucket.name.clone()).await {
-            tracing::error!("error cleaning up test bucket {}: {e:?}", bucket.name);
-        };
+            integration_tests_storage::object_names(builder, control.clone(), &bucket.name)
+                .await
+                .inspect_err(anydump);
+        let _ = storage_samples::cleanup_bucket(control, bucket.name.clone())
+            .await
+            .inspect_err(|e| tracing::error!("error cleaning up bucket {}: {e:?}", bucket.name))
+            .inspect_err(anydump);
         result
     }
 
     #[tokio::test(flavor = "multi_thread")]
     async fn run_storage_bidi() -> anyhow::Result<()> {
         let _guard = enable_tracing();
-        let (control, bucket) = integration_tests_storage::create_test_hns_bucket().await?;
-        let result = integration_tests_storage::bidi_read::run(&bucket.name).await;
-        if let Err(e) = storage_samples::cleanup_bucket(control, bucket.name.clone()).await {
-            tracing::error!("error cleaning up test bucket {}: {e:?}", bucket.name);
-        };
+        let (control, bucket) = integration_tests_storage::create_test_hns_bucket()
+            .await
+            .inspect_err(anydump)?;
+        let result = integration_tests_storage::bidi_read::run(&bucket.name)
+            .await
+            .inspect_err(anydump);
+        let _ = storage_samples::cleanup_bucket(control, bucket.name.clone())
+            .await
+            .inspect_err(|e| tracing::error!("error cleaning up bucket {}: {e:?}", bucket.name))
+            .inspect_err(anydump);
         result
     }
 }

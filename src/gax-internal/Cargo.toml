@@ -42,19 +42,11 @@ default = ["_default-rustls-provider"]
 # features of reqwest that `google-cloud-auth` does.
 _internal-http-client = [
   "_internal-common",
-  "dep:bytes",
-  "dep:futures",
-  "dep:google-cloud-rpc",
-  "dep:http",
-  "dep:http-body-util",
   "dep:hyper",
   "dep:lazy_static",
-  "dep:opentelemetry-semantic-conventions",
   "dep:reqwest",
   "dep:serde",
   "dep:serde_json",
-  "dep:tokio",
-  "dep:tracing",
 ]
 # Enables the gRPC client.
 #
@@ -62,23 +54,14 @@ _internal-http-client = [
 # features of reqwest that `google-cloud-auth` does.
 _internal-grpc-client = [
   "_internal-common",
-  "dep:bytes",
-  "dep:futures",
-  "dep:google-cloud-rpc",
-  "dep:http",
   "dep:http-body",
-  "dep:http-body-util",
-  "dep:opentelemetry-semantic-conventions",
-  "dep:pin-project",
   "dep:prost",
   "dep:prost-types",
   "dep:serde_json",
-  "dep:tokio",
   "dep:tokio-stream",
   "dep:tonic",
   "dep:tonic-prost",
   "dep:tower",
-  "dep:tracing",
   "dep:wkt",
 ]
 # Enable support for the multipart requests in the HTTP client.
@@ -93,9 +76,26 @@ _internal-http-multipart = ["_internal-http-client", "reqwest?/multipart"]
 # used by the `google-cloud-storage` crate to stream upload data.
 _internal-http-stream = ["_internal-http-client", "reqwest?/stream"]
 # Common features required by both HTTP and gRPC clients.
-_internal-common = ["dep:google-cloud-auth", "dep:google-cloud-gax", "dep:percent-encoding", "dep:thiserror"]
+_internal-common = [
+  "dep:bytes",
+  "dep:futures",
+  "dep:google-cloud-auth",
+  "dep:google-cloud-gax",
+  "dep:google-cloud-rpc",
+  "dep:http",
+  "dep:http-body-util",
+  "dep:opentelemetry",
+  "dep:opentelemetry-semantic-conventions",
+  "dep:percent-encoding",
+  "dep:pin-project",
+  "dep:thiserror",
+  "dep:tokio",
+  "dep:tracing",
+]
 # Enables the default rustls crypto provider for whatever client(s) are enabled.
 _default-rustls-provider = ["google-cloud-auth?/default-rustls-provider", "tonic?/tls-aws-lc"]
+# Enables the unstable server streaming functionality in the gRPC client.
+_internal-grpc-server-streaming = []
 
 [dependencies]
 bytes                              = { workspace = true, optional = true, features = ["serde"] }
@@ -105,6 +105,7 @@ http-body                          = { workspace = true, optional = true }
 http-body-util                     = { workspace = true, optional = true }
 hyper                              = { workspace = true, optional = true }
 lazy_static                        = { workspace = true, optional = true }
+opentelemetry                      = { workspace = true, optional = true, features = ["internal-logs", "metrics"] }
 opentelemetry-semantic-conventions = { workspace = true, optional = true, features = ["semconv_experimental"] }
 percent-encoding                   = { workspace = true, optional = true }
 pin-project                        = { workspace = true, optional = true }
@@ -133,12 +134,15 @@ google-cloud-test-utils.workspace = true
 httptest.workspace                = true
 lazy_static.workspace             = true
 mockall.workspace                 = true
+opentelemetry_sdk                 = { workspace = true, features = ["logs", "metrics", "testing"] }
+opentelemetry-appender-tracing    = { workspace = true }
 scoped-env.workspace              = true
 serde_with.workspace              = true
 serial_test.workspace             = true
 test-case.workspace               = true
 tokio                             = { workspace = true, features = ["test-util"] }
 tracing                           = { workspace = true, features = ["std"] }
+tracing-opentelemetry             = { workspace = true }
 tracing-subscriber                = { workspace = true, features = ["registry", "std"] }
 # Local crates
 echo-server = { path = "echo-server" }

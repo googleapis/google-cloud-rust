@@ -17,7 +17,7 @@ use google_cloud_gax::paginator::ItemPaginator as _;
 use google_cloud_gax::retry_policy::Aip194Strict;
 use google_cloud_secretmanager_v1::client::SecretManagerService;
 
-pub async fn sample(project_id: &str) -> crate::Result<()> {
+pub async fn sample(project_id: &str) -> anyhow::Result<()> {
     // [START rust_client_retry_client] ANCHOR: client-retry-client
     let client = SecretManagerService::builder()
         .with_retry_policy(Aip194Strict)
