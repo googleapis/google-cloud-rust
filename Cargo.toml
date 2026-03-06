@@ -417,7 +417,8 @@ tonic-prost-build = { default-features = false, version = "0.14.5" }
 # WARNING: When this changes to 0.6 we need to bump the google-cloud-gax-internal major version.
 tower = { default-features = false, version = "0.5.2", features = ["util"] }
 # WARNING: When this changes to 0.2 we need to bump the google-cloud-gax-internal major version.
-tracing = { default-features = false, version = "0.1.44", features = ["attributes"] }
+tracing       = { default-features = false, version = "0.1.44", features = ["attributes"] }
+tracing-serde = { default-features = false, version = "0.2" }
 
 # Some of our direct dependencies fail to declare the minimum version
 # requirements correctly. Force a higher version so we can test our own minimum

@@ -16,6 +16,7 @@ use opentelemetry::KeyValue;
 use opentelemetry_sdk::Resource;
 use opentelemetry_sdk::resource::ResourceDetector;
 
+#[derive(Clone, Debug)]
 pub struct TestResourceDetector(String);
 
 impl TestResourceDetector {
