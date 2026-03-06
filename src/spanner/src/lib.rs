@@ -29,9 +29,11 @@ pub(crate) use google_cloud_gax::options::internal::RequestBuilder;
 pub(crate) use google_cloud_gax::response::Response;
 
 pub mod client;
-pub mod builder {}
-pub mod database_client;
-pub mod model {
+pub mod builder {
+    pub use crate::database_client::DatabaseClientBuilder;
+}
+pub(crate) mod database_client;
+pub(crate) mod model {
     pub use crate::generated::gapic_dataplane::model::*;
 }
 
@@ -40,6 +42,7 @@ mod status;
 #[allow(dead_code)]
 #[allow(rustdoc::broken_intra_doc_links)]
 #[allow(rustdoc::private_intra_doc_links)]
+#[allow(clippy::enum_variant_names)]
 pub(crate) mod generated;
 
 #[allow(dead_code)]

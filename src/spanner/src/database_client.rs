@@ -14,6 +14,7 @@
 
 use crate::client::Spanner;
 use crate::model::Session;
+use std::sync::Arc;
 
 /// A client for interacting with a specific Spanner database.
 ///
@@ -25,11 +26,26 @@ use crate::model::Session;
 /// thread-safe and should be reused for all operations on the database.
 ///
 /// Cloning a `DatabaseClient` is cheap, as it shares the underlying session and channel.
+///
+/// # Example
+///
+/// ```
+/// # use google_cloud_spanner::client::Spanner;
+/// # async fn sample() -> anyhow::Result<()> {
+///     let spanner = Spanner::builder().build().await?;
+///     let database_client = spanner
+///         .database_client("projects/my-project/instances/my-instance/databases/my-db")
+///         .build()
+///         .await?;
+///     Ok(())
+/// # }
+/// ```
 #[derive(Clone, Debug)]
 pub struct DatabaseClient {
     #[allow(dead_code)]
     pub(crate) spanner: Spanner,
-    pub(crate) session: std::sync::Arc<Session>,
+    #[allow(dead_code)]
+    pub(crate) session: Arc<Session>,
 }
 
 /// A builder for [DatabaseClient].
@@ -49,22 +65,40 @@ impl DatabaseClientBuilder {
     }
 
     /// Sets the database role for the client.
+    ///
+    /// Database roles are used for Fine-Grained Access Control (FGAC).
+    /// You can assign a database role to a session, and that role determines the permissions for that session.
+    /// For more information, see [Access with FGAC](https://docs.cloud.google.com/spanner/docs/access-with-fgac).
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// # use google_cloud_spanner::client::Spanner;
+    /// # async fn sample() -> anyhow::Result<()> {
+    ///     let spanner = Spanner::builder().build().await?;
+    ///     let database_client = spanner
+    ///         .database_client("projects/my-project/instances/my-instance/databases/my-db")
+    ///         .database_role("my-role")
+    ///         .build()
+    ///         .await?;
+    ///     Ok(())
+    /// # }
+    /// ```
     pub fn database_role(mut self, role: impl Into<String>) -> Self {
         self.database_role = Some(role.into());
         self
     }
 
-    /// Builds the [DatabaseClient] and creates a multiplexed session on Spanner.
+    /// Builds the [DatabaseClient] and creates a single multiplexed session that
+    /// will be used for all operations on the database.
     pub async fn build(self) -> crate::Result<DatabaseClient> {
-        let mut request = crate::model::CreateSessionRequest::new();
-        request.database = self.database_name;
-
-        let mut session_template = crate::model::Session::new();
-        session_template.multiplexed = true;
-        if let Some(role) = &self.database_role {
-            session_template.creator_role = role.clone();
-        }
-        request.session = Some(session_template);
+        let request = crate::model::CreateSessionRequest::new()
+            .set_database(self.database_name)
+            .set_session(
+                Session::new()
+                    .set_multiplexed(true)
+                    .set_creator_role(self.database_role.unwrap_or_default()),
+            );
 
         let session = self
             .spanner
@@ -73,7 +107,7 @@ impl DatabaseClientBuilder {
 
         Ok(DatabaseClient {
             spanner: self.spanner,
-            session: std::sync::Arc::new(session),
+            session: Arc::new(session),
         })
     }
 }
