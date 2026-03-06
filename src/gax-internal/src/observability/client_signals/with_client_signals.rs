@@ -32,9 +32,9 @@ use tracing::Span;
 use tracing::instrument::Instrumented;
 
 // A tentative name for the error logs.
-const NAME: &str = "experimental.client.request.error";
+pub const NAME: &str = "experimental.client.request.error";
 // A tentative target for the error logs.
-const TARGET: &str = "experimental.client.request";
+pub const TARGET: &str = "experimental.client.request";
 
 /// A future instrumented to generate the client request telemetry.
 ///
@@ -152,41 +152,18 @@ where
 
 #[cfg(test)]
 mod tests {
+    use super::super::tests::{METHOD, TEST_INFO, URL_TEMPLATE};
+    use super::super::tests::{SignalProviders, check_log_record};
     use super::*;
-    use crate::options::InstrumentationClientInfo;
     use google_cloud_gax::error::rpc::Status;
     use google_cloud_gax::options::RequestOptions;
     use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-    use opentelemetry::logs::AnyValue;
+    use opentelemetry::TraceId;
     use opentelemetry::trace::TraceContextExt;
-    use opentelemetry::trace::TracerProvider;
-    use opentelemetry_appender_tracing::layer::OpenTelemetryTracingBridge;
-    use opentelemetry_sdk::logs::{
-        BatchLogProcessor, InMemoryLogExporter, SdkLogRecord, SdkLoggerProvider,
-    };
-    use opentelemetry_sdk::trace::{BatchSpanProcessor, InMemorySpanExporter, SdkTracerProvider};
-    use std::collections::BTreeSet;
+    use opentelemetry_sdk::logs::{InMemoryLogExporter, SdkLoggerProvider};
     use std::future::ready;
     use tracing::subscriber::DefaultGuard;
     use tracing_opentelemetry::OpenTelemetrySpanExt;
-    use tracing_subscriber::Registry;
-    use tracing_subscriber::prelude::*;
-
-    static TEST_INFO: InstrumentationClientInfo = InstrumentationClientInfo {
-        service_name: "test-service",
-        client_version: "1.2.3",
-        client_artifact: "test-artifact",
-        default_host: "example.com",
-    };
-    static URL_TEMPLATE: &str = "/v1/projects/{}:test_method";
-    static METHOD: &str = "test-method";
-
-    const COMMON_ATTRIBUTES: [(&str, &str); 4] = [
-        ("rpc.system.name", "http"),
-        ("url.domain", "example.com"),
-        ("url.template", URL_TEMPLATE),
-        ("rpc.method", METHOD),
-    ];
 
     // The tests run serially because the tracing subscriber is global, yuck.
     #[tokio::test(start_paused = true)]
@@ -268,8 +245,11 @@ mod tests {
             .unwrap_or_else(|| panic!("missing log for target {TARGET} in {captured:#?}"));
         check_log_record(
             &record.record,
-            &span,
-            &[("rpc.response.status_code", "NOT_FOUND")],
+            trace_id(&span),
+            &[
+                ("rpc.method", METHOD),
+                ("rpc.response.status_code", "NOT_FOUND"),
+            ],
         );
 
         Ok(())
@@ -299,8 +279,9 @@ mod tests {
             .unwrap_or_else(|| panic!("missing log for target {TARGET} in {captured:#?}"));
         check_log_record(
             &record.record,
-            &span,
+            trace_id(&span),
             &[
+                ("rpc.method", METHOD),
                 ("rpc.response.status_code", "UNKNOWN"),
                 ("http.response.status_code", "429"),
             ],
@@ -309,73 +290,17 @@ mod tests {
         Ok(())
     }
 
-    #[track_caller]
-    fn check_log_record(
-        record: &SdkLogRecord,
-        span: &Span,
-        extra_attributes: &[(&'static str, &'static str)],
-    ) {
-        assert_eq!(record.event_name(), Some(NAME), "{record:?}");
-        assert_eq!(
-            record.target().map(|s| s.as_ref()),
-            Some(TARGET),
-            "{record:?}"
-        );
-        assert_eq!(record.severity_text(), Some("ERROR"), "{record:?}");
-        let trace_id = span.context().span().span_context().trace_id();
-        assert_eq!(
-            record.trace_context().map(|c| c.trace_id),
-            Some(trace_id),
-            "{record:?}"
-        );
-        let got = BTreeSet::from_iter(
-            record
-                .attributes_iter()
-                .map(|(k, v)| (k.as_str(), format_value(v))),
-        );
-        let want = BTreeSet::from_iter(
-            COMMON_ATTRIBUTES
-                .iter()
-                .chain(extra_attributes)
-                .map(|(k, v)| (*k, v.to_string())),
-        );
-        let diff = got.symmetric_difference(&want).collect::<Vec<_>>();
-        assert_eq!(got, want, "diff={diff:?}");
-    }
-
-    fn format_value(any: &AnyValue) -> String {
-        match any {
-            AnyValue::Int(v) => v.to_string(),
-            AnyValue::Double(v) => v.to_string(),
-            AnyValue::String(v) => v.to_string(),
-            AnyValue::Boolean(v) => v.to_string(),
-            _ => "unexpected AnyValue variant".to_string(),
-        }
+    fn trace_id(span: &Span) -> TraceId {
+        span.context().span().span_context().trace_id()
     }
 
     fn init_logger() -> (InMemoryLogExporter, SdkLoggerProvider, DefaultGuard) {
-        // We need a tracing exporter and provider or the traces get no trace ids.
-        let trace_exporter = InMemorySpanExporter::default();
-        let trace_provider = SdkTracerProvider::builder()
-            .with_span_processor(BatchSpanProcessor::builder(trace_exporter.clone()).build())
-            .build();
-
-        // We also need a logging exporter to capture the `tracing::event!()` logs
-        // as they are forwarded to OpenTelemetry logs.
-        let exporter = InMemoryLogExporter::default();
-        let provider = SdkLoggerProvider::builder()
-            .with_log_processor(BatchLogProcessor::builder(exporter.clone()).build())
-            .build();
-        // Using a per-thread guard is Okay because all the tests in this module are single-threaded.
-        let guard = tracing::subscriber::set_default(
-            Registry::default()
-                .with(OpenTelemetryTracingBridge::new(&provider))
-                .with(
-                    tracing_opentelemetry::layer().with_tracer(trace_provider.tracer("test-only")),
-                ),
-        );
-
-        (exporter, provider, guard)
+        let providers = SignalProviders::new();
+        (
+            providers.logs_exporter,
+            providers.logs_provider,
+            providers.guard,
+        )
     }
 
     fn not_found() -> Error {

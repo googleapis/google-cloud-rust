@@ -26,7 +26,7 @@ use opentelemetry::{InstrumentationScope, KeyValue};
 use opentelemetry_semantic_conventions::attribute;
 use std::sync::Arc;
 
-const BOUNDARIES: [f64; 16] = [
+pub const BOUNDARIES: [f64; 16] = [
     0.0, 0.0001, 0.0005, 0.0010, 0.005, 0.010, 0.050, 0.100, 0.5, 1.0, 5.0, 10.0, 60.0, 300.0,
     900.0, 3600.0,
 ];
@@ -77,7 +77,7 @@ impl DurationMetric {
     }
 
     /// Used in the unit tests to avoid a global meter provider.
-    fn new_with_provider(
+    pub(crate) fn new_with_provider(
         info: &InstrumentationClientInfo,
         provider: Arc<dyn MeterProvider + Send + Sync>,
     ) -> Self {
@@ -155,18 +155,15 @@ mod tests {
     use google_cloud_gax::error::rpc::Status;
     use google_cloud_gax::options::RequestOptions;
     use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt};
-    use opentelemetry_sdk::metrics::data::{AggregatedMetrics, MetricData, ResourceMetrics};
     use opentelemetry_sdk::metrics::{InMemoryMetricExporter, PeriodicReader, SdkMeterProvider};
-    use std::collections::BTreeSet;
     use std::sync::Arc;
     use std::time::Duration;
 
     // This is in the middle of the [0.5, 1.0) bucket defined in `boundaries`.
     const DELAY: Duration = Duration::from_millis(750);
 
-    #[ignore = "TODO(#4916) - disabled because it was flaky"]
     #[tokio::test(start_paused = true)]
-    async fn global_record_ok() -> anyhow::Result<()> {
+    async fn global_record_error() -> anyhow::Result<()> {
         let exporter = InMemoryMetricExporter::default();
         let provider = SdkMeterProvider::builder()
             .with_reader(PeriodicReader::builder(exporter.clone()).build())
@@ -179,15 +176,21 @@ mod tests {
         let start = RequestStart::new(&TEST_INFO, &options, METHOD);
         // Use a long pause so it gets recorded as such.
         tokio::time::sleep(DELAY).await;
-        metric.record_ok(&start);
+        let error = Error::http(408, http::HeaderMap::new(), bytes::Bytes::new());
+        metric.record_error(&start, &error);
         provider.force_flush()?;
         let metrics = exporter.get_finished_metrics()?;
-        check_scope(&metrics);
-        check_data(
+        check_metric_scope(&metrics);
+        check_metric_data(
             &metrics,
+            // We cannot predict the exact value as other tests in the crate may be using the same
+            // global meter provider. The remaining tests in this module take care of the counts, we
+            // can relax the conditions here.
+            1_u64..,
             &[
-                ("rpc.response.status_code", "OK"),
-                ("http.response.status_code", "200"),
+                ("rpc.method", METHOD),
+                ("rpc.response.status_code", "UNKNOWN"),
+                ("http.response.status_code", "408"),
             ],
         );
         Ok(())
@@ -207,10 +210,12 @@ mod tests {
         metric.record_ok(&start);
         provider.force_flush()?;
         let metrics = exporter.get_finished_metrics()?;
-        check_scope(&metrics);
-        check_data(
+        check_metric_scope(&metrics);
+        check_metric_data(
             &metrics,
+            1_u64..=1_u64,
             &[
+                ("rpc.method", METHOD),
                 ("rpc.response.status_code", "OK"),
                 ("http.response.status_code", "200"),
             ],
@@ -237,8 +242,15 @@ mod tests {
         metric.record_error(&start, &error);
         provider.force_flush()?;
         let metrics = exporter.get_finished_metrics()?;
-        check_scope(&metrics);
-        check_data(&metrics, &[("rpc.response.status_code", "NOT_FOUND")]);
+        check_metric_scope(&metrics);
+        check_metric_data(
+            &metrics,
+            1_u64..=1_u64,
+            &[
+                ("rpc.method", METHOD),
+                ("rpc.response.status_code", "NOT_FOUND"),
+            ],
+        );
         Ok(())
     }
 
@@ -257,106 +269,16 @@ mod tests {
         metric.record_error(&start, &error);
         provider.force_flush()?;
         let metrics = exporter.get_finished_metrics()?;
-        check_scope(&metrics);
-        check_data(
+        check_metric_scope(&metrics);
+        check_metric_data(
             &metrics,
+            1_u64..=1_u64,
             &[
+                ("rpc.method", METHOD),
                 ("rpc.response.status_code", "UNKNOWN"),
                 ("http.response.status_code", "429"),
             ],
         );
         Ok(())
-    }
-
-    #[track_caller]
-    fn check_scope(metrics: &Vec<ResourceMetrics>) {
-        let got = match &metrics[..] {
-            [g] => g,
-            _ => panic!("expected a single metric, metrics={metrics:?}"),
-        };
-
-        let mut m = got.scope_metrics();
-        let got = match (m.next(), m.next()) {
-            (Some(g), None) => g,
-            _ => panic!("expected a single scoped metric, got={metrics:?}"),
-        };
-        let scope = got.scope();
-        let want = InstrumentationScope::builder("test-artifact")
-            .with_attributes([
-                KeyValue::new("gcp.client.artifact", "test-artifact"),
-                KeyValue::new("gcp.client.version", "1.2.3"),
-                KeyValue::new("gcp.client.service", "test-service"),
-                KeyValue::new("gcp.client.repo", GCP_CLIENT_REPO_GOOGLEAPIS),
-            ])
-            .build();
-        assert_eq!(scope, &want, "{got:?}");
-    }
-
-    #[track_caller]
-    fn check_data(
-        metrics: &Vec<ResourceMetrics>,
-        want_attributes: &[(&'static str, &'static str)],
-    ) {
-        let mut iter = metrics
-            .iter()
-            .flat_map(|s| s.scope_metrics())
-            .flat_map(|r| r.metrics());
-        let actual = match (iter.next(), iter.next()) {
-            (Some(a), None) => a,
-            _ => panic!(
-                "expected a single metric after flattening scopes and resources, metric={metrics:?}"
-            ),
-        };
-        assert_eq!(actual.unit(), "s");
-        let histo = match actual.data() {
-            AggregatedMetrics::F64(MetricData::Histogram(h)) => h,
-            _ => panic!("expected a f64 histogram, got={actual:?}"),
-        };
-        let mut m = histo.data_points();
-        let point = match (m.next(), m.next()) {
-            (Some(p), None) => p,
-            _ => panic!("expected a single data point, histo={histo:?}"),
-        };
-        let attr = BTreeSet::from_iter(
-            point
-                .attributes()
-                .map(|kv| (kv.key.as_str(), kv.value.to_string())),
-        );
-        let want = BTreeSet::from_iter(
-            [
-                ("rpc.system.name", "http"),
-                ("url.domain", "example.com"),
-                ("url.template", URL_TEMPLATE),
-                ("rpc.method", "test-method"),
-            ]
-            .iter()
-            .chain(want_attributes)
-            .map(|(k, v)| (*k, v.to_string())),
-        );
-        let diff = attr.symmetric_difference(&want).collect::<Vec<_>>();
-        assert_eq!(attr, want, "diff={diff:?}");
-
-        let bucket = point
-            .bucket_counts()
-            // The first bucket is "counting the values below the first boundary".
-            .skip(1)
-            .zip(point.bounds())
-            .find(|(count, _bound)| *count >= 1_u64);
-        // Find the expected bucket
-        let secs = DELAY.as_secs_f64();
-        let (low, high) = BOUNDARIES
-            .windows(2)
-            .map(|a| (a[0], a[1]))
-            .find(|(a, b)| (*a..*b).contains(&secs))
-            .unwrap_or_else(|| {
-                panic!(
-                    "expected DELAY ({}) to match of the buckets in {BOUNDARIES:?}",
-                    secs
-                )
-            });
-        assert!(
-            bucket.is_some_and(|(c, b)| c == 1 && b == low),
-            "mismatched bucket {bucket:?} want (1, {low})\nfound=[{low}, {high})\n{point:?}"
-        );
     }
 }

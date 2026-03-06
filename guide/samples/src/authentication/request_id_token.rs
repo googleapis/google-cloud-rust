@@ -28,7 +28,8 @@ pub async fn sample(audience: &str) -> anyhow::Result<String> {
 
     // [START rust_auth_request_id_token_call] ANCHOR: request_id_token_call
     let id_token = credentials.id_token().await?;
-    println!("ID Token: {id_token:?}");
+    let censored = &id_token[0..32];
+    println!("ID Token starts with: {censored:?}");
     // [END rust_auth_request_id_token_call] ANCHOR_END: request_id_token_call
     Ok(id_token)
 }
