@@ -185,10 +185,9 @@ mod tests {
         check_scope(&metrics);
         check_data(
             &metrics,
-            // We cannot predict the exact value as other tests in the crate may
-            // be using the same same global meter provider. The remaining
-            // tests in this module take care of the counts, we can relax the
-            // conditions here.
+            // We cannot predict the exact value as other tests in the crate may be using the same
+            // global meter provider. The remaining tests in this module take care of the counts, we
+            // can relax the conditions here.
             1_u64..,
             &[
                 ("rpc.response.status_code", "UNKNOWN"),
