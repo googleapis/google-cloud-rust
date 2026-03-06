@@ -21,6 +21,8 @@ pub mod impersonation;
 pub mod request_id_token;
 pub mod verify_id_token;
 
+use std::time::Duration;
+
 use google_cloud_auth::credentials::idtoken::Builder as IdTokenBuilder;
 use google_cloud_gax::error::rpc::{Code, StatusDetails};
 use httptest::{Expectation, Server, matchers::*, responders::*};
@@ -77,6 +79,13 @@ pub async fn drive_id_token() -> anyhow::Result<()> {
     );
 
     let target_url = server.url("/").to_string();
-    request_id_token::api_call_with_id_token(&target_url, &credentials).await?;
-    Ok(())
+    let mut last_error = Ok(());
+    for delay in [0, 100, 200, 400] {
+        tokio::time::sleep(Duration::from_millis(delay)).await;
+        match request_id_token::api_call_with_id_token(&target_url, &credentials).await {
+            Ok(_) => break,
+            Err(e) => last_error = Err(e),
+        }
+    }
+    last_error
 }
