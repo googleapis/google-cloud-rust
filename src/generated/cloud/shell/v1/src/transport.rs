@@ -52,18 +52,16 @@ impl super::stub::CloudShellService for CloudShellService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("users/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/environments/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("users/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/environments/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -112,18 +110,16 @@ impl super::stub::CloudShellService for CloudShellService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}:start",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("users/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/environments/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("users/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/environments/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:start", var_name,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -172,18 +168,16 @@ impl super::stub::CloudShellService for CloudShellService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}:authorize",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("users/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/environments/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("users/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/environments/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:authorize", var_name,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -232,18 +226,16 @@ impl super::stub::CloudShellService for CloudShellService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}:addPublicKey",
-                    try_match(
-                        Some(&req).map(|m| &m.environment).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("users/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/environments/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_environment = try_match(
+                    Some(&req).map(|m| &m.environment).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("users/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/environments/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:addPublicKey", var_environment,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -292,18 +284,16 @@ impl super::stub::CloudShellService for CloudShellService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}:removePublicKey",
-                    try_match(
-                        Some(&req).map(|m| &m.environment).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("users/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/environments/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_environment = try_match(
+                    Some(&req).map(|m| &m.environment).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("users/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/environments/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:removePublicKey", var_environment,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -352,16 +342,14 @@ impl super::stub::CloudShellService for CloudShellService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("operations"),
-                            Segment::TrailingMultiWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("operations"),
+                        Segment::TrailingMultiWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);

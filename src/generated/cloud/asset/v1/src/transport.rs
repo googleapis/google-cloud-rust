@@ -52,17 +52,15 @@ impl super::stub::AssetService for AssetService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}:exportAssets",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:exportAssets", var_parent,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -110,17 +108,15 @@ impl super::stub::AssetService for AssetService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}/assets",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/assets", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
@@ -190,17 +186,15 @@ impl super::stub::AssetService for AssetService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}:batchGetAssetsHistory",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:batchGetAssetsHistory", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
@@ -268,17 +262,15 @@ impl super::stub::AssetService for AssetService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}/feeds",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/feeds", var_parent,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -326,19 +318,17 @@ impl super::stub::AssetService for AssetService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/feeds/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/feeds/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -388,17 +378,15 @@ impl super::stub::AssetService for AssetService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}/feeds",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/feeds", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -446,22 +434,20 @@ impl super::stub::AssetService for AssetService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}",
-                    try_match(
-                        Some(&req)
-                            .and_then(|m| m.feed.as_ref())
-                            .map(|m| &m.name)
-                            .map(|s| s.as_str()),
-                        &[
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/feeds/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_feed_name = try_match(
+                    Some(&req)
+                        .and_then(|m| m.feed.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str()),
+                    &[
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/feeds/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_feed_name,);
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = Ok(builder);
@@ -514,19 +500,17 @@ impl super::stub::AssetService for AssetService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/feeds/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/feeds/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
@@ -582,17 +566,15 @@ impl super::stub::AssetService for AssetService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}:searchAllResources",
-                    try_match(
-                        Some(&req).map(|m| &m.scope).map(|s| s.as_str()),
-                        &[
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_scope = try_match(
+                    Some(&req).map(|m| &m.scope).map(|s| s.as_str()),
+                    &[
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:searchAllResources", var_scope,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
@@ -660,17 +642,15 @@ impl super::stub::AssetService for AssetService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}:searchAllIamPolicies",
-                    try_match(
-                        Some(&req).map(|m| &m.scope).map(|s| s.as_str()),
-                        &[
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_scope = try_match(
+                    Some(&req).map(|m| &m.scope).map(|s| s.as_str()),
+                    &[
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:searchAllIamPolicies", var_scope,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("query", &req.query)]);
@@ -726,20 +706,18 @@ impl super::stub::AssetService for AssetService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}:analyzeIamPolicy",
-                    try_match(
-                        Some(&req)
-                            .and_then(|m| m.analysis_query.as_ref())
-                            .map(|m| &m.scope)
-                            .map(|s| s.as_str()),
-                        &[
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_analysis_query_scope = try_match(
+                    Some(&req)
+                        .and_then(|m| m.analysis_query.as_ref())
+                        .map(|m| &m.scope)
+                        .map(|s| s.as_str()),
+                    &[
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:analyzeIamPolicy", var_analysis_query_scope,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
@@ -814,19 +792,20 @@ impl super::stub::AssetService for AssetService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_analysis_query_scope = try_match(
+                    Some(&req)
+                        .and_then(|m| m.analysis_query.as_ref())
+                        .map(|m| &m.scope)
+                        .map(|s| s.as_str()),
+                    &[
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
                 let path = format!(
                     "/v1/{}:analyzeIamPolicyLongrunning",
-                    try_match(
-                        Some(&req)
-                            .and_then(|m| m.analysis_query.as_ref())
-                            .map(|m| &m.scope)
-                            .map(|s| s.as_str()),
-                        &[
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
+                    var_analysis_query_scope,
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -878,17 +857,15 @@ impl super::stub::AssetService for AssetService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}:analyzeMove",
-                    try_match(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:analyzeMove", var_resource,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("destinationParent", &req.destination_parent)]);
@@ -938,17 +915,15 @@ impl super::stub::AssetService for AssetService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}:queryAssets",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:queryAssets", var_parent,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -996,17 +971,15 @@ impl super::stub::AssetService for AssetService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}/savedQueries",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/savedQueries", var_parent,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("savedQueryId", &req.saved_query_id)]);
@@ -1055,19 +1028,17 @@ impl super::stub::AssetService for AssetService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/savedQueries/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/savedQueries/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -1117,17 +1088,15 @@ impl super::stub::AssetService for AssetService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}/savedQueries",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/savedQueries", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -1178,22 +1147,20 @@ impl super::stub::AssetService for AssetService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}",
-                    try_match(
-                        Some(&req)
-                            .and_then(|m| m.saved_query.as_ref())
-                            .map(|m| &m.name)
-                            .map(|s| s.as_str()),
-                        &[
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/savedQueries/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_saved_query_name = try_match(
+                    Some(&req)
+                        .and_then(|m| m.saved_query.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str()),
+                    &[
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/savedQueries/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_saved_query_name,);
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -1258,19 +1225,17 @@ impl super::stub::AssetService for AssetService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/savedQueries/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/savedQueries/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
@@ -1326,17 +1291,15 @@ impl super::stub::AssetService for AssetService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}/effectiveIamPolicies:batchGet",
-                    try_match(
-                        Some(&req).map(|m| &m.scope).map(|s| s.as_str()),
-                        &[
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_scope = try_match(
+                    Some(&req).map(|m| &m.scope).map(|s| s.as_str()),
+                    &[
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}/effectiveIamPolicies:batchGet", var_scope,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -1388,17 +1351,15 @@ impl super::stub::AssetService for AssetService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}:analyzeOrgPolicies",
-                    try_match(
-                        Some(&req).map(|m| &m.scope).map(|s| s.as_str()),
-                        &[
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_scope = try_match(
+                    Some(&req).map(|m| &m.scope).map(|s| s.as_str()),
+                    &[
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:analyzeOrgPolicies", var_scope,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("constraint", &req.constraint)]);
@@ -1453,17 +1414,15 @@ impl super::stub::AssetService for AssetService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}:analyzeOrgPolicyGovernedContainers",
-                    try_match(
-                        Some(&req).map(|m| &m.scope).map(|s| s.as_str()),
-                        &[
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_scope = try_match(
+                    Some(&req).map(|m| &m.scope).map(|s| s.as_str()),
+                    &[
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:analyzeOrgPolicyGovernedContainers", var_scope,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("constraint", &req.constraint)]);
@@ -1518,17 +1477,15 @@ impl super::stub::AssetService for AssetService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}:analyzeOrgPolicyGovernedAssets",
-                    try_match(
-                        Some(&req).map(|m| &m.scope).map(|s| s.as_str()),
-                        &[
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_scope = try_match(
+                    Some(&req).map(|m| &m.scope).map(|s| s.as_str()),
+                    &[
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}:analyzeOrgPolicyGovernedAssets", var_scope,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("constraint", &req.constraint)]);
@@ -1583,20 +1540,18 @@ impl super::stub::AssetService for AssetService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::SingleWildcard,
-                            Segment::Literal("/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/operations/"),
-                            Segment::SingleWildcard,
-                            Segment::TrailingMultiWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::SingleWildcard,
+                        Segment::Literal("/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/operations/"),
+                        Segment::SingleWildcard,
+                        Segment::TrailingMultiWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);

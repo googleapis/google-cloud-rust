@@ -238,13 +238,18 @@ impl super::stub::Compliance for Compliance {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method, _path_template) = None
         .or_else(|| {
+            let var_info_f_string = try_match(Some(&req).and_then(|m| m.info.as_ref()).map(|m| &m.f_string).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let var_info_f_int32 = try_match(Some(&req).and_then(|m| m.info.as_ref()).map(|m| &m.f_int32), &[Segment::SingleWildcard])?;
+            let var_info_f_double = try_match(Some(&req).and_then(|m| m.info.as_ref()).map(|m| &m.f_double), &[Segment::SingleWildcard])?;
+            let var_info_f_bool = try_match(Some(&req).and_then(|m| m.info.as_ref()).map(|m| &m.f_bool), &[Segment::SingleWildcard])?;
+            let var_info_f_kingdom = try_match(Some(&req).and_then(|m| m.info.as_ref()).map(|m| &m.f_kingdom), &[Segment::SingleWildcard])?;
             let path = format!(
                 "/v1beta1/repeat/{}/{}/{}/{}/{}:simplepath",
-                try_match(Some(&req).and_then(|m| m.info.as_ref()).map(|m| &m.f_string).map(|s| s.as_str()), &[Segment::SingleWildcard])?,
-                try_match(Some(&req).and_then(|m| m.info.as_ref()).map(|m| &m.f_int32), &[Segment::SingleWildcard])?,
-                try_match(Some(&req).and_then(|m| m.info.as_ref()).map(|m| &m.f_double), &[Segment::SingleWildcard])?,
-                try_match(Some(&req).and_then(|m| m.info.as_ref()).map(|m| &m.f_bool), &[Segment::SingleWildcard])?,
-                try_match(Some(&req).and_then(|m| m.info.as_ref()).map(|m| &m.f_kingdom), &[Segment::SingleWildcard])?,
+                var_info_f_string,
+                var_info_f_int32,
+                var_info_f_double,
+                var_info_f_bool,
+                var_info_f_kingdom,
             );
             let path_template = "/v1beta1/repeat/{info.f_string}/{info.f_int32}/{info.f_double}/{info.f_bool}/{info.f_kingdom}:simplepath";
 
@@ -326,11 +331,14 @@ impl super::stub::Compliance for Compliance {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method, _path_template) = None
         .or_else(|| {
+            let var_info_f_string = try_match(Some(&req).and_then(|m| m.info.as_ref()).map(|m| &m.f_string).map(|s| s.as_str()), &[Segment::Literal("first/"), Segment::SingleWildcard])?;
+            let var_info_f_child_f_string = try_match(Some(&req).and_then(|m| m.info.as_ref()).and_then(|m| m.f_child.as_ref()).map(|m| &m.f_string).map(|s| s.as_str()), &[Segment::Literal("second/"), Segment::SingleWildcard])?;
+            let var_info_f_bool = try_match(Some(&req).and_then(|m| m.info.as_ref()).map(|m| &m.f_bool), &[Segment::SingleWildcard])?;
             let path = format!(
                 "/v1beta1/repeat/{}/{}/bool/{}:pathresource",
-                try_match(Some(&req).and_then(|m| m.info.as_ref()).map(|m| &m.f_string).map(|s| s.as_str()), &[Segment::Literal("first/"), Segment::SingleWildcard])?,
-                try_match(Some(&req).and_then(|m| m.info.as_ref()).and_then(|m| m.f_child.as_ref()).map(|m| &m.f_string).map(|s| s.as_str()), &[Segment::Literal("second/"), Segment::SingleWildcard])?,
-                try_match(Some(&req).and_then(|m| m.info.as_ref()).map(|m| &m.f_bool), &[Segment::SingleWildcard])?,
+                var_info_f_string,
+                var_info_f_child_f_string,
+                var_info_f_bool,
             );
             let path_template = "/v1beta1/repeat/{info.f_string}/{info.f_child.f_string}/bool/{info.f_bool}:pathresource";
 
@@ -351,11 +359,14 @@ impl super::stub::Compliance for Compliance {
             Some(builder.map(|b| (b, Method::GET, path_template)))
         })
         .or_else(|| {
+            let var_info_f_child_f_string = try_match(Some(&req).and_then(|m| m.info.as_ref()).and_then(|m| m.f_child.as_ref()).map(|m| &m.f_string).map(|s| s.as_str()), &[Segment::Literal("first/"), Segment::SingleWildcard])?;
+            let var_info_f_string = try_match(Some(&req).and_then(|m| m.info.as_ref()).map(|m| &m.f_string).map(|s| s.as_str()), &[Segment::Literal("second/"), Segment::SingleWildcard])?;
+            let var_info_f_bool = try_match(Some(&req).and_then(|m| m.info.as_ref()).map(|m| &m.f_bool), &[Segment::SingleWildcard])?;
             let path = format!(
                 "/v1beta1/repeat/{}/{}/bool/{}:childfirstpathresource",
-                try_match(Some(&req).and_then(|m| m.info.as_ref()).and_then(|m| m.f_child.as_ref()).map(|m| &m.f_string).map(|s| s.as_str()), &[Segment::Literal("first/"), Segment::SingleWildcard])?,
-                try_match(Some(&req).and_then(|m| m.info.as_ref()).map(|m| &m.f_string).map(|s| s.as_str()), &[Segment::Literal("second/"), Segment::SingleWildcard])?,
-                try_match(Some(&req).and_then(|m| m.info.as_ref()).map(|m| &m.f_bool), &[Segment::SingleWildcard])?,
+                var_info_f_child_f_string,
+                var_info_f_string,
+                var_info_f_bool,
             );
             let path_template = "/v1beta1/repeat/{info.f_child.f_string}/{info.f_string}/bool/{info.f_bool}:childfirstpathresource";
 
@@ -446,23 +457,24 @@ impl super::stub::Compliance for Compliance {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method, _path_template) = None
             .or_else(|| {
+                let var_info_f_string = try_match(
+                    Some(&req)
+                        .and_then(|m| m.info.as_ref())
+                        .map(|m| &m.f_string)
+                        .map(|s| s.as_str()),
+                    &[Segment::Literal("first/"), Segment::SingleWildcard],
+                )?;
+                let var_info_f_child_f_string = try_match(
+                    Some(&req)
+                        .and_then(|m| m.info.as_ref())
+                        .and_then(|m| m.f_child.as_ref())
+                        .map(|m| &m.f_string)
+                        .map(|s| s.as_str()),
+                    &[Segment::Literal("second"), Segment::TrailingMultiWildcard],
+                )?;
                 let path = format!(
                     "/v1beta1/repeat/{}/{}:pathtrailingresource",
-                    try_match(
-                        Some(&req)
-                            .and_then(|m| m.info.as_ref())
-                            .map(|m| &m.f_string)
-                            .map(|s| s.as_str()),
-                        &[Segment::Literal("first/"), Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req)
-                            .and_then(|m| m.info.as_ref())
-                            .and_then(|m| m.f_child.as_ref())
-                            .map(|m| &m.f_string)
-                            .map(|s| s.as_str()),
-                        &[Segment::Literal("second"), Segment::TrailingMultiWildcard]
-                    )?,
+                    var_info_f_string, var_info_f_child_f_string,
                 );
                 let path_template =
                     "/v1beta1/repeat/{info.f_string}/{info.f_child.f_string}:pathtrailingresource";
@@ -741,13 +753,11 @@ impl super::stub::Compliance for Compliance {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method, _path_template) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}/locations",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[Segment::Literal("projects/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[Segment::Literal("projects/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1beta1/{}/locations", var_name,);
                 let path_template = "/v1beta1/{name}/locations";
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -800,18 +810,16 @@ impl super::stub::Compliance for Compliance {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method, _path_template) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1beta1/{}", var_name,);
                 let path_template = "/v1beta1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -866,13 +874,11 @@ impl super::stub::Compliance for Compliance {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method, _path_template) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}:setIamPolicy",
-                    try_match(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("users/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[Segment::Literal("users/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1beta1/{}:setIamPolicy", var_resource,);
                 let path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -880,13 +886,11 @@ impl super::stub::Compliance for Compliance {
                 Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}:setIamPolicy",
-                    try_match(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("rooms/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[Segment::Literal("rooms/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1beta1/{}:setIamPolicy", var_resource,);
                 let path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -894,18 +898,16 @@ impl super::stub::Compliance for Compliance {
                 Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}:setIamPolicy",
-                    try_match(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("rooms/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/blurbs/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("rooms/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/blurbs/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1beta1/{}:setIamPolicy", var_resource,);
                 let path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -913,13 +915,11 @@ impl super::stub::Compliance for Compliance {
                 Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}:setIamPolicy",
-                    try_match(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("sequences/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[Segment::Literal("sequences/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1beta1/{}:setIamPolicy", var_resource,);
                 let path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -1010,13 +1010,11 @@ impl super::stub::Compliance for Compliance {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method, _path_template) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}:getIamPolicy",
-                    try_match(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("users/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[Segment::Literal("users/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1beta1/{}:getIamPolicy", var_resource,);
                 let path_template = "/v1beta1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -1036,13 +1034,11 @@ impl super::stub::Compliance for Compliance {
                 Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}:getIamPolicy",
-                    try_match(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("rooms/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[Segment::Literal("rooms/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1beta1/{}:getIamPolicy", var_resource,);
                 let path_template = "/v1beta1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -1062,18 +1058,16 @@ impl super::stub::Compliance for Compliance {
                 Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}:getIamPolicy",
-                    try_match(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("rooms/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/blurbs/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("rooms/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/blurbs/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1beta1/{}:getIamPolicy", var_resource,);
                 let path_template = "/v1beta1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -1093,13 +1087,11 @@ impl super::stub::Compliance for Compliance {
                 Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}:getIamPolicy",
-                    try_match(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("sequences/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[Segment::Literal("sequences/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1beta1/{}:getIamPolicy", var_resource,);
                 let path_template = "/v1beta1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -1202,13 +1194,11 @@ impl super::stub::Compliance for Compliance {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method, _path_template) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}:testIamPermissions",
-                    try_match(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("users/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[Segment::Literal("users/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1beta1/{}:testIamPermissions", var_resource,);
                 let path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -1216,13 +1206,11 @@ impl super::stub::Compliance for Compliance {
                 Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}:testIamPermissions",
-                    try_match(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("rooms/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[Segment::Literal("rooms/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1beta1/{}:testIamPermissions", var_resource,);
                 let path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -1230,18 +1218,16 @@ impl super::stub::Compliance for Compliance {
                 Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}:testIamPermissions",
-                    try_match(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("rooms/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/blurbs/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("rooms/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/blurbs/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1beta1/{}:testIamPermissions", var_resource,);
                 let path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -1249,13 +1235,11 @@ impl super::stub::Compliance for Compliance {
                 Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}:testIamPermissions",
-                    try_match(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("sequences/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[Segment::Literal("sequences/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1beta1/{}:testIamPermissions", var_resource,);
                 let path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -1394,16 +1378,14 @@ impl super::stub::Compliance for Compliance {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method, _path_template) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("operations"),
-                            Segment::TrailingMultiWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("operations"),
+                        Segment::TrailingMultiWildcard,
+                    ],
+                )?;
+                let path = format!("/v1beta1/{}", var_name,);
                 let path_template = "/v1beta1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -1456,16 +1438,14 @@ impl super::stub::Compliance for Compliance {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method, _path_template) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("operations"),
-                            Segment::TrailingMultiWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("operations"),
+                        Segment::TrailingMultiWildcard,
+                    ],
+                )?;
+                let path = format!("/v1beta1/{}", var_name,);
                 let path_template = "/v1beta1/{name}";
 
                 let builder = self.inner.builder(Method::DELETE, path);
@@ -1524,16 +1504,14 @@ impl super::stub::Compliance for Compliance {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method, _path_template) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}:cancel",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("operations"),
-                            Segment::TrailingMultiWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("operations"),
+                        Segment::TrailingMultiWildcard,
+                    ],
+                )?;
+                let path = format!("/v1beta1/{}:cancel", var_name,);
                 let path_template = "/v1beta1/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -1982,13 +1960,11 @@ impl super::stub::Echo for Echo {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method, _path_template) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}/locations",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[Segment::Literal("projects/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[Segment::Literal("projects/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1beta1/{}/locations", var_name,);
                 let path_template = "/v1beta1/{name}/locations";
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -2041,18 +2017,16 @@ impl super::stub::Echo for Echo {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method, _path_template) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1beta1/{}", var_name,);
                 let path_template = "/v1beta1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -2107,13 +2081,11 @@ impl super::stub::Echo for Echo {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method, _path_template) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}:setIamPolicy",
-                    try_match(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("users/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[Segment::Literal("users/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1beta1/{}:setIamPolicy", var_resource,);
                 let path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -2121,13 +2093,11 @@ impl super::stub::Echo for Echo {
                 Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}:setIamPolicy",
-                    try_match(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("rooms/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[Segment::Literal("rooms/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1beta1/{}:setIamPolicy", var_resource,);
                 let path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -2135,18 +2105,16 @@ impl super::stub::Echo for Echo {
                 Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}:setIamPolicy",
-                    try_match(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("rooms/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/blurbs/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("rooms/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/blurbs/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1beta1/{}:setIamPolicy", var_resource,);
                 let path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -2154,13 +2122,11 @@ impl super::stub::Echo for Echo {
                 Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}:setIamPolicy",
-                    try_match(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("sequences/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[Segment::Literal("sequences/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1beta1/{}:setIamPolicy", var_resource,);
                 let path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -2251,13 +2217,11 @@ impl super::stub::Echo for Echo {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method, _path_template) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}:getIamPolicy",
-                    try_match(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("users/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[Segment::Literal("users/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1beta1/{}:getIamPolicy", var_resource,);
                 let path_template = "/v1beta1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -2277,13 +2241,11 @@ impl super::stub::Echo for Echo {
                 Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}:getIamPolicy",
-                    try_match(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("rooms/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[Segment::Literal("rooms/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1beta1/{}:getIamPolicy", var_resource,);
                 let path_template = "/v1beta1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -2303,18 +2265,16 @@ impl super::stub::Echo for Echo {
                 Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}:getIamPolicy",
-                    try_match(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("rooms/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/blurbs/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("rooms/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/blurbs/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1beta1/{}:getIamPolicy", var_resource,);
                 let path_template = "/v1beta1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -2334,13 +2294,11 @@ impl super::stub::Echo for Echo {
                 Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}:getIamPolicy",
-                    try_match(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("sequences/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[Segment::Literal("sequences/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1beta1/{}:getIamPolicy", var_resource,);
                 let path_template = "/v1beta1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -2443,13 +2401,11 @@ impl super::stub::Echo for Echo {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method, _path_template) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}:testIamPermissions",
-                    try_match(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("users/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[Segment::Literal("users/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1beta1/{}:testIamPermissions", var_resource,);
                 let path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -2457,13 +2413,11 @@ impl super::stub::Echo for Echo {
                 Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}:testIamPermissions",
-                    try_match(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("rooms/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[Segment::Literal("rooms/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1beta1/{}:testIamPermissions", var_resource,);
                 let path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -2471,18 +2425,16 @@ impl super::stub::Echo for Echo {
                 Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}:testIamPermissions",
-                    try_match(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("rooms/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/blurbs/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("rooms/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/blurbs/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1beta1/{}:testIamPermissions", var_resource,);
                 let path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -2490,13 +2442,11 @@ impl super::stub::Echo for Echo {
                 Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}:testIamPermissions",
-                    try_match(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("sequences/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[Segment::Literal("sequences/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1beta1/{}:testIamPermissions", var_resource,);
                 let path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -2635,16 +2585,14 @@ impl super::stub::Echo for Echo {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method, _path_template) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("operations"),
-                            Segment::TrailingMultiWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("operations"),
+                        Segment::TrailingMultiWildcard,
+                    ],
+                )?;
+                let path = format!("/v1beta1/{}", var_name,);
                 let path_template = "/v1beta1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -2697,16 +2645,14 @@ impl super::stub::Echo for Echo {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method, _path_template) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("operations"),
-                            Segment::TrailingMultiWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("operations"),
+                        Segment::TrailingMultiWildcard,
+                    ],
+                )?;
+                let path = format!("/v1beta1/{}", var_name,);
                 let path_template = "/v1beta1/{name}";
 
                 let builder = self.inner.builder(Method::DELETE, path);
@@ -2765,16 +2711,14 @@ impl super::stub::Echo for Echo {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method, _path_template) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}:cancel",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("operations"),
-                            Segment::TrailingMultiWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("operations"),
+                        Segment::TrailingMultiWildcard,
+                    ],
+                )?;
+                let path = format!("/v1beta1/{}:cancel", var_name,);
                 let path_template = "/v1beta1/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -2920,13 +2864,11 @@ impl super::stub::Identity for Identity {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method, _path_template) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[Segment::Literal("users/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[Segment::Literal("users/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1beta1/{}", var_name,);
                 let path_template = "/v1beta1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -2982,16 +2924,14 @@ impl super::stub::Identity for Identity {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method, _path_template) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}",
-                    try_match(
-                        Some(&req)
-                            .and_then(|m| m.user.as_ref())
-                            .map(|m| &m.name)
-                            .map(|s| s.as_str()),
-                        &[Segment::Literal("users/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_user_name = try_match(
+                    Some(&req)
+                        .and_then(|m| m.user.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str()),
+                    &[Segment::Literal("users/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1beta1/{}", var_user_name,);
                 let path_template = "/v1beta1/{user.name}";
 
                 let builder = self.inner.builder(Method::PATCH, path);
@@ -3056,13 +2996,11 @@ impl super::stub::Identity for Identity {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method, _path_template) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[Segment::Literal("users/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[Segment::Literal("users/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1beta1/{}", var_name,);
                 let path_template = "/v1beta1/{name}";
 
                 let builder = self.inner.builder(Method::DELETE, path);
@@ -3168,13 +3106,11 @@ impl super::stub::Identity for Identity {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method, _path_template) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}/locations",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[Segment::Literal("projects/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[Segment::Literal("projects/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1beta1/{}/locations", var_name,);
                 let path_template = "/v1beta1/{name}/locations";
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -3227,18 +3163,16 @@ impl super::stub::Identity for Identity {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method, _path_template) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1beta1/{}", var_name,);
                 let path_template = "/v1beta1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -3293,13 +3227,11 @@ impl super::stub::Identity for Identity {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method, _path_template) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}:setIamPolicy",
-                    try_match(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("users/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[Segment::Literal("users/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1beta1/{}:setIamPolicy", var_resource,);
                 let path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -3307,13 +3239,11 @@ impl super::stub::Identity for Identity {
                 Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}:setIamPolicy",
-                    try_match(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("rooms/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[Segment::Literal("rooms/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1beta1/{}:setIamPolicy", var_resource,);
                 let path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -3321,18 +3251,16 @@ impl super::stub::Identity for Identity {
                 Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}:setIamPolicy",
-                    try_match(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("rooms/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/blurbs/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("rooms/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/blurbs/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1beta1/{}:setIamPolicy", var_resource,);
                 let path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -3340,13 +3268,11 @@ impl super::stub::Identity for Identity {
                 Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}:setIamPolicy",
-                    try_match(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("sequences/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[Segment::Literal("sequences/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1beta1/{}:setIamPolicy", var_resource,);
                 let path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -3437,13 +3363,11 @@ impl super::stub::Identity for Identity {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method, _path_template) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}:getIamPolicy",
-                    try_match(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("users/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[Segment::Literal("users/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1beta1/{}:getIamPolicy", var_resource,);
                 let path_template = "/v1beta1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -3463,13 +3387,11 @@ impl super::stub::Identity for Identity {
                 Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}:getIamPolicy",
-                    try_match(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("rooms/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[Segment::Literal("rooms/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1beta1/{}:getIamPolicy", var_resource,);
                 let path_template = "/v1beta1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -3489,18 +3411,16 @@ impl super::stub::Identity for Identity {
                 Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}:getIamPolicy",
-                    try_match(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("rooms/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/blurbs/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("rooms/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/blurbs/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1beta1/{}:getIamPolicy", var_resource,);
                 let path_template = "/v1beta1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -3520,13 +3440,11 @@ impl super::stub::Identity for Identity {
                 Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}:getIamPolicy",
-                    try_match(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("sequences/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[Segment::Literal("sequences/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1beta1/{}:getIamPolicy", var_resource,);
                 let path_template = "/v1beta1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -3629,13 +3547,11 @@ impl super::stub::Identity for Identity {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method, _path_template) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}:testIamPermissions",
-                    try_match(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("users/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[Segment::Literal("users/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1beta1/{}:testIamPermissions", var_resource,);
                 let path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -3643,13 +3559,11 @@ impl super::stub::Identity for Identity {
                 Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}:testIamPermissions",
-                    try_match(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("rooms/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[Segment::Literal("rooms/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1beta1/{}:testIamPermissions", var_resource,);
                 let path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -3657,18 +3571,16 @@ impl super::stub::Identity for Identity {
                 Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}:testIamPermissions",
-                    try_match(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("rooms/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/blurbs/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("rooms/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/blurbs/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1beta1/{}:testIamPermissions", var_resource,);
                 let path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -3676,13 +3588,11 @@ impl super::stub::Identity for Identity {
                 Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}:testIamPermissions",
-                    try_match(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("sequences/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[Segment::Literal("sequences/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1beta1/{}:testIamPermissions", var_resource,);
                 let path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -3821,16 +3731,14 @@ impl super::stub::Identity for Identity {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method, _path_template) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("operations"),
-                            Segment::TrailingMultiWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("operations"),
+                        Segment::TrailingMultiWildcard,
+                    ],
+                )?;
+                let path = format!("/v1beta1/{}", var_name,);
                 let path_template = "/v1beta1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -3883,16 +3791,14 @@ impl super::stub::Identity for Identity {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method, _path_template) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("operations"),
-                            Segment::TrailingMultiWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("operations"),
+                        Segment::TrailingMultiWildcard,
+                    ],
+                )?;
+                let path = format!("/v1beta1/{}", var_name,);
                 let path_template = "/v1beta1/{name}";
 
                 let builder = self.inner.builder(Method::DELETE, path);
@@ -3951,16 +3857,14 @@ impl super::stub::Identity for Identity {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method, _path_template) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}:cancel",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("operations"),
-                            Segment::TrailingMultiWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("operations"),
+                        Segment::TrailingMultiWildcard,
+                    ],
+                )?;
+                let path = format!("/v1beta1/{}:cancel", var_name,);
                 let path_template = "/v1beta1/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -4092,13 +3996,11 @@ impl super::stub::Messaging for Messaging {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method, _path_template) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[Segment::Literal("rooms/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[Segment::Literal("rooms/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1beta1/{}", var_name,);
                 let path_template = "/v1beta1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -4154,16 +4056,14 @@ impl super::stub::Messaging for Messaging {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method, _path_template) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}",
-                    try_match(
-                        Some(&req)
-                            .and_then(|m| m.room.as_ref())
-                            .map(|m| &m.name)
-                            .map(|s| s.as_str()),
-                        &[Segment::Literal("rooms/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_room_name = try_match(
+                    Some(&req)
+                        .and_then(|m| m.room.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str()),
+                    &[Segment::Literal("rooms/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1beta1/{}", var_room_name,);
                 let path_template = "/v1beta1/{room.name}";
 
                 let builder = self.inner.builder(Method::PATCH, path);
@@ -4228,13 +4128,11 @@ impl super::stub::Messaging for Messaging {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method, _path_template) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[Segment::Literal("rooms/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[Segment::Literal("rooms/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1beta1/{}", var_name,);
                 let path_template = "/v1beta1/{name}";
 
                 let builder = self.inner.builder(Method::DELETE, path);
@@ -4340,13 +4238,11 @@ impl super::stub::Messaging for Messaging {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method, _path_template) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}/blurbs",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[Segment::Literal("rooms/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[Segment::Literal("rooms/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1beta1/{}/blurbs", var_parent,);
                 let path_template = "/v1beta1/{parent}/blurbs";
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -4354,17 +4250,15 @@ impl super::stub::Messaging for Messaging {
                 Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}/blurbs",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("users/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/profile")
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("users/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/profile"),
+                    ],
+                )?;
+                let path = format!("/v1beta1/{}/blurbs", var_parent,);
                 let path_template = "/v1beta1/{parent}/blurbs";
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -4435,18 +4329,16 @@ impl super::stub::Messaging for Messaging {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method, _path_template) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("rooms/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/blurbs/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("rooms/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/blurbs/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1beta1/{}", var_name,);
                 let path_template = "/v1beta1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -4454,18 +4346,16 @@ impl super::stub::Messaging for Messaging {
                 Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("users/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/profile/blurbs/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("users/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/profile/blurbs/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1beta1/{}", var_name,);
                 let path_template = "/v1beta1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -4541,21 +4431,19 @@ impl super::stub::Messaging for Messaging {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method, _path_template) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}",
-                    try_match(
-                        Some(&req)
-                            .and_then(|m| m.blurb.as_ref())
-                            .map(|m| &m.name)
-                            .map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("rooms/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/blurbs/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_blurb_name = try_match(
+                    Some(&req)
+                        .and_then(|m| m.blurb.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("rooms/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/blurbs/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1beta1/{}", var_blurb_name,);
                 let path_template = "/v1beta1/{blurb.name}";
 
                 let builder = self.inner.builder(Method::PATCH, path);
@@ -4575,21 +4463,19 @@ impl super::stub::Messaging for Messaging {
                 Some(builder.map(|b| (b, Method::PATCH, path_template)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}",
-                    try_match(
-                        Some(&req)
-                            .and_then(|m| m.blurb.as_ref())
-                            .map(|m| &m.name)
-                            .map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("users/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/profile/blurbs/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_blurb_name = try_match(
+                    Some(&req)
+                        .and_then(|m| m.blurb.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("users/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/profile/blurbs/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1beta1/{}", var_blurb_name,);
                 let path_template = "/v1beta1/{blurb.name}";
 
                 let builder = self.inner.builder(Method::PATCH, path);
@@ -4683,18 +4569,16 @@ impl super::stub::Messaging for Messaging {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method, _path_template) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("rooms/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/blurbs/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("rooms/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/blurbs/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1beta1/{}", var_name,);
                 let path_template = "/v1beta1/{name}";
 
                 let builder = self.inner.builder(Method::DELETE, path);
@@ -4702,18 +4586,16 @@ impl super::stub::Messaging for Messaging {
                 Some(builder.map(|b| (b, Method::DELETE, path_template)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("users/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/profile/blurbs/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("users/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/profile/blurbs/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1beta1/{}", var_name,);
                 let path_template = "/v1beta1/{name}";
 
                 let builder = self.inner.builder(Method::DELETE, path);
@@ -4795,13 +4677,11 @@ impl super::stub::Messaging for Messaging {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method, _path_template) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}/blurbs",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[Segment::Literal("rooms/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[Segment::Literal("rooms/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1beta1/{}/blurbs", var_parent,);
                 let path_template = "/v1beta1/{parent}/blurbs";
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -4811,17 +4691,15 @@ impl super::stub::Messaging for Messaging {
                 Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}/blurbs",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("users/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/profile")
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("users/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/profile"),
+                    ],
+                )?;
+                let path = format!("/v1beta1/{}/blurbs", var_parent,);
                 let path_template = "/v1beta1/{parent}/blurbs";
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -4893,13 +4771,11 @@ impl super::stub::Messaging for Messaging {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method, _path_template) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}/blurbs:search",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[Segment::Literal("rooms/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[Segment::Literal("rooms/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1beta1/{}/blurbs:search", var_parent,);
                 let path_template = "/v1beta1/{parent}/blurbs:search";
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -4907,17 +4783,15 @@ impl super::stub::Messaging for Messaging {
                 Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}/blurbs:search",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("users/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/profile")
-                        ]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("users/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/profile"),
+                    ],
+                )?;
+                let path = format!("/v1beta1/{}/blurbs:search", var_parent,);
                 let path_template = "/v1beta1/{parent}/blurbs:search";
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -4990,13 +4864,11 @@ impl super::stub::Messaging for Messaging {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method, _path_template) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}/locations",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[Segment::Literal("projects/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[Segment::Literal("projects/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1beta1/{}/locations", var_name,);
                 let path_template = "/v1beta1/{name}/locations";
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -5049,18 +4921,16 @@ impl super::stub::Messaging for Messaging {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method, _path_template) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1beta1/{}", var_name,);
                 let path_template = "/v1beta1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -5115,13 +4985,11 @@ impl super::stub::Messaging for Messaging {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method, _path_template) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}:setIamPolicy",
-                    try_match(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("users/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[Segment::Literal("users/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1beta1/{}:setIamPolicy", var_resource,);
                 let path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -5129,13 +4997,11 @@ impl super::stub::Messaging for Messaging {
                 Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}:setIamPolicy",
-                    try_match(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("rooms/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[Segment::Literal("rooms/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1beta1/{}:setIamPolicy", var_resource,);
                 let path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -5143,18 +5009,16 @@ impl super::stub::Messaging for Messaging {
                 Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}:setIamPolicy",
-                    try_match(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("rooms/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/blurbs/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("rooms/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/blurbs/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1beta1/{}:setIamPolicy", var_resource,);
                 let path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -5162,13 +5026,11 @@ impl super::stub::Messaging for Messaging {
                 Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}:setIamPolicy",
-                    try_match(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("sequences/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[Segment::Literal("sequences/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1beta1/{}:setIamPolicy", var_resource,);
                 let path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -5259,13 +5121,11 @@ impl super::stub::Messaging for Messaging {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method, _path_template) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}:getIamPolicy",
-                    try_match(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("users/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[Segment::Literal("users/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1beta1/{}:getIamPolicy", var_resource,);
                 let path_template = "/v1beta1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -5285,13 +5145,11 @@ impl super::stub::Messaging for Messaging {
                 Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}:getIamPolicy",
-                    try_match(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("rooms/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[Segment::Literal("rooms/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1beta1/{}:getIamPolicy", var_resource,);
                 let path_template = "/v1beta1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -5311,18 +5169,16 @@ impl super::stub::Messaging for Messaging {
                 Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}:getIamPolicy",
-                    try_match(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("rooms/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/blurbs/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("rooms/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/blurbs/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1beta1/{}:getIamPolicy", var_resource,);
                 let path_template = "/v1beta1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -5342,13 +5198,11 @@ impl super::stub::Messaging for Messaging {
                 Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}:getIamPolicy",
-                    try_match(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("sequences/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[Segment::Literal("sequences/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1beta1/{}:getIamPolicy", var_resource,);
                 let path_template = "/v1beta1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -5451,13 +5305,11 @@ impl super::stub::Messaging for Messaging {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method, _path_template) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}:testIamPermissions",
-                    try_match(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("users/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[Segment::Literal("users/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1beta1/{}:testIamPermissions", var_resource,);
                 let path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -5465,13 +5317,11 @@ impl super::stub::Messaging for Messaging {
                 Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}:testIamPermissions",
-                    try_match(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("rooms/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[Segment::Literal("rooms/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1beta1/{}:testIamPermissions", var_resource,);
                 let path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -5479,18 +5329,16 @@ impl super::stub::Messaging for Messaging {
                 Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}:testIamPermissions",
-                    try_match(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("rooms/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/blurbs/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("rooms/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/blurbs/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1beta1/{}:testIamPermissions", var_resource,);
                 let path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -5498,13 +5346,11 @@ impl super::stub::Messaging for Messaging {
                 Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}:testIamPermissions",
-                    try_match(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("sequences/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[Segment::Literal("sequences/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1beta1/{}:testIamPermissions", var_resource,);
                 let path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -5643,16 +5489,14 @@ impl super::stub::Messaging for Messaging {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method, _path_template) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("operations"),
-                            Segment::TrailingMultiWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("operations"),
+                        Segment::TrailingMultiWildcard,
+                    ],
+                )?;
+                let path = format!("/v1beta1/{}", var_name,);
                 let path_template = "/v1beta1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -5705,16 +5549,14 @@ impl super::stub::Messaging for Messaging {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method, _path_template) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("operations"),
-                            Segment::TrailingMultiWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("operations"),
+                        Segment::TrailingMultiWildcard,
+                    ],
+                )?;
+                let path = format!("/v1beta1/{}", var_name,);
                 let path_template = "/v1beta1/{name}";
 
                 let builder = self.inner.builder(Method::DELETE, path);
@@ -5773,16 +5615,14 @@ impl super::stub::Messaging for Messaging {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method, _path_template) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}:cancel",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("operations"),
-                            Segment::TrailingMultiWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("operations"),
+                        Segment::TrailingMultiWildcard,
+                    ],
+                )?;
+                let path = format!("/v1beta1/{}:cancel", var_name,);
                 let path_template = "/v1beta1/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -5970,17 +5810,15 @@ impl super::stub::SequenceService for SequenceService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method, _path_template) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("sequences/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/sequenceReport")
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("sequences/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/sequenceReport"),
+                    ],
+                )?;
+                let path = format!("/v1beta1/{}", var_name,);
                 let path_template = "/v1beta1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -6040,17 +5878,15 @@ impl super::stub::SequenceService for SequenceService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method, _path_template) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("streamingSequences/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/streamingSequenceReport")
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("streamingSequences/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/streamingSequenceReport"),
+                    ],
+                )?;
+                let path = format!("/v1beta1/{}", var_name,);
                 let path_template = "/v1beta1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -6110,13 +5946,11 @@ impl super::stub::SequenceService for SequenceService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method, _path_template) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[Segment::Literal("sequences/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[Segment::Literal("sequences/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1beta1/{}", var_name,);
                 let path_template = "/v1beta1/{name}";
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -6178,13 +6012,11 @@ impl super::stub::SequenceService for SequenceService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method, _path_template) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}/locations",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[Segment::Literal("projects/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[Segment::Literal("projects/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1beta1/{}/locations", var_name,);
                 let path_template = "/v1beta1/{name}/locations";
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -6237,18 +6069,16 @@ impl super::stub::SequenceService for SequenceService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method, _path_template) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1beta1/{}", var_name,);
                 let path_template = "/v1beta1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -6303,13 +6133,11 @@ impl super::stub::SequenceService for SequenceService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method, _path_template) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}:setIamPolicy",
-                    try_match(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("users/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[Segment::Literal("users/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1beta1/{}:setIamPolicy", var_resource,);
                 let path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -6317,13 +6145,11 @@ impl super::stub::SequenceService for SequenceService {
                 Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}:setIamPolicy",
-                    try_match(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("rooms/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[Segment::Literal("rooms/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1beta1/{}:setIamPolicy", var_resource,);
                 let path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -6331,18 +6157,16 @@ impl super::stub::SequenceService for SequenceService {
                 Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}:setIamPolicy",
-                    try_match(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("rooms/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/blurbs/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("rooms/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/blurbs/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1beta1/{}:setIamPolicy", var_resource,);
                 let path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -6350,13 +6174,11 @@ impl super::stub::SequenceService for SequenceService {
                 Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}:setIamPolicy",
-                    try_match(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("sequences/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[Segment::Literal("sequences/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1beta1/{}:setIamPolicy", var_resource,);
                 let path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -6447,13 +6269,11 @@ impl super::stub::SequenceService for SequenceService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method, _path_template) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}:getIamPolicy",
-                    try_match(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("users/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[Segment::Literal("users/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1beta1/{}:getIamPolicy", var_resource,);
                 let path_template = "/v1beta1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -6473,13 +6293,11 @@ impl super::stub::SequenceService for SequenceService {
                 Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}:getIamPolicy",
-                    try_match(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("rooms/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[Segment::Literal("rooms/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1beta1/{}:getIamPolicy", var_resource,);
                 let path_template = "/v1beta1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -6499,18 +6317,16 @@ impl super::stub::SequenceService for SequenceService {
                 Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}:getIamPolicy",
-                    try_match(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("rooms/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/blurbs/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("rooms/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/blurbs/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1beta1/{}:getIamPolicy", var_resource,);
                 let path_template = "/v1beta1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -6530,13 +6346,11 @@ impl super::stub::SequenceService for SequenceService {
                 Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}:getIamPolicy",
-                    try_match(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("sequences/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[Segment::Literal("sequences/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1beta1/{}:getIamPolicy", var_resource,);
                 let path_template = "/v1beta1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -6639,13 +6453,11 @@ impl super::stub::SequenceService for SequenceService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method, _path_template) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}:testIamPermissions",
-                    try_match(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("users/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[Segment::Literal("users/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1beta1/{}:testIamPermissions", var_resource,);
                 let path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -6653,13 +6465,11 @@ impl super::stub::SequenceService for SequenceService {
                 Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}:testIamPermissions",
-                    try_match(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("rooms/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[Segment::Literal("rooms/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1beta1/{}:testIamPermissions", var_resource,);
                 let path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -6667,18 +6477,16 @@ impl super::stub::SequenceService for SequenceService {
                 Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}:testIamPermissions",
-                    try_match(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("rooms/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/blurbs/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("rooms/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/blurbs/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1beta1/{}:testIamPermissions", var_resource,);
                 let path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -6686,13 +6494,11 @@ impl super::stub::SequenceService for SequenceService {
                 Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}:testIamPermissions",
-                    try_match(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("sequences/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[Segment::Literal("sequences/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1beta1/{}:testIamPermissions", var_resource,);
                 let path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -6831,16 +6637,14 @@ impl super::stub::SequenceService for SequenceService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method, _path_template) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("operations"),
-                            Segment::TrailingMultiWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("operations"),
+                        Segment::TrailingMultiWildcard,
+                    ],
+                )?;
+                let path = format!("/v1beta1/{}", var_name,);
                 let path_template = "/v1beta1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -6893,16 +6697,14 @@ impl super::stub::SequenceService for SequenceService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method, _path_template) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("operations"),
-                            Segment::TrailingMultiWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("operations"),
+                        Segment::TrailingMultiWildcard,
+                    ],
+                )?;
+                let path = format!("/v1beta1/{}", var_name,);
                 let path_template = "/v1beta1/{name}";
 
                 let builder = self.inner.builder(Method::DELETE, path);
@@ -6961,16 +6763,14 @@ impl super::stub::SequenceService for SequenceService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method, _path_template) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}:cancel",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("operations"),
-                            Segment::TrailingMultiWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("operations"),
+                        Segment::TrailingMultiWildcard,
+                    ],
+                )?;
+                let path = format!("/v1beta1/{}:cancel", var_name,);
                 let path_template = "/v1beta1/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -7102,13 +6902,11 @@ impl super::stub::Testing for Testing {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method, _path_template) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[Segment::Literal("sessions/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[Segment::Literal("sessions/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1beta1/{}", var_name,);
                 let path_template = "/v1beta1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -7208,13 +7006,11 @@ impl super::stub::Testing for Testing {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method, _path_template) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[Segment::Literal("sessions/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[Segment::Literal("sessions/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1beta1/{}", var_name,);
                 let path_template = "/v1beta1/{name}";
 
                 let builder = self.inner.builder(Method::DELETE, path);
@@ -7276,13 +7072,11 @@ impl super::stub::Testing for Testing {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method, _path_template) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}:report",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[Segment::Literal("sessions/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[Segment::Literal("sessions/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1beta1/{}:report", var_name,);
                 let path_template = "/v1beta1/{name}:report";
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -7338,13 +7132,11 @@ impl super::stub::Testing for Testing {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method, _path_template) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}/tests",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[Segment::Literal("sessions/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[Segment::Literal("sessions/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1beta1/{}/tests", var_parent,);
                 let path_template = "/v1beta1/{parent}/tests";
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -7402,18 +7194,16 @@ impl super::stub::Testing for Testing {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method, _path_template) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("sessions/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/tests/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("sessions/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/tests/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1beta1/{}", var_name,);
                 let path_template = "/v1beta1/{name}";
 
                 let builder = self.inner.builder(Method::DELETE, path);
@@ -7480,18 +7270,16 @@ impl super::stub::Testing for Testing {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method, _path_template) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}:check",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("sessions/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/tests/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("sessions/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/tests/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1beta1/{}:check", var_name,);
                 let path_template = "/v1beta1/{name}:check";
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -7557,13 +7345,11 @@ impl super::stub::Testing for Testing {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method, _path_template) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}/locations",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[Segment::Literal("projects/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[Segment::Literal("projects/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1beta1/{}/locations", var_name,);
                 let path_template = "/v1beta1/{name}/locations";
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -7616,18 +7402,16 @@ impl super::stub::Testing for Testing {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method, _path_template) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/locations/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1beta1/{}", var_name,);
                 let path_template = "/v1beta1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -7682,13 +7466,11 @@ impl super::stub::Testing for Testing {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method, _path_template) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}:setIamPolicy",
-                    try_match(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("users/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[Segment::Literal("users/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1beta1/{}:setIamPolicy", var_resource,);
                 let path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -7696,13 +7478,11 @@ impl super::stub::Testing for Testing {
                 Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}:setIamPolicy",
-                    try_match(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("rooms/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[Segment::Literal("rooms/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1beta1/{}:setIamPolicy", var_resource,);
                 let path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -7710,18 +7490,16 @@ impl super::stub::Testing for Testing {
                 Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}:setIamPolicy",
-                    try_match(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("rooms/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/blurbs/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("rooms/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/blurbs/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1beta1/{}:setIamPolicy", var_resource,);
                 let path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -7729,13 +7507,11 @@ impl super::stub::Testing for Testing {
                 Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}:setIamPolicy",
-                    try_match(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("sequences/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[Segment::Literal("sequences/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1beta1/{}:setIamPolicy", var_resource,);
                 let path_template = "/v1beta1/{resource}:setIamPolicy";
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -7826,13 +7602,11 @@ impl super::stub::Testing for Testing {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method, _path_template) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}:getIamPolicy",
-                    try_match(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("users/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[Segment::Literal("users/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1beta1/{}:getIamPolicy", var_resource,);
                 let path_template = "/v1beta1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -7852,13 +7626,11 @@ impl super::stub::Testing for Testing {
                 Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}:getIamPolicy",
-                    try_match(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("rooms/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[Segment::Literal("rooms/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1beta1/{}:getIamPolicy", var_resource,);
                 let path_template = "/v1beta1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -7878,18 +7650,16 @@ impl super::stub::Testing for Testing {
                 Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}:getIamPolicy",
-                    try_match(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("rooms/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/blurbs/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("rooms/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/blurbs/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1beta1/{}:getIamPolicy", var_resource,);
                 let path_template = "/v1beta1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -7909,13 +7679,11 @@ impl super::stub::Testing for Testing {
                 Some(builder.map(|b| (b, Method::GET, path_template)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}:getIamPolicy",
-                    try_match(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("sequences/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[Segment::Literal("sequences/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1beta1/{}:getIamPolicy", var_resource,);
                 let path_template = "/v1beta1/{resource}:getIamPolicy";
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -8018,13 +7786,11 @@ impl super::stub::Testing for Testing {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method, _path_template) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}:testIamPermissions",
-                    try_match(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("users/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[Segment::Literal("users/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1beta1/{}:testIamPermissions", var_resource,);
                 let path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -8032,13 +7798,11 @@ impl super::stub::Testing for Testing {
                 Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}:testIamPermissions",
-                    try_match(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("rooms/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[Segment::Literal("rooms/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1beta1/{}:testIamPermissions", var_resource,);
                 let path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -8046,18 +7810,16 @@ impl super::stub::Testing for Testing {
                 Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}:testIamPermissions",
-                    try_match(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("rooms/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/blurbs/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("rooms/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/blurbs/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1beta1/{}:testIamPermissions", var_resource,);
                 let path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -8065,13 +7827,11 @@ impl super::stub::Testing for Testing {
                 Some(builder.map(|b| (b, Method::POST, path_template)))
             })
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}:testIamPermissions",
-                    try_match(
-                        Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
-                        &[Segment::Literal("sequences/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_resource = try_match(
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
+                    &[Segment::Literal("sequences/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1beta1/{}:testIamPermissions", var_resource,);
                 let path_template = "/v1beta1/{resource}:testIamPermissions";
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -8210,16 +7970,14 @@ impl super::stub::Testing for Testing {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method, _path_template) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("operations"),
-                            Segment::TrailingMultiWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("operations"),
+                        Segment::TrailingMultiWildcard,
+                    ],
+                )?;
+                let path = format!("/v1beta1/{}", var_name,);
                 let path_template = "/v1beta1/{name}";
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -8272,16 +8030,14 @@ impl super::stub::Testing for Testing {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method, _path_template) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("operations"),
-                            Segment::TrailingMultiWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("operations"),
+                        Segment::TrailingMultiWildcard,
+                    ],
+                )?;
+                let path = format!("/v1beta1/{}", var_name,);
                 let path_template = "/v1beta1/{name}";
 
                 let builder = self.inner.builder(Method::DELETE, path);
@@ -8340,16 +8096,14 @@ impl super::stub::Testing for Testing {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method, _path_template) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1beta1/{}:cancel",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("operations"),
-                            Segment::TrailingMultiWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("operations"),
+                        Segment::TrailingMultiWildcard,
+                    ],
+                )?;
+                let path = format!("/v1beta1/{}:cancel", var_name,);
                 let path_template = "/v1beta1/{name}:cancel";
 
                 let builder = self.inner.builder(Method::POST, path);

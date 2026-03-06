@@ -52,17 +52,18 @@ impl super::stub::SqlBackupRunsService for SqlBackupRunsService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_instance = try_match(
+                    Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_id = try_match(Some(&req).map(|m| &m.id), &[Segment::SingleWildcard])?;
                 let path = format!(
                     "/v1/projects/{}/instances/{}/backupRuns/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(Some(&req).map(|m| &m.id), &[Segment::SingleWildcard])?,
+                    var_project, var_instance, var_id,
                 );
 
                 let builder = self.inner.builder(Method::DELETE, path);
@@ -119,17 +120,18 @@ impl super::stub::SqlBackupRunsService for SqlBackupRunsService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_instance = try_match(
+                    Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_id = try_match(Some(&req).map(|m| &m.id), &[Segment::SingleWildcard])?;
                 let path = format!(
                     "/v1/projects/{}/instances/{}/backupRuns/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(Some(&req).map(|m| &m.id), &[Segment::SingleWildcard])?,
+                    var_project, var_instance, var_id,
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -186,16 +188,17 @@ impl super::stub::SqlBackupRunsService for SqlBackupRunsService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_instance = try_match(
+                    Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/v1/projects/{}/instances/{}/backupRuns",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project, var_instance,
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -246,16 +249,17 @@ impl super::stub::SqlBackupRunsService for SqlBackupRunsService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_instance = try_match(
+                    Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/v1/projects/{}/instances/{}/backupRuns",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project, var_instance,
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -331,13 +335,11 @@ impl super::stub::SqlBackupsService for SqlBackupsService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}/backups",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[Segment::Literal("projects/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[Segment::Literal("projects/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1/{}/backups", var_parent,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -381,18 +383,16 @@ impl super::stub::SqlBackupsService for SqlBackupsService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/backups/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/backups/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -441,13 +441,11 @@ impl super::stub::SqlBackupsService for SqlBackupsService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}/backups",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[Segment::Literal("projects/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[Segment::Literal("projects/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1/{}/backups", var_parent,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -494,21 +492,19 @@ impl super::stub::SqlBackupsService for SqlBackupsService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}",
-                    try_match(
-                        Some(&req)
-                            .and_then(|m| m.backup.as_ref())
-                            .map(|m| &m.name)
-                            .map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/backups/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_backup_name = try_match(
+                    Some(&req)
+                        .and_then(|m| m.backup.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/backups/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_backup_name,);
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -572,18 +568,16 @@ impl super::stub::SqlBackupsService for SqlBackupsService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[
-                            Segment::Literal("projects/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/backups/"),
-                            Segment::SingleWildcard
-                        ]
-                    )?,
-                );
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("projects/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/backups/"),
+                        Segment::SingleWildcard,
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_name,);
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
@@ -655,16 +649,17 @@ impl super::stub::SqlConnectService for SqlConnectService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_instance = try_match(
+                    Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/v1/projects/{}/instances/{}/connectSettings",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project, var_instance,
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -727,16 +722,17 @@ impl super::stub::SqlConnectService for SqlConnectService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_instance = try_match(
+                    Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/v1/projects/{}/instances/{}:generateEphemeralCert",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project, var_instance,
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -810,20 +806,21 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_instance = try_match(
+                    Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_database = try_match(
+                    Some(&req).map(|m| &m.database).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/v1/projects/{}/instances/{}/databases/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.database).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project, var_instance, var_database,
                 );
 
                 let builder = self.inner.builder(Method::DELETE, path);
@@ -880,20 +877,21 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_instance = try_match(
+                    Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_database = try_match(
+                    Some(&req).map(|m| &m.database).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/v1/projects/{}/instances/{}/databases/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.database).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project, var_instance, var_database,
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -950,16 +948,17 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_instance = try_match(
+                    Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/v1/projects/{}/instances/{}/databases",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project, var_instance,
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -1010,16 +1009,17 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_instance = try_match(
+                    Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/v1/projects/{}/instances/{}/databases",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project, var_instance,
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -1070,20 +1070,21 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_instance = try_match(
+                    Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_database = try_match(
+                    Some(&req).map(|m| &m.database).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/v1/projects/{}/instances/{}/databases/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.database).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project, var_instance, var_database,
                 );
 
                 let builder = self.inner.builder(Method::PATCH, path);
@@ -1140,20 +1141,21 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_instance = try_match(
+                    Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_database = try_match(
+                    Some(&req).map(|m| &m.database).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/v1/projects/{}/instances/{}/databases/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.database).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project, var_instance, var_database,
                 );
 
                 let builder = self.inner.builder(Method::PUT, path);
@@ -1297,16 +1299,17 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_instance = try_match(
+                    Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/v1/projects/{}/instances/{}/addServerCa",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project, var_instance,
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -1357,16 +1360,17 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_instance = try_match(
+                    Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/v1/projects/{}/instances/{}/addServerCertificate",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project, var_instance,
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -1417,16 +1421,17 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_instance = try_match(
+                    Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/v1/projects/{}/instances/{}/addEntraIdCertificate",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project, var_instance,
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -1477,16 +1482,17 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_instance = try_match(
+                    Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/v1/projects/{}/instances/{}/clone",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project, var_instance,
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -1537,17 +1543,15 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/projects/{}/instances/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                );
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_instance = try_match(
+                    Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1/projects/{}/instances/{}", var_project, var_instance,);
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = (|| {
@@ -1619,16 +1623,17 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_instance = try_match(
+                    Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/v1/projects/{}/instances/{}/demoteMaster",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project, var_instance,
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -1679,16 +1684,17 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_instance = try_match(
+                    Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/v1/projects/{}/instances/{}/demote",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project, var_instance,
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -1739,16 +1745,17 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_instance = try_match(
+                    Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/v1/projects/{}/instances/{}/export",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project, var_instance,
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -1799,16 +1806,17 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_instance = try_match(
+                    Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/v1/projects/{}/instances/{}/failover",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project, var_instance,
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -1859,16 +1867,17 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_instance = try_match(
+                    Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/v1/projects/{}/instances/{}/reencrypt",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project, var_instance,
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -1919,17 +1928,15 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/projects/{}/instances/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                );
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_instance = try_match(
+                    Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1/projects/{}/instances/{}", var_project, var_instance,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -1979,16 +1986,17 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_instance = try_match(
+                    Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/v1/projects/{}/instances/{}/import",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project, var_instance,
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -2039,13 +2047,11 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/projects/{}/instances",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                );
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1/projects/{}/instances", var_project,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -2089,13 +2095,11 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/projects/{}/instances",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                );
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1/projects/{}/instances", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
@@ -2142,16 +2146,17 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_instance = try_match(
+                    Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/v1/projects/{}/instances/{}/listServerCas",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project, var_instance,
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -2202,16 +2207,17 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_instance = try_match(
+                    Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/v1/projects/{}/instances/{}/listServerCertificates",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project, var_instance,
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -2262,16 +2268,17 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_instance = try_match(
+                    Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/v1/projects/{}/instances/{}/listEntraIdCertificates",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project, var_instance,
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -2322,17 +2329,15 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/projects/{}/instances/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                );
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_instance = try_match(
+                    Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1/projects/{}/instances/{}", var_project, var_instance,);
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = Ok(builder);
@@ -2382,16 +2387,17 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_instance = try_match(
+                    Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/v1/projects/{}/instances/{}/promoteReplica",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project, var_instance,
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -2443,16 +2449,17 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_instance = try_match(
+                    Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/v1/projects/{}/instances/{}/switchover",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project, var_instance,
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -2515,16 +2522,17 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_instance = try_match(
+                    Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/v1/projects/{}/instances/{}/resetSslConfig",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project, var_instance,
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -2576,16 +2584,17 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_instance = try_match(
+                    Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/v1/projects/{}/instances/{}/restart",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project, var_instance,
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -2636,16 +2645,17 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_instance = try_match(
+                    Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/v1/projects/{}/instances/{}/restoreBackup",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project, var_instance,
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -2696,16 +2706,17 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_instance = try_match(
+                    Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/v1/projects/{}/instances/{}/rotateServerCa",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project, var_instance,
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -2756,16 +2767,17 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_instance = try_match(
+                    Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/v1/projects/{}/instances/{}/rotateServerCertificate",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project, var_instance,
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -2816,16 +2828,17 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_instance = try_match(
+                    Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/v1/projects/{}/instances/{}/rotateEntraIdCertificate",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project, var_instance,
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -2876,16 +2889,17 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_instance = try_match(
+                    Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/v1/projects/{}/instances/{}/startReplica",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project, var_instance,
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -2936,16 +2950,17 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_instance = try_match(
+                    Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/v1/projects/{}/instances/{}/stopReplica",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project, var_instance,
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -2996,16 +3011,17 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_instance = try_match(
+                    Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/v1/projects/{}/instances/{}/truncateLog",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project, var_instance,
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -3056,17 +3072,15 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/projects/{}/instances/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                );
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_instance = try_match(
+                    Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1/projects/{}/instances/{}", var_project, var_instance,);
 
                 let builder = self.inner.builder(Method::PUT, path);
                 let builder = Ok(builder);
@@ -3116,16 +3130,17 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_instance = try_match(
+                    Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/v1/projects/{}/instances/{}/createEphemeral",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project, var_instance,
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -3176,16 +3191,17 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_instance = try_match(
+                    Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/v1/projects/{}/instances/{}/rescheduleMaintenance",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project, var_instance,
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -3236,16 +3252,17 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_instance = try_match(
+                    Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/v1/projects/{}/instances/{}/verifyExternalSyncSettings",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project, var_instance,
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -3296,16 +3313,17 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_instance = try_match(
+                    Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/v1/projects/{}/instances/{}/startExternalSync",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project, var_instance,
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -3356,16 +3374,17 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_instance = try_match(
+                    Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/v1/projects/{}/instances/{}/performDiskShrink",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project, var_instance,
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -3416,16 +3435,17 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_instance = try_match(
+                    Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/v1/projects/{}/instances/{}/getDiskShrinkConfig",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project, var_instance,
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -3476,16 +3496,17 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_instance = try_match(
+                    Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/v1/projects/{}/instances/{}/resetReplicaSize",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project, var_instance,
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -3536,16 +3557,17 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_instance = try_match(
+                    Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/v1/projects/{}/instances/{}/getLatestRecoveryTime",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project, var_instance,
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -3608,16 +3630,17 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_instance = try_match(
+                    Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/v1/projects/{}/instances/{}/executeSql",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project, var_instance,
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -3668,16 +3691,17 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_instance = try_match(
+                    Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/v1/projects/{}/instances/{}/acquireSsrsLease",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project, var_instance,
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -3728,16 +3752,17 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_instance = try_match(
+                    Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/v1/projects/{}/instances/{}/releaseSsrsLease",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project, var_instance,
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -3788,16 +3813,17 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_instance = try_match(
+                    Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/v1/projects/{}/instances/{}/preCheckMajorVersionUpgrade",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project, var_instance,
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -3848,13 +3874,11 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/{}:pointInTimeRestore",
-                    try_match(
-                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
-                        &[Segment::Literal("projects/"), Segment::SingleWildcard]
-                    )?,
-                );
+                let var_parent = try_match(
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                    &[Segment::Literal("projects/"), Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1/{}:pointInTimeRestore", var_parent,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -3921,17 +3945,15 @@ impl super::stub::SqlOperationsService for SqlOperationsService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/projects/{}/operations/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.operation).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                );
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_operation = try_match(
+                    Some(&req).map(|m| &m.operation).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1/projects/{}/operations/{}", var_project, var_operation,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -3981,13 +4003,11 @@ impl super::stub::SqlOperationsService for SqlOperationsService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/projects/{}/operations",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                );
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1/projects/{}/operations", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("instance", &req.instance)]);
@@ -4034,16 +4054,17 @@ impl super::stub::SqlOperationsService for SqlOperationsService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_operation = try_match(
+                    Some(&req).map(|m| &m.operation).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/v1/projects/{}/operations/{}/cancel",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.operation).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project, var_operation,
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -4123,20 +4144,21 @@ impl super::stub::SqlSslCertsService for SqlSslCertsService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_instance = try_match(
+                    Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_sha1_fingerprint = try_match(
+                    Some(&req).map(|m| &m.sha1_fingerprint).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/v1/projects/{}/instances/{}/sslCerts/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.sha1_fingerprint).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project, var_instance, var_sha1_fingerprint,
                 );
 
                 let builder = self.inner.builder(Method::DELETE, path);
@@ -4193,20 +4215,21 @@ impl super::stub::SqlSslCertsService for SqlSslCertsService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_instance = try_match(
+                    Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_sha1_fingerprint = try_match(
+                    Some(&req).map(|m| &m.sha1_fingerprint).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/v1/projects/{}/instances/{}/sslCerts/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.sha1_fingerprint).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project, var_instance, var_sha1_fingerprint,
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -4263,16 +4286,17 @@ impl super::stub::SqlSslCertsService for SqlSslCertsService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_instance = try_match(
+                    Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/v1/projects/{}/instances/{}/sslCerts",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project, var_instance,
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -4323,16 +4347,17 @@ impl super::stub::SqlSslCertsService for SqlSslCertsService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_instance = try_match(
+                    Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/v1/projects/{}/instances/{}/sslCerts",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project, var_instance,
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -4406,13 +4431,11 @@ impl super::stub::SqlTiersService for SqlTiersService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
-                let path = format!(
-                    "/v1/projects/{}/tiers",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                );
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let path = format!("/v1/projects/{}/tiers", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -4479,16 +4502,17 @@ impl super::stub::SqlUsersService for SqlUsersService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_instance = try_match(
+                    Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/v1/projects/{}/instances/{}/users",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project, var_instance,
                 );
 
                 let builder = self.inner.builder(Method::DELETE, path);
@@ -4541,20 +4565,21 @@ impl super::stub::SqlUsersService for SqlUsersService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_instance = try_match(
+                    Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_name = try_match(
+                    Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/v1/projects/{}/instances/{}/users/{}",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project, var_instance, var_name,
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -4612,16 +4637,17 @@ impl super::stub::SqlUsersService for SqlUsersService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_instance = try_match(
+                    Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/v1/projects/{}/instances/{}/users",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project, var_instance,
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -4672,16 +4698,17 @@ impl super::stub::SqlUsersService for SqlUsersService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_instance = try_match(
+                    Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/v1/projects/{}/instances/{}/users",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project, var_instance,
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -4732,16 +4759,17 @@ impl super::stub::SqlUsersService for SqlUsersService {
         use google_cloud_gax::error::binding::BindingError;
         let (builder, method) = None
             .or_else(|| {
+                let var_project = try_match(
+                    Some(&req).map(|m| &m.project).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
+                let var_instance = try_match(
+                    Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
+                    &[Segment::SingleWildcard],
+                )?;
                 let path = format!(
                     "/v1/projects/{}/instances/{}/users",
-                    try_match(
-                        Some(&req).map(|m| &m.project).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
-                    try_match(
-                        Some(&req).map(|m| &m.instance).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
-                    )?,
+                    var_project, var_instance,
                 );
 
                 let builder = self.inner.builder(Method::PUT, path);

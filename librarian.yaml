@@ -13,7 +13,7 @@
 # limitations under the License.
 
 language: rust
-version: v0.8.4-0.20260304185555-c8223b70bb72
+version: v0.8.4-0.20260306193630-e6df3bd93a47
 sources:
   conformance:
     commit: b407e8416e3893036aee5af9a12bd9b6a0e2b2e6
@@ -1556,8 +1556,8 @@ libraries:
         - language: rust_storage
           output: src/storage/src/control/generated
           specification_format: none
-          api_path: ""
-          template: ""
+          api_path: google/storage/v2
+          template: prost
   - name: google-cloud-storagebatchoperations-v1
     version: 1.7.0
     copyright_year: "2025"

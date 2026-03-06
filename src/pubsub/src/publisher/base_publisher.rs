@@ -24,7 +24,7 @@ use crate::publisher::builder::PublisherPartialBuilder;
 ///
 /// ```
 /// # async fn sample() -> anyhow::Result<()> {
-/// # use google_cloud_pubsub::publisher::client::BasePublisher;
+/// # use google_cloud_pubsub::client::BasePublisher;
 /// # use google_cloud_pubsub::model::Message;
 ///
 /// // Create a client.
@@ -51,7 +51,7 @@ pub struct BasePublisher {
 /// # async fn sample() -> anyhow::Result<()> {
 /// # use google_cloud_pubsub::*;
 /// # use builder::publisher::BasePublisherBuilder;
-/// # use google_cloud_pubsub::publisher::client::BasePublisher;
+/// # use google_cloud_pubsub::client::BasePublisher;
 /// let builder: BasePublisherBuilder = BasePublisher::builder();
 /// let client = builder
 ///     .with_endpoint("https://pubsub.googleapis.com")
@@ -65,7 +65,7 @@ impl BasePublisher {
     ///
     /// ```no_run
     /// # tokio_test::block_on(async {
-    /// # use google_cloud_pubsub::publisher::client::BasePublisher;
+    /// # use google_cloud_pubsub::client::BasePublisher;
     /// let client: BasePublisher = BasePublisher::builder().build().await?;
     /// # google_cloud_gax::client_builder::Result::<()>::Ok(()) });
     /// ```
@@ -86,7 +86,7 @@ impl BasePublisher {
     /// # async fn sample() -> anyhow::Result<()> {
     /// # use google_cloud_pubsub::*;
     /// # use builder::publisher::BasePublisherBuilder;
-    /// # use publisher::client::BasePublisher;
+    /// # use client::BasePublisher;
     /// # use model::Message;
     /// let client = BasePublisher::builder().build().await?;
     /// let publisher = client.publisher("projects/my-project/topics/my-topic").build();
