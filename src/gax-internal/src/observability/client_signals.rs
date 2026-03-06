@@ -75,7 +75,7 @@ pub use with_client_signals::WithClientSignals;
 /// [Span]: [tracing::Span]
 #[macro_export]
 macro_rules! client_request_signals {
-    ($info:expr, $options:expr, $client:expr, $method:expr, $rpc_method:expr) => {{
+    ($info:expr, $options:expr, $client:literal, $method:literal, $rpc_method:expr) => {{
         use $crate::observability::attributes::keys::*;
         use $crate::observability::attributes::{
             GCP_CLIENT_LANGUAGE_RUST, GCP_CLIENT_REPO_GOOGLEAPIS, OTEL_KIND_INTERNAL,
@@ -86,7 +86,7 @@ macro_rules! client_request_signals {
             $options,
             concat!(env!("CARGO_CRATE_NAME"), "::", $client, "::", $method),
         );
-        let span = tracing::info_span!(
+        let span = ::tracing::info_span!(
             "client_request",
             "gax.client.span" = true, // Marker field
             { OTEL_NAME } = concat!(env!("CARGO_CRATE_NAME"), "::", $client, "::", $method),
