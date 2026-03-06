@@ -166,8 +166,8 @@ pub mod model {
 /// ```
 pub mod client {
     pub use crate::generated::gapic::client::*;
-    pub use crate::publisher::client::Publisher;
     pub use crate::publisher::client::BasePublisher;
+    pub use crate::publisher::client::Publisher;
     pub use crate::subscriber::client::Subscriber;
 }
 
