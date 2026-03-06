@@ -45,20 +45,7 @@ pub struct BasePublisher {
     pub(crate) inner: crate::generated::gapic_dataplane::client::Publisher,
 }
 
-/// A builder for [BasePublisher].
-///
-/// ```
-/// # async fn sample() -> anyhow::Result<()> {
-/// # use google_cloud_pubsub::*;
-/// # use builder::publisher::BasePublisherBuilder;
-/// # use google_cloud_pubsub::client::BasePublisher;
-/// let builder: BasePublisherBuilder = BasePublisher::builder();
-/// let client = builder
-///     .with_endpoint("https://pubsub.googleapis.com")
-///     .build().await?;
-/// # Ok(()) }
-/// ```
-pub use super::client_builder::ClientBuilder as BasePublisherBuilder;
+pub use super::client_builder::BasePublisherBuilder;
 
 impl BasePublisher {
     /// Returns a builder for [BasePublisher].
