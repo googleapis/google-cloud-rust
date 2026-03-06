@@ -315,20 +315,30 @@ where
     let client = Client::new();
     let sleep = async |d| tokio::time::sleep(d).await;
 
-    let retry_policy: RetryPolicyArg = Aip194Strict.with_attempt_limit(3).into();
+    let retry_policy: RetryPolicyArg = Aip194Strict.with_time_limit(Duration::from_secs(60)).into();
     let backoff_policy: BackoffPolicyArg = ExponentialBackoff::default().into();
     let backoff_policy: Arc<dyn BackoffPolicy> = backoff_policy.into();
     let retry_throttler: RetryThrottlerArg = AdaptiveThrottler::default().into();
     let retry_throttler: SharedRetryThrottler = retry_throttler.into();
 
     retry_loop(
-        async move |_| {
+        async move |d| {        
             let headers = credentials
                 .headers(Extensions::new())
                 .await
                 .map_err(GaxError::authentication)?;
 
-            fetch_access_boundary_call(&client, &url, headers).await
+            let attempt = fetch_access_boundary_call(&client, &url, headers);
+            match d {
+                Some(timeout) => {
+                    match tokio::time::timeout(timeout, attempt).await {
+                        Ok(r) => r,
+                        Err(e) => Err(GaxError::timeout(e)),
+                    }
+                }
+                None => attempt.await
+
+            }  
         },
         sleep,
         true, // fetch access boundary is idempotent
