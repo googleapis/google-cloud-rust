@@ -180,7 +180,7 @@ impl super::stub::AcceleratorTypes for AcceleratorTypes {
                     var_project,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/projects/{}", project,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -274,6 +274,14 @@ impl super::stub::AcceleratorTypes for AcceleratorTypes {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/acceleratorTypes/{}",
                     var_project, var_zone, var_accelerator_type,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/acceleratorTypes/{}",
+                    var_project, var_zone, var_accelerator_type,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -345,6 +353,14 @@ impl super::stub::AcceleratorTypes for AcceleratorTypes {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/acceleratorTypes",
                     var_project, var_zone,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}",
+                    var_project, var_zone,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -453,6 +469,11 @@ impl super::stub::Addresses for Addresses {
                     &[Segment::SingleWildcard],
                 )?;
                 let path = format!("/compute/v1/projects/{}/aggregated/addresses", var_project,);
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -546,6 +567,14 @@ impl super::stub::Addresses for Addresses {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/addresses/{}",
                     var_project, var_region, var_address,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/addresses/{}",
+                    var_project, var_region, var_address,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::DELETE, path);
@@ -625,6 +654,14 @@ impl super::stub::Addresses for Addresses {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/addresses/{}",
                     var_project, var_region, var_address,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/addresses/{}",
+                    var_project, var_region, var_address,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -696,6 +733,14 @@ impl super::stub::Addresses for Addresses {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/addresses",
                     var_project, var_region,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}",
+                    var_project, var_region,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -765,6 +810,14 @@ impl super::stub::Addresses for Addresses {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/addresses",
                     var_project, var_region,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}",
+                    var_project, var_region,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -856,6 +909,14 @@ impl super::stub::Addresses for Addresses {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/addresses/{}/move",
                     var_project, var_region, var_address,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/addresses/{}",
+                    var_project, var_region, var_address,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -935,6 +996,14 @@ impl super::stub::Addresses for Addresses {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/addresses/{}/setLabels",
                     var_project, var_region, var_resource,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/addresses/{}",
+                    var_project, var_region, var_resource,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -1014,6 +1083,14 @@ impl super::stub::Addresses for Addresses {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/addresses/{}/testIamPermissions",
                     var_project, var_region, var_resource,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/addresses/{}",
+                    var_project, var_region, var_resource,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -1089,6 +1166,14 @@ impl super::stub::Addresses for Addresses {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/operations/{}",
                     var_project, var_region, var_operation,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/operations/{}",
+                    var_project, var_region, var_operation,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -1201,6 +1286,14 @@ impl super::stub::Advice for Advice {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/advice/calendarMode",
                     var_project, var_region,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}",
+                    var_project, var_region,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -1290,6 +1383,11 @@ impl super::stub::Autoscalers for Autoscalers {
                     "/compute/v1/projects/{}/aggregated/autoscalers",
                     var_project,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -1383,6 +1481,14 @@ impl super::stub::Autoscalers for Autoscalers {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/autoscalers/{}",
                     var_project, var_zone, var_autoscaler,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/autoscalers/{}",
+                    var_project, var_zone, var_autoscaler,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::DELETE, path);
@@ -1462,6 +1568,14 @@ impl super::stub::Autoscalers for Autoscalers {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/autoscalers/{}",
                     var_project, var_zone, var_autoscaler,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/autoscalers/{}",
+                    var_project, var_zone, var_autoscaler,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -1533,6 +1647,14 @@ impl super::stub::Autoscalers for Autoscalers {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/autoscalers",
                     var_project, var_zone,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}",
+                    var_project, var_zone,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -1602,6 +1724,14 @@ impl super::stub::Autoscalers for Autoscalers {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/autoscalers",
                     var_project, var_zone,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}",
+                    var_project, var_zone,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -1689,6 +1819,14 @@ impl super::stub::Autoscalers for Autoscalers {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/autoscalers",
                     var_project, var_zone,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}",
+                    var_project, var_zone,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::PATCH, path);
@@ -1766,6 +1904,14 @@ impl super::stub::Autoscalers for Autoscalers {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/autoscalers/{}/testIamPermissions",
                     var_project, var_zone, var_resource,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/autoscalers/{}",
+                    var_project, var_zone, var_resource,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -1837,6 +1983,14 @@ impl super::stub::Autoscalers for Autoscalers {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/autoscalers",
                     var_project, var_zone,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}",
+                    var_project, var_zone,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::PUT, path);
@@ -1914,6 +2068,14 @@ impl super::stub::Autoscalers for Autoscalers {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/operations/{}",
                     var_project, var_zone, var_operation,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/operations/{}",
+                    var_project, var_zone, var_operation,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -2028,8 +2190,7 @@ impl super::stub::BackendBuckets for BackendBuckets {
                     var_project, var_backend_bucket,
                 );
 
-                let _resource_name =
-                    format!("//compute.googleapis.com/backendBuckets/{}", backend_bucket,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req
@@ -2100,8 +2261,7 @@ impl super::stub::BackendBuckets for BackendBuckets {
                     var_project, var_backend_bucket,
                 );
 
-                let _resource_name =
-                    format!("//compute.googleapis.com/backendBuckets/{}", backend_bucket,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = req
@@ -2172,8 +2332,7 @@ impl super::stub::BackendBuckets for BackendBuckets {
                     var_project, var_backend_bucket,
                 );
 
-                let _resource_name =
-                    format!("//compute.googleapis.com/backendBuckets/{}", backend_bucket,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("keyName", &req.key_name)]);
@@ -2245,8 +2404,7 @@ impl super::stub::BackendBuckets for BackendBuckets {
                     var_project, var_backend_bucket,
                 );
 
-                let _resource_name =
-                    format!("//compute.googleapis.com/backendBuckets/{}", backend_bucket,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -2313,8 +2471,7 @@ impl super::stub::BackendBuckets for BackendBuckets {
                     var_project, var_resource,
                 );
 
-                let _resource_name =
-                    format!("//compute.googleapis.com/backendBuckets/{}", resource,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -2379,6 +2536,11 @@ impl super::stub::BackendBuckets for BackendBuckets {
                     &[Segment::SingleWildcard],
                 )?;
                 let path = format!("/compute/v1/projects/{}/global/backendBuckets", var_project,);
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req
@@ -2435,6 +2597,11 @@ impl super::stub::BackendBuckets for BackendBuckets {
                     &[Segment::SingleWildcard],
                 )?;
                 let path = format!("/compute/v1/projects/{}/global/backendBuckets", var_project,);
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -2517,8 +2684,7 @@ impl super::stub::BackendBuckets for BackendBuckets {
                     var_project, var_backend_bucket,
                 );
 
-                let _resource_name =
-                    format!("//compute.googleapis.com/backendBuckets/{}", backend_bucket,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = req
@@ -2589,8 +2755,7 @@ impl super::stub::BackendBuckets for BackendBuckets {
                     var_project, var_backend_bucket,
                 );
 
-                let _resource_name =
-                    format!("//compute.googleapis.com/backendBuckets/{}", backend_bucket,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req
@@ -2661,8 +2826,7 @@ impl super::stub::BackendBuckets for BackendBuckets {
                     var_project, var_resource,
                 );
 
-                let _resource_name =
-                    format!("//compute.googleapis.com/backendBuckets/{}", resource,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -2729,8 +2893,7 @@ impl super::stub::BackendBuckets for BackendBuckets {
                     var_project, var_resource,
                 );
 
-                let _resource_name =
-                    format!("//compute.googleapis.com/backendBuckets/{}", resource,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -2797,8 +2960,7 @@ impl super::stub::BackendBuckets for BackendBuckets {
                     var_project, var_backend_bucket,
                 );
 
-                let _resource_name =
-                    format!("//compute.googleapis.com/backendBuckets/{}", backend_bucket,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::PUT, path);
                 let builder = req
@@ -2869,7 +3031,7 @@ impl super::stub::BackendBuckets for BackendBuckets {
                     var_project, var_operation,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/operations/{}", operation,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -2976,6 +3138,11 @@ impl super::stub::BackendServices for BackendServices {
                     "/compute/v1/projects/{}/global/backendServices/{}/addSignedUrlKey",
                     var_project, var_backend_service,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req
@@ -3042,7 +3209,7 @@ impl super::stub::BackendServices for BackendServices {
                     var_project,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/projects/{}", project,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -3133,6 +3300,11 @@ impl super::stub::BackendServices for BackendServices {
                     "/compute/v1/projects/{}/global/backendServices/{}",
                     var_project, var_backend_service,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = req
@@ -3202,6 +3374,11 @@ impl super::stub::BackendServices for BackendServices {
                     "/compute/v1/projects/{}/global/backendServices/{}/deleteSignedUrlKey",
                     var_project, var_backend_service,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("keyName", &req.key_name)]);
@@ -3272,6 +3449,11 @@ impl super::stub::BackendServices for BackendServices {
                     "/compute/v1/projects/{}/global/backendServices/{}",
                     var_project, var_backend_service,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -3331,6 +3513,14 @@ impl super::stub::BackendServices for BackendServices {
                 "/compute/v1/projects/{}/global/backendServices/{}/getEffectiveSecurityPolicies",
                 var_project,
                 var_backend_service,
+<<<<<<< HEAD
+=======
+            );
+
+            let _resource_name = format!(
+                "//compute.googleapis.com/projects/{}",
+                var_project,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
             );
 
             let builder = self.inner.builder(Method::GET, path);
@@ -3401,6 +3591,11 @@ impl super::stub::BackendServices for BackendServices {
                     "/compute/v1/projects/{}/global/backendServices/{}/getHealth",
                     var_project, var_backend_service,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -3467,8 +3662,7 @@ impl super::stub::BackendServices for BackendServices {
                     var_project, var_resource,
                 );
 
-                let _resource_name =
-                    format!("//compute.googleapis.com/backendServices/{}", resource,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -3536,6 +3730,11 @@ impl super::stub::BackendServices for BackendServices {
                     "/compute/v1/projects/{}/global/backendServices",
                     var_project,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req
@@ -3595,6 +3794,11 @@ impl super::stub::BackendServices for BackendServices {
                     "/compute/v1/projects/{}/global/backendServices",
                     var_project,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -3673,7 +3877,7 @@ impl super::stub::BackendServices for BackendServices {
                     var_project,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/projects/{}", project,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -3755,6 +3959,11 @@ impl super::stub::BackendServices for BackendServices {
                     "/compute/v1/projects/{}/global/backendServices/{}",
                     var_project, var_backend_service,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = req
@@ -3824,6 +4033,11 @@ impl super::stub::BackendServices for BackendServices {
                     "/compute/v1/projects/{}/global/backendServices/{}/setEdgeSecurityPolicy",
                     var_project, var_backend_service,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req
@@ -3894,8 +4108,7 @@ impl super::stub::BackendServices for BackendServices {
                     var_project, var_resource,
                 );
 
-                let _resource_name =
-                    format!("//compute.googleapis.com/backendServices/{}", resource,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -3961,6 +4174,11 @@ impl super::stub::BackendServices for BackendServices {
                     "/compute/v1/projects/{}/global/backendServices/{}/setSecurityPolicy",
                     var_project, var_backend_service,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req
@@ -4031,8 +4249,7 @@ impl super::stub::BackendServices for BackendServices {
                     var_project, var_resource,
                 );
 
-                let _resource_name =
-                    format!("//compute.googleapis.com/backendServices/{}", resource,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -4098,6 +4315,11 @@ impl super::stub::BackendServices for BackendServices {
                     "/compute/v1/projects/{}/global/backendServices/{}",
                     var_project, var_backend_service,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::PUT, path);
                 let builder = req
@@ -4168,7 +4390,7 @@ impl super::stub::BackendServices for BackendServices {
                     var_project, var_operation,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/operations/{}", operation,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -4277,6 +4499,11 @@ impl super::stub::CrossSiteNetworks for CrossSiteNetworks {
                     "/compute/v1/projects/{}/global/crossSiteNetworks/{}",
                     var_project, var_cross_site_network,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = req
@@ -4350,6 +4577,11 @@ impl super::stub::CrossSiteNetworks for CrossSiteNetworks {
                     "/compute/v1/projects/{}/global/crossSiteNetworks/{}",
                     var_project, var_cross_site_network,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -4413,6 +4645,11 @@ impl super::stub::CrossSiteNetworks for CrossSiteNetworks {
                     "/compute/v1/projects/{}/global/crossSiteNetworks",
                     var_project,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req
@@ -4476,6 +4713,11 @@ impl super::stub::CrossSiteNetworks for CrossSiteNetworks {
                     "/compute/v1/projects/{}/global/crossSiteNetworks",
                     var_project,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -4559,6 +4801,11 @@ impl super::stub::CrossSiteNetworks for CrossSiteNetworks {
                     "/compute/v1/projects/{}/global/crossSiteNetworks/{}",
                     var_project, var_cross_site_network,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -4647,7 +4894,7 @@ impl super::stub::CrossSiteNetworks for CrossSiteNetworks {
                     var_project, var_operation,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/operations/{}", operation,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -4747,6 +4994,11 @@ impl super::stub::DiskTypes for DiskTypes {
                     &[Segment::SingleWildcard],
                 )?;
                 let path = format!("/compute/v1/projects/{}/aggregated/diskTypes", var_project,);
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -4840,6 +5092,14 @@ impl super::stub::DiskTypes for DiskTypes {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/diskTypes/{}",
                     var_project, var_zone, var_disk_type,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/diskTypes/{}",
+                    var_project, var_zone, var_disk_type,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -4911,6 +5171,14 @@ impl super::stub::DiskTypes for DiskTypes {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/diskTypes",
                     var_project, var_zone,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}",
+                    var_project, var_zone,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -5027,6 +5295,14 @@ impl super::stub::Disks for Disks {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/disks/{}/addResourcePolicies",
                     var_project, var_zone, var_disk,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/disks/{}",
+                    var_project, var_zone, var_disk,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -5096,6 +5372,11 @@ impl super::stub::Disks for Disks {
                     &[Segment::SingleWildcard],
                 )?;
                 let path = format!("/compute/v1/projects/{}/aggregated/disks", var_project,);
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -5185,6 +5466,14 @@ impl super::stub::Disks for Disks {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/disks/bulkInsert",
                     var_project, var_zone,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}",
+                    var_project, var_zone,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -5254,6 +5543,14 @@ impl super::stub::Disks for Disks {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/disks/bulkSetLabels",
                     var_project, var_zone,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}",
+                    var_project, var_zone,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -5331,6 +5628,14 @@ impl super::stub::Disks for Disks {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/disks/{}/createSnapshot",
                     var_project, var_zone, var_disk,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/disks/{}",
+                    var_project, var_zone, var_disk,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -5414,6 +5719,14 @@ impl super::stub::Disks for Disks {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/disks/{}",
                     var_project, var_zone, var_disk,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/disks/{}",
+                    var_project, var_zone, var_disk,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::DELETE, path);
@@ -5493,6 +5806,14 @@ impl super::stub::Disks for Disks {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/disks/{}",
                     var_project, var_zone, var_disk,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/disks/{}",
+                    var_project, var_zone, var_disk,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -5568,6 +5889,14 @@ impl super::stub::Disks for Disks {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/disks/{}/getIamPolicy",
                     var_project, var_zone, var_resource,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/disks/{}",
+                    var_project, var_zone, var_resource,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -5645,6 +5974,14 @@ impl super::stub::Disks for Disks {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/disks",
                     var_project, var_zone,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}",
+                    var_project, var_zone,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -5718,6 +6055,14 @@ impl super::stub::Disks for Disks {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/disks",
                     var_project, var_zone,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}",
+                    var_project, var_zone,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -5809,6 +6154,14 @@ impl super::stub::Disks for Disks {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/disks/{}/removeResourcePolicies",
                     var_project, var_zone, var_disk,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/disks/{}",
+                    var_project, var_zone, var_disk,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -5888,6 +6241,14 @@ impl super::stub::Disks for Disks {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/disks/{}/resize",
                     var_project, var_zone, var_disk,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/disks/{}",
+                    var_project, var_zone, var_disk,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -5967,6 +6328,14 @@ impl super::stub::Disks for Disks {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/disks/{}/setIamPolicy",
                     var_project, var_zone, var_resource,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/disks/{}",
+                    var_project, var_zone, var_resource,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -6042,6 +6411,14 @@ impl super::stub::Disks for Disks {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/disks/{}/setLabels",
                     var_project, var_zone, var_resource,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/disks/{}",
+                    var_project, var_zone, var_resource,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -6121,6 +6498,14 @@ impl super::stub::Disks for Disks {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/disks/{}/startAsyncReplication",
                     var_project, var_zone, var_disk,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/disks/{}",
+                    var_project, var_zone, var_disk,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -6200,6 +6585,14 @@ impl super::stub::Disks for Disks {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/disks/{}/stopAsyncReplication",
                     var_project, var_zone, var_disk,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/disks/{}",
+                    var_project, var_zone, var_disk,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -6275,6 +6668,14 @@ impl super::stub::Disks for Disks {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/disks/stopGroupAsyncReplication",
                     var_project, var_zone,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}",
+                    var_project, var_zone,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -6348,6 +6749,14 @@ impl super::stub::Disks for Disks {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/disks/{}/testIamPermissions",
                     var_project, var_zone, var_resource,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/disks/{}",
+                    var_project, var_zone, var_resource,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -6423,6 +6832,14 @@ impl super::stub::Disks for Disks {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/disks/{}",
                     var_project, var_zone, var_disk,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/disks/{}",
+                    var_project, var_zone, var_disk,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::PATCH, path);
@@ -6518,6 +6935,14 @@ impl super::stub::Disks for Disks {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/operations/{}",
                     var_project, var_zone, var_operation,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/operations/{}",
+                    var_project, var_zone, var_operation,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -6633,6 +7058,11 @@ impl super::stub::ExternalVpnGateways for ExternalVpnGateways {
                     "/compute/v1/projects/{}/global/externalVpnGateways/{}",
                     var_project, var_external_vpn_gateway,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = req
@@ -6706,6 +7136,11 @@ impl super::stub::ExternalVpnGateways for ExternalVpnGateways {
                     "/compute/v1/projects/{}/global/externalVpnGateways/{}",
                     var_project, var_external_vpn_gateway,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -6770,7 +7205,7 @@ impl super::stub::ExternalVpnGateways for ExternalVpnGateways {
                     var_project,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/projects/{}", project,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req
@@ -6831,7 +7266,7 @@ impl super::stub::ExternalVpnGateways for ExternalVpnGateways {
                     var_project,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/projects/{}", project,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -6914,8 +7349,7 @@ impl super::stub::ExternalVpnGateways for ExternalVpnGateways {
                     var_project, var_resource,
                 );
 
-                let _resource_name =
-                    format!("//compute.googleapis.com/externalVpnGateways/{}", resource,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -6982,8 +7416,7 @@ impl super::stub::ExternalVpnGateways for ExternalVpnGateways {
                     var_project, var_resource,
                 );
 
-                let _resource_name =
-                    format!("//compute.googleapis.com/externalVpnGateways/{}", resource,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -7050,7 +7483,7 @@ impl super::stub::ExternalVpnGateways for ExternalVpnGateways {
                     var_project, var_operation,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/operations/{}", operation,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -7152,6 +7585,14 @@ impl super::stub::FirewallPolicies for FirewallPolicies {
                 let path = format!(
                     "/compute/v1/locations/global/firewallPolicies/{}/addAssociation",
                     var_firewall_policy,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/firewallPolicies/{}",
+                    var_firewall_policy,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -7217,6 +7658,14 @@ impl super::stub::FirewallPolicies for FirewallPolicies {
                 let path = format!(
                     "/compute/v1/locations/global/firewallPolicies/{}/addRule",
                     var_firewall_policy,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/firewallPolicies/{}",
+                    var_firewall_policy,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -7276,6 +7725,14 @@ impl super::stub::FirewallPolicies for FirewallPolicies {
                 let path = format!(
                     "/compute/v1/locations/global/firewallPolicies/{}/cloneRules",
                     var_firewall_policy,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/firewallPolicies/{}",
+                    var_firewall_policy,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -7341,6 +7798,14 @@ impl super::stub::FirewallPolicies for FirewallPolicies {
                 let path = format!(
                     "/compute/v1/locations/global/firewallPolicies/{}",
                     var_firewall_policy,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/firewallPolicies/{}",
+                    var_firewall_policy,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::DELETE, path);
@@ -7400,6 +7865,14 @@ impl super::stub::FirewallPolicies for FirewallPolicies {
                 let path = format!(
                     "/compute/v1/locations/global/firewallPolicies/{}",
                     var_firewall_policy,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/firewallPolicies/{}",
+                    var_firewall_policy,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -7455,6 +7928,14 @@ impl super::stub::FirewallPolicies for FirewallPolicies {
                 let path = format!(
                     "/compute/v1/locations/global/firewallPolicies/{}/getAssociation",
                     var_firewall_policy,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/firewallPolicies/{}",
+                    var_firewall_policy,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -7517,7 +7998,7 @@ impl super::stub::FirewallPolicies for FirewallPolicies {
                 );
 
                 let _resource_name =
-                    format!("//compute.googleapis.com/firewallPolicies/{}", resource,);
+                    format!("//compute.googleapis.com/firewallPolicies/{}", var_resource,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -7578,6 +8059,14 @@ impl super::stub::FirewallPolicies for FirewallPolicies {
                 let path = format!(
                     "/compute/v1/locations/global/firewallPolicies/{}/getRule",
                     var_firewall_policy,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/firewallPolicies/{}",
+                    var_firewall_policy,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -7789,6 +8278,14 @@ impl super::stub::FirewallPolicies for FirewallPolicies {
                 let path = format!(
                     "/compute/v1/locations/global/firewallPolicies/{}/move",
                     var_firewall_policy,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/firewallPolicies/{}",
+                    var_firewall_policy,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -7852,6 +8349,14 @@ impl super::stub::FirewallPolicies for FirewallPolicies {
                 let path = format!(
                     "/compute/v1/locations/global/firewallPolicies/{}",
                     var_firewall_policy,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/firewallPolicies/{}",
+                    var_firewall_policy,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::PATCH, path);
@@ -7911,6 +8416,14 @@ impl super::stub::FirewallPolicies for FirewallPolicies {
                 let path = format!(
                     "/compute/v1/locations/global/firewallPolicies/{}/patchRule",
                     var_firewall_policy,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/firewallPolicies/{}",
+                    var_firewall_policy,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -7974,6 +8487,14 @@ impl super::stub::FirewallPolicies for FirewallPolicies {
                 let path = format!(
                     "/compute/v1/locations/global/firewallPolicies/{}/removeAssociation",
                     var_firewall_policy,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/firewallPolicies/{}",
+                    var_firewall_policy,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -8037,6 +8558,14 @@ impl super::stub::FirewallPolicies for FirewallPolicies {
                 let path = format!(
                     "/compute/v1/locations/global/firewallPolicies/{}/removeRule",
                     var_firewall_policy,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/firewallPolicies/{}",
+                    var_firewall_policy,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -8103,7 +8632,7 @@ impl super::stub::FirewallPolicies for FirewallPolicies {
                 );
 
                 let _resource_name =
-                    format!("//compute.googleapis.com/firewallPolicies/{}", resource,);
+                    format!("//compute.googleapis.com/firewallPolicies/{}", var_resource,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -8161,7 +8690,7 @@ impl super::stub::FirewallPolicies for FirewallPolicies {
                 );
 
                 let _resource_name =
-                    format!("//compute.googleapis.com/firewallPolicies/{}", resource,);
+                    format!("//compute.googleapis.com/firewallPolicies/{}", var_resource,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -8214,6 +8743,12 @@ impl super::stub::FirewallPolicies for FirewallPolicies {
                     &[Segment::SingleWildcard],
                 )?;
                 let path = format!("/compute/v1/locations/global/operations/{}", var_operation,);
+<<<<<<< HEAD
+=======
+
+                let _resource_name =
+                    format!("//compute.googleapis.com/operations/{}", var_operation,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -8319,7 +8854,7 @@ impl super::stub::Firewalls for Firewalls {
                     var_project, var_firewall,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/firewalls/{}", firewall,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = req
@@ -8390,7 +8925,7 @@ impl super::stub::Firewalls for Firewalls {
                     var_project, var_firewall,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/firewalls/{}", firewall,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -8449,6 +8984,11 @@ impl super::stub::Firewalls for Firewalls {
                     &[Segment::SingleWildcard],
                 )?;
                 let path = format!("/compute/v1/projects/{}/global/firewalls", var_project,);
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req
@@ -8505,6 +9045,11 @@ impl super::stub::Firewalls for Firewalls {
                     &[Segment::SingleWildcard],
                 )?;
                 let path = format!("/compute/v1/projects/{}/global/firewalls", var_project,);
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -8587,7 +9132,7 @@ impl super::stub::Firewalls for Firewalls {
                     var_project, var_firewall,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/firewalls/{}", firewall,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = req
@@ -8658,7 +9203,7 @@ impl super::stub::Firewalls for Firewalls {
                     var_project, var_resource,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/firewalls/{}", resource,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -8725,7 +9270,7 @@ impl super::stub::Firewalls for Firewalls {
                     var_project, var_firewall,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/firewalls/{}", firewall,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::PUT, path);
                 let builder = req
@@ -8796,7 +9341,7 @@ impl super::stub::Firewalls for Firewalls {
                     var_project, var_operation,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/operations/{}", operation,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -8900,7 +9445,7 @@ impl super::stub::ForwardingRules for ForwardingRules {
                     var_project,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/projects/{}", project,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -8994,6 +9539,14 @@ impl super::stub::ForwardingRules for ForwardingRules {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/forwardingRules/{}",
                     var_project, var_region, var_forwarding_rule,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/forwardingRules/{}",
+                    var_project, var_region, var_forwarding_rule,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::DELETE, path);
@@ -9073,6 +9626,14 @@ impl super::stub::ForwardingRules for ForwardingRules {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/forwardingRules/{}",
                     var_project, var_region, var_forwarding_rule,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/forwardingRules/{}",
+                    var_project, var_region, var_forwarding_rule,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -9144,6 +9705,14 @@ impl super::stub::ForwardingRules for ForwardingRules {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/forwardingRules",
                     var_project, var_region,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}",
+                    var_project, var_region,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -9213,6 +9782,14 @@ impl super::stub::ForwardingRules for ForwardingRules {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/forwardingRules",
                     var_project, var_region,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}",
+                    var_project, var_region,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -9304,6 +9881,14 @@ impl super::stub::ForwardingRules for ForwardingRules {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/forwardingRules/{}",
                     var_project, var_region, var_forwarding_rule,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/forwardingRules/{}",
+                    var_project, var_region, var_forwarding_rule,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::PATCH, path);
@@ -9383,6 +9968,14 @@ impl super::stub::ForwardingRules for ForwardingRules {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/forwardingRules/{}/setLabels",
                     var_project, var_region, var_resource,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/forwardingRules/{}",
+                    var_project, var_region, var_resource,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -9462,6 +10055,14 @@ impl super::stub::ForwardingRules for ForwardingRules {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/forwardingRules/{}/setTarget",
                     var_project, var_region, var_forwarding_rule,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/forwardingRules/{}",
+                    var_project, var_region, var_forwarding_rule,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -9541,6 +10142,14 @@ impl super::stub::ForwardingRules for ForwardingRules {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/operations/{}",
                     var_project, var_region, var_operation,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/operations/{}",
+                    var_project, var_region, var_operation,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -9651,7 +10260,7 @@ impl super::stub::FutureReservations for FutureReservations {
                     var_project,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/projects/{}", project,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -9747,6 +10356,14 @@ impl super::stub::FutureReservations for FutureReservations {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/futureReservations/{}/cancel",
                     var_project, var_zone, var_future_reservation,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/futureReservations/{}",
+                    var_project, var_zone, var_future_reservation,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -9830,6 +10447,14 @@ impl super::stub::FutureReservations for FutureReservations {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/futureReservations/{}",
                     var_project, var_zone, var_future_reservation,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/futureReservations/{}",
+                    var_project, var_zone, var_future_reservation,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::DELETE, path);
@@ -9913,6 +10538,14 @@ impl super::stub::FutureReservations for FutureReservations {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/futureReservations/{}",
                     var_project, var_zone, var_future_reservation,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/futureReservations/{}",
+                    var_project, var_zone, var_future_reservation,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -9986,6 +10619,14 @@ impl super::stub::FutureReservations for FutureReservations {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/futureReservations",
                     var_project, var_zone,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}",
+                    var_project, var_zone,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -10055,6 +10696,14 @@ impl super::stub::FutureReservations for FutureReservations {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/futureReservations",
                     var_project, var_zone,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}",
+                    var_project, var_zone,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -10148,6 +10797,14 @@ impl super::stub::FutureReservations for FutureReservations {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/futureReservations/{}",
                     var_project, var_zone, var_future_reservation,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/futureReservations/{}",
+                    var_project, var_zone, var_future_reservation,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::PATCH, path);
@@ -10241,6 +10898,14 @@ impl super::stub::FutureReservations for FutureReservations {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/operations/{}",
                     var_project, var_zone, var_operation,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/operations/{}",
+                    var_project, var_zone, var_operation,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -10355,7 +11020,7 @@ impl super::stub::GlobalAddresses for GlobalAddresses {
                     var_project, var_address,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/addresses/{}", address,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = req
@@ -10426,7 +11091,7 @@ impl super::stub::GlobalAddresses for GlobalAddresses {
                     var_project, var_address,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/addresses/{}", address,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -10485,6 +11150,11 @@ impl super::stub::GlobalAddresses for GlobalAddresses {
                     &[Segment::SingleWildcard],
                 )?;
                 let path = format!("/compute/v1/projects/{}/global/addresses", var_project,);
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req
@@ -10541,6 +11211,11 @@ impl super::stub::GlobalAddresses for GlobalAddresses {
                     &[Segment::SingleWildcard],
                 )?;
                 let path = format!("/compute/v1/projects/{}/global/addresses", var_project,);
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -10623,7 +11298,7 @@ impl super::stub::GlobalAddresses for GlobalAddresses {
                     var_project, var_address,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/addresses/{}", address,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req
@@ -10694,7 +11369,7 @@ impl super::stub::GlobalAddresses for GlobalAddresses {
                     var_project, var_resource,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/addresses/{}", resource,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -10761,7 +11436,7 @@ impl super::stub::GlobalAddresses for GlobalAddresses {
                     var_project, var_resource,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/addresses/{}", resource,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -10828,7 +11503,7 @@ impl super::stub::GlobalAddresses for GlobalAddresses {
                     var_project, var_operation,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/operations/{}", operation,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -10935,6 +11610,11 @@ impl super::stub::GlobalForwardingRules for GlobalForwardingRules {
                     "/compute/v1/projects/{}/global/forwardingRules/{}",
                     var_project, var_forwarding_rule,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = req
@@ -11004,6 +11684,11 @@ impl super::stub::GlobalForwardingRules for GlobalForwardingRules {
                     "/compute/v1/projects/{}/global/forwardingRules/{}",
                     var_project, var_forwarding_rule,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -11065,6 +11750,11 @@ impl super::stub::GlobalForwardingRules for GlobalForwardingRules {
                     "/compute/v1/projects/{}/global/forwardingRules",
                     var_project,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req
@@ -11124,6 +11814,11 @@ impl super::stub::GlobalForwardingRules for GlobalForwardingRules {
                     "/compute/v1/projects/{}/global/forwardingRules",
                     var_project,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -11205,6 +11900,11 @@ impl super::stub::GlobalForwardingRules for GlobalForwardingRules {
                     "/compute/v1/projects/{}/global/forwardingRules/{}",
                     var_project, var_forwarding_rule,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = req
@@ -11275,8 +11975,7 @@ impl super::stub::GlobalForwardingRules for GlobalForwardingRules {
                     var_project, var_resource,
                 );
 
-                let _resource_name =
-                    format!("//compute.googleapis.com/forwardingRules/{}", resource,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -11342,6 +12041,11 @@ impl super::stub::GlobalForwardingRules for GlobalForwardingRules {
                     "/compute/v1/projects/{}/global/forwardingRules/{}/setTarget",
                     var_project, var_forwarding_rule,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req
@@ -11412,7 +12116,7 @@ impl super::stub::GlobalForwardingRules for GlobalForwardingRules {
                     var_project, var_operation,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/operations/{}", operation,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -11513,6 +12217,14 @@ impl super::stub::GlobalNetworkEndpointGroups for GlobalNetworkEndpointGroups {
                 "/compute/v1/projects/{}/global/networkEndpointGroups/{}/attachNetworkEndpoints",
                 var_project,
                 var_network_endpoint_group,
+<<<<<<< HEAD
+=======
+            );
+
+            let _resource_name = format!(
+                "//compute.googleapis.com/projects/{}",
+                var_project,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
             );
 
             let builder = self.inner.builder(Method::POST, path);
@@ -11580,6 +12292,11 @@ impl super::stub::GlobalNetworkEndpointGroups for GlobalNetworkEndpointGroups {
                     "/compute/v1/projects/{}/global/networkEndpointGroups/{}",
                     var_project, var_network_endpoint_group,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = req
@@ -11645,6 +12362,14 @@ impl super::stub::GlobalNetworkEndpointGroups for GlobalNetworkEndpointGroups {
                 "/compute/v1/projects/{}/global/networkEndpointGroups/{}/detachNetworkEndpoints",
                 var_project,
                 var_network_endpoint_group,
+<<<<<<< HEAD
+=======
+            );
+
+            let _resource_name = format!(
+                "//compute.googleapis.com/projects/{}",
+                var_project,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
             );
 
             let builder = self.inner.builder(Method::POST, path);
@@ -11712,6 +12437,11 @@ impl super::stub::GlobalNetworkEndpointGroups for GlobalNetworkEndpointGroups {
                     "/compute/v1/projects/{}/global/networkEndpointGroups/{}",
                     var_project, var_network_endpoint_group,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -11776,7 +12506,7 @@ impl super::stub::GlobalNetworkEndpointGroups for GlobalNetworkEndpointGroups {
                     var_project,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/projects/{}", project,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req
@@ -11837,7 +12567,7 @@ impl super::stub::GlobalNetworkEndpointGroups for GlobalNetworkEndpointGroups {
                     var_project,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/projects/{}", project,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -11921,6 +12651,11 @@ impl super::stub::GlobalNetworkEndpointGroups for GlobalNetworkEndpointGroups {
                     "/compute/v1/projects/{}/global/networkEndpointGroups/{}/listNetworkEndpoints",
                     var_project, var_network_endpoint_group,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req
@@ -12011,7 +12746,7 @@ impl super::stub::GlobalNetworkEndpointGroups for GlobalNetworkEndpointGroups {
                     var_project, var_operation,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/operations/{}", operation,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -12111,6 +12846,11 @@ impl super::stub::GlobalOperations for GlobalOperations {
                     &[Segment::SingleWildcard],
                 )?;
                 let path = format!("/compute/v1/projects/{}/aggregated/operations", var_project,);
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -12202,7 +12942,7 @@ impl super::stub::GlobalOperations for GlobalOperations {
                     var_project, var_operation,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/operations/{}", operation,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
@@ -12275,7 +13015,7 @@ impl super::stub::GlobalOperations for GlobalOperations {
                     var_project, var_operation,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/operations/{}", operation,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -12334,6 +13074,11 @@ impl super::stub::GlobalOperations for GlobalOperations {
                     &[Segment::SingleWildcard],
                 )?;
                 let path = format!("/compute/v1/projects/{}/global/operations", var_project,);
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -12416,7 +13161,7 @@ impl super::stub::GlobalOperations for GlobalOperations {
                     var_project, var_operation,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/operations/{}", operation,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -12502,6 +13247,12 @@ impl super::stub::GlobalOrganizationOperations for GlobalOrganizationOperations 
                     &[Segment::SingleWildcard],
                 )?;
                 let path = format!("/compute/v1/locations/global/operations/{}", var_operation,);
+<<<<<<< HEAD
+=======
+
+                let _resource_name =
+                    format!("//compute.googleapis.com/operations/{}", var_operation,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = req
@@ -12564,6 +13315,12 @@ impl super::stub::GlobalOrganizationOperations for GlobalOrganizationOperations 
                     &[Segment::SingleWildcard],
                 )?;
                 let path = format!("/compute/v1/locations/global/operations/{}", var_operation,);
+<<<<<<< HEAD
+=======
+
+                let _resource_name =
+                    format!("//compute.googleapis.com/operations/{}", var_operation,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -12718,6 +13475,11 @@ impl super::stub::GlobalPublicDelegatedPrefixes for GlobalPublicDelegatedPrefixe
                     "/compute/v1/projects/{}/global/publicDelegatedPrefixes/{}",
                     var_project, var_public_delegated_prefix,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = req
@@ -12791,6 +13553,11 @@ impl super::stub::GlobalPublicDelegatedPrefixes for GlobalPublicDelegatedPrefixe
                     "/compute/v1/projects/{}/global/publicDelegatedPrefixes/{}",
                     var_project, var_public_delegated_prefix,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -12855,7 +13622,7 @@ impl super::stub::GlobalPublicDelegatedPrefixes for GlobalPublicDelegatedPrefixe
                     var_project,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/projects/{}", project,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req
@@ -12916,7 +13683,7 @@ impl super::stub::GlobalPublicDelegatedPrefixes for GlobalPublicDelegatedPrefixe
                     var_project,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/projects/{}", project,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -13000,6 +13767,11 @@ impl super::stub::GlobalPublicDelegatedPrefixes for GlobalPublicDelegatedPrefixe
                     "/compute/v1/projects/{}/global/publicDelegatedPrefixes/{}",
                     var_project, var_public_delegated_prefix,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = req
@@ -13072,7 +13844,7 @@ impl super::stub::GlobalPublicDelegatedPrefixes for GlobalPublicDelegatedPrefixe
                     var_project, var_operation,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/operations/{}", operation,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -13175,6 +13947,11 @@ impl super::stub::HealthChecks for HealthChecks {
                     "/compute/v1/projects/{}/aggregated/healthChecks",
                     var_project,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -13266,8 +14043,7 @@ impl super::stub::HealthChecks for HealthChecks {
                     var_project, var_health_check,
                 );
 
-                let _resource_name =
-                    format!("//compute.googleapis.com/healthChecks/{}", health_check,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = req
@@ -13338,8 +14114,7 @@ impl super::stub::HealthChecks for HealthChecks {
                     var_project, var_health_check,
                 );
 
-                let _resource_name =
-                    format!("//compute.googleapis.com/healthChecks/{}", health_check,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -13398,6 +14173,11 @@ impl super::stub::HealthChecks for HealthChecks {
                     &[Segment::SingleWildcard],
                 )?;
                 let path = format!("/compute/v1/projects/{}/global/healthChecks", var_project,);
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req
@@ -13454,6 +14234,11 @@ impl super::stub::HealthChecks for HealthChecks {
                     &[Segment::SingleWildcard],
                 )?;
                 let path = format!("/compute/v1/projects/{}/global/healthChecks", var_project,);
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -13536,8 +14321,7 @@ impl super::stub::HealthChecks for HealthChecks {
                     var_project, var_health_check,
                 );
 
-                let _resource_name =
-                    format!("//compute.googleapis.com/healthChecks/{}", health_check,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = req
@@ -13608,7 +14392,7 @@ impl super::stub::HealthChecks for HealthChecks {
                     var_project, var_resource,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/healthChecks/{}", resource,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -13675,8 +14459,7 @@ impl super::stub::HealthChecks for HealthChecks {
                     var_project, var_health_check,
                 );
 
-                let _resource_name =
-                    format!("//compute.googleapis.com/healthChecks/{}", health_check,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::PUT, path);
                 let builder = req
@@ -13747,7 +14530,7 @@ impl super::stub::HealthChecks for HealthChecks {
                     var_project, var_operation,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/operations/{}", operation,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -13854,6 +14637,11 @@ impl super::stub::HttpHealthChecks for HttpHealthChecks {
                     "/compute/v1/projects/{}/global/httpHealthChecks/{}",
                     var_project, var_http_health_check,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = req
@@ -13923,6 +14711,11 @@ impl super::stub::HttpHealthChecks for HttpHealthChecks {
                     "/compute/v1/projects/{}/global/httpHealthChecks/{}",
                     var_project, var_http_health_check,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -13984,6 +14777,11 @@ impl super::stub::HttpHealthChecks for HttpHealthChecks {
                     "/compute/v1/projects/{}/global/httpHealthChecks",
                     var_project,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req
@@ -14043,6 +14841,11 @@ impl super::stub::HttpHealthChecks for HttpHealthChecks {
                     "/compute/v1/projects/{}/global/httpHealthChecks",
                     var_project,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -14124,6 +14927,11 @@ impl super::stub::HttpHealthChecks for HttpHealthChecks {
                     "/compute/v1/projects/{}/global/httpHealthChecks/{}",
                     var_project, var_http_health_check,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = req
@@ -14194,8 +15002,7 @@ impl super::stub::HttpHealthChecks for HttpHealthChecks {
                     var_project, var_resource,
                 );
 
-                let _resource_name =
-                    format!("//compute.googleapis.com/httpHealthChecks/{}", resource,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -14261,6 +15068,11 @@ impl super::stub::HttpHealthChecks for HttpHealthChecks {
                     "/compute/v1/projects/{}/global/httpHealthChecks/{}",
                     var_project, var_http_health_check,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::PUT, path);
                 let builder = req
@@ -14331,7 +15143,7 @@ impl super::stub::HttpHealthChecks for HttpHealthChecks {
                     var_project, var_operation,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/operations/{}", operation,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -14440,6 +15252,11 @@ impl super::stub::HttpsHealthChecks for HttpsHealthChecks {
                     "/compute/v1/projects/{}/global/httpsHealthChecks/{}",
                     var_project, var_https_health_check,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = req
@@ -14513,6 +15330,11 @@ impl super::stub::HttpsHealthChecks for HttpsHealthChecks {
                     "/compute/v1/projects/{}/global/httpsHealthChecks/{}",
                     var_project, var_https_health_check,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -14576,6 +15398,11 @@ impl super::stub::HttpsHealthChecks for HttpsHealthChecks {
                     "/compute/v1/projects/{}/global/httpsHealthChecks",
                     var_project,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req
@@ -14635,6 +15462,11 @@ impl super::stub::HttpsHealthChecks for HttpsHealthChecks {
                     "/compute/v1/projects/{}/global/httpsHealthChecks",
                     var_project,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -14718,6 +15550,11 @@ impl super::stub::HttpsHealthChecks for HttpsHealthChecks {
                     "/compute/v1/projects/{}/global/httpsHealthChecks/{}",
                     var_project, var_https_health_check,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = req
@@ -14790,8 +15627,7 @@ impl super::stub::HttpsHealthChecks for HttpsHealthChecks {
                     var_project, var_resource,
                 );
 
-                let _resource_name =
-                    format!("//compute.googleapis.com/httpsHealthChecks/{}", resource,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -14859,6 +15695,11 @@ impl super::stub::HttpsHealthChecks for HttpsHealthChecks {
                     "/compute/v1/projects/{}/global/httpsHealthChecks/{}",
                     var_project, var_https_health_check,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::PUT, path);
                 let builder = req
@@ -14931,7 +15772,7 @@ impl super::stub::HttpsHealthChecks for HttpsHealthChecks {
                     var_project, var_operation,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/operations/{}", operation,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -15041,6 +15882,14 @@ impl super::stub::ImageFamilyViews for ImageFamilyViews {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/imageFamilyViews/{}",
                     var_project, var_zone, var_family,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/imageFamilyViews/{}",
+                    var_project, var_zone, var_family,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -15140,6 +15989,11 @@ impl super::stub::Images for Images {
                     "/compute/v1/projects/{}/global/images/{}",
                     var_project, var_image,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = req
@@ -15210,7 +16064,7 @@ impl super::stub::Images for Images {
                     var_project, var_image,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/images/{}", image,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req
@@ -15280,6 +16134,11 @@ impl super::stub::Images for Images {
                     "/compute/v1/projects/{}/global/images/{}",
                     var_project, var_image,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -15331,7 +16190,7 @@ impl super::stub::Images for Images {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -15346,9 +16205,11 @@ impl super::stub::Images for Images {
                     var_project, var_family,
                 );
 
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, _resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -15370,6 +16231,10 @@ impl super::stub::Images for Images {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(_resource_name))
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -15407,7 +16272,7 @@ impl super::stub::Images for Images {
                     var_project, var_resource,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/images/{}", resource,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -15472,6 +16337,11 @@ impl super::stub::Images for Images {
                     &[Segment::SingleWildcard],
                 )?;
                 let path = format!("/compute/v1/projects/{}/global/images", var_project,);
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req
@@ -15532,6 +16402,11 @@ impl super::stub::Images for Images {
                     &[Segment::SingleWildcard],
                 )?;
                 let path = format!("/compute/v1/projects/{}/global/images", var_project,);
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -15613,6 +16488,11 @@ impl super::stub::Images for Images {
                     "/compute/v1/projects/{}/global/images/{}",
                     var_project, var_image,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = req
@@ -15683,7 +16563,7 @@ impl super::stub::Images for Images {
                     var_project, var_resource,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/images/{}", resource,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -15750,7 +16630,7 @@ impl super::stub::Images for Images {
                     var_project, var_resource,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/images/{}", resource,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -15817,7 +16697,7 @@ impl super::stub::Images for Images {
                     var_project, var_resource,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/images/{}", resource,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -15884,7 +16764,7 @@ impl super::stub::Images for Images {
                     var_project, var_operation,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/operations/{}", operation,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -15989,6 +16869,17 @@ impl super::stub::InstanceGroupManagerResizeRequests for InstanceGroupManagerRes
                 var_zone,
                 var_instance_group_manager,
                 var_resize_request,
+<<<<<<< HEAD
+=======
+            );
+
+            let _resource_name = format!(
+                "//compute.googleapis.com/projects/{}/zones/{}/instanceGroupManagers/{}/resizeRequests/{}",
+                var_project,
+                var_zone,
+                var_instance_group_manager,
+                var_resize_request,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
             );
 
             let builder = self.inner.builder(Method::POST, path);
@@ -16050,6 +16941,7 @@ impl super::stub::InstanceGroupManagerResizeRequests for InstanceGroupManagerRes
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+<<<<<<< HEAD
         let (builder, method) = None
             .or_else(|| {
                 let var_project = try_match(
@@ -16074,6 +16966,29 @@ impl super::stub::InstanceGroupManagerResizeRequests for InstanceGroupManagerRes
                     "/compute/v1/projects/{}/zones/{}/instanceGroupManagers/{}/resizeRequests/{}",
                     var_project, var_zone, var_instance_group_manager, var_resize_request,
                 );
+=======
+        let (builder, method, _resource_name) = None
+        .or_else(|| {
+            let var_project = try_match(Some(&req).map(|m| &m.project).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let var_zone = try_match(Some(&req).map(|m| &m.zone).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let var_instance_group_manager = try_match(Some(&req).map(|m| &m.instance_group_manager).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let var_resize_request = try_match(Some(&req).map(|m| &m.resize_request).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let path = format!(
+                "/compute/v1/projects/{}/zones/{}/instanceGroupManagers/{}/resizeRequests/{}",
+                var_project,
+                var_zone,
+                var_instance_group_manager,
+                var_resize_request,
+            );
+
+            let _resource_name = format!(
+                "//compute.googleapis.com/projects/{}/zones/{}/instanceGroupManagers/{}/resizeRequests/{}",
+                var_project,
+                var_zone,
+                var_instance_group_manager,
+                var_resize_request,
+            );
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
             let builder = self.inner.builder(Method::DELETE, path);
             let builder = req.request_id.iter().fold(builder, |builder, p| builder.query(&[("requestId", p)]));
@@ -16134,6 +17049,7 @@ impl super::stub::InstanceGroupManagerResizeRequests for InstanceGroupManagerRes
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+<<<<<<< HEAD
         let (builder, method) = None
             .or_else(|| {
                 let var_project = try_match(
@@ -16158,6 +17074,29 @@ impl super::stub::InstanceGroupManagerResizeRequests for InstanceGroupManagerRes
                     "/compute/v1/projects/{}/zones/{}/instanceGroupManagers/{}/resizeRequests/{}",
                     var_project, var_zone, var_instance_group_manager, var_resize_request,
                 );
+=======
+        let (builder, method, _resource_name) = None
+        .or_else(|| {
+            let var_project = try_match(Some(&req).map(|m| &m.project).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let var_zone = try_match(Some(&req).map(|m| &m.zone).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let var_instance_group_manager = try_match(Some(&req).map(|m| &m.instance_group_manager).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let var_resize_request = try_match(Some(&req).map(|m| &m.resize_request).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let path = format!(
+                "/compute/v1/projects/{}/zones/{}/instanceGroupManagers/{}/resizeRequests/{}",
+                var_project,
+                var_zone,
+                var_instance_group_manager,
+                var_resize_request,
+            );
+
+            let _resource_name = format!(
+                "//compute.googleapis.com/projects/{}/zones/{}/instanceGroupManagers/{}/resizeRequests/{}",
+                var_project,
+                var_zone,
+                var_instance_group_manager,
+                var_resize_request,
+            );
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -16236,6 +17175,14 @@ impl super::stub::InstanceGroupManagerResizeRequests for InstanceGroupManagerRes
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/instanceGroupManagers/{}/resizeRequests",
                     var_project, var_zone, var_instance_group_manager,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/instanceGroupManagers/{}",
+                    var_project, var_zone, var_instance_group_manager,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -16319,6 +17266,14 @@ impl super::stub::InstanceGroupManagerResizeRequests for InstanceGroupManagerRes
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/instanceGroupManagers/{}/resizeRequests",
                     var_project, var_zone, var_instance_group_manager,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/instanceGroupManagers/{}",
+                    var_project, var_zone, var_instance_group_manager,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -16418,6 +17373,14 @@ impl super::stub::InstanceGroupManagerResizeRequests for InstanceGroupManagerRes
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/operations/{}",
                     var_project, var_zone, var_operation,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/operations/{}",
+                    var_project, var_zone, var_operation,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -16536,6 +17499,14 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/instanceGroupManagers/{}/abandonInstances",
                     var_project, var_zone, var_instance_group_manager,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/instanceGroupManagers/{}",
+                    var_project, var_zone, var_instance_group_manager,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -16611,7 +17582,7 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
                     var_project,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/projects/{}", project,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -16698,6 +17669,16 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
                 var_project,
                 var_zone,
                 var_instance_group_manager,
+<<<<<<< HEAD
+=======
+            );
+
+            let _resource_name = format!(
+                "//compute.googleapis.com/projects/{}/zones/{}/instanceGroupManagers/{}",
+                var_project,
+                var_zone,
+                var_instance_group_manager,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
             );
 
             let builder = self.inner.builder(Method::POST, path);
@@ -16772,6 +17753,14 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/instanceGroupManagers/{}/createInstances",
                     var_project, var_zone, var_instance_group_manager,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/instanceGroupManagers/{}",
+                    var_project, var_zone, var_instance_group_manager,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -16855,6 +17844,14 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/instanceGroupManagers/{}",
                     var_project, var_zone, var_instance_group_manager,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/instanceGroupManagers/{}",
+                    var_project, var_zone, var_instance_group_manager,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::DELETE, path);
@@ -16938,6 +17935,14 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/instanceGroupManagers/{}/deleteInstances",
                     var_project, var_zone, var_instance_group_manager,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/instanceGroupManagers/{}",
+                    var_project, var_zone, var_instance_group_manager,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -17012,6 +18017,16 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
                 var_project,
                 var_zone,
                 var_instance_group_manager,
+<<<<<<< HEAD
+=======
+            );
+
+            let _resource_name = format!(
+                "//compute.googleapis.com/projects/{}/zones/{}/instanceGroupManagers/{}",
+                var_project,
+                var_zone,
+                var_instance_group_manager,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
             );
 
             let builder = self.inner.builder(Method::POST, path);
@@ -17086,6 +18101,14 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/instanceGroupManagers/{}",
                     var_project, var_zone, var_instance_group_manager,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/instanceGroupManagers/{}",
+                    var_project, var_zone, var_instance_group_manager,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -17159,6 +18182,14 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/instanceGroupManagers",
                     var_project, var_zone,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}",
+                    var_project, var_zone,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -17228,6 +18259,14 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/instanceGroupManagers",
                     var_project, var_zone,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}",
+                    var_project, var_zone,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -17321,6 +18360,14 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/instanceGroupManagers/{}/listErrors",
                     var_project, var_zone, var_instance_group_manager,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/instanceGroupManagers/{}",
+                    var_project, var_zone, var_instance_group_manager,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -17414,6 +18461,16 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
                 var_project,
                 var_zone,
                 var_instance_group_manager,
+<<<<<<< HEAD
+=======
+            );
+
+            let _resource_name = format!(
+                "//compute.googleapis.com/projects/{}/zones/{}/instanceGroupManagers/{}",
+                var_project,
+                var_zone,
+                var_instance_group_manager,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
             );
 
             let builder = self.inner.builder(Method::POST, path);
@@ -17485,6 +18542,16 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
                 var_project,
                 var_zone,
                 var_instance_group_manager,
+<<<<<<< HEAD
+=======
+            );
+
+            let _resource_name = format!(
+                "//compute.googleapis.com/projects/{}/zones/{}/instanceGroupManagers/{}",
+                var_project,
+                var_zone,
+                var_instance_group_manager,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
             );
 
             let builder = self.inner.builder(Method::POST, path);
@@ -17564,6 +18631,14 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/instanceGroupManagers/{}",
                     var_project, var_zone, var_instance_group_manager,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/instanceGroupManagers/{}",
+                    var_project, var_zone, var_instance_group_manager,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::PATCH, path);
@@ -17638,6 +18713,16 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
                 var_project,
                 var_zone,
                 var_instance_group_manager,
+<<<<<<< HEAD
+=======
+            );
+
+            let _resource_name = format!(
+                "//compute.googleapis.com/projects/{}/zones/{}/instanceGroupManagers/{}",
+                var_project,
+                var_zone,
+                var_instance_group_manager,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
             );
 
             let builder = self.inner.builder(Method::POST, path);
@@ -17713,6 +18798,14 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/instanceGroupManagers/{}/recreateInstances",
                     var_project, var_zone, var_instance_group_manager,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/instanceGroupManagers/{}",
+                    var_project, var_zone, var_instance_group_manager,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -17796,6 +18889,14 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/instanceGroupManagers/{}/resize",
                     var_project, var_zone, var_instance_group_manager,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/instanceGroupManagers/{}",
+                    var_project, var_zone, var_instance_group_manager,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -17880,6 +18981,14 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/instanceGroupManagers/{}/resumeInstances",
                     var_project, var_zone, var_instance_group_manager,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/instanceGroupManagers/{}",
+                    var_project, var_zone, var_instance_group_manager,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -17963,6 +19072,14 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/instanceGroupManagers/{}/setInstanceTemplate",
                     var_project, var_zone, var_instance_group_manager,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/instanceGroupManagers/{}",
+                    var_project, var_zone, var_instance_group_manager,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -18046,6 +19163,14 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/instanceGroupManagers/{}/setTargetPools",
                     var_project, var_zone, var_instance_group_manager,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/instanceGroupManagers/{}",
+                    var_project, var_zone, var_instance_group_manager,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -18129,6 +19254,14 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/instanceGroupManagers/{}/startInstances",
                     var_project, var_zone, var_instance_group_manager,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/instanceGroupManagers/{}",
+                    var_project, var_zone, var_instance_group_manager,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -18212,6 +19345,14 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/instanceGroupManagers/{}/stopInstances",
                     var_project, var_zone, var_instance_group_manager,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/instanceGroupManagers/{}",
+                    var_project, var_zone, var_instance_group_manager,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -18295,6 +19436,14 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/instanceGroupManagers/{}/suspendInstances",
                     var_project, var_zone, var_instance_group_manager,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/instanceGroupManagers/{}",
+                    var_project, var_zone, var_instance_group_manager,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -18369,6 +19518,16 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
                 var_project,
                 var_zone,
                 var_instance_group_manager,
+<<<<<<< HEAD
+=======
+            );
+
+            let _resource_name = format!(
+                "//compute.googleapis.com/projects/{}/zones/{}/instanceGroupManagers/{}",
+                var_project,
+                var_zone,
+                var_instance_group_manager,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
             );
 
             let builder = self.inner.builder(Method::POST, path);
@@ -18442,6 +19601,14 @@ impl super::stub::InstanceGroupManagers for InstanceGroupManagers {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/operations/{}",
                     var_project, var_zone, var_operation,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/operations/{}",
+                    var_project, var_zone, var_operation,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -18558,6 +19725,14 @@ impl super::stub::InstanceGroups for InstanceGroups {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/instanceGroups/{}/addInstances",
                     var_project, var_zone, var_instance_group,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/instanceGroups/{}",
+                    var_project, var_zone, var_instance_group,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -18630,6 +19805,11 @@ impl super::stub::InstanceGroups for InstanceGroups {
                     "/compute/v1/projects/{}/aggregated/instanceGroups",
                     var_project,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -18723,6 +19903,14 @@ impl super::stub::InstanceGroups for InstanceGroups {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/instanceGroups/{}",
                     var_project, var_zone, var_instance_group,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/instanceGroups/{}",
+                    var_project, var_zone, var_instance_group,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::DELETE, path);
@@ -18802,6 +19990,14 @@ impl super::stub::InstanceGroups for InstanceGroups {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/instanceGroups/{}",
                     var_project, var_zone, var_instance_group,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/instanceGroups/{}",
+                    var_project, var_zone, var_instance_group,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -18873,6 +20069,14 @@ impl super::stub::InstanceGroups for InstanceGroups {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/instanceGroups",
                     var_project, var_zone,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}",
+                    var_project, var_zone,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -18942,6 +20146,14 @@ impl super::stub::InstanceGroups for InstanceGroups {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/instanceGroups",
                     var_project, var_zone,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}",
+                    var_project, var_zone,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -19033,6 +20245,14 @@ impl super::stub::InstanceGroups for InstanceGroups {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/instanceGroups/{}/listInstances",
                     var_project, var_zone, var_instance_group,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/instanceGroups/{}",
+                    var_project, var_zone, var_instance_group,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -19130,6 +20350,14 @@ impl super::stub::InstanceGroups for InstanceGroups {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/instanceGroups/{}/removeInstances",
                     var_project, var_zone, var_instance_group,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/instanceGroups/{}",
+                    var_project, var_zone, var_instance_group,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -19209,6 +20437,14 @@ impl super::stub::InstanceGroups for InstanceGroups {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/instanceGroups/{}/setNamedPorts",
                     var_project, var_zone, var_instance_group,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/instanceGroups/{}",
+                    var_project, var_zone, var_instance_group,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -19288,6 +20524,14 @@ impl super::stub::InstanceGroups for InstanceGroups {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/instanceGroups/{}/testIamPermissions",
                     var_project, var_zone, var_resource,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/instanceGroups/{}",
+                    var_project, var_zone, var_resource,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -19363,6 +20607,14 @@ impl super::stub::InstanceGroups for InstanceGroups {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/operations/{}",
                     var_project, var_zone, var_operation,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/operations/{}",
+                    var_project, var_zone, var_operation,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -19475,6 +20727,14 @@ impl super::stub::InstanceSettings for InstanceSettings {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/instanceSettings",
                     var_project, var_zone,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}",
+                    var_project, var_zone,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -19540,6 +20800,14 @@ impl super::stub::InstanceSettings for InstanceSettings {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/instanceSettings",
                     var_project, var_zone,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}",
+                    var_project, var_zone,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::PATCH, path);
@@ -19625,6 +20893,14 @@ impl super::stub::InstanceSettings for InstanceSettings {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/operations/{}",
                     var_project, var_zone, var_operation,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/operations/{}",
+                    var_project, var_zone, var_operation,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -19735,7 +21011,7 @@ impl super::stub::InstanceTemplates for InstanceTemplates {
                     var_project,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/projects/{}", project,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -19826,6 +21102,11 @@ impl super::stub::InstanceTemplates for InstanceTemplates {
                     "/compute/v1/projects/{}/global/instanceTemplates/{}",
                     var_project, var_instance_template,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = req
@@ -19895,6 +21176,11 @@ impl super::stub::InstanceTemplates for InstanceTemplates {
                     "/compute/v1/projects/{}/global/instanceTemplates/{}",
                     var_project, var_instance_template,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -19961,8 +21247,7 @@ impl super::stub::InstanceTemplates for InstanceTemplates {
                     var_project, var_resource,
                 );
 
-                let _resource_name =
-                    format!("//compute.googleapis.com/instanceTemplates/{}", resource,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -20030,6 +21315,11 @@ impl super::stub::InstanceTemplates for InstanceTemplates {
                     "/compute/v1/projects/{}/global/instanceTemplates",
                     var_project,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req
@@ -20089,6 +21379,11 @@ impl super::stub::InstanceTemplates for InstanceTemplates {
                     "/compute/v1/projects/{}/global/instanceTemplates",
                     var_project,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -20171,8 +21466,7 @@ impl super::stub::InstanceTemplates for InstanceTemplates {
                     var_project, var_resource,
                 );
 
-                let _resource_name =
-                    format!("//compute.googleapis.com/instanceTemplates/{}", resource,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -20239,8 +21533,7 @@ impl super::stub::InstanceTemplates for InstanceTemplates {
                     var_project, var_resource,
                 );
 
-                let _resource_name =
-                    format!("//compute.googleapis.com/instanceTemplates/{}", resource,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -20307,7 +21600,7 @@ impl super::stub::InstanceTemplates for InstanceTemplates {
                     var_project, var_operation,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/operations/{}", operation,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -20417,6 +21710,14 @@ impl super::stub::Instances for Instances {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/instances/{}/addAccessConfig",
                     var_project, var_zone, var_instance,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/instances/{}",
+                    var_project, var_zone, var_instance,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -20497,6 +21798,14 @@ impl super::stub::Instances for Instances {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/instances/{}/addNetworkInterface",
                     var_project, var_zone, var_instance,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/instances/{}",
+                    var_project, var_zone, var_instance,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -20576,6 +21885,14 @@ impl super::stub::Instances for Instances {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/instances/{}/addResourcePolicies",
                     var_project, var_zone, var_instance,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/instances/{}",
+                    var_project, var_zone, var_instance,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -20645,6 +21962,11 @@ impl super::stub::Instances for Instances {
                     &[Segment::SingleWildcard],
                 )?;
                 let path = format!("/compute/v1/projects/{}/aggregated/instances", var_project,);
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -20738,6 +22060,14 @@ impl super::stub::Instances for Instances {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/instances/{}/attachDisk",
                     var_project, var_zone, var_instance,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/instances/{}",
+                    var_project, var_zone, var_instance,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -20817,6 +22147,14 @@ impl super::stub::Instances for Instances {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/instances/bulkInsert",
                     var_project, var_zone,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}",
+                    var_project, var_zone,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -20890,6 +22228,14 @@ impl super::stub::Instances for Instances {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/instances/{}",
                     var_project, var_zone, var_instance,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/instances/{}",
+                    var_project, var_zone, var_instance,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::DELETE, path);
@@ -20969,6 +22315,14 @@ impl super::stub::Instances for Instances {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/instances/{}/deleteAccessConfig",
                     var_project, var_zone, var_instance,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/instances/{}",
+                    var_project, var_zone, var_instance,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -21050,6 +22404,14 @@ impl super::stub::Instances for Instances {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/instances/{}/deleteNetworkInterface",
                     var_project, var_zone, var_instance,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/instances/{}",
+                    var_project, var_zone, var_instance,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -21131,6 +22493,14 @@ impl super::stub::Instances for Instances {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/instances/{}/detachDisk",
                     var_project, var_zone, var_instance,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/instances/{}",
+                    var_project, var_zone, var_instance,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -21211,6 +22581,14 @@ impl super::stub::Instances for Instances {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/instances/{}",
                     var_project, var_zone, var_instance,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/instances/{}",
+                    var_project, var_zone, var_instance,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -21286,6 +22664,14 @@ impl super::stub::Instances for Instances {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/instances/{}/getEffectiveFirewalls",
                     var_project, var_zone, var_instance,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/instances/{}",
+                    var_project, var_zone, var_instance,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -21362,6 +22748,14 @@ impl super::stub::Instances for Instances {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/instances/{}/getGuestAttributes",
                     var_project, var_zone, var_instance,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/instances/{}",
+                    var_project, var_zone, var_instance,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -21445,6 +22839,14 @@ impl super::stub::Instances for Instances {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/instances/{}/getIamPolicy",
                     var_project, var_zone, var_resource,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/instances/{}",
+                    var_project, var_zone, var_resource,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -21526,6 +22928,14 @@ impl super::stub::Instances for Instances {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/instances/{}/screenshot",
                     var_project, var_zone, var_instance,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/instances/{}",
+                    var_project, var_zone, var_instance,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -21601,6 +23011,14 @@ impl super::stub::Instances for Instances {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/instances/{}/serialPort",
                     var_project, var_zone, var_instance,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/instances/{}",
+                    var_project, var_zone, var_instance,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -21684,6 +23102,14 @@ impl super::stub::Instances for Instances {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/instances/{}/getShieldedInstanceIdentity",
                     var_project, var_zone, var_instance,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/instances/{}",
+                    var_project, var_zone, var_instance,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -21755,6 +23181,14 @@ impl super::stub::Instances for Instances {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/instances",
                     var_project, var_zone,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}",
+                    var_project, var_zone,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -21833,6 +23267,14 @@ impl super::stub::Instances for Instances {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/instances",
                     var_project, var_zone,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}",
+                    var_project, var_zone,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -21924,6 +23366,14 @@ impl super::stub::Instances for Instances {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/instances/{}/referrers",
                     var_project, var_zone, var_instance,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/instances/{}",
+                    var_project, var_zone, var_instance,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -22021,6 +23471,14 @@ impl super::stub::Instances for Instances {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/instances/{}/performMaintenance",
                     var_project, var_zone, var_instance,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/instances/{}",
+                    var_project, var_zone, var_instance,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -22100,6 +23558,14 @@ impl super::stub::Instances for Instances {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/instances/{}/removeResourcePolicies",
                     var_project, var_zone, var_instance,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/instances/{}",
+                    var_project, var_zone, var_instance,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -22179,6 +23645,14 @@ impl super::stub::Instances for Instances {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/instances/{}/reportHostAsFaulty",
                     var_project, var_zone, var_instance,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/instances/{}",
+                    var_project, var_zone, var_instance,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -22258,6 +23732,14 @@ impl super::stub::Instances for Instances {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/instances/{}/reset",
                     var_project, var_zone, var_instance,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/instances/{}",
+                    var_project, var_zone, var_instance,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -22337,6 +23819,14 @@ impl super::stub::Instances for Instances {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/instances/{}/resume",
                     var_project, var_zone, var_instance,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/instances/{}",
+                    var_project, var_zone, var_instance,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -22416,6 +23906,14 @@ impl super::stub::Instances for Instances {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/instances/{}/sendDiagnosticInterrupt",
                     var_project, var_zone, var_instance,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/instances/{}",
+                    var_project, var_zone, var_instance,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -22497,6 +23995,14 @@ impl super::stub::Instances for Instances {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/instances/{}/setDeletionProtection",
                     var_project, var_zone, var_resource,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/instances/{}",
+                    var_project, var_zone, var_resource,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -22579,6 +24085,14 @@ impl super::stub::Instances for Instances {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/instances/{}/setDiskAutoDelete",
                     var_project, var_zone, var_instance,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/instances/{}",
+                    var_project, var_zone, var_instance,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -22660,6 +24174,14 @@ impl super::stub::Instances for Instances {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/instances/{}/setIamPolicy",
                     var_project, var_zone, var_resource,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/instances/{}",
+                    var_project, var_zone, var_resource,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -22735,6 +24257,14 @@ impl super::stub::Instances for Instances {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/instances/{}/setLabels",
                     var_project, var_zone, var_instance,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/instances/{}",
+                    var_project, var_zone, var_instance,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -22814,6 +24344,14 @@ impl super::stub::Instances for Instances {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/instances/{}/setMachineResources",
                     var_project, var_zone, var_instance,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/instances/{}",
+                    var_project, var_zone, var_instance,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -22893,6 +24431,14 @@ impl super::stub::Instances for Instances {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/instances/{}/setMachineType",
                     var_project, var_zone, var_instance,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/instances/{}",
+                    var_project, var_zone, var_instance,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -22972,6 +24518,14 @@ impl super::stub::Instances for Instances {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/instances/{}/setMetadata",
                     var_project, var_zone, var_instance,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/instances/{}",
+                    var_project, var_zone, var_instance,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -23051,6 +24605,14 @@ impl super::stub::Instances for Instances {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/instances/{}/setMinCpuPlatform",
                     var_project, var_zone, var_instance,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/instances/{}",
+                    var_project, var_zone, var_instance,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -23130,6 +24692,14 @@ impl super::stub::Instances for Instances {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/instances/{}/setName",
                     var_project, var_zone, var_instance,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/instances/{}",
+                    var_project, var_zone, var_instance,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -23209,6 +24779,14 @@ impl super::stub::Instances for Instances {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/instances/{}/setScheduling",
                     var_project, var_zone, var_instance,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/instances/{}",
+                    var_project, var_zone, var_instance,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -23288,6 +24866,14 @@ impl super::stub::Instances for Instances {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/instances/{}/setSecurityPolicy",
                     var_project, var_zone, var_instance,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/instances/{}",
+                    var_project, var_zone, var_instance,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -23367,6 +24953,14 @@ impl super::stub::Instances for Instances {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/instances/{}/setServiceAccount",
                     var_project, var_zone, var_instance,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/instances/{}",
+                    var_project, var_zone, var_instance,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -23439,6 +25033,16 @@ impl super::stub::Instances for Instances {
                 var_project,
                 var_zone,
                 var_instance,
+<<<<<<< HEAD
+=======
+            );
+
+            let _resource_name = format!(
+                "//compute.googleapis.com/projects/{}/zones/{}/instances/{}",
+                var_project,
+                var_zone,
+                var_instance,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
             );
 
             let builder = self.inner.builder(Method::PATCH, path);
@@ -23512,6 +25116,14 @@ impl super::stub::Instances for Instances {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/instances/{}/setTags",
                     var_project, var_zone, var_instance,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/instances/{}",
+                    var_project, var_zone, var_instance,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -23591,6 +25203,14 @@ impl super::stub::Instances for Instances {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/instances/{}/simulateMaintenanceEvent",
                     var_project, var_zone, var_instance,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/instances/{}",
+                    var_project, var_zone, var_instance,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -23676,6 +25296,14 @@ impl super::stub::Instances for Instances {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/instances/{}/start",
                     var_project, var_zone, var_instance,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/instances/{}",
+                    var_project, var_zone, var_instance,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -23755,6 +25383,14 @@ impl super::stub::Instances for Instances {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/instances/{}/startWithEncryptionKey",
                     var_project, var_zone, var_instance,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/instances/{}",
+                    var_project, var_zone, var_instance,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -23834,6 +25470,14 @@ impl super::stub::Instances for Instances {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/instances/{}/stop",
                     var_project, var_zone, var_instance,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/instances/{}",
+                    var_project, var_zone, var_instance,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -23916,6 +25560,14 @@ impl super::stub::Instances for Instances {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/instances/{}/suspend",
                     var_project, var_zone, var_instance,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/instances/{}",
+                    var_project, var_zone, var_instance,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -23998,6 +25650,14 @@ impl super::stub::Instances for Instances {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/instances/{}/testIamPermissions",
                     var_project, var_zone, var_resource,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/instances/{}",
+                    var_project, var_zone, var_resource,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -24073,6 +25733,14 @@ impl super::stub::Instances for Instances {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/instances/{}",
                     var_project, var_zone, var_instance,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/instances/{}",
+                    var_project, var_zone, var_instance,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::PUT, path);
@@ -24162,6 +25830,14 @@ impl super::stub::Instances for Instances {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/instances/{}/updateAccessConfig",
                     var_project, var_zone, var_instance,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/instances/{}",
+                    var_project, var_zone, var_instance,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -24242,6 +25918,14 @@ impl super::stub::Instances for Instances {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/instances/{}/updateDisplayDevice",
                     var_project, var_zone, var_instance,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/instances/{}",
+                    var_project, var_zone, var_instance,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::PATCH, path);
@@ -24321,6 +26005,14 @@ impl super::stub::Instances for Instances {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/instances/{}/updateNetworkInterface",
                     var_project, var_zone, var_instance,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/instances/{}",
+                    var_project, var_zone, var_instance,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::PATCH, path);
@@ -24401,6 +26093,14 @@ impl super::stub::Instances for Instances {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/instances/{}/updateShieldedInstanceConfig",
                     var_project, var_zone, var_instance,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/instances/{}",
+                    var_project, var_zone, var_instance,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::PATCH, path);
@@ -24480,6 +26180,14 @@ impl super::stub::Instances for Instances {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/operations/{}",
                     var_project, var_zone, var_operation,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/operations/{}",
+                    var_project, var_zone, var_operation,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -24590,7 +26298,7 @@ impl super::stub::InstantSnapshots for InstantSnapshots {
                     var_project,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/projects/{}", project,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -24684,6 +26392,14 @@ impl super::stub::InstantSnapshots for InstantSnapshots {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/instantSnapshots/{}",
                     var_project, var_zone, var_instant_snapshot,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/instantSnapshots/{}",
+                    var_project, var_zone, var_instant_snapshot,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::DELETE, path);
@@ -24763,6 +26479,14 @@ impl super::stub::InstantSnapshots for InstantSnapshots {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/instantSnapshots/{}",
                     var_project, var_zone, var_instant_snapshot,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/instantSnapshots/{}",
+                    var_project, var_zone, var_instant_snapshot,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -24838,6 +26562,14 @@ impl super::stub::InstantSnapshots for InstantSnapshots {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/instantSnapshots/{}/getIamPolicy",
                     var_project, var_zone, var_resource,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/instantSnapshots/{}",
+                    var_project, var_zone, var_resource,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -24915,6 +26647,14 @@ impl super::stub::InstantSnapshots for InstantSnapshots {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/instantSnapshots",
                     var_project, var_zone,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}",
+                    var_project, var_zone,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -24984,6 +26724,14 @@ impl super::stub::InstantSnapshots for InstantSnapshots {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/instantSnapshots",
                     var_project, var_zone,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}",
+                    var_project, var_zone,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -25075,6 +26823,14 @@ impl super::stub::InstantSnapshots for InstantSnapshots {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/instantSnapshots/{}/setIamPolicy",
                     var_project, var_zone, var_resource,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/instantSnapshots/{}",
+                    var_project, var_zone, var_resource,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -25150,6 +26906,14 @@ impl super::stub::InstantSnapshots for InstantSnapshots {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/instantSnapshots/{}/setLabels",
                     var_project, var_zone, var_resource,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/instantSnapshots/{}",
+                    var_project, var_zone, var_resource,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -25229,6 +26993,14 @@ impl super::stub::InstantSnapshots for InstantSnapshots {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/instantSnapshots/{}/testIamPermissions",
                     var_project, var_zone, var_resource,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/instantSnapshots/{}",
+                    var_project, var_zone, var_resource,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -25304,6 +27076,14 @@ impl super::stub::InstantSnapshots for InstantSnapshots {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/operations/{}",
                     var_project, var_zone, var_operation,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/operations/{}",
+                    var_project, var_zone, var_operation,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -25419,6 +27199,11 @@ impl super::stub::InterconnectAttachmentGroups for InterconnectAttachmentGroups 
                     "/compute/v1/projects/{}/global/interconnectAttachmentGroups/{}",
                     var_project, var_interconnect_attachment_group,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = req
@@ -25492,6 +27277,11 @@ impl super::stub::InterconnectAttachmentGroups for InterconnectAttachmentGroups 
                     "/compute/v1/projects/{}/global/interconnectAttachmentGroups/{}",
                     var_project, var_interconnect_attachment_group,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -25559,6 +27349,11 @@ impl super::stub::InterconnectAttachmentGroups for InterconnectAttachmentGroups 
                     "/compute/v1/projects/{}/global/interconnectAttachmentGroups/{}/getIamPolicy",
                     var_project, var_resource,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -25626,6 +27421,14 @@ impl super::stub::InterconnectAttachmentGroups for InterconnectAttachmentGroups 
                 "/compute/v1/projects/{}/global/interconnectAttachmentGroups/{}/getOperationalStatus",
                 var_project,
                 var_interconnect_attachment_group,
+<<<<<<< HEAD
+=======
+            );
+
+            let _resource_name = format!(
+                "//compute.googleapis.com/projects/{}",
+                var_project,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
             );
 
             let builder = self.inner.builder(Method::GET, path);
@@ -25687,7 +27490,7 @@ impl super::stub::InterconnectAttachmentGroups for InterconnectAttachmentGroups 
                     var_project,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/projects/{}", project,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req
@@ -25748,7 +27551,7 @@ impl super::stub::InterconnectAttachmentGroups for InterconnectAttachmentGroups 
                     var_project,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/projects/{}", project,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -25832,6 +27635,11 @@ impl super::stub::InterconnectAttachmentGroups for InterconnectAttachmentGroups 
                     "/compute/v1/projects/{}/global/interconnectAttachmentGroups/{}",
                     var_project, var_interconnect_attachment_group,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -25915,6 +27723,11 @@ impl super::stub::InterconnectAttachmentGroups for InterconnectAttachmentGroups 
                     "/compute/v1/projects/{}/global/interconnectAttachmentGroups/{}/setIamPolicy",
                     var_project, var_resource,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -25974,6 +27787,14 @@ impl super::stub::InterconnectAttachmentGroups for InterconnectAttachmentGroups 
                 "/compute/v1/projects/{}/global/interconnectAttachmentGroups/{}/testIamPermissions",
                 var_project,
                 var_resource,
+<<<<<<< HEAD
+=======
+            );
+
+            let _resource_name = format!(
+                "//compute.googleapis.com/projects/{}",
+                var_project,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
             );
 
             let builder = self.inner.builder(Method::POST, path);
@@ -26039,7 +27860,7 @@ impl super::stub::InterconnectAttachmentGroups for InterconnectAttachmentGroups 
                     var_project, var_operation,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/operations/{}", operation,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -26143,7 +27964,7 @@ impl super::stub::InterconnectAttachments for InterconnectAttachments {
                     var_project,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/projects/{}", project,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -26239,6 +28060,14 @@ impl super::stub::InterconnectAttachments for InterconnectAttachments {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/interconnectAttachments/{}",
                     var_project, var_region, var_interconnect_attachment,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/interconnectAttachments/{}",
+                    var_project, var_region, var_interconnect_attachment,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::DELETE, path);
@@ -26322,6 +28151,14 @@ impl super::stub::InterconnectAttachments for InterconnectAttachments {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/interconnectAttachments/{}",
                     var_project, var_region, var_interconnect_attachment,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/interconnectAttachments/{}",
+                    var_project, var_region, var_interconnect_attachment,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -26395,6 +28232,14 @@ impl super::stub::InterconnectAttachments for InterconnectAttachments {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/interconnectAttachments",
                     var_project, var_region,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}",
+                    var_project, var_region,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -26468,6 +28313,14 @@ impl super::stub::InterconnectAttachments for InterconnectAttachments {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/interconnectAttachments",
                     var_project, var_region,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}",
+                    var_project, var_region,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -26561,6 +28414,14 @@ impl super::stub::InterconnectAttachments for InterconnectAttachments {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/interconnectAttachments/{}",
                     var_project, var_region, var_interconnect_attachment,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/interconnectAttachments/{}",
+                    var_project, var_region, var_interconnect_attachment,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::PATCH, path);
@@ -26642,6 +28503,14 @@ impl super::stub::InterconnectAttachments for InterconnectAttachments {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/interconnectAttachments/{}/setLabels",
                     var_project, var_region, var_resource,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/interconnectAttachments/{}",
+                    var_project, var_region, var_resource,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -26721,6 +28590,14 @@ impl super::stub::InterconnectAttachments for InterconnectAttachments {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/operations/{}",
                     var_project, var_region, var_operation,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/operations/{}",
+                    var_project, var_region, var_operation,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -26836,6 +28713,11 @@ impl super::stub::InterconnectGroups for InterconnectGroups {
                     "/compute/v1/projects/{}/global/interconnectGroups/{}/createMembers",
                     var_project, var_interconnect_group,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -26905,6 +28787,11 @@ impl super::stub::InterconnectGroups for InterconnectGroups {
                     "/compute/v1/projects/{}/global/interconnectGroups/{}",
                     var_project, var_interconnect_group,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = req
@@ -26978,6 +28865,11 @@ impl super::stub::InterconnectGroups for InterconnectGroups {
                     "/compute/v1/projects/{}/global/interconnectGroups/{}",
                     var_project, var_interconnect_group,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -27046,8 +28938,7 @@ impl super::stub::InterconnectGroups for InterconnectGroups {
                     var_project, var_resource,
                 );
 
-                let _resource_name =
-                    format!("//compute.googleapis.com/interconnectGroups/{}", resource,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -27121,6 +29012,11 @@ impl super::stub::InterconnectGroups for InterconnectGroups {
                     "/compute/v1/projects/{}/global/interconnectGroups/{}/getOperationalStatus",
                     var_project, var_interconnect_group,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -27184,6 +29080,11 @@ impl super::stub::InterconnectGroups for InterconnectGroups {
                     "/compute/v1/projects/{}/global/interconnectGroups",
                     var_project,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req
@@ -27243,6 +29144,11 @@ impl super::stub::InterconnectGroups for InterconnectGroups {
                     "/compute/v1/projects/{}/global/interconnectGroups",
                     var_project,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -27326,6 +29232,11 @@ impl super::stub::InterconnectGroups for InterconnectGroups {
                     "/compute/v1/projects/{}/global/interconnectGroups/{}",
                     var_project, var_interconnect_group,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -27410,8 +29321,7 @@ impl super::stub::InterconnectGroups for InterconnectGroups {
                     var_project, var_resource,
                 );
 
-                let _resource_name =
-                    format!("//compute.googleapis.com/interconnectGroups/{}", resource,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -27478,8 +29388,7 @@ impl super::stub::InterconnectGroups for InterconnectGroups {
                     var_project, var_resource,
                 );
 
-                let _resource_name =
-                    format!("//compute.googleapis.com/interconnectGroups/{}", resource,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -27546,7 +29455,7 @@ impl super::stub::InterconnectGroups for InterconnectGroups {
                     var_project, var_operation,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/operations/{}", operation,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -27655,6 +29564,11 @@ impl super::stub::InterconnectLocations for InterconnectLocations {
                     "/compute/v1/projects/{}/global/interconnectLocations/{}",
                     var_project, var_interconnect_location,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -27719,7 +29633,7 @@ impl super::stub::InterconnectLocations for InterconnectLocations {
                     var_project,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/projects/{}", project,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -27830,6 +29744,11 @@ impl super::stub::InterconnectRemoteLocations for InterconnectRemoteLocations {
                     "/compute/v1/projects/{}/global/interconnectRemoteLocations/{}",
                     var_project, var_interconnect_remote_location,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -27894,7 +29813,7 @@ impl super::stub::InterconnectRemoteLocations for InterconnectRemoteLocations {
                     var_project,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/projects/{}", project,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -28004,8 +29923,7 @@ impl super::stub::Interconnects for Interconnects {
                     var_project, var_interconnect,
                 );
 
-                let _resource_name =
-                    format!("//compute.googleapis.com/interconnects/{}", interconnect,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = req
@@ -28076,8 +29994,7 @@ impl super::stub::Interconnects for Interconnects {
                     var_project, var_interconnect,
                 );
 
-                let _resource_name =
-                    format!("//compute.googleapis.com/interconnects/{}", interconnect,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -28144,8 +30061,7 @@ impl super::stub::Interconnects for Interconnects {
                     var_project, var_interconnect,
                 );
 
-                let _resource_name =
-                    format!("//compute.googleapis.com/interconnects/{}", interconnect,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -28212,8 +30128,7 @@ impl super::stub::Interconnects for Interconnects {
                     var_project, var_interconnect,
                 );
 
-                let _resource_name =
-                    format!("//compute.googleapis.com/interconnects/{}", interconnect,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -28272,6 +30187,11 @@ impl super::stub::Interconnects for Interconnects {
                     &[Segment::SingleWildcard],
                 )?;
                 let path = format!("/compute/v1/projects/{}/global/interconnects", var_project,);
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req
@@ -28328,6 +30248,11 @@ impl super::stub::Interconnects for Interconnects {
                     &[Segment::SingleWildcard],
                 )?;
                 let path = format!("/compute/v1/projects/{}/global/interconnects", var_project,);
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -28410,8 +30335,7 @@ impl super::stub::Interconnects for Interconnects {
                     var_project, var_interconnect,
                 );
 
-                let _resource_name =
-                    format!("//compute.googleapis.com/interconnects/{}", interconnect,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = req
@@ -28482,8 +30406,7 @@ impl super::stub::Interconnects for Interconnects {
                     var_project, var_resource,
                 );
 
-                let _resource_name =
-                    format!("//compute.googleapis.com/interconnects/{}", resource,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -28550,7 +30473,7 @@ impl super::stub::Interconnects for Interconnects {
                     var_project, var_operation,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/operations/{}", operation,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -28658,8 +30581,7 @@ impl super::stub::LicenseCodes for LicenseCodes {
                     var_project, var_license_code,
                 );
 
-                let _resource_name =
-                    format!("//compute.googleapis.com/licenseCodes/{}", license_code,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -28726,7 +30648,7 @@ impl super::stub::LicenseCodes for LicenseCodes {
                     var_project, var_resource,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/licenseCodes/{}", resource,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -28820,7 +30742,7 @@ impl super::stub::Licenses for Licenses {
                     var_project, var_license,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/licenses/{}", license,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = req
@@ -28891,7 +30813,7 @@ impl super::stub::Licenses for Licenses {
                     var_project, var_license,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/licenses/{}", license,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -28958,7 +30880,7 @@ impl super::stub::Licenses for Licenses {
                     var_project, var_resource,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/licenses/{}", resource,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -29023,6 +30945,11 @@ impl super::stub::Licenses for Licenses {
                     &[Segment::SingleWildcard],
                 )?;
                 let path = format!("/compute/v1/projects/{}/global/licenses", var_project,);
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req
@@ -29079,6 +31006,11 @@ impl super::stub::Licenses for Licenses {
                     &[Segment::SingleWildcard],
                 )?;
                 let path = format!("/compute/v1/projects/{}/global/licenses", var_project,);
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -29161,7 +31093,7 @@ impl super::stub::Licenses for Licenses {
                     var_project, var_resource,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/licenses/{}", resource,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -29228,7 +31160,7 @@ impl super::stub::Licenses for Licenses {
                     var_project, var_resource,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/licenses/{}", resource,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -29295,7 +31227,7 @@ impl super::stub::Licenses for Licenses {
                     var_project, var_license,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/licenses/{}", license,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -29378,7 +31310,7 @@ impl super::stub::Licenses for Licenses {
                     var_project, var_operation,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/operations/{}", operation,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -29486,8 +31418,7 @@ impl super::stub::MachineImages for MachineImages {
                     var_project, var_machine_image,
                 );
 
-                let _resource_name =
-                    format!("//compute.googleapis.com/machineImages/{}", machine_image,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = req
@@ -29558,8 +31489,7 @@ impl super::stub::MachineImages for MachineImages {
                     var_project, var_machine_image,
                 );
 
-                let _resource_name =
-                    format!("//compute.googleapis.com/machineImages/{}", machine_image,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -29626,8 +31556,7 @@ impl super::stub::MachineImages for MachineImages {
                     var_project, var_resource,
                 );
 
-                let _resource_name =
-                    format!("//compute.googleapis.com/machineImages/{}", resource,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -29692,6 +31621,11 @@ impl super::stub::MachineImages for MachineImages {
                     &[Segment::SingleWildcard],
                 )?;
                 let path = format!("/compute/v1/projects/{}/global/machineImages", var_project,);
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req
@@ -29751,6 +31685,11 @@ impl super::stub::MachineImages for MachineImages {
                     &[Segment::SingleWildcard],
                 )?;
                 let path = format!("/compute/v1/projects/{}/global/machineImages", var_project,);
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -29833,8 +31772,7 @@ impl super::stub::MachineImages for MachineImages {
                     var_project, var_resource,
                 );
 
-                let _resource_name =
-                    format!("//compute.googleapis.com/machineImages/{}", resource,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -29901,8 +31839,7 @@ impl super::stub::MachineImages for MachineImages {
                     var_project, var_resource,
                 );
 
-                let _resource_name =
-                    format!("//compute.googleapis.com/machineImages/{}", resource,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -29969,8 +31906,7 @@ impl super::stub::MachineImages for MachineImages {
                     var_project, var_resource,
                 );
 
-                let _resource_name =
-                    format!("//compute.googleapis.com/machineImages/{}", resource,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -30037,7 +31973,7 @@ impl super::stub::MachineImages for MachineImages {
                     var_project, var_operation,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/operations/{}", operation,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -30140,6 +32076,11 @@ impl super::stub::MachineTypes for MachineTypes {
                     "/compute/v1/projects/{}/aggregated/machineTypes",
                     var_project,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -30233,6 +32174,14 @@ impl super::stub::MachineTypes for MachineTypes {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/machineTypes/{}",
                     var_project, var_zone, var_machine_type,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/machineTypes/{}",
+                    var_project, var_zone, var_machine_type,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -30304,6 +32253,14 @@ impl super::stub::MachineTypes for MachineTypes {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/machineTypes",
                     var_project, var_zone,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}",
+                    var_project, var_zone,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -30416,7 +32373,7 @@ impl super::stub::NetworkAttachments for NetworkAttachments {
                     var_project,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/projects/{}", project,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -30512,6 +32469,14 @@ impl super::stub::NetworkAttachments for NetworkAttachments {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/networkAttachments/{}",
                     var_project, var_region, var_network_attachment,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/networkAttachments/{}",
+                    var_project, var_region, var_network_attachment,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::DELETE, path);
@@ -30595,6 +32560,14 @@ impl super::stub::NetworkAttachments for NetworkAttachments {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/networkAttachments/{}",
                     var_project, var_region, var_network_attachment,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/networkAttachments/{}",
+                    var_project, var_region, var_network_attachment,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -30672,6 +32645,14 @@ impl super::stub::NetworkAttachments for NetworkAttachments {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/networkAttachments/{}/getIamPolicy",
                     var_project, var_region, var_resource,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/networkAttachments/{}",
+                    var_project, var_region, var_resource,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -30749,6 +32730,14 @@ impl super::stub::NetworkAttachments for NetworkAttachments {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/networkAttachments",
                     var_project, var_region,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}",
+                    var_project, var_region,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -30818,6 +32807,14 @@ impl super::stub::NetworkAttachments for NetworkAttachments {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/networkAttachments",
                     var_project, var_region,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}",
+                    var_project, var_region,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -30911,6 +32908,14 @@ impl super::stub::NetworkAttachments for NetworkAttachments {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/networkAttachments/{}",
                     var_project, var_region, var_network_attachment,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/networkAttachments/{}",
+                    var_project, var_region, var_network_attachment,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::PATCH, path);
@@ -30992,6 +32997,14 @@ impl super::stub::NetworkAttachments for NetworkAttachments {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/networkAttachments/{}/setIamPolicy",
                     var_project, var_region, var_resource,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/networkAttachments/{}",
+                    var_project, var_region, var_resource,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -31067,6 +33080,14 @@ impl super::stub::NetworkAttachments for NetworkAttachments {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/networkAttachments/{}/testIamPermissions",
                     var_project, var_region, var_resource,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/networkAttachments/{}",
+                    var_project, var_region, var_resource,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -31142,6 +33163,14 @@ impl super::stub::NetworkAttachments for NetworkAttachments {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/operations/{}",
                     var_project, var_region, var_operation,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/operations/{}",
+                    var_project, var_region, var_operation,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -31252,7 +33281,7 @@ impl super::stub::NetworkEdgeSecurityServices for NetworkEdgeSecurityServices {
                     var_project,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/projects/{}", project,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -31329,6 +33358,7 @@ impl super::stub::NetworkEdgeSecurityServices for NetworkEdgeSecurityServices {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+<<<<<<< HEAD
         let (builder, method) = None
             .or_else(|| {
                 let var_project = try_match(
@@ -31349,6 +33379,26 @@ impl super::stub::NetworkEdgeSecurityServices for NetworkEdgeSecurityServices {
                     "/compute/v1/projects/{}/regions/{}/networkEdgeSecurityServices/{}",
                     var_project, var_region, var_network_edge_security_service,
                 );
+=======
+        let (builder, method, _resource_name) = None
+        .or_else(|| {
+            let var_project = try_match(Some(&req).map(|m| &m.project).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let var_region = try_match(Some(&req).map(|m| &m.region).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let var_network_edge_security_service = try_match(Some(&req).map(|m| &m.network_edge_security_service).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let path = format!(
+                "/compute/v1/projects/{}/regions/{}/networkEdgeSecurityServices/{}",
+                var_project,
+                var_region,
+                var_network_edge_security_service,
+            );
+
+            let _resource_name = format!(
+                "//compute.googleapis.com/projects/{}/regions/{}/networkEdgeSecurityServices/{}",
+                var_project,
+                var_region,
+                var_network_edge_security_service,
+            );
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
             let builder = self.inner.builder(Method::DELETE, path);
             let builder = req.request_id.iter().fold(builder, |builder, p| builder.query(&[("requestId", p)]));
@@ -31404,6 +33454,7 @@ impl super::stub::NetworkEdgeSecurityServices for NetworkEdgeSecurityServices {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+<<<<<<< HEAD
         let (builder, method) = None
             .or_else(|| {
                 let var_project = try_match(
@@ -31424,6 +33475,26 @@ impl super::stub::NetworkEdgeSecurityServices for NetworkEdgeSecurityServices {
                     "/compute/v1/projects/{}/regions/{}/networkEdgeSecurityServices/{}",
                     var_project, var_region, var_network_edge_security_service,
                 );
+=======
+        let (builder, method, _resource_name) = None
+        .or_else(|| {
+            let var_project = try_match(Some(&req).map(|m| &m.project).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let var_region = try_match(Some(&req).map(|m| &m.region).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let var_network_edge_security_service = try_match(Some(&req).map(|m| &m.network_edge_security_service).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let path = format!(
+                "/compute/v1/projects/{}/regions/{}/networkEdgeSecurityServices/{}",
+                var_project,
+                var_region,
+                var_network_edge_security_service,
+            );
+
+            let _resource_name = format!(
+                "//compute.googleapis.com/projects/{}/regions/{}/networkEdgeSecurityServices/{}",
+                var_project,
+                var_region,
+                var_network_edge_security_service,
+            );
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -31491,6 +33562,14 @@ impl super::stub::NetworkEdgeSecurityServices for NetworkEdgeSecurityServices {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/networkEdgeSecurityServices",
                     var_project, var_region,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}",
+                    var_project, var_region,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -31551,6 +33630,7 @@ impl super::stub::NetworkEdgeSecurityServices for NetworkEdgeSecurityServices {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+<<<<<<< HEAD
         let (builder, method) = None
             .or_else(|| {
                 let var_project = try_match(
@@ -31571,6 +33651,26 @@ impl super::stub::NetworkEdgeSecurityServices for NetworkEdgeSecurityServices {
                     "/compute/v1/projects/{}/regions/{}/networkEdgeSecurityServices/{}",
                     var_project, var_region, var_network_edge_security_service,
                 );
+=======
+        let (builder, method, _resource_name) = None
+        .or_else(|| {
+            let var_project = try_match(Some(&req).map(|m| &m.project).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let var_region = try_match(Some(&req).map(|m| &m.region).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let var_network_edge_security_service = try_match(Some(&req).map(|m| &m.network_edge_security_service).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let path = format!(
+                "/compute/v1/projects/{}/regions/{}/networkEdgeSecurityServices/{}",
+                var_project,
+                var_region,
+                var_network_edge_security_service,
+            );
+
+            let _resource_name = format!(
+                "//compute.googleapis.com/projects/{}/regions/{}/networkEdgeSecurityServices/{}",
+                var_project,
+                var_region,
+                var_network_edge_security_service,
+            );
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
             let builder = self.inner.builder(Method::PATCH, path);
             let builder = (|| {
@@ -31647,6 +33747,14 @@ impl super::stub::NetworkEdgeSecurityServices for NetworkEdgeSecurityServices {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/operations/{}",
                     var_project, var_region, var_operation,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/operations/{}",
+                    var_project, var_region, var_operation,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -31757,7 +33865,7 @@ impl super::stub::NetworkEndpointGroups for NetworkEndpointGroups {
                     var_project,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/projects/{}", project,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -31844,6 +33952,16 @@ impl super::stub::NetworkEndpointGroups for NetworkEndpointGroups {
                 var_project,
                 var_zone,
                 var_network_endpoint_group,
+<<<<<<< HEAD
+=======
+            );
+
+            let _resource_name = format!(
+                "//compute.googleapis.com/projects/{}/zones/{}/networkEndpointGroups/{}",
+                var_project,
+                var_zone,
+                var_network_endpoint_group,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
             );
 
             let builder = self.inner.builder(Method::POST, path);
@@ -31919,6 +34037,14 @@ impl super::stub::NetworkEndpointGroups for NetworkEndpointGroups {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/networkEndpointGroups/{}",
                     var_project, var_zone, var_network_endpoint_group,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/networkEndpointGroups/{}",
+                    var_project, var_zone, var_network_endpoint_group,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::DELETE, path);
@@ -31993,6 +34119,16 @@ impl super::stub::NetworkEndpointGroups for NetworkEndpointGroups {
                 var_project,
                 var_zone,
                 var_network_endpoint_group,
+<<<<<<< HEAD
+=======
+            );
+
+            let _resource_name = format!(
+                "//compute.googleapis.com/projects/{}/zones/{}/networkEndpointGroups/{}",
+                var_project,
+                var_zone,
+                var_network_endpoint_group,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
             );
 
             let builder = self.inner.builder(Method::POST, path);
@@ -32068,6 +34204,14 @@ impl super::stub::NetworkEndpointGroups for NetworkEndpointGroups {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/networkEndpointGroups/{}",
                     var_project, var_zone, var_network_endpoint_group,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/networkEndpointGroups/{}",
+                    var_project, var_zone, var_network_endpoint_group,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -32141,6 +34285,14 @@ impl super::stub::NetworkEndpointGroups for NetworkEndpointGroups {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/networkEndpointGroups",
                     var_project, var_zone,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}",
+                    var_project, var_zone,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -32210,6 +34362,14 @@ impl super::stub::NetworkEndpointGroups for NetworkEndpointGroups {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/networkEndpointGroups",
                     var_project, var_zone,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}",
+                    var_project, var_zone,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -32294,6 +34454,16 @@ impl super::stub::NetworkEndpointGroups for NetworkEndpointGroups {
                 var_project,
                 var_zone,
                 var_network_endpoint_group,
+<<<<<<< HEAD
+=======
+            );
+
+            let _resource_name = format!(
+                "//compute.googleapis.com/projects/{}/zones/{}/networkEndpointGroups/{}",
+                var_project,
+                var_zone,
+                var_network_endpoint_group,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
             );
 
             let builder = self.inner.builder(Method::POST, path);
@@ -32371,6 +34541,14 @@ impl super::stub::NetworkEndpointGroups for NetworkEndpointGroups {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/networkEndpointGroups/{}/testIamPermissions",
                     var_project, var_zone, var_resource,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/networkEndpointGroups/{}",
+                    var_project, var_zone, var_resource,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -32446,6 +34624,14 @@ impl super::stub::NetworkEndpointGroups for NetworkEndpointGroups {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/operations/{}",
                     var_project, var_zone, var_operation,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/operations/{}",
+                    var_project, var_zone, var_operation,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -32559,6 +34745,11 @@ impl super::stub::NetworkFirewallPolicies for NetworkFirewallPolicies {
                     "/compute/v1/projects/{}/global/firewallPolicies/{}/addAssociation",
                     var_project, var_firewall_policy,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req
@@ -32634,6 +34825,11 @@ impl super::stub::NetworkFirewallPolicies for NetworkFirewallPolicies {
                     "/compute/v1/projects/{}/global/firewallPolicies/{}/addPacketMirroringRule",
                     var_project, var_firewall_policy,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req
@@ -32711,6 +34907,11 @@ impl super::stub::NetworkFirewallPolicies for NetworkFirewallPolicies {
                     "/compute/v1/projects/{}/global/firewallPolicies/{}/addRule",
                     var_project, var_firewall_policy,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req
@@ -32785,7 +34986,7 @@ impl super::stub::NetworkFirewallPolicies for NetworkFirewallPolicies {
                     var_project,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/projects/{}", project,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -32876,6 +35077,11 @@ impl super::stub::NetworkFirewallPolicies for NetworkFirewallPolicies {
                     "/compute/v1/projects/{}/global/firewallPolicies/{}/cloneRules",
                     var_project, var_firewall_policy,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req
@@ -32951,6 +35157,11 @@ impl super::stub::NetworkFirewallPolicies for NetworkFirewallPolicies {
                     "/compute/v1/projects/{}/global/firewallPolicies/{}",
                     var_project, var_firewall_policy,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = req
@@ -33020,6 +35231,11 @@ impl super::stub::NetworkFirewallPolicies for NetworkFirewallPolicies {
                     "/compute/v1/projects/{}/global/firewallPolicies/{}",
                     var_project, var_firewall_policy,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -33085,6 +35301,11 @@ impl super::stub::NetworkFirewallPolicies for NetworkFirewallPolicies {
                     "/compute/v1/projects/{}/global/firewallPolicies/{}/getAssociation",
                     var_project, var_firewall_policy,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -33155,8 +35376,7 @@ impl super::stub::NetworkFirewallPolicies for NetworkFirewallPolicies {
                     var_project, var_resource,
                 );
 
-                let _resource_name =
-                    format!("//compute.googleapis.com/firewallPolicies/{}", resource,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -33228,6 +35448,11 @@ impl super::stub::NetworkFirewallPolicies for NetworkFirewallPolicies {
                     "/compute/v1/projects/{}/global/firewallPolicies/{}/getPacketMirroringRule",
                     var_project, var_firewall_policy,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -33297,6 +35522,11 @@ impl super::stub::NetworkFirewallPolicies for NetworkFirewallPolicies {
                     "/compute/v1/projects/{}/global/firewallPolicies/{}/getRule",
                     var_project, var_firewall_policy,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -33362,6 +35592,11 @@ impl super::stub::NetworkFirewallPolicies for NetworkFirewallPolicies {
                     "/compute/v1/projects/{}/global/firewallPolicies",
                     var_project,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req
@@ -33421,6 +35656,11 @@ impl super::stub::NetworkFirewallPolicies for NetworkFirewallPolicies {
                     "/compute/v1/projects/{}/global/firewallPolicies",
                     var_project,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -33502,6 +35742,11 @@ impl super::stub::NetworkFirewallPolicies for NetworkFirewallPolicies {
                     "/compute/v1/projects/{}/global/firewallPolicies/{}",
                     var_project, var_firewall_policy,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = req
@@ -33571,6 +35816,11 @@ impl super::stub::NetworkFirewallPolicies for NetworkFirewallPolicies {
                     "/compute/v1/projects/{}/global/firewallPolicies/{}/patchPacketMirroringRule",
                     var_project, var_firewall_policy,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req
@@ -33644,6 +35894,11 @@ impl super::stub::NetworkFirewallPolicies for NetworkFirewallPolicies {
                     "/compute/v1/projects/{}/global/firewallPolicies/{}/patchRule",
                     var_project, var_firewall_policy,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req
@@ -33717,6 +35972,11 @@ impl super::stub::NetworkFirewallPolicies for NetworkFirewallPolicies {
                     "/compute/v1/projects/{}/global/firewallPolicies/{}/removeAssociation",
                     var_project, var_firewall_policy,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req
@@ -33790,6 +36050,11 @@ impl super::stub::NetworkFirewallPolicies for NetworkFirewallPolicies {
                     "/compute/v1/projects/{}/global/firewallPolicies/{}/removePacketMirroringRule",
                     var_project, var_firewall_policy,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req
@@ -33863,6 +36128,11 @@ impl super::stub::NetworkFirewallPolicies for NetworkFirewallPolicies {
                     "/compute/v1/projects/{}/global/firewallPolicies/{}/removeRule",
                     var_project, var_firewall_policy,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req
@@ -33937,8 +36207,7 @@ impl super::stub::NetworkFirewallPolicies for NetworkFirewallPolicies {
                     var_project, var_resource,
                 );
 
-                let _resource_name =
-                    format!("//compute.googleapis.com/firewallPolicies/{}", resource,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -34005,8 +36274,7 @@ impl super::stub::NetworkFirewallPolicies for NetworkFirewallPolicies {
                     var_project, var_resource,
                 );
 
-                let _resource_name =
-                    format!("//compute.googleapis.com/firewallPolicies/{}", resource,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -34073,7 +36341,7 @@ impl super::stub::NetworkFirewallPolicies for NetworkFirewallPolicies {
                     var_project, var_operation,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/operations/{}", operation,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -34180,6 +36448,11 @@ impl super::stub::NetworkProfiles for NetworkProfiles {
                     "/compute/v1/projects/{}/global/networkProfiles/{}",
                     var_project, var_network_profile,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -34241,6 +36514,11 @@ impl super::stub::NetworkProfiles for NetworkProfiles {
                     "/compute/v1/projects/{}/global/networkProfiles",
                     var_project,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -34350,7 +36628,7 @@ impl super::stub::Networks for Networks {
                     var_project, var_network,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/networks/{}", network,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req
@@ -34421,7 +36699,7 @@ impl super::stub::Networks for Networks {
                     var_project, var_network,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/networks/{}", network,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = req
@@ -34492,7 +36770,7 @@ impl super::stub::Networks for Networks {
                     var_project, var_network,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/networks/{}", network,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -34559,7 +36837,7 @@ impl super::stub::Networks for Networks {
                     var_project, var_network,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/networks/{}", network,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -34618,6 +36896,11 @@ impl super::stub::Networks for Networks {
                     &[Segment::SingleWildcard],
                 )?;
                 let path = format!("/compute/v1/projects/{}/global/networks", var_project,);
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req
@@ -34674,6 +36957,11 @@ impl super::stub::Networks for Networks {
                     &[Segment::SingleWildcard],
                 )?;
                 let path = format!("/compute/v1/projects/{}/global/networks", var_project,);
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -34756,7 +37044,7 @@ impl super::stub::Networks for Networks {
                     var_project, var_network,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/networks/{}", network,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -34857,7 +37145,7 @@ impl super::stub::Networks for Networks {
                     var_project, var_network,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/networks/{}", network,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = req
@@ -34928,7 +37216,7 @@ impl super::stub::Networks for Networks {
                     var_project, var_network,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/networks/{}", network,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req
@@ -34999,7 +37287,7 @@ impl super::stub::Networks for Networks {
                     var_project, var_network,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/networks/{}", network,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req
@@ -35070,7 +37358,7 @@ impl super::stub::Networks for Networks {
                     var_project, var_network,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/networks/{}", network,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req
@@ -35141,7 +37429,7 @@ impl super::stub::Networks for Networks {
                     var_project, var_network,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/networks/{}", network,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = req
@@ -35212,7 +37500,7 @@ impl super::stub::Networks for Networks {
                     var_project, var_operation,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/operations/{}", operation,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -35322,6 +37610,14 @@ impl super::stub::NodeGroups for NodeGroups {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/nodeGroups/{}/addNodes",
                     var_project, var_zone, var_node_group,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/nodeGroups/{}",
+                    var_project, var_zone, var_node_group,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -35391,6 +37687,11 @@ impl super::stub::NodeGroups for NodeGroups {
                     &[Segment::SingleWildcard],
                 )?;
                 let path = format!("/compute/v1/projects/{}/aggregated/nodeGroups", var_project,);
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -35484,6 +37785,14 @@ impl super::stub::NodeGroups for NodeGroups {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/nodeGroups/{}",
                     var_project, var_zone, var_node_group,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/nodeGroups/{}",
+                    var_project, var_zone, var_node_group,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::DELETE, path);
@@ -35563,6 +37872,14 @@ impl super::stub::NodeGroups for NodeGroups {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/nodeGroups/{}/deleteNodes",
                     var_project, var_zone, var_node_group,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/nodeGroups/{}",
+                    var_project, var_zone, var_node_group,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -35642,6 +37959,14 @@ impl super::stub::NodeGroups for NodeGroups {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/nodeGroups/{}",
                     var_project, var_zone, var_node_group,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/nodeGroups/{}",
+                    var_project, var_zone, var_node_group,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -35717,6 +38042,14 @@ impl super::stub::NodeGroups for NodeGroups {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/nodeGroups/{}/getIamPolicy",
                     var_project, var_zone, var_resource,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/nodeGroups/{}",
+                    var_project, var_zone, var_resource,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -35794,6 +38127,14 @@ impl super::stub::NodeGroups for NodeGroups {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/nodeGroups",
                     var_project, var_zone,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}",
+                    var_project, var_zone,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -35864,6 +38205,14 @@ impl super::stub::NodeGroups for NodeGroups {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/nodeGroups",
                     var_project, var_zone,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}",
+                    var_project, var_zone,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -35955,6 +38304,14 @@ impl super::stub::NodeGroups for NodeGroups {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/nodeGroups/{}/listNodes",
                     var_project, var_zone, var_node_group,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/nodeGroups/{}",
+                    var_project, var_zone, var_node_group,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -36052,6 +38409,14 @@ impl super::stub::NodeGroups for NodeGroups {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/nodeGroups/{}",
                     var_project, var_zone, var_node_group,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/nodeGroups/{}",
+                    var_project, var_zone, var_node_group,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::PATCH, path);
@@ -36131,6 +38496,14 @@ impl super::stub::NodeGroups for NodeGroups {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/nodeGroups/{}/performMaintenance",
                     var_project, var_zone, var_node_group,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/nodeGroups/{}",
+                    var_project, var_zone, var_node_group,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -36210,6 +38583,14 @@ impl super::stub::NodeGroups for NodeGroups {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/nodeGroups/{}/setIamPolicy",
                     var_project, var_zone, var_resource,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/nodeGroups/{}",
+                    var_project, var_zone, var_resource,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -36285,6 +38666,14 @@ impl super::stub::NodeGroups for NodeGroups {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/nodeGroups/{}/setNodeTemplate",
                     var_project, var_zone, var_node_group,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/nodeGroups/{}",
+                    var_project, var_zone, var_node_group,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -36364,6 +38753,14 @@ impl super::stub::NodeGroups for NodeGroups {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/nodeGroups/{}/simulateMaintenanceEvent",
                     var_project, var_zone, var_node_group,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/nodeGroups/{}",
+                    var_project, var_zone, var_node_group,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -36443,6 +38840,14 @@ impl super::stub::NodeGroups for NodeGroups {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/nodeGroups/{}/testIamPermissions",
                     var_project, var_zone, var_resource,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/nodeGroups/{}",
+                    var_project, var_zone, var_resource,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -36518,6 +38923,14 @@ impl super::stub::NodeGroups for NodeGroups {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/operations/{}",
                     var_project, var_zone, var_operation,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/operations/{}",
+                    var_project, var_zone, var_operation,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -36627,6 +39040,11 @@ impl super::stub::NodeTemplates for NodeTemplates {
                     "/compute/v1/projects/{}/aggregated/nodeTemplates",
                     var_project,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -36720,6 +39138,14 @@ impl super::stub::NodeTemplates for NodeTemplates {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/nodeTemplates/{}",
                     var_project, var_region, var_node_template,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/nodeTemplates/{}",
+                    var_project, var_region, var_node_template,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::DELETE, path);
@@ -36799,6 +39225,14 @@ impl super::stub::NodeTemplates for NodeTemplates {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/nodeTemplates/{}",
                     var_project, var_region, var_node_template,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/nodeTemplates/{}",
+                    var_project, var_region, var_node_template,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -36874,6 +39308,14 @@ impl super::stub::NodeTemplates for NodeTemplates {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/nodeTemplates/{}/getIamPolicy",
                     var_project, var_region, var_resource,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/nodeTemplates/{}",
+                    var_project, var_region, var_resource,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -36951,6 +39393,14 @@ impl super::stub::NodeTemplates for NodeTemplates {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/nodeTemplates",
                     var_project, var_region,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}",
+                    var_project, var_region,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -37020,6 +39470,14 @@ impl super::stub::NodeTemplates for NodeTemplates {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/nodeTemplates",
                     var_project, var_region,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}",
+                    var_project, var_region,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -37111,6 +39569,14 @@ impl super::stub::NodeTemplates for NodeTemplates {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/nodeTemplates/{}/setIamPolicy",
                     var_project, var_region, var_resource,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/nodeTemplates/{}",
+                    var_project, var_region, var_resource,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -37186,6 +39652,14 @@ impl super::stub::NodeTemplates for NodeTemplates {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/nodeTemplates/{}/testIamPermissions",
                     var_project, var_region, var_resource,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/nodeTemplates/{}",
+                    var_project, var_region, var_resource,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -37261,6 +39735,14 @@ impl super::stub::NodeTemplates for NodeTemplates {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/operations/{}",
                     var_project, var_region, var_operation,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/operations/{}",
+                    var_project, var_region, var_operation,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -37367,6 +39849,11 @@ impl super::stub::NodeTypes for NodeTypes {
                     &[Segment::SingleWildcard],
                 )?;
                 let path = format!("/compute/v1/projects/{}/aggregated/nodeTypes", var_project,);
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -37460,6 +39947,14 @@ impl super::stub::NodeTypes for NodeTypes {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/nodeTypes/{}",
                     var_project, var_zone, var_node_type,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/nodeTypes/{}",
+                    var_project, var_zone, var_node_type,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -37531,6 +40026,14 @@ impl super::stub::NodeTypes for NodeTypes {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/nodeTypes",
                     var_project, var_zone,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}",
+                    var_project, var_zone,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -37641,6 +40144,14 @@ impl super::stub::OrganizationSecurityPolicies for OrganizationSecurityPolicies 
                 let path = format!(
                     "/compute/v1/locations/global/securityPolicies/{}/addAssociation",
                     var_security_policy,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/securityPolicies/{}",
+                    var_security_policy,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -37706,6 +40217,14 @@ impl super::stub::OrganizationSecurityPolicies for OrganizationSecurityPolicies 
                 let path = format!(
                     "/compute/v1/locations/global/securityPolicies/{}/addRule",
                     var_security_policy,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/securityPolicies/{}",
+                    var_security_policy,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -37765,6 +40284,14 @@ impl super::stub::OrganizationSecurityPolicies for OrganizationSecurityPolicies 
                 let path = format!(
                     "/compute/v1/locations/global/securityPolicies/{}/copyRules",
                     var_security_policy,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/securityPolicies/{}",
+                    var_security_policy,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -37830,6 +40357,14 @@ impl super::stub::OrganizationSecurityPolicies for OrganizationSecurityPolicies 
                 let path = format!(
                     "/compute/v1/locations/global/securityPolicies/{}",
                     var_security_policy,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/securityPolicies/{}",
+                    var_security_policy,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::DELETE, path);
@@ -37889,6 +40424,14 @@ impl super::stub::OrganizationSecurityPolicies for OrganizationSecurityPolicies 
                 let path = format!(
                     "/compute/v1/locations/global/securityPolicies/{}",
                     var_security_policy,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/securityPolicies/{}",
+                    var_security_policy,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -37944,6 +40487,14 @@ impl super::stub::OrganizationSecurityPolicies for OrganizationSecurityPolicies 
                 let path = format!(
                     "/compute/v1/locations/global/securityPolicies/{}/getAssociation",
                     var_security_policy,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/securityPolicies/{}",
+                    var_security_policy,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -38003,6 +40554,14 @@ impl super::stub::OrganizationSecurityPolicies for OrganizationSecurityPolicies 
                 let path = format!(
                     "/compute/v1/locations/global/securityPolicies/{}/getRule",
                     var_security_policy,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/securityPolicies/{}",
+                    var_security_policy,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -38275,6 +40834,14 @@ impl super::stub::OrganizationSecurityPolicies for OrganizationSecurityPolicies 
                 let path = format!(
                     "/compute/v1/locations/global/securityPolicies/{}/move",
                     var_security_policy,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/securityPolicies/{}",
+                    var_security_policy,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -38338,6 +40905,14 @@ impl super::stub::OrganizationSecurityPolicies for OrganizationSecurityPolicies 
                 let path = format!(
                     "/compute/v1/locations/global/securityPolicies/{}",
                     var_security_policy,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/securityPolicies/{}",
+                    var_security_policy,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::PATCH, path);
@@ -38397,6 +40972,14 @@ impl super::stub::OrganizationSecurityPolicies for OrganizationSecurityPolicies 
                 let path = format!(
                     "/compute/v1/locations/global/securityPolicies/{}/patchRule",
                     var_security_policy,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/securityPolicies/{}",
+                    var_security_policy,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -38460,6 +41043,14 @@ impl super::stub::OrganizationSecurityPolicies for OrganizationSecurityPolicies 
                 let path = format!(
                     "/compute/v1/locations/global/securityPolicies/{}/removeAssociation",
                     var_security_policy,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/securityPolicies/{}",
+                    var_security_policy,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -38523,6 +41114,14 @@ impl super::stub::OrganizationSecurityPolicies for OrganizationSecurityPolicies 
                 let path = format!(
                     "/compute/v1/locations/global/securityPolicies/{}/removeRule",
                     var_security_policy,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/securityPolicies/{}",
+                    var_security_policy,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -38584,6 +41183,12 @@ impl super::stub::OrganizationSecurityPolicies for OrganizationSecurityPolicies 
                     &[Segment::SingleWildcard],
                 )?;
                 let path = format!("/compute/v1/locations/global/operations/{}", var_operation,);
+<<<<<<< HEAD
+=======
+
+                let _resource_name =
+                    format!("//compute.googleapis.com/operations/{}", var_operation,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -38685,7 +41290,7 @@ impl super::stub::PacketMirrorings for PacketMirrorings {
                     var_project,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/projects/{}", project,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -38779,6 +41384,14 @@ impl super::stub::PacketMirrorings for PacketMirrorings {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/packetMirrorings/{}",
                     var_project, var_region, var_packet_mirroring,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/packetMirrorings/{}",
+                    var_project, var_region, var_packet_mirroring,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::DELETE, path);
@@ -38858,6 +41471,14 @@ impl super::stub::PacketMirrorings for PacketMirrorings {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/packetMirrorings/{}",
                     var_project, var_region, var_packet_mirroring,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/packetMirrorings/{}",
+                    var_project, var_region, var_packet_mirroring,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -38929,6 +41550,14 @@ impl super::stub::PacketMirrorings for PacketMirrorings {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/packetMirrorings",
                     var_project, var_region,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}",
+                    var_project, var_region,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -38998,6 +41627,14 @@ impl super::stub::PacketMirrorings for PacketMirrorings {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/packetMirrorings",
                     var_project, var_region,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}",
+                    var_project, var_region,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -39089,6 +41726,14 @@ impl super::stub::PacketMirrorings for PacketMirrorings {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/packetMirrorings/{}",
                     var_project, var_region, var_packet_mirroring,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/packetMirrorings/{}",
+                    var_project, var_region, var_packet_mirroring,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::PATCH, path);
@@ -39168,6 +41813,14 @@ impl super::stub::PacketMirrorings for PacketMirrorings {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/packetMirrorings/{}/testIamPermissions",
                     var_project, var_region, var_resource,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/packetMirrorings/{}",
+                    var_project, var_region, var_resource,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -39243,6 +41896,14 @@ impl super::stub::PacketMirrorings for PacketMirrorings {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/operations/{}",
                     var_project, var_region, var_operation,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/operations/{}",
+                    var_project, var_region, var_operation,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -39356,6 +42017,11 @@ impl super::stub::PreviewFeatures for PreviewFeatures {
                     "/compute/v1/projects/{}/global/previewFeatures/{}",
                     var_project, var_preview_feature,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -39417,6 +42083,11 @@ impl super::stub::PreviewFeatures for PreviewFeatures {
                     "/compute/v1/projects/{}/global/previewFeatures",
                     var_project,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -39498,6 +42169,11 @@ impl super::stub::PreviewFeatures for PreviewFeatures {
                     "/compute/v1/projects/{}/global/previewFeatures/{}",
                     var_project, var_preview_feature,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = req
@@ -39568,7 +42244,7 @@ impl super::stub::PreviewFeatures for PreviewFeatures {
                     var_project, var_operation,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/operations/{}", operation,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -39668,6 +42344,11 @@ impl super::stub::Projects for Projects {
                     &[Segment::SingleWildcard],
                 )?;
                 let path = format!("/compute/v1/projects/{}/disableXpnHost", var_project,);
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req
@@ -39724,6 +42405,11 @@ impl super::stub::Projects for Projects {
                     &[Segment::SingleWildcard],
                 )?;
                 let path = format!("/compute/v1/projects/{}/disableXpnResource", var_project,);
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req
@@ -39780,6 +42466,11 @@ impl super::stub::Projects for Projects {
                     &[Segment::SingleWildcard],
                 )?;
                 let path = format!("/compute/v1/projects/{}/enableXpnHost", var_project,);
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req
@@ -39836,6 +42527,11 @@ impl super::stub::Projects for Projects {
                     &[Segment::SingleWildcard],
                 )?;
                 let path = format!("/compute/v1/projects/{}/enableXpnResource", var_project,);
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req
@@ -39892,6 +42588,11 @@ impl super::stub::Projects for Projects {
                     &[Segment::SingleWildcard],
                 )?;
                 let path = format!("/compute/v1/projects/{}", var_project,);
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -39944,6 +42645,11 @@ impl super::stub::Projects for Projects {
                     &[Segment::SingleWildcard],
                 )?;
                 let path = format!("/compute/v1/projects/{}/getXpnHost", var_project,);
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -39996,6 +42702,11 @@ impl super::stub::Projects for Projects {
                     &[Segment::SingleWildcard],
                 )?;
                 let path = format!("/compute/v1/projects/{}/getXpnResources", var_project,);
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -40070,6 +42781,11 @@ impl super::stub::Projects for Projects {
                     &[Segment::SingleWildcard],
                 )?;
                 let path = format!("/compute/v1/projects/{}/listXpnHosts", var_project,);
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req
@@ -40144,6 +42860,11 @@ impl super::stub::Projects for Projects {
                     &[Segment::SingleWildcard],
                 )?;
                 let path = format!("/compute/v1/projects/{}/moveDisk", var_project,);
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req
@@ -40200,6 +42921,11 @@ impl super::stub::Projects for Projects {
                     &[Segment::SingleWildcard],
                 )?;
                 let path = format!("/compute/v1/projects/{}/moveInstance", var_project,);
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req
@@ -40256,6 +42982,11 @@ impl super::stub::Projects for Projects {
                     &[Segment::SingleWildcard],
                 )?;
                 let path = format!("/compute/v1/projects/{}/setCloudArmorTier", var_project,);
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req
@@ -40315,6 +43046,11 @@ impl super::stub::Projects for Projects {
                     "/compute/v1/projects/{}/setCommonInstanceMetadata",
                     var_project,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req
@@ -40371,6 +43107,11 @@ impl super::stub::Projects for Projects {
                     &[Segment::SingleWildcard],
                 )?;
                 let path = format!("/compute/v1/projects/{}/setDefaultNetworkTier", var_project,);
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req
@@ -40427,6 +43168,11 @@ impl super::stub::Projects for Projects {
                     &[Segment::SingleWildcard],
                 )?;
                 let path = format!("/compute/v1/projects/{}/setUsageExportBucket", var_project,);
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req
@@ -40491,7 +43237,7 @@ impl super::stub::Projects for Projects {
                     var_project, var_operation,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/operations/{}", operation,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -40600,6 +43346,11 @@ impl super::stub::PublicAdvertisedPrefixes for PublicAdvertisedPrefixes {
                     "/compute/v1/projects/{}/global/publicAdvertisedPrefixes/{}/announce",
                     var_project, var_public_advertised_prefix,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req
@@ -40673,6 +43424,11 @@ impl super::stub::PublicAdvertisedPrefixes for PublicAdvertisedPrefixes {
                     "/compute/v1/projects/{}/global/publicAdvertisedPrefixes/{}",
                     var_project, var_public_advertised_prefix,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = req
@@ -40746,6 +43502,11 @@ impl super::stub::PublicAdvertisedPrefixes for PublicAdvertisedPrefixes {
                     "/compute/v1/projects/{}/global/publicAdvertisedPrefixes/{}",
                     var_project, var_public_advertised_prefix,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -40810,7 +43571,7 @@ impl super::stub::PublicAdvertisedPrefixes for PublicAdvertisedPrefixes {
                     var_project,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/projects/{}", project,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req
@@ -40871,7 +43632,7 @@ impl super::stub::PublicAdvertisedPrefixes for PublicAdvertisedPrefixes {
                     var_project,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/projects/{}", project,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -40955,6 +43716,11 @@ impl super::stub::PublicAdvertisedPrefixes for PublicAdvertisedPrefixes {
                     "/compute/v1/projects/{}/global/publicAdvertisedPrefixes/{}",
                     var_project, var_public_advertised_prefix,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = req
@@ -41028,6 +43794,11 @@ impl super::stub::PublicAdvertisedPrefixes for PublicAdvertisedPrefixes {
                     "/compute/v1/projects/{}/global/publicAdvertisedPrefixes/{}/withdraw",
                     var_project, var_public_advertised_prefix,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req
@@ -41100,7 +43871,7 @@ impl super::stub::PublicAdvertisedPrefixes for PublicAdvertisedPrefixes {
                     var_project, var_operation,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/operations/{}", operation,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -41204,7 +43975,7 @@ impl super::stub::PublicDelegatedPrefixes for PublicDelegatedPrefixes {
                     var_project,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/projects/{}", project,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -41300,6 +44071,14 @@ impl super::stub::PublicDelegatedPrefixes for PublicDelegatedPrefixes {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/publicDelegatedPrefixes/{}/announce",
                     var_project, var_region, var_public_delegated_prefix,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/publicDelegatedPrefixes/{}",
+                    var_project, var_region, var_public_delegated_prefix,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -41383,6 +44162,14 @@ impl super::stub::PublicDelegatedPrefixes for PublicDelegatedPrefixes {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/publicDelegatedPrefixes/{}",
                     var_project, var_region, var_public_delegated_prefix,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/publicDelegatedPrefixes/{}",
+                    var_project, var_region, var_public_delegated_prefix,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::DELETE, path);
@@ -41466,6 +44253,14 @@ impl super::stub::PublicDelegatedPrefixes for PublicDelegatedPrefixes {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/publicDelegatedPrefixes/{}",
                     var_project, var_region, var_public_delegated_prefix,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/publicDelegatedPrefixes/{}",
+                    var_project, var_region, var_public_delegated_prefix,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -41539,6 +44334,14 @@ impl super::stub::PublicDelegatedPrefixes for PublicDelegatedPrefixes {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/publicDelegatedPrefixes",
                     var_project, var_region,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}",
+                    var_project, var_region,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -41608,6 +44411,14 @@ impl super::stub::PublicDelegatedPrefixes for PublicDelegatedPrefixes {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/publicDelegatedPrefixes",
                     var_project, var_region,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}",
+                    var_project, var_region,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -41701,6 +44512,14 @@ impl super::stub::PublicDelegatedPrefixes for PublicDelegatedPrefixes {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/publicDelegatedPrefixes/{}",
                     var_project, var_region, var_public_delegated_prefix,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/publicDelegatedPrefixes/{}",
+                    var_project, var_region, var_public_delegated_prefix,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::PATCH, path);
@@ -41784,6 +44603,14 @@ impl super::stub::PublicDelegatedPrefixes for PublicDelegatedPrefixes {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/publicDelegatedPrefixes/{}/withdraw",
                     var_project, var_region, var_public_delegated_prefix,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/publicDelegatedPrefixes/{}",
+                    var_project, var_region, var_public_delegated_prefix,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -41865,6 +44692,14 @@ impl super::stub::PublicDelegatedPrefixes for PublicDelegatedPrefixes {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/operations/{}",
                     var_project, var_region, var_operation,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/operations/{}",
+                    var_project, var_region, var_operation,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -41981,6 +44816,14 @@ impl super::stub::RegionAutoscalers for RegionAutoscalers {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/autoscalers/{}",
                     var_project, var_region, var_autoscaler,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/autoscalers/{}",
+                    var_project, var_region, var_autoscaler,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::DELETE, path);
@@ -42060,6 +44903,14 @@ impl super::stub::RegionAutoscalers for RegionAutoscalers {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/autoscalers/{}",
                     var_project, var_region, var_autoscaler,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/autoscalers/{}",
+                    var_project, var_region, var_autoscaler,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -42131,6 +44982,14 @@ impl super::stub::RegionAutoscalers for RegionAutoscalers {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/autoscalers",
                     var_project, var_region,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}",
+                    var_project, var_region,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -42200,6 +45059,14 @@ impl super::stub::RegionAutoscalers for RegionAutoscalers {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/autoscalers",
                     var_project, var_region,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}",
+                    var_project, var_region,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -42287,6 +45154,14 @@ impl super::stub::RegionAutoscalers for RegionAutoscalers {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/autoscalers",
                     var_project, var_region,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}",
+                    var_project, var_region,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::PATCH, path);
@@ -42364,6 +45239,14 @@ impl super::stub::RegionAutoscalers for RegionAutoscalers {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/autoscalers/{}/testIamPermissions",
                     var_project, var_region, var_resource,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/autoscalers/{}",
+                    var_project, var_region, var_resource,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -42435,6 +45318,14 @@ impl super::stub::RegionAutoscalers for RegionAutoscalers {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/autoscalers",
                     var_project, var_region,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}",
+                    var_project, var_region,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::PUT, path);
@@ -42512,6 +45403,14 @@ impl super::stub::RegionAutoscalers for RegionAutoscalers {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/operations/{}",
                     var_project, var_region, var_operation,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/operations/{}",
+                    var_project, var_region, var_operation,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -42628,6 +45527,14 @@ impl super::stub::RegionBackendServices for RegionBackendServices {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/backendServices/{}",
                     var_project, var_region, var_backend_service,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/backendServices/{}",
+                    var_project, var_region, var_backend_service,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::DELETE, path);
@@ -42707,6 +45614,14 @@ impl super::stub::RegionBackendServices for RegionBackendServices {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/backendServices/{}",
                     var_project, var_region, var_backend_service,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/backendServices/{}",
+                    var_project, var_region, var_backend_service,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -42782,6 +45697,14 @@ impl super::stub::RegionBackendServices for RegionBackendServices {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/backendServices/{}/getHealth",
                     var_project, var_region, var_backend_service,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/backendServices/{}",
+                    var_project, var_region, var_backend_service,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -42857,6 +45780,14 @@ impl super::stub::RegionBackendServices for RegionBackendServices {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/backendServices/{}/getIamPolicy",
                     var_project, var_region, var_resource,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/backendServices/{}",
+                    var_project, var_region, var_resource,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -42934,6 +45865,14 @@ impl super::stub::RegionBackendServices for RegionBackendServices {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/backendServices",
                     var_project, var_region,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}",
+                    var_project, var_region,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -43003,6 +45942,14 @@ impl super::stub::RegionBackendServices for RegionBackendServices {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/backendServices",
                     var_project, var_region,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}",
+                    var_project, var_region,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -43090,6 +46037,14 @@ impl super::stub::RegionBackendServices for RegionBackendServices {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/backendServices/listUsable",
                     var_project, var_region,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}",
+                    var_project, var_region,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -43181,6 +46136,14 @@ impl super::stub::RegionBackendServices for RegionBackendServices {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/backendServices/{}",
                     var_project, var_region, var_backend_service,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/backendServices/{}",
+                    var_project, var_region, var_backend_service,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::PATCH, path);
@@ -43260,6 +46223,14 @@ impl super::stub::RegionBackendServices for RegionBackendServices {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/backendServices/{}/setIamPolicy",
                     var_project, var_region, var_resource,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/backendServices/{}",
+                    var_project, var_region, var_resource,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -43335,6 +46306,14 @@ impl super::stub::RegionBackendServices for RegionBackendServices {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/backendServices/{}/setSecurityPolicy",
                     var_project, var_region, var_backend_service,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/backendServices/{}",
+                    var_project, var_region, var_backend_service,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -43414,6 +46393,14 @@ impl super::stub::RegionBackendServices for RegionBackendServices {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/backendServices/{}/testIamPermissions",
                     var_project, var_region, var_resource,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/backendServices/{}",
+                    var_project, var_region, var_resource,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -43489,6 +46476,14 @@ impl super::stub::RegionBackendServices for RegionBackendServices {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/backendServices/{}",
                     var_project, var_region, var_backend_service,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/backendServices/{}",
+                    var_project, var_region, var_backend_service,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::PUT, path);
@@ -43568,6 +46563,14 @@ impl super::stub::RegionBackendServices for RegionBackendServices {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/operations/{}",
                     var_project, var_region, var_operation,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/operations/{}",
+                    var_project, var_region, var_operation,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -43677,6 +46680,11 @@ impl super::stub::RegionCommitments for RegionCommitments {
                     "/compute/v1/projects/{}/aggregated/commitments",
                     var_project,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -43770,6 +46778,14 @@ impl super::stub::RegionCommitments for RegionCommitments {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/commitments/{}",
                     var_project, var_region, var_commitment,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/commitments/{}",
+                    var_project, var_region, var_commitment,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -43841,6 +46857,14 @@ impl super::stub::RegionCommitments for RegionCommitments {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/commitments",
                     var_project, var_region,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}",
+                    var_project, var_region,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -43910,6 +46934,14 @@ impl super::stub::RegionCommitments for RegionCommitments {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/commitments",
                     var_project, var_region,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}",
+                    var_project, var_region,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -44001,6 +47033,14 @@ impl super::stub::RegionCommitments for RegionCommitments {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/commitments/{}",
                     var_project, var_region, var_commitment,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/commitments/{}",
+                    var_project, var_region, var_commitment,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::PATCH, path);
@@ -44096,6 +47136,14 @@ impl super::stub::RegionCommitments for RegionCommitments {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/operations/{}",
                     var_project, var_region, var_operation,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/operations/{}",
+                    var_project, var_region, var_operation,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -44212,6 +47260,14 @@ impl super::stub::RegionDiskTypes for RegionDiskTypes {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/diskTypes/{}",
                     var_project, var_region, var_disk_type,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/diskTypes/{}",
+                    var_project, var_region, var_disk_type,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -44283,6 +47339,14 @@ impl super::stub::RegionDiskTypes for RegionDiskTypes {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/diskTypes",
                     var_project, var_region,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}",
+                    var_project, var_region,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -44401,6 +47465,14 @@ impl super::stub::RegionDisks for RegionDisks {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/disks/{}/addResourcePolicies",
                     var_project, var_region, var_disk,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/disks/{}",
+                    var_project, var_region, var_disk,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -44476,6 +47548,14 @@ impl super::stub::RegionDisks for RegionDisks {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/disks/bulkInsert",
                     var_project, var_region,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}",
+                    var_project, var_region,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -44549,6 +47629,14 @@ impl super::stub::RegionDisks for RegionDisks {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/disks/{}/createSnapshot",
                     var_project, var_region, var_disk,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/disks/{}",
+                    var_project, var_region, var_disk,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -44628,6 +47716,14 @@ impl super::stub::RegionDisks for RegionDisks {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/disks/{}",
                     var_project, var_region, var_disk,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/disks/{}",
+                    var_project, var_region, var_disk,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::DELETE, path);
@@ -44707,6 +47803,14 @@ impl super::stub::RegionDisks for RegionDisks {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/disks/{}",
                     var_project, var_region, var_disk,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/disks/{}",
+                    var_project, var_region, var_disk,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -44782,6 +47886,14 @@ impl super::stub::RegionDisks for RegionDisks {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/disks/{}/getIamPolicy",
                     var_project, var_region, var_resource,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/disks/{}",
+                    var_project, var_region, var_resource,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -44859,6 +47971,14 @@ impl super::stub::RegionDisks for RegionDisks {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/disks",
                     var_project, var_region,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}",
+                    var_project, var_region,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -44932,6 +48052,14 @@ impl super::stub::RegionDisks for RegionDisks {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/disks",
                     var_project, var_region,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}",
+                    var_project, var_region,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -45023,6 +48151,14 @@ impl super::stub::RegionDisks for RegionDisks {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/disks/{}/removeResourcePolicies",
                     var_project, var_region, var_disk,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/disks/{}",
+                    var_project, var_region, var_disk,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -45102,6 +48238,14 @@ impl super::stub::RegionDisks for RegionDisks {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/disks/{}/resize",
                     var_project, var_region, var_disk,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/disks/{}",
+                    var_project, var_region, var_disk,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -45181,6 +48325,14 @@ impl super::stub::RegionDisks for RegionDisks {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/disks/{}/setIamPolicy",
                     var_project, var_region, var_resource,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/disks/{}",
+                    var_project, var_region, var_resource,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -45256,6 +48408,14 @@ impl super::stub::RegionDisks for RegionDisks {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/disks/{}/setLabels",
                     var_project, var_region, var_resource,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/disks/{}",
+                    var_project, var_region, var_resource,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -45335,6 +48495,14 @@ impl super::stub::RegionDisks for RegionDisks {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/disks/{}/startAsyncReplication",
                     var_project, var_region, var_disk,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/disks/{}",
+                    var_project, var_region, var_disk,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -45414,6 +48582,14 @@ impl super::stub::RegionDisks for RegionDisks {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/disks/{}/stopAsyncReplication",
                     var_project, var_region, var_disk,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/disks/{}",
+                    var_project, var_region, var_disk,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -45489,6 +48665,14 @@ impl super::stub::RegionDisks for RegionDisks {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/disks/stopGroupAsyncReplication",
                     var_project, var_region,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}",
+                    var_project, var_region,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -45562,6 +48746,14 @@ impl super::stub::RegionDisks for RegionDisks {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/disks/{}/testIamPermissions",
                     var_project, var_region, var_resource,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/disks/{}",
+                    var_project, var_region, var_resource,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -45637,6 +48829,14 @@ impl super::stub::RegionDisks for RegionDisks {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/disks/{}",
                     var_project, var_region, var_disk,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/disks/{}",
+                    var_project, var_region, var_disk,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::PATCH, path);
@@ -45732,6 +48932,14 @@ impl super::stub::RegionDisks for RegionDisks {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/operations/{}",
                     var_project, var_region, var_operation,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/operations/{}",
+                    var_project, var_region, var_operation,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -45842,7 +49050,7 @@ impl super::stub::RegionHealthAggregationPolicies for RegionHealthAggregationPol
                     var_project,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/projects/{}", project,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -45938,6 +49146,14 @@ impl super::stub::RegionHealthAggregationPolicies for RegionHealthAggregationPol
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/healthAggregationPolicies/{}",
                     var_project, var_region, var_health_aggregation_policy,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/healthAggregationPolicies/{}",
+                    var_project, var_region, var_health_aggregation_policy,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::DELETE, path);
@@ -46021,6 +49237,14 @@ impl super::stub::RegionHealthAggregationPolicies for RegionHealthAggregationPol
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/healthAggregationPolicies/{}",
                     var_project, var_region, var_health_aggregation_policy,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/healthAggregationPolicies/{}",
+                    var_project, var_region, var_health_aggregation_policy,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -46094,6 +49318,14 @@ impl super::stub::RegionHealthAggregationPolicies for RegionHealthAggregationPol
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/healthAggregationPolicies",
                     var_project, var_region,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}",
+                    var_project, var_region,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -46163,6 +49395,14 @@ impl super::stub::RegionHealthAggregationPolicies for RegionHealthAggregationPol
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/healthAggregationPolicies",
                     var_project, var_region,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}",
+                    var_project, var_region,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -46256,6 +49496,14 @@ impl super::stub::RegionHealthAggregationPolicies for RegionHealthAggregationPol
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/healthAggregationPolicies/{}",
                     var_project, var_region, var_health_aggregation_policy,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/healthAggregationPolicies/{}",
+                    var_project, var_region, var_health_aggregation_policy,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::PATCH, path);
@@ -46330,6 +49578,16 @@ impl super::stub::RegionHealthAggregationPolicies for RegionHealthAggregationPol
                 var_project,
                 var_region,
                 var_resource,
+<<<<<<< HEAD
+=======
+            );
+
+            let _resource_name = format!(
+                "//compute.googleapis.com/projects/{}/regions/{}/healthAggregationPolicies/{}",
+                var_project,
+                var_region,
+                var_resource,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
             );
 
             let builder = self.inner.builder(Method::POST, path);
@@ -46402,6 +49660,14 @@ impl super::stub::RegionHealthAggregationPolicies for RegionHealthAggregationPol
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/operations/{}",
                     var_project, var_region, var_operation,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/operations/{}",
+                    var_project, var_region, var_operation,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -46520,6 +49786,14 @@ impl super::stub::RegionHealthCheckServices for RegionHealthCheckServices {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/healthCheckServices/{}",
                     var_project, var_region, var_health_check_service,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/healthCheckServices/{}",
+                    var_project, var_region, var_health_check_service,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::DELETE, path);
@@ -46603,6 +49877,14 @@ impl super::stub::RegionHealthCheckServices for RegionHealthCheckServices {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/healthCheckServices/{}",
                     var_project, var_region, var_health_check_service,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/healthCheckServices/{}",
+                    var_project, var_region, var_health_check_service,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -46676,6 +49958,14 @@ impl super::stub::RegionHealthCheckServices for RegionHealthCheckServices {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/healthCheckServices",
                     var_project, var_region,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}",
+                    var_project, var_region,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -46745,6 +50035,14 @@ impl super::stub::RegionHealthCheckServices for RegionHealthCheckServices {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/healthCheckServices",
                     var_project, var_region,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}",
+                    var_project, var_region,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -46838,6 +50136,14 @@ impl super::stub::RegionHealthCheckServices for RegionHealthCheckServices {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/healthCheckServices/{}",
                     var_project, var_region, var_health_check_service,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/healthCheckServices/{}",
+                    var_project, var_region, var_health_check_service,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::PATCH, path);
@@ -46919,6 +50225,14 @@ impl super::stub::RegionHealthCheckServices for RegionHealthCheckServices {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/healthCheckServices/{}/testIamPermissions",
                     var_project, var_region, var_resource,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/healthCheckServices/{}",
+                    var_project, var_region, var_resource,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -46994,6 +50308,14 @@ impl super::stub::RegionHealthCheckServices for RegionHealthCheckServices {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/operations/{}",
                     var_project, var_region, var_operation,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/operations/{}",
+                    var_project, var_region, var_operation,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -47110,6 +50432,14 @@ impl super::stub::RegionHealthChecks for RegionHealthChecks {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/healthChecks/{}",
                     var_project, var_region, var_health_check,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/healthChecks/{}",
+                    var_project, var_region, var_health_check,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::DELETE, path);
@@ -47189,6 +50519,14 @@ impl super::stub::RegionHealthChecks for RegionHealthChecks {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/healthChecks/{}",
                     var_project, var_region, var_health_check,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/healthChecks/{}",
+                    var_project, var_region, var_health_check,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -47260,6 +50598,14 @@ impl super::stub::RegionHealthChecks for RegionHealthChecks {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/healthChecks",
                     var_project, var_region,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}",
+                    var_project, var_region,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -47329,6 +50675,14 @@ impl super::stub::RegionHealthChecks for RegionHealthChecks {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/healthChecks",
                     var_project, var_region,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}",
+                    var_project, var_region,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -47420,6 +50774,14 @@ impl super::stub::RegionHealthChecks for RegionHealthChecks {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/healthChecks/{}",
                     var_project, var_region, var_health_check,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/healthChecks/{}",
+                    var_project, var_region, var_health_check,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::PATCH, path);
@@ -47499,6 +50861,14 @@ impl super::stub::RegionHealthChecks for RegionHealthChecks {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/healthChecks/{}/testIamPermissions",
                     var_project, var_region, var_resource,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/healthChecks/{}",
+                    var_project, var_region, var_resource,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -47574,6 +50944,14 @@ impl super::stub::RegionHealthChecks for RegionHealthChecks {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/healthChecks/{}",
                     var_project, var_region, var_health_check,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/healthChecks/{}",
+                    var_project, var_region, var_health_check,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::PUT, path);
@@ -47653,6 +51031,14 @@ impl super::stub::RegionHealthChecks for RegionHealthChecks {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/operations/{}",
                     var_project, var_region, var_operation,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/operations/{}",
+                    var_project, var_region, var_operation,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -47771,6 +51157,14 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/instanceGroupManagers/{}/abandonInstances",
                     var_project, var_region, var_instance_group_manager,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/instanceGroupManagers/{}",
+                    var_project, var_region, var_instance_group_manager,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -47845,6 +51239,16 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
                 var_project,
                 var_region,
                 var_instance_group_manager,
+<<<<<<< HEAD
+=======
+            );
+
+            let _resource_name = format!(
+                "//compute.googleapis.com/projects/{}/regions/{}/instanceGroupManagers/{}",
+                var_project,
+                var_region,
+                var_instance_group_manager,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
             );
 
             let builder = self.inner.builder(Method::POST, path);
@@ -47919,6 +51323,14 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/instanceGroupManagers/{}/createInstances",
                     var_project, var_region, var_instance_group_manager,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/instanceGroupManagers/{}",
+                    var_project, var_region, var_instance_group_manager,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -48002,6 +51414,14 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/instanceGroupManagers/{}",
                     var_project, var_region, var_instance_group_manager,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/instanceGroupManagers/{}",
+                    var_project, var_region, var_instance_group_manager,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::DELETE, path);
@@ -48085,6 +51505,14 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/instanceGroupManagers/{}/deleteInstances",
                     var_project, var_region, var_instance_group_manager,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/instanceGroupManagers/{}",
+                    var_project, var_region, var_instance_group_manager,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -48159,6 +51587,16 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
                 var_project,
                 var_region,
                 var_instance_group_manager,
+<<<<<<< HEAD
+=======
+            );
+
+            let _resource_name = format!(
+                "//compute.googleapis.com/projects/{}/regions/{}/instanceGroupManagers/{}",
+                var_project,
+                var_region,
+                var_instance_group_manager,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
             );
 
             let builder = self.inner.builder(Method::POST, path);
@@ -48233,6 +51671,14 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/instanceGroupManagers/{}",
                     var_project, var_region, var_instance_group_manager,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/instanceGroupManagers/{}",
+                    var_project, var_region, var_instance_group_manager,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -48306,6 +51752,14 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/instanceGroupManagers",
                     var_project, var_region,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}",
+                    var_project, var_region,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -48375,6 +51829,14 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/instanceGroupManagers",
                     var_project, var_region,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}",
+                    var_project, var_region,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -48468,6 +51930,14 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/instanceGroupManagers/{}/listErrors",
                     var_project, var_region, var_instance_group_manager,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/instanceGroupManagers/{}",
+                    var_project, var_region, var_instance_group_manager,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -48561,6 +52031,16 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
                 var_project,
                 var_region,
                 var_instance_group_manager,
+<<<<<<< HEAD
+=======
+            );
+
+            let _resource_name = format!(
+                "//compute.googleapis.com/projects/{}/regions/{}/instanceGroupManagers/{}",
+                var_project,
+                var_region,
+                var_instance_group_manager,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
             );
 
             let builder = self.inner.builder(Method::POST, path);
@@ -48632,6 +52112,16 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
                 var_project,
                 var_region,
                 var_instance_group_manager,
+<<<<<<< HEAD
+=======
+            );
+
+            let _resource_name = format!(
+                "//compute.googleapis.com/projects/{}/regions/{}/instanceGroupManagers/{}",
+                var_project,
+                var_region,
+                var_instance_group_manager,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
             );
 
             let builder = self.inner.builder(Method::POST, path);
@@ -48711,6 +52201,14 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/instanceGroupManagers/{}",
                     var_project, var_region, var_instance_group_manager,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/instanceGroupManagers/{}",
+                    var_project, var_region, var_instance_group_manager,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::PATCH, path);
@@ -48785,6 +52283,16 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
                 var_project,
                 var_region,
                 var_instance_group_manager,
+<<<<<<< HEAD
+=======
+            );
+
+            let _resource_name = format!(
+                "//compute.googleapis.com/projects/{}/regions/{}/instanceGroupManagers/{}",
+                var_project,
+                var_region,
+                var_instance_group_manager,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
             );
 
             let builder = self.inner.builder(Method::POST, path);
@@ -48860,6 +52368,14 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/instanceGroupManagers/{}/recreateInstances",
                     var_project, var_region, var_instance_group_manager,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/instanceGroupManagers/{}",
+                    var_project, var_region, var_instance_group_manager,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -48943,6 +52459,14 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/instanceGroupManagers/{}/resize",
                     var_project, var_region, var_instance_group_manager,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/instanceGroupManagers/{}",
+                    var_project, var_region, var_instance_group_manager,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -49027,6 +52551,14 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/instanceGroupManagers/{}/resumeInstances",
                     var_project, var_region, var_instance_group_manager,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/instanceGroupManagers/{}",
+                    var_project, var_region, var_instance_group_manager,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -49101,6 +52633,16 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
                 var_project,
                 var_region,
                 var_instance_group_manager,
+<<<<<<< HEAD
+=======
+            );
+
+            let _resource_name = format!(
+                "//compute.googleapis.com/projects/{}/regions/{}/instanceGroupManagers/{}",
+                var_project,
+                var_region,
+                var_instance_group_manager,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
             );
 
             let builder = self.inner.builder(Method::POST, path);
@@ -49176,6 +52718,14 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/instanceGroupManagers/{}/setTargetPools",
                     var_project, var_region, var_instance_group_manager,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/instanceGroupManagers/{}",
+                    var_project, var_region, var_instance_group_manager,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -49259,6 +52809,14 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/instanceGroupManagers/{}/startInstances",
                     var_project, var_region, var_instance_group_manager,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/instanceGroupManagers/{}",
+                    var_project, var_region, var_instance_group_manager,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -49342,6 +52900,14 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/instanceGroupManagers/{}/stopInstances",
                     var_project, var_region, var_instance_group_manager,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/instanceGroupManagers/{}",
+                    var_project, var_region, var_instance_group_manager,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -49425,6 +52991,14 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/instanceGroupManagers/{}/suspendInstances",
                     var_project, var_region, var_instance_group_manager,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/instanceGroupManagers/{}",
+                    var_project, var_region, var_instance_group_manager,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -49499,6 +53073,16 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
                 var_project,
                 var_region,
                 var_instance_group_manager,
+<<<<<<< HEAD
+=======
+            );
+
+            let _resource_name = format!(
+                "//compute.googleapis.com/projects/{}/regions/{}/instanceGroupManagers/{}",
+                var_project,
+                var_region,
+                var_instance_group_manager,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
             );
 
             let builder = self.inner.builder(Method::POST, path);
@@ -49572,6 +53156,14 @@ impl super::stub::RegionInstanceGroupManagers for RegionInstanceGroupManagers {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/operations/{}",
                     var_project, var_region, var_operation,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/operations/{}",
+                    var_project, var_region, var_operation,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -49688,6 +53280,14 @@ impl super::stub::RegionInstanceGroups for RegionInstanceGroups {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/instanceGroups/{}",
                     var_project, var_region, var_instance_group,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/instanceGroups/{}",
+                    var_project, var_region, var_instance_group,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -49759,6 +53359,14 @@ impl super::stub::RegionInstanceGroups for RegionInstanceGroups {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/instanceGroups",
                     var_project, var_region,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}",
+                    var_project, var_region,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -49850,6 +53458,14 @@ impl super::stub::RegionInstanceGroups for RegionInstanceGroups {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/instanceGroups/{}/listInstances",
                     var_project, var_region, var_instance_group,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/instanceGroups/{}",
+                    var_project, var_region, var_instance_group,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -49947,6 +53563,14 @@ impl super::stub::RegionInstanceGroups for RegionInstanceGroups {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/instanceGroups/{}/setNamedPorts",
                     var_project, var_region, var_instance_group,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/instanceGroups/{}",
+                    var_project, var_region, var_instance_group,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -50026,6 +53650,14 @@ impl super::stub::RegionInstanceGroups for RegionInstanceGroups {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/instanceGroups/{}/testIamPermissions",
                     var_project, var_region, var_resource,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/instanceGroups/{}",
+                    var_project, var_region, var_resource,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -50101,6 +53733,14 @@ impl super::stub::RegionInstanceGroups for RegionInstanceGroups {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/operations/{}",
                     var_project, var_region, var_operation,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/operations/{}",
+                    var_project, var_region, var_operation,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -50217,6 +53857,14 @@ impl super::stub::RegionInstanceTemplates for RegionInstanceTemplates {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/instanceTemplates/{}",
                     var_project, var_region, var_instance_template,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/instanceTemplates/{}",
+                    var_project, var_region, var_instance_template,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::DELETE, path);
@@ -50296,6 +53944,14 @@ impl super::stub::RegionInstanceTemplates for RegionInstanceTemplates {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/instanceTemplates/{}",
                     var_project, var_region, var_instance_template,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/instanceTemplates/{}",
+                    var_project, var_region, var_instance_template,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -50367,6 +54023,14 @@ impl super::stub::RegionInstanceTemplates for RegionInstanceTemplates {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/instanceTemplates",
                     var_project, var_region,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}",
+                    var_project, var_region,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -50436,6 +54100,14 @@ impl super::stub::RegionInstanceTemplates for RegionInstanceTemplates {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/instanceTemplates",
                     var_project, var_region,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}",
+                    var_project, var_region,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -50527,6 +54199,14 @@ impl super::stub::RegionInstanceTemplates for RegionInstanceTemplates {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/operations/{}",
                     var_project, var_region, var_operation,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/operations/{}",
+                    var_project, var_region, var_operation,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -50639,6 +54319,14 @@ impl super::stub::RegionInstances for RegionInstances {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/instances/bulkInsert",
                     var_project, var_region,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}",
+                    var_project, var_region,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -50712,6 +54400,14 @@ impl super::stub::RegionInstances for RegionInstances {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/operations/{}",
                     var_project, var_region, var_operation,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/operations/{}",
+                    var_project, var_region, var_operation,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -50828,6 +54524,14 @@ impl super::stub::RegionInstantSnapshots for RegionInstantSnapshots {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/instantSnapshots/{}",
                     var_project, var_region, var_instant_snapshot,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/instantSnapshots/{}",
+                    var_project, var_region, var_instant_snapshot,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::DELETE, path);
@@ -50907,6 +54611,14 @@ impl super::stub::RegionInstantSnapshots for RegionInstantSnapshots {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/instantSnapshots/{}",
                     var_project, var_region, var_instant_snapshot,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/instantSnapshots/{}",
+                    var_project, var_region, var_instant_snapshot,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -50982,6 +54694,14 @@ impl super::stub::RegionInstantSnapshots for RegionInstantSnapshots {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/instantSnapshots/{}/getIamPolicy",
                     var_project, var_region, var_resource,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/instantSnapshots/{}",
+                    var_project, var_region, var_resource,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -51059,6 +54779,14 @@ impl super::stub::RegionInstantSnapshots for RegionInstantSnapshots {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/instantSnapshots",
                     var_project, var_region,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}",
+                    var_project, var_region,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -51128,6 +54856,14 @@ impl super::stub::RegionInstantSnapshots for RegionInstantSnapshots {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/instantSnapshots",
                     var_project, var_region,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}",
+                    var_project, var_region,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -51219,6 +54955,14 @@ impl super::stub::RegionInstantSnapshots for RegionInstantSnapshots {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/instantSnapshots/{}/setIamPolicy",
                     var_project, var_region, var_resource,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/instantSnapshots/{}",
+                    var_project, var_region, var_resource,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -51294,6 +55038,14 @@ impl super::stub::RegionInstantSnapshots for RegionInstantSnapshots {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/instantSnapshots/{}/setLabels",
                     var_project, var_region, var_resource,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/instantSnapshots/{}",
+                    var_project, var_region, var_resource,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -51373,6 +55125,14 @@ impl super::stub::RegionInstantSnapshots for RegionInstantSnapshots {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/instantSnapshots/{}/testIamPermissions",
                     var_project, var_region, var_resource,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/instantSnapshots/{}",
+                    var_project, var_region, var_resource,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -51448,6 +55208,14 @@ impl super::stub::RegionInstantSnapshots for RegionInstantSnapshots {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/operations/{}",
                     var_project, var_region, var_operation,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/operations/{}",
+                    var_project, var_region, var_operation,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -51557,6 +55325,16 @@ impl super::stub::RegionNetworkEndpointGroups for RegionNetworkEndpointGroups {
                 var_project,
                 var_region,
                 var_network_endpoint_group,
+<<<<<<< HEAD
+=======
+            );
+
+            let _resource_name = format!(
+                "//compute.googleapis.com/projects/{}/regions/{}/networkEndpointGroups/{}",
+                var_project,
+                var_region,
+                var_network_endpoint_group,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
             );
 
             let builder = self.inner.builder(Method::POST, path);
@@ -51632,6 +55410,14 @@ impl super::stub::RegionNetworkEndpointGroups for RegionNetworkEndpointGroups {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/networkEndpointGroups/{}",
                     var_project, var_region, var_network_endpoint_group,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/networkEndpointGroups/{}",
+                    var_project, var_region, var_network_endpoint_group,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::DELETE, path);
@@ -51706,6 +55492,16 @@ impl super::stub::RegionNetworkEndpointGroups for RegionNetworkEndpointGroups {
                 var_project,
                 var_region,
                 var_network_endpoint_group,
+<<<<<<< HEAD
+=======
+            );
+
+            let _resource_name = format!(
+                "//compute.googleapis.com/projects/{}/regions/{}/networkEndpointGroups/{}",
+                var_project,
+                var_region,
+                var_network_endpoint_group,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
             );
 
             let builder = self.inner.builder(Method::POST, path);
@@ -51781,6 +55577,14 @@ impl super::stub::RegionNetworkEndpointGroups for RegionNetworkEndpointGroups {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/networkEndpointGroups/{}",
                     var_project, var_region, var_network_endpoint_group,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/networkEndpointGroups/{}",
+                    var_project, var_region, var_network_endpoint_group,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -51854,6 +55658,14 @@ impl super::stub::RegionNetworkEndpointGroups for RegionNetworkEndpointGroups {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/networkEndpointGroups",
                     var_project, var_region,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}",
+                    var_project, var_region,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -51923,6 +55735,14 @@ impl super::stub::RegionNetworkEndpointGroups for RegionNetworkEndpointGroups {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/networkEndpointGroups",
                     var_project, var_region,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}",
+                    var_project, var_region,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -52007,6 +55827,16 @@ impl super::stub::RegionNetworkEndpointGroups for RegionNetworkEndpointGroups {
                 var_project,
                 var_region,
                 var_network_endpoint_group,
+<<<<<<< HEAD
+=======
+            );
+
+            let _resource_name = format!(
+                "//compute.googleapis.com/projects/{}/regions/{}/networkEndpointGroups/{}",
+                var_project,
+                var_region,
+                var_network_endpoint_group,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
             );
 
             let builder = self.inner.builder(Method::POST, path);
@@ -52084,6 +55914,14 @@ impl super::stub::RegionNetworkEndpointGroups for RegionNetworkEndpointGroups {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/operations/{}",
                     var_project, var_region, var_operation,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/operations/{}",
+                    var_project, var_region, var_operation,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -52200,6 +56038,14 @@ impl super::stub::RegionNetworkFirewallPolicies for RegionNetworkFirewallPolicie
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/firewallPolicies/{}/addAssociation",
                     var_project, var_region, var_firewall_policy,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/firewallPolicies/{}",
+                    var_project, var_region, var_firewall_policy,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -52285,6 +56131,14 @@ impl super::stub::RegionNetworkFirewallPolicies for RegionNetworkFirewallPolicie
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/firewallPolicies/{}/addRule",
                     var_project, var_region, var_firewall_policy,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/firewallPolicies/{}",
+                    var_project, var_region, var_firewall_policy,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -52372,6 +56226,14 @@ impl super::stub::RegionNetworkFirewallPolicies for RegionNetworkFirewallPolicie
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/firewallPolicies/{}/cloneRules",
                     var_project, var_region, var_firewall_policy,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/firewallPolicies/{}",
+                    var_project, var_region, var_firewall_policy,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -52457,6 +56319,14 @@ impl super::stub::RegionNetworkFirewallPolicies for RegionNetworkFirewallPolicie
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/firewallPolicies/{}",
                     var_project, var_region, var_firewall_policy,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/firewallPolicies/{}",
+                    var_project, var_region, var_firewall_policy,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::DELETE, path);
@@ -52536,6 +56406,14 @@ impl super::stub::RegionNetworkFirewallPolicies for RegionNetworkFirewallPolicie
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/firewallPolicies/{}",
                     var_project, var_region, var_firewall_policy,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/firewallPolicies/{}",
+                    var_project, var_region, var_firewall_policy,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -52611,6 +56489,14 @@ impl super::stub::RegionNetworkFirewallPolicies for RegionNetworkFirewallPolicie
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/firewallPolicies/{}/getAssociation",
                     var_project, var_region, var_firewall_policy,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/firewallPolicies/{}",
+                    var_project, var_region, var_firewall_policy,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -52688,6 +56574,14 @@ impl super::stub::RegionNetworkFirewallPolicies for RegionNetworkFirewallPolicie
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/firewallPolicies/getEffectiveFirewalls",
                     var_project, var_region,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}",
+                    var_project, var_region,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -52758,6 +56652,14 @@ impl super::stub::RegionNetworkFirewallPolicies for RegionNetworkFirewallPolicie
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/firewallPolicies/{}/getIamPolicy",
                     var_project, var_region, var_resource,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/firewallPolicies/{}",
+                    var_project, var_region, var_resource,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -52839,6 +56741,14 @@ impl super::stub::RegionNetworkFirewallPolicies for RegionNetworkFirewallPolicie
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/firewallPolicies/{}/getRule",
                     var_project, var_region, var_firewall_policy,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/firewallPolicies/{}",
+                    var_project, var_region, var_firewall_policy,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -52914,6 +56824,14 @@ impl super::stub::RegionNetworkFirewallPolicies for RegionNetworkFirewallPolicie
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/firewallPolicies",
                     var_project, var_region,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}",
+                    var_project, var_region,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -52983,6 +56901,14 @@ impl super::stub::RegionNetworkFirewallPolicies for RegionNetworkFirewallPolicie
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/firewallPolicies",
                     var_project, var_region,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}",
+                    var_project, var_region,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -53074,6 +57000,14 @@ impl super::stub::RegionNetworkFirewallPolicies for RegionNetworkFirewallPolicie
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/firewallPolicies/{}",
                     var_project, var_region, var_firewall_policy,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/firewallPolicies/{}",
+                    var_project, var_region, var_firewall_policy,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::PATCH, path);
@@ -53153,6 +57087,14 @@ impl super::stub::RegionNetworkFirewallPolicies for RegionNetworkFirewallPolicie
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/firewallPolicies/{}/patchRule",
                     var_project, var_region, var_firewall_policy,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/firewallPolicies/{}",
+                    var_project, var_region, var_firewall_policy,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -53236,6 +57178,14 @@ impl super::stub::RegionNetworkFirewallPolicies for RegionNetworkFirewallPolicie
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/firewallPolicies/{}/removeAssociation",
                     var_project, var_region, var_firewall_policy,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/firewallPolicies/{}",
+                    var_project, var_region, var_firewall_policy,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -53319,6 +57269,14 @@ impl super::stub::RegionNetworkFirewallPolicies for RegionNetworkFirewallPolicie
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/firewallPolicies/{}/removeRule",
                     var_project, var_region, var_firewall_policy,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/firewallPolicies/{}",
+                    var_project, var_region, var_firewall_policy,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -53402,6 +57360,14 @@ impl super::stub::RegionNetworkFirewallPolicies for RegionNetworkFirewallPolicie
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/firewallPolicies/{}/setIamPolicy",
                     var_project, var_region, var_resource,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/firewallPolicies/{}",
+                    var_project, var_region, var_resource,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -53477,6 +57443,14 @@ impl super::stub::RegionNetworkFirewallPolicies for RegionNetworkFirewallPolicie
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/firewallPolicies/{}/testIamPermissions",
                     var_project, var_region, var_resource,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/firewallPolicies/{}",
+                    var_project, var_region, var_resource,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -53552,6 +57526,14 @@ impl super::stub::RegionNetworkFirewallPolicies for RegionNetworkFirewallPolicie
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/operations/{}",
                     var_project, var_region, var_operation,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/operations/{}",
+                    var_project, var_region, var_operation,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -53670,6 +57652,14 @@ impl super::stub::RegionNotificationEndpoints for RegionNotificationEndpoints {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/notificationEndpoints/{}",
                     var_project, var_region, var_notification_endpoint,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/notificationEndpoints/{}",
+                    var_project, var_region, var_notification_endpoint,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::DELETE, path);
@@ -53753,6 +57743,14 @@ impl super::stub::RegionNotificationEndpoints for RegionNotificationEndpoints {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/notificationEndpoints/{}",
                     var_project, var_region, var_notification_endpoint,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/notificationEndpoints/{}",
+                    var_project, var_region, var_notification_endpoint,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -53826,6 +57824,14 @@ impl super::stub::RegionNotificationEndpoints for RegionNotificationEndpoints {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/notificationEndpoints",
                     var_project, var_region,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}",
+                    var_project, var_region,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -53895,6 +57901,14 @@ impl super::stub::RegionNotificationEndpoints for RegionNotificationEndpoints {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/notificationEndpoints",
                     var_project, var_region,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}",
+                    var_project, var_region,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -53979,6 +57993,16 @@ impl super::stub::RegionNotificationEndpoints for RegionNotificationEndpoints {
                 var_project,
                 var_region,
                 var_resource,
+<<<<<<< HEAD
+=======
+            );
+
+            let _resource_name = format!(
+                "//compute.googleapis.com/projects/{}/regions/{}/notificationEndpoints/{}",
+                var_project,
+                var_region,
+                var_resource,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
             );
 
             let builder = self.inner.builder(Method::POST, path);
@@ -54051,6 +58075,14 @@ impl super::stub::RegionNotificationEndpoints for RegionNotificationEndpoints {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/operations/{}",
                     var_project, var_region, var_operation,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/operations/{}",
+                    var_project, var_region, var_operation,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -54167,6 +58199,14 @@ impl super::stub::RegionOperations for RegionOperations {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/operations/{}",
                     var_project, var_region, var_operation,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/operations/{}",
+                    var_project, var_region, var_operation,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::DELETE, path);
@@ -54248,6 +58288,14 @@ impl super::stub::RegionOperations for RegionOperations {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/operations/{}",
                     var_project, var_region, var_operation,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/operations/{}",
+                    var_project, var_region, var_operation,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -54319,6 +58367,14 @@ impl super::stub::RegionOperations for RegionOperations {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/operations",
                     var_project, var_region,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}",
+                    var_project, var_region,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -54410,6 +58466,14 @@ impl super::stub::RegionOperations for RegionOperations {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/operations/{}/wait",
                     var_project, var_region, var_operation,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/operations/{}",
+                    var_project, var_region, var_operation,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -54512,6 +58576,14 @@ impl super::stub::RegionSecurityPolicies for RegionSecurityPolicies {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/securityPolicies/{}/addRule",
                     var_project, var_region, var_security_policy,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/securityPolicies/{}",
+                    var_project, var_region, var_security_policy,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -54591,6 +58663,14 @@ impl super::stub::RegionSecurityPolicies for RegionSecurityPolicies {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/securityPolicies/{}",
                     var_project, var_region, var_security_policy,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/securityPolicies/{}",
+                    var_project, var_region, var_security_policy,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::DELETE, path);
@@ -54670,6 +58750,14 @@ impl super::stub::RegionSecurityPolicies for RegionSecurityPolicies {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/securityPolicies/{}",
                     var_project, var_region, var_security_policy,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/securityPolicies/{}",
+                    var_project, var_region, var_security_policy,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -54745,6 +58833,14 @@ impl super::stub::RegionSecurityPolicies for RegionSecurityPolicies {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/securityPolicies/{}/getRule",
                     var_project, var_region, var_security_policy,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/securityPolicies/{}",
+                    var_project, var_region, var_security_policy,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -54820,6 +58916,14 @@ impl super::stub::RegionSecurityPolicies for RegionSecurityPolicies {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/securityPolicies",
                     var_project, var_region,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}",
+                    var_project, var_region,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -54893,6 +58997,14 @@ impl super::stub::RegionSecurityPolicies for RegionSecurityPolicies {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/securityPolicies",
                     var_project, var_region,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}",
+                    var_project, var_region,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -54984,6 +59096,14 @@ impl super::stub::RegionSecurityPolicies for RegionSecurityPolicies {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/securityPolicies/{}",
                     var_project, var_region, var_security_policy,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/securityPolicies/{}",
+                    var_project, var_region, var_security_policy,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::PATCH, path);
@@ -55075,6 +59195,14 @@ impl super::stub::RegionSecurityPolicies for RegionSecurityPolicies {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/securityPolicies/{}/patchRule",
                     var_project, var_region, var_security_policy,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/securityPolicies/{}",
+                    var_project, var_region, var_security_policy,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -55170,6 +59298,14 @@ impl super::stub::RegionSecurityPolicies for RegionSecurityPolicies {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/securityPolicies/{}/removeRule",
                     var_project, var_region, var_security_policy,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/securityPolicies/{}",
+                    var_project, var_region, var_security_policy,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -55249,6 +59385,14 @@ impl super::stub::RegionSecurityPolicies for RegionSecurityPolicies {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/securityPolicies/{}/setLabels",
                     var_project, var_region, var_resource,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/securityPolicies/{}",
+                    var_project, var_region, var_resource,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -55328,6 +59472,14 @@ impl super::stub::RegionSecurityPolicies for RegionSecurityPolicies {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/operations/{}",
                     var_project, var_region, var_operation,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/operations/{}",
+                    var_project, var_region, var_operation,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -55444,6 +59596,14 @@ impl super::stub::RegionSslCertificates for RegionSslCertificates {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/sslCertificates/{}",
                     var_project, var_region, var_ssl_certificate,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/sslCertificates/{}",
+                    var_project, var_region, var_ssl_certificate,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::DELETE, path);
@@ -55523,6 +59683,14 @@ impl super::stub::RegionSslCertificates for RegionSslCertificates {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/sslCertificates/{}",
                     var_project, var_region, var_ssl_certificate,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/sslCertificates/{}",
+                    var_project, var_region, var_ssl_certificate,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -55594,6 +59762,14 @@ impl super::stub::RegionSslCertificates for RegionSslCertificates {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/sslCertificates",
                     var_project, var_region,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}",
+                    var_project, var_region,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -55663,6 +59839,14 @@ impl super::stub::RegionSslCertificates for RegionSslCertificates {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/sslCertificates",
                     var_project, var_region,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}",
+                    var_project, var_region,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -55754,6 +59938,14 @@ impl super::stub::RegionSslCertificates for RegionSslCertificates {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/operations/{}",
                     var_project, var_region, var_operation,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/operations/{}",
+                    var_project, var_region, var_operation,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -55870,6 +60062,14 @@ impl super::stub::RegionSslPolicies for RegionSslPolicies {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/sslPolicies/{}",
                     var_project, var_region, var_ssl_policy,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/sslPolicies/{}",
+                    var_project, var_region, var_ssl_policy,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::DELETE, path);
@@ -55949,6 +60149,14 @@ impl super::stub::RegionSslPolicies for RegionSslPolicies {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/sslPolicies/{}",
                     var_project, var_region, var_ssl_policy,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/sslPolicies/{}",
+                    var_project, var_region, var_ssl_policy,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -56020,6 +60228,14 @@ impl super::stub::RegionSslPolicies for RegionSslPolicies {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/sslPolicies",
                     var_project, var_region,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}",
+                    var_project, var_region,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -56089,6 +60305,14 @@ impl super::stub::RegionSslPolicies for RegionSslPolicies {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/sslPolicies",
                     var_project, var_region,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}",
+                    var_project, var_region,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -56176,6 +60400,14 @@ impl super::stub::RegionSslPolicies for RegionSslPolicies {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/sslPolicies/listAvailableFeatures",
                     var_project, var_region,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}",
+                    var_project, var_region,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -56267,6 +60499,14 @@ impl super::stub::RegionSslPolicies for RegionSslPolicies {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/sslPolicies/{}",
                     var_project, var_region, var_ssl_policy,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/sslPolicies/{}",
+                    var_project, var_region, var_ssl_policy,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::PATCH, path);
@@ -56346,6 +60586,14 @@ impl super::stub::RegionSslPolicies for RegionSslPolicies {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/operations/{}",
                     var_project, var_region, var_operation,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/operations/{}",
+                    var_project, var_region, var_operation,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -56462,6 +60710,14 @@ impl super::stub::RegionTargetHttpProxies for RegionTargetHttpProxies {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/targetHttpProxies/{}",
                     var_project, var_region, var_target_http_proxy,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/targetHttpProxies/{}",
+                    var_project, var_region, var_target_http_proxy,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::DELETE, path);
@@ -56541,6 +60797,14 @@ impl super::stub::RegionTargetHttpProxies for RegionTargetHttpProxies {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/targetHttpProxies/{}",
                     var_project, var_region, var_target_http_proxy,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/targetHttpProxies/{}",
+                    var_project, var_region, var_target_http_proxy,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -56612,6 +60876,14 @@ impl super::stub::RegionTargetHttpProxies for RegionTargetHttpProxies {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/targetHttpProxies",
                     var_project, var_region,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}",
+                    var_project, var_region,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -56681,6 +60953,14 @@ impl super::stub::RegionTargetHttpProxies for RegionTargetHttpProxies {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/targetHttpProxies",
                     var_project, var_region,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}",
+                    var_project, var_region,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -56772,6 +61052,14 @@ impl super::stub::RegionTargetHttpProxies for RegionTargetHttpProxies {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/targetHttpProxies/{}/setUrlMap",
                     var_project, var_region, var_target_http_proxy,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/targetHttpProxies/{}",
+                    var_project, var_region, var_target_http_proxy,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -56851,6 +61139,14 @@ impl super::stub::RegionTargetHttpProxies for RegionTargetHttpProxies {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/operations/{}",
                     var_project, var_region, var_operation,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/operations/{}",
+                    var_project, var_region, var_operation,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -56969,6 +61265,14 @@ impl super::stub::RegionTargetHttpsProxies for RegionTargetHttpsProxies {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/targetHttpsProxies/{}",
                     var_project, var_region, var_target_https_proxy,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/targetHttpsProxies/{}",
+                    var_project, var_region, var_target_https_proxy,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::DELETE, path);
@@ -57052,6 +61356,14 @@ impl super::stub::RegionTargetHttpsProxies for RegionTargetHttpsProxies {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/targetHttpsProxies/{}",
                     var_project, var_region, var_target_https_proxy,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/targetHttpsProxies/{}",
+                    var_project, var_region, var_target_https_proxy,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -57125,6 +61437,14 @@ impl super::stub::RegionTargetHttpsProxies for RegionTargetHttpsProxies {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/targetHttpsProxies",
                     var_project, var_region,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}",
+                    var_project, var_region,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -57194,6 +61514,14 @@ impl super::stub::RegionTargetHttpsProxies for RegionTargetHttpsProxies {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/targetHttpsProxies",
                     var_project, var_region,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}",
+                    var_project, var_region,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -57287,6 +61615,14 @@ impl super::stub::RegionTargetHttpsProxies for RegionTargetHttpsProxies {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/targetHttpsProxies/{}",
                     var_project, var_region, var_target_https_proxy,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/targetHttpsProxies/{}",
+                    var_project, var_region, var_target_https_proxy,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::PATCH, path);
@@ -57370,6 +61706,14 @@ impl super::stub::RegionTargetHttpsProxies for RegionTargetHttpsProxies {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/targetHttpsProxies/{}/setSslCertificates",
                     var_project, var_region, var_target_https_proxy,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/targetHttpsProxies/{}",
+                    var_project, var_region, var_target_https_proxy,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -57453,6 +61797,14 @@ impl super::stub::RegionTargetHttpsProxies for RegionTargetHttpsProxies {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/targetHttpsProxies/{}/setUrlMap",
                     var_project, var_region, var_target_https_proxy,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/targetHttpsProxies/{}",
+                    var_project, var_region, var_target_https_proxy,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -57534,6 +61886,14 @@ impl super::stub::RegionTargetHttpsProxies for RegionTargetHttpsProxies {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/operations/{}",
                     var_project, var_region, var_operation,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/operations/{}",
+                    var_project, var_region, var_operation,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -57650,6 +62010,14 @@ impl super::stub::RegionTargetTcpProxies for RegionTargetTcpProxies {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/targetTcpProxies/{}",
                     var_project, var_region, var_target_tcp_proxy,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/targetTcpProxies/{}",
+                    var_project, var_region, var_target_tcp_proxy,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::DELETE, path);
@@ -57729,6 +62097,14 @@ impl super::stub::RegionTargetTcpProxies for RegionTargetTcpProxies {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/targetTcpProxies/{}",
                     var_project, var_region, var_target_tcp_proxy,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/targetTcpProxies/{}",
+                    var_project, var_region, var_target_tcp_proxy,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -57800,6 +62176,14 @@ impl super::stub::RegionTargetTcpProxies for RegionTargetTcpProxies {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/targetTcpProxies",
                     var_project, var_region,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}",
+                    var_project, var_region,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -57869,6 +62253,14 @@ impl super::stub::RegionTargetTcpProxies for RegionTargetTcpProxies {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/targetTcpProxies",
                     var_project, var_region,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}",
+                    var_project, var_region,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -57960,6 +62352,14 @@ impl super::stub::RegionTargetTcpProxies for RegionTargetTcpProxies {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/operations/{}",
                     var_project, var_region, var_operation,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/operations/{}",
+                    var_project, var_region, var_operation,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -58076,6 +62476,14 @@ impl super::stub::RegionUrlMaps for RegionUrlMaps {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/urlMaps/{}",
                     var_project, var_region, var_url_map,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/urlMaps/{}",
+                    var_project, var_region, var_url_map,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::DELETE, path);
@@ -58155,6 +62563,14 @@ impl super::stub::RegionUrlMaps for RegionUrlMaps {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/urlMaps/{}",
                     var_project, var_region, var_url_map,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/urlMaps/{}",
+                    var_project, var_region, var_url_map,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -58226,6 +62642,14 @@ impl super::stub::RegionUrlMaps for RegionUrlMaps {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/urlMaps",
                     var_project, var_region,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}",
+                    var_project, var_region,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -58295,6 +62719,14 @@ impl super::stub::RegionUrlMaps for RegionUrlMaps {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/urlMaps",
                     var_project, var_region,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}",
+                    var_project, var_region,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -58386,6 +62818,14 @@ impl super::stub::RegionUrlMaps for RegionUrlMaps {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/urlMaps/{}",
                     var_project, var_region, var_url_map,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/urlMaps/{}",
+                    var_project, var_region, var_url_map,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::PATCH, path);
@@ -58465,6 +62905,14 @@ impl super::stub::RegionUrlMaps for RegionUrlMaps {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/urlMaps/{}",
                     var_project, var_region, var_url_map,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/urlMaps/{}",
+                    var_project, var_region, var_url_map,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::PUT, path);
@@ -58544,6 +62992,14 @@ impl super::stub::RegionUrlMaps for RegionUrlMaps {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/urlMaps/{}/validate",
                     var_project, var_region, var_url_map,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/urlMaps/{}",
+                    var_project, var_region, var_url_map,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -58619,6 +63075,14 @@ impl super::stub::RegionUrlMaps for RegionUrlMaps {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/operations/{}",
                     var_project, var_region, var_operation,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/operations/{}",
+                    var_project, var_region, var_operation,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -58731,6 +63195,14 @@ impl super::stub::RegionZones for RegionZones {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/zones",
                     var_project, var_region,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}",
+                    var_project, var_region,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -58845,6 +63317,14 @@ impl super::stub::Regions for Regions {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}",
                     var_project, var_region,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}",
+                    var_project, var_region,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -58904,6 +63384,11 @@ impl super::stub::Regions for Regions {
                     &[Segment::SingleWildcard],
                 )?;
                 let path = format!("/compute/v1/projects/{}/regions", var_project,);
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -58998,6 +63483,7 @@ impl super::stub::ReservationBlocks for ReservationBlocks {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
+<<<<<<< HEAD
         let (builder, method) = None
             .or_else(|| {
                 let var_project = try_match(
@@ -59020,6 +63506,29 @@ impl super::stub::ReservationBlocks for ReservationBlocks {
                     "/compute/v1/projects/{}/zones/{}/reservations/{}/reservationBlocks/{}",
                     var_project, var_zone, var_reservation, var_reservation_block,
                 );
+=======
+        let (builder, method, _resource_name) = None
+        .or_else(|| {
+            let var_project = try_match(Some(&req).map(|m| &m.project).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let var_zone = try_match(Some(&req).map(|m| &m.zone).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let var_reservation = try_match(Some(&req).map(|m| &m.reservation).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let var_reservation_block = try_match(Some(&req).map(|m| &m.reservation_block).map(|s| s.as_str()), &[Segment::SingleWildcard])?;
+            let path = format!(
+                "/compute/v1/projects/{}/zones/{}/reservations/{}/reservationBlocks/{}",
+                var_project,
+                var_zone,
+                var_reservation,
+                var_reservation_block,
+            );
+
+            let _resource_name = format!(
+                "//compute.googleapis.com/projects/{}/zones/{}/reservations/{}/reservationBlocks/{}",
+                var_project,
+                var_zone,
+                var_reservation,
+                var_reservation_block,
+            );
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = req.view.iter().fold(builder, |builder, p| builder.query(&[("view", p)]));
@@ -59092,6 +63601,17 @@ impl super::stub::ReservationBlocks for ReservationBlocks {
                 var_zone,
                 var_parent_resource,
                 var_resource,
+<<<<<<< HEAD
+=======
+            );
+
+            let _resource_name = format!(
+                "//compute.googleapis.com/projects/{}/zones/{}/reservations/{}/reservationBlocks/{}",
+                var_project,
+                var_zone,
+                var_parent_resource,
+                var_resource,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
             );
 
             let builder = self.inner.builder(Method::GET, path);
@@ -59170,6 +63690,14 @@ impl super::stub::ReservationBlocks for ReservationBlocks {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/reservations/{}/reservationBlocks",
                     var_project, var_zone, var_reservation,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/reservations/{}",
+                    var_project, var_zone, var_reservation,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -59262,6 +63790,17 @@ impl super::stub::ReservationBlocks for ReservationBlocks {
                 var_zone,
                 var_reservation,
                 var_reservation_block,
+<<<<<<< HEAD
+=======
+            );
+
+            let _resource_name = format!(
+                "//compute.googleapis.com/projects/{}/zones/{}/reservations/{}/reservationBlocks/{}",
+                var_project,
+                var_zone,
+                var_reservation,
+                var_reservation_block,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
             );
 
             let builder = self.inner.builder(Method::POST, path);
@@ -59335,6 +63874,17 @@ impl super::stub::ReservationBlocks for ReservationBlocks {
                 var_zone,
                 var_parent_resource,
                 var_resource,
+<<<<<<< HEAD
+=======
+            );
+
+            let _resource_name = format!(
+                "//compute.googleapis.com/projects/{}/zones/{}/reservations/{}/reservationBlocks/{}",
+                var_project,
+                var_zone,
+                var_parent_resource,
+                var_resource,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
             );
 
             let builder = self.inner.builder(Method::POST, path);
@@ -59407,6 +63957,17 @@ impl super::stub::ReservationBlocks for ReservationBlocks {
                 var_zone,
                 var_parent_resource,
                 var_resource,
+<<<<<<< HEAD
+=======
+            );
+
+            let _resource_name = format!(
+                "//compute.googleapis.com/projects/{}/zones/{}/reservations/{}/reservationBlocks/{}",
+                var_project,
+                var_zone,
+                var_parent_resource,
+                var_resource,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
             );
 
             let builder = self.inner.builder(Method::POST, path);
@@ -59484,6 +64045,14 @@ impl super::stub::ReservationBlocks for ReservationBlocks {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/operations/{}",
                     var_project, var_zone, var_operation,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/operations/{}",
+                    var_project, var_zone, var_operation,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -59604,6 +64173,14 @@ impl super::stub::ReservationSlots for ReservationSlots {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/{}/reservationSlots/{}",
                     var_project, var_zone, var_parent_name, var_reservation_slot,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}",
+                    var_project, var_zone,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -59668,7 +64245,7 @@ impl super::stub::ReservationSlots for ReservationSlots {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -59685,6 +64262,14 @@ impl super::stub::ReservationSlots for ReservationSlots {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/{}/reservationSlots",
                     var_project, var_zone, var_parent_name,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}",
+                    var_project, var_zone,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -59711,7 +64296,7 @@ impl super::stub::ReservationSlots for ReservationSlots {
                         builder.query(&[("returnPartialSuccess", p)])
                     });
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, _resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -59739,6 +64324,10 @@ impl super::stub::ReservationSlots for ReservationSlots {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(_resource_name))
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -59782,6 +64371,14 @@ impl super::stub::ReservationSlots for ReservationSlots {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/{}/reservationSlots/{}",
                     var_project, var_zone, var_parent_name, var_reservation_slot,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}",
+                    var_project, var_zone,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -59875,6 +64472,14 @@ impl super::stub::ReservationSlots for ReservationSlots {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/operations/{}",
                     var_project, var_zone, var_operation,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/operations/{}",
+                    var_project, var_zone, var_operation,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -59997,6 +64602,14 @@ impl super::stub::ReservationSubBlocks for ReservationSubBlocks {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/{}/reservationSubBlocks/{}",
                     var_project, var_zone, var_parent_name, var_reservation_sub_block,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}",
+                    var_project, var_zone,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -60090,8 +64703,10 @@ impl super::stub::ReservationSubBlocks for ReservationSubBlocks {
                     var_project, var_zone, var_parent_resource, var_resource,
                 );
 
-                let _resource_name =
-                    format!("//compute.googleapis.com/reservationSubBlocks/{}", resource,);
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}",
+                    var_project, var_zone,
+                );
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -60161,7 +64776,7 @@ impl super::stub::ReservationSubBlocks for ReservationSubBlocks {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, _resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -60178,6 +64793,14 @@ impl super::stub::ReservationSubBlocks for ReservationSubBlocks {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/{}/reservationSubBlocks",
                     var_project, var_zone, var_parent_name,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}",
+                    var_project, var_zone,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -60204,7 +64827,7 @@ impl super::stub::ReservationSubBlocks for ReservationSubBlocks {
                         builder.query(&[("returnPartialSuccess", p)])
                     });
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, _resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -60232,6 +64855,10 @@ impl super::stub::ReservationSubBlocks for ReservationSubBlocks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(_resource_name))
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -60266,6 +64893,15 @@ impl super::stub::ReservationSubBlocks for ReservationSubBlocks {
                 var_zone,
                 var_parent_name,
                 var_reservation_sub_block,
+<<<<<<< HEAD
+=======
+            );
+
+            let _resource_name = format!(
+                "//compute.googleapis.com/projects/{}/zones/{}",
+                var_project,
+                var_zone,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
             );
 
             let builder = self.inner.builder(Method::POST, path);
@@ -60350,6 +64986,14 @@ impl super::stub::ReservationSubBlocks for ReservationSubBlocks {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/{}/reservationSubBlocks/{}/reportFaulty",
                     var_project, var_zone, var_parent_name, var_reservation_sub_block,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}",
+                    var_project, var_zone,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -60443,8 +65087,10 @@ impl super::stub::ReservationSubBlocks for ReservationSubBlocks {
                     var_project, var_zone, var_parent_resource, var_resource,
                 );
 
-                let _resource_name =
-                    format!("//compute.googleapis.com/reservationSubBlocks/{}", resource,);
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}",
+                    var_project, var_zone,
+                );
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -60520,6 +65166,15 @@ impl super::stub::ReservationSubBlocks for ReservationSubBlocks {
                 var_zone,
                 var_parent_resource,
                 var_resource,
+<<<<<<< HEAD
+=======
+            );
+
+            let _resource_name = format!(
+                "//compute.googleapis.com/projects/{}/zones/{}",
+                var_project,
+                var_zone,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
             );
 
             let builder = self.inner.builder(Method::POST, path);
@@ -60597,6 +65252,14 @@ impl super::stub::ReservationSubBlocks for ReservationSubBlocks {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/operations/{}",
                     var_project, var_zone, var_operation,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/operations/{}",
+                    var_project, var_zone, var_operation,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -60706,6 +65369,11 @@ impl super::stub::Reservations for Reservations {
                     "/compute/v1/projects/{}/aggregated/reservations",
                     var_project,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -60799,6 +65467,14 @@ impl super::stub::Reservations for Reservations {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/reservations/{}",
                     var_project, var_zone, var_reservation,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/reservations/{}",
+                    var_project, var_zone, var_reservation,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::DELETE, path);
@@ -60878,6 +65554,14 @@ impl super::stub::Reservations for Reservations {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/reservations/{}",
                     var_project, var_zone, var_reservation,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/reservations/{}",
+                    var_project, var_zone, var_reservation,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -60953,6 +65637,14 @@ impl super::stub::Reservations for Reservations {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/reservations/{}/getIamPolicy",
                     var_project, var_zone, var_resource,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/reservations/{}",
+                    var_project, var_zone, var_resource,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -61030,6 +65722,14 @@ impl super::stub::Reservations for Reservations {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/reservations",
                     var_project, var_zone,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}",
+                    var_project, var_zone,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -61099,6 +65799,14 @@ impl super::stub::Reservations for Reservations {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/reservations",
                     var_project, var_zone,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}",
+                    var_project, var_zone,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -61190,6 +65898,14 @@ impl super::stub::Reservations for Reservations {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/reservations/{}/performMaintenance",
                     var_project, var_zone, var_reservation,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/reservations/{}",
+                    var_project, var_zone, var_reservation,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -61269,6 +65985,14 @@ impl super::stub::Reservations for Reservations {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/reservations/{}/resize",
                     var_project, var_zone, var_reservation,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/reservations/{}",
+                    var_project, var_zone, var_reservation,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -61348,6 +66072,14 @@ impl super::stub::Reservations for Reservations {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/reservations/{}/setIamPolicy",
                     var_project, var_zone, var_resource,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/reservations/{}",
+                    var_project, var_zone, var_resource,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -61423,6 +66155,14 @@ impl super::stub::Reservations for Reservations {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/reservations/{}/testIamPermissions",
                     var_project, var_zone, var_resource,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/reservations/{}",
+                    var_project, var_zone, var_resource,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -61498,6 +66238,14 @@ impl super::stub::Reservations for Reservations {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/reservations/{}",
                     var_project, var_zone, var_reservation,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/reservations/{}",
+                    var_project, var_zone, var_reservation,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::PATCH, path);
@@ -61593,6 +66341,14 @@ impl super::stub::Reservations for Reservations {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/operations/{}",
                     var_project, var_zone, var_operation,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/operations/{}",
+                    var_project, var_zone, var_operation,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -61703,7 +66459,7 @@ impl super::stub::ResourcePolicies for ResourcePolicies {
                     var_project,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/projects/{}", project,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -61797,6 +66553,14 @@ impl super::stub::ResourcePolicies for ResourcePolicies {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/resourcePolicies/{}",
                     var_project, var_region, var_resource_policy,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/resourcePolicies/{}",
+                    var_project, var_region, var_resource_policy,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::DELETE, path);
@@ -61876,6 +66640,14 @@ impl super::stub::ResourcePolicies for ResourcePolicies {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/resourcePolicies/{}",
                     var_project, var_region, var_resource_policy,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/resourcePolicies/{}",
+                    var_project, var_region, var_resource_policy,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -61951,6 +66723,14 @@ impl super::stub::ResourcePolicies for ResourcePolicies {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/resourcePolicies/{}/getIamPolicy",
                     var_project, var_region, var_resource,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/resourcePolicies/{}",
+                    var_project, var_region, var_resource,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -62028,6 +66808,14 @@ impl super::stub::ResourcePolicies for ResourcePolicies {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/resourcePolicies",
                     var_project, var_region,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}",
+                    var_project, var_region,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -62097,6 +66885,14 @@ impl super::stub::ResourcePolicies for ResourcePolicies {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/resourcePolicies",
                     var_project, var_region,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}",
+                    var_project, var_region,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -62188,6 +66984,14 @@ impl super::stub::ResourcePolicies for ResourcePolicies {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/resourcePolicies/{}",
                     var_project, var_region, var_resource_policy,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/resourcePolicies/{}",
+                    var_project, var_region, var_resource_policy,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::PATCH, path);
@@ -62279,6 +67083,14 @@ impl super::stub::ResourcePolicies for ResourcePolicies {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/resourcePolicies/{}/setIamPolicy",
                     var_project, var_region, var_resource,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/resourcePolicies/{}",
+                    var_project, var_region, var_resource,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -62354,6 +67166,14 @@ impl super::stub::ResourcePolicies for ResourcePolicies {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/resourcePolicies/{}/testIamPermissions",
                     var_project, var_region, var_resource,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/resourcePolicies/{}",
+                    var_project, var_region, var_resource,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -62429,6 +67249,14 @@ impl super::stub::ResourcePolicies for ResourcePolicies {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/operations/{}",
                     var_project, var_region, var_operation,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/operations/{}",
+                    var_project, var_region, var_operation,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -62535,6 +67363,11 @@ impl super::stub::Routers for Routers {
                     &[Segment::SingleWildcard],
                 )?;
                 let path = format!("/compute/v1/projects/{}/aggregated/routers", var_project,);
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -62628,6 +67461,14 @@ impl super::stub::Routers for Routers {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/routers/{}",
                     var_project, var_region, var_router,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/routers/{}",
+                    var_project, var_region, var_router,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::DELETE, path);
@@ -62707,6 +67548,14 @@ impl super::stub::Routers for Routers {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/routers/{}/deleteRoutePolicy",
                     var_project, var_region, var_router,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/routers/{}",
+                    var_project, var_region, var_router,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -62790,6 +67639,14 @@ impl super::stub::Routers for Routers {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/routers/{}",
                     var_project, var_region, var_router,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/routers/{}",
+                    var_project, var_region, var_router,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -62865,6 +67722,14 @@ impl super::stub::Routers for Routers {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/routers/{}/getNatIpInfo",
                     var_project, var_region, var_router,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/routers/{}",
+                    var_project, var_region, var_router,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -62944,6 +67809,14 @@ impl super::stub::Routers for Routers {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/routers/{}/getNatMappingInfo",
                     var_project, var_region, var_router,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/routers/{}",
+                    var_project, var_region, var_router,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -63045,6 +67918,14 @@ impl super::stub::Routers for Routers {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/routers/{}/getRoutePolicy",
                     var_project, var_region, var_router,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/routers/{}",
+                    var_project, var_region, var_router,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -63124,6 +68005,14 @@ impl super::stub::Routers for Routers {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/routers/{}/getRouterStatus",
                     var_project, var_region, var_router,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/routers/{}",
+                    var_project, var_region, var_router,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -63195,6 +68084,14 @@ impl super::stub::Routers for Routers {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/routers",
                     var_project, var_region,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}",
+                    var_project, var_region,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -63264,6 +68161,14 @@ impl super::stub::Routers for Routers {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/routers",
                     var_project, var_region,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}",
+                    var_project, var_region,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -63355,6 +68260,14 @@ impl super::stub::Routers for Routers {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/routers/{}/listBgpRoutes",
                     var_project, var_region, var_router,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/routers/{}",
+                    var_project, var_region, var_router,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -63471,6 +68384,14 @@ impl super::stub::Routers for Routers {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/routers/{}/listRoutePolicies",
                     var_project, var_region, var_router,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/routers/{}",
+                    var_project, var_region, var_router,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -63568,6 +68489,14 @@ impl super::stub::Routers for Routers {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/routers/{}",
                     var_project, var_region, var_router,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/routers/{}",
+                    var_project, var_region, var_router,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::PATCH, path);
@@ -63647,6 +68576,14 @@ impl super::stub::Routers for Routers {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/routers/{}/patchRoutePolicy",
                     var_project, var_region, var_router,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/routers/{}",
+                    var_project, var_region, var_router,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -63726,6 +68663,14 @@ impl super::stub::Routers for Routers {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/routers/{}/preview",
                     var_project, var_region, var_router,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/routers/{}",
+                    var_project, var_region, var_router,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -63801,6 +68746,14 @@ impl super::stub::Routers for Routers {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/routers/{}",
                     var_project, var_region, var_router,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/routers/{}",
+                    var_project, var_region, var_router,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::PUT, path);
@@ -63880,6 +68833,14 @@ impl super::stub::Routers for Routers {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/routers/{}/updateRoutePolicy",
                     var_project, var_region, var_router,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/routers/{}",
+                    var_project, var_region, var_router,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -63959,6 +68920,14 @@ impl super::stub::Routers for Routers {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/operations/{}",
                     var_project, var_region, var_operation,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/operations/{}",
+                    var_project, var_region, var_operation,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -64072,6 +69041,11 @@ impl super::stub::Routes for Routes {
                     "/compute/v1/projects/{}/global/routes/{}",
                     var_project, var_route,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = req
@@ -64141,6 +69115,11 @@ impl super::stub::Routes for Routes {
                     "/compute/v1/projects/{}/global/routes/{}",
                     var_project, var_route,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -64199,6 +69178,11 @@ impl super::stub::Routes for Routes {
                     &[Segment::SingleWildcard],
                 )?;
                 let path = format!("/compute/v1/projects/{}/global/routes", var_project,);
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req
@@ -64255,6 +69239,11 @@ impl super::stub::Routes for Routes {
                     &[Segment::SingleWildcard],
                 )?;
                 let path = format!("/compute/v1/projects/{}/global/routes", var_project,);
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -64337,7 +69326,7 @@ impl super::stub::Routes for Routes {
                     var_project, var_resource,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/routes/{}", resource,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -64404,7 +69393,7 @@ impl super::stub::Routes for Routes {
                     var_project, var_operation,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/operations/{}", operation,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -64511,6 +69500,11 @@ impl super::stub::SecurityPolicies for SecurityPolicies {
                     "/compute/v1/projects/{}/global/securityPolicies/{}/addRule",
                     var_project, var_security_policy,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req
@@ -64577,7 +69571,7 @@ impl super::stub::SecurityPolicies for SecurityPolicies {
                     var_project,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/projects/{}", project,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -64668,6 +69662,11 @@ impl super::stub::SecurityPolicies for SecurityPolicies {
                     "/compute/v1/projects/{}/global/securityPolicies/{}",
                     var_project, var_security_policy,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = req
@@ -64737,6 +69736,11 @@ impl super::stub::SecurityPolicies for SecurityPolicies {
                     "/compute/v1/projects/{}/global/securityPolicies/{}",
                     var_project, var_security_policy,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -64802,6 +69806,11 @@ impl super::stub::SecurityPolicies for SecurityPolicies {
                     "/compute/v1/projects/{}/global/securityPolicies/{}/getRule",
                     var_project, var_security_policy,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -64867,6 +69876,11 @@ impl super::stub::SecurityPolicies for SecurityPolicies {
                     "/compute/v1/projects/{}/global/securityPolicies",
                     var_project,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req
@@ -64930,6 +69944,11 @@ impl super::stub::SecurityPolicies for SecurityPolicies {
                     "/compute/v1/projects/{}/global/securityPolicies",
                     var_project,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -65005,6 +70024,14 @@ impl super::stub::SecurityPolicies for SecurityPolicies {
             let path = format!(
                 "/compute/v1/projects/{}/global/securityPolicies/listPreconfiguredExpressionSets",
                 var_project,
+<<<<<<< HEAD
+=======
+            );
+
+            let _resource_name = format!(
+                "//compute.googleapis.com/projects/{}",
+                var_project,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
             );
 
             let builder = self.inner.builder(Method::GET, path);
@@ -65069,6 +70096,11 @@ impl super::stub::SecurityPolicies for SecurityPolicies {
                     "/compute/v1/projects/{}/global/securityPolicies/{}",
                     var_project, var_security_policy,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -65150,6 +70182,11 @@ impl super::stub::SecurityPolicies for SecurityPolicies {
                     "/compute/v1/projects/{}/global/securityPolicies/{}/patchRule",
                     var_project, var_security_policy,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = (|| {
@@ -65235,6 +70272,11 @@ impl super::stub::SecurityPolicies for SecurityPolicies {
                     "/compute/v1/projects/{}/global/securityPolicies/{}/removeRule",
                     var_project, var_security_policy,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req
@@ -65305,8 +70347,7 @@ impl super::stub::SecurityPolicies for SecurityPolicies {
                     var_project, var_resource,
                 );
 
-                let _resource_name =
-                    format!("//compute.googleapis.com/securityPolicies/{}", resource,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -65373,7 +70414,7 @@ impl super::stub::SecurityPolicies for SecurityPolicies {
                     var_project, var_operation,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/operations/{}", operation,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -65477,7 +70518,7 @@ impl super::stub::ServiceAttachments for ServiceAttachments {
                     var_project,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/projects/{}", project,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -65573,6 +70614,14 @@ impl super::stub::ServiceAttachments for ServiceAttachments {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/serviceAttachments/{}",
                     var_project, var_region, var_service_attachment,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/serviceAttachments/{}",
+                    var_project, var_region, var_service_attachment,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::DELETE, path);
@@ -65656,6 +70705,14 @@ impl super::stub::ServiceAttachments for ServiceAttachments {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/serviceAttachments/{}",
                     var_project, var_region, var_service_attachment,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/serviceAttachments/{}",
+                    var_project, var_region, var_service_attachment,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -65737,6 +70794,14 @@ impl super::stub::ServiceAttachments for ServiceAttachments {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/serviceAttachments/{}/getIamPolicy",
                     var_project, var_region, var_resource,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/serviceAttachments/{}",
+                    var_project, var_region, var_resource,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -65814,6 +70879,14 @@ impl super::stub::ServiceAttachments for ServiceAttachments {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/serviceAttachments",
                     var_project, var_region,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}",
+                    var_project, var_region,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -65883,6 +70956,14 @@ impl super::stub::ServiceAttachments for ServiceAttachments {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/serviceAttachments",
                     var_project, var_region,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}",
+                    var_project, var_region,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -65976,6 +71057,14 @@ impl super::stub::ServiceAttachments for ServiceAttachments {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/serviceAttachments/{}",
                     var_project, var_region, var_service_attachment,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/serviceAttachments/{}",
+                    var_project, var_region, var_service_attachment,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::PATCH, path);
@@ -66057,6 +71146,14 @@ impl super::stub::ServiceAttachments for ServiceAttachments {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/serviceAttachments/{}/setIamPolicy",
                     var_project, var_region, var_resource,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/serviceAttachments/{}",
+                    var_project, var_region, var_resource,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -66132,6 +71229,14 @@ impl super::stub::ServiceAttachments for ServiceAttachments {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/serviceAttachments/{}/testIamPermissions",
                     var_project, var_region, var_resource,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/serviceAttachments/{}",
+                    var_project, var_region, var_resource,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -66207,6 +71312,14 @@ impl super::stub::ServiceAttachments for ServiceAttachments {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/operations/{}",
                     var_project, var_region, var_operation,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/operations/{}",
+                    var_project, var_region, var_operation,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -66316,6 +71429,11 @@ impl super::stub::SnapshotSettings for SnapshotSettings {
                     "/compute/v1/projects/{}/global/snapshotSettings",
                     var_project,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -66371,6 +71489,11 @@ impl super::stub::SnapshotSettings for SnapshotSettings {
                     "/compute/v1/projects/{}/global/snapshotSettings",
                     var_project,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -66447,7 +71570,7 @@ impl super::stub::SnapshotSettings for SnapshotSettings {
                     var_project, var_operation,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/operations/{}", operation,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -66555,7 +71678,7 @@ impl super::stub::Snapshots for Snapshots {
                     var_project, var_snapshot,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/snapshots/{}", snapshot,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = req
@@ -66626,7 +71749,7 @@ impl super::stub::Snapshots for Snapshots {
                     var_project, var_snapshot,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/snapshots/{}", snapshot,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -66693,7 +71816,7 @@ impl super::stub::Snapshots for Snapshots {
                     var_project, var_resource,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/snapshots/{}", resource,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -66758,6 +71881,11 @@ impl super::stub::Snapshots for Snapshots {
                     &[Segment::SingleWildcard],
                 )?;
                 let path = format!("/compute/v1/projects/{}/global/snapshots", var_project,);
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req
@@ -66814,6 +71942,11 @@ impl super::stub::Snapshots for Snapshots {
                     &[Segment::SingleWildcard],
                 )?;
                 let path = format!("/compute/v1/projects/{}/global/snapshots", var_project,);
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -66896,7 +72029,7 @@ impl super::stub::Snapshots for Snapshots {
                     var_project, var_resource,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/snapshots/{}", resource,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -66963,7 +72096,7 @@ impl super::stub::Snapshots for Snapshots {
                     var_project, var_resource,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/snapshots/{}", resource,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -67030,7 +72163,7 @@ impl super::stub::Snapshots for Snapshots {
                     var_project, var_resource,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/snapshots/{}", resource,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -67097,7 +72230,7 @@ impl super::stub::Snapshots for Snapshots {
                     var_project, var_operation,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/operations/{}", operation,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -67201,7 +72334,7 @@ impl super::stub::SslCertificates for SslCertificates {
                     var_project,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/projects/{}", project,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -67292,6 +72425,11 @@ impl super::stub::SslCertificates for SslCertificates {
                     "/compute/v1/projects/{}/global/sslCertificates/{}",
                     var_project, var_ssl_certificate,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = req
@@ -67361,6 +72499,11 @@ impl super::stub::SslCertificates for SslCertificates {
                     "/compute/v1/projects/{}/global/sslCertificates/{}",
                     var_project, var_ssl_certificate,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -67422,6 +72565,11 @@ impl super::stub::SslCertificates for SslCertificates {
                     "/compute/v1/projects/{}/global/sslCertificates",
                     var_project,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req
@@ -67481,6 +72629,11 @@ impl super::stub::SslCertificates for SslCertificates {
                     "/compute/v1/projects/{}/global/sslCertificates",
                     var_project,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -67563,7 +72716,7 @@ impl super::stub::SslCertificates for SslCertificates {
                     var_project, var_operation,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/operations/{}", operation,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -67666,6 +72819,11 @@ impl super::stub::SslPolicies for SslPolicies {
                     "/compute/v1/projects/{}/aggregated/sslPolicies",
                     var_project,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -67757,8 +72915,7 @@ impl super::stub::SslPolicies for SslPolicies {
                     var_project, var_ssl_policy,
                 );
 
-                let _resource_name =
-                    format!("//compute.googleapis.com/sslPolicies/{}", ssl_policy,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = req
@@ -67829,8 +72986,7 @@ impl super::stub::SslPolicies for SslPolicies {
                     var_project, var_ssl_policy,
                 );
 
-                let _resource_name =
-                    format!("//compute.googleapis.com/sslPolicies/{}", ssl_policy,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -67889,6 +73045,11 @@ impl super::stub::SslPolicies for SslPolicies {
                     &[Segment::SingleWildcard],
                 )?;
                 let path = format!("/compute/v1/projects/{}/global/sslPolicies", var_project,);
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req
@@ -67945,6 +73106,11 @@ impl super::stub::SslPolicies for SslPolicies {
                     &[Segment::SingleWildcard],
                 )?;
                 let path = format!("/compute/v1/projects/{}/global/sslPolicies", var_project,);
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -68023,7 +73189,7 @@ impl super::stub::SslPolicies for SslPolicies {
                     var_project,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/projects/{}", project,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -68106,8 +73272,7 @@ impl super::stub::SslPolicies for SslPolicies {
                     var_project, var_ssl_policy,
                 );
 
-                let _resource_name =
-                    format!("//compute.googleapis.com/sslPolicies/{}", ssl_policy,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = req
@@ -68178,7 +73343,7 @@ impl super::stub::SslPolicies for SslPolicies {
                     var_project, var_operation,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/operations/{}", operation,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -68282,7 +73447,7 @@ impl super::stub::StoragePoolTypes for StoragePoolTypes {
                     var_project,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/projects/{}", project,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -68376,6 +73541,14 @@ impl super::stub::StoragePoolTypes for StoragePoolTypes {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/storagePoolTypes/{}",
                     var_project, var_zone, var_storage_pool_type,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/storagePoolTypes/{}",
+                    var_project, var_zone, var_storage_pool_type,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -68447,6 +73620,14 @@ impl super::stub::StoragePoolTypes for StoragePoolTypes {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/storagePoolTypes",
                     var_project, var_zone,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}",
+                    var_project, var_zone,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -68558,6 +73739,11 @@ impl super::stub::StoragePools for StoragePools {
                     "/compute/v1/projects/{}/aggregated/storagePools",
                     var_project,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -68651,6 +73837,14 @@ impl super::stub::StoragePools for StoragePools {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/storagePools/{}",
                     var_project, var_zone, var_storage_pool,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/storagePools/{}",
+                    var_project, var_zone, var_storage_pool,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::DELETE, path);
@@ -68730,6 +73924,14 @@ impl super::stub::StoragePools for StoragePools {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/storagePools/{}",
                     var_project, var_zone, var_storage_pool,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/storagePools/{}",
+                    var_project, var_zone, var_storage_pool,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -68805,6 +74007,14 @@ impl super::stub::StoragePools for StoragePools {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/storagePools/{}/getIamPolicy",
                     var_project, var_zone, var_resource,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/storagePools/{}",
+                    var_project, var_zone, var_resource,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -68882,6 +74092,14 @@ impl super::stub::StoragePools for StoragePools {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/storagePools",
                     var_project, var_zone,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}",
+                    var_project, var_zone,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -68951,6 +74169,14 @@ impl super::stub::StoragePools for StoragePools {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/storagePools",
                     var_project, var_zone,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}",
+                    var_project, var_zone,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -69042,6 +74268,14 @@ impl super::stub::StoragePools for StoragePools {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/storagePools/{}/listDisks",
                     var_project, var_zone, var_storage_pool,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/storagePools/{}",
+                    var_project, var_zone, var_storage_pool,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -69139,6 +74373,14 @@ impl super::stub::StoragePools for StoragePools {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/storagePools/{}/setIamPolicy",
                     var_project, var_zone, var_resource,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/storagePools/{}",
+                    var_project, var_zone, var_resource,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -69214,6 +74456,14 @@ impl super::stub::StoragePools for StoragePools {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/storagePools/{}/testIamPermissions",
                     var_project, var_zone, var_resource,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/storagePools/{}",
+                    var_project, var_zone, var_resource,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -69289,6 +74539,14 @@ impl super::stub::StoragePools for StoragePools {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/storagePools/{}",
                     var_project, var_zone, var_storage_pool,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/storagePools/{}",
+                    var_project, var_zone, var_storage_pool,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::PATCH, path);
@@ -69380,6 +74638,14 @@ impl super::stub::StoragePools for StoragePools {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/operations/{}",
                     var_project, var_zone, var_operation,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/operations/{}",
+                    var_project, var_zone, var_operation,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -69489,6 +74755,11 @@ impl super::stub::Subnetworks for Subnetworks {
                     "/compute/v1/projects/{}/aggregated/subnetworks",
                     var_project,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -69586,6 +74857,14 @@ impl super::stub::Subnetworks for Subnetworks {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/subnetworks/{}",
                     var_project, var_region, var_subnetwork,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/subnetworks/{}",
+                    var_project, var_region, var_subnetwork,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::DELETE, path);
@@ -69665,6 +74944,14 @@ impl super::stub::Subnetworks for Subnetworks {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/subnetworks/{}/expandIpCidrRange",
                     var_project, var_region, var_subnetwork,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/subnetworks/{}",
+                    var_project, var_region, var_subnetwork,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -69744,6 +75031,14 @@ impl super::stub::Subnetworks for Subnetworks {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/subnetworks/{}",
                     var_project, var_region, var_subnetwork,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/subnetworks/{}",
+                    var_project, var_region, var_subnetwork,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -69823,6 +75118,14 @@ impl super::stub::Subnetworks for Subnetworks {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/subnetworks/{}/getIamPolicy",
                     var_project, var_region, var_resource,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/subnetworks/{}",
+                    var_project, var_region, var_resource,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -69900,6 +75203,14 @@ impl super::stub::Subnetworks for Subnetworks {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/subnetworks",
                     var_project, var_region,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}",
+                    var_project, var_region,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -69969,6 +75280,14 @@ impl super::stub::Subnetworks for Subnetworks {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/subnetworks",
                     var_project, var_region,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}",
+                    var_project, var_region,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -70058,7 +75377,7 @@ impl super::stub::Subnetworks for Subnetworks {
                     var_project,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/projects/{}", project,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -70146,6 +75465,14 @@ impl super::stub::Subnetworks for Subnetworks {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/subnetworks/{}",
                     var_project, var_region, var_subnetwork,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/subnetworks/{}",
+                    var_project, var_region, var_subnetwork,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::PATCH, path);
@@ -70231,6 +75558,14 @@ impl super::stub::Subnetworks for Subnetworks {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/subnetworks/{}/setIamPolicy",
                     var_project, var_region, var_resource,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/subnetworks/{}",
+                    var_project, var_region, var_resource,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -70306,6 +75641,14 @@ impl super::stub::Subnetworks for Subnetworks {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/subnetworks/{}/setPrivateIpGoogleAccess",
                     var_project, var_region, var_subnetwork,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/subnetworks/{}",
+                    var_project, var_region, var_subnetwork,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -70385,6 +75728,14 @@ impl super::stub::Subnetworks for Subnetworks {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/subnetworks/{}/testIamPermissions",
                     var_project, var_region, var_resource,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/subnetworks/{}",
+                    var_project, var_region, var_resource,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -70460,6 +75811,14 @@ impl super::stub::Subnetworks for Subnetworks {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/operations/{}",
                     var_project, var_region, var_operation,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/operations/{}",
+                    var_project, var_region, var_operation,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -70573,6 +75932,11 @@ impl super::stub::TargetGrpcProxies for TargetGrpcProxies {
                     "/compute/v1/projects/{}/global/targetGrpcProxies/{}",
                     var_project, var_target_grpc_proxy,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = req
@@ -70642,6 +76006,11 @@ impl super::stub::TargetGrpcProxies for TargetGrpcProxies {
                     "/compute/v1/projects/{}/global/targetGrpcProxies/{}",
                     var_project, var_target_grpc_proxy,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -70703,6 +76072,11 @@ impl super::stub::TargetGrpcProxies for TargetGrpcProxies {
                     "/compute/v1/projects/{}/global/targetGrpcProxies",
                     var_project,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req
@@ -70762,6 +76136,11 @@ impl super::stub::TargetGrpcProxies for TargetGrpcProxies {
                     "/compute/v1/projects/{}/global/targetGrpcProxies",
                     var_project,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -70843,6 +76222,11 @@ impl super::stub::TargetGrpcProxies for TargetGrpcProxies {
                     "/compute/v1/projects/{}/global/targetGrpcProxies/{}",
                     var_project, var_target_grpc_proxy,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = req
@@ -70913,7 +76297,7 @@ impl super::stub::TargetGrpcProxies for TargetGrpcProxies {
                     var_project, var_operation,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/operations/{}", operation,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -71017,7 +76401,7 @@ impl super::stub::TargetHttpProxies for TargetHttpProxies {
                     var_project,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/projects/{}", project,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -71108,6 +76492,11 @@ impl super::stub::TargetHttpProxies for TargetHttpProxies {
                     "/compute/v1/projects/{}/global/targetHttpProxies/{}",
                     var_project, var_target_http_proxy,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = req
@@ -71177,6 +76566,11 @@ impl super::stub::TargetHttpProxies for TargetHttpProxies {
                     "/compute/v1/projects/{}/global/targetHttpProxies/{}",
                     var_project, var_target_http_proxy,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -71238,6 +76632,11 @@ impl super::stub::TargetHttpProxies for TargetHttpProxies {
                     "/compute/v1/projects/{}/global/targetHttpProxies",
                     var_project,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req
@@ -71297,6 +76696,11 @@ impl super::stub::TargetHttpProxies for TargetHttpProxies {
                     "/compute/v1/projects/{}/global/targetHttpProxies",
                     var_project,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -71378,6 +76782,11 @@ impl super::stub::TargetHttpProxies for TargetHttpProxies {
                     "/compute/v1/projects/{}/global/targetHttpProxies/{}",
                     var_project, var_target_http_proxy,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = req
@@ -71446,6 +76855,14 @@ impl super::stub::TargetHttpProxies for TargetHttpProxies {
                 let path = format!(
                     "/compute/v1/projects/{}/targetHttpProxies/{}/setUrlMap",
                     var_project, var_target_http_proxy,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/targetHttpProxies/{}",
+                    var_project, var_target_http_proxy,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -71517,7 +76934,7 @@ impl super::stub::TargetHttpProxies for TargetHttpProxies {
                     var_project, var_operation,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/operations/{}", operation,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -71621,7 +77038,7 @@ impl super::stub::TargetHttpsProxies for TargetHttpsProxies {
                     var_project,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/projects/{}", project,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -71714,6 +77131,11 @@ impl super::stub::TargetHttpsProxies for TargetHttpsProxies {
                     "/compute/v1/projects/{}/global/targetHttpsProxies/{}",
                     var_project, var_target_https_proxy,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = req
@@ -71787,6 +77209,11 @@ impl super::stub::TargetHttpsProxies for TargetHttpsProxies {
                     "/compute/v1/projects/{}/global/targetHttpsProxies/{}",
                     var_project, var_target_https_proxy,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -71850,6 +77277,11 @@ impl super::stub::TargetHttpsProxies for TargetHttpsProxies {
                     "/compute/v1/projects/{}/global/targetHttpsProxies",
                     var_project,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req
@@ -71909,6 +77341,11 @@ impl super::stub::TargetHttpsProxies for TargetHttpsProxies {
                     "/compute/v1/projects/{}/global/targetHttpsProxies",
                     var_project,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -71992,6 +77429,11 @@ impl super::stub::TargetHttpsProxies for TargetHttpsProxies {
                     "/compute/v1/projects/{}/global/targetHttpsProxies/{}",
                     var_project, var_target_https_proxy,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = req
@@ -72065,6 +77507,11 @@ impl super::stub::TargetHttpsProxies for TargetHttpsProxies {
                     "/compute/v1/projects/{}/global/targetHttpsProxies/{}/setCertificateMap",
                     var_project, var_target_https_proxy,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req
@@ -72138,6 +77585,11 @@ impl super::stub::TargetHttpsProxies for TargetHttpsProxies {
                     "/compute/v1/projects/{}/global/targetHttpsProxies/{}/setQuicOverride",
                     var_project, var_target_https_proxy,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req
@@ -72210,6 +77662,14 @@ impl super::stub::TargetHttpsProxies for TargetHttpsProxies {
                 let path = format!(
                     "/compute/v1/projects/{}/targetHttpsProxies/{}/setSslCertificates",
                     var_project, var_target_https_proxy,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/targetHttpsProxies/{}",
+                    var_project, var_target_https_proxy,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -72284,6 +77744,11 @@ impl super::stub::TargetHttpsProxies for TargetHttpsProxies {
                     "/compute/v1/projects/{}/global/targetHttpsProxies/{}/setSslPolicy",
                     var_project, var_target_https_proxy,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req
@@ -72356,6 +77821,14 @@ impl super::stub::TargetHttpsProxies for TargetHttpsProxies {
                 let path = format!(
                     "/compute/v1/projects/{}/targetHttpsProxies/{}/setUrlMap",
                     var_project, var_target_https_proxy,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/targetHttpsProxies/{}",
+                    var_project, var_target_https_proxy,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -72429,7 +77902,7 @@ impl super::stub::TargetHttpsProxies for TargetHttpsProxies {
                     var_project, var_operation,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/operations/{}", operation,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -72533,7 +78006,7 @@ impl super::stub::TargetInstances for TargetInstances {
                     var_project,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/projects/{}", project,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -72627,6 +78100,14 @@ impl super::stub::TargetInstances for TargetInstances {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/targetInstances/{}",
                     var_project, var_zone, var_target_instance,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/targetInstances/{}",
+                    var_project, var_zone, var_target_instance,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::DELETE, path);
@@ -72706,6 +78187,14 @@ impl super::stub::TargetInstances for TargetInstances {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/targetInstances/{}",
                     var_project, var_zone, var_target_instance,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/targetInstances/{}",
+                    var_project, var_zone, var_target_instance,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -72777,6 +78266,14 @@ impl super::stub::TargetInstances for TargetInstances {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/targetInstances",
                     var_project, var_zone,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}",
+                    var_project, var_zone,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -72846,6 +78343,14 @@ impl super::stub::TargetInstances for TargetInstances {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/targetInstances",
                     var_project, var_zone,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}",
+                    var_project, var_zone,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -72937,6 +78442,14 @@ impl super::stub::TargetInstances for TargetInstances {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/targetInstances/{}/setSecurityPolicy",
                     var_project, var_zone, var_target_instance,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/targetInstances/{}",
+                    var_project, var_zone, var_target_instance,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -73016,6 +78529,14 @@ impl super::stub::TargetInstances for TargetInstances {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/targetInstances/{}/testIamPermissions",
                     var_project, var_zone, var_resource,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/targetInstances/{}",
+                    var_project, var_zone, var_resource,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -73091,6 +78612,14 @@ impl super::stub::TargetInstances for TargetInstances {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/operations/{}",
                     var_project, var_zone, var_operation,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/operations/{}",
+                    var_project, var_zone, var_operation,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -73207,6 +78736,14 @@ impl super::stub::TargetPools for TargetPools {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/targetPools/{}/addHealthCheck",
                     var_project, var_region, var_target_pool,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/targetPools/{}",
+                    var_project, var_region, var_target_pool,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -73286,6 +78823,14 @@ impl super::stub::TargetPools for TargetPools {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/targetPools/{}/addInstance",
                     var_project, var_region, var_target_pool,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/targetPools/{}",
+                    var_project, var_region, var_target_pool,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -73358,6 +78903,11 @@ impl super::stub::TargetPools for TargetPools {
                     "/compute/v1/projects/{}/aggregated/targetPools",
                     var_project,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -73451,6 +79001,14 @@ impl super::stub::TargetPools for TargetPools {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/targetPools/{}",
                     var_project, var_region, var_target_pool,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/targetPools/{}",
+                    var_project, var_region, var_target_pool,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::DELETE, path);
@@ -73530,6 +79088,14 @@ impl super::stub::TargetPools for TargetPools {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/targetPools/{}",
                     var_project, var_region, var_target_pool,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/targetPools/{}",
+                    var_project, var_region, var_target_pool,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -73605,6 +79171,14 @@ impl super::stub::TargetPools for TargetPools {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/targetPools/{}/getHealth",
                     var_project, var_region, var_target_pool,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/targetPools/{}",
+                    var_project, var_region, var_target_pool,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -73676,6 +79250,14 @@ impl super::stub::TargetPools for TargetPools {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/targetPools",
                     var_project, var_region,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}",
+                    var_project, var_region,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -73745,6 +79327,14 @@ impl super::stub::TargetPools for TargetPools {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/targetPools",
                     var_project, var_region,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}",
+                    var_project, var_region,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -73836,6 +79426,14 @@ impl super::stub::TargetPools for TargetPools {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/targetPools/{}/removeHealthCheck",
                     var_project, var_region, var_target_pool,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/targetPools/{}",
+                    var_project, var_region, var_target_pool,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -73915,6 +79513,14 @@ impl super::stub::TargetPools for TargetPools {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/targetPools/{}/removeInstance",
                     var_project, var_region, var_target_pool,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/targetPools/{}",
+                    var_project, var_region, var_target_pool,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -73994,6 +79600,14 @@ impl super::stub::TargetPools for TargetPools {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/targetPools/{}/setBackup",
                     var_project, var_region, var_target_pool,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/targetPools/{}",
+                    var_project, var_region, var_target_pool,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -74077,6 +79691,14 @@ impl super::stub::TargetPools for TargetPools {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/targetPools/{}/setSecurityPolicy",
                     var_project, var_region, var_target_pool,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/targetPools/{}",
+                    var_project, var_region, var_target_pool,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -74156,6 +79778,14 @@ impl super::stub::TargetPools for TargetPools {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/targetPools/{}/testIamPermissions",
                     var_project, var_region, var_resource,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/targetPools/{}",
+                    var_project, var_region, var_resource,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -74231,6 +79861,14 @@ impl super::stub::TargetPools for TargetPools {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/operations/{}",
                     var_project, var_region, var_operation,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/operations/{}",
+                    var_project, var_region, var_operation,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -74344,6 +79982,11 @@ impl super::stub::TargetSslProxies for TargetSslProxies {
                     "/compute/v1/projects/{}/global/targetSslProxies/{}",
                     var_project, var_target_ssl_proxy,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = req
@@ -74413,6 +80056,11 @@ impl super::stub::TargetSslProxies for TargetSslProxies {
                     "/compute/v1/projects/{}/global/targetSslProxies/{}",
                     var_project, var_target_ssl_proxy,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -74474,6 +80122,11 @@ impl super::stub::TargetSslProxies for TargetSslProxies {
                     "/compute/v1/projects/{}/global/targetSslProxies",
                     var_project,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req
@@ -74533,6 +80186,11 @@ impl super::stub::TargetSslProxies for TargetSslProxies {
                     "/compute/v1/projects/{}/global/targetSslProxies",
                     var_project,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -74614,6 +80272,11 @@ impl super::stub::TargetSslProxies for TargetSslProxies {
                     "/compute/v1/projects/{}/global/targetSslProxies/{}/setBackendService",
                     var_project, var_target_ssl_proxy,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req
@@ -74683,6 +80346,11 @@ impl super::stub::TargetSslProxies for TargetSslProxies {
                     "/compute/v1/projects/{}/global/targetSslProxies/{}/setCertificateMap",
                     var_project, var_target_ssl_proxy,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req
@@ -74752,6 +80420,11 @@ impl super::stub::TargetSslProxies for TargetSslProxies {
                     "/compute/v1/projects/{}/global/targetSslProxies/{}/setProxyHeader",
                     var_project, var_target_ssl_proxy,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req
@@ -74821,6 +80494,11 @@ impl super::stub::TargetSslProxies for TargetSslProxies {
                     "/compute/v1/projects/{}/global/targetSslProxies/{}/setSslCertificates",
                     var_project, var_target_ssl_proxy,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req
@@ -74890,6 +80568,11 @@ impl super::stub::TargetSslProxies for TargetSslProxies {
                     "/compute/v1/projects/{}/global/targetSslProxies/{}/setSslPolicy",
                     var_project, var_target_ssl_proxy,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req
@@ -74960,8 +80643,7 @@ impl super::stub::TargetSslProxies for TargetSslProxies {
                     var_project, var_resource,
                 );
 
-                let _resource_name =
-                    format!("//compute.googleapis.com/targetSslProxies/{}", resource,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -75028,7 +80710,7 @@ impl super::stub::TargetSslProxies for TargetSslProxies {
                     var_project, var_operation,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/operations/{}", operation,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -75132,7 +80814,7 @@ impl super::stub::TargetTcpProxies for TargetTcpProxies {
                     var_project,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/projects/{}", project,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -75223,6 +80905,11 @@ impl super::stub::TargetTcpProxies for TargetTcpProxies {
                     "/compute/v1/projects/{}/global/targetTcpProxies/{}",
                     var_project, var_target_tcp_proxy,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = req
@@ -75292,6 +80979,11 @@ impl super::stub::TargetTcpProxies for TargetTcpProxies {
                     "/compute/v1/projects/{}/global/targetTcpProxies/{}",
                     var_project, var_target_tcp_proxy,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -75353,6 +81045,11 @@ impl super::stub::TargetTcpProxies for TargetTcpProxies {
                     "/compute/v1/projects/{}/global/targetTcpProxies",
                     var_project,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req
@@ -75412,6 +81109,11 @@ impl super::stub::TargetTcpProxies for TargetTcpProxies {
                     "/compute/v1/projects/{}/global/targetTcpProxies",
                     var_project,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -75493,6 +81195,11 @@ impl super::stub::TargetTcpProxies for TargetTcpProxies {
                     "/compute/v1/projects/{}/global/targetTcpProxies/{}/setBackendService",
                     var_project, var_target_tcp_proxy,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req
@@ -75562,6 +81269,11 @@ impl super::stub::TargetTcpProxies for TargetTcpProxies {
                     "/compute/v1/projects/{}/global/targetTcpProxies/{}/setProxyHeader",
                     var_project, var_target_tcp_proxy,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req
@@ -75632,8 +81344,7 @@ impl super::stub::TargetTcpProxies for TargetTcpProxies {
                     var_project, var_resource,
                 );
 
-                let _resource_name =
-                    format!("//compute.googleapis.com/targetTcpProxies/{}", resource,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -75700,7 +81411,7 @@ impl super::stub::TargetTcpProxies for TargetTcpProxies {
                     var_project, var_operation,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/operations/{}", operation,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -75804,7 +81515,7 @@ impl super::stub::TargetVpnGateways for TargetVpnGateways {
                     var_project,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/projects/{}", project,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -75900,6 +81611,14 @@ impl super::stub::TargetVpnGateways for TargetVpnGateways {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/targetVpnGateways/{}",
                     var_project, var_region, var_target_vpn_gateway,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/targetVpnGateways/{}",
+                    var_project, var_region, var_target_vpn_gateway,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::DELETE, path);
@@ -75983,6 +81702,14 @@ impl super::stub::TargetVpnGateways for TargetVpnGateways {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/targetVpnGateways/{}",
                     var_project, var_region, var_target_vpn_gateway,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/targetVpnGateways/{}",
+                    var_project, var_region, var_target_vpn_gateway,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -76056,6 +81783,14 @@ impl super::stub::TargetVpnGateways for TargetVpnGateways {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/targetVpnGateways",
                     var_project, var_region,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}",
+                    var_project, var_region,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -76125,6 +81860,14 @@ impl super::stub::TargetVpnGateways for TargetVpnGateways {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/targetVpnGateways",
                     var_project, var_region,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}",
+                    var_project, var_region,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -76216,6 +81959,14 @@ impl super::stub::TargetVpnGateways for TargetVpnGateways {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/targetVpnGateways/{}/setLabels",
                     var_project, var_region, var_resource,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/targetVpnGateways/{}",
+                    var_project, var_region, var_resource,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -76295,6 +82046,14 @@ impl super::stub::TargetVpnGateways for TargetVpnGateways {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/operations/{}",
                     var_project, var_region, var_operation,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/operations/{}",
+                    var_project, var_region, var_operation,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -76401,6 +82160,11 @@ impl super::stub::UrlMaps for UrlMaps {
                     &[Segment::SingleWildcard],
                 )?;
                 let path = format!("/compute/v1/projects/{}/aggregated/urlMaps", var_project,);
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -76492,7 +82256,7 @@ impl super::stub::UrlMaps for UrlMaps {
                     var_project, var_url_map,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/urlMaps/{}", url_map,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = req
@@ -76563,7 +82327,7 @@ impl super::stub::UrlMaps for UrlMaps {
                     var_project, var_url_map,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/urlMaps/{}", url_map,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -76622,6 +82386,11 @@ impl super::stub::UrlMaps for UrlMaps {
                     &[Segment::SingleWildcard],
                 )?;
                 let path = format!("/compute/v1/projects/{}/global/urlMaps", var_project,);
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req
@@ -76686,7 +82455,7 @@ impl super::stub::UrlMaps for UrlMaps {
                     var_project, var_url_map,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/urlMaps/{}", url_map,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req
@@ -76749,6 +82518,11 @@ impl super::stub::UrlMaps for UrlMaps {
                     &[Segment::SingleWildcard],
                 )?;
                 let path = format!("/compute/v1/projects/{}/global/urlMaps", var_project,);
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -76831,7 +82605,7 @@ impl super::stub::UrlMaps for UrlMaps {
                     var_project, var_url_map,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/urlMaps/{}", url_map,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = req
@@ -76902,7 +82676,7 @@ impl super::stub::UrlMaps for UrlMaps {
                     var_project, var_resource,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/urlMaps/{}", resource,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -76969,7 +82743,7 @@ impl super::stub::UrlMaps for UrlMaps {
                     var_project, var_url_map,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/urlMaps/{}", url_map,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::PUT, path);
                 let builder = req
@@ -77040,7 +82814,7 @@ impl super::stub::UrlMaps for UrlMaps {
                     var_project, var_url_map,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/urlMaps/{}", url_map,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -77107,7 +82881,7 @@ impl super::stub::UrlMaps for UrlMaps {
                     var_project, var_operation,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/operations/{}", operation,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -77210,6 +82984,11 @@ impl super::stub::VpnGateways for VpnGateways {
                     "/compute/v1/projects/{}/aggregated/vpnGateways",
                     var_project,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -77303,6 +83082,14 @@ impl super::stub::VpnGateways for VpnGateways {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/vpnGateways/{}",
                     var_project, var_region, var_vpn_gateway,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/vpnGateways/{}",
+                    var_project, var_region, var_vpn_gateway,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::DELETE, path);
@@ -77382,6 +83169,14 @@ impl super::stub::VpnGateways for VpnGateways {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/vpnGateways/{}",
                     var_project, var_region, var_vpn_gateway,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/vpnGateways/{}",
+                    var_project, var_region, var_vpn_gateway,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -77457,6 +83252,14 @@ impl super::stub::VpnGateways for VpnGateways {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/vpnGateways/{}/getStatus",
                     var_project, var_region, var_vpn_gateway,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/vpnGateways/{}",
+                    var_project, var_region, var_vpn_gateway,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -77528,6 +83331,14 @@ impl super::stub::VpnGateways for VpnGateways {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/vpnGateways",
                     var_project, var_region,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}",
+                    var_project, var_region,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -77597,6 +83408,14 @@ impl super::stub::VpnGateways for VpnGateways {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/vpnGateways",
                     var_project, var_region,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}",
+                    var_project, var_region,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -77688,6 +83507,14 @@ impl super::stub::VpnGateways for VpnGateways {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/vpnGateways/{}/setLabels",
                     var_project, var_region, var_resource,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/vpnGateways/{}",
+                    var_project, var_region, var_resource,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -77767,6 +83594,14 @@ impl super::stub::VpnGateways for VpnGateways {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/vpnGateways/{}/testIamPermissions",
                     var_project, var_region, var_resource,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/vpnGateways/{}",
+                    var_project, var_region, var_resource,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -77842,6 +83677,14 @@ impl super::stub::VpnGateways for VpnGateways {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/operations/{}",
                     var_project, var_region, var_operation,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/operations/{}",
+                    var_project, var_region, var_operation,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -77948,6 +83791,11 @@ impl super::stub::VpnTunnels for VpnTunnels {
                     &[Segment::SingleWildcard],
                 )?;
                 let path = format!("/compute/v1/projects/{}/aggregated/vpnTunnels", var_project,);
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -78041,6 +83889,14 @@ impl super::stub::VpnTunnels for VpnTunnels {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/vpnTunnels/{}",
                     var_project, var_region, var_vpn_tunnel,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/vpnTunnels/{}",
+                    var_project, var_region, var_vpn_tunnel,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::DELETE, path);
@@ -78120,6 +83976,14 @@ impl super::stub::VpnTunnels for VpnTunnels {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/vpnTunnels/{}",
                     var_project, var_region, var_vpn_tunnel,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/vpnTunnels/{}",
+                    var_project, var_region, var_vpn_tunnel,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -78191,6 +84055,14 @@ impl super::stub::VpnTunnels for VpnTunnels {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/vpnTunnels",
                     var_project, var_region,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}",
+                    var_project, var_region,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -78260,6 +84132,14 @@ impl super::stub::VpnTunnels for VpnTunnels {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/vpnTunnels",
                     var_project, var_region,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}",
+                    var_project, var_region,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -78351,6 +84231,14 @@ impl super::stub::VpnTunnels for VpnTunnels {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/vpnTunnels/{}/setLabels",
                     var_project, var_region, var_resource,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/vpnTunnels/{}",
+                    var_project, var_region, var_resource,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -78430,6 +84318,14 @@ impl super::stub::VpnTunnels for VpnTunnels {
                 let path = format!(
                     "/compute/v1/projects/{}/regions/{}/operations/{}",
                     var_project, var_region, var_operation,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/regions/{}/operations/{}",
+                    var_project, var_region, var_operation,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -78549,6 +84445,11 @@ impl super::stub::WireGroups for WireGroups {
                     "/compute/v1/projects/{}/global/crossSiteNetworks/{}/wireGroups/{}",
                     var_project, var_cross_site_network, var_wire_group,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = req
@@ -78632,6 +84533,11 @@ impl super::stub::WireGroups for WireGroups {
                     "/compute/v1/projects/{}/global/crossSiteNetworks/{}/wireGroups/{}",
                     var_project, var_cross_site_network, var_wire_group,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -78707,6 +84613,11 @@ impl super::stub::WireGroups for WireGroups {
                     "/compute/v1/projects/{}/global/crossSiteNetworks/{}/wireGroups",
                     var_project, var_cross_site_network,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req
@@ -78784,6 +84695,11 @@ impl super::stub::WireGroups for WireGroups {
                     "/compute/v1/projects/{}/global/crossSiteNetworks/{}/wireGroups",
                     var_project, var_cross_site_network,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -78879,6 +84795,11 @@ impl super::stub::WireGroups for WireGroups {
                     "/compute/v1/projects/{}/global/crossSiteNetworks/{}/wireGroups/{}",
                     var_project, var_cross_site_network, var_wire_group,
                 );
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -78973,7 +84894,7 @@ impl super::stub::WireGroups for WireGroups {
                     var_project, var_operation,
                 );
 
-                let _resource_name = format!("//compute.googleapis.com/operations/{}", operation,);
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -79083,6 +85004,14 @@ impl super::stub::ZoneOperations for ZoneOperations {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/operations/{}",
                     var_project, var_zone, var_operation,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/operations/{}",
+                    var_project, var_zone, var_operation,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::DELETE, path);
@@ -79164,6 +85093,14 @@ impl super::stub::ZoneOperations for ZoneOperations {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/operations/{}",
                     var_project, var_zone, var_operation,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/operations/{}",
+                    var_project, var_zone, var_operation,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -79235,6 +85172,14 @@ impl super::stub::ZoneOperations for ZoneOperations {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/operations",
                     var_project, var_zone,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}",
+                    var_project, var_zone,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -79326,6 +85271,14 @@ impl super::stub::ZoneOperations for ZoneOperations {
                 let path = format!(
                     "/compute/v1/projects/{}/zones/{}/operations/{}/wait",
                     var_project, var_zone, var_operation,
+<<<<<<< HEAD
+=======
+                );
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}/operations/{}",
+                    var_project, var_zone, var_operation,
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -79420,6 +85373,14 @@ impl super::stub::Zones for Zones {
                     &[Segment::SingleWildcard],
                 )?;
                 let path = format!("/compute/v1/projects/{}/zones/{}", var_project, var_zone,);
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!(
+                    "//compute.googleapis.com/projects/{}/zones/{}",
+                    var_project, var_zone,
+                );
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
@@ -79478,6 +85439,11 @@ impl super::stub::Zones for Zones {
                     &[Segment::SingleWildcard],
                 )?;
                 let path = format!("/compute/v1/projects/{}/zones", var_project,);
+<<<<<<< HEAD
+=======
+
+                let _resource_name = format!("//compute.googleapis.com/projects/{}", var_project,);
+>>>>>>> 97baffe31 (update compute after multiple bindings and flat apis)
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
