@@ -57,7 +57,7 @@ impl Publisher {
     /// let publisher = Publisher::builder("projects/my-project/topics/topic").build().await?;
     /// # Ok(()) }
     /// ```
-    pub fn builder(topic: impl Into<String>) -> PublisherBuilder {
+    pub fn builder<T: Into<String>>(topic: T) -> PublisherBuilder {
         PublisherBuilder::new(topic.into())
     }
 
