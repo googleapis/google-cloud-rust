@@ -67,7 +67,7 @@ impl super::stub::Changes for Changes {
 
                 let _resource_name = format!(
                     "//dns.googleapis.com/projects/{}/managedZones/{}",
-                    project, managed_zone,
+                    var_project, var_managed_zone,
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -144,7 +144,7 @@ impl super::stub::Changes for Changes {
 
                 let _resource_name = format!(
                     "//dns.googleapis.com/projects/{}/managedZones/{}/changes/{}",
-                    project, managed_zone, change_id,
+                    var_project, var_managed_zone, var_change_id,
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -223,7 +223,7 @@ impl super::stub::Changes for Changes {
 
                 let _resource_name = format!(
                     "//dns.googleapis.com/projects/{}/managedZones/{}",
-                    project, managed_zone,
+                    var_project, var_managed_zone,
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -336,7 +336,7 @@ impl super::stub::DnsKeys for DnsKeys {
 
                 let _resource_name = format!(
                     "//dns.googleapis.com/projects/{}/managedZones/{}/dnsKeys/{}",
-                    project, managed_zone, dns_key_id,
+                    var_project, var_managed_zone, var_dns_key_id,
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -419,7 +419,7 @@ impl super::stub::DnsKeys for DnsKeys {
 
                 let _resource_name = format!(
                     "//dns.googleapis.com/projects/{}/managedZones/{}",
-                    project, managed_zone,
+                    var_project, var_managed_zone,
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -528,7 +528,7 @@ impl super::stub::ManagedZoneOperations for ManagedZoneOperations {
 
                 let _resource_name = format!(
                     "//dns.googleapis.com/projects/{}/managedZones/{}/operations/{}",
-                    project, managed_zone, operation,
+                    var_project, var_managed_zone, var_operation,
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -607,7 +607,7 @@ impl super::stub::ManagedZoneOperations for ManagedZoneOperations {
 
                 let _resource_name = format!(
                     "//dns.googleapis.com/projects/{}/managedZones/{}",
-                    project, managed_zone,
+                    var_project, var_managed_zone,
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -703,7 +703,7 @@ impl super::stub::ManagedZones for ManagedZones {
                 )?;
                 let path = format!("/dns/v1/projects/{}/managedZones", var_project,);
 
-                let _resource_name = format!("//dns.googleapis.com/projects/{}", project,);
+                let _resource_name = format!("//dns.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req.client_operation_id.iter().fold(builder, |builder, p| {
@@ -769,7 +769,7 @@ impl super::stub::ManagedZones for ManagedZones {
 
                 let _resource_name = format!(
                     "//dns.googleapis.com/projects/{}/managedZones/{}",
-                    project, managed_zone,
+                    var_project, var_managed_zone,
                 );
 
                 let builder = self.inner.builder(Method::DELETE, path);
@@ -848,7 +848,7 @@ impl super::stub::ManagedZones for ManagedZones {
 
                 let _resource_name = format!(
                     "//dns.googleapis.com/projects/{}/managedZones/{}",
-                    project, managed_zone,
+                    var_project, var_managed_zone,
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -912,7 +912,7 @@ impl super::stub::ManagedZones for ManagedZones {
                 )?;
                 let path = format!("/dns/v1/{}:getIamPolicy", var_resource,);
 
-                let _resource_name = format!("//dns.googleapis.com/{}", resource,);
+                let _resource_name = format!("//dns.googleapis.com/{}", var_resource,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -966,7 +966,7 @@ impl super::stub::ManagedZones for ManagedZones {
                 )?;
                 let path = format!("/dns/v1/projects/{}/managedZones", var_project,);
 
-                let _resource_name = format!("//dns.googleapis.com/projects/{}", project,);
+                let _resource_name = format!("//dns.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -1041,7 +1041,7 @@ impl super::stub::ManagedZones for ManagedZones {
 
                 let _resource_name = format!(
                     "//dns.googleapis.com/projects/{}/managedZones/{}",
-                    project, managed_zone,
+                    var_project, var_managed_zone,
                 );
 
                 let builder = self.inner.builder(Method::PATCH, path);
@@ -1105,7 +1105,7 @@ impl super::stub::ManagedZones for ManagedZones {
                 )?;
                 let path = format!("/dns/v1/{}:setIamPolicy", var_resource,);
 
-                let _resource_name = format!("//dns.googleapis.com/{}", resource,);
+                let _resource_name = format!("//dns.googleapis.com/{}", var_resource,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -1159,7 +1159,7 @@ impl super::stub::ManagedZones for ManagedZones {
                 )?;
                 let path = format!("/dns/v1/{}:testIamPermissions", var_resource,);
 
-                let _resource_name = format!("//dns.googleapis.com/{}", resource,);
+                let _resource_name = format!("//dns.googleapis.com/{}", var_resource,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
@@ -1222,7 +1222,7 @@ impl super::stub::ManagedZones for ManagedZones {
 
                 let _resource_name = format!(
                     "//dns.googleapis.com/projects/{}/managedZones/{}",
-                    project, managed_zone,
+                    var_project, var_managed_zone,
                 );
 
                 let builder = self.inner.builder(Method::PUT, path);
@@ -1299,7 +1299,7 @@ impl super::stub::ManagedZones for ManagedZones {
 
                 let _resource_name = format!(
                     "//dns.googleapis.com/projects/{}/managedZones/{}/operations/{}",
-                    project, managed_zone, operation,
+                    var_project, var_managed_zone, var_operation,
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -1406,7 +1406,7 @@ impl super::stub::Policies for Policies {
                 )?;
                 let path = format!("/dns/v1/projects/{}/policies", var_project,);
 
-                let _resource_name = format!("//dns.googleapis.com/projects/{}", project,);
+                let _resource_name = format!("//dns.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req.client_operation_id.iter().fold(builder, |builder, p| {
@@ -1469,7 +1469,7 @@ impl super::stub::Policies for Policies {
 
                 let _resource_name = format!(
                     "//dns.googleapis.com/projects/{}/policies/{}",
-                    project, policy,
+                    var_project, var_policy,
                 );
 
                 let builder = self.inner.builder(Method::DELETE, path);
@@ -1545,7 +1545,7 @@ impl super::stub::Policies for Policies {
 
                 let _resource_name = format!(
                     "//dns.googleapis.com/projects/{}/policies/{}",
-                    project, policy,
+                    var_project, var_policy,
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -1609,7 +1609,7 @@ impl super::stub::Policies for Policies {
                 )?;
                 let path = format!("/dns/v1/projects/{}/policies", var_project,);
 
-                let _resource_name = format!("//dns.googleapis.com/projects/{}", project,);
+                let _resource_name = format!("//dns.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -1677,7 +1677,7 @@ impl super::stub::Policies for Policies {
 
                 let _resource_name = format!(
                     "//dns.googleapis.com/projects/{}/policies/{}",
-                    project, policy,
+                    var_project, var_policy,
                 );
 
                 let builder = self.inner.builder(Method::PATCH, path);
@@ -1747,7 +1747,7 @@ impl super::stub::Policies for Policies {
 
                 let _resource_name = format!(
                     "//dns.googleapis.com/projects/{}/policies/{}",
-                    project, policy,
+                    var_project, var_policy,
                 );
 
                 let builder = self.inner.builder(Method::PUT, path);
@@ -1834,7 +1834,7 @@ impl super::stub::Projects for Projects {
                 )?;
                 let path = format!("/dns/v1/projects/{}", var_project,);
 
-                let _resource_name = format!("//dns.googleapis.com/projects/{}", project,);
+                let _resource_name = format!("//dns.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req.client_operation_id.iter().fold(builder, |builder, p| {
@@ -1923,7 +1923,7 @@ impl super::stub::ResourceRecordSets for ResourceRecordSets {
 
                 let _resource_name = format!(
                     "//dns.googleapis.com/projects/{}/managedZones/{}",
-                    project, managed_zone,
+                    var_project, var_managed_zone,
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -2004,7 +2004,7 @@ impl super::stub::ResourceRecordSets for ResourceRecordSets {
 
                 let _resource_name = format!(
                     "//dns.googleapis.com/projects/{}/managedZones/{}/rrsets/{}",
-                    project, managed_zone, name,
+                    var_project, var_managed_zone, var_name,
                 );
 
                 let builder = self.inner.builder(Method::DELETE, path);
@@ -2097,7 +2097,7 @@ impl super::stub::ResourceRecordSets for ResourceRecordSets {
 
                 let _resource_name = format!(
                     "//dns.googleapis.com/projects/{}/managedZones/{}/rrsets/{}",
-                    project, managed_zone, name,
+                    var_project, var_managed_zone, var_name,
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -2182,7 +2182,7 @@ impl super::stub::ResourceRecordSets for ResourceRecordSets {
 
                 let _resource_name = format!(
                     "//dns.googleapis.com/projects/{}/managedZones/{}",
-                    project, managed_zone,
+                    var_project, var_managed_zone,
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -2280,7 +2280,7 @@ impl super::stub::ResourceRecordSets for ResourceRecordSets {
 
                 let _resource_name = format!(
                     "//dns.googleapis.com/projects/{}/managedZones/{}/rrsets/{}",
-                    project, managed_zone, name,
+                    var_project, var_managed_zone, var_name,
                 );
 
                 let builder = self.inner.builder(Method::PATCH, path);
@@ -2379,7 +2379,7 @@ impl super::stub::ResponsePolicies for ResponsePolicies {
                 )?;
                 let path = format!("/dns/v1/projects/{}/responsePolicies", var_project,);
 
-                let _resource_name = format!("//dns.googleapis.com/projects/{}", project,);
+                let _resource_name = format!("//dns.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req.client_operation_id.iter().fold(builder, |builder, p| {
@@ -2445,7 +2445,7 @@ impl super::stub::ResponsePolicies for ResponsePolicies {
 
                 let _resource_name = format!(
                     "//dns.googleapis.com/projects/{}/responsePolicies/{}",
-                    project, response_policy,
+                    var_project, var_response_policy,
                 );
 
                 let builder = self.inner.builder(Method::DELETE, path);
@@ -2524,7 +2524,7 @@ impl super::stub::ResponsePolicies for ResponsePolicies {
 
                 let _resource_name = format!(
                     "//dns.googleapis.com/projects/{}/responsePolicies/{}",
-                    project, response_policy,
+                    var_project, var_response_policy,
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -2588,7 +2588,7 @@ impl super::stub::ResponsePolicies for ResponsePolicies {
                 )?;
                 let path = format!("/dns/v1/projects/{}/responsePolicies", var_project,);
 
-                let _resource_name = format!("//dns.googleapis.com/projects/{}", project,);
+                let _resource_name = format!("//dns.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -2659,7 +2659,7 @@ impl super::stub::ResponsePolicies for ResponsePolicies {
 
                 let _resource_name = format!(
                     "//dns.googleapis.com/projects/{}/responsePolicies/{}",
-                    project, response_policy,
+                    var_project, var_response_policy,
                 );
 
                 let builder = self.inner.builder(Method::PATCH, path);
@@ -2732,7 +2732,7 @@ impl super::stub::ResponsePolicies for ResponsePolicies {
 
                 let _resource_name = format!(
                     "//dns.googleapis.com/projects/{}/responsePolicies/{}",
-                    project, response_policy,
+                    var_project, var_response_policy,
                 );
 
                 let builder = self.inner.builder(Method::PUT, path);
@@ -2828,7 +2828,7 @@ impl super::stub::ResponsePolicyRules for ResponsePolicyRules {
 
                 let _resource_name = format!(
                     "//dns.googleapis.com/projects/{}/responsePolicies/{}",
-                    project, response_policy,
+                    var_project, var_response_policy,
                 );
 
                 let builder = self.inner.builder(Method::POST, path);
@@ -2907,7 +2907,7 @@ impl super::stub::ResponsePolicyRules for ResponsePolicyRules {
 
                 let _resource_name = format!(
                     "//dns.googleapis.com/projects/{}/responsePolicies/{}/rules/{}",
-                    project, response_policy, response_policy_rule,
+                    var_project, var_response_policy, var_response_policy_rule,
                 );
 
                 let builder = self.inner.builder(Method::DELETE, path);
@@ -3000,7 +3000,7 @@ impl super::stub::ResponsePolicyRules for ResponsePolicyRules {
 
                 let _resource_name = format!(
                     "//dns.googleapis.com/projects/{}/responsePolicies/{}/rules/{}",
-                    project, response_policy, response_policy_rule,
+                    var_project, var_response_policy, var_response_policy_rule,
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -3081,7 +3081,7 @@ impl super::stub::ResponsePolicyRules for ResponsePolicyRules {
 
                 let _resource_name = format!(
                     "//dns.googleapis.com/projects/{}/responsePolicies/{}",
-                    project, response_policy,
+                    var_project, var_response_policy,
                 );
 
                 let builder = self.inner.builder(Method::GET, path);
@@ -3165,7 +3165,7 @@ impl super::stub::ResponsePolicyRules for ResponsePolicyRules {
 
                 let _resource_name = format!(
                     "//dns.googleapis.com/projects/{}/responsePolicies/{}/rules/{}",
-                    project, response_policy, response_policy_rule,
+                    var_project, var_response_policy, var_response_policy_rule,
                 );
 
                 let builder = self.inner.builder(Method::PATCH, path);
@@ -3252,7 +3252,7 @@ impl super::stub::ResponsePolicyRules for ResponsePolicyRules {
 
                 let _resource_name = format!(
                     "//dns.googleapis.com/projects/{}/responsePolicies/{}/rules/{}",
-                    project, response_policy, response_policy_rule,
+                    var_project, var_response_policy, var_response_policy_rule,
                 );
 
                 let builder = self.inner.builder(Method::PUT, path);
