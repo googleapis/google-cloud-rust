@@ -58,6 +58,8 @@ impl LeaseLoop {
                             None => break,
                             Some(Action::Ack(ack_id)) => state.ack(ack_id),
                             Some(Action::Nack(ack_id)) => state.nack(ack_id),
+                            // TODO(#3964) - process exactly-once acks/nacks in the lease state
+                            _ => unreachable!("we do not return exactly-once handlers yet."),
                         }
                     },
                 }

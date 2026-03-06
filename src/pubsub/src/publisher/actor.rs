@@ -18,6 +18,7 @@ use crate::publisher::batch::Batch;
 use std::collections::{HashMap, VecDeque};
 use tokio::sync::{mpsc, oneshot};
 use tokio::task::JoinSet;
+use tokio_util::task::JoinMap;
 
 /// A command sent from the `Publisher` to the background Dispatcher actor.
 pub(crate) enum ToDispatcher {
@@ -54,7 +55,6 @@ pub(crate) struct BundledMessage {
 pub(crate) struct Dispatcher {
     topic_name: String,
     client: GapicPublisher,
-    #[allow(dead_code)]
     batching_options: BatchingOptions,
     rx: mpsc::UnboundedReceiver<ToDispatcher>,
 }
@@ -72,6 +72,38 @@ impl Dispatcher {
             rx,
             batching_options,
         }
+    }
+
+    pub(crate) fn spawn_actor(
+        &mut self,
+        key: String,
+        tasks: &mut JoinMap<String, ()>,
+    ) -> BatchActorHandle {
+        let (tx, rx) = tokio::sync::mpsc::unbounded_channel();
+        if key.is_empty() {
+            tasks.spawn(
+                key,
+                ConcurrentBatchActor::new(
+                    self.topic_name.clone(),
+                    self.client.clone(),
+                    self.batching_options.clone(),
+                    rx,
+                )
+                .run(),
+            );
+        } else {
+            tasks.spawn(
+                key,
+                SequentialBatchActor::new(
+                    self.topic_name.clone(),
+                    self.client.clone(),
+                    self.batching_options.clone(),
+                    rx,
+                )
+                .run(),
+            );
+        }
+        BatchActorHandle { sender: tx }
     }
 
     /// The main loop of the Dispatcher.
@@ -92,22 +124,26 @@ impl Dispatcher {
         // A dictionary of ordering key to outstanding publish operations.
         // We batch publish operations on the same ordering key together.
         // Publish without ordering keys are treated as having the key "".
-        // TODO(#4012): Remove batch actors when there are no outstanding operations on the ordering key.
-        let mut batch_actors: HashMap<String, mpsc::UnboundedSender<ToBatchActor>> = HashMap::new();
+        let mut batch_actors: HashMap<String, BatchActorHandle> = HashMap::new();
+        let mut actor_tasks: JoinMap<String, ()> = JoinMap::new();
         let delay = self.batching_options.delay_threshold;
-
         let timer = tokio::time::sleep(delay);
         // Pin the timer to the stack.
         tokio::pin!(timer);
         loop {
             tokio::select! {
+                _ = actor_tasks.join_next(), if !actor_tasks.is_empty() => {
+                    // TODO(#4012): Remove batch actors when there are no outstanding operations
+                    // on the ordering key.
+                    continue;
+                }
                 // Currently, the Dispatcher periodically flushes all batches on a shared timer.
                 // If needed, this can be moved into the batch actors such that each are running
                 // on a separate timer.
                 _ = &mut timer => {
                     for (_, batch_actor) in batch_actors.iter() {
                         let (tx, _) = oneshot::channel();
-                        if batch_actor.send(ToBatchActor::Flush(tx)).is_err() {
+                        if batch_actor.sender.send(ToBatchActor::Flush(tx)).is_err() {
                             return; // Stop the dispatcher if a batch actor is dropped.
                         }
                     }
@@ -120,35 +156,8 @@ impl Dispatcher {
                             let ordering_key = msg.msg.ordering_key.clone();
                             let batch_actor = batch_actors
                                 .entry(ordering_key.clone())
-                                .or_insert_with(|| {
-                                    let (tx, rx) = tokio::sync::mpsc::unbounded_channel();
-                                    match ordering_key.as_str() {
-                                        "" => {
-                                            tokio::spawn(
-                                                ConcurrentBatchActor::new(
-                                                    self.topic_name.clone(),
-                                                    self.client.clone(),
-                                                    self.batching_options.clone(),
-                                                    rx,
-                                                )
-                                                .run(),
-                                            );
-                                        },
-                                        _ => {
-                                            tokio::spawn(
-                                                SequentialBatchActor::new(
-                                                    self.topic_name.clone(),
-                                                    self.client.clone(),
-                                                    self.batching_options.clone(),
-                                                    rx,
-                                                )
-                                                .run(),
-                                            );
-                                        }
-                                    }
-                                    tx
-                                });
-                            if batch_actor.send(ToBatchActor::Publish(msg)).is_err() {
+                                .or_insert_with(|| self.spawn_actor(ordering_key.clone(), &mut actor_tasks));
+                            if batch_actor.sender.send(ToBatchActor::Publish(msg)).is_err() {
                                 return; // Stop the dispatcher if a batch actor is dropped.
                             }
                         },
@@ -156,7 +165,7 @@ impl Dispatcher {
                             let mut flush_set = JoinSet::new();
                             for (_, batch_actor) in batch_actors.iter() {
                                 let (tx, rx) = oneshot::channel();
-                                if batch_actor.send(ToBatchActor::Flush(tx)).is_err() {
+                                if batch_actor.sender.send(ToBatchActor::Flush(tx)).is_err() {
                                     return; // Stop the dispatcher if a batch actor is dropped.
                                 }
                                 flush_set.spawn(rx);
@@ -171,15 +180,21 @@ impl Dispatcher {
                             if let Some(batch_actor) = batch_actors.get_mut(&ordering_key) {
                                 // Send down the same tx for the BatchActors to directly signal completion
                                 // instead of spawning a new task.
-                                if batch_actor.send(ToBatchActor::ResumePublish()).is_err() {
+                                if batch_actor.sender.send(ToBatchActor::ResumePublish()).is_err() {
                                     return; // Stop the dispatcher if a batch actor is dropped.
                                 }
                             }
                         }
                         None => {
                             // Gracefully shutdown since the Publisher has dropped the Sender.
-                            // By dropping the batch actor Senders, they will individually handle the
+                            // By dropping the BatchActorHandles, they will individually handle the
                             // shutdown procedures.
+                            drop(batch_actors);
+                            // When we drop actor_tasks, some batch actors may not have started execution
+                            // so the batch actor is aborted with messages in its receiving channel.
+                            // We wait for the batch actors instead of aborting so that it can
+                            // gracefully shutdown.
+                            while actor_tasks.join_next().await.is_some() {};
                             break;
                         }
                     }
@@ -188,6 +203,11 @@ impl Dispatcher {
             }
         }
     }
+}
+
+#[derive(Debug)]
+pub(crate) struct BatchActorHandle {
+    sender: mpsc::UnboundedSender<ToBatchActor>,
 }
 
 #[derive(Debug)]

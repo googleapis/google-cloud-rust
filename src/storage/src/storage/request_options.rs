@@ -43,6 +43,7 @@ pub struct RequestOptions {
     pub(crate) automatic_decompression: bool,
     pub(crate) common_options: CommonOptions,
     pub(crate) bidi_attempt_timeout: Duration,
+    pub(crate) user_agent: Option<String>,
 }
 
 impl RequestOptions {
@@ -107,6 +108,10 @@ impl RequestOptions {
         self.common_options.resumable_upload_buffer_size
     }
 
+    pub fn with_user_agent(&mut self, v: impl Into<String>) {
+        self.user_agent = Some(v.into());
+    }
+
     fn new_with_policies(
         retry_policy: Arc<dyn RetryPolicy>,
         backoff_policy: Arc<dyn BackoffPolicy>,
@@ -125,6 +130,7 @@ impl RequestOptions {
             },
             automatic_decompression: false,
             bidi_attempt_timeout: DEFAULT_BIDI_ATTEMPT_TIMEOUT,
+            user_agent: None,
         }
     }
 
@@ -133,8 +139,11 @@ impl RequestOptions {
         options.set_backoff_policy(self.backoff_policy.clone());
         options.set_retry_policy(self.retry_policy.clone());
         options.set_retry_throttler(self.retry_throttler.clone());
-        if let Some(ref i) = self.idempotency {
+        if let Some(i) = &self.idempotency {
             options.set_idempotency(*i);
+        }
+        if let Some(s) = &self.user_agent {
+            options.set_user_agent(s);
         }
         options
     }
@@ -170,5 +179,14 @@ mod tests {
         options.idempotency = Some(true);
         let got = options.gax();
         assert_eq!(got.idempotent(), Some(true));
+    }
+
+    #[test]
+    fn gax_user_agent() {
+        let user_agent = "quick_foxes_lazy_dogs/1.2.3";
+        let mut options = RequestOptions::new();
+        options.with_user_agent(user_agent);
+        let got = options.gax();
+        assert_eq!(got.user_agent().as_deref(), Some(user_agent));
     }
 }

@@ -20,10 +20,17 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_talent_v4::client::CompanyService;
-/// let client = CompanyService::builder().build().await?;
-/// // use `client` to make requests to the Cloud Talent Solution API.
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = CompanyService::builder().build().await?;
+///     let parent = "parent_value";
+///     let mut list = client.list_companies()
+///         .set_parent(parent)
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
 /// # Ok(()) }
 /// ```
 ///
@@ -258,10 +265,13 @@ impl CompanyService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_talent_v4::client::Completion;
-/// let client = Completion::builder().build().await?;
-/// // use `client` to make requests to the Cloud Talent Solution API.
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = Completion::builder().build().await?;
+///     let response = client.complete_query()
+///         /* set fields */
+///         .send().await?;
+///     println!("response {:?}", response);
 /// # Ok(()) }
 /// ```
 ///
@@ -404,10 +414,13 @@ impl Completion {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_talent_v4::client::EventService;
-/// let client = EventService::builder().build().await?;
-/// // use `client` to make requests to the Cloud Talent Solution API.
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = EventService::builder().build().await?;
+///     let response = client.create_client_event()
+///         /* set fields */
+///         .send().await?;
+///     println!("response {:?}", response);
 /// # Ok(()) }
 /// ```
 ///
@@ -555,10 +568,17 @@ impl EventService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_talent_v4::client::JobService;
-/// let client = JobService::builder().build().await?;
-/// // use `client` to make requests to the Cloud Talent Solution API.
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = JobService::builder().build().await?;
+///     let parent = "parent_value";
+///     let mut list = client.list_jobs()
+///         .set_parent(parent)
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
 /// # Ok(()) }
 /// ```
 ///
@@ -958,10 +978,17 @@ impl JobService {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_talent_v4::client::TenantService;
-/// let client = TenantService::builder().build().await?;
-/// // use `client` to make requests to the Cloud Talent Solution API.
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = TenantService::builder().build().await?;
+///     let parent = "parent_value";
+///     let mut list = client.list_tenants()
+///         .set_parent(parent)
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
 /// # Ok(()) }
 /// ```
 ///

@@ -20,10 +20,14 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_pubsub::client::TopicAdmin;
-/// let client = TopicAdmin::builder().build().await?;
-/// // use `client` to make requests to the Cloud Pub/Sub API.
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = TopicAdmin::builder().build().await?;
+///     let topic = "topic_value";
+///     let response = client.get_topic()
+///         .set_topic(topic)
+///         .send().await?;
+///     println!("response {:?}", response);
 /// # Ok(()) }
 /// ```
 ///
@@ -307,10 +311,14 @@ impl TopicAdmin {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_pubsub::client::SubscriptionAdmin;
-/// let client = SubscriptionAdmin::builder().build().await?;
-/// // use `client` to make requests to the Cloud Pub/Sub API.
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = SubscriptionAdmin::builder().build().await?;
+///     let subscription = "subscription_value";
+///     let response = client.get_subscription()
+///         .set_subscription(subscription)
+///         .send().await?;
+///     println!("response {:?}", response);
 /// # Ok(()) }
 /// ```
 ///
@@ -729,10 +737,17 @@ impl SubscriptionAdmin {
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_pubsub::client::SchemaService;
-/// let client = SchemaService::builder().build().await?;
-/// // use `client` to make requests to the Cloud Pub/Sub API.
+/// use google_cloud_gax::paginator::ItemPaginator as _;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = SchemaService::builder().build().await?;
+///     let parent = "parent_value";
+///     let mut list = client.list_schemas()
+///         .set_parent(parent)
+///         .by_item();
+///     while let Some(item) = list.next().await.transpose()? {
+///         println!("{:?}", item);
+///     }
 /// # Ok(()) }
 /// ```
 ///

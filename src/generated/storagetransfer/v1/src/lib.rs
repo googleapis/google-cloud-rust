@@ -51,6 +51,25 @@ pub use google_cloud_gax::error::Error;
 #[allow(rustdoc::redundant_explicit_links)]
 pub mod stub;
 
+///
+/// # Example
+/// ```
+/// # use google_cloud_storagetransfer_v1::client::StorageTransferService;
+/// # extern crate wkt as google_cloud_wkt;
+/// use google_cloud_wkt::FieldMask;
+/// use google_cloud_storagetransfer_v1::model::AgentPool;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = StorageTransferService::builder().build().await?;
+///     let name = "name_value";
+///     let response = client.update_agent_pool()
+///         .set_agent_pool(
+///             AgentPool::new().set_name(name)/* set fields */
+///         )
+///         .set_update_mask(FieldMask::default().set_paths(["updated.field.path1", "updated.field.path2"]))
+///         .send().await?;
+///     println!("response {:?}", response);
+/// # Ok(()) }
+/// ```
 /// Concrete implementations of this client library traits.
 pub mod client;
 

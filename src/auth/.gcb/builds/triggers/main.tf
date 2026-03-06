@@ -213,8 +213,6 @@ resource "google_cloudbuild_trigger" "pull-request" {
       comment_control = "COMMENTS_ENABLED_FOR_EXTERNAL_CONTRIBUTORS_ONLY"
     }
   }
-
-  include_build_logs = "INCLUDE_BUILD_LOGS_WITH_STATUS"
 }
 
 resource "google_cloudbuild_trigger" "post-merge" {
@@ -238,8 +236,6 @@ resource "google_cloudbuild_trigger" "post-merge" {
       branch = "^main$"
     }
   }
-
-  include_build_logs = "INCLUDE_BUILD_LOGS_WITH_STATUS"
 }
 
 resource "google_pubsub_topic" "terraform_runner_topic" {

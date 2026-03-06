@@ -2656,6 +2656,174 @@ pub mod developer_connect {
         }
     }
 
+    /// The request builder for [DeveloperConnect::start_o_auth][crate::client::DeveloperConnect::start_o_auth] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_developerconnect_v1::builder::developer_connect::StartOAuth;
+    /// # async fn sample() -> google_cloud_developerconnect_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> StartOAuth {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct StartOAuth(RequestBuilder<crate::model::StartOAuthRequest>);
+
+    impl StartOAuth {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DeveloperConnect>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::StartOAuthRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::StartOAuthResponse> {
+            (*self.0.stub)
+                .start_o_auth(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [account_connector][crate::model::StartOAuthRequest::account_connector].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_account_connector<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.account_connector = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for StartOAuth {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [DeveloperConnect::finish_o_auth][crate::client::DeveloperConnect::finish_o_auth] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_developerconnect_v1::builder::developer_connect::FinishOAuth;
+    /// # async fn sample() -> google_cloud_developerconnect_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> FinishOAuth {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct FinishOAuth(RequestBuilder<crate::model::FinishOAuthRequest>);
+
+    impl FinishOAuth {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DeveloperConnect>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::FinishOAuthRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::FinishOAuthResponse> {
+            (*self.0.stub)
+                .finish_o_auth(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [account_connector][crate::model::FinishOAuthRequest::account_connector].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_account_connector<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.account_connector = v.into();
+            self
+        }
+
+        /// Sets the value of [params][crate::model::FinishOAuthRequest::params].
+        ///
+        /// Note that all the setters affecting `params` are
+        /// mutually exclusive.
+        pub fn set_params<T: Into<Option<crate::model::finish_o_auth_request::Params>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.params = v.into();
+            self
+        }
+
+        /// Sets the value of [params][crate::model::FinishOAuthRequest::params]
+        /// to hold a `OauthParams`.
+        ///
+        /// Note that all the setters affecting `params` are
+        /// mutually exclusive.
+        pub fn set_oauth_params<
+            T: std::convert::Into<std::boxed::Box<crate::model::finish_o_auth_request::OAuthParams>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_oauth_params(v);
+            self
+        }
+
+        /// Sets the value of [params][crate::model::FinishOAuthRequest::params]
+        /// to hold a `GoogleOauthParams`.
+        ///
+        /// Note that all the setters affecting `params` are
+        /// mutually exclusive.
+        pub fn set_google_oauth_params<
+            T: std::convert::Into<
+                    std::boxed::Box<crate::model::finish_o_auth_request::GoogleOAuthParams>,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_google_oauth_params(v);
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for FinishOAuth {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
     /// The request builder for [DeveloperConnect::list_locations][crate::client::DeveloperConnect::list_locations] calls.
     ///
     /// # Example
@@ -3801,6 +3969,186 @@ pub mod insights_config_service {
 
     #[doc(hidden)]
     impl crate::RequestBuilder for DeleteInsightsConfig {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [InsightsConfigService::get_deployment_event][crate::client::InsightsConfigService::get_deployment_event] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_developerconnect_v1::builder::insights_config_service::GetDeploymentEvent;
+    /// # async fn sample() -> google_cloud_developerconnect_v1::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> GetDeploymentEvent {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct GetDeploymentEvent(RequestBuilder<crate::model::GetDeploymentEventRequest>);
+
+    impl GetDeploymentEvent {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InsightsConfigService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::GetDeploymentEventRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::DeploymentEvent> {
+            (*self.0.stub)
+                .get_deployment_event(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::GetDeploymentEventRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for GetDeploymentEvent {
+        fn request_options(&mut self) -> &mut crate::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [InsightsConfigService::list_deployment_events][crate::client::InsightsConfigService::list_deployment_events] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_developerconnect_v1::builder::insights_config_service::ListDeploymentEvents;
+    /// # async fn sample() -> google_cloud_developerconnect_v1::Result<()> {
+    /// use google_cloud_gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> ListDeploymentEvents {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ListDeploymentEvents(RequestBuilder<crate::model::ListDeploymentEventsRequest>);
+
+    impl ListDeploymentEvents {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InsightsConfigService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::ListDeploymentEventsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<crate::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::ListDeploymentEventsResponse> {
+            (*self.0.stub)
+                .list_deployment_events(self.0.request, self.0.options)
+                .await
+                .map(crate::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl google_cloud_gax::paginator::Paginator<
+            crate::model::ListDeploymentEventsResponse,
+            crate::Error,
+        > {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            google_cloud_gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl google_cloud_gax::paginator::ItemPaginator<
+            crate::model::ListDeploymentEventsResponse,
+            crate::Error,
+        > {
+            use google_cloud_gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [parent][crate::model::ListDeploymentEventsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [page_size][crate::model::ListDeploymentEventsRequest::page_size].
+        pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.page_size = v.into();
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::ListDeploymentEventsRequest::page_token].
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.page_token = v.into();
+            self
+        }
+
+        /// Sets the value of [filter][crate::model::ListDeploymentEventsRequest::filter].
+        pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.filter = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl crate::RequestBuilder for ListDeploymentEvents {
         fn request_options(&mut self) -> &mut crate::RequestOptions {
             &mut self.0.options
         }

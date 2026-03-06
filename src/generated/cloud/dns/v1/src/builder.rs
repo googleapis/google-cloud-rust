@@ -3359,6 +3359,24 @@ pub mod resource_record_sets {
             self.by_page().items()
         }
 
+        /// Sets the value of [filter][crate::model::resource_record_sets::ListRequest::filter].
+        pub fn set_filter<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.filter = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [filter][crate::model::resource_record_sets::ListRequest::filter].
+        pub fn set_or_clear_filter<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.filter = v.map(|x| x.into());
+            self
+        }
+
         /// Sets the value of [managed_zone][crate::model::resource_record_sets::ListRequest::managed_zone].
         pub fn set_managed_zone<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.managed_zone = v.into();

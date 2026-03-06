@@ -51,7 +51,7 @@ pub enum PublishError {
 /// Represents an error that can occur when acknowledging a message.
 #[derive(thiserror::Error, Debug)]
 #[non_exhaustive]
-pub(crate) enum AckError {
+pub enum AckError {
     /// The message's lease expired before the client could acknowledge it.
     ///
     /// The message has not been acknowledged, and will be redelivered, maybe to
@@ -72,6 +72,23 @@ pub(crate) enum AckError {
         #[source]
         source: Arc<Error>,
     },
+
+    /// Lease management shutdown before the client could acknowledge the
+    /// message.
+    ///
+    /// The client did not acknowledge the message. The service will redeliver
+    /// message.
+    #[error(
+        "shutdown before attempting the acknowledgement. The message was not acknowledged, and will be redelivered."
+    )]
+    ShutdownBeforeAck,
+
+    /// Error during shutdown.
+    ///
+    /// The result of the acknowledgement is unknown. The service may or may not
+    /// redeliver the message.
+    #[error("error during shutdown. The result of the acknowledgement is unknown. {0}")]
+    Shutdown(#[source] Box<dyn std::error::Error + Send + Sync + 'static>),
 }
 
 #[cfg(test)]

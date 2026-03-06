@@ -231,7 +231,7 @@ pub enum Code {
 }
 
 impl Code {
-    pub fn name(&self) -> &str {
+    pub fn name(&self) -> &'static str {
         match self {
             Code::Ok => "OK",
             Code::Cancelled => "CANCELLED",

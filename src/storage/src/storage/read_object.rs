@@ -26,6 +26,7 @@ use crate::storage::request_options::RequestOptions;
 use gaxi::attempt_info::AttemptInfo;
 use gaxi::http::HttpRequestBuilder;
 use gaxi::http::reqwest::{HeaderValue, Method, Response};
+use google_cloud_gax::options::internal::{PathTemplate, RequestOptionsExt, ResourceName};
 
 /// The request builder for [Storage::read_object][crate::client::Storage::read_object] calls.
 ///
@@ -406,6 +407,25 @@ where
         self
     }
 
+    /// Sets the `User-Agent` header for this request.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// let response = client
+    ///     .read_object("projects/_/buckets/my-bucket", "my-object")
+    ///     .with_user_agent("my-app/1.0.0")
+    ///     .send()
+    ///     .await?;
+    /// println!("response details={response:?}");
+    /// # Ok(()) }
+    /// ```
+    pub fn with_user_agent(mut self, user_agent: impl Into<String>) -> Self {
+        self.options.user_agent = Some(user_agent.into());
+        self
+    }
+
     /// Sends the request.
     pub async fn send(self) -> Result<ReadObjectResponse> {
         self.stub.read_object(self.request, self.options).await
@@ -427,8 +447,9 @@ impl Reader {
         let backoff = self.options.backoff_policy.clone();
         let mut count = 0;
         let inner = async move |_| {
+            let current = count;
             count += 1;
-            self.read_attempt(count).await
+            self.read_attempt(current).await
         };
 
         google_cloud_gax::retry_loop_internal::retry_loop(
@@ -444,7 +465,14 @@ impl Reader {
 
     async fn read_attempt(&self, attempt_count: u32) -> Result<Response> {
         let builder = self.http_request_builder().await?;
-        let options = self.options.gax();
+        let options = self
+            .options
+            .gax()
+            .insert_extension(PathTemplate("/storage/v1/b/{bucket}/o/{object}"))
+            .insert_extension(ResourceName(format!(
+                "//storage.googleapis.com/{}",
+                self.request.bucket
+            )));
         let response = builder
             .send(options, AttemptInfo::new(attempt_count))
             .await?;
@@ -956,6 +984,45 @@ mod tests {
             ),
             "err={err:?}"
         );
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn read_object_with_user_agent() -> Result {
+        use http::header::USER_AGENT;
+
+        let user_agent = "quick_fox_lazy_dog/1.2.3";
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path("GET", "/storage/v1/b/test-bucket/o/test-object"),
+                request::headers(contains(("accept-encoding", "gzip"))),
+                request::headers(contains((USER_AGENT.as_str(), user_agent))),
+                request::query(url_decoded(contains(("alt", "media")))),
+            ])
+            .respond_with(
+                status_code(200)
+                    .body("hello world")
+                    .append_header("x-goog-generation", 123456),
+            ),
+        );
+
+        let client = Storage::builder()
+            .with_endpoint(format!("http://{}", server.addr()))
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+        let mut reader = client
+            .read_object("projects/_/buckets/test-bucket", "test-object")
+            .with_user_agent(user_agent)
+            .send()
+            .await?;
+        let mut got = Vec::new();
+        while let Some(b) = reader.next().await.transpose()? {
+            got.extend_from_slice(&b);
+        }
+        assert_eq!(bytes::Bytes::from_owner(got), "hello world");
 
         Ok(())
     }

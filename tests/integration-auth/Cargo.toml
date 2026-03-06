@@ -41,6 +41,7 @@ google-cloud-bigquery-v2        = { workspace = true, features = ["default"] }
 google-cloud-iam-credentials-v1 = { workspace = true, features = ["default"] }
 google-cloud-language-v2        = { workspace = true, features = ["default"] }
 google-cloud-secretmanager-v1   = { workspace = true, features = ["default"] }
+google-cloud-test-utils         = { workspace = true }
 
 [dev-dependencies]
 serial_test = { workspace = true }

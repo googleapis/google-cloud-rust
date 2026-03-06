@@ -20,10 +20,14 @@
 ///
 /// # Example
 /// ```
-/// # async fn sample() -> google_cloud_gax::client_builder::Result<()> {
 /// # use google_cloud_datastore_admin_v1::client::DatastoreAdmin;
-/// let client = DatastoreAdmin::builder().build().await?;
-/// // use `client` to make requests to the Cloud Datastore API.
+/// use google_cloud_lro::Poller;
+/// # async fn sample() -> Result<(), Box<dyn std::error::Error>> {
+///     let client = DatastoreAdmin::builder().build().await?;
+///     let response = client.export_entities()
+///         /* set fields */
+///         .poller().until_done().await?;
+///     println!("response {:?}", response);
 /// # Ok(()) }
 /// ```
 ///

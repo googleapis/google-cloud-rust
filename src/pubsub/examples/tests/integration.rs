@@ -15,6 +15,7 @@
 #[cfg(all(test, feature = "run-integration-tests"))]
 mod tests {
     use google_cloud_pubsub::client::*;
+    use google_cloud_test_utils::errors::anydump;
     use pubsub_samples::*;
 
     #[tokio::test]
@@ -22,12 +23,12 @@ mod tests {
         let client = TopicAdmin::builder().build().await?;
         let mut topics = Vec::new();
 
-        let result = run_topic_samples(&mut topics).await;
-
+        let result = run_topic_samples(&mut topics).await.inspect_err(anydump);
         for name in topics {
-            if let Err(e) = cleanup_test_topic(&client, &name).await {
-                println!("Error cleaning up test topic {name}: {e:?}");
-            }
+            let _ = cleanup_test_topic(&client, &name)
+                .await
+                .inspect_err(|e| println!("Error cleaning up topic {name}: {e:?}"))
+                .inspect_err(anydump);
         }
         result
     }
@@ -42,14 +43,16 @@ mod tests {
         let result = run_subscription_samples(&mut subscriptions, &topic.name).await;
 
         for name in subscriptions {
-            if let Err(e) = cleanup_test_subscription(&client, &name).await {
-                println!("Error cleaning up test subscription {name}: {e:?}");
-            }
+            let _ = cleanup_test_subscription(&client, &name)
+                .await
+                .inspect_err(|e| eprintln!("Error cleaning up subscription {name}: {e:?}"))
+                .inspect_err(anydump);
         }
 
-        if let Err(e) = cleanup_test_topic(&topic_admin, &topic.name).await {
-            println!("Error cleaning up test topic {}: {e:?}", topic.name);
-        }
+        let _ = cleanup_test_topic(&topic_admin, &topic.name)
+            .await
+            .inspect_err(|e| eprintln!("Error cleaning up test topic {}: {e:?}", topic.name))
+            .inspect_err(anydump);
 
         result
     }
@@ -62,9 +65,10 @@ mod tests {
         let result = run_schema_samples(&mut schemas).await;
 
         for name in schemas {
-            if let Err(e) = cleanup_test_schema(&client, &name).await {
-                println!("Error cleaning up test schema {name}: {e:?}");
-            }
+            let _ = cleanup_test_schema(&client, &name)
+                .await
+                .inspect_err(|e| eprintln!("Error cleaning up schema {name}: {e:?}"))
+                .inspect_err(anydump);
         }
 
         result

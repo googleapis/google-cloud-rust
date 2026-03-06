@@ -805,6 +805,25 @@ where
         self
     }
 
+    /// Sets the `User-Agent` header for this request.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// let mut response = client
+    ///     .write_object("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .with_user_agent("my-app/1.0.0")
+    ///     .send_buffered()
+    ///     .await?;
+    /// println!("response details={response:?}");
+    /// # Ok(()) }
+    /// ```
+    pub fn with_user_agent(mut self, user_agent: impl Into<String>) -> Self {
+        self.options.user_agent = Some(user_agent.into());
+        self
+    }
+
     fn mut_resource(&mut self) -> &mut crate::model::Object {
         self.request
             .spec
@@ -1293,12 +1312,16 @@ mod tests {
         );
         assert_eq!(request.options.resumable_upload_threshold(), 123);
         assert_eq!(request.options.resumable_upload_buffer_size(), 234);
+        assert_eq!(request.options.user_agent, None);
 
+        let user_agent = "quick_foxes_lazy_dogs/1.0.0";
         let request = WriteObject::new(stub, "projects/_/buckets/bucket", "object", "", options)
             .with_resumable_upload_threshold(345_usize)
-            .with_resumable_upload_buffer_size(456_usize);
+            .with_resumable_upload_buffer_size(456_usize)
+            .with_user_agent(user_agent);
         assert_eq!(request.options.resumable_upload_threshold(), 345);
         assert_eq!(request.options.resumable_upload_buffer_size(), 456);
+        assert_eq!(request.options.user_agent.as_deref(), Some(user_agent));
     }
 
     const QUICK: &str = "the quick brown fox jumps over the lazy dog";
