@@ -16,6 +16,8 @@ use crate::generated::gapic_dataplane::client::Spanner as GapicSpanner;
 use crate::server_streaming::builder;
 use gaxi::options::{ClientConfig, Credentials};
 
+pub use crate::database_client::DatabaseClient;
+
 /// A client for the [Spanner] API.
 ///
 /// Use this client to interact with the Spanner service.
@@ -59,6 +61,31 @@ pub type ClientBuilder = google_cloud_gax::client_builder::ClientBuilder<Factory
 impl Spanner {
     pub fn builder() -> ClientBuilder {
         google_cloud_gax::client_builder::internal::new_builder(Factory)
+    }
+
+    /// Returns a new [DatabaseClientBuilder](crate::database_client::DatabaseClientBuilder) for
+    /// interacting with a specific database.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner::client::Spanner;
+    /// # async fn sample() -> anyhow::Result<()> {
+    ///     let spanner = Spanner::builder().build().await?;
+    ///     let database_client = spanner
+    ///         .database_client("projects/my-project/instances/my-instance/databases/my-db")
+    ///         .build()
+    ///         .await?;
+    ///     # Ok(())
+    /// # }
+    /// ```
+    ///
+    /// The returned `DatabaseClient` is intended to be a long-lived object and should be reused
+    /// for all operations on the database.
+    pub fn database_client(
+        &self,
+        database: impl Into<String>,
+    ) -> crate::builder::DatabaseClientBuilder {
+        crate::builder::DatabaseClientBuilder::new(self.clone(), database.into())
     }
 
     /// Creates a new client from the provided stub.
