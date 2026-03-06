@@ -276,12 +276,7 @@ where
         B: Into<String>,
         O: Into<String>,
     {
-        OpenObject::new(
-            bucket.into(),
-            object.into(),
-            self.stub.clone(),
-            self.options.clone(),
-        )
+        OpenObject::new(self.stub.clone(), bucket, object, self.options.clone())
     }
 }
 
