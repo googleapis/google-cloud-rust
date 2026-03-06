@@ -63,11 +63,7 @@ impl Spanner {
     /// Returns a new [DatabaseClientBuilder](crate::database_client::DatabaseClientBuilder) for
     /// interacting with a specific database.
     ///
-    /// The returned `DatabaseClient` is intended to be a long-lived object and should be reused
-    /// for all operations on the database.
-    ///
     /// # Example
-    ///
     /// ```
     /// # use google_cloud_spanner::client::Spanner;
     /// # async fn sample() -> anyhow::Result<()> {
@@ -76,9 +72,12 @@ impl Spanner {
     ///         .database_client("projects/my-project/instances/my-instance/databases/my-db")
     ///         .build()
     ///         .await?;
-    ///     Ok(())
+    ///     # Ok(())
     /// # }
     /// ```
+    ///
+    /// The returned `DatabaseClient` is intended to be a long-lived object and should be reused
+    /// for all operations on the database.
     pub fn database_client(
         &self,
         database: impl Into<String>,

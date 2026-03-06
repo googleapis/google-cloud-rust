@@ -19,16 +19,7 @@ use std::sync::Arc;
 /// A client for interacting with a specific Spanner database.
 ///
 /// `DatabaseClient` provides methods to execute transactions and queries.
-/// It holds a single multiplexed session for the database.
-///
-/// A `DatabaseClient` is intended to be a long-lived object, and normally an
-/// application will have a single `DatabaseClient` per database. The client is
-/// thread-safe and should be reused for all operations on the database.
-///
-/// Cloning a `DatabaseClient` is cheap, as it shares the underlying session and channel.
-///
 /// # Example
-///
 /// ```
 /// # use google_cloud_spanner::client::Spanner;
 /// # async fn sample() -> anyhow::Result<()> {
@@ -37,9 +28,18 @@ use std::sync::Arc;
 ///         .database_client("projects/my-project/instances/my-instance/databases/my-db")
 ///         .build()
 ///         .await?;
-///     Ok(())
+///     # Ok(())
 /// # }
 /// ```
+///
+/// `DatabaseClient` provides methods to execute transactions and queries.
+/// It holds a single multiplexed session for the database.
+///
+/// A `DatabaseClient` is intended to be a long-lived object, and normally an
+/// application will have a single `DatabaseClient` per database. The client is
+/// thread-safe and should be reused for all operations on the database.
+///
+/// Cloning a `DatabaseClient` is cheap, as it shares the underlying session and channel.
 #[derive(Clone, Debug)]
 pub struct DatabaseClient {
     #[allow(dead_code)]
@@ -68,12 +68,7 @@ impl DatabaseClientBuilder {
 
     /// Sets the database role for the client.
     ///
-    /// Database roles are used for Fine-Grained Access Control (FGAC).
-    /// You can assign a database role to a session, and that role determines the permissions for that session.
-    /// For more information, see [Access with FGAC](https://docs.cloud.google.com/spanner/docs/access-with-fgac).
-    ///
     /// # Example
-    ///
     /// ```
     /// # use google_cloud_spanner::client::Spanner;
     /// # async fn sample() -> anyhow::Result<()> {
@@ -83,9 +78,13 @@ impl DatabaseClientBuilder {
     ///         .with_database_role("my-role")
     ///         .build()
     ///         .await?;
-    ///     Ok(())
+    ///     # Ok(())
     /// # }
     /// ```
+    ///
+    /// Database roles are used for Fine-Grained Access Control (FGAC).
+    /// You can assign a database role to a session, and that role determines the permissions for that session.
+    /// For more information, see [Access with FGAC](https://docs.cloud.google.com/spanner/docs/access-with-fgac).
     pub fn with_database_role(mut self, role: impl Into<String>) -> Self {
         self.database_role = Some(role.into());
         self
@@ -95,7 +94,6 @@ impl DatabaseClientBuilder {
     /// session for the client.
     ///
     /// # Example
-    ///
     /// ```
     /// # use google_cloud_spanner::client::Spanner;
     /// # use google_cloud_gax::options::RequestOptions;
@@ -109,7 +107,7 @@ impl DatabaseClientBuilder {
     ///         .with_request_options(options)
     ///         .build()
     ///         .await?;
-    ///     Ok(())
+    ///     # Ok(())
     /// # }
     /// ```
     pub fn with_request_options(mut self, options: crate::RequestOptions) -> Self {
