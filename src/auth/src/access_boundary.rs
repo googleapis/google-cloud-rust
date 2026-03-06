@@ -25,7 +25,7 @@ use reqwest::Client;
 use std::clone::Clone;
 use std::fmt::Debug;
 use std::sync::{Arc, OnceLock};
-use tokio::sync::{RwLock, watch};
+use tokio::sync::watch;
 use tokio::time::{Duration, Instant, sleep};
 
 pub(crate) const REGIONAL_ACCESS_BOUNDARIES_ENV_VAR: &str = "GOOGLE_AUTH_ENABLE_TRUST_BOUNDARIES";
@@ -56,7 +56,6 @@ struct BoundaryValue {
     /// fetch a non-existent boundary.
     value: Option<String>,
     expires_at: Instant,
-    tag: EntityTag,
 }
 
 impl BoundaryValue {
@@ -64,7 +63,6 @@ impl BoundaryValue {
         Self {
             value,
             expires_at: Instant::now() + DEFAULT_TTL,
-            tag: EntityTag::new(),
         }
     }
 }
@@ -101,13 +99,9 @@ impl AccessBoundary {
             .unwrap_or(false)
     }
 
-    fn current_value(&self) -> Option<BoundaryValue> {
+    pub(crate) fn header_value(&self) -> Option<String> {
         let val = self.rx_header.borrow().clone();
         val.filter(|b| b.expires_at >= Instant::now()) // fail open if expired
-    }
-
-    pub(crate) fn header_value(&self) -> Option<String> {
-        self.current_value()
             .and_then(|b| b.value)
             .filter(|v| v != NO_OP_ENCODED_LOCATIONS)
     }
@@ -121,7 +115,84 @@ where
 {
     credentials: Arc<T>,
     access_boundary: Arc<AccessBoundary>,
-    creds_cache: Arc<RwLock<Option<(EntityTag, HeaderMap)>>>,
+    cache: Arc<EntityTagCache<Option<String>>>,
+}
+
+/// A cache designed to track cache validity for composite resources.
+/// It maps a dynamically requested "outer" `EntityTag` to the "inner" `EntityTag`
+/// provided by the underlying credentials layer, alongside a value that represents
+/// the current properties injected by the composite layer (e.g. an access boundary).
+#[derive(Debug)]
+struct EntityTagCache<T> {
+    state: std::sync::RwLock<Option<EntityTagState<T>>>,
+}
+
+/// The internal state representation for the cache.
+#[derive(Clone, Debug)]
+struct EntityTagState<T> {
+    /// The `EntityTag` exposed to callers of this composite provider.
+    outer_etag: EntityTag,
+    /// The `EntityTag` representing the state of the underlying inner credentials provider.
+    inner_etag: EntityTag,
+    /// The injected state (such as the current access boundary) tied to this cache entry.
+    value: T,
+}
+
+impl<T: PartialEq + Clone> EntityTagCache<T> {
+    fn new() -> Self {
+        Self {
+            state: std::sync::RwLock::new(None),
+        }
+    }
+
+    // Returns the inner etag if the outer etag matches the one provided by the caller
+    // and the current value matches the previous value. If not, it returns None (which
+    // indicates that the caller should fetch new credentials).
+    fn etag_if_unchanged(
+        &self,
+        outer_etag: Option<&EntityTag>,
+        current_value: &T,
+    ) -> Option<EntityTag> {
+        self.state.read().ok().and_then(|lock| {
+            lock.as_ref()
+                .filter(|s| Some(&s.outer_etag) == outer_etag && &s.value == current_value)
+                .map(|s| s.inner_etag.clone())
+        })
+    }
+
+    // Returns the outer etag if the inner etag matches the one provided by the caller
+    // and the value matches the one provided by the caller.
+    // If the inner etag does not match, it returns a new outer etag.
+    fn get_or_update(&self, inner_etag: EntityTag, value: T) -> EntityTag {
+        let get_match = |state: &Option<EntityTagState<T>>| {
+            state
+                .as_ref()
+                .filter(|s| s.inner_etag == inner_etag && s.value == value)
+                .map(|s| s.outer_etag.clone())
+        };
+
+        if let Ok(lock) = self.state.read() {
+            if let Some(outer) = get_match(&lock) {
+                return outer;
+            }
+        }
+
+        if let Ok(mut lock) = self.state.write() {
+            if let Some(outer) = get_match(&lock) {
+                return outer;
+            }
+
+            let new_outer = EntityTag::new();
+            *lock = Some(EntityTagState {
+                outer_etag: new_outer.clone(),
+                inner_etag,
+                value,
+            });
+            return new_outer;
+        }
+
+        EntityTag::new()
+    }
 }
 
 impl<T> CredentialsWithAccessBoundary<T>
@@ -138,7 +209,7 @@ where
         Self {
             credentials,
             access_boundary,
-            creds_cache: Arc::new(RwLock::new(None)),
+            cache: Arc::new(EntityTagCache::new()),
         }
     }
 
@@ -158,7 +229,7 @@ where
         Self {
             credentials,
             access_boundary,
-            creds_cache: Arc::new(RwLock::new(None)),
+            cache: Arc::new(EntityTagCache::new()),
         }
     }
 
@@ -175,66 +246,48 @@ where
     T: dynamic::AccessTokenCredentialsProvider + 'static,
 {
     async fn headers(&self, extensions: Extensions) -> Result<CacheableResource<HeaderMap>> {
-        let (creds_etag, headers) = self
-            .creds_cache
-            .try_read()
-            .ok()
-            .and_then(|cache| cache.clone())
-            .unzip();
-        println!("creds_etag: {creds_etag:?}");
+        let current_boundary_header = self.access_boundary.header_value();
 
-        let mut creds_extensions = Extensions::new();
-        if let Some(etag) = creds_etag.clone() {
-            creds_extensions.insert(etag);
-        };
+        // clone the extensions to override only etag and keep the rest
+        let mut extensions = extensions;
+        let outer_etag = extensions.get::<EntityTag>();
 
-        let cached_headers = self.credentials.headers(creds_extensions).await?;
+        let inner_etag = self
+            .cache
+            .etag_if_unchanged(outer_etag, &current_boundary_header);
+        let changed = inner_etag.is_none();
+
+        if let Some(inner_etag) = inner_etag {
+            extensions.insert(inner_etag);
+        }
+
+        let cached_headers = self.credentials.headers(extensions).await?;
 
         let (creds_etag, mut headers) = match cached_headers {
-            CacheableResource::New { entity_tag, data } => (entity_tag, data),
-            CacheableResource::NotModified => {
-                match (creds_etag, headers) {
-                    (Some(entity_tag), Some(headers)) => (entity_tag, headers),
-                    _ => unreachable!("no cached headers found"),
-                }
-            }
-        };
-
-        let current_boundary = self.access_boundary.current_value();
-        println!("current_boundary: {current_boundary:?}");
-
-        let boundary_tag = current_boundary.map(|b| b.tag);
-        println!("boundary_tag: {boundary_tag:?}");
-
-        let combined_etag = EntityTag::combine(&creds_etag, &boundary_tag);
-        println!("combined_etag: {combined_etag:?}");
-
-        let user_etag = extensions.get::<EntityTag>().cloned();
-        println!("user_etag: {user_etag:?}");
-
-        match user_etag {
-            Some(tag) if combined_etag.eq(&tag) => {
+            CacheableResource::NotModified if !changed => {
                 return Ok(CacheableResource::NotModified);
             }
-            _ => {}
+            CacheableResource::NotModified => {
+                unreachable!(
+                    "inner credentials returned NotModified when no valid EntityTag was provided"
+                );
+            }
+            CacheableResource::New { entity_tag, data } => (entity_tag, data),
         };
 
-        self.creds_cache
-            .try_write()
-            .ok()
-            .map(|mut cache| cache.replace((creds_etag.clone(), headers.clone())));
-
-        if let Some(value) = self.access_boundary.header_value() {
+        if let Some(value) = &current_boundary_header {
             headers.insert(
                 TRUST_BOUNDARY_HEADER,
-                HeaderValue::from_str(&value).map_err(errors::non_retryable)?,
+                HeaderValue::from_str(value).map_err(errors::non_retryable)?,
             );
         }
 
-        let combined_etag = EntityTag::combine(&creds_etag, &boundary_tag);
+        let new_outer = self
+            .cache
+            .get_or_update(creds_etag, current_boundary_header);
 
         Ok(CacheableResource::New {
-            entity_tag: combined_etag,
+            entity_tag: new_outer,
             data: headers,
         })
     }
@@ -439,10 +492,8 @@ pub(crate) fn external_account_lookup_url(
 #[cfg(test)]
 pub(crate) mod tests {
     use super::*;
-    use crate::credentials::AccessToken;
-    use crate::credentials::CredentialsProvider;
-    use crate::credentials::EntityTag;
     use crate::credentials::tests::{get_access_boundary_from_headers, get_token_from_headers};
+    use crate::credentials::{AccessToken, EntityTag};
     use crate::mds::MDS_DEFAULT_URI;
     use http::header::{AUTHORIZATION, HeaderValue};
     use http::{Extensions, HeaderMap};
@@ -822,7 +873,6 @@ pub(crate) mod tests {
         let _ = tx.send(Some(BoundaryValue {
             value: Some("old-value".to_string()),
             expires_at,
-            tag: EntityTag::new(),
         }));
 
         // value is valid
@@ -911,7 +961,7 @@ pub(crate) mod tests {
         let creds = CredentialsWithAccessBoundary {
             credentials: Arc::new(mock_creds),
             access_boundary: Arc::new(access_boundary),
-            creds_cache: Arc::new(RwLock::new(None)),
+            cache: Arc::new(EntityTagCache::new()),
         };
 
         // First call - no tag yet
@@ -995,6 +1045,22 @@ pub(crate) mod tests {
         assert_eq!(boundary.as_deref(), Some("0x321"), "{boundary:?}");
         assert_ne!(tag3, tag4, "New token should result in new ETags");
         println!("tag4: {tag4:?}");
+
+        // Using random tag - should return token and boundary just fine.
+        let mut ext = Extensions::new();
+        ext.insert(EntityTag::new());
+        let cached_headers = creds.headers(ext).await?;
+        let tag5 = match cached_headers {
+            CacheableResource::New { ref entity_tag, .. } => entity_tag.clone(),
+            _ => panic!("expected New with updated token"),
+        };
+        let boundary = get_access_boundary_from_headers(cached_headers);
+        assert_eq!(boundary.as_deref(), Some("0x321"), "{boundary:?}");
+        assert_eq!(
+            tag4, tag5,
+            "Same token and boundary should result in same ETags"
+        );
+        println!("tag5: {tag5:?}");
 
         Ok(())
     }

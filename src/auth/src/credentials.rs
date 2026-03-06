@@ -61,17 +61,6 @@ impl EntityTag {
         let value = ENTITY_TAG_GENERATOR.fetch_add(1, Ordering::SeqCst);
         Self(value)
     }
-
-    pub(crate) fn combine(a: &Self, b: &Option<Self>) -> Self {
-        match b {
-            Some(b) => {
-                // Use Cantor's pairing function to combine the two integer values
-                let sum = a.0 + b.0;
-                Self((sum * (sum + 1)) / 2 + b.0)
-            }
-            None => a.clone(),
-        }
-    }
 }
 
 /// Represents a resource that can be cached, along with its [EntityTag].
