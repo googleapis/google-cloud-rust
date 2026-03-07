@@ -50,7 +50,7 @@ impl super::stub::Datastream for Datastream {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -63,13 +63,18 @@ impl super::stub::Datastream for Datastream {
                 )?;
                 let path = format!("/v1/{}/connectionProfiles", var_parent,);
 
+                let resource_name = format!(
+                    "//datastream.googleapis.com/v1/{}/connectionProfiles",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -90,6 +95,12 @@ impl super::stub::Datastream for Datastream {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -112,7 +123,7 @@ impl super::stub::Datastream for Datastream {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -127,9 +138,11 @@ impl super::stub::Datastream for Datastream {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//datastream.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -152,6 +165,12 @@ impl super::stub::Datastream for Datastream {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -174,7 +193,7 @@ impl super::stub::Datastream for Datastream {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -187,13 +206,18 @@ impl super::stub::Datastream for Datastream {
                 )?;
                 let path = format!("/v1/{}/connectionProfiles", var_parent,);
 
+                let resource_name = format!(
+                    "//datastream.googleapis.com/v1/{}/connectionProfiles",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("connectionProfileId", &req.connection_profile_id)]);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = builder.query(&[("validateOnly", &req.validate_only)]);
                 let builder = builder.query(&[("force", &req.force)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -214,6 +238,12 @@ impl super::stub::Datastream for Datastream {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -319,7 +349,7 @@ impl super::stub::Datastream for Datastream {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -334,10 +364,12 @@ impl super::stub::Datastream for Datastream {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//datastream.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -360,6 +392,12 @@ impl super::stub::Datastream for Datastream {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -382,7 +420,7 @@ impl super::stub::Datastream for Datastream {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -395,9 +433,14 @@ impl super::stub::Datastream for Datastream {
                 )?;
                 let path = format!("/v1/{}/connectionProfiles:discover", var_parent,);
 
+                let resource_name = format!(
+                    "//datastream.googleapis.com/v1/{}/connectionProfiles",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -418,6 +461,12 @@ impl super::stub::Datastream for Datastream {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -440,7 +489,7 @@ impl super::stub::Datastream for Datastream {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -453,13 +502,16 @@ impl super::stub::Datastream for Datastream {
                 )?;
                 let path = format!("/v1/{}/streams", var_parent,);
 
+                let resource_name =
+                    format!("//datastream.googleapis.com/v1/{}/streams", var_parent,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -480,6 +532,12 @@ impl super::stub::Datastream for Datastream {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -502,7 +560,7 @@ impl super::stub::Datastream for Datastream {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -517,9 +575,11 @@ impl super::stub::Datastream for Datastream {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//datastream.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -542,6 +602,12 @@ impl super::stub::Datastream for Datastream {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -564,7 +630,7 @@ impl super::stub::Datastream for Datastream {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -577,13 +643,16 @@ impl super::stub::Datastream for Datastream {
                 )?;
                 let path = format!("/v1/{}/streams", var_parent,);
 
+                let resource_name =
+                    format!("//datastream.googleapis.com/v1/{}/streams", var_parent,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("streamId", &req.stream_id)]);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = builder.query(&[("validateOnly", &req.validate_only)]);
                 let builder = builder.query(&[("force", &req.force)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -604,6 +673,12 @@ impl super::stub::Datastream for Datastream {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -709,7 +784,7 @@ impl super::stub::Datastream for Datastream {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -724,10 +799,12 @@ impl super::stub::Datastream for Datastream {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//datastream.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -750,6 +827,12 @@ impl super::stub::Datastream for Datastream {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -772,7 +855,7 @@ impl super::stub::Datastream for Datastream {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -787,9 +870,11 @@ impl super::stub::Datastream for Datastream {
                 )?;
                 let path = format!("/v1/{}:run", var_name,);
 
+                let resource_name = format!("//datastream.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -812,6 +897,12 @@ impl super::stub::Datastream for Datastream {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -834,7 +925,7 @@ impl super::stub::Datastream for Datastream {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -851,9 +942,11 @@ impl super::stub::Datastream for Datastream {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//datastream.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -878,6 +971,12 @@ impl super::stub::Datastream for Datastream {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -900,7 +999,7 @@ impl super::stub::Datastream for Datastream {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -915,9 +1014,12 @@ impl super::stub::Datastream for Datastream {
                 )?;
                 let path = format!("/v1/{}/objects:lookup", var_parent,);
 
+                let resource_name =
+                    format!("//datastream.googleapis.com/v1/{}/objects", var_parent,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -940,6 +1042,12 @@ impl super::stub::Datastream for Datastream {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -962,7 +1070,7 @@ impl super::stub::Datastream for Datastream {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -977,11 +1085,14 @@ impl super::stub::Datastream for Datastream {
                 )?;
                 let path = format!("/v1/{}/objects", var_parent,);
 
+                let resource_name =
+                    format!("//datastream.googleapis.com/v1/{}/objects", var_parent,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1004,6 +1115,12 @@ impl super::stub::Datastream for Datastream {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1026,7 +1143,7 @@ impl super::stub::Datastream for Datastream {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_object = try_match(
                     Some(&req).map(|m| &m.object).map(|s| s.as_str()),
@@ -1043,9 +1160,11 @@ impl super::stub::Datastream for Datastream {
                 )?;
                 let path = format!("/v1/{}:startBackfillJob", var_object,);
 
+                let resource_name = format!("//datastream.googleapis.com/v1/{}", var_object,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1070,6 +1189,12 @@ impl super::stub::Datastream for Datastream {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1092,7 +1217,7 @@ impl super::stub::Datastream for Datastream {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_object = try_match(
                     Some(&req).map(|m| &m.object).map(|s| s.as_str()),
@@ -1109,9 +1234,11 @@ impl super::stub::Datastream for Datastream {
                 )?;
                 let path = format!("/v1/{}:stopBackfillJob", var_object,);
 
+                let resource_name = format!("//datastream.googleapis.com/v1/{}", var_object,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1136,6 +1263,12 @@ impl super::stub::Datastream for Datastream {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1158,7 +1291,7 @@ impl super::stub::Datastream for Datastream {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1171,11 +1304,13 @@ impl super::stub::Datastream for Datastream {
                 )?;
                 let path = format!("/v1/{}:fetchStaticIps", var_name,);
 
+                let resource_name = format!("//datastream.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1196,6 +1331,12 @@ impl super::stub::Datastream for Datastream {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1218,7 +1359,7 @@ impl super::stub::Datastream for Datastream {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1231,13 +1372,18 @@ impl super::stub::Datastream for Datastream {
                 )?;
                 let path = format!("/v1/{}/privateConnections", var_parent,);
 
+                let resource_name = format!(
+                    "//datastream.googleapis.com/v1/{}/privateConnections",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("privateConnectionId", &req.private_connection_id)]);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = builder.query(&[("force", &req.force)]);
                 let builder = builder.query(&[("validateOnly", &req.validate_only)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1258,6 +1404,12 @@ impl super::stub::Datastream for Datastream {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1280,7 +1432,7 @@ impl super::stub::Datastream for Datastream {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1295,9 +1447,11 @@ impl super::stub::Datastream for Datastream {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//datastream.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1320,6 +1474,12 @@ impl super::stub::Datastream for Datastream {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1342,7 +1502,7 @@ impl super::stub::Datastream for Datastream {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1355,13 +1515,18 @@ impl super::stub::Datastream for Datastream {
                 )?;
                 let path = format!("/v1/{}/privateConnections", var_parent,);
 
+                let resource_name = format!(
+                    "//datastream.googleapis.com/v1/{}/privateConnections",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1382,6 +1547,12 @@ impl super::stub::Datastream for Datastream {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1404,7 +1575,7 @@ impl super::stub::Datastream for Datastream {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1419,11 +1590,13 @@ impl super::stub::Datastream for Datastream {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//datastream.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = builder.query(&[("force", &req.force)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1446,6 +1619,12 @@ impl super::stub::Datastream for Datastream {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1468,7 +1647,7 @@ impl super::stub::Datastream for Datastream {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1483,11 +1662,14 @@ impl super::stub::Datastream for Datastream {
                 )?;
                 let path = format!("/v1/{}/routes", var_parent,);
 
+                let resource_name =
+                    format!("//datastream.googleapis.com/v1/{}/routes", var_parent,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("routeId", &req.route_id)]);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1510,6 +1692,12 @@ impl super::stub::Datastream for Datastream {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1532,7 +1720,7 @@ impl super::stub::Datastream for Datastream {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1549,9 +1737,11 @@ impl super::stub::Datastream for Datastream {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//datastream.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1576,6 +1766,12 @@ impl super::stub::Datastream for Datastream {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1598,7 +1794,7 @@ impl super::stub::Datastream for Datastream {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1613,13 +1809,16 @@ impl super::stub::Datastream for Datastream {
                 )?;
                 let path = format!("/v1/{}/routes", var_parent,);
 
+                let resource_name =
+                    format!("//datastream.googleapis.com/v1/{}/routes", var_parent,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1642,6 +1841,12 @@ impl super::stub::Datastream for Datastream {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1664,7 +1869,7 @@ impl super::stub::Datastream for Datastream {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1681,10 +1886,12 @@ impl super::stub::Datastream for Datastream {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//datastream.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1709,6 +1916,12 @@ impl super::stub::Datastream for Datastream {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),

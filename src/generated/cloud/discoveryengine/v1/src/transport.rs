@@ -85,6 +85,7 @@ impl super::stub::AssistantService for AssistantService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -99,6 +100,7 @@ impl super::stub::AssistantService for AssistantService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -115,6 +117,7 @@ impl super::stub::AssistantService for AssistantService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -129,6 +132,7 @@ impl super::stub::AssistantService for AssistantService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -145,6 +149,7 @@ impl super::stub::AssistantService for AssistantService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -159,6 +164,7 @@ impl super::stub::AssistantService for AssistantService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -175,6 +181,7 @@ impl super::stub::AssistantService for AssistantService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -189,6 +196,7 @@ impl super::stub::AssistantService for AssistantService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -205,6 +213,7 @@ impl super::stub::AssistantService for AssistantService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -219,6 +228,7 @@ impl super::stub::AssistantService for AssistantService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -235,6 +245,7 @@ impl super::stub::AssistantService for AssistantService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -249,6 +260,7 @@ impl super::stub::AssistantService for AssistantService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -265,6 +277,7 @@ impl super::stub::AssistantService for AssistantService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -279,6 +292,7 @@ impl super::stub::AssistantService for AssistantService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -295,6 +309,7 @@ impl super::stub::AssistantService for AssistantService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -309,6 +324,7 @@ impl super::stub::AssistantService for AssistantService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -496,6 +512,7 @@ impl super::stub::AssistantService for AssistantService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -506,6 +523,7 @@ impl super::stub::AssistantService for AssistantService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -518,6 +536,7 @@ impl super::stub::AssistantService for AssistantService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -528,6 +547,7 @@ impl super::stub::AssistantService for AssistantService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -540,6 +560,7 @@ impl super::stub::AssistantService for AssistantService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -550,6 +571,7 @@ impl super::stub::AssistantService for AssistantService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -562,6 +584,7 @@ impl super::stub::AssistantService for AssistantService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -572,6 +595,7 @@ impl super::stub::AssistantService for AssistantService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -584,6 +608,7 @@ impl super::stub::AssistantService for AssistantService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -594,6 +619,7 @@ impl super::stub::AssistantService for AssistantService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -606,6 +632,7 @@ impl super::stub::AssistantService for AssistantService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -616,6 +643,7 @@ impl super::stub::AssistantService for AssistantService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -628,6 +656,7 @@ impl super::stub::AssistantService for AssistantService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -638,6 +667,7 @@ impl super::stub::AssistantService for AssistantService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -650,6 +680,7 @@ impl super::stub::AssistantService for AssistantService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -660,6 +691,7 @@ impl super::stub::AssistantService for AssistantService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -1168,7 +1200,7 @@ impl super::stub::CmekConfigService for CmekConfigService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1182,9 +1214,11 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//discoveryengine.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -1200,9 +1234,11 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//discoveryengine.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1241,6 +1277,12 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1263,7 +1305,7 @@ impl super::stub::CmekConfigService for CmekConfigService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1276,9 +1318,14 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 )?;
                 let path = format!("/v1/{}/cmekConfigs", var_parent,);
 
+                let resource_name = format!(
+                    "//discoveryengine.googleapis.com/v1/{}/cmekConfigs",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1299,6 +1346,12 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1321,7 +1374,7 @@ impl super::stub::CmekConfigService for CmekConfigService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1336,9 +1389,11 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//discoveryengine.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1361,6 +1416,12 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1391,6 +1452,7 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -1405,6 +1467,7 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -1421,6 +1484,7 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -1435,6 +1499,7 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -1451,6 +1516,7 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -1465,6 +1531,7 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -1481,6 +1548,7 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -1495,6 +1563,7 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -1511,6 +1580,7 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -1525,6 +1595,7 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -1541,6 +1612,7 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -1555,6 +1627,7 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -1571,6 +1644,7 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -1585,6 +1659,7 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -1601,6 +1676,7 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -1615,6 +1691,7 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -1802,6 +1879,7 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -1812,6 +1890,7 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -1824,6 +1903,7 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -1834,6 +1914,7 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -1846,6 +1927,7 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -1856,6 +1938,7 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -1868,6 +1951,7 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -1878,6 +1962,7 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -1890,6 +1975,7 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -1900,6 +1986,7 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -1912,6 +1999,7 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -1922,6 +2010,7 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -1934,6 +2023,7 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -1944,6 +2034,7 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -1956,6 +2047,7 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -1966,6 +2058,7 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -2379,7 +2472,7 @@ impl super::stub::CompletionService for CompletionService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_data_store = try_match(
                     Some(&req).map(|m| &m.data_store).map(|s| s.as_str()),
@@ -2394,6 +2487,9 @@ impl super::stub::CompletionService for CompletionService {
                 )?;
                 let path = format!("/v1/{}:completeQuery", var_data_store,);
 
+                let resource_name =
+                    format!("//discoveryengine.googleapis.com/v1/{}", var_data_store,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("query", &req.query)]);
                 let builder = builder.query(&[("queryModel", &req.query_model)]);
@@ -2401,7 +2497,7 @@ impl super::stub::CompletionService for CompletionService {
                 let builder =
                     builder.query(&[("includeTailSuggestions", &req.include_tail_suggestions)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .or_else(|| {
                 let var_data_store = try_match(
@@ -2419,6 +2515,9 @@ impl super::stub::CompletionService for CompletionService {
                 )?;
                 let path = format!("/v1/{}:completeQuery", var_data_store,);
 
+                let resource_name =
+                    format!("//discoveryengine.googleapis.com/v1/{}", var_data_store,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("query", &req.query)]);
                 let builder = builder.query(&[("queryModel", &req.query_model)]);
@@ -2426,7 +2525,7 @@ impl super::stub::CompletionService for CompletionService {
                 let builder =
                     builder.query(&[("includeTailSuggestions", &req.include_tail_suggestions)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2468,6 +2567,12 @@ impl super::stub::CompletionService for CompletionService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2490,7 +2595,7 @@ impl super::stub::CompletionService for CompletionService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -2507,9 +2612,14 @@ impl super::stub::CompletionService for CompletionService {
                 )?;
                 let path = format!("/v1/{}/suggestionDenyListEntries:import", var_parent,);
 
+                let resource_name = format!(
+                    "//discoveryengine.googleapis.com/v1/{}/suggestionDenyListEntries",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -2525,9 +2635,14 @@ impl super::stub::CompletionService for CompletionService {
                 )?;
                 let path = format!("/v1/{}/suggestionDenyListEntries:import", var_parent,);
 
+                let resource_name = format!(
+                    "//discoveryengine.googleapis.com/v1/{}/suggestionDenyListEntries",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2569,6 +2684,12 @@ impl super::stub::CompletionService for CompletionService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2591,7 +2712,7 @@ impl super::stub::CompletionService for CompletionService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -2608,9 +2729,14 @@ impl super::stub::CompletionService for CompletionService {
                 )?;
                 let path = format!("/v1/{}/suggestionDenyListEntries:purge", var_parent,);
 
+                let resource_name = format!(
+                    "//discoveryengine.googleapis.com/v1/{}/suggestionDenyListEntries",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -2626,9 +2752,14 @@ impl super::stub::CompletionService for CompletionService {
                 )?;
                 let path = format!("/v1/{}/suggestionDenyListEntries:purge", var_parent,);
 
+                let resource_name = format!(
+                    "//discoveryengine.googleapis.com/v1/{}/suggestionDenyListEntries",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2670,6 +2801,12 @@ impl super::stub::CompletionService for CompletionService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2692,7 +2829,7 @@ impl super::stub::CompletionService for CompletionService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -2709,9 +2846,14 @@ impl super::stub::CompletionService for CompletionService {
                 )?;
                 let path = format!("/v1/{}/completionSuggestions:import", var_parent,);
 
+                let resource_name = format!(
+                    "//discoveryengine.googleapis.com/v1/{}/completionSuggestions",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -2727,9 +2869,14 @@ impl super::stub::CompletionService for CompletionService {
                 )?;
                 let path = format!("/v1/{}/completionSuggestions:import", var_parent,);
 
+                let resource_name = format!(
+                    "//discoveryengine.googleapis.com/v1/{}/completionSuggestions",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2771,6 +2918,12 @@ impl super::stub::CompletionService for CompletionService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2793,7 +2946,7 @@ impl super::stub::CompletionService for CompletionService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -2810,9 +2963,14 @@ impl super::stub::CompletionService for CompletionService {
                 )?;
                 let path = format!("/v1/{}/completionSuggestions:purge", var_parent,);
 
+                let resource_name = format!(
+                    "//discoveryengine.googleapis.com/v1/{}/completionSuggestions",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -2828,9 +2986,14 @@ impl super::stub::CompletionService for CompletionService {
                 )?;
                 let path = format!("/v1/{}/completionSuggestions:purge", var_parent,);
 
+                let resource_name = format!(
+                    "//discoveryengine.googleapis.com/v1/{}/completionSuggestions",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2872,6 +3035,12 @@ impl super::stub::CompletionService for CompletionService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2902,6 +3071,7 @@ impl super::stub::CompletionService for CompletionService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -2916,6 +3086,7 @@ impl super::stub::CompletionService for CompletionService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -2932,6 +3103,7 @@ impl super::stub::CompletionService for CompletionService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -2946,6 +3118,7 @@ impl super::stub::CompletionService for CompletionService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -2962,6 +3135,7 @@ impl super::stub::CompletionService for CompletionService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -2976,6 +3150,7 @@ impl super::stub::CompletionService for CompletionService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -2992,6 +3167,7 @@ impl super::stub::CompletionService for CompletionService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -3006,6 +3182,7 @@ impl super::stub::CompletionService for CompletionService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -3022,6 +3199,7 @@ impl super::stub::CompletionService for CompletionService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -3036,6 +3214,7 @@ impl super::stub::CompletionService for CompletionService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -3052,6 +3231,7 @@ impl super::stub::CompletionService for CompletionService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -3066,6 +3246,7 @@ impl super::stub::CompletionService for CompletionService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -3082,6 +3263,7 @@ impl super::stub::CompletionService for CompletionService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -3096,6 +3278,7 @@ impl super::stub::CompletionService for CompletionService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -3112,6 +3295,7 @@ impl super::stub::CompletionService for CompletionService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -3126,6 +3310,7 @@ impl super::stub::CompletionService for CompletionService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -3313,6 +3498,7 @@ impl super::stub::CompletionService for CompletionService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -3323,6 +3509,7 @@ impl super::stub::CompletionService for CompletionService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -3335,6 +3522,7 @@ impl super::stub::CompletionService for CompletionService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -3345,6 +3533,7 @@ impl super::stub::CompletionService for CompletionService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -3357,6 +3546,7 @@ impl super::stub::CompletionService for CompletionService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -3367,6 +3557,7 @@ impl super::stub::CompletionService for CompletionService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -3379,6 +3570,7 @@ impl super::stub::CompletionService for CompletionService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -3389,6 +3581,7 @@ impl super::stub::CompletionService for CompletionService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -3401,6 +3594,7 @@ impl super::stub::CompletionService for CompletionService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -3411,6 +3605,7 @@ impl super::stub::CompletionService for CompletionService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -3423,6 +3618,7 @@ impl super::stub::CompletionService for CompletionService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -3433,6 +3629,7 @@ impl super::stub::CompletionService for CompletionService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -3445,6 +3642,7 @@ impl super::stub::CompletionService for CompletionService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -3455,6 +3653,7 @@ impl super::stub::CompletionService for CompletionService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -3467,6 +3666,7 @@ impl super::stub::CompletionService for CompletionService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -3477,6 +3677,7 @@ impl super::stub::CompletionService for CompletionService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -3890,7 +4091,7 @@ impl super::stub::ControlService for ControlService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -3905,10 +4106,15 @@ impl super::stub::ControlService for ControlService {
                 )?;
                 let path = format!("/v1/{}/controls", var_parent,);
 
+                let resource_name = format!(
+                    "//discoveryengine.googleapis.com/v1/{}/controls",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("controlId", &req.control_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -3926,10 +4132,15 @@ impl super::stub::ControlService for ControlService {
                 )?;
                 let path = format!("/v1/{}/controls", var_parent,);
 
+                let resource_name = format!(
+                    "//discoveryengine.googleapis.com/v1/{}/controls",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("controlId", &req.control_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -3947,10 +4158,15 @@ impl super::stub::ControlService for ControlService {
                 )?;
                 let path = format!("/v1/{}/controls", var_parent,);
 
+                let resource_name = format!(
+                    "//discoveryengine.googleapis.com/v1/{}/controls",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("controlId", &req.control_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4011,6 +4227,12 @@ impl super::stub::ControlService for ControlService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4033,7 +4255,7 @@ impl super::stub::ControlService for ControlService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -4050,9 +4272,11 @@ impl super::stub::ControlService for ControlService {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//discoveryengine.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -4072,9 +4296,11 @@ impl super::stub::ControlService for ControlService {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//discoveryengine.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -4094,9 +4320,11 @@ impl super::stub::ControlService for ControlService {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//discoveryengine.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4163,6 +4391,12 @@ impl super::stub::ControlService for ControlService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4397,7 +4631,7 @@ impl super::stub::ControlService for ControlService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -4414,9 +4648,11 @@ impl super::stub::ControlService for ControlService {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//discoveryengine.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -4436,9 +4672,11 @@ impl super::stub::ControlService for ControlService {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//discoveryengine.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -4458,9 +4696,11 @@ impl super::stub::ControlService for ControlService {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//discoveryengine.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4527,6 +4767,12 @@ impl super::stub::ControlService for ControlService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4549,7 +4795,7 @@ impl super::stub::ControlService for ControlService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -4564,12 +4810,17 @@ impl super::stub::ControlService for ControlService {
                 )?;
                 let path = format!("/v1/{}/controls", var_parent,);
 
+                let resource_name = format!(
+                    "//discoveryengine.googleapis.com/v1/{}/controls",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -4587,12 +4838,17 @@ impl super::stub::ControlService for ControlService {
                 )?;
                 let path = format!("/v1/{}/controls", var_parent,);
 
+                let resource_name = format!(
+                    "//discoveryengine.googleapis.com/v1/{}/controls",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -4610,12 +4866,17 @@ impl super::stub::ControlService for ControlService {
                 )?;
                 let path = format!("/v1/{}/controls", var_parent,);
 
+                let resource_name = format!(
+                    "//discoveryengine.googleapis.com/v1/{}/controls",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4676,6 +4937,12 @@ impl super::stub::ControlService for ControlService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4706,6 +4973,7 @@ impl super::stub::ControlService for ControlService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -4720,6 +4988,7 @@ impl super::stub::ControlService for ControlService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -4736,6 +5005,7 @@ impl super::stub::ControlService for ControlService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -4750,6 +5020,7 @@ impl super::stub::ControlService for ControlService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -4766,6 +5037,7 @@ impl super::stub::ControlService for ControlService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -4780,6 +5052,7 @@ impl super::stub::ControlService for ControlService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -4796,6 +5069,7 @@ impl super::stub::ControlService for ControlService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -4810,6 +5084,7 @@ impl super::stub::ControlService for ControlService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -4826,6 +5101,7 @@ impl super::stub::ControlService for ControlService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -4840,6 +5116,7 @@ impl super::stub::ControlService for ControlService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -4856,6 +5133,7 @@ impl super::stub::ControlService for ControlService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -4870,6 +5148,7 @@ impl super::stub::ControlService for ControlService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -4886,6 +5165,7 @@ impl super::stub::ControlService for ControlService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -4900,6 +5180,7 @@ impl super::stub::ControlService for ControlService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -4916,6 +5197,7 @@ impl super::stub::ControlService for ControlService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -4930,6 +5212,7 @@ impl super::stub::ControlService for ControlService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -5117,6 +5400,7 @@ impl super::stub::ControlService for ControlService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -5127,6 +5411,7 @@ impl super::stub::ControlService for ControlService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -5139,6 +5424,7 @@ impl super::stub::ControlService for ControlService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -5149,6 +5435,7 @@ impl super::stub::ControlService for ControlService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -5161,6 +5448,7 @@ impl super::stub::ControlService for ControlService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -5171,6 +5459,7 @@ impl super::stub::ControlService for ControlService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -5183,6 +5472,7 @@ impl super::stub::ControlService for ControlService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -5193,6 +5483,7 @@ impl super::stub::ControlService for ControlService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -5205,6 +5496,7 @@ impl super::stub::ControlService for ControlService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -5215,6 +5507,7 @@ impl super::stub::ControlService for ControlService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -5227,6 +5520,7 @@ impl super::stub::ControlService for ControlService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -5237,6 +5531,7 @@ impl super::stub::ControlService for ControlService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -5249,6 +5544,7 @@ impl super::stub::ControlService for ControlService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -5259,6 +5555,7 @@ impl super::stub::ControlService for ControlService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -5271,6 +5568,7 @@ impl super::stub::ControlService for ControlService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -5281,6 +5579,7 @@ impl super::stub::ControlService for ControlService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -5680,7 +5979,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -5697,9 +5996,11 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 )?;
                 let path = format!("/v1/{}:converse", var_name,);
 
+                let resource_name = format!("//discoveryengine.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -5719,9 +6020,11 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 )?;
                 let path = format!("/v1/{}:converse", var_name,);
 
+                let resource_name = format!("//discoveryengine.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -5741,9 +6044,11 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 )?;
                 let path = format!("/v1/{}:converse", var_name,);
 
+                let resource_name = format!("//discoveryengine.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5810,6 +6115,12 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5832,7 +6143,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -5847,9 +6158,14 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 )?;
                 let path = format!("/v1/{}/conversations", var_parent,);
 
+                let resource_name = format!(
+                    "//discoveryengine.googleapis.com/v1/{}/conversations",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -5867,9 +6183,14 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 )?;
                 let path = format!("/v1/{}/conversations", var_parent,);
 
+                let resource_name = format!(
+                    "//discoveryengine.googleapis.com/v1/{}/conversations",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -5887,9 +6208,14 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 )?;
                 let path = format!("/v1/{}/conversations", var_parent,);
 
+                let resource_name = format!(
+                    "//discoveryengine.googleapis.com/v1/{}/conversations",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5950,6 +6276,12 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5972,7 +6304,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -5989,9 +6321,11 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//discoveryengine.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -6011,9 +6345,11 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//discoveryengine.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -6033,9 +6369,11 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//discoveryengine.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6102,6 +6440,12 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6336,7 +6680,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -6353,9 +6697,11 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//discoveryengine.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -6375,9 +6721,11 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//discoveryengine.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -6397,9 +6745,11 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//discoveryengine.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6466,6 +6816,12 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6488,7 +6844,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -6503,13 +6859,18 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 )?;
                 let path = format!("/v1/{}/conversations", var_parent,);
 
+                let resource_name = format!(
+                    "//discoveryengine.googleapis.com/v1/{}/conversations",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -6527,13 +6888,18 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 )?;
                 let path = format!("/v1/{}/conversations", var_parent,);
 
+                let resource_name = format!(
+                    "//discoveryengine.googleapis.com/v1/{}/conversations",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -6551,13 +6917,18 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 )?;
                 let path = format!("/v1/{}/conversations", var_parent,);
 
+                let resource_name = format!(
+                    "//discoveryengine.googleapis.com/v1/{}/conversations",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6618,6 +6989,12 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6640,7 +7017,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_serving_config = try_match(
                     Some(&req).map(|m| &m.serving_config).map(|s| s.as_str()),
@@ -6657,9 +7034,12 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 )?;
                 let path = format!("/v1/{}:answer", var_serving_config,);
 
+                let resource_name =
+                    format!("//discoveryengine.googleapis.com/v1/{}", var_serving_config,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .or_else(|| {
                 let var_serving_config = try_match(
@@ -6679,9 +7059,12 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 )?;
                 let path = format!("/v1/{}:answer", var_serving_config,);
 
+                let resource_name =
+                    format!("//discoveryengine.googleapis.com/v1/{}", var_serving_config,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .or_else(|| {
                 let var_serving_config = try_match(
@@ -6701,9 +7084,12 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 )?;
                 let path = format!("/v1/{}:answer", var_serving_config,);
 
+                let resource_name =
+                    format!("//discoveryengine.googleapis.com/v1/{}", var_serving_config,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6770,6 +7156,12 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6792,7 +7184,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -6811,9 +7203,11 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//discoveryengine.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -6835,9 +7229,11 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//discoveryengine.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -6859,9 +7255,11 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//discoveryengine.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6934,6 +7332,12 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6956,7 +7360,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -6971,9 +7375,14 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 )?;
                 let path = format!("/v1/{}/sessions", var_parent,);
 
+                let resource_name = format!(
+                    "//discoveryengine.googleapis.com/v1/{}/sessions",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -6991,9 +7400,14 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 )?;
                 let path = format!("/v1/{}/sessions", var_parent,);
 
+                let resource_name = format!(
+                    "//discoveryengine.googleapis.com/v1/{}/sessions",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -7011,9 +7425,14 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 )?;
                 let path = format!("/v1/{}/sessions", var_parent,);
 
+                let resource_name = format!(
+                    "//discoveryengine.googleapis.com/v1/{}/sessions",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7074,6 +7493,12 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -7096,7 +7521,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -7113,9 +7538,11 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//discoveryengine.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -7135,9 +7562,11 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//discoveryengine.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -7157,9 +7586,11 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//discoveryengine.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7226,6 +7657,12 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -7460,7 +7897,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -7477,11 +7914,13 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//discoveryengine.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder =
                     builder.query(&[("includeAnswerDetails", &req.include_answer_details)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -7501,11 +7940,13 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//discoveryengine.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder =
                     builder.query(&[("includeAnswerDetails", &req.include_answer_details)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -7525,11 +7966,13 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//discoveryengine.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder =
                     builder.query(&[("includeAnswerDetails", &req.include_answer_details)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7596,6 +8039,12 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -7618,7 +8067,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -7633,13 +8082,18 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 )?;
                 let path = format!("/v1/{}/sessions", var_parent,);
 
+                let resource_name = format!(
+                    "//discoveryengine.googleapis.com/v1/{}/sessions",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -7657,13 +8111,18 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 )?;
                 let path = format!("/v1/{}/sessions", var_parent,);
 
+                let resource_name = format!(
+                    "//discoveryengine.googleapis.com/v1/{}/sessions",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -7681,13 +8140,18 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 )?;
                 let path = format!("/v1/{}/sessions", var_parent,);
 
+                let resource_name = format!(
+                    "//discoveryengine.googleapis.com/v1/{}/sessions",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7748,6 +8212,12 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -7778,6 +8248,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -7792,6 +8263,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -7808,6 +8280,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -7822,6 +8295,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -7838,6 +8312,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -7852,6 +8327,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -7868,6 +8344,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -7882,6 +8359,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -7898,6 +8376,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -7912,6 +8391,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -7928,6 +8408,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -7942,6 +8423,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -7958,6 +8440,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -7972,6 +8455,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -7988,6 +8472,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -8002,6 +8487,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -8189,6 +8675,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -8199,6 +8686,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -8211,6 +8699,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -8221,6 +8710,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -8233,6 +8723,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -8243,6 +8734,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -8255,6 +8747,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -8265,6 +8758,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -8277,6 +8771,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -8287,6 +8782,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -8299,6 +8795,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -8309,6 +8806,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -8321,6 +8819,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -8331,6 +8830,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -8343,6 +8843,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -8353,6 +8854,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -8752,7 +9254,7 @@ impl super::stub::DataStoreService for DataStoreService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -8764,6 +9266,11 @@ impl super::stub::DataStoreService for DataStoreService {
                     ],
                 )?;
                 let path = format!("/v1/{}/dataStores", var_parent,);
+
+                let resource_name = format!(
+                    "//discoveryengine.googleapis.com/v1/{}/dataStores",
+                    var_parent,
+                );
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req.cmek_config_name().iter().fold(builder, |builder, p| {
@@ -8781,7 +9288,7 @@ impl super::stub::DataStoreService for DataStoreService {
                     &req.skip_default_schema_creation,
                 )]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -8797,6 +9304,11 @@ impl super::stub::DataStoreService for DataStoreService {
                 )?;
                 let path = format!("/v1/{}/dataStores", var_parent,);
 
+                let resource_name = format!(
+                    "//discoveryengine.googleapis.com/v1/{}/dataStores",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req.cmek_config_name().iter().fold(builder, |builder, p| {
                     builder.query(&[("cmekConfigName", p)])
@@ -8813,7 +9325,7 @@ impl super::stub::DataStoreService for DataStoreService {
                     &req.skip_default_schema_creation,
                 )]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8851,6 +9363,12 @@ impl super::stub::DataStoreService for DataStoreService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -8873,7 +9391,7 @@ impl super::stub::DataStoreService for DataStoreService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -8888,9 +9406,11 @@ impl super::stub::DataStoreService for DataStoreService {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//discoveryengine.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -8908,9 +9428,11 @@ impl super::stub::DataStoreService for DataStoreService {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//discoveryengine.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8952,6 +9474,12 @@ impl super::stub::DataStoreService for DataStoreService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -8974,7 +9502,7 @@ impl super::stub::DataStoreService for DataStoreService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -8987,12 +9515,17 @@ impl super::stub::DataStoreService for DataStoreService {
                 )?;
                 let path = format!("/v1/{}/dataStores", var_parent,);
 
+                let resource_name = format!(
+                    "//discoveryengine.googleapis.com/v1/{}/dataStores",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -9008,12 +9541,17 @@ impl super::stub::DataStoreService for DataStoreService {
                 )?;
                 let path = format!("/v1/{}/dataStores", var_parent,);
 
+                let resource_name = format!(
+                    "//discoveryengine.googleapis.com/v1/{}/dataStores",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -9051,6 +9589,12 @@ impl super::stub::DataStoreService for DataStoreService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -9073,7 +9617,7 @@ impl super::stub::DataStoreService for DataStoreService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -9088,9 +9632,11 @@ impl super::stub::DataStoreService for DataStoreService {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//discoveryengine.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -9108,9 +9654,11 @@ impl super::stub::DataStoreService for DataStoreService {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//discoveryengine.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -9152,6 +9700,12 @@ impl super::stub::DataStoreService for DataStoreService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -9319,6 +9873,7 @@ impl super::stub::DataStoreService for DataStoreService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -9333,6 +9888,7 @@ impl super::stub::DataStoreService for DataStoreService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -9349,6 +9905,7 @@ impl super::stub::DataStoreService for DataStoreService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -9363,6 +9920,7 @@ impl super::stub::DataStoreService for DataStoreService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -9379,6 +9937,7 @@ impl super::stub::DataStoreService for DataStoreService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -9393,6 +9952,7 @@ impl super::stub::DataStoreService for DataStoreService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -9409,6 +9969,7 @@ impl super::stub::DataStoreService for DataStoreService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -9423,6 +9984,7 @@ impl super::stub::DataStoreService for DataStoreService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -9439,6 +10001,7 @@ impl super::stub::DataStoreService for DataStoreService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -9453,6 +10016,7 @@ impl super::stub::DataStoreService for DataStoreService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -9469,6 +10033,7 @@ impl super::stub::DataStoreService for DataStoreService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -9483,6 +10048,7 @@ impl super::stub::DataStoreService for DataStoreService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -9499,6 +10065,7 @@ impl super::stub::DataStoreService for DataStoreService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -9513,6 +10080,7 @@ impl super::stub::DataStoreService for DataStoreService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -9529,6 +10097,7 @@ impl super::stub::DataStoreService for DataStoreService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -9543,6 +10112,7 @@ impl super::stub::DataStoreService for DataStoreService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -9730,6 +10300,7 @@ impl super::stub::DataStoreService for DataStoreService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -9740,6 +10311,7 @@ impl super::stub::DataStoreService for DataStoreService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -9752,6 +10324,7 @@ impl super::stub::DataStoreService for DataStoreService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -9762,6 +10335,7 @@ impl super::stub::DataStoreService for DataStoreService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -9774,6 +10348,7 @@ impl super::stub::DataStoreService for DataStoreService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -9784,6 +10359,7 @@ impl super::stub::DataStoreService for DataStoreService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -9796,6 +10372,7 @@ impl super::stub::DataStoreService for DataStoreService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -9806,6 +10383,7 @@ impl super::stub::DataStoreService for DataStoreService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -9818,6 +10396,7 @@ impl super::stub::DataStoreService for DataStoreService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -9828,6 +10407,7 @@ impl super::stub::DataStoreService for DataStoreService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -9840,6 +10420,7 @@ impl super::stub::DataStoreService for DataStoreService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -9850,6 +10431,7 @@ impl super::stub::DataStoreService for DataStoreService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -9862,6 +10444,7 @@ impl super::stub::DataStoreService for DataStoreService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -9872,6 +10455,7 @@ impl super::stub::DataStoreService for DataStoreService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -9884,6 +10468,7 @@ impl super::stub::DataStoreService for DataStoreService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -9894,6 +10479,7 @@ impl super::stub::DataStoreService for DataStoreService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -10307,7 +10893,7 @@ impl super::stub::DocumentService for DocumentService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -10326,9 +10912,11 @@ impl super::stub::DocumentService for DocumentService {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//discoveryengine.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -10350,9 +10938,11 @@ impl super::stub::DocumentService for DocumentService {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//discoveryengine.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -10402,6 +10992,12 @@ impl super::stub::DocumentService for DocumentService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -10424,7 +11020,7 @@ impl super::stub::DocumentService for DocumentService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -10441,11 +11037,16 @@ impl super::stub::DocumentService for DocumentService {
                 )?;
                 let path = format!("/v1/{}/documents", var_parent,);
 
+                let resource_name = format!(
+                    "//discoveryengine.googleapis.com/v1/{}/documents",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -10465,11 +11066,16 @@ impl super::stub::DocumentService for DocumentService {
                 )?;
                 let path = format!("/v1/{}/documents", var_parent,);
 
+                let resource_name = format!(
+                    "//discoveryengine.googleapis.com/v1/{}/documents",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -10515,6 +11121,12 @@ impl super::stub::DocumentService for DocumentService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -10537,7 +11149,7 @@ impl super::stub::DocumentService for DocumentService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -10554,10 +11166,15 @@ impl super::stub::DocumentService for DocumentService {
                 )?;
                 let path = format!("/v1/{}/documents", var_parent,);
 
+                let resource_name = format!(
+                    "//discoveryengine.googleapis.com/v1/{}/documents",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("documentId", &req.document_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -10577,10 +11194,15 @@ impl super::stub::DocumentService for DocumentService {
                 )?;
                 let path = format!("/v1/{}/documents", var_parent,);
 
+                let resource_name = format!(
+                    "//discoveryengine.googleapis.com/v1/{}/documents",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("documentId", &req.document_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -10626,6 +11248,12 @@ impl super::stub::DocumentService for DocumentService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -10803,7 +11431,7 @@ impl super::stub::DocumentService for DocumentService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -10822,9 +11450,11 @@ impl super::stub::DocumentService for DocumentService {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//discoveryengine.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -10846,9 +11476,11 @@ impl super::stub::DocumentService for DocumentService {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//discoveryengine.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -10898,6 +11530,12 @@ impl super::stub::DocumentService for DocumentService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -10926,7 +11564,7 @@ impl super::stub::DocumentService for DocumentService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -10943,9 +11581,14 @@ impl super::stub::DocumentService for DocumentService {
                 )?;
                 let path = format!("/v1/{}/documents:import", var_parent,);
 
+                let resource_name = format!(
+                    "//discoveryengine.googleapis.com/v1/{}/documents",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -10965,9 +11608,14 @@ impl super::stub::DocumentService for DocumentService {
                 )?;
                 let path = format!("/v1/{}/documents:import", var_parent,);
 
+                let resource_name = format!(
+                    "//discoveryengine.googleapis.com/v1/{}/documents",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -11013,6 +11661,12 @@ impl super::stub::DocumentService for DocumentService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -11035,7 +11689,7 @@ impl super::stub::DocumentService for DocumentService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -11052,9 +11706,14 @@ impl super::stub::DocumentService for DocumentService {
                 )?;
                 let path = format!("/v1/{}/documents:purge", var_parent,);
 
+                let resource_name = format!(
+                    "//discoveryengine.googleapis.com/v1/{}/documents",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -11074,9 +11733,14 @@ impl super::stub::DocumentService for DocumentService {
                 )?;
                 let path = format!("/v1/{}/documents:purge", var_parent,);
 
+                let resource_name = format!(
+                    "//discoveryengine.googleapis.com/v1/{}/documents",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -11122,6 +11786,12 @@ impl super::stub::DocumentService for DocumentService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -11144,7 +11814,7 @@ impl super::stub::DocumentService for DocumentService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -11161,6 +11831,11 @@ impl super::stub::DocumentService for DocumentService {
                 )?;
                 let path = format!("/v1/{}/batchGetDocumentsMetadata", var_parent,);
 
+                let resource_name = format!(
+                    "//discoveryengine.googleapis.com/v1/{}/batchGetDocumentsMetadata",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -11175,7 +11850,7 @@ impl super::stub::DocumentService for DocumentService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -11195,6 +11870,11 @@ impl super::stub::DocumentService for DocumentService {
                 )?;
                 let path = format!("/v1/{}/batchGetDocumentsMetadata", var_parent,);
 
+                let resource_name = format!(
+                    "//discoveryengine.googleapis.com/v1/{}/batchGetDocumentsMetadata",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -11209,7 +11889,7 @@ impl super::stub::DocumentService for DocumentService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -11255,6 +11935,12 @@ impl super::stub::DocumentService for DocumentService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -11285,6 +11971,7 @@ impl super::stub::DocumentService for DocumentService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -11299,6 +11986,7 @@ impl super::stub::DocumentService for DocumentService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -11315,6 +12003,7 @@ impl super::stub::DocumentService for DocumentService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -11329,6 +12018,7 @@ impl super::stub::DocumentService for DocumentService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -11345,6 +12035,7 @@ impl super::stub::DocumentService for DocumentService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -11359,6 +12050,7 @@ impl super::stub::DocumentService for DocumentService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -11375,6 +12067,7 @@ impl super::stub::DocumentService for DocumentService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -11389,6 +12082,7 @@ impl super::stub::DocumentService for DocumentService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -11405,6 +12099,7 @@ impl super::stub::DocumentService for DocumentService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -11419,6 +12114,7 @@ impl super::stub::DocumentService for DocumentService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -11435,6 +12131,7 @@ impl super::stub::DocumentService for DocumentService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -11449,6 +12146,7 @@ impl super::stub::DocumentService for DocumentService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -11465,6 +12163,7 @@ impl super::stub::DocumentService for DocumentService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -11479,6 +12178,7 @@ impl super::stub::DocumentService for DocumentService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -11495,6 +12195,7 @@ impl super::stub::DocumentService for DocumentService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -11509,6 +12210,7 @@ impl super::stub::DocumentService for DocumentService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -11696,6 +12398,7 @@ impl super::stub::DocumentService for DocumentService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -11706,6 +12409,7 @@ impl super::stub::DocumentService for DocumentService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -11718,6 +12422,7 @@ impl super::stub::DocumentService for DocumentService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -11728,6 +12433,7 @@ impl super::stub::DocumentService for DocumentService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -11740,6 +12446,7 @@ impl super::stub::DocumentService for DocumentService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -11750,6 +12457,7 @@ impl super::stub::DocumentService for DocumentService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -11762,6 +12470,7 @@ impl super::stub::DocumentService for DocumentService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -11772,6 +12481,7 @@ impl super::stub::DocumentService for DocumentService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -11784,6 +12494,7 @@ impl super::stub::DocumentService for DocumentService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -11794,6 +12505,7 @@ impl super::stub::DocumentService for DocumentService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -11806,6 +12518,7 @@ impl super::stub::DocumentService for DocumentService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -11816,6 +12529,7 @@ impl super::stub::DocumentService for DocumentService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -11828,6 +12542,7 @@ impl super::stub::DocumentService for DocumentService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -11838,6 +12553,7 @@ impl super::stub::DocumentService for DocumentService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -11850,6 +12566,7 @@ impl super::stub::DocumentService for DocumentService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -11860,6 +12577,7 @@ impl super::stub::DocumentService for DocumentService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -12273,7 +12991,7 @@ impl super::stub::EngineService for EngineService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -12288,10 +13006,13 @@ impl super::stub::EngineService for EngineService {
                 )?;
                 let path = format!("/v1/{}/engines", var_parent,);
 
+                let resource_name =
+                    format!("//discoveryengine.googleapis.com/v1/{}/engines", var_parent,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("engineId", &req.engine_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -12314,6 +13035,12 @@ impl super::stub::EngineService for EngineService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -12336,7 +13063,7 @@ impl super::stub::EngineService for EngineService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -12353,9 +13080,11 @@ impl super::stub::EngineService for EngineService {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//discoveryengine.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -12380,6 +13109,12 @@ impl super::stub::EngineService for EngineService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -12486,7 +13221,7 @@ impl super::stub::EngineService for EngineService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -12503,9 +13238,11 @@ impl super::stub::EngineService for EngineService {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//discoveryengine.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -12530,6 +13267,12 @@ impl super::stub::EngineService for EngineService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -12552,7 +13295,7 @@ impl super::stub::EngineService for EngineService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -12567,12 +13310,15 @@ impl super::stub::EngineService for EngineService {
                 )?;
                 let path = format!("/v1/{}/engines", var_parent,);
 
+                let resource_name =
+                    format!("//discoveryengine.googleapis.com/v1/{}/engines", var_parent,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -12595,6 +13341,12 @@ impl super::stub::EngineService for EngineService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -12625,6 +13377,7 @@ impl super::stub::EngineService for EngineService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -12639,6 +13392,7 @@ impl super::stub::EngineService for EngineService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -12655,6 +13409,7 @@ impl super::stub::EngineService for EngineService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -12669,6 +13424,7 @@ impl super::stub::EngineService for EngineService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -12685,6 +13441,7 @@ impl super::stub::EngineService for EngineService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -12699,6 +13456,7 @@ impl super::stub::EngineService for EngineService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -12715,6 +13473,7 @@ impl super::stub::EngineService for EngineService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -12729,6 +13488,7 @@ impl super::stub::EngineService for EngineService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -12745,6 +13505,7 @@ impl super::stub::EngineService for EngineService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -12759,6 +13520,7 @@ impl super::stub::EngineService for EngineService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -12775,6 +13537,7 @@ impl super::stub::EngineService for EngineService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -12789,6 +13552,7 @@ impl super::stub::EngineService for EngineService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -12805,6 +13569,7 @@ impl super::stub::EngineService for EngineService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -12819,6 +13584,7 @@ impl super::stub::EngineService for EngineService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -12835,6 +13601,7 @@ impl super::stub::EngineService for EngineService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -12849,6 +13616,7 @@ impl super::stub::EngineService for EngineService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -13036,6 +13804,7 @@ impl super::stub::EngineService for EngineService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -13046,6 +13815,7 @@ impl super::stub::EngineService for EngineService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -13058,6 +13828,7 @@ impl super::stub::EngineService for EngineService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -13068,6 +13839,7 @@ impl super::stub::EngineService for EngineService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -13080,6 +13852,7 @@ impl super::stub::EngineService for EngineService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -13090,6 +13863,7 @@ impl super::stub::EngineService for EngineService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -13102,6 +13876,7 @@ impl super::stub::EngineService for EngineService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -13112,6 +13887,7 @@ impl super::stub::EngineService for EngineService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -13124,6 +13900,7 @@ impl super::stub::EngineService for EngineService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -13134,6 +13911,7 @@ impl super::stub::EngineService for EngineService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -13146,6 +13924,7 @@ impl super::stub::EngineService for EngineService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -13156,6 +13935,7 @@ impl super::stub::EngineService for EngineService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -13168,6 +13948,7 @@ impl super::stub::EngineService for EngineService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -13178,6 +13959,7 @@ impl super::stub::EngineService for EngineService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -13190,6 +13972,7 @@ impl super::stub::EngineService for EngineService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -13200,6 +13983,7 @@ impl super::stub::EngineService for EngineService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -13613,7 +14397,7 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_location = try_match(
                     Some(&req).map(|m| &m.location).map(|s| s.as_str()),
@@ -13626,9 +14410,12 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 )?;
                 let path = format!("/v1/{}:generateGroundedContent", var_location,);
 
+                let resource_name =
+                    format!("//discoveryengine.googleapis.com/v1/{}", var_location,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -13649,6 +14436,12 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -13671,7 +14464,7 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_grounding_config = try_match(
                     Some(&req).map(|m| &m.grounding_config).map(|s| s.as_str()),
@@ -13686,9 +14479,14 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 )?;
                 let path = format!("/v1/{}:check", var_grounding_config,);
 
+                let resource_name = format!(
+                    "//discoveryengine.googleapis.com/v1/{}",
+                    var_grounding_config,
+                );
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -13711,6 +14509,12 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -13741,6 +14545,7 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -13755,6 +14560,7 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -13771,6 +14577,7 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -13785,6 +14592,7 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -13801,6 +14609,7 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -13815,6 +14624,7 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -13831,6 +14641,7 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -13845,6 +14656,7 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -13861,6 +14673,7 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -13875,6 +14688,7 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -13891,6 +14705,7 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -13905,6 +14720,7 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -13921,6 +14737,7 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -13935,6 +14752,7 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -13951,6 +14769,7 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -13965,6 +14784,7 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -14152,6 +14972,7 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -14162,6 +14983,7 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -14174,6 +14996,7 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -14184,6 +15007,7 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -14196,6 +15020,7 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -14206,6 +15031,7 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -14218,6 +15044,7 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -14228,6 +15055,7 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -14240,6 +15068,7 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -14250,6 +15079,7 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -14262,6 +15092,7 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -14272,6 +15103,7 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -14284,6 +15116,7 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -14294,6 +15127,7 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -14306,6 +15140,7 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -14316,6 +15151,7 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -14715,7 +15551,7 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -14728,6 +15564,11 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 )?;
                 let path = format!("/v1/{}/identityMappingStores", var_parent,);
 
+                let resource_name = format!(
+                    "//discoveryengine.googleapis.com/v1/{}/identityMappingStores",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req.cmek_config_name().iter().fold(builder, |builder, p| {
                     builder.query(&[("cmekConfigName", p)])
@@ -14739,7 +15580,7 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 let builder =
                     builder.query(&[("identityMappingStoreId", &req.identity_mapping_store_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -14760,6 +15601,12 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -14782,7 +15629,7 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -14797,9 +15644,11 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//discoveryengine.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -14822,6 +15671,12 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -14844,7 +15699,7 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -14859,9 +15714,11 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//discoveryengine.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -14884,6 +15741,12 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -14906,7 +15769,7 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_identity_mapping_store = try_match(
                     Some(&req)
@@ -14923,9 +15786,14 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 )?;
                 let path = format!("/v1/{}:importIdentityMappings", var_identity_mapping_store,);
 
+                let resource_name = format!(
+                    "//discoveryengine.googleapis.com/v1/{}",
+                    var_identity_mapping_store,
+                );
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -14950,6 +15818,12 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -14972,7 +15846,7 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_identity_mapping_store = try_match(
                     Some(&req)
@@ -14989,9 +15863,14 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 )?;
                 let path = format!("/v1/{}:purgeIdentityMappings", var_identity_mapping_store,);
 
+                let resource_name = format!(
+                    "//discoveryengine.googleapis.com/v1/{}",
+                    var_identity_mapping_store,
+                );
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -15016,6 +15895,12 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -15038,7 +15923,7 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_identity_mapping_store = try_match(
                     Some(&req)
@@ -15055,11 +15940,16 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 )?;
                 let path = format!("/v1/{}:listIdentityMappings", var_identity_mapping_store,);
 
+                let resource_name = format!(
+                    "//discoveryengine.googleapis.com/v1/{}",
+                    var_identity_mapping_store,
+                );
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -15084,6 +15974,12 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -15106,7 +16002,7 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -15119,11 +16015,16 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 )?;
                 let path = format!("/v1/{}/identityMappingStores", var_parent,);
 
+                let resource_name = format!(
+                    "//discoveryengine.googleapis.com/v1/{}/identityMappingStores",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -15144,6 +16045,12 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -15174,6 +16081,7 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -15188,6 +16096,7 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -15204,6 +16113,7 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -15218,6 +16128,7 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -15234,6 +16145,7 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -15248,6 +16160,7 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -15264,6 +16177,7 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -15278,6 +16192,7 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -15294,6 +16209,7 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -15308,6 +16224,7 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -15324,6 +16241,7 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -15338,6 +16256,7 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -15354,6 +16273,7 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -15368,6 +16288,7 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -15384,6 +16305,7 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -15398,6 +16320,7 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -15585,6 +16508,7 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -15595,6 +16519,7 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -15607,6 +16532,7 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -15617,6 +16543,7 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -15629,6 +16556,7 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -15639,6 +16567,7 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -15651,6 +16580,7 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -15661,6 +16591,7 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -15673,6 +16604,7 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -15683,6 +16615,7 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -15695,6 +16628,7 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -15705,6 +16639,7 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -15717,6 +16652,7 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -15727,6 +16663,7 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -15739,6 +16676,7 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -15749,6 +16687,7 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -16162,7 +17101,7 @@ impl super::stub::ProjectService for ProjectService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -16170,9 +17109,11 @@ impl super::stub::ProjectService for ProjectService {
                 )?;
                 let path = format!("/v1/{}:provision", var_name,);
 
+                let resource_name = format!("//discoveryengine.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -16188,6 +17129,12 @@ impl super::stub::ProjectService for ProjectService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -16218,6 +17165,7 @@ impl super::stub::ProjectService for ProjectService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -16232,6 +17180,7 @@ impl super::stub::ProjectService for ProjectService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -16248,6 +17197,7 @@ impl super::stub::ProjectService for ProjectService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -16262,6 +17212,7 @@ impl super::stub::ProjectService for ProjectService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -16278,6 +17229,7 @@ impl super::stub::ProjectService for ProjectService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -16292,6 +17244,7 @@ impl super::stub::ProjectService for ProjectService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -16308,6 +17261,7 @@ impl super::stub::ProjectService for ProjectService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -16322,6 +17276,7 @@ impl super::stub::ProjectService for ProjectService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -16338,6 +17293,7 @@ impl super::stub::ProjectService for ProjectService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -16352,6 +17308,7 @@ impl super::stub::ProjectService for ProjectService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -16368,6 +17325,7 @@ impl super::stub::ProjectService for ProjectService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -16382,6 +17340,7 @@ impl super::stub::ProjectService for ProjectService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -16398,6 +17357,7 @@ impl super::stub::ProjectService for ProjectService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -16412,6 +17372,7 @@ impl super::stub::ProjectService for ProjectService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -16428,6 +17389,7 @@ impl super::stub::ProjectService for ProjectService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -16442,6 +17404,7 @@ impl super::stub::ProjectService for ProjectService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -16629,6 +17592,7 @@ impl super::stub::ProjectService for ProjectService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -16639,6 +17603,7 @@ impl super::stub::ProjectService for ProjectService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -16651,6 +17616,7 @@ impl super::stub::ProjectService for ProjectService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -16661,6 +17627,7 @@ impl super::stub::ProjectService for ProjectService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -16673,6 +17640,7 @@ impl super::stub::ProjectService for ProjectService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -16683,6 +17651,7 @@ impl super::stub::ProjectService for ProjectService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -16695,6 +17664,7 @@ impl super::stub::ProjectService for ProjectService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -16705,6 +17675,7 @@ impl super::stub::ProjectService for ProjectService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -16717,6 +17688,7 @@ impl super::stub::ProjectService for ProjectService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -16727,6 +17699,7 @@ impl super::stub::ProjectService for ProjectService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -16739,6 +17712,7 @@ impl super::stub::ProjectService for ProjectService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -16749,6 +17723,7 @@ impl super::stub::ProjectService for ProjectService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -16761,6 +17736,7 @@ impl super::stub::ProjectService for ProjectService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -16771,6 +17747,7 @@ impl super::stub::ProjectService for ProjectService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -16783,6 +17760,7 @@ impl super::stub::ProjectService for ProjectService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -16793,6 +17771,7 @@ impl super::stub::ProjectService for ProjectService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -17206,7 +18185,7 @@ impl super::stub::RankService for RankService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_ranking_config = try_match(
                     Some(&req).map(|m| &m.ranking_config).map(|s| s.as_str()),
@@ -17221,9 +18200,12 @@ impl super::stub::RankService for RankService {
                 )?;
                 let path = format!("/v1/{}:rank", var_ranking_config,);
 
+                let resource_name =
+                    format!("//discoveryengine.googleapis.com/v1/{}", var_ranking_config,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -17246,6 +18228,12 @@ impl super::stub::RankService for RankService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -17276,6 +18264,7 @@ impl super::stub::RankService for RankService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -17290,6 +18279,7 @@ impl super::stub::RankService for RankService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -17306,6 +18296,7 @@ impl super::stub::RankService for RankService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -17320,6 +18311,7 @@ impl super::stub::RankService for RankService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -17336,6 +18328,7 @@ impl super::stub::RankService for RankService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -17350,6 +18343,7 @@ impl super::stub::RankService for RankService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -17366,6 +18360,7 @@ impl super::stub::RankService for RankService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -17380,6 +18375,7 @@ impl super::stub::RankService for RankService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -17396,6 +18392,7 @@ impl super::stub::RankService for RankService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -17410,6 +18407,7 @@ impl super::stub::RankService for RankService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -17426,6 +18424,7 @@ impl super::stub::RankService for RankService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -17440,6 +18439,7 @@ impl super::stub::RankService for RankService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -17456,6 +18456,7 @@ impl super::stub::RankService for RankService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -17470,6 +18471,7 @@ impl super::stub::RankService for RankService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -17486,6 +18488,7 @@ impl super::stub::RankService for RankService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -17500,6 +18503,7 @@ impl super::stub::RankService for RankService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -17687,6 +18691,7 @@ impl super::stub::RankService for RankService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -17697,6 +18702,7 @@ impl super::stub::RankService for RankService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -17709,6 +18715,7 @@ impl super::stub::RankService for RankService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -17719,6 +18726,7 @@ impl super::stub::RankService for RankService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -17731,6 +18739,7 @@ impl super::stub::RankService for RankService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -17741,6 +18750,7 @@ impl super::stub::RankService for RankService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -17753,6 +18763,7 @@ impl super::stub::RankService for RankService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -17763,6 +18774,7 @@ impl super::stub::RankService for RankService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -17775,6 +18787,7 @@ impl super::stub::RankService for RankService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -17785,6 +18798,7 @@ impl super::stub::RankService for RankService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -17797,6 +18811,7 @@ impl super::stub::RankService for RankService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -17807,6 +18822,7 @@ impl super::stub::RankService for RankService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -17819,6 +18835,7 @@ impl super::stub::RankService for RankService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -17829,6 +18846,7 @@ impl super::stub::RankService for RankService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -17841,6 +18859,7 @@ impl super::stub::RankService for RankService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -17851,6 +18870,7 @@ impl super::stub::RankService for RankService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -18250,7 +19270,7 @@ impl super::stub::RecommendationService for RecommendationService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_serving_config = try_match(
                     Some(&req).map(|m| &m.serving_config).map(|s| s.as_str()),
@@ -18267,9 +19287,12 @@ impl super::stub::RecommendationService for RecommendationService {
                 )?;
                 let path = format!("/v1/{}:recommend", var_serving_config,);
 
+                let resource_name =
+                    format!("//discoveryengine.googleapis.com/v1/{}", var_serving_config,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .or_else(|| {
                 let var_serving_config = try_match(
@@ -18289,9 +19312,12 @@ impl super::stub::RecommendationService for RecommendationService {
                 )?;
                 let path = format!("/v1/{}:recommend", var_serving_config,);
 
+                let resource_name =
+                    format!("//discoveryengine.googleapis.com/v1/{}", var_serving_config,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .or_else(|| {
                 let var_serving_config = try_match(
@@ -18311,9 +19337,12 @@ impl super::stub::RecommendationService for RecommendationService {
                 )?;
                 let path = format!("/v1/{}:recommend", var_serving_config,);
 
+                let resource_name =
+                    format!("//discoveryengine.googleapis.com/v1/{}", var_serving_config,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -18380,6 +19409,12 @@ impl super::stub::RecommendationService for RecommendationService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -18410,6 +19445,7 @@ impl super::stub::RecommendationService for RecommendationService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -18424,6 +19460,7 @@ impl super::stub::RecommendationService for RecommendationService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -18440,6 +19477,7 @@ impl super::stub::RecommendationService for RecommendationService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -18454,6 +19492,7 @@ impl super::stub::RecommendationService for RecommendationService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -18470,6 +19509,7 @@ impl super::stub::RecommendationService for RecommendationService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -18484,6 +19524,7 @@ impl super::stub::RecommendationService for RecommendationService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -18500,6 +19541,7 @@ impl super::stub::RecommendationService for RecommendationService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -18514,6 +19556,7 @@ impl super::stub::RecommendationService for RecommendationService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -18530,6 +19573,7 @@ impl super::stub::RecommendationService for RecommendationService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -18544,6 +19588,7 @@ impl super::stub::RecommendationService for RecommendationService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -18560,6 +19605,7 @@ impl super::stub::RecommendationService for RecommendationService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -18574,6 +19620,7 @@ impl super::stub::RecommendationService for RecommendationService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -18590,6 +19637,7 @@ impl super::stub::RecommendationService for RecommendationService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -18604,6 +19652,7 @@ impl super::stub::RecommendationService for RecommendationService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -18620,6 +19669,7 @@ impl super::stub::RecommendationService for RecommendationService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -18634,6 +19684,7 @@ impl super::stub::RecommendationService for RecommendationService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -18821,6 +19872,7 @@ impl super::stub::RecommendationService for RecommendationService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -18831,6 +19883,7 @@ impl super::stub::RecommendationService for RecommendationService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -18843,6 +19896,7 @@ impl super::stub::RecommendationService for RecommendationService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -18853,6 +19907,7 @@ impl super::stub::RecommendationService for RecommendationService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -18865,6 +19920,7 @@ impl super::stub::RecommendationService for RecommendationService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -18875,6 +19931,7 @@ impl super::stub::RecommendationService for RecommendationService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -18887,6 +19944,7 @@ impl super::stub::RecommendationService for RecommendationService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -18897,6 +19955,7 @@ impl super::stub::RecommendationService for RecommendationService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -18909,6 +19968,7 @@ impl super::stub::RecommendationService for RecommendationService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -18919,6 +19979,7 @@ impl super::stub::RecommendationService for RecommendationService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -18931,6 +19992,7 @@ impl super::stub::RecommendationService for RecommendationService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -18941,6 +20003,7 @@ impl super::stub::RecommendationService for RecommendationService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -18953,6 +20016,7 @@ impl super::stub::RecommendationService for RecommendationService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -18963,6 +20027,7 @@ impl super::stub::RecommendationService for RecommendationService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -18975,6 +20040,7 @@ impl super::stub::RecommendationService for RecommendationService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -18985,6 +20051,7 @@ impl super::stub::RecommendationService for RecommendationService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -19384,7 +20451,7 @@ impl super::stub::SchemaService for SchemaService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -19401,9 +20468,11 @@ impl super::stub::SchemaService for SchemaService {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//discoveryengine.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -19423,9 +20492,11 @@ impl super::stub::SchemaService for SchemaService {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//discoveryengine.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -19471,6 +20542,12 @@ impl super::stub::SchemaService for SchemaService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -19493,7 +20570,7 @@ impl super::stub::SchemaService for SchemaService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -19508,11 +20585,14 @@ impl super::stub::SchemaService for SchemaService {
                 )?;
                 let path = format!("/v1/{}/schemas", var_parent,);
 
+                let resource_name =
+                    format!("//discoveryengine.googleapis.com/v1/{}/schemas", var_parent,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -19530,11 +20610,14 @@ impl super::stub::SchemaService for SchemaService {
                 )?;
                 let path = format!("/v1/{}/schemas", var_parent,);
 
+                let resource_name =
+                    format!("//discoveryengine.googleapis.com/v1/{}/schemas", var_parent,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -19576,6 +20659,12 @@ impl super::stub::SchemaService for SchemaService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -19598,7 +20687,7 @@ impl super::stub::SchemaService for SchemaService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -19613,10 +20702,13 @@ impl super::stub::SchemaService for SchemaService {
                 )?;
                 let path = format!("/v1/{}/schemas", var_parent,);
 
+                let resource_name =
+                    format!("//discoveryengine.googleapis.com/v1/{}/schemas", var_parent,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("schemaId", &req.schema_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -19634,10 +20726,13 @@ impl super::stub::SchemaService for SchemaService {
                 )?;
                 let path = format!("/v1/{}/schemas", var_parent,);
 
+                let resource_name =
+                    format!("//discoveryengine.googleapis.com/v1/{}/schemas", var_parent,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("schemaId", &req.schema_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -19679,6 +20774,12 @@ impl super::stub::SchemaService for SchemaService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -19824,7 +20925,7 @@ impl super::stub::SchemaService for SchemaService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -19841,9 +20942,11 @@ impl super::stub::SchemaService for SchemaService {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//discoveryengine.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -19863,9 +20966,11 @@ impl super::stub::SchemaService for SchemaService {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//discoveryengine.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -19911,6 +21016,12 @@ impl super::stub::SchemaService for SchemaService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -19941,6 +21052,7 @@ impl super::stub::SchemaService for SchemaService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -19955,6 +21067,7 @@ impl super::stub::SchemaService for SchemaService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -19971,6 +21084,7 @@ impl super::stub::SchemaService for SchemaService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -19985,6 +21099,7 @@ impl super::stub::SchemaService for SchemaService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -20001,6 +21116,7 @@ impl super::stub::SchemaService for SchemaService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -20015,6 +21131,7 @@ impl super::stub::SchemaService for SchemaService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -20031,6 +21148,7 @@ impl super::stub::SchemaService for SchemaService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -20045,6 +21163,7 @@ impl super::stub::SchemaService for SchemaService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -20061,6 +21180,7 @@ impl super::stub::SchemaService for SchemaService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -20075,6 +21195,7 @@ impl super::stub::SchemaService for SchemaService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -20091,6 +21212,7 @@ impl super::stub::SchemaService for SchemaService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -20105,6 +21227,7 @@ impl super::stub::SchemaService for SchemaService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -20121,6 +21244,7 @@ impl super::stub::SchemaService for SchemaService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -20135,6 +21259,7 @@ impl super::stub::SchemaService for SchemaService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -20151,6 +21276,7 @@ impl super::stub::SchemaService for SchemaService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -20165,6 +21291,7 @@ impl super::stub::SchemaService for SchemaService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -20352,6 +21479,7 @@ impl super::stub::SchemaService for SchemaService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -20362,6 +21490,7 @@ impl super::stub::SchemaService for SchemaService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -20374,6 +21503,7 @@ impl super::stub::SchemaService for SchemaService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -20384,6 +21514,7 @@ impl super::stub::SchemaService for SchemaService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -20396,6 +21527,7 @@ impl super::stub::SchemaService for SchemaService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -20406,6 +21538,7 @@ impl super::stub::SchemaService for SchemaService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -20418,6 +21551,7 @@ impl super::stub::SchemaService for SchemaService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -20428,6 +21562,7 @@ impl super::stub::SchemaService for SchemaService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -20440,6 +21575,7 @@ impl super::stub::SchemaService for SchemaService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -20450,6 +21586,7 @@ impl super::stub::SchemaService for SchemaService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -20462,6 +21599,7 @@ impl super::stub::SchemaService for SchemaService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -20472,6 +21610,7 @@ impl super::stub::SchemaService for SchemaService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -20484,6 +21623,7 @@ impl super::stub::SchemaService for SchemaService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -20494,6 +21634,7 @@ impl super::stub::SchemaService for SchemaService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -20506,6 +21647,7 @@ impl super::stub::SchemaService for SchemaService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -20516,6 +21658,7 @@ impl super::stub::SchemaService for SchemaService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -20929,7 +22072,7 @@ impl super::stub::SearchService for SearchService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_serving_config = try_match(
                     Some(&req).map(|m| &m.serving_config).map(|s| s.as_str()),
@@ -20946,9 +22089,12 @@ impl super::stub::SearchService for SearchService {
                 )?;
                 let path = format!("/v1/{}:search", var_serving_config,);
 
+                let resource_name =
+                    format!("//discoveryengine.googleapis.com/v1/{}", var_serving_config,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .or_else(|| {
                 let var_serving_config = try_match(
@@ -20968,9 +22114,12 @@ impl super::stub::SearchService for SearchService {
                 )?;
                 let path = format!("/v1/{}:search", var_serving_config,);
 
+                let resource_name =
+                    format!("//discoveryengine.googleapis.com/v1/{}", var_serving_config,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .or_else(|| {
                 let var_serving_config = try_match(
@@ -20990,9 +22139,12 @@ impl super::stub::SearchService for SearchService {
                 )?;
                 let path = format!("/v1/{}:search", var_serving_config,);
 
+                let resource_name =
+                    format!("//discoveryengine.googleapis.com/v1/{}", var_serving_config,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -21059,6 +22211,12 @@ impl super::stub::SearchService for SearchService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -21081,7 +22239,7 @@ impl super::stub::SearchService for SearchService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_serving_config = try_match(
                     Some(&req).map(|m| &m.serving_config).map(|s| s.as_str()),
@@ -21098,9 +22256,12 @@ impl super::stub::SearchService for SearchService {
                 )?;
                 let path = format!("/v1/{}:searchLite", var_serving_config,);
 
+                let resource_name =
+                    format!("//discoveryengine.googleapis.com/v1/{}", var_serving_config,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .or_else(|| {
                 let var_serving_config = try_match(
@@ -21120,9 +22281,12 @@ impl super::stub::SearchService for SearchService {
                 )?;
                 let path = format!("/v1/{}:searchLite", var_serving_config,);
 
+                let resource_name =
+                    format!("//discoveryengine.googleapis.com/v1/{}", var_serving_config,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .or_else(|| {
                 let var_serving_config = try_match(
@@ -21142,9 +22306,12 @@ impl super::stub::SearchService for SearchService {
                 )?;
                 let path = format!("/v1/{}:searchLite", var_serving_config,);
 
+                let resource_name =
+                    format!("//discoveryengine.googleapis.com/v1/{}", var_serving_config,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -21211,6 +22378,12 @@ impl super::stub::SearchService for SearchService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -21241,6 +22414,7 @@ impl super::stub::SearchService for SearchService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -21255,6 +22429,7 @@ impl super::stub::SearchService for SearchService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -21271,6 +22446,7 @@ impl super::stub::SearchService for SearchService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -21285,6 +22461,7 @@ impl super::stub::SearchService for SearchService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -21301,6 +22478,7 @@ impl super::stub::SearchService for SearchService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -21315,6 +22493,7 @@ impl super::stub::SearchService for SearchService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -21331,6 +22510,7 @@ impl super::stub::SearchService for SearchService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -21345,6 +22525,7 @@ impl super::stub::SearchService for SearchService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -21361,6 +22542,7 @@ impl super::stub::SearchService for SearchService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -21375,6 +22557,7 @@ impl super::stub::SearchService for SearchService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -21391,6 +22574,7 @@ impl super::stub::SearchService for SearchService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -21405,6 +22589,7 @@ impl super::stub::SearchService for SearchService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -21421,6 +22606,7 @@ impl super::stub::SearchService for SearchService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -21435,6 +22621,7 @@ impl super::stub::SearchService for SearchService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -21451,6 +22638,7 @@ impl super::stub::SearchService for SearchService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -21465,6 +22653,7 @@ impl super::stub::SearchService for SearchService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -21652,6 +22841,7 @@ impl super::stub::SearchService for SearchService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -21662,6 +22852,7 @@ impl super::stub::SearchService for SearchService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -21674,6 +22865,7 @@ impl super::stub::SearchService for SearchService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -21684,6 +22876,7 @@ impl super::stub::SearchService for SearchService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -21696,6 +22889,7 @@ impl super::stub::SearchService for SearchService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -21706,6 +22900,7 @@ impl super::stub::SearchService for SearchService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -21718,6 +22913,7 @@ impl super::stub::SearchService for SearchService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -21728,6 +22924,7 @@ impl super::stub::SearchService for SearchService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -21740,6 +22937,7 @@ impl super::stub::SearchService for SearchService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -21750,6 +22948,7 @@ impl super::stub::SearchService for SearchService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -21762,6 +22961,7 @@ impl super::stub::SearchService for SearchService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -21772,6 +22972,7 @@ impl super::stub::SearchService for SearchService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -21784,6 +22985,7 @@ impl super::stub::SearchService for SearchService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -21794,6 +22996,7 @@ impl super::stub::SearchService for SearchService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -21806,6 +23009,7 @@ impl super::stub::SearchService for SearchService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -21816,6 +23020,7 @@ impl super::stub::SearchService for SearchService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -22215,7 +23420,7 @@ impl super::stub::SearchTuningService for SearchTuningService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_data_store = try_match(
                     Some(&req).map(|m| &m.data_store).map(|s| s.as_str()),
@@ -22232,9 +23437,12 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 )?;
                 let path = format!("/v1/{}:trainCustomModel", var_data_store,);
 
+                let resource_name =
+                    format!("//discoveryengine.googleapis.com/v1/{}", var_data_store,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -22259,6 +23467,12 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -22281,7 +23495,7 @@ impl super::stub::SearchTuningService for SearchTuningService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_data_store = try_match(
                     Some(&req).map(|m| &m.data_store).map(|s| s.as_str()),
@@ -22298,9 +23512,14 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 )?;
                 let path = format!("/v1/{}/customModels", var_data_store,);
 
+                let resource_name = format!(
+                    "//discoveryengine.googleapis.com/v1/{}/customModels",
+                    var_data_store,
+                );
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -22325,6 +23544,12 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -22355,6 +23580,7 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -22369,6 +23595,7 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -22385,6 +23612,7 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -22399,6 +23627,7 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -22415,6 +23644,7 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -22429,6 +23659,7 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -22445,6 +23676,7 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -22459,6 +23691,7 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -22475,6 +23708,7 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -22489,6 +23723,7 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -22505,6 +23740,7 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -22519,6 +23755,7 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -22535,6 +23772,7 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -22549,6 +23787,7 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -22565,6 +23804,7 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -22579,6 +23819,7 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -22766,6 +24007,7 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -22776,6 +24018,7 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -22788,6 +24031,7 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -22798,6 +24042,7 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -22810,6 +24055,7 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -22820,6 +24066,7 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -22832,6 +24079,7 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -22842,6 +24090,7 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -22854,6 +24103,7 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -22864,6 +24114,7 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -22876,6 +24127,7 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -22886,6 +24138,7 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -22898,6 +24151,7 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -22908,6 +24162,7 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -22920,6 +24175,7 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -22930,6 +24186,7 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -23557,6 +24814,7 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -23571,6 +24829,7 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -23587,6 +24846,7 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -23601,6 +24861,7 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -23617,6 +24878,7 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -23631,6 +24893,7 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -23647,6 +24910,7 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -23661,6 +24925,7 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -23677,6 +24942,7 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -23691,6 +24957,7 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -23707,6 +24974,7 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -23721,6 +24989,7 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -23737,6 +25006,7 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -23751,6 +25021,7 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -23767,6 +25038,7 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -23781,6 +25053,7 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -23968,6 +25241,7 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -23978,6 +25252,7 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -23990,6 +25265,7 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -24000,6 +25276,7 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -24012,6 +25289,7 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -24022,6 +25300,7 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -24034,6 +25313,7 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -24044,6 +25324,7 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -24056,6 +25337,7 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -24066,6 +25348,7 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -24078,6 +25361,7 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -24088,6 +25372,7 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -24100,6 +25385,7 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -24110,6 +25396,7 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -24122,6 +25409,7 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -24132,6 +25420,7 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -24531,7 +25820,7 @@ impl super::stub::SessionService for SessionService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -24546,9 +25835,14 @@ impl super::stub::SessionService for SessionService {
                 )?;
                 let path = format!("/v1/{}/sessions", var_parent,);
 
+                let resource_name = format!(
+                    "//discoveryengine.googleapis.com/v1/{}/sessions",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -24566,9 +25860,14 @@ impl super::stub::SessionService for SessionService {
                 )?;
                 let path = format!("/v1/{}/sessions", var_parent,);
 
+                let resource_name = format!(
+                    "//discoveryengine.googleapis.com/v1/{}/sessions",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -24586,9 +25885,14 @@ impl super::stub::SessionService for SessionService {
                 )?;
                 let path = format!("/v1/{}/sessions", var_parent,);
 
+                let resource_name = format!(
+                    "//discoveryengine.googleapis.com/v1/{}/sessions",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -24649,6 +25953,12 @@ impl super::stub::SessionService for SessionService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -24671,7 +25981,7 @@ impl super::stub::SessionService for SessionService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -24688,9 +25998,11 @@ impl super::stub::SessionService for SessionService {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//discoveryengine.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -24710,9 +26022,11 @@ impl super::stub::SessionService for SessionService {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//discoveryengine.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -24732,9 +26046,11 @@ impl super::stub::SessionService for SessionService {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//discoveryengine.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -24801,6 +26117,12 @@ impl super::stub::SessionService for SessionService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -25035,7 +26357,7 @@ impl super::stub::SessionService for SessionService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -25052,11 +26374,13 @@ impl super::stub::SessionService for SessionService {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//discoveryengine.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder =
                     builder.query(&[("includeAnswerDetails", &req.include_answer_details)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -25076,11 +26400,13 @@ impl super::stub::SessionService for SessionService {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//discoveryengine.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder =
                     builder.query(&[("includeAnswerDetails", &req.include_answer_details)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -25100,11 +26426,13 @@ impl super::stub::SessionService for SessionService {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//discoveryengine.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder =
                     builder.query(&[("includeAnswerDetails", &req.include_answer_details)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -25171,6 +26499,12 @@ impl super::stub::SessionService for SessionService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -25193,7 +26527,7 @@ impl super::stub::SessionService for SessionService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -25208,13 +26542,18 @@ impl super::stub::SessionService for SessionService {
                 )?;
                 let path = format!("/v1/{}/sessions", var_parent,);
 
+                let resource_name = format!(
+                    "//discoveryengine.googleapis.com/v1/{}/sessions",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -25232,13 +26571,18 @@ impl super::stub::SessionService for SessionService {
                 )?;
                 let path = format!("/v1/{}/sessions", var_parent,);
 
+                let resource_name = format!(
+                    "//discoveryengine.googleapis.com/v1/{}/sessions",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -25256,13 +26600,18 @@ impl super::stub::SessionService for SessionService {
                 )?;
                 let path = format!("/v1/{}/sessions", var_parent,);
 
+                let resource_name = format!(
+                    "//discoveryengine.googleapis.com/v1/{}/sessions",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -25323,6 +26672,12 @@ impl super::stub::SessionService for SessionService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -25353,6 +26708,7 @@ impl super::stub::SessionService for SessionService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -25367,6 +26723,7 @@ impl super::stub::SessionService for SessionService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -25383,6 +26740,7 @@ impl super::stub::SessionService for SessionService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -25397,6 +26755,7 @@ impl super::stub::SessionService for SessionService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -25413,6 +26772,7 @@ impl super::stub::SessionService for SessionService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -25427,6 +26787,7 @@ impl super::stub::SessionService for SessionService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -25443,6 +26804,7 @@ impl super::stub::SessionService for SessionService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -25457,6 +26819,7 @@ impl super::stub::SessionService for SessionService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -25473,6 +26836,7 @@ impl super::stub::SessionService for SessionService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -25487,6 +26851,7 @@ impl super::stub::SessionService for SessionService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -25503,6 +26868,7 @@ impl super::stub::SessionService for SessionService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -25517,6 +26883,7 @@ impl super::stub::SessionService for SessionService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -25533,6 +26900,7 @@ impl super::stub::SessionService for SessionService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -25547,6 +26915,7 @@ impl super::stub::SessionService for SessionService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -25563,6 +26932,7 @@ impl super::stub::SessionService for SessionService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -25577,6 +26947,7 @@ impl super::stub::SessionService for SessionService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -25764,6 +27135,7 @@ impl super::stub::SessionService for SessionService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -25774,6 +27146,7 @@ impl super::stub::SessionService for SessionService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -25786,6 +27159,7 @@ impl super::stub::SessionService for SessionService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -25796,6 +27170,7 @@ impl super::stub::SessionService for SessionService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -25808,6 +27183,7 @@ impl super::stub::SessionService for SessionService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -25818,6 +27194,7 @@ impl super::stub::SessionService for SessionService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -25830,6 +27207,7 @@ impl super::stub::SessionService for SessionService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -25840,6 +27218,7 @@ impl super::stub::SessionService for SessionService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -25852,6 +27231,7 @@ impl super::stub::SessionService for SessionService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -25862,6 +27242,7 @@ impl super::stub::SessionService for SessionService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -25874,6 +27255,7 @@ impl super::stub::SessionService for SessionService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -25884,6 +27266,7 @@ impl super::stub::SessionService for SessionService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -25896,6 +27279,7 @@ impl super::stub::SessionService for SessionService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -25906,6 +27290,7 @@ impl super::stub::SessionService for SessionService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -25918,6 +27303,7 @@ impl super::stub::SessionService for SessionService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -25928,6 +27314,7 @@ impl super::stub::SessionService for SessionService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -26327,7 +27714,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -26343,9 +27730,11 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//discoveryengine.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -26364,9 +27753,11 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//discoveryengine.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -26410,6 +27801,12 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -26432,7 +27829,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -26448,9 +27845,14 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 )?;
                 let path = format!("/v1/{}/targetSites", var_parent,);
 
+                let resource_name = format!(
+                    "//discoveryengine.googleapis.com/v1/{}/targetSites",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -26469,9 +27871,14 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 )?;
                 let path = format!("/v1/{}/targetSites", var_parent,);
 
+                let resource_name = format!(
+                    "//discoveryengine.googleapis.com/v1/{}/targetSites",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -26515,6 +27922,12 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -26537,7 +27950,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -26553,9 +27966,14 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 )?;
                 let path = format!("/v1/{}/targetSites:batchCreate", var_parent,);
 
+                let resource_name = format!(
+                    "//discoveryengine.googleapis.com/v1/{}/targetSites",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -26574,9 +27992,14 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 )?;
                 let path = format!("/v1/{}/targetSites:batchCreate", var_parent,);
 
+                let resource_name = format!(
+                    "//discoveryengine.googleapis.com/v1/{}/targetSites",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -26620,6 +28043,12 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -26642,7 +28071,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine/targetSites/"), Segment::SingleWildcard])?;
             let path = format!(
@@ -26650,9 +28079,14 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 var_name,
             );
 
+            let resource_name = format!(
+                "//discoveryengine.googleapis.com/v1/{}",
+                var_name,
+            );
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, Method::GET)))
+            Some(builder.map(|b| (b, Method::GET, resource_name)))
         })
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine/targetSites/"), Segment::SingleWildcard])?;
@@ -26661,9 +28095,14 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 var_name,
             );
 
+            let resource_name = format!(
+                "//discoveryengine.googleapis.com/v1/{}",
+                var_name,
+            );
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, Method::GET)))
+            Some(builder.map(|b| (b, Method::GET, resource_name)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -26687,6 +28126,12 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
             }
             google_cloud_gax::error::Error::binding(BindingError { paths })
         })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -26717,6 +28162,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 var_target_site_name,
             );
 
+
             let builder = self.inner.builder(Method::PATCH, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::PATCH)))
@@ -26727,6 +28173,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 "/v1/{}",
                 var_target_site_name,
             );
+
 
             let builder = self.inner.builder(Method::PATCH, path);
             let builder = Ok(builder);
@@ -26776,7 +28223,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine/targetSites/"), Segment::SingleWildcard])?;
             let path = format!(
@@ -26784,9 +28231,14 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 var_name,
             );
 
+            let resource_name = format!(
+                "//discoveryengine.googleapis.com/v1/{}",
+                var_name,
+            );
+
             let builder = self.inner.builder(Method::DELETE, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, Method::DELETE)))
+            Some(builder.map(|b| (b, Method::DELETE, resource_name)))
         })
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine/targetSites/"), Segment::SingleWildcard])?;
@@ -26795,9 +28247,14 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 var_name,
             );
 
+            let resource_name = format!(
+                "//discoveryengine.googleapis.com/v1/{}",
+                var_name,
+            );
+
             let builder = self.inner.builder(Method::DELETE, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, Method::DELETE)))
+            Some(builder.map(|b| (b, Method::DELETE, resource_name)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -26821,6 +28278,12 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
             }
             google_cloud_gax::error::Error::binding(BindingError { paths })
         })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -26843,7 +28306,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -26859,11 +28322,16 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 )?;
                 let path = format!("/v1/{}/targetSites", var_parent,);
 
+                let resource_name = format!(
+                    "//discoveryengine.googleapis.com/v1/{}/targetSites",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -26882,11 +28350,16 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 )?;
                 let path = format!("/v1/{}/targetSites", var_parent,);
 
+                let resource_name = format!(
+                    "//discoveryengine.googleapis.com/v1/{}/targetSites",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -26930,6 +28403,12 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -26952,7 +28431,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -26968,9 +28447,14 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 )?;
                 let path = format!("/v1/{}/sitemaps", var_parent,);
 
+                let resource_name = format!(
+                    "//discoveryengine.googleapis.com/v1/{}/sitemaps",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -26989,9 +28473,14 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 )?;
                 let path = format!("/v1/{}/sitemaps", var_parent,);
 
+                let resource_name = format!(
+                    "//discoveryengine.googleapis.com/v1/{}/sitemaps",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -27035,6 +28524,12 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -27057,7 +28552,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine/sitemaps/"), Segment::SingleWildcard])?;
             let path = format!(
@@ -27065,9 +28560,14 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 var_name,
             );
 
+            let resource_name = format!(
+                "//discoveryengine.googleapis.com/v1/{}",
+                var_name,
+            );
+
             let builder = self.inner.builder(Method::DELETE, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, Method::DELETE)))
+            Some(builder.map(|b| (b, Method::DELETE, resource_name)))
         })
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/collections/"), Segment::SingleWildcard, Segment::Literal("/dataStores/"), Segment::SingleWildcard, Segment::Literal("/siteSearchEngine/sitemaps/"), Segment::SingleWildcard])?;
@@ -27076,9 +28576,14 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 var_name,
             );
 
+            let resource_name = format!(
+                "//discoveryengine.googleapis.com/v1/{}",
+                var_name,
+            );
+
             let builder = self.inner.builder(Method::DELETE, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, Method::DELETE)))
+            Some(builder.map(|b| (b, Method::DELETE, resource_name)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -27102,6 +28607,12 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
             }
             google_cloud_gax::error::Error::binding(BindingError { paths })
         })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -27124,7 +28635,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -27140,6 +28651,11 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 )?;
                 let path = format!("/v1/{}/sitemaps:fetch", var_parent,);
 
+                let resource_name = format!(
+                    "//discoveryengine.googleapis.com/v1/{}/sitemaps",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -27154,7 +28670,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -27173,6 +28689,11 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 )?;
                 let path = format!("/v1/{}/sitemaps:fetch", var_parent,);
 
+                let resource_name = format!(
+                    "//discoveryengine.googleapis.com/v1/{}/sitemaps",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = (|| {
                     let builder = req
@@ -27187,7 +28708,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -27231,6 +28752,12 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -27253,7 +28780,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_site_search_engine = try_match(
                     Some(&req)
@@ -27271,9 +28798,14 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 )?;
                 let path = format!("/v1/{}:enableAdvancedSiteSearch", var_site_search_engine,);
 
+                let resource_name = format!(
+                    "//discoveryengine.googleapis.com/v1/{}",
+                    var_site_search_engine,
+                );
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .or_else(|| {
                 let var_site_search_engine = try_match(
@@ -27294,9 +28826,14 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 )?;
                 let path = format!("/v1/{}:enableAdvancedSiteSearch", var_site_search_engine,);
 
+                let resource_name = format!(
+                    "//discoveryengine.googleapis.com/v1/{}",
+                    var_site_search_engine,
+                );
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -27344,6 +28881,12 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -27366,7 +28909,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_site_search_engine = try_match(
                     Some(&req)
@@ -27384,9 +28927,14 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 )?;
                 let path = format!("/v1/{}:disableAdvancedSiteSearch", var_site_search_engine,);
 
+                let resource_name = format!(
+                    "//discoveryengine.googleapis.com/v1/{}",
+                    var_site_search_engine,
+                );
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .or_else(|| {
                 let var_site_search_engine = try_match(
@@ -27407,9 +28955,14 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 )?;
                 let path = format!("/v1/{}:disableAdvancedSiteSearch", var_site_search_engine,);
 
+                let resource_name = format!(
+                    "//discoveryengine.googleapis.com/v1/{}",
+                    var_site_search_engine,
+                );
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -27457,6 +29010,12 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -27479,7 +29038,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_site_search_engine = try_match(
                     Some(&req)
@@ -27497,9 +29056,14 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 )?;
                 let path = format!("/v1/{}:recrawlUris", var_site_search_engine,);
 
+                let resource_name = format!(
+                    "//discoveryengine.googleapis.com/v1/{}",
+                    var_site_search_engine,
+                );
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .or_else(|| {
                 let var_site_search_engine = try_match(
@@ -27520,9 +29084,14 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 )?;
                 let path = format!("/v1/{}:recrawlUris", var_site_search_engine,);
 
+                let resource_name = format!(
+                    "//discoveryengine.googleapis.com/v1/{}",
+                    var_site_search_engine,
+                );
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -27570,6 +29139,12 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -27592,7 +29167,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -27610,9 +29185,11 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 )?;
                 let path = format!("/v1/{}:batchVerifyTargetSites", var_parent,);
 
+                let resource_name = format!("//discoveryengine.googleapis.com/v1/{}", var_parent,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -27638,6 +29215,12 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -27660,7 +29243,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_site_search_engine = try_match(
                     Some(&req)
@@ -27683,11 +29266,16 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                     var_site_search_engine,
                 );
 
+                let resource_name = format!(
+                    "//discoveryengine.googleapis.com/v1/{}",
+                    var_site_search_engine,
+                );
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -27715,6 +29303,12 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -27745,6 +29339,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -27759,6 +29354,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -27775,6 +29371,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -27789,6 +29386,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -27805,6 +29403,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -27819,6 +29418,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -27835,6 +29435,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -27849,6 +29450,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -27865,6 +29467,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -27879,6 +29482,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -27895,6 +29499,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -27909,6 +29514,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -27925,6 +29531,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -27939,6 +29546,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -27955,6 +29563,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -27969,6 +29578,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -28156,6 +29766,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -28166,6 +29777,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -28178,6 +29790,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -28188,6 +29801,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -28200,6 +29814,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -28210,6 +29825,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -28222,6 +29838,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -28232,6 +29849,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -28244,6 +29862,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -28254,6 +29873,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -28266,6 +29886,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -28276,6 +29897,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -28288,6 +29910,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -28298,6 +29921,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -28310,6 +29934,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -28320,6 +29945,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -28733,7 +30359,7 @@ impl super::stub::UserEventService for UserEventService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -28748,10 +30374,15 @@ impl super::stub::UserEventService for UserEventService {
                 )?;
                 let path = format!("/v1/{}/userEvents:write", var_parent,);
 
+                let resource_name = format!(
+                    "//discoveryengine.googleapis.com/v1/{}/userEvents",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("writeAsync", &req.write_async)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -28769,10 +30400,15 @@ impl super::stub::UserEventService for UserEventService {
                 )?;
                 let path = format!("/v1/{}/userEvents:write", var_parent,);
 
+                let resource_name = format!(
+                    "//discoveryengine.googleapis.com/v1/{}/userEvents",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("writeAsync", &req.write_async)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -28786,10 +30422,15 @@ impl super::stub::UserEventService for UserEventService {
                 )?;
                 let path = format!("/v1/{}/userEvents:write", var_parent,);
 
+                let resource_name = format!(
+                    "//discoveryengine.googleapis.com/v1/{}/userEvents",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("writeAsync", &req.write_async)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -28846,6 +30487,12 @@ impl super::stub::UserEventService for UserEventService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -28868,7 +30515,7 @@ impl super::stub::UserEventService for UserEventService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -28883,6 +30530,11 @@ impl super::stub::UserEventService for UserEventService {
                 )?;
                 let path = format!("/v1/{}/userEvents:collect", var_parent,);
 
+                let resource_name = format!(
+                    "//discoveryengine.googleapis.com/v1/{}/userEvents",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("userEvent", &req.user_event)]);
                 let builder = req
@@ -28894,7 +30546,7 @@ impl super::stub::UserEventService for UserEventService {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("ets", p)]));
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -28912,6 +30564,11 @@ impl super::stub::UserEventService for UserEventService {
                 )?;
                 let path = format!("/v1/{}/userEvents:collect", var_parent,);
 
+                let resource_name = format!(
+                    "//discoveryengine.googleapis.com/v1/{}/userEvents",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("userEvent", &req.user_event)]);
                 let builder = req
@@ -28923,7 +30580,7 @@ impl super::stub::UserEventService for UserEventService {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("ets", p)]));
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -28937,6 +30594,11 @@ impl super::stub::UserEventService for UserEventService {
                 )?;
                 let path = format!("/v1/{}/userEvents:collect", var_parent,);
 
+                let resource_name = format!(
+                    "//discoveryengine.googleapis.com/v1/{}/userEvents",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("userEvent", &req.user_event)]);
                 let builder = req
@@ -28948,7 +30610,7 @@ impl super::stub::UserEventService for UserEventService {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("ets", p)]));
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -29005,6 +30667,12 @@ impl super::stub::UserEventService for UserEventService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -29027,7 +30695,7 @@ impl super::stub::UserEventService for UserEventService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -29042,9 +30710,14 @@ impl super::stub::UserEventService for UserEventService {
                 )?;
                 let path = format!("/v1/{}/userEvents:purge", var_parent,);
 
+                let resource_name = format!(
+                    "//discoveryengine.googleapis.com/v1/{}/userEvents",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -29062,9 +30735,14 @@ impl super::stub::UserEventService for UserEventService {
                 )?;
                 let path = format!("/v1/{}/userEvents:purge", var_parent,);
 
+                let resource_name = format!(
+                    "//discoveryengine.googleapis.com/v1/{}/userEvents",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -29106,6 +30784,12 @@ impl super::stub::UserEventService for UserEventService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -29128,7 +30812,7 @@ impl super::stub::UserEventService for UserEventService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -29143,9 +30827,14 @@ impl super::stub::UserEventService for UserEventService {
                 )?;
                 let path = format!("/v1/{}/userEvents:import", var_parent,);
 
+                let resource_name = format!(
+                    "//discoveryengine.googleapis.com/v1/{}/userEvents",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -29163,9 +30852,14 @@ impl super::stub::UserEventService for UserEventService {
                 )?;
                 let path = format!("/v1/{}/userEvents:import", var_parent,);
 
+                let resource_name = format!(
+                    "//discoveryengine.googleapis.com/v1/{}/userEvents",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -29179,9 +30873,14 @@ impl super::stub::UserEventService for UserEventService {
                 )?;
                 let path = format!("/v1/{}/userEvents:import", var_parent,);
 
+                let resource_name = format!(
+                    "//discoveryengine.googleapis.com/v1/{}/userEvents",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -29238,6 +30937,12 @@ impl super::stub::UserEventService for UserEventService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -29268,6 +30973,7 @@ impl super::stub::UserEventService for UserEventService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -29282,6 +30988,7 @@ impl super::stub::UserEventService for UserEventService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -29298,6 +31005,7 @@ impl super::stub::UserEventService for UserEventService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -29312,6 +31020,7 @@ impl super::stub::UserEventService for UserEventService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -29328,6 +31037,7 @@ impl super::stub::UserEventService for UserEventService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -29342,6 +31052,7 @@ impl super::stub::UserEventService for UserEventService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -29358,6 +31069,7 @@ impl super::stub::UserEventService for UserEventService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -29372,6 +31084,7 @@ impl super::stub::UserEventService for UserEventService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -29388,6 +31101,7 @@ impl super::stub::UserEventService for UserEventService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -29402,6 +31116,7 @@ impl super::stub::UserEventService for UserEventService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -29418,6 +31133,7 @@ impl super::stub::UserEventService for UserEventService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -29432,6 +31148,7 @@ impl super::stub::UserEventService for UserEventService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -29448,6 +31165,7 @@ impl super::stub::UserEventService for UserEventService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -29462,6 +31180,7 @@ impl super::stub::UserEventService for UserEventService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -29478,6 +31197,7 @@ impl super::stub::UserEventService for UserEventService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -29492,6 +31212,7 @@ impl super::stub::UserEventService for UserEventService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -29679,6 +31400,7 @@ impl super::stub::UserEventService for UserEventService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -29689,6 +31411,7 @@ impl super::stub::UserEventService for UserEventService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -29701,6 +31424,7 @@ impl super::stub::UserEventService for UserEventService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -29711,6 +31435,7 @@ impl super::stub::UserEventService for UserEventService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -29723,6 +31448,7 @@ impl super::stub::UserEventService for UserEventService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -29733,6 +31459,7 @@ impl super::stub::UserEventService for UserEventService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -29745,6 +31472,7 @@ impl super::stub::UserEventService for UserEventService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -29755,6 +31483,7 @@ impl super::stub::UserEventService for UserEventService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -29767,6 +31496,7 @@ impl super::stub::UserEventService for UserEventService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -29777,6 +31507,7 @@ impl super::stub::UserEventService for UserEventService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -29789,6 +31520,7 @@ impl super::stub::UserEventService for UserEventService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -29799,6 +31531,7 @@ impl super::stub::UserEventService for UserEventService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -29811,6 +31544,7 @@ impl super::stub::UserEventService for UserEventService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -29821,6 +31555,7 @@ impl super::stub::UserEventService for UserEventService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -29833,6 +31568,7 @@ impl super::stub::UserEventService for UserEventService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -29843,6 +31579,7 @@ impl super::stub::UserEventService for UserEventService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -30256,7 +31993,7 @@ impl super::stub::UserLicenseService for UserLicenseService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -30271,12 +32008,17 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 )?;
                 let path = format!("/v1/{}/userLicenses", var_parent,);
 
+                let resource_name = format!(
+                    "//discoveryengine.googleapis.com/v1/{}/userLicenses",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -30299,6 +32041,12 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -30321,7 +32069,7 @@ impl super::stub::UserLicenseService for UserLicenseService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -30336,9 +32084,11 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 )?;
                 let path = format!("/v1/{}:batchUpdateUserLicenses", var_parent,);
 
+                let resource_name = format!("//discoveryengine.googleapis.com/v1/{}", var_parent,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -30361,6 +32111,12 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -30391,6 +32147,7 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -30405,6 +32162,7 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -30421,6 +32179,7 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -30435,6 +32194,7 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -30451,6 +32211,7 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -30465,6 +32226,7 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -30481,6 +32243,7 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -30495,6 +32258,7 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -30511,6 +32275,7 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -30525,6 +32290,7 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -30541,6 +32307,7 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -30555,6 +32322,7 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -30571,6 +32339,7 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -30585,6 +32354,7 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -30601,6 +32371,7 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -30615,6 +32386,7 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 "/v1/{}/operations",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = builder.query(&[("filter", &req.filter)]);
@@ -30802,6 +32574,7 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -30812,6 +32585,7 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -30824,6 +32598,7 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -30834,6 +32609,7 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -30846,6 +32622,7 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -30856,6 +32633,7 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -30868,6 +32646,7 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -30878,6 +32657,7 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -30890,6 +32670,7 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -30900,6 +32681,7 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -30912,6 +32694,7 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -30922,6 +32705,7 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -30934,6 +32718,7 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -30944,6 +32729,7 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
@@ -30956,6 +32742,7 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 var_name,
             );
 
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
             Some(builder.map(|b| (b, Method::GET)))
@@ -30966,6 +32753,7 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 "/v1/{}",
                 var_name,
             );
+
 
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);

@@ -50,7 +50,7 @@ impl super::stub::GkeHub for GkeHub {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -63,13 +63,16 @@ impl super::stub::GkeHub for GkeHub {
                 )?;
                 let path = format!("/v1/{}/memberships", var_parent,);
 
+                let resource_name =
+                    format!("//gkehub.googleapis.com/v1/{}/memberships", var_parent,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -90,6 +93,12 @@ impl super::stub::GkeHub for GkeHub {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -112,7 +121,7 @@ impl super::stub::GkeHub for GkeHub {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_scope_name = try_match(
                     Some(&req).map(|m| &m.scope_name).map(|s| s.as_str()),
@@ -127,12 +136,14 @@ impl super::stub::GkeHub for GkeHub {
                 )?;
                 let path = format!("/v1/{}:listMemberships", var_scope_name,);
 
+                let resource_name = format!("//gkehub.googleapis.com/v1/{}", var_scope_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -155,6 +166,12 @@ impl super::stub::GkeHub for GkeHub {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -177,7 +194,7 @@ impl super::stub::GkeHub for GkeHub {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -190,6 +207,8 @@ impl super::stub::GkeHub for GkeHub {
                 )?;
                 let path = format!("/v1/{}/features", var_parent,);
 
+                let resource_name = format!("//gkehub.googleapis.com/v1/{}/features", var_parent,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
@@ -198,7 +217,7 @@ impl super::stub::GkeHub for GkeHub {
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -219,6 +238,12 @@ impl super::stub::GkeHub for GkeHub {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -241,7 +266,7 @@ impl super::stub::GkeHub for GkeHub {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -256,9 +281,11 @@ impl super::stub::GkeHub for GkeHub {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//gkehub.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -281,6 +308,12 @@ impl super::stub::GkeHub for GkeHub {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -303,7 +336,7 @@ impl super::stub::GkeHub for GkeHub {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -318,11 +351,13 @@ impl super::stub::GkeHub for GkeHub {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//gkehub.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder =
                     builder.query(&[("returnPartialSuccess", &req.return_partial_success)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -345,6 +380,12 @@ impl super::stub::GkeHub for GkeHub {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -367,7 +408,7 @@ impl super::stub::GkeHub for GkeHub {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -380,11 +421,14 @@ impl super::stub::GkeHub for GkeHub {
                 )?;
                 let path = format!("/v1/{}/memberships", var_parent,);
 
+                let resource_name =
+                    format!("//gkehub.googleapis.com/v1/{}/memberships", var_parent,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("membershipId", &req.membership_id)]);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -405,6 +449,12 @@ impl super::stub::GkeHub for GkeHub {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -427,7 +477,7 @@ impl super::stub::GkeHub for GkeHub {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -440,11 +490,13 @@ impl super::stub::GkeHub for GkeHub {
                 )?;
                 let path = format!("/v1/{}/features", var_parent,);
 
+                let resource_name = format!("//gkehub.googleapis.com/v1/{}/features", var_parent,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("featureId", &req.feature_id)]);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -465,6 +517,12 @@ impl super::stub::GkeHub for GkeHub {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -487,7 +545,7 @@ impl super::stub::GkeHub for GkeHub {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -502,11 +560,13 @@ impl super::stub::GkeHub for GkeHub {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//gkehub.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = builder.query(&[("force", &req.force)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -529,6 +589,12 @@ impl super::stub::GkeHub for GkeHub {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -551,7 +617,7 @@ impl super::stub::GkeHub for GkeHub {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -566,11 +632,13 @@ impl super::stub::GkeHub for GkeHub {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//gkehub.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = builder.query(&[("force", &req.force)]);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -593,6 +661,12 @@ impl super::stub::GkeHub for GkeHub {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -615,7 +689,7 @@ impl super::stub::GkeHub for GkeHub {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -629,6 +703,8 @@ impl super::stub::GkeHub for GkeHub {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+
+                let resource_name = format!("//gkehub.googleapis.com/v1/{}", var_name,);
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -645,7 +721,7 @@ impl super::stub::GkeHub for GkeHub {
                     let builder = builder.query(&[("requestId", &req.request_id)]);
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -668,6 +744,12 @@ impl super::stub::GkeHub for GkeHub {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -690,7 +772,7 @@ impl super::stub::GkeHub for GkeHub {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -704,6 +786,8 @@ impl super::stub::GkeHub for GkeHub {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_name,);
+
+                let resource_name = format!("//gkehub.googleapis.com/v1/{}", var_name,);
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -720,7 +804,7 @@ impl super::stub::GkeHub for GkeHub {
                     let builder = builder.query(&[("requestId", &req.request_id)]);
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -743,6 +827,12 @@ impl super::stub::GkeHub for GkeHub {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -765,7 +855,7 @@ impl super::stub::GkeHub for GkeHub {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -780,6 +870,8 @@ impl super::stub::GkeHub for GkeHub {
                 )?;
                 let path = format!("/v1/{}:generateConnectManifest", var_name,);
 
+                let resource_name = format!("//gkehub.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("namespace", &req.namespace)]);
                 let builder = builder.query(&[("proxy", &req.proxy)]);
@@ -789,7 +881,7 @@ impl super::stub::GkeHub for GkeHub {
                 let builder =
                     builder.query(&[("imagePullSecretContent", &req.image_pull_secret_content)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -812,6 +904,12 @@ impl super::stub::GkeHub for GkeHub {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -834,7 +932,7 @@ impl super::stub::GkeHub for GkeHub {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -847,9 +945,11 @@ impl super::stub::GkeHub for GkeHub {
                 )?;
                 let path = format!("/v1/{}/fleets", var_parent,);
 
+                let resource_name = format!("//gkehub.googleapis.com/v1/{}/fleets", var_parent,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -870,6 +970,12 @@ impl super::stub::GkeHub for GkeHub {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -892,7 +998,7 @@ impl super::stub::GkeHub for GkeHub {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -907,9 +1013,11 @@ impl super::stub::GkeHub for GkeHub {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//gkehub.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -932,6 +1040,12 @@ impl super::stub::GkeHub for GkeHub {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1034,7 +1148,7 @@ impl super::stub::GkeHub for GkeHub {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1049,9 +1163,11 @@ impl super::stub::GkeHub for GkeHub {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//gkehub.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1074,6 +1190,12 @@ impl super::stub::GkeHub for GkeHub {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1096,7 +1218,7 @@ impl super::stub::GkeHub for GkeHub {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1109,11 +1231,13 @@ impl super::stub::GkeHub for GkeHub {
                 )?;
                 let path = format!("/v1/{}/fleets", var_parent,);
 
+                let resource_name = format!("//gkehub.googleapis.com/v1/{}/fleets", var_parent,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -1127,11 +1251,13 @@ impl super::stub::GkeHub for GkeHub {
                 )?;
                 let path = format!("/v1/{}/fleets", var_parent,);
 
+                let resource_name = format!("//gkehub.googleapis.com/v1/{}/fleets", var_parent,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1167,6 +1293,12 @@ impl super::stub::GkeHub for GkeHub {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1189,7 +1321,7 @@ impl super::stub::GkeHub for GkeHub {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1206,9 +1338,11 @@ impl super::stub::GkeHub for GkeHub {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//gkehub.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1233,6 +1367,12 @@ impl super::stub::GkeHub for GkeHub {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1255,7 +1395,7 @@ impl super::stub::GkeHub for GkeHub {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1270,10 +1410,13 @@ impl super::stub::GkeHub for GkeHub {
                 )?;
                 let path = format!("/v1/{}/namespaces", var_parent,);
 
+                let resource_name =
+                    format!("//gkehub.googleapis.com/v1/{}/namespaces", var_parent,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("scopeNamespaceId", &req.scope_namespace_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1296,6 +1439,12 @@ impl super::stub::GkeHub for GkeHub {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1402,7 +1551,7 @@ impl super::stub::GkeHub for GkeHub {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1419,9 +1568,11 @@ impl super::stub::GkeHub for GkeHub {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//gkehub.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1446,6 +1597,12 @@ impl super::stub::GkeHub for GkeHub {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1468,7 +1625,7 @@ impl super::stub::GkeHub for GkeHub {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1483,11 +1640,14 @@ impl super::stub::GkeHub for GkeHub {
                 )?;
                 let path = format!("/v1/{}/namespaces", var_parent,);
 
+                let resource_name =
+                    format!("//gkehub.googleapis.com/v1/{}/namespaces", var_parent,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1510,6 +1670,12 @@ impl super::stub::GkeHub for GkeHub {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1532,7 +1698,7 @@ impl super::stub::GkeHub for GkeHub {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1549,9 +1715,11 @@ impl super::stub::GkeHub for GkeHub {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//gkehub.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1576,6 +1744,12 @@ impl super::stub::GkeHub for GkeHub {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1598,7 +1772,7 @@ impl super::stub::GkeHub for GkeHub {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1613,10 +1787,13 @@ impl super::stub::GkeHub for GkeHub {
                 )?;
                 let path = format!("/v1/{}/rbacrolebindings", var_parent,);
 
+                let resource_name =
+                    format!("//gkehub.googleapis.com/v1/{}/rbacrolebindings", var_parent,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("rbacrolebindingId", &req.rbacrolebinding_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1639,6 +1816,12 @@ impl super::stub::GkeHub for GkeHub {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1745,7 +1928,7 @@ impl super::stub::GkeHub for GkeHub {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1762,9 +1945,11 @@ impl super::stub::GkeHub for GkeHub {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//gkehub.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1789,6 +1974,12 @@ impl super::stub::GkeHub for GkeHub {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1811,7 +2002,7 @@ impl super::stub::GkeHub for GkeHub {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1826,11 +2017,14 @@ impl super::stub::GkeHub for GkeHub {
                 )?;
                 let path = format!("/v1/{}/rbacrolebindings", var_parent,);
 
+                let resource_name =
+                    format!("//gkehub.googleapis.com/v1/{}/rbacrolebindings", var_parent,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1853,6 +2047,12 @@ impl super::stub::GkeHub for GkeHub {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1875,7 +2075,7 @@ impl super::stub::GkeHub for GkeHub {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1890,9 +2090,11 @@ impl super::stub::GkeHub for GkeHub {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//gkehub.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1915,6 +2117,12 @@ impl super::stub::GkeHub for GkeHub {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1937,7 +2145,7 @@ impl super::stub::GkeHub for GkeHub {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1950,10 +2158,12 @@ impl super::stub::GkeHub for GkeHub {
                 )?;
                 let path = format!("/v1/{}/scopes", var_parent,);
 
+                let resource_name = format!("//gkehub.googleapis.com/v1/{}/scopes", var_parent,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("scopeId", &req.scope_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1974,6 +2184,12 @@ impl super::stub::GkeHub for GkeHub {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2076,7 +2292,7 @@ impl super::stub::GkeHub for GkeHub {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2091,9 +2307,11 @@ impl super::stub::GkeHub for GkeHub {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//gkehub.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2116,6 +2334,12 @@ impl super::stub::GkeHub for GkeHub {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2138,7 +2362,7 @@ impl super::stub::GkeHub for GkeHub {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -2151,11 +2375,13 @@ impl super::stub::GkeHub for GkeHub {
                 )?;
                 let path = format!("/v1/{}/scopes", var_parent,);
 
+                let resource_name = format!("//gkehub.googleapis.com/v1/{}/scopes", var_parent,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2176,6 +2402,12 @@ impl super::stub::GkeHub for GkeHub {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2198,7 +2430,7 @@ impl super::stub::GkeHub for GkeHub {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -2211,11 +2443,13 @@ impl super::stub::GkeHub for GkeHub {
                 )?;
                 let path = format!("/v1/{}/scopes:listPermitted", var_parent,);
 
+                let resource_name = format!("//gkehub.googleapis.com/v1/{}/scopes", var_parent,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2236,6 +2470,12 @@ impl super::stub::GkeHub for GkeHub {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2258,7 +2498,7 @@ impl super::stub::GkeHub for GkeHub {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2275,9 +2515,11 @@ impl super::stub::GkeHub for GkeHub {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//gkehub.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2302,6 +2544,12 @@ impl super::stub::GkeHub for GkeHub {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2324,7 +2572,7 @@ impl super::stub::GkeHub for GkeHub {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -2339,10 +2587,12 @@ impl super::stub::GkeHub for GkeHub {
                 )?;
                 let path = format!("/v1/{}/bindings", var_parent,);
 
+                let resource_name = format!("//gkehub.googleapis.com/v1/{}/bindings", var_parent,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("membershipBindingId", &req.membership_binding_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2365,6 +2615,12 @@ impl super::stub::GkeHub for GkeHub {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2471,7 +2727,7 @@ impl super::stub::GkeHub for GkeHub {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2488,9 +2744,11 @@ impl super::stub::GkeHub for GkeHub {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//gkehub.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2515,6 +2773,12 @@ impl super::stub::GkeHub for GkeHub {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2537,7 +2801,7 @@ impl super::stub::GkeHub for GkeHub {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -2552,12 +2816,14 @@ impl super::stub::GkeHub for GkeHub {
                 )?;
                 let path = format!("/v1/{}/bindings", var_parent,);
 
+                let resource_name = format!("//gkehub.googleapis.com/v1/{}/bindings", var_parent,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2580,6 +2846,12 @@ impl super::stub::GkeHub for GkeHub {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2602,7 +2874,7 @@ impl super::stub::GkeHub for GkeHub {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2619,9 +2891,11 @@ impl super::stub::GkeHub for GkeHub {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//gkehub.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2646,6 +2920,12 @@ impl super::stub::GkeHub for GkeHub {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2668,7 +2948,7 @@ impl super::stub::GkeHub for GkeHub {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -2683,10 +2963,13 @@ impl super::stub::GkeHub for GkeHub {
                 )?;
                 let path = format!("/v1/{}/rbacrolebindings", var_parent,);
 
+                let resource_name =
+                    format!("//gkehub.googleapis.com/v1/{}/rbacrolebindings", var_parent,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("rbacrolebindingId", &req.rbacrolebinding_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2709,6 +2992,12 @@ impl super::stub::GkeHub for GkeHub {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2815,7 +3104,7 @@ impl super::stub::GkeHub for GkeHub {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2832,9 +3121,11 @@ impl super::stub::GkeHub for GkeHub {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//gkehub.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2859,6 +3150,12 @@ impl super::stub::GkeHub for GkeHub {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2881,7 +3178,7 @@ impl super::stub::GkeHub for GkeHub {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -2896,11 +3193,14 @@ impl super::stub::GkeHub for GkeHub {
                 )?;
                 let path = format!("/v1/{}/rbacrolebindings", var_parent,);
 
+                let resource_name =
+                    format!("//gkehub.googleapis.com/v1/{}/rbacrolebindings", var_parent,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2923,6 +3223,12 @@ impl super::stub::GkeHub for GkeHub {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2945,7 +3251,7 @@ impl super::stub::GkeHub for GkeHub {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -2963,10 +3269,13 @@ impl super::stub::GkeHub for GkeHub {
                     var_parent,
                 );
 
+                let resource_name =
+                    format!("//gkehub.googleapis.com/v1/{}/rbacrolebindings", var_parent,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("rbacrolebindingId", &req.rbacrolebinding_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2989,6 +3298,12 @@ impl super::stub::GkeHub for GkeHub {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),

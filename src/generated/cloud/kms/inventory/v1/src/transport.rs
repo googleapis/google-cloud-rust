@@ -50,7 +50,7 @@ impl super::stub::KeyDashboardService for KeyDashboardService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -58,11 +58,14 @@ impl super::stub::KeyDashboardService for KeyDashboardService {
                 )?;
                 let path = format!("/v1/{}/cryptoKeys", var_parent,);
 
+                let resource_name =
+                    format!("//kmsinventory.googleapis.com/v1/{}/cryptoKeys", var_parent,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -78,6 +81,12 @@ impl super::stub::KeyDashboardService for KeyDashboardService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -123,7 +132,7 @@ impl super::stub::KeyTrackingService for KeyTrackingService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -140,10 +149,15 @@ impl super::stub::KeyTrackingService for KeyTrackingService {
                 )?;
                 let path = format!("/v1/{}/protectedResourcesSummary", var_name,);
 
+                let resource_name = format!(
+                    "//kmsinventory.googleapis.com/v1/{}/protectedResourcesSummary",
+                    var_name,
+                );
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("fallbackScope", &req.fallback_scope)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -168,6 +182,12 @@ impl super::stub::KeyTrackingService for KeyTrackingService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -190,13 +210,18 @@ impl super::stub::KeyTrackingService for KeyTrackingService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_scope = try_match(
                     Some(&req).map(|m| &m.scope).map(|s| s.as_str()),
                     &[Segment::Literal("organizations/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v1/{}/protectedResources:search", var_scope,);
+
+                let resource_name = format!(
+                    "//kmsinventory.googleapis.com/v1/{}/protectedResources",
+                    var_scope,
+                );
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("cryptoKey", &req.crypto_key)]);
@@ -207,7 +232,7 @@ impl super::stub::KeyTrackingService for KeyTrackingService {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("resourceTypes", p)]));
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .or_else(|| {
                 let var_scope = try_match(
@@ -216,6 +241,11 @@ impl super::stub::KeyTrackingService for KeyTrackingService {
                 )?;
                 let path = format!("/v1/{}/protectedResources:search", var_scope,);
 
+                let resource_name = format!(
+                    "//kmsinventory.googleapis.com/v1/{}/protectedResources",
+                    var_scope,
+                );
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("cryptoKey", &req.crypto_key)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
@@ -225,7 +255,7 @@ impl super::stub::KeyTrackingService for KeyTrackingService {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("resourceTypes", p)]));
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -251,6 +281,12 @@ impl super::stub::KeyTrackingService for KeyTrackingService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),

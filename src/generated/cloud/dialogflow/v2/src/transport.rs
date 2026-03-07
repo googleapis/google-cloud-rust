@@ -78,7 +78,7 @@ impl super::stub::Agents for Agents {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -86,9 +86,11 @@ impl super::stub::Agents for Agents {
                 )?;
                 let path = format!("/v2/{}/agent", var_parent,);
 
+                let resource_name = format!("//dialogflow.googleapis.com/v2/{}/agent", var_parent,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -102,9 +104,11 @@ impl super::stub::Agents for Agents {
                 )?;
                 let path = format!("/v2/{}/agent", var_parent,);
 
+                let resource_name = format!("//dialogflow.googleapis.com/v2/{}/agent", var_parent,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -135,6 +139,12 @@ impl super::stub::Agents for Agents {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -157,7 +167,7 @@ impl super::stub::Agents for Agents {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_agent_parent = try_match(
                     Some(&req)
@@ -167,6 +177,9 @@ impl super::stub::Agents for Agents {
                     &[Segment::Literal("projects/"), Segment::SingleWildcard],
                 )?;
                 let path = format!("/v2/{}/agent", var_agent_parent,);
+
+                let resource_name =
+                    format!("//dialogflow.googleapis.com/v2/{}/agent", var_agent_parent,);
 
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = (|| {
@@ -182,7 +195,7 @@ impl super::stub::Agents for Agents {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .or_else(|| {
                 let var_agent_parent = try_match(
@@ -199,6 +212,9 @@ impl super::stub::Agents for Agents {
                 )?;
                 let path = format!("/v2/{}/agent", var_agent_parent,);
 
+                let resource_name =
+                    format!("//dialogflow.googleapis.com/v2/{}/agent", var_agent_parent,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = (|| {
                     let builder = req
@@ -213,7 +229,7 @@ impl super::stub::Agents for Agents {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -250,6 +266,12 @@ impl super::stub::Agents for Agents {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -272,7 +294,7 @@ impl super::stub::Agents for Agents {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -280,9 +302,11 @@ impl super::stub::Agents for Agents {
                 )?;
                 let path = format!("/v2/{}/agent", var_parent,);
 
+                let resource_name = format!("//dialogflow.googleapis.com/v2/{}/agent", var_parent,);
+
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -296,9 +320,11 @@ impl super::stub::Agents for Agents {
                 )?;
                 let path = format!("/v2/{}/agent", var_parent,);
 
+                let resource_name = format!("//dialogflow.googleapis.com/v2/{}/agent", var_parent,);
+
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -329,6 +355,12 @@ impl super::stub::Agents for Agents {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -357,7 +389,7 @@ impl super::stub::Agents for Agents {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -365,11 +397,13 @@ impl super::stub::Agents for Agents {
                 )?;
                 let path = format!("/v2/{}/agent:search", var_parent,);
 
+                let resource_name = format!("//dialogflow.googleapis.com/v2/{}/agent", var_parent,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -383,11 +417,13 @@ impl super::stub::Agents for Agents {
                 )?;
                 let path = format!("/v2/{}/agent:search", var_parent,);
 
+                let resource_name = format!("//dialogflow.googleapis.com/v2/{}/agent", var_parent,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -418,6 +454,12 @@ impl super::stub::Agents for Agents {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -440,7 +482,7 @@ impl super::stub::Agents for Agents {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -448,9 +490,11 @@ impl super::stub::Agents for Agents {
                 )?;
                 let path = format!("/v2/{}/agent:train", var_parent,);
 
+                let resource_name = format!("//dialogflow.googleapis.com/v2/{}/agent", var_parent,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -464,9 +508,11 @@ impl super::stub::Agents for Agents {
                 )?;
                 let path = format!("/v2/{}/agent:train", var_parent,);
 
+                let resource_name = format!("//dialogflow.googleapis.com/v2/{}/agent", var_parent,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -497,6 +543,12 @@ impl super::stub::Agents for Agents {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -519,7 +571,7 @@ impl super::stub::Agents for Agents {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -527,9 +579,11 @@ impl super::stub::Agents for Agents {
                 )?;
                 let path = format!("/v2/{}/agent:export", var_parent,);
 
+                let resource_name = format!("//dialogflow.googleapis.com/v2/{}/agent", var_parent,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -543,9 +597,11 @@ impl super::stub::Agents for Agents {
                 )?;
                 let path = format!("/v2/{}/agent:export", var_parent,);
 
+                let resource_name = format!("//dialogflow.googleapis.com/v2/{}/agent", var_parent,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -576,6 +632,12 @@ impl super::stub::Agents for Agents {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -598,7 +660,7 @@ impl super::stub::Agents for Agents {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -606,9 +668,11 @@ impl super::stub::Agents for Agents {
                 )?;
                 let path = format!("/v2/{}/agent:import", var_parent,);
 
+                let resource_name = format!("//dialogflow.googleapis.com/v2/{}/agent", var_parent,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -622,9 +686,11 @@ impl super::stub::Agents for Agents {
                 )?;
                 let path = format!("/v2/{}/agent:import", var_parent,);
 
+                let resource_name = format!("//dialogflow.googleapis.com/v2/{}/agent", var_parent,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -655,6 +721,12 @@ impl super::stub::Agents for Agents {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -677,7 +749,7 @@ impl super::stub::Agents for Agents {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -685,9 +757,11 @@ impl super::stub::Agents for Agents {
                 )?;
                 let path = format!("/v2/{}/agent:restore", var_parent,);
 
+                let resource_name = format!("//dialogflow.googleapis.com/v2/{}/agent", var_parent,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -701,9 +775,11 @@ impl super::stub::Agents for Agents {
                 )?;
                 let path = format!("/v2/{}/agent:restore", var_parent,);
 
+                let resource_name = format!("//dialogflow.googleapis.com/v2/{}/agent", var_parent,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -734,6 +810,12 @@ impl super::stub::Agents for Agents {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -756,7 +838,7 @@ impl super::stub::Agents for Agents {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -764,10 +846,15 @@ impl super::stub::Agents for Agents {
                 )?;
                 let path = format!("/v2/{}/agent/validationResult", var_parent,);
 
+                let resource_name = format!(
+                    "//dialogflow.googleapis.com/v2/{}/agent/validationResult",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("languageCode", &req.language_code)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -781,10 +868,15 @@ impl super::stub::Agents for Agents {
                 )?;
                 let path = format!("/v2/{}/agent/validationResult", var_parent,);
 
+                let resource_name = format!(
+                    "//dialogflow.googleapis.com/v2/{}/agent/validationResult",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("languageCode", &req.language_code)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -815,6 +907,12 @@ impl super::stub::Agents for Agents {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1268,7 +1366,7 @@ impl super::stub::AnswerRecords for AnswerRecords {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1276,12 +1374,17 @@ impl super::stub::AnswerRecords for AnswerRecords {
                 )?;
                 let path = format!("/v2/{}/answerRecords", var_parent,);
 
+                let resource_name = format!(
+                    "//dialogflow.googleapis.com/v2/{}/answerRecords",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -1295,12 +1398,17 @@ impl super::stub::AnswerRecords for AnswerRecords {
                 )?;
                 let path = format!("/v2/{}/answerRecords", var_parent,);
 
+                let resource_name = format!(
+                    "//dialogflow.googleapis.com/v2/{}/answerRecords",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1331,6 +1439,12 @@ impl super::stub::AnswerRecords for AnswerRecords {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1899,7 +2013,7 @@ impl super::stub::Contexts for Contexts {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1912,11 +2026,14 @@ impl super::stub::Contexts for Contexts {
                 )?;
                 let path = format!("/v2/{}/contexts", var_parent,);
 
+                let resource_name =
+                    format!("//dialogflow.googleapis.com/v2/{}/contexts", var_parent,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -1934,11 +2051,14 @@ impl super::stub::Contexts for Contexts {
                 )?;
                 let path = format!("/v2/{}/contexts", var_parent,);
 
+                let resource_name =
+                    format!("//dialogflow.googleapis.com/v2/{}/contexts", var_parent,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -1954,11 +2074,14 @@ impl super::stub::Contexts for Contexts {
                 )?;
                 let path = format!("/v2/{}/contexts", var_parent,);
 
+                let resource_name =
+                    format!("//dialogflow.googleapis.com/v2/{}/contexts", var_parent,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -1978,11 +2101,14 @@ impl super::stub::Contexts for Contexts {
                 )?;
                 let path = format!("/v2/{}/contexts", var_parent,);
 
+                let resource_name =
+                    format!("//dialogflow.googleapis.com/v2/{}/contexts", var_parent,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2060,6 +2186,12 @@ impl super::stub::Contexts for Contexts {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2082,7 +2214,7 @@ impl super::stub::Contexts for Contexts {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2097,9 +2229,11 @@ impl super::stub::Contexts for Contexts {
                 )?;
                 let path = format!("/v2/{}", var_name,);
 
+                let resource_name = format!("//dialogflow.googleapis.com/v2/{}", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -2119,9 +2253,11 @@ impl super::stub::Contexts for Contexts {
                 )?;
                 let path = format!("/v2/{}", var_name,);
 
+                let resource_name = format!("//dialogflow.googleapis.com/v2/{}", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -2139,9 +2275,11 @@ impl super::stub::Contexts for Contexts {
                 )?;
                 let path = format!("/v2/{}", var_name,);
 
+                let resource_name = format!("//dialogflow.googleapis.com/v2/{}", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -2163,9 +2301,11 @@ impl super::stub::Contexts for Contexts {
                 )?;
                 let path = format!("/v2/{}", var_name,);
 
+                let resource_name = format!("//dialogflow.googleapis.com/v2/{}", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2251,6 +2391,12 @@ impl super::stub::Contexts for Contexts {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2273,7 +2419,7 @@ impl super::stub::Contexts for Contexts {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -2286,9 +2432,12 @@ impl super::stub::Contexts for Contexts {
                 )?;
                 let path = format!("/v2/{}/contexts", var_parent,);
 
+                let resource_name =
+                    format!("//dialogflow.googleapis.com/v2/{}/contexts", var_parent,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -2306,9 +2455,12 @@ impl super::stub::Contexts for Contexts {
                 )?;
                 let path = format!("/v2/{}/contexts", var_parent,);
 
+                let resource_name =
+                    format!("//dialogflow.googleapis.com/v2/{}/contexts", var_parent,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -2324,9 +2476,12 @@ impl super::stub::Contexts for Contexts {
                 )?;
                 let path = format!("/v2/{}/contexts", var_parent,);
 
+                let resource_name =
+                    format!("//dialogflow.googleapis.com/v2/{}/contexts", var_parent,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -2346,9 +2501,12 @@ impl super::stub::Contexts for Contexts {
                 )?;
                 let path = format!("/v2/{}/contexts", var_parent,);
 
+                let resource_name =
+                    format!("//dialogflow.googleapis.com/v2/{}/contexts", var_parent,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2426,6 +2584,12 @@ impl super::stub::Contexts for Contexts {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2711,7 +2875,7 @@ impl super::stub::Contexts for Contexts {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2726,9 +2890,11 @@ impl super::stub::Contexts for Contexts {
                 )?;
                 let path = format!("/v2/{}", var_name,);
 
+                let resource_name = format!("//dialogflow.googleapis.com/v2/{}", var_name,);
+
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -2748,9 +2914,11 @@ impl super::stub::Contexts for Contexts {
                 )?;
                 let path = format!("/v2/{}", var_name,);
 
+                let resource_name = format!("//dialogflow.googleapis.com/v2/{}", var_name,);
+
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -2768,9 +2936,11 @@ impl super::stub::Contexts for Contexts {
                 )?;
                 let path = format!("/v2/{}", var_name,);
 
+                let resource_name = format!("//dialogflow.googleapis.com/v2/{}", var_name,);
+
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -2792,9 +2962,11 @@ impl super::stub::Contexts for Contexts {
                 )?;
                 let path = format!("/v2/{}", var_name,);
 
+                let resource_name = format!("//dialogflow.googleapis.com/v2/{}", var_name,);
+
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2880,6 +3052,12 @@ impl super::stub::Contexts for Contexts {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2908,7 +3086,7 @@ impl super::stub::Contexts for Contexts {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -2921,9 +3099,12 @@ impl super::stub::Contexts for Contexts {
                 )?;
                 let path = format!("/v2/{}/contexts", var_parent,);
 
+                let resource_name =
+                    format!("//dialogflow.googleapis.com/v2/{}/contexts", var_parent,);
+
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -2941,9 +3122,12 @@ impl super::stub::Contexts for Contexts {
                 )?;
                 let path = format!("/v2/{}/contexts", var_parent,);
 
+                let resource_name =
+                    format!("//dialogflow.googleapis.com/v2/{}/contexts", var_parent,);
+
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -2959,9 +3143,12 @@ impl super::stub::Contexts for Contexts {
                 )?;
                 let path = format!("/v2/{}/contexts", var_parent,);
 
+                let resource_name =
+                    format!("//dialogflow.googleapis.com/v2/{}/contexts", var_parent,);
+
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -2981,9 +3168,12 @@ impl super::stub::Contexts for Contexts {
                 )?;
                 let path = format!("/v2/{}/contexts", var_parent,);
 
+                let resource_name =
+                    format!("//dialogflow.googleapis.com/v2/{}/contexts", var_parent,);
+
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3061,6 +3251,12 @@ impl super::stub::Contexts for Contexts {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3506,7 +3702,7 @@ impl super::stub::Conversations for Conversations {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -3514,10 +3710,15 @@ impl super::stub::Conversations for Conversations {
                 )?;
                 let path = format!("/v2/{}/conversations", var_parent,);
 
+                let resource_name = format!(
+                    "//dialogflow.googleapis.com/v2/{}/conversations",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("conversationId", &req.conversation_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -3531,10 +3732,15 @@ impl super::stub::Conversations for Conversations {
                 )?;
                 let path = format!("/v2/{}/conversations", var_parent,);
 
+                let resource_name = format!(
+                    "//dialogflow.googleapis.com/v2/{}/conversations",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("conversationId", &req.conversation_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3565,6 +3771,12 @@ impl super::stub::Conversations for Conversations {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3587,7 +3799,7 @@ impl super::stub::Conversations for Conversations {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -3595,12 +3807,17 @@ impl super::stub::Conversations for Conversations {
                 )?;
                 let path = format!("/v2/{}/conversations", var_parent,);
 
+                let resource_name = format!(
+                    "//dialogflow.googleapis.com/v2/{}/conversations",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -3614,12 +3831,17 @@ impl super::stub::Conversations for Conversations {
                 )?;
                 let path = format!("/v2/{}/conversations", var_parent,);
 
+                let resource_name = format!(
+                    "//dialogflow.googleapis.com/v2/{}/conversations",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3650,6 +3872,12 @@ impl super::stub::Conversations for Conversations {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3672,7 +3900,7 @@ impl super::stub::Conversations for Conversations {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3685,9 +3913,11 @@ impl super::stub::Conversations for Conversations {
                 )?;
                 let path = format!("/v2/{}", var_name,);
 
+                let resource_name = format!("//dialogflow.googleapis.com/v2/{}", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -3703,9 +3933,11 @@ impl super::stub::Conversations for Conversations {
                 )?;
                 let path = format!("/v2/{}", var_name,);
 
+                let resource_name = format!("//dialogflow.googleapis.com/v2/{}", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3743,6 +3975,12 @@ impl super::stub::Conversations for Conversations {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3765,7 +4003,7 @@ impl super::stub::Conversations for Conversations {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -3778,9 +4016,11 @@ impl super::stub::Conversations for Conversations {
                 )?;
                 let path = format!("/v2/{}:complete", var_name,);
 
+                let resource_name = format!("//dialogflow.googleapis.com/v2/{}", var_name,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -3796,9 +4036,11 @@ impl super::stub::Conversations for Conversations {
                 )?;
                 let path = format!("/v2/{}:complete", var_name,);
 
+                let resource_name = format!("//dialogflow.googleapis.com/v2/{}", var_name,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3836,6 +4078,12 @@ impl super::stub::Conversations for Conversations {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3858,7 +4106,7 @@ impl super::stub::Conversations for Conversations {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_conversation = try_match(
                     Some(&req).map(|m| &m.conversation).map(|s| s.as_str()),
@@ -3873,9 +4121,11 @@ impl super::stub::Conversations for Conversations {
                 )?;
                 let path = format!("/v2/{}:ingestContextReferences", var_conversation,);
 
+                let resource_name = format!("//dialogflow.googleapis.com/v2/{}", var_conversation,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3898,6 +4148,12 @@ impl super::stub::Conversations for Conversations {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -3920,7 +4176,7 @@ impl super::stub::Conversations for Conversations {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -3933,12 +4189,15 @@ impl super::stub::Conversations for Conversations {
                 )?;
                 let path = format!("/v2/{}/messages", var_parent,);
 
+                let resource_name =
+                    format!("//dialogflow.googleapis.com/v2/{}/messages", var_parent,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -3954,12 +4213,15 @@ impl super::stub::Conversations for Conversations {
                 )?;
                 let path = format!("/v2/{}/messages", var_parent,);
 
+                let resource_name =
+                    format!("//dialogflow.googleapis.com/v2/{}/messages", var_parent,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3997,6 +4259,12 @@ impl super::stub::Conversations for Conversations {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4019,7 +4287,7 @@ impl super::stub::Conversations for Conversations {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_conversation = try_match(
                     Some(&req).map(|m| &m.conversation).map(|s| s.as_str()),
@@ -4035,9 +4303,14 @@ impl super::stub::Conversations for Conversations {
                     var_conversation,
                 );
 
+                let resource_name = format!(
+                    "//dialogflow.googleapis.com/v2/{}/suggestions",
+                    var_conversation,
+                );
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .or_else(|| {
                 let var_conversation = try_match(
@@ -4056,9 +4329,14 @@ impl super::stub::Conversations for Conversations {
                     var_conversation,
                 );
 
+                let resource_name = format!(
+                    "//dialogflow.googleapis.com/v2/{}/suggestions",
+                    var_conversation,
+                );
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4096,6 +4374,12 @@ impl super::stub::Conversations for Conversations {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4118,7 +4402,7 @@ impl super::stub::Conversations for Conversations {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_stateless_conversation_parent = try_match(
                     Some(&req)
@@ -4132,9 +4416,14 @@ impl super::stub::Conversations for Conversations {
                     var_stateless_conversation_parent,
                 );
 
+                let resource_name = format!(
+                    "//dialogflow.googleapis.com/v2/{}/suggestions",
+                    var_stateless_conversation_parent,
+                );
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .or_else(|| {
                 let var_stateless_conversation_parent = try_match(
@@ -4154,9 +4443,14 @@ impl super::stub::Conversations for Conversations {
                     var_stateless_conversation_parent,
                 );
 
+                let resource_name = format!(
+                    "//dialogflow.googleapis.com/v2/{}/suggestions",
+                    var_stateless_conversation_parent,
+                );
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4193,6 +4487,12 @@ impl super::stub::Conversations for Conversations {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4215,7 +4515,7 @@ impl super::stub::Conversations for Conversations {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -4228,9 +4528,14 @@ impl super::stub::Conversations for Conversations {
                 )?;
                 let path = format!("/v2/{}/statelessSuggestion:generate", var_parent,);
 
+                let resource_name = format!(
+                    "//dialogflow.googleapis.com/v2/{}/statelessSuggestion",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4251,6 +4556,12 @@ impl super::stub::Conversations for Conversations {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4273,7 +4584,7 @@ impl super::stub::Conversations for Conversations {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -4281,9 +4592,11 @@ impl super::stub::Conversations for Conversations {
                 )?;
                 let path = format!("/v2/{}/suggestions:searchKnowledge", var_parent,);
 
+                let resource_name = format!("",);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -4297,9 +4610,11 @@ impl super::stub::Conversations for Conversations {
                 )?;
                 let path = format!("/v2/{}/suggestions:searchKnowledge", var_parent,);
 
+                let resource_name = format!("",);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .or_else(|| {
                 let var_conversation = try_match(
@@ -4313,9 +4628,14 @@ impl super::stub::Conversations for Conversations {
                 )?;
                 let path = format!("/v2/{}/suggestions:searchKnowledge", var_conversation,);
 
+                let resource_name = format!(
+                    "//dialogflow.googleapis.com/v2/{}/suggestions",
+                    var_conversation,
+                );
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .or_else(|| {
                 let var_conversation = try_match(
@@ -4331,9 +4651,14 @@ impl super::stub::Conversations for Conversations {
                 )?;
                 let path = format!("/v2/{}/suggestions:searchKnowledge", var_conversation,);
 
+                let resource_name = format!(
+                    "//dialogflow.googleapis.com/v2/{}/suggestions",
+                    var_conversation,
+                );
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4396,6 +4721,12 @@ impl super::stub::Conversations for Conversations {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4418,7 +4749,7 @@ impl super::stub::Conversations for Conversations {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_conversation = try_match(
                     Some(&req).map(|m| &m.conversation).map(|s| s.as_str()),
@@ -4431,9 +4762,14 @@ impl super::stub::Conversations for Conversations {
                 )?;
                 let path = format!("/v2/{}/suggestions:generate", var_conversation,);
 
+                let resource_name = format!(
+                    "//dialogflow.googleapis.com/v2/{}/suggestions",
+                    var_conversation,
+                );
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .or_else(|| {
                 let var_conversation = try_match(
@@ -4449,9 +4785,14 @@ impl super::stub::Conversations for Conversations {
                 )?;
                 let path = format!("/v2/{}/suggestions:generate", var_conversation,);
 
+                let resource_name = format!(
+                    "//dialogflow.googleapis.com/v2/{}/suggestions",
+                    var_conversation,
+                );
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4489,6 +4830,12 @@ impl super::stub::Conversations for Conversations {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -4986,7 +5333,7 @@ impl super::stub::ConversationDatasets for ConversationDatasets {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -4999,9 +5346,11 @@ impl super::stub::ConversationDatasets for ConversationDatasets {
                 )?;
                 let path = format!("/v2/{}", var_name,);
 
+                let resource_name = format!("//dialogflow.googleapis.com/v2/{}", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -5017,9 +5366,11 @@ impl super::stub::ConversationDatasets for ConversationDatasets {
                 )?;
                 let path = format!("/v2/{}", var_name,);
 
+                let resource_name = format!("//dialogflow.googleapis.com/v2/{}", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5057,6 +5408,12 @@ impl super::stub::ConversationDatasets for ConversationDatasets {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5079,7 +5436,7 @@ impl super::stub::ConversationDatasets for ConversationDatasets {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -5087,11 +5444,16 @@ impl super::stub::ConversationDatasets for ConversationDatasets {
                 )?;
                 let path = format!("/v2/{}/conversationDatasets", var_parent,);
 
+                let resource_name = format!(
+                    "//dialogflow.googleapis.com/v2/{}/conversationDatasets",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -5105,11 +5467,16 @@ impl super::stub::ConversationDatasets for ConversationDatasets {
                 )?;
                 let path = format!("/v2/{}/conversationDatasets", var_parent,);
 
+                let resource_name = format!(
+                    "//dialogflow.googleapis.com/v2/{}/conversationDatasets",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5140,6 +5507,12 @@ impl super::stub::ConversationDatasets for ConversationDatasets {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5162,7 +5535,7 @@ impl super::stub::ConversationDatasets for ConversationDatasets {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -5177,9 +5550,11 @@ impl super::stub::ConversationDatasets for ConversationDatasets {
                 )?;
                 let path = format!("/v2/{}", var_name,);
 
+                let resource_name = format!("//dialogflow.googleapis.com/v2/{}", var_name,);
+
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5202,6 +5577,12 @@ impl super::stub::ConversationDatasets for ConversationDatasets {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -5224,7 +5605,7 @@ impl super::stub::ConversationDatasets for ConversationDatasets {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -5237,9 +5618,11 @@ impl super::stub::ConversationDatasets for ConversationDatasets {
                 )?;
                 let path = format!("/v2/{}:importConversationData", var_name,);
 
+                let resource_name = format!("//dialogflow.googleapis.com/v2/{}", var_name,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -5255,9 +5638,11 @@ impl super::stub::ConversationDatasets for ConversationDatasets {
                 )?;
                 let path = format!("/v2/{}:importConversationData", var_name,);
 
+                let resource_name = format!("//dialogflow.googleapis.com/v2/{}", var_name,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5295,6 +5680,12 @@ impl super::stub::ConversationDatasets for ConversationDatasets {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6480,7 +6871,7 @@ impl super::stub::ConversationModels for ConversationModels {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -6495,9 +6886,12 @@ impl super::stub::ConversationModels for ConversationModels {
                 )?;
                 let path = format!("/v2/{}/evaluations", var_parent,);
 
+                let resource_name =
+                    format!("//dialogflow.googleapis.com/v2/{}/evaluations", var_parent,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6520,6 +6914,12 @@ impl super::stub::ConversationModels for ConversationModels {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -6973,7 +7373,7 @@ impl super::stub::ConversationProfiles for ConversationProfiles {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -6981,11 +7381,16 @@ impl super::stub::ConversationProfiles for ConversationProfiles {
                 )?;
                 let path = format!("/v2/{}/conversationProfiles", var_parent,);
 
+                let resource_name = format!(
+                    "//dialogflow.googleapis.com/v2/{}/conversationProfiles",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -6999,11 +7404,16 @@ impl super::stub::ConversationProfiles for ConversationProfiles {
                 )?;
                 let path = format!("/v2/{}/conversationProfiles", var_parent,);
 
+                let resource_name = format!(
+                    "//dialogflow.googleapis.com/v2/{}/conversationProfiles",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7034,6 +7444,12 @@ impl super::stub::ConversationProfiles for ConversationProfiles {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -7056,7 +7472,7 @@ impl super::stub::ConversationProfiles for ConversationProfiles {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -7069,9 +7485,11 @@ impl super::stub::ConversationProfiles for ConversationProfiles {
                 )?;
                 let path = format!("/v2/{}", var_name,);
 
+                let resource_name = format!("//dialogflow.googleapis.com/v2/{}", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -7087,9 +7505,11 @@ impl super::stub::ConversationProfiles for ConversationProfiles {
                 )?;
                 let path = format!("/v2/{}", var_name,);
 
+                let resource_name = format!("//dialogflow.googleapis.com/v2/{}", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7127,6 +7547,12 @@ impl super::stub::ConversationProfiles for ConversationProfiles {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -7149,7 +7575,7 @@ impl super::stub::ConversationProfiles for ConversationProfiles {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -7157,9 +7583,14 @@ impl super::stub::ConversationProfiles for ConversationProfiles {
                 )?;
                 let path = format!("/v2/{}/conversationProfiles", var_parent,);
 
+                let resource_name = format!(
+                    "//dialogflow.googleapis.com/v2/{}/conversationProfiles",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -7173,9 +7604,14 @@ impl super::stub::ConversationProfiles for ConversationProfiles {
                 )?;
                 let path = format!("/v2/{}/conversationProfiles", var_parent,);
 
+                let resource_name = format!(
+                    "//dialogflow.googleapis.com/v2/{}/conversationProfiles",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7206,6 +7642,12 @@ impl super::stub::ConversationProfiles for ConversationProfiles {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -7357,7 +7799,7 @@ impl super::stub::ConversationProfiles for ConversationProfiles {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -7370,9 +7812,11 @@ impl super::stub::ConversationProfiles for ConversationProfiles {
                 )?;
                 let path = format!("/v2/{}", var_name,);
 
+                let resource_name = format!("//dialogflow.googleapis.com/v2/{}", var_name,);
+
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -7388,9 +7832,11 @@ impl super::stub::ConversationProfiles for ConversationProfiles {
                 )?;
                 let path = format!("/v2/{}", var_name,);
 
+                let resource_name = format!("//dialogflow.googleapis.com/v2/{}", var_name,);
+
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7428,6 +7874,12 @@ impl super::stub::ConversationProfiles for ConversationProfiles {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -8101,7 +8553,7 @@ impl super::stub::Documents for Documents {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -8114,12 +8566,15 @@ impl super::stub::Documents for Documents {
                 )?;
                 let path = format!("/v2/{}/documents", var_parent,);
 
+                let resource_name =
+                    format!("//dialogflow.googleapis.com/v2/{}/documents", var_parent,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -8135,12 +8590,15 @@ impl super::stub::Documents for Documents {
                 )?;
                 let path = format!("/v2/{}/documents", var_parent,);
 
+                let resource_name =
+                    format!("//dialogflow.googleapis.com/v2/{}/documents", var_parent,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -8154,12 +8612,15 @@ impl super::stub::Documents for Documents {
                 )?;
                 let path = format!("/v2/{}/documents", var_parent,);
 
+                let resource_name =
+                    format!("//dialogflow.googleapis.com/v2/{}/documents", var_parent,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8212,6 +8673,12 @@ impl super::stub::Documents for Documents {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -8234,7 +8701,7 @@ impl super::stub::Documents for Documents {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -8249,9 +8716,11 @@ impl super::stub::Documents for Documents {
                 )?;
                 let path = format!("/v2/{}", var_name,);
 
+                let resource_name = format!("//dialogflow.googleapis.com/v2/{}", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -8269,9 +8738,11 @@ impl super::stub::Documents for Documents {
                 )?;
                 let path = format!("/v2/{}", var_name,);
 
+                let resource_name = format!("//dialogflow.googleapis.com/v2/{}", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -8287,9 +8758,11 @@ impl super::stub::Documents for Documents {
                 )?;
                 let path = format!("/v2/{}", var_name,);
 
+                let resource_name = format!("//dialogflow.googleapis.com/v2/{}", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8348,6 +8821,12 @@ impl super::stub::Documents for Documents {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -8370,7 +8849,7 @@ impl super::stub::Documents for Documents {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -8383,9 +8862,12 @@ impl super::stub::Documents for Documents {
                 )?;
                 let path = format!("/v2/{}/documents", var_parent,);
 
+                let resource_name =
+                    format!("//dialogflow.googleapis.com/v2/{}/documents", var_parent,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -8401,9 +8883,12 @@ impl super::stub::Documents for Documents {
                 )?;
                 let path = format!("/v2/{}/documents", var_parent,);
 
+                let resource_name =
+                    format!("//dialogflow.googleapis.com/v2/{}/documents", var_parent,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -8417,9 +8902,12 @@ impl super::stub::Documents for Documents {
                 )?;
                 let path = format!("/v2/{}/documents", var_parent,);
 
+                let resource_name =
+                    format!("//dialogflow.googleapis.com/v2/{}/documents", var_parent,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8472,6 +8960,12 @@ impl super::stub::Documents for Documents {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -8494,7 +8988,7 @@ impl super::stub::Documents for Documents {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -8507,9 +9001,12 @@ impl super::stub::Documents for Documents {
                 )?;
                 let path = format!("/v2/{}/documents:import", var_parent,);
 
+                let resource_name =
+                    format!("//dialogflow.googleapis.com/v2/{}/documents", var_parent,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -8525,9 +9022,12 @@ impl super::stub::Documents for Documents {
                 )?;
                 let path = format!("/v2/{}/documents:import", var_parent,);
 
+                let resource_name =
+                    format!("//dialogflow.googleapis.com/v2/{}/documents", var_parent,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8565,6 +9065,12 @@ impl super::stub::Documents for Documents {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -8587,7 +9093,7 @@ impl super::stub::Documents for Documents {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -8602,9 +9108,11 @@ impl super::stub::Documents for Documents {
                 )?;
                 let path = format!("/v2/{}", var_name,);
 
+                let resource_name = format!("//dialogflow.googleapis.com/v2/{}", var_name,);
+
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -8622,9 +9130,11 @@ impl super::stub::Documents for Documents {
                 )?;
                 let path = format!("/v2/{}", var_name,);
 
+                let resource_name = format!("//dialogflow.googleapis.com/v2/{}", var_name,);
+
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -8640,9 +9150,11 @@ impl super::stub::Documents for Documents {
                 )?;
                 let path = format!("/v2/{}", var_name,);
 
+                let resource_name = format!("//dialogflow.googleapis.com/v2/{}", var_name,);
+
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8701,6 +9213,12 @@ impl super::stub::Documents for Documents {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -8913,7 +9431,7 @@ impl super::stub::Documents for Documents {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -8928,9 +9446,11 @@ impl super::stub::Documents for Documents {
                 )?;
                 let path = format!("/v2/{}:reload", var_name,);
 
+                let resource_name = format!("//dialogflow.googleapis.com/v2/{}", var_name,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -8948,9 +9468,11 @@ impl super::stub::Documents for Documents {
                 )?;
                 let path = format!("/v2/{}:reload", var_name,);
 
+                let resource_name = format!("//dialogflow.googleapis.com/v2/{}", var_name,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -8966,9 +9488,11 @@ impl super::stub::Documents for Documents {
                 )?;
                 let path = format!("/v2/{}:reload", var_name,);
 
+                let resource_name = format!("//dialogflow.googleapis.com/v2/{}", var_name,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -9027,6 +9551,12 @@ impl super::stub::Documents for Documents {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -9049,7 +9579,7 @@ impl super::stub::Documents for Documents {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -9064,9 +9594,11 @@ impl super::stub::Documents for Documents {
                 )?;
                 let path = format!("/v2/{}:export", var_name,);
 
+                let resource_name = format!("//dialogflow.googleapis.com/v2/{}", var_name,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -9084,9 +9616,11 @@ impl super::stub::Documents for Documents {
                 )?;
                 let path = format!("/v2/{}:export", var_name,);
 
+                let resource_name = format!("//dialogflow.googleapis.com/v2/{}", var_name,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -9128,6 +9662,12 @@ impl super::stub::Documents for Documents {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -9581,7 +10121,7 @@ impl super::stub::EncryptionSpecService for EncryptionSpecService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -9595,9 +10135,11 @@ impl super::stub::EncryptionSpecService for EncryptionSpecService {
                 )?;
                 let path = format!("/v2/{}", var_name,);
 
+                let resource_name = format!("//dialogflow.googleapis.com/v2/{}", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -9619,6 +10161,12 @@ impl super::stub::EncryptionSpecService for EncryptionSpecService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -10138,7 +10686,7 @@ impl super::stub::EntityTypes for EntityTypes {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -10150,12 +10698,15 @@ impl super::stub::EntityTypes for EntityTypes {
                 )?;
                 let path = format!("/v2/{}/entityTypes", var_parent,);
 
+                let resource_name =
+                    format!("//dialogflow.googleapis.com/v2/{}/entityTypes", var_parent,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("languageCode", &req.language_code)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -10170,12 +10721,15 @@ impl super::stub::EntityTypes for EntityTypes {
                 )?;
                 let path = format!("/v2/{}/entityTypes", var_parent,);
 
+                let resource_name =
+                    format!("//dialogflow.googleapis.com/v2/{}/entityTypes", var_parent,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("languageCode", &req.language_code)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -10211,6 +10765,12 @@ impl super::stub::EntityTypes for EntityTypes {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -10233,7 +10793,7 @@ impl super::stub::EntityTypes for EntityTypes {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -10246,10 +10806,12 @@ impl super::stub::EntityTypes for EntityTypes {
                 )?;
                 let path = format!("/v2/{}", var_name,);
 
+                let resource_name = format!("//dialogflow.googleapis.com/v2/{}", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("languageCode", &req.language_code)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -10265,10 +10827,12 @@ impl super::stub::EntityTypes for EntityTypes {
                 )?;
                 let path = format!("/v2/{}", var_name,);
 
+                let resource_name = format!("//dialogflow.googleapis.com/v2/{}", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("languageCode", &req.language_code)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -10306,6 +10870,12 @@ impl super::stub::EntityTypes for EntityTypes {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -10328,7 +10898,7 @@ impl super::stub::EntityTypes for EntityTypes {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -10340,10 +10910,13 @@ impl super::stub::EntityTypes for EntityTypes {
                 )?;
                 let path = format!("/v2/{}/entityTypes", var_parent,);
 
+                let resource_name =
+                    format!("//dialogflow.googleapis.com/v2/{}/entityTypes", var_parent,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("languageCode", &req.language_code)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -10358,10 +10931,13 @@ impl super::stub::EntityTypes for EntityTypes {
                 )?;
                 let path = format!("/v2/{}/entityTypes", var_parent,);
 
+                let resource_name =
+                    format!("//dialogflow.googleapis.com/v2/{}/entityTypes", var_parent,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("languageCode", &req.language_code)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -10397,6 +10973,12 @@ impl super::stub::EntityTypes for EntityTypes {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -10550,7 +11132,7 @@ impl super::stub::EntityTypes for EntityTypes {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -10563,9 +11145,11 @@ impl super::stub::EntityTypes for EntityTypes {
                 )?;
                 let path = format!("/v2/{}", var_name,);
 
+                let resource_name = format!("//dialogflow.googleapis.com/v2/{}", var_name,);
+
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -10581,9 +11165,11 @@ impl super::stub::EntityTypes for EntityTypes {
                 )?;
                 let path = format!("/v2/{}", var_name,);
 
+                let resource_name = format!("//dialogflow.googleapis.com/v2/{}", var_name,);
+
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -10621,6 +11207,12 @@ impl super::stub::EntityTypes for EntityTypes {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -10649,7 +11241,7 @@ impl super::stub::EntityTypes for EntityTypes {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -10661,9 +11253,12 @@ impl super::stub::EntityTypes for EntityTypes {
                 )?;
                 let path = format!("/v2/{}/entityTypes:batchUpdate", var_parent,);
 
+                let resource_name =
+                    format!("//dialogflow.googleapis.com/v2/{}/entityTypes", var_parent,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -10678,9 +11273,12 @@ impl super::stub::EntityTypes for EntityTypes {
                 )?;
                 let path = format!("/v2/{}/entityTypes:batchUpdate", var_parent,);
 
+                let resource_name =
+                    format!("//dialogflow.googleapis.com/v2/{}/entityTypes", var_parent,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -10716,6 +11314,12 @@ impl super::stub::EntityTypes for EntityTypes {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -10738,7 +11342,7 @@ impl super::stub::EntityTypes for EntityTypes {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -10750,9 +11354,12 @@ impl super::stub::EntityTypes for EntityTypes {
                 )?;
                 let path = format!("/v2/{}/entityTypes:batchDelete", var_parent,);
 
+                let resource_name =
+                    format!("//dialogflow.googleapis.com/v2/{}/entityTypes", var_parent,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -10767,9 +11374,12 @@ impl super::stub::EntityTypes for EntityTypes {
                 )?;
                 let path = format!("/v2/{}/entityTypes:batchDelete", var_parent,);
 
+                let resource_name =
+                    format!("//dialogflow.googleapis.com/v2/{}/entityTypes", var_parent,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -10805,6 +11415,12 @@ impl super::stub::EntityTypes for EntityTypes {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -10827,7 +11443,7 @@ impl super::stub::EntityTypes for EntityTypes {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -10840,9 +11456,12 @@ impl super::stub::EntityTypes for EntityTypes {
                 )?;
                 let path = format!("/v2/{}/entities:batchCreate", var_parent,);
 
+                let resource_name =
+                    format!("//dialogflow.googleapis.com/v2/{}/entities", var_parent,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -10858,9 +11477,12 @@ impl super::stub::EntityTypes for EntityTypes {
                 )?;
                 let path = format!("/v2/{}/entities:batchCreate", var_parent,);
 
+                let resource_name =
+                    format!("//dialogflow.googleapis.com/v2/{}/entities", var_parent,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -10898,6 +11520,12 @@ impl super::stub::EntityTypes for EntityTypes {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -10920,7 +11548,7 @@ impl super::stub::EntityTypes for EntityTypes {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -10933,9 +11561,12 @@ impl super::stub::EntityTypes for EntityTypes {
                 )?;
                 let path = format!("/v2/{}/entities:batchUpdate", var_parent,);
 
+                let resource_name =
+                    format!("//dialogflow.googleapis.com/v2/{}/entities", var_parent,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -10951,9 +11582,12 @@ impl super::stub::EntityTypes for EntityTypes {
                 )?;
                 let path = format!("/v2/{}/entities:batchUpdate", var_parent,);
 
+                let resource_name =
+                    format!("//dialogflow.googleapis.com/v2/{}/entities", var_parent,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -10991,6 +11625,12 @@ impl super::stub::EntityTypes for EntityTypes {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -11013,7 +11653,7 @@ impl super::stub::EntityTypes for EntityTypes {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -11026,9 +11666,12 @@ impl super::stub::EntityTypes for EntityTypes {
                 )?;
                 let path = format!("/v2/{}/entities:batchDelete", var_parent,);
 
+                let resource_name =
+                    format!("//dialogflow.googleapis.com/v2/{}/entities", var_parent,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -11044,9 +11687,12 @@ impl super::stub::EntityTypes for EntityTypes {
                 )?;
                 let path = format!("/v2/{}/entities:batchDelete", var_parent,);
 
+                let resource_name =
+                    format!("//dialogflow.googleapis.com/v2/{}/entities", var_parent,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -11084,6 +11730,12 @@ impl super::stub::EntityTypes for EntityTypes {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -11537,7 +12189,7 @@ impl super::stub::Environments for Environments {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -11549,11 +12201,14 @@ impl super::stub::Environments for Environments {
                 )?;
                 let path = format!("/v2/{}/environments", var_parent,);
 
+                let resource_name =
+                    format!("//dialogflow.googleapis.com/v2/{}/environments", var_parent,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -11568,11 +12223,14 @@ impl super::stub::Environments for Environments {
                 )?;
                 let path = format!("/v2/{}/environments", var_parent,);
 
+                let resource_name =
+                    format!("//dialogflow.googleapis.com/v2/{}/environments", var_parent,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -11608,6 +12266,12 @@ impl super::stub::Environments for Environments {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -11630,7 +12294,7 @@ impl super::stub::Environments for Environments {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -11643,9 +12307,11 @@ impl super::stub::Environments for Environments {
                 )?;
                 let path = format!("/v2/{}", var_name,);
 
+                let resource_name = format!("//dialogflow.googleapis.com/v2/{}", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -11661,9 +12327,11 @@ impl super::stub::Environments for Environments {
                 )?;
                 let path = format!("/v2/{}", var_name,);
 
+                let resource_name = format!("//dialogflow.googleapis.com/v2/{}", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -11701,6 +12369,12 @@ impl super::stub::Environments for Environments {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -11723,7 +12397,7 @@ impl super::stub::Environments for Environments {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -11735,10 +12409,13 @@ impl super::stub::Environments for Environments {
                 )?;
                 let path = format!("/v2/{}/environments", var_parent,);
 
+                let resource_name =
+                    format!("//dialogflow.googleapis.com/v2/{}/environments", var_parent,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("environmentId", &req.environment_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -11753,10 +12430,13 @@ impl super::stub::Environments for Environments {
                 )?;
                 let path = format!("/v2/{}/environments", var_parent,);
 
+                let resource_name =
+                    format!("//dialogflow.googleapis.com/v2/{}/environments", var_parent,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("environmentId", &req.environment_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -11792,6 +12472,12 @@ impl super::stub::Environments for Environments {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -11951,7 +12637,7 @@ impl super::stub::Environments for Environments {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -11964,9 +12650,11 @@ impl super::stub::Environments for Environments {
                 )?;
                 let path = format!("/v2/{}", var_name,);
 
+                let resource_name = format!("//dialogflow.googleapis.com/v2/{}", var_name,);
+
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -11982,9 +12670,11 @@ impl super::stub::Environments for Environments {
                 )?;
                 let path = format!("/v2/{}", var_name,);
 
+                let resource_name = format!("//dialogflow.googleapis.com/v2/{}", var_name,);
+
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -12022,6 +12712,12 @@ impl super::stub::Environments for Environments {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -12050,7 +12746,7 @@ impl super::stub::Environments for Environments {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -12063,11 +12759,14 @@ impl super::stub::Environments for Environments {
                 )?;
                 let path = format!("/v2/{}/history", var_parent,);
 
+                let resource_name =
+                    format!("//dialogflow.googleapis.com/v2/{}/history", var_parent,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -12083,11 +12782,14 @@ impl super::stub::Environments for Environments {
                 )?;
                 let path = format!("/v2/{}/history", var_parent,);
 
+                let resource_name =
+                    format!("//dialogflow.googleapis.com/v2/{}/history", var_parent,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -12125,6 +12827,12 @@ impl super::stub::Environments for Environments {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -12564,7 +13272,7 @@ impl super::stub::Fulfillments for Fulfillments {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -12576,9 +13284,11 @@ impl super::stub::Fulfillments for Fulfillments {
                 )?;
                 let path = format!("/v2/{}", var_name,);
 
+                let resource_name = format!("//dialogflow.googleapis.com/v2/{}", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -12593,9 +13303,11 @@ impl super::stub::Fulfillments for Fulfillments {
                 )?;
                 let path = format!("/v2/{}", var_name,);
 
+                let resource_name = format!("//dialogflow.googleapis.com/v2/{}", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -12631,6 +13343,12 @@ impl super::stub::Fulfillments for Fulfillments {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -13195,7 +13913,7 @@ impl super::stub::Generators for Generators {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -13208,10 +13926,13 @@ impl super::stub::Generators for Generators {
                 )?;
                 let path = format!("/v2/{}/generators", var_parent,);
 
+                let resource_name =
+                    format!("//dialogflow.googleapis.com/v2/{}/generators", var_parent,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("generatorId", &req.generator_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -13220,10 +13941,13 @@ impl super::stub::Generators for Generators {
                 )?;
                 let path = format!("/v2/{}/generators", var_parent,);
 
+                let resource_name =
+                    format!("//dialogflow.googleapis.com/v2/{}/generators", var_parent,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("generatorId", &req.generator_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -13254,6 +13978,12 @@ impl super::stub::Generators for Generators {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -13276,7 +14006,7 @@ impl super::stub::Generators for Generators {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -13291,9 +14021,11 @@ impl super::stub::Generators for Generators {
                 )?;
                 let path = format!("/v2/{}", var_name,);
 
+                let resource_name = format!("//dialogflow.googleapis.com/v2/{}", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -13316,6 +14048,12 @@ impl super::stub::Generators for Generators {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -13338,7 +14076,7 @@ impl super::stub::Generators for Generators {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -13351,11 +14089,14 @@ impl super::stub::Generators for Generators {
                 )?;
                 let path = format!("/v2/{}/generators", var_parent,);
 
+                let resource_name =
+                    format!("//dialogflow.googleapis.com/v2/{}/generators", var_parent,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -13364,11 +14105,14 @@ impl super::stub::Generators for Generators {
                 )?;
                 let path = format!("/v2/{}/generators", var_parent,);
 
+                let resource_name =
+                    format!("//dialogflow.googleapis.com/v2/{}/generators", var_parent,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -13399,6 +14143,12 @@ impl super::stub::Generators for Generators {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -13421,7 +14171,7 @@ impl super::stub::Generators for Generators {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -13436,9 +14186,11 @@ impl super::stub::Generators for Generators {
                 )?;
                 let path = format!("/v2/{}", var_name,);
 
+                let resource_name = format!("//dialogflow.googleapis.com/v2/{}", var_name,);
+
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -13461,6 +14213,12 @@ impl super::stub::Generators for Generators {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -13986,7 +14744,7 @@ impl super::stub::GeneratorEvaluations for GeneratorEvaluations {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -14001,9 +14759,12 @@ impl super::stub::GeneratorEvaluations for GeneratorEvaluations {
                 )?;
                 let path = format!("/v2/{}/evaluations", var_parent,);
 
+                let resource_name =
+                    format!("//dialogflow.googleapis.com/v2/{}/evaluations", var_parent,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -14026,6 +14787,12 @@ impl super::stub::GeneratorEvaluations for GeneratorEvaluations {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -14048,7 +14815,7 @@ impl super::stub::GeneratorEvaluations for GeneratorEvaluations {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -14065,9 +14832,11 @@ impl super::stub::GeneratorEvaluations for GeneratorEvaluations {
                 )?;
                 let path = format!("/v2/{}", var_name,);
 
+                let resource_name = format!("//dialogflow.googleapis.com/v2/{}", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -14092,6 +14861,12 @@ impl super::stub::GeneratorEvaluations for GeneratorEvaluations {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -14114,7 +14889,7 @@ impl super::stub::GeneratorEvaluations for GeneratorEvaluations {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -14129,11 +14904,14 @@ impl super::stub::GeneratorEvaluations for GeneratorEvaluations {
                 )?;
                 let path = format!("/v2/{}/evaluations", var_parent,);
 
+                let resource_name =
+                    format!("//dialogflow.googleapis.com/v2/{}/evaluations", var_parent,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -14156,6 +14934,12 @@ impl super::stub::GeneratorEvaluations for GeneratorEvaluations {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -14178,7 +14962,7 @@ impl super::stub::GeneratorEvaluations for GeneratorEvaluations {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -14195,9 +14979,11 @@ impl super::stub::GeneratorEvaluations for GeneratorEvaluations {
                 )?;
                 let path = format!("/v2/{}", var_name,);
 
+                let resource_name = format!("//dialogflow.googleapis.com/v2/{}", var_name,);
+
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -14222,6 +15008,12 @@ impl super::stub::GeneratorEvaluations for GeneratorEvaluations {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -14681,7 +15473,7 @@ impl super::stub::Intents for Intents {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -14693,13 +15485,16 @@ impl super::stub::Intents for Intents {
                 )?;
                 let path = format!("/v2/{}/intents", var_parent,);
 
+                let resource_name =
+                    format!("//dialogflow.googleapis.com/v2/{}/intents", var_parent,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("languageCode", &req.language_code)]);
                 let builder = builder.query(&[("intentView", &req.intent_view)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -14714,13 +15509,16 @@ impl super::stub::Intents for Intents {
                 )?;
                 let path = format!("/v2/{}/intents", var_parent,);
 
+                let resource_name =
+                    format!("//dialogflow.googleapis.com/v2/{}/intents", var_parent,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("languageCode", &req.language_code)]);
                 let builder = builder.query(&[("intentView", &req.intent_view)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -14734,13 +15532,16 @@ impl super::stub::Intents for Intents {
                 )?;
                 let path = format!("/v2/{}/intents", var_parent,);
 
+                let resource_name =
+                    format!("//dialogflow.googleapis.com/v2/{}/intents", var_parent,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("languageCode", &req.language_code)]);
                 let builder = builder.query(&[("intentView", &req.intent_view)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -14756,13 +15557,16 @@ impl super::stub::Intents for Intents {
                 )?;
                 let path = format!("/v2/{}/intents", var_parent,);
 
+                let resource_name =
+                    format!("//dialogflow.googleapis.com/v2/{}/intents", var_parent,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("languageCode", &req.language_code)]);
                 let builder = builder.query(&[("intentView", &req.intent_view)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -14830,6 +15634,12 @@ impl super::stub::Intents for Intents {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -14852,7 +15662,7 @@ impl super::stub::Intents for Intents {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -14865,11 +15675,13 @@ impl super::stub::Intents for Intents {
                 )?;
                 let path = format!("/v2/{}", var_name,);
 
+                let resource_name = format!("//dialogflow.googleapis.com/v2/{}", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("languageCode", &req.language_code)]);
                 let builder = builder.query(&[("intentView", &req.intent_view)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -14885,11 +15697,13 @@ impl super::stub::Intents for Intents {
                 )?;
                 let path = format!("/v2/{}", var_name,);
 
+                let resource_name = format!("//dialogflow.googleapis.com/v2/{}", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("languageCode", &req.language_code)]);
                 let builder = builder.query(&[("intentView", &req.intent_view)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -14927,6 +15741,12 @@ impl super::stub::Intents for Intents {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -14949,7 +15769,7 @@ impl super::stub::Intents for Intents {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -14961,11 +15781,14 @@ impl super::stub::Intents for Intents {
                 )?;
                 let path = format!("/v2/{}/intents", var_parent,);
 
+                let resource_name =
+                    format!("//dialogflow.googleapis.com/v2/{}/intents", var_parent,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("languageCode", &req.language_code)]);
                 let builder = builder.query(&[("intentView", &req.intent_view)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -14980,11 +15803,14 @@ impl super::stub::Intents for Intents {
                 )?;
                 let path = format!("/v2/{}/intents", var_parent,);
 
+                let resource_name =
+                    format!("//dialogflow.googleapis.com/v2/{}/intents", var_parent,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("languageCode", &req.language_code)]);
                 let builder = builder.query(&[("intentView", &req.intent_view)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -15020,6 +15846,12 @@ impl super::stub::Intents for Intents {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -15175,7 +16007,7 @@ impl super::stub::Intents for Intents {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -15188,9 +16020,11 @@ impl super::stub::Intents for Intents {
                 )?;
                 let path = format!("/v2/{}", var_name,);
 
+                let resource_name = format!("//dialogflow.googleapis.com/v2/{}", var_name,);
+
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -15206,9 +16040,11 @@ impl super::stub::Intents for Intents {
                 )?;
                 let path = format!("/v2/{}", var_name,);
 
+                let resource_name = format!("//dialogflow.googleapis.com/v2/{}", var_name,);
+
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -15246,6 +16082,12 @@ impl super::stub::Intents for Intents {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -15274,7 +16116,7 @@ impl super::stub::Intents for Intents {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -15286,9 +16128,12 @@ impl super::stub::Intents for Intents {
                 )?;
                 let path = format!("/v2/{}/intents:batchUpdate", var_parent,);
 
+                let resource_name =
+                    format!("//dialogflow.googleapis.com/v2/{}/intents", var_parent,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -15303,9 +16148,12 @@ impl super::stub::Intents for Intents {
                 )?;
                 let path = format!("/v2/{}/intents:batchUpdate", var_parent,);
 
+                let resource_name =
+                    format!("//dialogflow.googleapis.com/v2/{}/intents", var_parent,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -15341,6 +16189,12 @@ impl super::stub::Intents for Intents {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -15363,7 +16217,7 @@ impl super::stub::Intents for Intents {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -15375,9 +16229,12 @@ impl super::stub::Intents for Intents {
                 )?;
                 let path = format!("/v2/{}/intents:batchDelete", var_parent,);
 
+                let resource_name =
+                    format!("//dialogflow.googleapis.com/v2/{}/intents", var_parent,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -15392,9 +16249,12 @@ impl super::stub::Intents for Intents {
                 )?;
                 let path = format!("/v2/{}/intents:batchDelete", var_parent,);
 
+                let resource_name =
+                    format!("//dialogflow.googleapis.com/v2/{}/intents", var_parent,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -15430,6 +16290,12 @@ impl super::stub::Intents for Intents {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -15883,7 +16749,7 @@ impl super::stub::KnowledgeBases for KnowledgeBases {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -15891,12 +16757,17 @@ impl super::stub::KnowledgeBases for KnowledgeBases {
                 )?;
                 let path = format!("/v2/{}/knowledgeBases", var_parent,);
 
+                let resource_name = format!(
+                    "//dialogflow.googleapis.com/v2/{}/knowledgeBases",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -15910,12 +16781,17 @@ impl super::stub::KnowledgeBases for KnowledgeBases {
                 )?;
                 let path = format!("/v2/{}/knowledgeBases", var_parent,);
 
+                let resource_name = format!(
+                    "//dialogflow.googleapis.com/v2/{}/knowledgeBases",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -15928,12 +16804,17 @@ impl super::stub::KnowledgeBases for KnowledgeBases {
                 )?;
                 let path = format!("/v2/{}/knowledgeBases", var_parent,);
 
+                let resource_name = format!(
+                    "//dialogflow.googleapis.com/v2/{}/knowledgeBases",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -15978,6 +16859,12 @@ impl super::stub::KnowledgeBases for KnowledgeBases {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -16000,7 +16887,7 @@ impl super::stub::KnowledgeBases for KnowledgeBases {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -16013,9 +16900,11 @@ impl super::stub::KnowledgeBases for KnowledgeBases {
                 )?;
                 let path = format!("/v2/{}", var_name,);
 
+                let resource_name = format!("//dialogflow.googleapis.com/v2/{}", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -16031,9 +16920,11 @@ impl super::stub::KnowledgeBases for KnowledgeBases {
                 )?;
                 let path = format!("/v2/{}", var_name,);
 
+                let resource_name = format!("//dialogflow.googleapis.com/v2/{}", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -16047,9 +16938,11 @@ impl super::stub::KnowledgeBases for KnowledgeBases {
                 )?;
                 let path = format!("/v2/{}", var_name,);
 
+                let resource_name = format!("//dialogflow.googleapis.com/v2/{}", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -16102,6 +16995,12 @@ impl super::stub::KnowledgeBases for KnowledgeBases {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -16124,7 +17023,7 @@ impl super::stub::KnowledgeBases for KnowledgeBases {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -16132,9 +17031,14 @@ impl super::stub::KnowledgeBases for KnowledgeBases {
                 )?;
                 let path = format!("/v2/{}/knowledgeBases", var_parent,);
 
+                let resource_name = format!(
+                    "//dialogflow.googleapis.com/v2/{}/knowledgeBases",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -16148,9 +17052,14 @@ impl super::stub::KnowledgeBases for KnowledgeBases {
                 )?;
                 let path = format!("/v2/{}/knowledgeBases", var_parent,);
 
+                let resource_name = format!(
+                    "//dialogflow.googleapis.com/v2/{}/knowledgeBases",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -16163,9 +17072,14 @@ impl super::stub::KnowledgeBases for KnowledgeBases {
                 )?;
                 let path = format!("/v2/{}/knowledgeBases", var_parent,);
 
+                let resource_name = format!(
+                    "//dialogflow.googleapis.com/v2/{}/knowledgeBases",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -16210,6 +17124,12 @@ impl super::stub::KnowledgeBases for KnowledgeBases {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -16232,7 +17152,7 @@ impl super::stub::KnowledgeBases for KnowledgeBases {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -16245,10 +17165,12 @@ impl super::stub::KnowledgeBases for KnowledgeBases {
                 )?;
                 let path = format!("/v2/{}", var_name,);
 
+                let resource_name = format!("//dialogflow.googleapis.com/v2/{}", var_name,);
+
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = builder.query(&[("force", &req.force)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -16264,10 +17186,12 @@ impl super::stub::KnowledgeBases for KnowledgeBases {
                 )?;
                 let path = format!("/v2/{}", var_name,);
 
+                let resource_name = format!("//dialogflow.googleapis.com/v2/{}", var_name,);
+
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = builder.query(&[("force", &req.force)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -16281,10 +17205,12 @@ impl super::stub::KnowledgeBases for KnowledgeBases {
                 )?;
                 let path = format!("/v2/{}", var_name,);
 
+                let resource_name = format!("//dialogflow.googleapis.com/v2/{}", var_name,);
+
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = builder.query(&[("force", &req.force)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -16337,6 +17263,12 @@ impl super::stub::KnowledgeBases for KnowledgeBases {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -16960,7 +17892,7 @@ impl super::stub::Participants for Participants {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -16973,9 +17905,12 @@ impl super::stub::Participants for Participants {
                 )?;
                 let path = format!("/v2/{}/participants", var_parent,);
 
+                let resource_name =
+                    format!("//dialogflow.googleapis.com/v2/{}/participants", var_parent,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -16991,9 +17926,12 @@ impl super::stub::Participants for Participants {
                 )?;
                 let path = format!("/v2/{}/participants", var_parent,);
 
+                let resource_name =
+                    format!("//dialogflow.googleapis.com/v2/{}/participants", var_parent,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -17031,6 +17969,12 @@ impl super::stub::Participants for Participants {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -17053,7 +17997,7 @@ impl super::stub::Participants for Participants {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -17068,9 +18012,11 @@ impl super::stub::Participants for Participants {
                 )?;
                 let path = format!("/v2/{}", var_name,);
 
+                let resource_name = format!("//dialogflow.googleapis.com/v2/{}", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -17088,9 +18034,11 @@ impl super::stub::Participants for Participants {
                 )?;
                 let path = format!("/v2/{}", var_name,);
 
+                let resource_name = format!("//dialogflow.googleapis.com/v2/{}", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -17132,6 +18080,12 @@ impl super::stub::Participants for Participants {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -17154,7 +18108,7 @@ impl super::stub::Participants for Participants {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -17167,11 +18121,14 @@ impl super::stub::Participants for Participants {
                 )?;
                 let path = format!("/v2/{}/participants", var_parent,);
 
+                let resource_name =
+                    format!("//dialogflow.googleapis.com/v2/{}/participants", var_parent,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -17187,11 +18144,14 @@ impl super::stub::Participants for Participants {
                 )?;
                 let path = format!("/v2/{}/participants", var_parent,);
 
+                let resource_name =
+                    format!("//dialogflow.googleapis.com/v2/{}/participants", var_parent,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -17229,6 +18189,12 @@ impl super::stub::Participants for Participants {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -17388,7 +18354,7 @@ impl super::stub::Participants for Participants {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_participant = try_match(
                     Some(&req).map(|m| &m.participant).map(|s| s.as_str()),
@@ -17403,9 +18369,11 @@ impl super::stub::Participants for Participants {
                 )?;
                 let path = format!("/v2/{}:analyzeContent", var_participant,);
 
+                let resource_name = format!("//dialogflow.googleapis.com/v2/{}", var_participant,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .or_else(|| {
                 let var_participant = try_match(
@@ -17423,9 +18391,11 @@ impl super::stub::Participants for Participants {
                 )?;
                 let path = format!("/v2/{}:analyzeContent", var_participant,);
 
+                let resource_name = format!("//dialogflow.googleapis.com/v2/{}", var_participant,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -17467,6 +18437,12 @@ impl super::stub::Participants for Participants {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -17489,7 +18465,7 @@ impl super::stub::Participants for Participants {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -17504,9 +18480,12 @@ impl super::stub::Participants for Participants {
                 )?;
                 let path = format!("/v2/{}/suggestions:suggestArticles", var_parent,);
 
+                let resource_name =
+                    format!("//dialogflow.googleapis.com/v2/{}/suggestions", var_parent,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -17524,9 +18503,12 @@ impl super::stub::Participants for Participants {
                 )?;
                 let path = format!("/v2/{}/suggestions:suggestArticles", var_parent,);
 
+                let resource_name =
+                    format!("//dialogflow.googleapis.com/v2/{}/suggestions", var_parent,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -17568,6 +18550,12 @@ impl super::stub::Participants for Participants {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -17590,7 +18578,7 @@ impl super::stub::Participants for Participants {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -17605,9 +18593,12 @@ impl super::stub::Participants for Participants {
                 )?;
                 let path = format!("/v2/{}/suggestions:suggestFaqAnswers", var_parent,);
 
+                let resource_name =
+                    format!("//dialogflow.googleapis.com/v2/{}/suggestions", var_parent,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -17625,9 +18616,12 @@ impl super::stub::Participants for Participants {
                 )?;
                 let path = format!("/v2/{}/suggestions:suggestFaqAnswers", var_parent,);
 
+                let resource_name =
+                    format!("//dialogflow.googleapis.com/v2/{}/suggestions", var_parent,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -17669,6 +18663,12 @@ impl super::stub::Participants for Participants {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -17691,7 +18691,7 @@ impl super::stub::Participants for Participants {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -17706,9 +18706,12 @@ impl super::stub::Participants for Participants {
                 )?;
                 let path = format!("/v2/{}/suggestions:suggestSmartReplies", var_parent,);
 
+                let resource_name =
+                    format!("//dialogflow.googleapis.com/v2/{}/suggestions", var_parent,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -17726,9 +18729,12 @@ impl super::stub::Participants for Participants {
                 )?;
                 let path = format!("/v2/{}/suggestions:suggestSmartReplies", var_parent,);
 
+                let resource_name =
+                    format!("//dialogflow.googleapis.com/v2/{}/suggestions", var_parent,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -17770,6 +18776,12 @@ impl super::stub::Participants for Participants {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -17792,7 +18804,7 @@ impl super::stub::Participants for Participants {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -17807,9 +18819,12 @@ impl super::stub::Participants for Participants {
                 )?;
                 let path = format!("/v2/{}/suggestions:suggestKnowledgeAssist", var_parent,);
 
+                let resource_name =
+                    format!("//dialogflow.googleapis.com/v2/{}/suggestions", var_parent,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -17827,9 +18842,12 @@ impl super::stub::Participants for Participants {
                 )?;
                 let path = format!("/v2/{}/suggestions:suggestKnowledgeAssist", var_parent,);
 
+                let resource_name =
+                    format!("//dialogflow.googleapis.com/v2/{}/suggestions", var_parent,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -17871,6 +18889,12 @@ impl super::stub::Participants for Participants {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -18310,7 +19334,7 @@ impl super::stub::Sessions for Sessions {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_session = try_match(
                     Some(&req).map(|m| &m.session).map(|s| s.as_str()),
@@ -18323,9 +19347,11 @@ impl super::stub::Sessions for Sessions {
                 )?;
                 let path = format!("/v2/{}:detectIntent", var_session,);
 
+                let resource_name = format!("//dialogflow.googleapis.com/v2/{}", var_session,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .or_else(|| {
                 let var_session = try_match(
@@ -18343,9 +19369,11 @@ impl super::stub::Sessions for Sessions {
                 )?;
                 let path = format!("/v2/{}:detectIntent", var_session,);
 
+                let resource_name = format!("//dialogflow.googleapis.com/v2/{}", var_session,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .or_else(|| {
                 let var_session = try_match(
@@ -18361,9 +19389,11 @@ impl super::stub::Sessions for Sessions {
                 )?;
                 let path = format!("/v2/{}:detectIntent", var_session,);
 
+                let resource_name = format!("//dialogflow.googleapis.com/v2/{}", var_session,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .or_else(|| {
                 let var_session = try_match(
@@ -18383,9 +19413,11 @@ impl super::stub::Sessions for Sessions {
                 )?;
                 let path = format!("/v2/{}:detectIntent", var_session,);
 
+                let resource_name = format!("//dialogflow.googleapis.com/v2/{}", var_session,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -18463,6 +19495,12 @@ impl super::stub::Sessions for Sessions {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -18902,7 +19940,7 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -18915,11 +19953,14 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
                 )?;
                 let path = format!("/v2/{}/entityTypes", var_parent,);
 
+                let resource_name =
+                    format!("//dialogflow.googleapis.com/v2/{}/entityTypes", var_parent,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -18937,11 +19978,14 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
                 )?;
                 let path = format!("/v2/{}/entityTypes", var_parent,);
 
+                let resource_name =
+                    format!("//dialogflow.googleapis.com/v2/{}/entityTypes", var_parent,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -18957,11 +20001,14 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
                 )?;
                 let path = format!("/v2/{}/entityTypes", var_parent,);
 
+                let resource_name =
+                    format!("//dialogflow.googleapis.com/v2/{}/entityTypes", var_parent,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -18981,11 +20028,14 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
                 )?;
                 let path = format!("/v2/{}/entityTypes", var_parent,);
 
+                let resource_name =
+                    format!("//dialogflow.googleapis.com/v2/{}/entityTypes", var_parent,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -19063,6 +20113,12 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -19085,7 +20141,7 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/agent/sessions/"), Segment::SingleWildcard, Segment::Literal("/entityTypes/"), Segment::SingleWildcard])?;
             let path = format!(
@@ -19093,9 +20149,14 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
                 var_name,
             );
 
+            let resource_name = format!(
+                "//dialogflow.googleapis.com/v2/{}",
+                var_name,
+            );
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, Method::GET)))
+            Some(builder.map(|b| (b, Method::GET, resource_name)))
         })
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/agent/environments/"), Segment::SingleWildcard, Segment::Literal("/users/"), Segment::SingleWildcard, Segment::Literal("/sessions/"), Segment::SingleWildcard, Segment::Literal("/entityTypes/"), Segment::SingleWildcard])?;
@@ -19104,9 +20165,14 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
                 var_name,
             );
 
+            let resource_name = format!(
+                "//dialogflow.googleapis.com/v2/{}",
+                var_name,
+            );
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, Method::GET)))
+            Some(builder.map(|b| (b, Method::GET, resource_name)))
         })
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/agent/sessions/"), Segment::SingleWildcard, Segment::Literal("/entityTypes/"), Segment::SingleWildcard])?;
@@ -19115,9 +20181,14 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
                 var_name,
             );
 
+            let resource_name = format!(
+                "//dialogflow.googleapis.com/v2/{}",
+                var_name,
+            );
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, Method::GET)))
+            Some(builder.map(|b| (b, Method::GET, resource_name)))
         })
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/agent/environments/"), Segment::SingleWildcard, Segment::Literal("/users/"), Segment::SingleWildcard, Segment::Literal("/sessions/"), Segment::SingleWildcard, Segment::Literal("/entityTypes/"), Segment::SingleWildcard])?;
@@ -19126,9 +20197,14 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
                 var_name,
             );
 
+            let resource_name = format!(
+                "//dialogflow.googleapis.com/v2/{}",
+                var_name,
+            );
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, Method::GET)))
+            Some(builder.map(|b| (b, Method::GET, resource_name)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -19170,6 +20246,12 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
             }
             google_cloud_gax::error::Error::binding(BindingError { paths })
         })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -19192,7 +20274,7 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -19205,9 +20287,12 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
                 )?;
                 let path = format!("/v2/{}/entityTypes", var_parent,);
 
+                let resource_name =
+                    format!("//dialogflow.googleapis.com/v2/{}/entityTypes", var_parent,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -19225,9 +20310,12 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
                 )?;
                 let path = format!("/v2/{}/entityTypes", var_parent,);
 
+                let resource_name =
+                    format!("//dialogflow.googleapis.com/v2/{}/entityTypes", var_parent,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -19243,9 +20331,12 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
                 )?;
                 let path = format!("/v2/{}/entityTypes", var_parent,);
 
+                let resource_name =
+                    format!("//dialogflow.googleapis.com/v2/{}/entityTypes", var_parent,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -19265,9 +20356,12 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
                 )?;
                 let path = format!("/v2/{}/entityTypes", var_parent,);
 
+                let resource_name =
+                    format!("//dialogflow.googleapis.com/v2/{}/entityTypes", var_parent,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -19345,6 +20439,12 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -19375,6 +20475,7 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
                 var_session_entity_type_name,
             );
 
+
             let builder = self.inner.builder(Method::PATCH, path);
             let builder = (|| {
                 let builder = req.update_mask.as_ref().map(|p| serde_json::to_value(p).map_err(Error::ser) ).transpose()?.into_iter().fold(builder, |builder, v| { use gaxi::query_parameter::QueryParameter; v.add(builder, "updateMask") });
@@ -19388,6 +20489,7 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
                 "/v2/{}",
                 var_session_entity_type_name,
             );
+
 
             let builder = self.inner.builder(Method::PATCH, path);
             let builder = (|| {
@@ -19403,6 +20505,7 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
                 var_session_entity_type_name,
             );
 
+
             let builder = self.inner.builder(Method::PATCH, path);
             let builder = (|| {
                 let builder = req.update_mask.as_ref().map(|p| serde_json::to_value(p).map_err(Error::ser) ).transpose()?.into_iter().fold(builder, |builder, v| { use gaxi::query_parameter::QueryParameter; v.add(builder, "updateMask") });
@@ -19416,6 +20519,7 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
                 "/v2/{}",
                 var_session_entity_type_name,
             );
+
 
             let builder = self.inner.builder(Method::PATCH, path);
             let builder = (|| {
@@ -19486,7 +20590,7 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/agent/sessions/"), Segment::SingleWildcard, Segment::Literal("/entityTypes/"), Segment::SingleWildcard])?;
             let path = format!(
@@ -19494,9 +20598,14 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
                 var_name,
             );
 
+            let resource_name = format!(
+                "//dialogflow.googleapis.com/v2/{}",
+                var_name,
+            );
+
             let builder = self.inner.builder(Method::DELETE, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, Method::DELETE)))
+            Some(builder.map(|b| (b, Method::DELETE, resource_name)))
         })
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/agent/environments/"), Segment::SingleWildcard, Segment::Literal("/users/"), Segment::SingleWildcard, Segment::Literal("/sessions/"), Segment::SingleWildcard, Segment::Literal("/entityTypes/"), Segment::SingleWildcard])?;
@@ -19505,9 +20614,14 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
                 var_name,
             );
 
+            let resource_name = format!(
+                "//dialogflow.googleapis.com/v2/{}",
+                var_name,
+            );
+
             let builder = self.inner.builder(Method::DELETE, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, Method::DELETE)))
+            Some(builder.map(|b| (b, Method::DELETE, resource_name)))
         })
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/agent/sessions/"), Segment::SingleWildcard, Segment::Literal("/entityTypes/"), Segment::SingleWildcard])?;
@@ -19516,9 +20630,14 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
                 var_name,
             );
 
+            let resource_name = format!(
+                "//dialogflow.googleapis.com/v2/{}",
+                var_name,
+            );
+
             let builder = self.inner.builder(Method::DELETE, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, Method::DELETE)))
+            Some(builder.map(|b| (b, Method::DELETE, resource_name)))
         })
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/agent/environments/"), Segment::SingleWildcard, Segment::Literal("/users/"), Segment::SingleWildcard, Segment::Literal("/sessions/"), Segment::SingleWildcard, Segment::Literal("/entityTypes/"), Segment::SingleWildcard])?;
@@ -19527,9 +20646,14 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
                 var_name,
             );
 
+            let resource_name = format!(
+                "//dialogflow.googleapis.com/v2/{}",
+                var_name,
+            );
+
             let builder = self.inner.builder(Method::DELETE, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, Method::DELETE)))
+            Some(builder.map(|b| (b, Method::DELETE, resource_name)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -19571,6 +20695,12 @@ impl super::stub::SessionEntityTypes for SessionEntityTypes {
             }
             google_cloud_gax::error::Error::binding(BindingError { paths })
         })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -20016,7 +21146,7 @@ impl super::stub::SipTrunks for SipTrunks {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -20029,9 +21159,12 @@ impl super::stub::SipTrunks for SipTrunks {
                 )?;
                 let path = format!("/v2/{}/sipTrunks", var_parent,);
 
+                let resource_name =
+                    format!("//dialogflow.googleapis.com/v2/{}/sipTrunks", var_parent,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -20052,6 +21185,12 @@ impl super::stub::SipTrunks for SipTrunks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -20074,7 +21213,7 @@ impl super::stub::SipTrunks for SipTrunks {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -20089,9 +21228,11 @@ impl super::stub::SipTrunks for SipTrunks {
                 )?;
                 let path = format!("/v2/{}", var_name,);
 
+                let resource_name = format!("//dialogflow.googleapis.com/v2/{}", var_name,);
+
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -20114,6 +21255,12 @@ impl super::stub::SipTrunks for SipTrunks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -20142,7 +21289,7 @@ impl super::stub::SipTrunks for SipTrunks {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -20155,11 +21302,14 @@ impl super::stub::SipTrunks for SipTrunks {
                 )?;
                 let path = format!("/v2/{}/sipTrunks", var_parent,);
 
+                let resource_name =
+                    format!("//dialogflow.googleapis.com/v2/{}/sipTrunks", var_parent,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -20180,6 +21330,12 @@ impl super::stub::SipTrunks for SipTrunks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -20202,7 +21358,7 @@ impl super::stub::SipTrunks for SipTrunks {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -20217,9 +21373,11 @@ impl super::stub::SipTrunks for SipTrunks {
                 )?;
                 let path = format!("/v2/{}", var_name,);
 
+                let resource_name = format!("//dialogflow.googleapis.com/v2/{}", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -20242,6 +21400,12 @@ impl super::stub::SipTrunks for SipTrunks {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -20759,7 +21923,7 @@ impl super::stub::Tools for Tools {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -20772,10 +21936,12 @@ impl super::stub::Tools for Tools {
                 )?;
                 let path = format!("/v2/{}/tools", var_parent,);
 
+                let resource_name = format!("//dialogflow.googleapis.com/v2/{}/tools", var_parent,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = builder.query(&[("toolId", &req.tool_id)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -20796,6 +21962,12 @@ impl super::stub::Tools for Tools {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -20818,7 +21990,7 @@ impl super::stub::Tools for Tools {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -20833,9 +22005,11 @@ impl super::stub::Tools for Tools {
                 )?;
                 let path = format!("/v2/{}", var_name,);
 
+                let resource_name = format!("//dialogflow.googleapis.com/v2/{}", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -20858,6 +22032,12 @@ impl super::stub::Tools for Tools {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -20880,7 +22060,7 @@ impl super::stub::Tools for Tools {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -20893,11 +22073,13 @@ impl super::stub::Tools for Tools {
                 )?;
                 let path = format!("/v2/{}/tools", var_parent,);
 
+                let resource_name = format!("//dialogflow.googleapis.com/v2/{}/tools", var_parent,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -20918,6 +22100,12 @@ impl super::stub::Tools for Tools {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -20940,7 +22128,7 @@ impl super::stub::Tools for Tools {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -20955,9 +22143,11 @@ impl super::stub::Tools for Tools {
                 )?;
                 let path = format!("/v2/{}", var_name,);
 
+                let resource_name = format!("//dialogflow.googleapis.com/v2/{}", var_name,);
+
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -20980,6 +22170,12 @@ impl super::stub::Tools for Tools {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -21505,7 +22701,7 @@ impl super::stub::Versions for Versions {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -21517,11 +22713,14 @@ impl super::stub::Versions for Versions {
                 )?;
                 let path = format!("/v2/{}/versions", var_parent,);
 
+                let resource_name =
+                    format!("//dialogflow.googleapis.com/v2/{}/versions", var_parent,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -21536,11 +22735,14 @@ impl super::stub::Versions for Versions {
                 )?;
                 let path = format!("/v2/{}/versions", var_parent,);
 
+                let resource_name =
+                    format!("//dialogflow.googleapis.com/v2/{}/versions", var_parent,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -21576,6 +22778,12 @@ impl super::stub::Versions for Versions {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -21598,7 +22806,7 @@ impl super::stub::Versions for Versions {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -21611,9 +22819,11 @@ impl super::stub::Versions for Versions {
                 )?;
                 let path = format!("/v2/{}", var_name,);
 
+                let resource_name = format!("//dialogflow.googleapis.com/v2/{}", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -21629,9 +22839,11 @@ impl super::stub::Versions for Versions {
                 )?;
                 let path = format!("/v2/{}", var_name,);
 
+                let resource_name = format!("//dialogflow.googleapis.com/v2/{}", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -21669,6 +22881,12 @@ impl super::stub::Versions for Versions {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -21691,7 +22909,7 @@ impl super::stub::Versions for Versions {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -21703,9 +22921,12 @@ impl super::stub::Versions for Versions {
                 )?;
                 let path = format!("/v2/{}/versions", var_parent,);
 
+                let resource_name =
+                    format!("//dialogflow.googleapis.com/v2/{}/versions", var_parent,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -21720,9 +22941,12 @@ impl super::stub::Versions for Versions {
                 )?;
                 let path = format!("/v2/{}/versions", var_parent,);
 
+                let resource_name =
+                    format!("//dialogflow.googleapis.com/v2/{}/versions", var_parent,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -21758,6 +22982,12 @@ impl super::stub::Versions for Versions {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -21909,7 +23139,7 @@ impl super::stub::Versions for Versions {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -21922,9 +23152,11 @@ impl super::stub::Versions for Versions {
                 )?;
                 let path = format!("/v2/{}", var_name,);
 
+                let resource_name = format!("//dialogflow.googleapis.com/v2/{}", var_name,);
+
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -21940,9 +23172,11 @@ impl super::stub::Versions for Versions {
                 )?;
                 let path = format!("/v2/{}", var_name,);
 
+                let resource_name = format!("//dialogflow.googleapis.com/v2/{}", var_name,);
+
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -21980,6 +23214,12 @@ impl super::stub::Versions for Versions {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),

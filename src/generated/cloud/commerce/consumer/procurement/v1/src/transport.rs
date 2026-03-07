@@ -455,7 +455,7 @@ impl super::stub::ConsumerProcurementService for ConsumerProcurementService {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -466,9 +466,14 @@ impl super::stub::ConsumerProcurementService for ConsumerProcurementService {
                 )?;
                 let path = format!("/v1/{}/orders:place", var_parent,);
 
+                let resource_name = format!(
+                    "//cloudcommerceconsumerprocurement.googleapis.com/v1/{}/orders",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -487,6 +492,12 @@ impl super::stub::ConsumerProcurementService for ConsumerProcurementService {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
