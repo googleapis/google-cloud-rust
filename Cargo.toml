@@ -377,6 +377,7 @@ percent-encoding      = { default-features = false, version = "2.3" }
 pin-project           = { default-features = false, version = "1.0.11" }
 rand                  = { default-features = false, version = "0.10" }
 p256                  = { default-features = false, version = "0.13" }
+rust_decimal          = { default-features = false, version = "1.33.1", features = ["std"] }
 rustls                = { default-features = false, version = "0.23.37" }
 rustls-pki-types      = { default-features = false, version = "1.14" }
 semver                = { default-features = false, version = "1.0.26" }
@@ -394,7 +395,7 @@ tracing-log           = { default-features = false, version = "0.2" }
 tracing-opentelemetry = { default-features = false, version = "0.32" }
 tracing-subscriber    = { default-features = false, version = "0.3.22" }
 url                   = { default-features = false, version = "2.4" }
-uuid                  = { default-features = false, version = "1", features = ["v4"] }
+uuid                  = { default-features = false, version = "1.10", features = ["v4"] }
 
 opentelemetry-semantic-conventions = { default-features = false, version = "0.31.0" }
 opentelemetry-appender-tracing     = { default-features = false, version = "0.31.0" }
