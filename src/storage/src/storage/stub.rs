@@ -72,6 +72,17 @@ pub trait Storage: std::fmt::Debug + Send + Sync {
         unimplemented_stub::<Object>()
     }
 
+    /// Implements gRPC BidiWriteObject for RAPID/zonal (Hyperdisk ML) buckets,
+    /// which does not support the `appendable` flag on media/resumable uploads.
+    fn write_object_grpc(
+        &self,
+        _data: bytes::Bytes,
+        _req: WriteObjectRequest,
+        _options: RequestOptions,
+    ) -> impl std::future::Future<Output = Result<Object>> + Send {
+        unimplemented_stub::<Object>()
+    }
+
     /// Implements [crate::client::Storage::open_object].
     fn open_object(
         &self,

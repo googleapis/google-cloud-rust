@@ -54,6 +54,8 @@ pub mod prost;
 #[cfg(feature = "_internal-common")]
 pub mod options;
 
+pub mod gcs_constants;  // s3dlio: single source of truth for all GCS/gRPC tuning constants
+
 #[cfg(feature = "_internal-common")]
 pub mod unimplemented;
 
