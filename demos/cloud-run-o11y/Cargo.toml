@@ -1,0 +1,54 @@
+# Copyright 2026 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+[package]
+name                   = "demo-cloud-run-o11y"
+version                = "0.0.0"
+publish                = false
+description            = "Use Rust on Cloud Run with observability."
+edition.workspace      = true
+authors.workspace      = true
+license.workspace      = true
+repository.workspace   = true
+keywords.workspace     = true
+categories.workspace   = true
+rust-version.workspace = true
+
+[dependencies]
+anyhow.workspace           = true
+axum                       = { workspace = true, features = ["http1", "tokio"] }
+chrono                     = { workspace = true, features = ["std"] }
+clap                       = { workspace = true, features = ["env", "std"] }
+google-cloud-aiplatform-v1 = { workspace = true, features = ["default-rustls-provider", "prediction-service"] }
+google-cloud-auth          = { workspace = true, features = ["default", "idtoken"] }
+google-cloud-gax           = { workspace = true }
+google-cloud-storage       = { workspace = true, features = ["default"] }
+integration-tests-o11y     = { path = "../../tests/o11y" }
+markdown.workspace         = true
+opentelemetry              = { workspace = true, features = ["trace"] }
+opentelemetry-http         = { workspace = true }
+opentelemetry_sdk          = { workspace = true }
+rand.workspace             = true
+serde                      = { workspace = true }
+serde_json.workspace       = true
+thiserror.workspace        = true
+tokio                      = { workspace = true, features = ["full", "macros"] }
+tracing-opentelemetry      = { workspace = true, default-features = true }
+tracing-serde              = { workspace = true }
+tracing-subscriber         = { workspace = true, features = ["json", "std"] }
+tracing.workspace          = true
+uuid                       = { workspace = true, features = ["v4"] }
+
+[lints]
+workspace = true
