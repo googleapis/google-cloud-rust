@@ -1,0 +1,11 @@
+{
+    "api_id": "securitycentermanagement.googleapis.com",
+    "api_shortname": "securitycentermanagement",
+    "client_documentation": "https://docs.rs/google-cloud-securitycentermanagement-v1/latest",
+    "distribution_name": "google-cloud-rust",
+    "language": "rust",
+    "library_type": "GAPIC_AUTO",
+    "name_pretty": "Security Command Center Management API",
+    "release_level": "stable",
+    "repo": "googleapis/google-cloud-rust"
+}
