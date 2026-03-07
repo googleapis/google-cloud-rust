@@ -918,6 +918,9 @@ libraries:
         - name: google-cloud-apps-script-type-slides
           package: google-cloud-apps-script-type-slides
           source: google.apps.script.type.slides
+  - name: google-cloud-hypercomputecluster-v1
+    copyright_year: "2026"
+    rust: {}
   - name: google-cloud-iam-admin-v1
     version: 1.6.0
     apis:
