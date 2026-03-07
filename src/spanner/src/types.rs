@@ -140,6 +140,8 @@ static TYPE_BYTES: LazyLock<Type> = LazyLock::new(|| create_type(TypeCode::Bytes
 static TYPE_TIMESTAMP: LazyLock<Type> = LazyLock::new(|| create_type(TypeCode::Timestamp));
 static TYPE_DATE: LazyLock<Type> = LazyLock::new(|| create_type(TypeCode::Date));
 static TYPE_NUMERIC: LazyLock<Type> = LazyLock::new(|| create_type(TypeCode::Numeric));
+static TYPE_UUID: LazyLock<Type> = LazyLock::new(|| create_type(TypeCode::Uuid));
+static TYPE_INTERVAL: LazyLock<Type> = LazyLock::new(|| create_type(TypeCode::Interval));
 static TYPE_PG_NUMERIC: LazyLock<Type> = LazyLock::new(|| {
     let mut t = create_type(TypeCode::Numeric);
     t.0.type_annotation = TypeAnnotationCode::PgNumeric;
@@ -181,7 +183,7 @@ pub fn float64() -> Type {
     TYPE_FLOAT64.clone()
 }
 
-/// Returns a `Type` representing `JSON` (GoogleSQL) or `jsonb` (PostgreSQL).
+/// Returns a `Type` representing `JSON` (GoogleSQL).
 pub fn json() -> Type {
     TYPE_JSON.clone()
 }
@@ -206,6 +208,16 @@ pub fn numeric() -> Type {
     TYPE_NUMERIC.clone()
 }
 
+/// Returns a `Type` representing `UUID` (GoogleSQL) or `uuid` (PostgreSQL).
+pub fn uuid() -> Type {
+    TYPE_UUID.clone()
+}
+
+/// Returns a `Type` representing `INTERVAL` (GoogleSQL) or `interval` (PostgreSQL).
+pub fn interval() -> Type {
+    TYPE_INTERVAL.clone()
+}
+
 /// Returns a `Type` representing `numeric` (PostgreSQL).
 pub fn pg_numeric() -> Type {
     TYPE_PG_NUMERIC.clone()
@@ -226,18 +238,6 @@ pub fn array(element_type: Type) -> Type {
     let mut t = create_type(TypeCode::Array);
     t.0.array_element_type = Some(Box::new(element_type.0));
     t
-}
-
-/// Returns a `Type` representing `UUID` (GoogleSQL) or `uuid` (PostgreSQL).
-pub fn uuid() -> Type {
-    static TYPE_UUID: LazyLock<Type> = LazyLock::new(|| create_type(TypeCode::Uuid));
-    TYPE_UUID.clone()
-}
-
-/// Returns a `Type` representing `INTERVAL` (GoogleSQL).
-pub fn interval() -> Type {
-    static TYPE_INTERVAL: LazyLock<Type> = LazyLock::new(|| create_type(TypeCode::Interval));
-    TYPE_INTERVAL.clone()
 }
 
 pub(crate) fn create_type(code: TypeCode) -> Type {
@@ -294,6 +294,18 @@ mod tests {
         let code: TypeCode = i.into();
         assert_eq!(code, TypeCode::Unknown(i));
         assert_eq!(i32::from(code), i);
+    }
+
+    #[test]
+    fn test_unknown_type_code_from_generated() {
+        use crate::generated::gapic_dataplane::model::type_code::UnknownValue;
+        use wkt::internal::UnknownEnumValue;
+
+        let i = 999;
+        let unknown = UnknownValue(UnknownEnumValue::Integer(i));
+        let generated = crate::generated::gapic_dataplane::model::TypeCode::UnknownValue(unknown);
+        let code: TypeCode = generated.into();
+        assert_eq!(code, TypeCode::Unknown(i));
     }
 
     #[test]

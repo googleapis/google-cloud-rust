@@ -17,9 +17,11 @@ use base64::Engine;
 use base64::prelude::BASE64_STANDARD;
 use prost_types::Value as ProtoValue;
 use rust_decimal::Decimal;
-use std::time::SystemTime;
 
-/// A trait for converting a Rust type to a Spanner Value.
+use std::time::SystemTime;
+use time::{Date, OffsetDateTime};
+
+/// Converts Rust types to Spanner [Value].
 pub trait ToValue {
     fn to_value(&self) -> Value;
 }
@@ -92,30 +94,33 @@ impl ToValue for Decimal {
 
 impl ToValue for SystemTime {
     fn to_value(&self) -> Value {
-        let dt: chrono::DateTime<chrono::Utc> = (*self).into();
+        let dt = OffsetDateTime::from(*self);
         Value(ProtoValue {
             kind: Some(prost_types::value::Kind::StringValue(
-                dt.format("%Y-%m-%dT%H:%M:%S.%9fZ").to_string(),
+                dt.format(crate::value::SPANNER_TIMESTAMP_FORMAT)
+                    .expect("failed to format time"),
             )),
         })
     }
 }
 
-impl ToValue for chrono::DateTime<chrono::Utc> {
+impl ToValue for OffsetDateTime {
     fn to_value(&self) -> Value {
         Value(ProtoValue {
             kind: Some(prost_types::value::Kind::StringValue(
-                self.format("%Y-%m-%dT%H:%M:%S.%9fZ").to_string(),
+                self.format(crate::value::SPANNER_TIMESTAMP_FORMAT)
+                    .expect("failed to format time"),
             )),
         })
     }
 }
 
-impl ToValue for chrono::NaiveDate {
+impl ToValue for Date {
     fn to_value(&self) -> Value {
         Value(ProtoValue {
             kind: Some(prost_types::value::Kind::StringValue(
-                self.format("%Y-%m-%d").to_string(),
+                self.format(crate::value::SPANNER_DATE_FORMAT)
+                    .expect("failed to format date"),
             )),
         })
     }
@@ -223,7 +228,7 @@ mod tests {
 
     #[test]
     fn test_to_value_date() {
-        let d = chrono::NaiveDate::from_ymd_opt(2023, 10, 27).unwrap();
+        let d = Date::from_calendar_date(2023, time::Month::October, 27).unwrap();
         let v = d.to_value();
         assert_eq!(v.kind(), Kind::String);
         assert_eq!(v.as_string(), "2023-10-27");
@@ -231,9 +236,11 @@ mod tests {
 
     #[test]
     fn test_to_value_timestamp() {
-        let dt = chrono::DateTime::parse_from_rfc3339("2023-10-27T10:00:00Z")
-            .unwrap()
-            .with_timezone(&chrono::Utc);
+        let dt = OffsetDateTime::parse(
+            "2023-10-27T10:00:00Z",
+            &time::format_description::well_known::Rfc3339,
+        )
+        .unwrap();
         let v = dt.to_value();
         assert_eq!(v.kind(), Kind::String);
         assert_eq!(v.as_string(), "2023-10-27T10:00:00.000000000Z");

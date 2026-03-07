@@ -30,7 +30,6 @@ rust-version.workspace = true
 async-trait.workspace = true
 base64.workspace      = true
 bytes.workspace       = true
-chrono                = { workspace = true, features = ["std"] }
 gaxi                  = { workspace = true, features = ["_internal-common", "_internal-grpc-client", "_internal-grpc-server-streaming"] }
 google-cloud-gax      = { workspace = true }
 google-cloud-rpc      = { workspace = true }
@@ -38,10 +37,12 @@ http.workspace        = true
 lazy_static.workspace = true
 prost.workspace       = true
 prost-types.workspace = true
-rust_decimal          = { version = "1.33.1", default-features = false, features = ["std"] }
+rust_decimal          = { workspace = true }
 serde.workspace       = true
 serde_json.workspace  = true
 serde_with.workspace  = true
+thiserror.workspace   = true
+time                  = { workspace = true, features = ["formatting", "macros", "parsing"] }
 tracing.workspace     = true
 wkt.workspace         = true
 

@@ -12,8 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-pub use crate::from_value::FromValue;
-pub use crate::to_value::ToValue;
+pub(crate) const SPANNER_TIMESTAMP_FORMAT: &[time::format_description::FormatItem<'static>] = time::macros::format_description!(
+    "[year]-[month]-[day]T[hour]:[minute]:[second].[subsecond digits:9]Z"
+);
+pub(crate) const SPANNER_DATE_FORMAT: &[time::format_description::FormatItem<'static>] =
+    time::macros::format_description!("[year]-[month]-[day]");
+
 use prost_types::Value as ProtoValue;
 
 /// Kind indicates the type of the value.
