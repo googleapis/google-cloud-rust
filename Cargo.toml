@@ -233,6 +233,7 @@ members = [
   "src/generated/cloud/timeseriesinsights/v1",
   "src/generated/cloud/tpu/v2",
   "src/generated/cloud/translate/v3",
+  "src/generated/cloud/vectorsearch/v1",
   "src/generated/cloud/video/livestream/v1",
   "src/generated/cloud/video/stitcher/v1",
   "src/generated/cloud/video/transcoder/v1",
