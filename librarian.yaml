@@ -580,7 +580,6 @@ libraries:
         - projects
       disabled_clippy_warnings:
         - doc_lazy_continuation
-      resource_name: true
       discovery:
         operation_id: .google.cloud.compute.v1.Operation
         pollers:
@@ -1363,6 +1362,7 @@ libraries:
     skip_release: true
     rust:
       detailed_tracing_attributes: true
+      resource_name: true
   - name: google-cloud-spanner
     copyright_year: "2026"
     output: src/spanner
