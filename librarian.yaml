@@ -561,7 +561,6 @@ libraries:
       - googleapis
     specification_format: discovery
     rust:
-      resource_name: true
       package_dependencies:
         - name: google-cloud-lro
           package: google-cloud-lro
@@ -581,6 +580,7 @@ libraries:
         - projects
       disabled_clippy_warnings:
         - doc_lazy_continuation
+      resource_name: true
       discovery:
         operation_id: .google.cloud.compute.v1.Operation
         pollers:
@@ -750,11 +750,11 @@ libraries:
       - googleapis
     specification_format: discovery
     rust:
-      resource_name: true
       package_dependencies:
         - name: google-cloud-lro
           package: google-cloud-lro
           force_used: true
+      resource_name: true
       discovery:
         operation_id: ..Operation
         pollers:
