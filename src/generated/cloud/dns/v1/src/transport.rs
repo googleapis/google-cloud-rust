@@ -50,7 +50,7 @@ impl super::stub::Changes for Changes {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -65,12 +65,17 @@ impl super::stub::Changes for Changes {
                     var_project, var_managed_zone,
                 );
 
+                let resource_name = format!(
+                    "//dns.googleapis.com/projects/{}/managedZones/{}",
+                    var_project, var_managed_zone,
+                );
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req.client_operation_id.iter().fold(builder, |builder, p| {
                     builder.query(&[("clientOperationId", p)])
                 });
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -92,6 +97,12 @@ impl super::stub::Changes for Changes {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -114,7 +125,7 @@ impl super::stub::Changes for Changes {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -133,12 +144,17 @@ impl super::stub::Changes for Changes {
                     var_project, var_managed_zone, var_change_id,
                 );
 
+                let resource_name = format!(
+                    "//dns.googleapis.com/projects/{}/managedZones/{}/changes/{}",
+                    var_project, var_managed_zone, var_change_id,
+                );
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req.client_operation_id.iter().fold(builder, |builder, p| {
                     builder.query(&[("clientOperationId", p)])
                 });
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -166,6 +182,12 @@ impl super::stub::Changes for Changes {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -188,7 +210,7 @@ impl super::stub::Changes for Changes {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -200,6 +222,11 @@ impl super::stub::Changes for Changes {
                 )?;
                 let path = format!(
                     "/dns/v1/projects/{}/managedZones/{}/changes",
+                    var_project, var_managed_zone,
+                );
+
+                let resource_name = format!(
+                    "//dns.googleapis.com/projects/{}/managedZones/{}",
                     var_project, var_managed_zone,
                 );
 
@@ -221,7 +248,7 @@ impl super::stub::Changes for Changes {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("sortOrder", p)]));
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -243,6 +270,12 @@ impl super::stub::Changes for Changes {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -288,7 +321,7 @@ impl super::stub::DnsKeys for DnsKeys {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -307,6 +340,11 @@ impl super::stub::DnsKeys for DnsKeys {
                     var_project, var_managed_zone, var_dns_key_id,
                 );
 
+                let resource_name = format!(
+                    "//dns.googleapis.com/projects/{}/managedZones/{}/dnsKeys/{}",
+                    var_project, var_managed_zone, var_dns_key_id,
+                );
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req.client_operation_id.iter().fold(builder, |builder, p| {
                     builder.query(&[("clientOperationId", p)])
@@ -316,7 +354,7 @@ impl super::stub::DnsKeys for DnsKeys {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("digestType", p)]));
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -344,6 +382,12 @@ impl super::stub::DnsKeys for DnsKeys {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -366,7 +410,7 @@ impl super::stub::DnsKeys for DnsKeys {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -378,6 +422,11 @@ impl super::stub::DnsKeys for DnsKeys {
                 )?;
                 let path = format!(
                     "/dns/v1/projects/{}/managedZones/{}/dnsKeys",
+                    var_project, var_managed_zone,
+                );
+
+                let resource_name = format!(
+                    "//dns.googleapis.com/projects/{}/managedZones/{}",
                     var_project, var_managed_zone,
                 );
 
@@ -395,7 +444,7 @@ impl super::stub::DnsKeys for DnsKeys {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -417,6 +466,12 @@ impl super::stub::DnsKeys for DnsKeys {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -462,7 +517,7 @@ impl super::stub::ManagedZoneOperations for ManagedZoneOperations {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -481,12 +536,17 @@ impl super::stub::ManagedZoneOperations for ManagedZoneOperations {
                     var_project, var_managed_zone, var_operation,
                 );
 
+                let resource_name = format!(
+                    "//dns.googleapis.com/projects/{}/managedZones/{}/operations/{}",
+                    var_project, var_managed_zone, var_operation,
+                );
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req.client_operation_id.iter().fold(builder, |builder, p| {
                     builder.query(&[("clientOperationId", p)])
                 });
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -514,6 +574,12 @@ impl super::stub::ManagedZoneOperations for ManagedZoneOperations {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -536,7 +602,7 @@ impl super::stub::ManagedZoneOperations for ManagedZoneOperations {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -548,6 +614,11 @@ impl super::stub::ManagedZoneOperations for ManagedZoneOperations {
                 )?;
                 let path = format!(
                     "/dns/v1/projects/{}/managedZones/{}/operations",
+                    var_project, var_managed_zone,
+                );
+
+                let resource_name = format!(
+                    "//dns.googleapis.com/projects/{}/managedZones/{}",
                     var_project, var_managed_zone,
                 );
 
@@ -565,7 +636,7 @@ impl super::stub::ManagedZoneOperations for ManagedZoneOperations {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("sortBy", p)]));
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -587,6 +658,12 @@ impl super::stub::ManagedZoneOperations for ManagedZoneOperations {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -632,7 +709,7 @@ impl super::stub::ManagedZones for ManagedZones {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -640,12 +717,14 @@ impl super::stub::ManagedZones for ManagedZones {
                 )?;
                 let path = format!("/dns/v1/projects/{}/managedZones", var_project,);
 
+                let resource_name = format!("//dns.googleapis.com/projects/{}", var_project,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req.client_operation_id.iter().fold(builder, |builder, p| {
                     builder.query(&[("clientOperationId", p)])
                 });
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -661,6 +740,12 @@ impl super::stub::ManagedZones for ManagedZones {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -683,7 +768,7 @@ impl super::stub::ManagedZones for ManagedZones {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -698,12 +783,17 @@ impl super::stub::ManagedZones for ManagedZones {
                     var_project, var_managed_zone,
                 );
 
+                let resource_name = format!(
+                    "//dns.googleapis.com/projects/{}/managedZones/{}",
+                    var_project, var_managed_zone,
+                );
+
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = req.client_operation_id.iter().fold(builder, |builder, p| {
                     builder.query(&[("clientOperationId", p)])
                 });
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -725,6 +815,12 @@ impl super::stub::ManagedZones for ManagedZones {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -753,7 +849,7 @@ impl super::stub::ManagedZones for ManagedZones {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -768,12 +864,17 @@ impl super::stub::ManagedZones for ManagedZones {
                     var_project, var_managed_zone,
                 );
 
+                let resource_name = format!(
+                    "//dns.googleapis.com/projects/{}/managedZones/{}",
+                    var_project, var_managed_zone,
+                );
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req.client_operation_id.iter().fold(builder, |builder, p| {
                     builder.query(&[("clientOperationId", p)])
                 });
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -795,6 +896,12 @@ impl super::stub::ManagedZones for ManagedZones {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -817,7 +924,7 @@ impl super::stub::ManagedZones for ManagedZones {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -825,9 +932,11 @@ impl super::stub::ManagedZones for ManagedZones {
                 )?;
                 let path = format!("/dns/v1/{}:getIamPolicy", var_resource,);
 
+                let resource_name = format!("//dns.googleapis.com/{}", var_resource,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -843,6 +952,12 @@ impl super::stub::ManagedZones for ManagedZones {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -865,13 +980,15 @@ impl super::stub::ManagedZones for ManagedZones {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
                     &[Segment::SingleWildcard],
                 )?;
                 let path = format!("/dns/v1/projects/{}/managedZones", var_project,);
+
+                let resource_name = format!("//dns.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -887,7 +1004,7 @@ impl super::stub::ManagedZones for ManagedZones {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -903,6 +1020,12 @@ impl super::stub::ManagedZones for ManagedZones {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -925,7 +1048,7 @@ impl super::stub::ManagedZones for ManagedZones {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -940,12 +1063,17 @@ impl super::stub::ManagedZones for ManagedZones {
                     var_project, var_managed_zone,
                 );
 
+                let resource_name = format!(
+                    "//dns.googleapis.com/projects/{}/managedZones/{}",
+                    var_project, var_managed_zone,
+                );
+
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = req.client_operation_id.iter().fold(builder, |builder, p| {
                     builder.query(&[("clientOperationId", p)])
                 });
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -967,6 +1095,12 @@ impl super::stub::ManagedZones for ManagedZones {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -989,7 +1123,7 @@ impl super::stub::ManagedZones for ManagedZones {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -997,9 +1131,11 @@ impl super::stub::ManagedZones for ManagedZones {
                 )?;
                 let path = format!("/dns/v1/{}:setIamPolicy", var_resource,);
 
+                let resource_name = format!("//dns.googleapis.com/{}", var_resource,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1015,6 +1151,12 @@ impl super::stub::ManagedZones for ManagedZones {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1037,7 +1179,7 @@ impl super::stub::ManagedZones for ManagedZones {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_resource = try_match(
                     Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
@@ -1045,9 +1187,11 @@ impl super::stub::ManagedZones for ManagedZones {
                 )?;
                 let path = format!("/dns/v1/{}:testIamPermissions", var_resource,);
 
+                let resource_name = format!("//dns.googleapis.com/{}", var_resource,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1063,6 +1207,12 @@ impl super::stub::ManagedZones for ManagedZones {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1085,7 +1235,7 @@ impl super::stub::ManagedZones for ManagedZones {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -1100,12 +1250,17 @@ impl super::stub::ManagedZones for ManagedZones {
                     var_project, var_managed_zone,
                 );
 
+                let resource_name = format!(
+                    "//dns.googleapis.com/projects/{}/managedZones/{}",
+                    var_project, var_managed_zone,
+                );
+
                 let builder = self.inner.builder(Method::PUT, path);
                 let builder = req.client_operation_id.iter().fold(builder, |builder, p| {
                     builder.query(&[("clientOperationId", p)])
                 });
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::PUT)))
+                Some(builder.map(|b| (b, Method::PUT, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1127,6 +1282,12 @@ impl super::stub::ManagedZones for ManagedZones {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1149,7 +1310,7 @@ impl super::stub::ManagedZones for ManagedZones {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -1168,12 +1329,17 @@ impl super::stub::ManagedZones for ManagedZones {
                     var_project, var_managed_zone, var_operation,
                 );
 
+                let resource_name = format!(
+                    "//dns.googleapis.com/projects/{}/managedZones/{}/operations/{}",
+                    var_project, var_managed_zone, var_operation,
+                );
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req.client_operation_id.iter().fold(builder, |builder, p| {
                     builder.query(&[("clientOperationId", p)])
                 });
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1201,6 +1367,12 @@ impl super::stub::ManagedZones for ManagedZones {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1260,7 +1432,7 @@ impl super::stub::Policies for Policies {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -1268,12 +1440,14 @@ impl super::stub::Policies for Policies {
                 )?;
                 let path = format!("/dns/v1/projects/{}/policies", var_project,);
 
+                let resource_name = format!("//dns.googleapis.com/projects/{}", var_project,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req.client_operation_id.iter().fold(builder, |builder, p| {
                     builder.query(&[("clientOperationId", p)])
                 });
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1289,6 +1463,12 @@ impl super::stub::Policies for Policies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1311,7 +1491,7 @@ impl super::stub::Policies for Policies {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -1323,12 +1503,17 @@ impl super::stub::Policies for Policies {
                 )?;
                 let path = format!("/dns/v1/projects/{}/policies/{}", var_project, var_policy,);
 
+                let resource_name = format!(
+                    "//dns.googleapis.com/projects/{}/policies/{}",
+                    var_project, var_policy,
+                );
+
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = req.client_operation_id.iter().fold(builder, |builder, p| {
                     builder.query(&[("clientOperationId", p)])
                 });
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1350,6 +1535,12 @@ impl super::stub::Policies for Policies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1378,7 +1569,7 @@ impl super::stub::Policies for Policies {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -1390,12 +1581,17 @@ impl super::stub::Policies for Policies {
                 )?;
                 let path = format!("/dns/v1/projects/{}/policies/{}", var_project, var_policy,);
 
+                let resource_name = format!(
+                    "//dns.googleapis.com/projects/{}/policies/{}",
+                    var_project, var_policy,
+                );
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req.client_operation_id.iter().fold(builder, |builder, p| {
                     builder.query(&[("clientOperationId", p)])
                 });
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1417,6 +1613,12 @@ impl super::stub::Policies for Policies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1439,13 +1641,15 @@ impl super::stub::Policies for Policies {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
                     &[Segment::SingleWildcard],
                 )?;
                 let path = format!("/dns/v1/projects/{}/policies", var_project,);
+
+                let resource_name = format!("//dns.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -1457,7 +1661,7 @@ impl super::stub::Policies for Policies {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1473,6 +1677,12 @@ impl super::stub::Policies for Policies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1495,7 +1705,7 @@ impl super::stub::Policies for Policies {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -1507,12 +1717,17 @@ impl super::stub::Policies for Policies {
                 )?;
                 let path = format!("/dns/v1/projects/{}/policies/{}", var_project, var_policy,);
 
+                let resource_name = format!(
+                    "//dns.googleapis.com/projects/{}/policies/{}",
+                    var_project, var_policy,
+                );
+
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = req.client_operation_id.iter().fold(builder, |builder, p| {
                     builder.query(&[("clientOperationId", p)])
                 });
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1534,6 +1749,12 @@ impl super::stub::Policies for Policies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1556,7 +1777,7 @@ impl super::stub::Policies for Policies {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -1568,12 +1789,17 @@ impl super::stub::Policies for Policies {
                 )?;
                 let path = format!("/dns/v1/projects/{}/policies/{}", var_project, var_policy,);
 
+                let resource_name = format!(
+                    "//dns.googleapis.com/projects/{}/policies/{}",
+                    var_project, var_policy,
+                );
+
                 let builder = self.inner.builder(Method::PUT, path);
                 let builder = req.client_operation_id.iter().fold(builder, |builder, p| {
                     builder.query(&[("clientOperationId", p)])
                 });
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::PUT)))
+                Some(builder.map(|b| (b, Method::PUT, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1595,6 +1821,12 @@ impl super::stub::Policies for Policies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1640,7 +1872,7 @@ impl super::stub::Projects for Projects {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -1648,12 +1880,14 @@ impl super::stub::Projects for Projects {
                 )?;
                 let path = format!("/dns/v1/projects/{}", var_project,);
 
+                let resource_name = format!("//dns.googleapis.com/projects/{}", var_project,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req.client_operation_id.iter().fold(builder, |builder, p| {
                     builder.query(&[("clientOperationId", p)])
                 });
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1669,6 +1903,12 @@ impl super::stub::Projects for Projects {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1714,7 +1954,7 @@ impl super::stub::ResourceRecordSets for ResourceRecordSets {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -1729,12 +1969,17 @@ impl super::stub::ResourceRecordSets for ResourceRecordSets {
                     var_project, var_managed_zone,
                 );
 
+                let resource_name = format!(
+                    "//dns.googleapis.com/projects/{}/managedZones/{}",
+                    var_project, var_managed_zone,
+                );
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req.client_operation_id.iter().fold(builder, |builder, p| {
                     builder.query(&[("clientOperationId", p)])
                 });
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1756,6 +2001,12 @@ impl super::stub::ResourceRecordSets for ResourceRecordSets {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1778,7 +2029,7 @@ impl super::stub::ResourceRecordSets for ResourceRecordSets {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -1801,12 +2052,17 @@ impl super::stub::ResourceRecordSets for ResourceRecordSets {
                     var_project, var_managed_zone, var_name, var_type,
                 );
 
+                let resource_name = format!(
+                    "//dns.googleapis.com/projects/{}/managedZones/{}/rrsets/{}",
+                    var_project, var_managed_zone, var_name,
+                );
+
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = req.client_operation_id.iter().fold(builder, |builder, p| {
                     builder.query(&[("clientOperationId", p)])
                 });
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1840,6 +2096,12 @@ impl super::stub::ResourceRecordSets for ResourceRecordSets {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1862,7 +2124,7 @@ impl super::stub::ResourceRecordSets for ResourceRecordSets {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -1885,12 +2147,17 @@ impl super::stub::ResourceRecordSets for ResourceRecordSets {
                     var_project, var_managed_zone, var_name, var_type,
                 );
 
+                let resource_name = format!(
+                    "//dns.googleapis.com/projects/{}/managedZones/{}/rrsets/{}",
+                    var_project, var_managed_zone, var_name,
+                );
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req.client_operation_id.iter().fold(builder, |builder, p| {
                     builder.query(&[("clientOperationId", p)])
                 });
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1924,6 +2191,12 @@ impl super::stub::ResourceRecordSets for ResourceRecordSets {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1946,7 +2219,7 @@ impl super::stub::ResourceRecordSets for ResourceRecordSets {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -1958,6 +2231,11 @@ impl super::stub::ResourceRecordSets for ResourceRecordSets {
                 )?;
                 let path = format!(
                     "/dns/v1/projects/{}/managedZones/{}/rrsets",
+                    var_project, var_managed_zone,
+                );
+
+                let resource_name = format!(
+                    "//dns.googleapis.com/projects/{}/managedZones/{}",
                     var_project, var_managed_zone,
                 );
 
@@ -1983,7 +2261,7 @@ impl super::stub::ResourceRecordSets for ResourceRecordSets {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("type", p)]));
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2005,6 +2283,12 @@ impl super::stub::ResourceRecordSets for ResourceRecordSets {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2027,7 +2311,7 @@ impl super::stub::ResourceRecordSets for ResourceRecordSets {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -2050,12 +2334,17 @@ impl super::stub::ResourceRecordSets for ResourceRecordSets {
                     var_project, var_managed_zone, var_name, var_type,
                 );
 
+                let resource_name = format!(
+                    "//dns.googleapis.com/projects/{}/managedZones/{}/rrsets/{}",
+                    var_project, var_managed_zone, var_name,
+                );
+
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = req.client_operation_id.iter().fold(builder, |builder, p| {
                     builder.query(&[("clientOperationId", p)])
                 });
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2089,6 +2378,12 @@ impl super::stub::ResourceRecordSets for ResourceRecordSets {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2134,7 +2429,7 @@ impl super::stub::ResponsePolicies for ResponsePolicies {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -2142,12 +2437,14 @@ impl super::stub::ResponsePolicies for ResponsePolicies {
                 )?;
                 let path = format!("/dns/v1/projects/{}/responsePolicies", var_project,);
 
+                let resource_name = format!("//dns.googleapis.com/projects/{}", var_project,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req.client_operation_id.iter().fold(builder, |builder, p| {
                     builder.query(&[("clientOperationId", p)])
                 });
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2163,6 +2460,12 @@ impl super::stub::ResponsePolicies for ResponsePolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2185,7 +2488,7 @@ impl super::stub::ResponsePolicies for ResponsePolicies {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -2200,12 +2503,17 @@ impl super::stub::ResponsePolicies for ResponsePolicies {
                     var_project, var_response_policy,
                 );
 
+                let resource_name = format!(
+                    "//dns.googleapis.com/projects/{}/responsePolicies/{}",
+                    var_project, var_response_policy,
+                );
+
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = req.client_operation_id.iter().fold(builder, |builder, p| {
                     builder.query(&[("clientOperationId", p)])
                 });
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2227,6 +2535,12 @@ impl super::stub::ResponsePolicies for ResponsePolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2255,7 +2569,7 @@ impl super::stub::ResponsePolicies for ResponsePolicies {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -2270,12 +2584,17 @@ impl super::stub::ResponsePolicies for ResponsePolicies {
                     var_project, var_response_policy,
                 );
 
+                let resource_name = format!(
+                    "//dns.googleapis.com/projects/{}/responsePolicies/{}",
+                    var_project, var_response_policy,
+                );
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req.client_operation_id.iter().fold(builder, |builder, p| {
                     builder.query(&[("clientOperationId", p)])
                 });
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2297,6 +2616,12 @@ impl super::stub::ResponsePolicies for ResponsePolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2319,13 +2644,15 @@ impl super::stub::ResponsePolicies for ResponsePolicies {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
                     &[Segment::SingleWildcard],
                 )?;
                 let path = format!("/dns/v1/projects/{}/responsePolicies", var_project,);
+
+                let resource_name = format!("//dns.googleapis.com/projects/{}", var_project,);
 
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
@@ -2337,7 +2664,7 @@ impl super::stub::ResponsePolicies for ResponsePolicies {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2353,6 +2680,12 @@ impl super::stub::ResponsePolicies for ResponsePolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2375,7 +2708,7 @@ impl super::stub::ResponsePolicies for ResponsePolicies {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -2390,12 +2723,17 @@ impl super::stub::ResponsePolicies for ResponsePolicies {
                     var_project, var_response_policy,
                 );
 
+                let resource_name = format!(
+                    "//dns.googleapis.com/projects/{}/responsePolicies/{}",
+                    var_project, var_response_policy,
+                );
+
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = req.client_operation_id.iter().fold(builder, |builder, p| {
                     builder.query(&[("clientOperationId", p)])
                 });
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2417,6 +2755,12 @@ impl super::stub::ResponsePolicies for ResponsePolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2439,7 +2783,7 @@ impl super::stub::ResponsePolicies for ResponsePolicies {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -2454,12 +2798,17 @@ impl super::stub::ResponsePolicies for ResponsePolicies {
                     var_project, var_response_policy,
                 );
 
+                let resource_name = format!(
+                    "//dns.googleapis.com/projects/{}/responsePolicies/{}",
+                    var_project, var_response_policy,
+                );
+
                 let builder = self.inner.builder(Method::PUT, path);
                 let builder = req.client_operation_id.iter().fold(builder, |builder, p| {
                     builder.query(&[("clientOperationId", p)])
                 });
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::PUT)))
+                Some(builder.map(|b| (b, Method::PUT, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2481,6 +2830,12 @@ impl super::stub::ResponsePolicies for ResponsePolicies {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2526,7 +2881,7 @@ impl super::stub::ResponsePolicyRules for ResponsePolicyRules {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -2541,12 +2896,17 @@ impl super::stub::ResponsePolicyRules for ResponsePolicyRules {
                     var_project, var_response_policy,
                 );
 
+                let resource_name = format!(
+                    "//dns.googleapis.com/projects/{}/responsePolicies/{}",
+                    var_project, var_response_policy,
+                );
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = req.client_operation_id.iter().fold(builder, |builder, p| {
                     builder.query(&[("clientOperationId", p)])
                 });
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2568,6 +2928,12 @@ impl super::stub::ResponsePolicyRules for ResponsePolicyRules {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2590,7 +2956,7 @@ impl super::stub::ResponsePolicyRules for ResponsePolicyRules {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -2611,12 +2977,17 @@ impl super::stub::ResponsePolicyRules for ResponsePolicyRules {
                     var_project, var_response_policy, var_response_policy_rule,
                 );
 
+                let resource_name = format!(
+                    "//dns.googleapis.com/projects/{}/responsePolicies/{}/rules/{}",
+                    var_project, var_response_policy, var_response_policy_rule,
+                );
+
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = req.client_operation_id.iter().fold(builder, |builder, p| {
                     builder.query(&[("clientOperationId", p)])
                 });
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2646,6 +3017,12 @@ impl super::stub::ResponsePolicyRules for ResponsePolicyRules {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2674,7 +3051,7 @@ impl super::stub::ResponsePolicyRules for ResponsePolicyRules {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -2695,12 +3072,17 @@ impl super::stub::ResponsePolicyRules for ResponsePolicyRules {
                     var_project, var_response_policy, var_response_policy_rule,
                 );
 
+                let resource_name = format!(
+                    "//dns.googleapis.com/projects/{}/responsePolicies/{}/rules/{}",
+                    var_project, var_response_policy, var_response_policy_rule,
+                );
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req.client_operation_id.iter().fold(builder, |builder, p| {
                     builder.query(&[("clientOperationId", p)])
                 });
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2730,6 +3112,12 @@ impl super::stub::ResponsePolicyRules for ResponsePolicyRules {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2752,7 +3140,7 @@ impl super::stub::ResponsePolicyRules for ResponsePolicyRules {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -2767,6 +3155,11 @@ impl super::stub::ResponsePolicyRules for ResponsePolicyRules {
                     var_project, var_response_policy,
                 );
 
+                let resource_name = format!(
+                    "//dns.googleapis.com/projects/{}/responsePolicies/{}",
+                    var_project, var_response_policy,
+                );
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
                     .max_results
@@ -2777,7 +3170,7 @@ impl super::stub::ResponsePolicyRules for ResponsePolicyRules {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("pageToken", p)]));
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2799,6 +3192,12 @@ impl super::stub::ResponsePolicyRules for ResponsePolicyRules {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2821,7 +3220,7 @@ impl super::stub::ResponsePolicyRules for ResponsePolicyRules {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -2842,12 +3241,17 @@ impl super::stub::ResponsePolicyRules for ResponsePolicyRules {
                     var_project, var_response_policy, var_response_policy_rule,
                 );
 
+                let resource_name = format!(
+                    "//dns.googleapis.com/projects/{}/responsePolicies/{}/rules/{}",
+                    var_project, var_response_policy, var_response_policy_rule,
+                );
+
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = req.client_operation_id.iter().fold(builder, |builder, p| {
                     builder.query(&[("clientOperationId", p)])
                 });
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2877,6 +3281,12 @@ impl super::stub::ResponsePolicyRules for ResponsePolicyRules {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2899,7 +3309,7 @@ impl super::stub::ResponsePolicyRules for ResponsePolicyRules {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_project = try_match(
                     Some(&req).map(|m| &m.project).map(|s| s.as_str()),
@@ -2920,12 +3330,17 @@ impl super::stub::ResponsePolicyRules for ResponsePolicyRules {
                     var_project, var_response_policy, var_response_policy_rule,
                 );
 
+                let resource_name = format!(
+                    "//dns.googleapis.com/projects/{}/responsePolicies/{}/rules/{}",
+                    var_project, var_response_policy, var_response_policy_rule,
+                );
+
                 let builder = self.inner.builder(Method::PUT, path);
                 let builder = req.client_operation_id.iter().fold(builder, |builder, p| {
                     builder.query(&[("clientOperationId", p)])
                 });
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::PUT)))
+                Some(builder.map(|b| (b, Method::PUT, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2955,6 +3370,12 @@ impl super::stub::ResponsePolicyRules for ResponsePolicyRules {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),

@@ -580,6 +580,7 @@ libraries:
         - projects
       disabled_clippy_warnings:
         - doc_lazy_continuation
+      resource_name: true
       discovery:
         operation_id: .google.cloud.compute.v1.Operation
         pollers:
@@ -753,6 +754,7 @@ libraries:
         - name: google-cloud-lro
           package: google-cloud-lro
           force_used: true
+      resource_name: true
       discovery:
         operation_id: ..Operation
         pollers:
