@@ -50,7 +50,7 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -65,9 +65,11 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//managedkafka.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -90,6 +92,12 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -112,7 +120,7 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -125,9 +133,14 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
                 )?;
                 let path = format!("/v1/{}/schemaRegistries", var_parent,);
 
+                let resource_name = format!(
+                    "//managedkafka.googleapis.com/v1/{}/schemaRegistries",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -148,6 +161,12 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -170,7 +189,7 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -183,9 +202,14 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
                 )?;
                 let path = format!("/v1/{}/schemaRegistries", var_parent,);
 
+                let resource_name = format!(
+                    "//managedkafka.googleapis.com/v1/{}/schemaRegistries",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -206,6 +230,12 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -228,7 +258,7 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -243,9 +273,11 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//managedkafka.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -268,6 +300,12 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -296,7 +334,7 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -313,9 +351,11 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//managedkafka.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -340,6 +380,12 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -362,7 +408,7 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -377,9 +423,12 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
                 )?;
                 let path = format!("/v1/{}/contexts", var_parent,);
 
+                let resource_name =
+                    format!("//managedkafka.googleapis.com/v1/{}/contexts", var_parent,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -402,6 +451,12 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -424,7 +479,7 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -441,13 +496,15 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//managedkafka.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
                     .subject
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("subject", p)]));
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -467,13 +524,15 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//managedkafka.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
                     .subject
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("subject", p)]));
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -519,6 +578,12 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -541,7 +606,7 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -558,13 +623,16 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
                 )?;
                 let path = format!("/v1/{}/schema", var_name,);
 
+                let resource_name =
+                    format!("//managedkafka.googleapis.com/v1/{}/schema", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
                     .subject
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("subject", p)]));
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -584,13 +652,16 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
                 )?;
                 let path = format!("/v1/{}/schema", var_name,);
 
+                let resource_name =
+                    format!("//managedkafka.googleapis.com/v1/{}/schema", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
                     .subject
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("subject", p)]));
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -636,6 +707,12 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -658,7 +735,7 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -675,6 +752,9 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
                 )?;
                 let path = format!("/v1/{}/versions", var_parent,);
 
+                let resource_name =
+                    format!("//managedkafka.googleapis.com/v1/{}/versions", var_parent,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
                     .subject
@@ -685,7 +765,7 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("deleted", p)]));
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -705,6 +785,9 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
                 )?;
                 let path = format!("/v1/{}/versions", var_parent,);
 
+                let resource_name =
+                    format!("//managedkafka.googleapis.com/v1/{}/versions", var_parent,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
                     .subject
@@ -715,7 +798,7 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("deleted", p)]));
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -761,6 +844,12 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -783,7 +872,7 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -798,9 +887,14 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
                 )?;
                 let path = format!("/v1/{}/schemas/types", var_parent,);
 
+                let resource_name = format!(
+                    "//managedkafka.googleapis.com/v1/{}/schemas/types",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -818,9 +912,14 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
                 )?;
                 let path = format!("/v1/{}/schemas/types", var_parent,);
 
+                let resource_name = format!(
+                    "//managedkafka.googleapis.com/v1/{}/schemas/types",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -862,6 +961,12 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -884,7 +989,7 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -899,6 +1004,9 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
                 )?;
                 let path = format!("/v1/{}/subjects", var_parent,);
 
+                let resource_name =
+                    format!("//managedkafka.googleapis.com/v1/{}/subjects", var_parent,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
                     .subject_prefix
@@ -909,7 +1017,7 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("deleted", p)]));
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -927,6 +1035,9 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
                 )?;
                 let path = format!("/v1/{}/subjects", var_parent,);
 
+                let resource_name =
+                    format!("//managedkafka.googleapis.com/v1/{}/subjects", var_parent,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
                     .subject_prefix
@@ -937,7 +1048,7 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("deleted", p)]));
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -979,6 +1090,12 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1001,7 +1118,7 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1018,6 +1135,9 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
                 )?;
                 let path = format!("/v1/{}/subjects", var_parent,);
 
+                let resource_name =
+                    format!("//managedkafka.googleapis.com/v1/{}/subjects", var_parent,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
                     .subject
@@ -1028,7 +1148,7 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("deleted", p)]));
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -1048,6 +1168,9 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
                 )?;
                 let path = format!("/v1/{}/subjects", var_parent,);
 
+                let resource_name =
+                    format!("//managedkafka.googleapis.com/v1/{}/subjects", var_parent,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
                     .subject
@@ -1058,7 +1181,7 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("deleted", p)]));
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1104,6 +1227,12 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1126,7 +1255,7 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1143,13 +1272,15 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//managedkafka.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = req
                     .permanent
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("permanent", p)]));
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -1169,13 +1300,15 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//managedkafka.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = req
                     .permanent
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("permanent", p)]));
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1221,6 +1354,12 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1243,7 +1382,7 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1260,9 +1399,11 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
                 )?;
                 let path = format!("/v1/{}", var_parent,);
 
+                let resource_name = format!("//managedkafka.googleapis.com/v1/{}", var_parent,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -1282,9 +1423,11 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
                 )?;
                 let path = format!("/v1/{}", var_parent,);
 
+                let resource_name = format!("//managedkafka.googleapis.com/v1/{}", var_parent,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1330,6 +1473,12 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1352,7 +1501,7 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/schemaRegistries/"), Segment::SingleWildcard, Segment::Literal("/subjects/"), Segment::SingleWildcard, Segment::Literal("/versions/"), Segment::SingleWildcard])?;
             let path = format!(
@@ -1360,10 +1509,15 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
                 var_name,
             );
 
+            let resource_name = format!(
+                "//managedkafka.googleapis.com/v1/{}",
+                var_name,
+            );
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = req.deleted.iter().fold(builder, |builder, p| builder.query(&[("deleted", p)]));
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, Method::GET)))
+            Some(builder.map(|b| (b, Method::GET, resource_name)))
         })
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/schemaRegistries/"), Segment::SingleWildcard, Segment::Literal("/contexts/"), Segment::SingleWildcard, Segment::Literal("/subjects/"), Segment::SingleWildcard, Segment::Literal("/versions/"), Segment::SingleWildcard])?;
@@ -1372,10 +1526,15 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
                 var_name,
             );
 
+            let resource_name = format!(
+                "//managedkafka.googleapis.com/v1/{}",
+                var_name,
+            );
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = req.deleted.iter().fold(builder, |builder, p| builder.query(&[("deleted", p)]));
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, Method::GET)))
+            Some(builder.map(|b| (b, Method::GET, resource_name)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -1399,6 +1558,12 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
             }
             google_cloud_gax::error::Error::binding(BindingError { paths })
         })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1421,7 +1586,7 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/schemaRegistries/"), Segment::SingleWildcard, Segment::Literal("/subjects/"), Segment::SingleWildcard, Segment::Literal("/versions/"), Segment::SingleWildcard])?;
             let path = format!(
@@ -1429,10 +1594,15 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
                 var_name,
             );
 
+            let resource_name = format!(
+                "//managedkafka.googleapis.com/v1/{}/schema",
+                var_name,
+            );
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = req.deleted.iter().fold(builder, |builder, p| builder.query(&[("deleted", p)]));
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, Method::GET)))
+            Some(builder.map(|b| (b, Method::GET, resource_name)))
         })
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/schemaRegistries/"), Segment::SingleWildcard, Segment::Literal("/contexts/"), Segment::SingleWildcard, Segment::Literal("/subjects/"), Segment::SingleWildcard, Segment::Literal("/versions/"), Segment::SingleWildcard])?;
@@ -1441,10 +1611,15 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
                 var_name,
             );
 
+            let resource_name = format!(
+                "//managedkafka.googleapis.com/v1/{}/schema",
+                var_name,
+            );
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = req.deleted.iter().fold(builder, |builder, p| builder.query(&[("deleted", p)]));
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, Method::GET)))
+            Some(builder.map(|b| (b, Method::GET, resource_name)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -1468,6 +1643,12 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
             }
             google_cloud_gax::error::Error::binding(BindingError { paths })
         })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1490,7 +1671,7 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1507,13 +1688,16 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
                 )?;
                 let path = format!("/v1/{}/versions", var_parent,);
 
+                let resource_name =
+                    format!("//managedkafka.googleapis.com/v1/{}/versions", var_parent,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
                     .deleted
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("deleted", p)]));
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -1533,13 +1717,16 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
                 )?;
                 let path = format!("/v1/{}/versions", var_parent,);
 
+                let resource_name =
+                    format!("//managedkafka.googleapis.com/v1/{}/versions", var_parent,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req
                     .deleted
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("deleted", p)]));
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1585,6 +1772,12 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1607,7 +1800,7 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -1624,9 +1817,12 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
                 )?;
                 let path = format!("/v1/{}/versions", var_parent,);
 
+                let resource_name =
+                    format!("//managedkafka.googleapis.com/v1/{}/versions", var_parent,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -1646,9 +1842,12 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
                 )?;
                 let path = format!("/v1/{}/versions", var_parent,);
 
+                let resource_name =
+                    format!("//managedkafka.googleapis.com/v1/{}/versions", var_parent,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1694,6 +1893,12 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1716,7 +1921,7 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/schemaRegistries/"), Segment::SingleWildcard, Segment::Literal("/subjects/"), Segment::SingleWildcard, Segment::Literal("/versions/"), Segment::SingleWildcard])?;
             let path = format!(
@@ -1724,10 +1929,15 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
                 var_name,
             );
 
+            let resource_name = format!(
+                "//managedkafka.googleapis.com/v1/{}",
+                var_name,
+            );
+
             let builder = self.inner.builder(Method::DELETE, path);
             let builder = req.permanent.iter().fold(builder, |builder, p| builder.query(&[("permanent", p)]));
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, Method::DELETE)))
+            Some(builder.map(|b| (b, Method::DELETE, resource_name)))
         })
         .or_else(|| {
             let var_name = try_match(Some(&req).map(|m| &m.name).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/schemaRegistries/"), Segment::SingleWildcard, Segment::Literal("/contexts/"), Segment::SingleWildcard, Segment::Literal("/subjects/"), Segment::SingleWildcard, Segment::Literal("/versions/"), Segment::SingleWildcard])?;
@@ -1736,10 +1946,15 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
                 var_name,
             );
 
+            let resource_name = format!(
+                "//managedkafka.googleapis.com/v1/{}",
+                var_name,
+            );
+
             let builder = self.inner.builder(Method::DELETE, path);
             let builder = req.permanent.iter().fold(builder, |builder, p| builder.query(&[("permanent", p)]));
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, Method::DELETE)))
+            Some(builder.map(|b| (b, Method::DELETE, resource_name)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -1763,6 +1978,12 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
             }
             google_cloud_gax::error::Error::binding(BindingError { paths })
         })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1785,7 +2006,7 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
         .or_else(|| {
             let var_parent = try_match(Some(&req).map(|m| &m.parent).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/schemaRegistries/"), Segment::SingleWildcard, Segment::Literal("/subjects/"), Segment::SingleWildcard, Segment::Literal("/versions/"), Segment::SingleWildcard])?;
             let path = format!(
@@ -1793,9 +2014,14 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
                 var_parent,
             );
 
+            let resource_name = format!(
+                "//managedkafka.googleapis.com/v1/{}/referencedby",
+                var_parent,
+            );
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, Method::GET)))
+            Some(builder.map(|b| (b, Method::GET, resource_name)))
         })
         .or_else(|| {
             let var_parent = try_match(Some(&req).map(|m| &m.parent).map(|s| s.as_str()), &[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::Literal("/schemaRegistries/"), Segment::SingleWildcard, Segment::Literal("/contexts/"), Segment::SingleWildcard, Segment::Literal("/subjects/"), Segment::SingleWildcard, Segment::Literal("/versions/"), Segment::SingleWildcard])?;
@@ -1804,9 +2030,14 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
                 var_parent,
             );
 
+            let resource_name = format!(
+                "//managedkafka.googleapis.com/v1/{}/referencedby",
+                var_parent,
+            );
+
             let builder = self.inner.builder(Method::GET, path);
             let builder = Ok(builder);
-            Some(builder.map(|b| (b, Method::GET)))
+            Some(builder.map(|b| (b, Method::GET, resource_name)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -1830,6 +2061,12 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
             }
             google_cloud_gax::error::Error::binding(BindingError { paths })
         })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1852,7 +2089,7 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1869,9 +2106,11 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//managedkafka.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -1891,9 +2130,11 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//managedkafka.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1939,6 +2180,12 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -1961,7 +2208,7 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -1978,12 +2225,14 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//managedkafka.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req.default_to_global.iter().fold(builder, |builder, p| {
                     builder.query(&[("defaultToGlobal", p)])
                 });
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -2003,12 +2252,14 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//managedkafka.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = req.default_to_global.iter().fold(builder, |builder, p| {
                     builder.query(&[("defaultToGlobal", p)])
                 });
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2054,6 +2305,12 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2076,7 +2333,7 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2093,9 +2350,11 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//managedkafka.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::PUT, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::PUT)))
+                Some(builder.map(|b| (b, Method::PUT, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -2115,9 +2374,11 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//managedkafka.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::PUT, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::PUT)))
+                Some(builder.map(|b| (b, Method::PUT, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2163,6 +2424,12 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2185,7 +2452,7 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2202,9 +2469,11 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//managedkafka.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -2224,9 +2493,11 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//managedkafka.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2272,6 +2543,12 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2294,7 +2571,7 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2311,9 +2588,11 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//managedkafka.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -2333,9 +2612,11 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//managedkafka.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2381,6 +2662,12 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2403,7 +2690,7 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2420,9 +2707,11 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//managedkafka.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::PUT, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::PUT)))
+                Some(builder.map(|b| (b, Method::PUT, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -2442,9 +2731,11 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//managedkafka.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::PUT, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::PUT)))
+                Some(builder.map(|b| (b, Method::PUT, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2490,6 +2781,12 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -2512,7 +2809,7 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -2529,9 +2826,11 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//managedkafka.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -2551,9 +2850,11 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//managedkafka.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2599,6 +2900,12 @@ impl super::stub::ManagedSchemaRegistry for ManagedSchemaRegistry {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),

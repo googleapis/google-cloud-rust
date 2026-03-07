@@ -50,7 +50,7 @@ impl super::stub::AccessApproval for AccessApproval {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_parent = try_match(
                     Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
@@ -58,12 +58,17 @@ impl super::stub::AccessApproval for AccessApproval {
                 )?;
                 let path = format!("/v1/{}/approvalRequests", var_parent,);
 
+                let resource_name = format!(
+                    "//accessapproval.googleapis.com/v1/{}/approvalRequests",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -72,12 +77,17 @@ impl super::stub::AccessApproval for AccessApproval {
                 )?;
                 let path = format!("/v1/{}/approvalRequests", var_parent,);
 
+                let resource_name = format!(
+                    "//accessapproval.googleapis.com/v1/{}/approvalRequests",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .or_else(|| {
                 let var_parent = try_match(
@@ -86,12 +96,17 @@ impl super::stub::AccessApproval for AccessApproval {
                 )?;
                 let path = format!("/v1/{}/approvalRequests", var_parent,);
 
+                let resource_name = format!(
+                    "//accessapproval.googleapis.com/v1/{}/approvalRequests",
+                    var_parent,
+                );
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -127,6 +142,12 @@ impl super::stub::AccessApproval for AccessApproval {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -149,7 +170,7 @@ impl super::stub::AccessApproval for AccessApproval {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -162,9 +183,11 @@ impl super::stub::AccessApproval for AccessApproval {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//accessapproval.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -178,9 +201,11 @@ impl super::stub::AccessApproval for AccessApproval {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//accessapproval.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -194,9 +219,11 @@ impl super::stub::AccessApproval for AccessApproval {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//accessapproval.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -247,6 +274,12 @@ impl super::stub::AccessApproval for AccessApproval {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -269,7 +302,7 @@ impl super::stub::AccessApproval for AccessApproval {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -282,9 +315,11 @@ impl super::stub::AccessApproval for AccessApproval {
                 )?;
                 let path = format!("/v1/{}:approve", var_name,);
 
+                let resource_name = format!("//accessapproval.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -298,9 +333,11 @@ impl super::stub::AccessApproval for AccessApproval {
                 )?;
                 let path = format!("/v1/{}:approve", var_name,);
 
+                let resource_name = format!("//accessapproval.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -314,9 +351,11 @@ impl super::stub::AccessApproval for AccessApproval {
                 )?;
                 let path = format!("/v1/{}:approve", var_name,);
 
+                let resource_name = format!("//accessapproval.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -367,6 +406,12 @@ impl super::stub::AccessApproval for AccessApproval {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -389,7 +434,7 @@ impl super::stub::AccessApproval for AccessApproval {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -402,9 +447,11 @@ impl super::stub::AccessApproval for AccessApproval {
                 )?;
                 let path = format!("/v1/{}:dismiss", var_name,);
 
+                let resource_name = format!("//accessapproval.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -418,9 +465,11 @@ impl super::stub::AccessApproval for AccessApproval {
                 )?;
                 let path = format!("/v1/{}:dismiss", var_name,);
 
+                let resource_name = format!("//accessapproval.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -434,9 +483,11 @@ impl super::stub::AccessApproval for AccessApproval {
                 )?;
                 let path = format!("/v1/{}:dismiss", var_name,);
 
+                let resource_name = format!("//accessapproval.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -487,6 +538,12 @@ impl super::stub::AccessApproval for AccessApproval {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -509,7 +566,7 @@ impl super::stub::AccessApproval for AccessApproval {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -522,9 +579,11 @@ impl super::stub::AccessApproval for AccessApproval {
                 )?;
                 let path = format!("/v1/{}:invalidate", var_name,);
 
+                let resource_name = format!("//accessapproval.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -538,9 +597,11 @@ impl super::stub::AccessApproval for AccessApproval {
                 )?;
                 let path = format!("/v1/{}:invalidate", var_name,);
 
+                let resource_name = format!("//accessapproval.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -554,9 +615,11 @@ impl super::stub::AccessApproval for AccessApproval {
                 )?;
                 let path = format!("/v1/{}:invalidate", var_name,);
 
+                let resource_name = format!("//accessapproval.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::POST, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::POST)))
+                Some(builder.map(|b| (b, Method::POST, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -607,6 +670,12 @@ impl super::stub::AccessApproval for AccessApproval {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -629,7 +698,7 @@ impl super::stub::AccessApproval for AccessApproval {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -641,9 +710,11 @@ impl super::stub::AccessApproval for AccessApproval {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//accessapproval.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -656,9 +727,11 @@ impl super::stub::AccessApproval for AccessApproval {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//accessapproval.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -671,9 +744,11 @@ impl super::stub::AccessApproval for AccessApproval {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//accessapproval.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::GET, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::GET)))
+                Some(builder.map(|b| (b, Method::GET, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -721,6 +796,12 @@ impl super::stub::AccessApproval for AccessApproval {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -743,7 +824,7 @@ impl super::stub::AccessApproval for AccessApproval {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_settings_name = try_match(
                     Some(&req)
@@ -757,6 +838,9 @@ impl super::stub::AccessApproval for AccessApproval {
                     ],
                 )?;
                 let path = format!("/v1/{}", var_settings_name,);
+
+                let resource_name =
+                    format!("//accessapproval.googleapis.com/v1/{}", var_settings_name,);
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -772,7 +856,7 @@ impl super::stub::AccessApproval for AccessApproval {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, resource_name)))
             })
             .or_else(|| {
                 let var_settings_name = try_match(
@@ -788,35 +872,8 @@ impl super::stub::AccessApproval for AccessApproval {
                 )?;
                 let path = format!("/v1/{}", var_settings_name,);
 
-                let builder = self.inner.builder(Method::PATCH, path);
-                let builder = (|| {
-                    let builder = req
-                        .update_mask
-                        .as_ref()
-                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
-                        .transpose()?
-                        .into_iter()
-                        .fold(builder, |builder, v| {
-                            use gaxi::query_parameter::QueryParameter;
-                            v.add(builder, "updateMask")
-                        });
-                    Ok(builder)
-                })();
-                Some(builder.map(|b| (b, Method::PATCH)))
-            })
-            .or_else(|| {
-                let var_settings_name = try_match(
-                    Some(&req)
-                        .and_then(|m| m.settings.as_ref())
-                        .map(|m| &m.name)
-                        .map(|s| s.as_str()),
-                    &[
-                        Segment::Literal("organizations/"),
-                        Segment::SingleWildcard,
-                        Segment::Literal("/accessApprovalSettings"),
-                    ],
-                )?;
-                let path = format!("/v1/{}", var_settings_name,);
+                let resource_name =
+                    format!("//accessapproval.googleapis.com/v1/{}", var_settings_name,);
 
                 let builder = self.inner.builder(Method::PATCH, path);
                 let builder = (|| {
@@ -832,7 +889,40 @@ impl super::stub::AccessApproval for AccessApproval {
                         });
                     Ok(builder)
                 })();
-                Some(builder.map(|b| (b, Method::PATCH)))
+                Some(builder.map(|b| (b, Method::PATCH, resource_name)))
+            })
+            .or_else(|| {
+                let var_settings_name = try_match(
+                    Some(&req)
+                        .and_then(|m| m.settings.as_ref())
+                        .map(|m| &m.name)
+                        .map(|s| s.as_str()),
+                    &[
+                        Segment::Literal("organizations/"),
+                        Segment::SingleWildcard,
+                        Segment::Literal("/accessApprovalSettings"),
+                    ],
+                )?;
+                let path = format!("/v1/{}", var_settings_name,);
+
+                let resource_name =
+                    format!("//accessapproval.googleapis.com/v1/{}", var_settings_name,);
+
+                let builder = self.inner.builder(Method::PATCH, path);
+                let builder = (|| {
+                    let builder = req
+                        .update_mask
+                        .as_ref()
+                        .map(|p| serde_json::to_value(p).map_err(Error::ser))
+                        .transpose()?
+                        .into_iter()
+                        .fold(builder, |builder, v| {
+                            use gaxi::query_parameter::QueryParameter;
+                            v.add(builder, "updateMask")
+                        });
+                    Ok(builder)
+                })();
+                Some(builder.map(|b| (b, Method::PATCH, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -889,6 +979,12 @@ impl super::stub::AccessApproval for AccessApproval {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),
@@ -911,7 +1007,7 @@ impl super::stub::AccessApproval for AccessApproval {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         use google_cloud_gax::error::binding::BindingError;
-        let (builder, method) = None
+        let (builder, method, resource_name) = None
             .or_else(|| {
                 let var_name = try_match(
                     Some(&req).map(|m| &m.name).map(|s| s.as_str()),
@@ -923,9 +1019,11 @@ impl super::stub::AccessApproval for AccessApproval {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//accessapproval.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -938,9 +1036,11 @@ impl super::stub::AccessApproval for AccessApproval {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//accessapproval.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, resource_name)))
             })
             .or_else(|| {
                 let var_name = try_match(
@@ -953,9 +1053,11 @@ impl super::stub::AccessApproval for AccessApproval {
                 )?;
                 let path = format!("/v1/{}", var_name,);
 
+                let resource_name = format!("//accessapproval.googleapis.com/v1/{}", var_name,);
+
                 let builder = self.inner.builder(Method::DELETE, path);
                 let builder = Ok(builder);
-                Some(builder.map(|b| (b, Method::DELETE)))
+                Some(builder.map(|b| (b, Method::DELETE, resource_name)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1003,6 +1105,12 @@ impl super::stub::AccessApproval for AccessApproval {
                 }
                 google_cloud_gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = if !resource_name.is_empty() {
+            use google_cloud_gax::options::internal::{RequestOptionsExt, ResourceName};
+            options.insert_extension(ResourceName(resource_name))
+        } else {
+            options
+        };
         let options = google_cloud_gax::options::internal::set_default_idempotency(
             options,
             gaxi::http::default_idempotency(&method),

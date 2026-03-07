@@ -1,6 +1,6 @@
 {
     "api_id": "config.googleapis.com",
-    "api_shortname": "infra-manager",
+    "api_shortname": "config",
     "client_documentation": "https://docs.rs/google-cloud-config-v1/latest",
     "distribution_name": "google-cloud-rust",
     "language": "rust",
