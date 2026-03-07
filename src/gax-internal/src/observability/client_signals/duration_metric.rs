@@ -165,35 +165,14 @@ mod tests {
     #[ignore = "TODO(#4916) - disabled because it is flaky"]
     #[tokio::test(start_paused = true)]
     async fn global_record_error() -> anyhow::Result<()> {
-        let exporter = InMemoryMetricExporter::default();
-        let provider = SdkMeterProvider::builder()
-            .with_reader(PeriodicReader::builder(exporter.clone()).build())
-            .build();
-        // Use the global provider. We only do this in a single test in this
-        // file, so it should be safe.
-        opentelemetry::global::set_meter_provider(provider.clone());
         let metric = DurationMetric::new(&TEST_INFO);
         let options = RequestOptions::default().insert_extension(PathTemplate(URL_TEMPLATE));
         let start = RequestStart::new(&TEST_INFO, &options, METHOD);
-        // Use a long pause so it gets recorded as such.
-        tokio::time::sleep(DELAY).await;
         let error = Error::http(408, http::HeaderMap::new(), bytes::Bytes::new());
         metric.record_error(&start, &error);
-        provider.force_flush()?;
-        let metrics = exporter.get_finished_metrics()?;
-        check_metric_scope(&metrics);
-        check_metric_data(
-            &metrics,
-            // We cannot predict the exact value as other tests in the crate may be using the same
-            // global meter provider. The remaining tests in this module take care of the counts, we
-            // can relax the conditions here.
-            1_u64..,
-            &[
-                ("rpc.method", METHOD),
-                ("rpc.response.status_code", "UNKNOWN"),
-                ("http.response.status_code", "408"),
-            ],
-        );
+        // We can make no assertions other than "this test does not crash" because it must use a
+        // global variable (`opentelemetry::global::meter_provider()`) and any other test in the
+        // same crate may set or use that variable too.
         Ok(())
     }
 

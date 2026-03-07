@@ -326,7 +326,9 @@ mod tests {
         pub logs_provider: SdkLoggerProvider,
         pub metric_exporter: InMemoryMetricExporter,
         pub metric_provider: SdkMeterProvider,
-        pub guard: DefaultGuard,
+        // To make the tests hermetic we need to avoid the global `tracing` subscriber. This is a
+        // per-thread guard. It works as long as all the tests are single-threaded (the default).
+        pub _guard: DefaultGuard,
     }
 
     impl SignalProviders {
@@ -365,7 +367,7 @@ mod tests {
                 logs_provider,
                 metric_exporter,
                 metric_provider,
-                guard,
+                _guard: guard,
             }
         }
 
