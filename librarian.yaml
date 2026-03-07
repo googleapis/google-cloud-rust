@@ -561,6 +561,7 @@ libraries:
       - googleapis
     specification_format: discovery
     rust:
+      resource_name: true
       package_dependencies:
         - name: google-cloud-lro
           package: google-cloud-lro
@@ -749,6 +750,7 @@ libraries:
       - googleapis
     specification_format: discovery
     rust:
+      resource_name: true
       package_dependencies:
         - name: google-cloud-lro
           package: google-cloud-lro
