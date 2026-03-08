@@ -84,7 +84,7 @@ pub async fn run() -> anyhow::Result<()> {
         ROOT_SPAN_NAME,
         "google_cloud_showcase_v1beta1::client::Echo::echo",
     ]);
-    let trace = wait_for_trace(&project_id, &trace_id, required.len()).await?;
+    let trace = wait_for_trace(&project_id, &trace_id, &required).await?;
 
     // Verify the expected spans appear in the trace:
     let span_names = trace

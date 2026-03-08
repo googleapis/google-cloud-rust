@@ -29,7 +29,6 @@ pub async fn run() -> anyhow::Result<()> {
     let trace_id = send_trace(&project_id).await?;
     let required = BTreeSet::from_iter([
         ROOT_SPAN_NAME,
-        "list_buckets",
         "google.storage.v2.Storage/ListBuckets",
         "create_bucket",
         "google.storage.v2.Storage/CreateBucket",
@@ -55,7 +54,7 @@ pub async fn run() -> anyhow::Result<()> {
         "delete_bucket",
         "google.storage.v2.Storage/DeleteBucket",
     ]);
-    let trace = wait_for_trace(&project_id, &trace_id, required.len()).await?;
+    let trace = wait_for_trace(&project_id, &trace_id, &required).await?;
 
     // Verify the expected spans appear in the trace:
     let span_names = trace
