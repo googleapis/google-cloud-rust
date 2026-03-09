@@ -90,42 +90,30 @@ impl Publisher {
         crate::publisher::PublishFuture { rx }
     }
 
-    /// Flushes all outstanding messages.
-    ///
-    /// This method sends any messages that have been published but not yet sent,
-    /// regardless of the configured batching options (`delay_threshold`, etc.).
-    ///
-    /// This method is `async` and returns only after all publish attempts for the
-    /// messages in the snapshot have completed. A "completed" attempt means the
-    /// message has either been successfully sent, or has failed permanently after
-    /// exhausting any applicable retry policies.
-    ///
-    /// After flush()` returns, the final result of each individual publish
-    /// operation (i.e., a success with a message ID or a terminal error) will
-    /// be available on its corresponding [PublishFuture](crate::publisher::PublishFuture).
-    ///
-    /// Messages published after `flush()` is called will be buffered for a
-    /// subsequent batch and are not included in this flush operation.
-    ///
-    /// # Example
+    /// Flushes all buffered messages across all ordering keys, sending them immediately.
     ///
     /// ```
     /// # use google_cloud_pubsub::model::Message;
     /// # async fn sample(publisher: google_cloud_pubsub::client::Publisher) -> anyhow::Result<()> {
-    /// // Publish some messages. They will be buffered according to batching options.
-    /// let handle1 = publisher.publish(Message::new().set_data("foo"));
-    /// let handle2 = publisher.publish(Message::new().set_data("bar"));
-    ///
-    /// // Flush ensures that these messages are sent immediately and waits for
-    /// // the send to complete.
+    /// let _handle = publisher.publish(Message::new().set_data("event"));
+    /// // Ensures the message above is sent without needing to track its future.
     /// publisher.flush().await;
-    ///
-    /// // The results for handle1 and handle2 are available.
-    /// let id1 = handle1.await?;
-    /// let id2 = handle2.await?;
     /// # Ok(())
     /// # }
     /// ```
+    ///
+    /// This method bypasses configured batching delays and returns only after all
+    /// messages buffered at the time of the call have reached a terminal state
+    /// (success or permanent failure).
+    ///
+    /// ### Recommendations
+    ///
+    /// *   For most use cases, we recommend you `.await`
+    ///     the [`PublishFuture`][crate::publisher::PublishFuture] returned by
+    ///     [`publish`][Self::publish] to retrieve message IDs and handle
+    ///     specific errors.
+    /// *   Use `flush()` as a convenience during application shutdown to
+    ///     ensure the client attempts to send all outstanding data.
     pub async fn flush(&self) {
         let (tx, rx) = oneshot::channel();
         if self.tx.send(ToDispatcher::Flush(tx)).is_ok() {
