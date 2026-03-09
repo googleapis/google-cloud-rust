@@ -428,7 +428,7 @@ mod tests {
         let client = test_client(endpoint).await?;
         let _ = client
             .subscribe("projects/p/subscriptions/s")
-            .set_ack_deadline_seconds(20)
+            .set_max_deadline_extension(Duration::from_secs(20))
             .set_max_outstanding_messages(2000)
             .set_max_outstanding_bytes(200 * MIB)
             .build()
