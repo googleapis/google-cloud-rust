@@ -38,10 +38,9 @@ Start the program and use different files for `stdout` vs. `stderr`:
 ```shell
 TS=$(date +%s); cargo run --release --package storage-random -- \
     --bucket-name ${BUCKET_NAME} \
-    --min-range-size 8KiB --max-range-size 8KiB \
-    --min-batch-size 16 --max-batch-size 16 \
+    --range-size 8KiB \
     --task-count=4 \
-    --min-sample-count=1000 bidi  >bm-${TS}.txt 2>bm-${TS}.log </dev/null &
+    bidi  >bm-${TS}.txt 2>bm-${TS}.log </dev/null &
 ```
 
 Wait for the program to finish.
