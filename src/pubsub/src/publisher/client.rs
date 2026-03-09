@@ -492,7 +492,7 @@ mod tests {
             Message::new().set_data("world"),
         ];
         for msg in messages {
-            publisher.publish(msg.clone());
+            let _ = publisher.publish(msg.clone());
         }
 
         publisher.flush().await;
@@ -603,13 +603,13 @@ mod tests {
         // Validate without ordering key.
         let handle = publisher.publish(Message::new().set_data("hello"));
         // Publish a second message to trigger send on threshold.
-        publisher.publish(Message::new().set_data("world"));
+        let _ = publisher.publish(Message::new().set_data("world"));
         assert_eq!(handle.await?, "hello");
 
         // Validate with ordering key.
         let handle = publisher.publish(Message::new().set_data("hello").set_ordering_key("key"));
         // Publish a second message to trigger send on threshold.
-        publisher.publish(Message::new().set_data("world").set_ordering_key("key"));
+        let _ = publisher.publish(Message::new().set_data("world").set_ordering_key("key"));
         assert_eq!(handle.await?, "hello");
 
         Ok(())
