@@ -17,6 +17,10 @@ use crate::server_streaming::builder;
 use gaxi::options::{ClientConfig, Credentials};
 
 pub use crate::database_client::DatabaseClient;
+pub use crate::from_value::{ConvertError, FromValue};
+pub use crate::to_value::ToValue;
+pub use crate::types::{Type, TypeCode};
+pub use crate::value::{Kind, Value};
 
 /// A client for the [Spanner] API.
 ///

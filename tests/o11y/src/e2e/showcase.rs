@@ -42,29 +42,30 @@ pub async fn run() -> anyhow::Result<()> {
     // 3. Generate Trace
     // Start a root span
     let root_span = tracing::info_span!("e2e_root", "otel.name" = ROOT_SPAN_NAME);
-    let trace_id = {
-        let _enter = root_span.enter();
-        let trace_id = root_span
-            .context()
-            .span()
-            .span_context()
-            .trace_id()
-            .to_string();
+    let trace_id = root_span
+        .context()
+        .span()
+        .span_context()
+        .trace_id()
+        .to_string();
 
-        // Initialize showcase client pointing to local mock server
-        let client = Echo::builder()
-            .with_endpoint(format!("http://{}", echo_server.addr()))
-            .with_credentials(Anonymous::new().build())
-            .with_tracing()
-            .build()
-            .await?;
+    // Initialize showcase client pointing to local mock server
+    let client = Echo::builder()
+        .with_endpoint(format!("http://{}", echo_server.addr()))
+        .with_credentials(Anonymous::new().build())
+        .with_tracing()
+        .build()
+        .await?;
 
-        // Make the API call
-        // This will generate child spans within the library
-        let _ = client.echo().set_content("test").send().await?;
-
-        trace_id
-    };
+    // Make the API call
+    // This will generate child spans within the library
+    use tracing::Instrument;
+    let _ = client
+        .echo()
+        .set_content("test")
+        .send()
+        .instrument(root_span.clone())
+        .await?;
     // explicitly drop the span to end it
     drop(root_span);
 
@@ -83,7 +84,7 @@ pub async fn run() -> anyhow::Result<()> {
         ROOT_SPAN_NAME,
         "google_cloud_showcase_v1beta1::client::Echo::echo",
     ]);
-    let trace = wait_for_trace(&project_id, &trace_id, required.len()).await?;
+    let trace = wait_for_trace(&project_id, &trace_id, &required).await?;
 
     // Verify the expected spans appear in the trace:
     let span_names = trace

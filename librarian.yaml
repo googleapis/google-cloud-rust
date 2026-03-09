@@ -13,7 +13,7 @@
 # limitations under the License.
 
 language: rust
-version: v0.8.4-0.20260306193630-e6df3bd93a47
+version: v0.8.4-0.20260308144746-c8a4cb903c10
 sources:
   conformance:
     commit: b407e8416e3893036aee5af9a12bd9b6a0e2b2e6

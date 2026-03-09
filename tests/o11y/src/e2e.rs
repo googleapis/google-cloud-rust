@@ -46,7 +46,7 @@ static CREDENTIALS: OnceCell<anyhow::Result<Credentials>> = OnceCell::const_new(
 pub async fn wait_for_trace(
     project_id: &str,
     trace_id: &str,
-    required_spans: usize,
+    required_spans: &std::collections::BTreeSet<&str>,
 ) -> anyhow::Result<Trace> {
     let client = TraceService::builder().build().await?;
 
@@ -66,14 +66,24 @@ pub async fn wait_for_trace(
             .send()
             .await
         {
-            Ok(t) if t.spans.len() >= required_spans => {
-                trace = Some(t);
-                break;
+            Ok(t) => {
+                let span_names = t
+                    .spans
+                    .iter()
+                    .map(|s| s.name.as_str())
+                    .collect::<std::collections::BTreeSet<_>>();
+                let missing = required_spans.difference(&span_names).collect::<Vec<_>>();
+                if missing.is_empty() {
+                    trace = Some(t);
+                    break;
+                } else {
+                    println!(
+                        "Trace found but is missing {} required spans: {:?}",
+                        missing.len(),
+                        missing
+                    );
+                }
             }
-            Ok(t) => println!(
-                "Trace found but only has {} spans, we want at least {required_spans}",
-                t.spans.len()
-            ),
             Err(e) => {
                 if let Some(status) = e.status() {
                     if status.code == Code::NotFound || status.code == Code::Internal {
