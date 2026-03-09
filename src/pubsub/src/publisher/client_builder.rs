@@ -19,7 +19,7 @@ use google_cloud_gax::client_builder::Result as BuilderResult;
 use google_cloud_gax::retry_policy::RetryPolicyArg;
 use google_cloud_gax::retry_throttler::RetryThrottlerArg;
 
-/// A builder for [BasePublisher].
+/// A builder for [`BasePublisher`].
 ///
 /// # Example
 /// ```
@@ -33,11 +33,11 @@ use google_cloud_gax::retry_throttler::RetryThrottlerArg;
 /// # Ok(()) }
 /// ```
 #[derive(Clone, Debug)]
-pub struct ClientBuilder {
+pub struct BasePublisherBuilder {
     pub(super) config: ClientConfig,
 }
 
-impl ClientBuilder {
+impl BasePublisherBuilder {
     pub(super) fn new() -> Self {
         let mut config = ClientConfig::default();
         config.backoff_policy = Some(std::sync::Arc::new(
@@ -234,7 +234,7 @@ mod tests {
 
     #[test]
     fn defaults() -> anyhow::Result<()> {
-        let builder = ClientBuilder::new();
+        let builder = BasePublisherBuilder::new();
         assert!(builder.config.endpoint.is_none(), "{builder:?}");
         assert!(builder.config.cred.is_none(), "{builder:?}");
         assert!(!builder.config.tracing);
@@ -266,7 +266,7 @@ mod tests {
     #[tokio::test]
     async fn setters() -> anyhow::Result<()> {
         use google_cloud_gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
-        let builder = ClientBuilder::new()
+        let builder = BasePublisherBuilder::new()
             .with_endpoint("test-endpoint.com")
             .with_credentials(Anonymous::new().build())
             .with_tracing()
