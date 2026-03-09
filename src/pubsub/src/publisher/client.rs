@@ -74,6 +74,7 @@ impl Publisher {
     /// let message_id = publisher.publish(Message::new().set_data("Hello, World")).await?;
     /// # Ok(()) }
     /// ```
+    #[must_use = "ignoring the publish result may lead to undetected delivery failures"]
     pub fn publish(&self, msg: crate::model::Message) -> crate::publisher::PublishFuture {
         let (tx, rx) = tokio::sync::oneshot::channel();
 
