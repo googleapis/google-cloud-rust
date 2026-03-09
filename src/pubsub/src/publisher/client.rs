@@ -108,11 +108,12 @@ impl Publisher {
     ///
     /// ### Recommendations
     ///
-    /// *   **Individual Confirmation:** For most use cases, it is better to `.await`
+    /// *   For most use cases, we recommend you `.await`
     ///     the [`PublishFuture`][crate::publisher::PublishFuture] returned by
-    ///     [`publish`][Self::publish] to retrieve message IDs and handle specific errors.
-    /// *   **Collective Flush:** Use `flush()` for collective confirmation or as a
-    ///     convenience during application shutdown to ensure all outstanding data is sent.
+    ///     [`publish`][Self::publish] to retrieve message IDs and handle
+    ///     specific errors.
+    /// *   Use `flush()` as a convenience during application shutdown to
+    ///     ensure the client attempts to send all outstanding data.
     pub async fn flush(&self) {
         let (tx, rx) = oneshot::channel();
         if self.tx.send(ToDispatcher::Flush(tx)).is_ok() {
