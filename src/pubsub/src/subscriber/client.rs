@@ -39,12 +39,16 @@ use std::sync::Arc;
 ///
 /// # Ordered Delivery
 ///
-/// If [ordered delivery] is enabled on the subscription, the subscriber yields
-/// messages to the application in order on each call to
-/// [`MessageStream::next()`][next]. Messages for a given ordering key are only
-/// delivered by one `MessageStream` at a time.
+/// The subscriber returns messages in order if [ordered delivery] is enabled on
+/// the subscription. The client provides the same guarantees as the service.
 ///
-/// [next]: crate::subscriber::MessageStream::next
+/// For more details on how the service works, see:
+///
+/// - [Considerations when using ordered delivery][considerations]
+/// - [Google Cloud Pub/Sub Ordered Delivery][medium]
+///
+/// [considerations]: https://docs.cloud.google.com/pubsub/docs/ordering#considerations_when_using_ordered_messaging
+/// [medium]: https://medium.com/google-cloud/google-cloud-pub-sub-ordered-delivery-1e4181f60bc8
 /// [ordered delivery]: https://docs.cloud.google.com/pubsub/docs/ordering
 ///
 /// # Exactly-once Delivery
